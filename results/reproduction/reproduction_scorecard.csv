@@ -1,0 +1,7 @@
+model,input_mode,Acceptable reproduction,Excellent reproduction,Requires investigation
+ANN-GD,crisp,0,0,6
+ANN-GD,fuzzy,0,0,6
+GPR,crisp,0,4,2
+GPR,fuzzy,0,5,1
+SVR,crisp,0,5,1
+SVR,fuzzy,1,5,0

@@ -1,0 +1,7 @@
+Case_ID,documented_class,documented_methods,model_modal_top1,model_modal_class,top1_distribution,class_agreement_frac,method_agreement_frac,top3_hit_frac,documented_methods_all_ineligible_frac,median_best_documented_rank,random_expected_best_rank,n_ranked_treatments,n_draws
+DWH-01,active,manual_removal|mechanical_removal,passive_sorbents,active,passive_sorbents:36; manual_removal:4,1.0,0.1,0.975,0.0,2.0,5.333333333333333,15,40
+DWH-02,active,,passive_sorbents,active,passive_sorbents:36; manual_removal:4,1.0,,,,,,15,40
+DWH-03,natural,natural_attenuation,passive_sorbents,active,passive_sorbents:28; natural_attenuation:12,0.3,0.3,0.975,0.0,2.0,8.0,15,40
+DWH-04,active,manual_removal|mechanical_removal|vegetation_cutting|passive_sorbents,passive_sorbents,active,passive_sorbents:40,1.0,1.0,1.0,0.0,1.0,3.2,15,40
+DWH-05,active,manual_removal|mechanical_removal,passive_sorbents,active,passive_sorbents:40,1.0,0.0,1.0,0.0,2.0,5.333333333333333,15,40
+EVOS-01,active,high_pressure_heated_washing|high_pressure_washing,passive_sorbents,active,passive_sorbents:38; manual_removal:2,1.0,0.0,0.0,0.0,10.0,5.333333333333333,15,40

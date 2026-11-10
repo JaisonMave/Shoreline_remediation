@@ -1,0 +1,7 @@
+Aspect,Paper (Mohammadiun 2022),Existing project model,Comparable?
+Environment,"Offshore, on-water, Arctic/sub-arctic",Shoreline / intertidal,Not comparable
+Decision,"3 methods: MCR, ISB, UCD",15 shoreline treatments,Not comparable
+Inputs,"API, slick thickness, continuity, waves, ice, remoteness","Shoreline type, oil category/coverage/thickness, penetration, exposure, sensitivity",Not comparable
+Training data,70 expert-scored hypothetical incidents,Rule-generated synthetic scores (no expert labels),Different
+Metric,Top-method selection accuracy,MAE / R2 on suitability score,Different
+Model families,"ANN, SVR, GPR, FDT","GPR live; Linear, SVM, ANN, RF, XGB, fuzzy baseline benchmarked","Overlap: GPR, SVR, ANN"
