@@ -1,0 +1,24 @@
+{
+  "drop": 0.05520185274784592,
+  "tau_years": 49.99999999179878,
+  "years_to_90pct_recovery": 115.1292546308183,
+  "drop_interval": [
+    0.03196015889138972,
+    0.10885783964565418
+  ],
+  "years_to_90pct_interval": [
+    6.2629946486697445,
+    115.12925464596064
+  ],
+  "drop_in_noise_sd": 0.7843772929384818,
+  "n_observations": 112,
+  "n_pre_spill": 45,
+  "persistent_loss": null,
+  "persistent_loss_interval": null,
+  "spill_date": "2010-06-01",
+  "persistent_model": false,
+  "months_used": 112,
+  "real_impact_vs_largest_placebo": 1.35,
+  "placebo_check": "failed: false spill dates find similar impacts",
+  "benchmark_check": "Differs from Mo et al. (2017): recovery here is longer (6.3 to 115.1 years) than their ~2 years. Check the polygons and the reference site before interpreting this."
+}

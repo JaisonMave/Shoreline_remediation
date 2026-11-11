@@ -24,7 +24,8 @@ def main(scenes: str, out_dir: str) -> None:
     df = pd.read_csv(scenes)
     # Two overlapping WRS rows can image the same site on the same day: average those first.
     df = df.groupby(["date", "pair", "group", "segment"], as_index=False).agg(ndvi=("ndvi", "mean"), n_pixels=("n_pixels", "max"))
-    pool(df).to_csv(out / "ndvi_pooled.csv", index=False)
+    # Each reference segment repeats once per pair; count every segment once in the pooled series.
+    pool(df.drop_duplicates(["date", "group", "segment"])).to_csv(out / "ndvi_pooled.csv", index=False)
     ref_of_pair = df[df.group == "reference"].drop_duplicates("pair").set_index("pair").segment
     df["ref_segment"] = df.pair.map(ref_of_pair)
     for ref, sub in df.groupby("ref_segment"):

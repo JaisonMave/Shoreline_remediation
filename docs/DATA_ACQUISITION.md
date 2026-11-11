@@ -1,5 +1,9 @@
 # Getting Real Outcome Data
 
+> Update 11 November 2026: network egress now works. SCAT (section 2), Landsat (section 1, via Planetary
+> Computer instead of Earth Engine) and Zengel 2015 (section 3) were obtained and analysed. See
+> `docs/FINDINGS_2026-11-11.md`. The text below is the earlier plan, kept for reference.
+
 The published marsh case table (63 cases) is too small for a predictive model, so the next gains have to come
 from more outcome data. This session's network reaches GitHub only. Section 0 lists what was obtained
 there; the sources in sections 1 to 4 have to be downloaded on your own computer.
@@ -62,7 +66,7 @@ Repeat for several oiled/reference pairs. One pair is an anecdote; ten pairs sta
 
 | Source | What it holds | How to get it |
 | --- | --- | --- |
-| NCEI Accession 0163818 (DOI 10.7289/v53t9ffx) | ERMA SCAT shoreline oiling layers, May 2010 to March 2014. Each line is a band of oil with similar coverage and thickness. | Landing page: https://accession.nodc.noaa.gov/0163818. The page lists no direct file links; if none appear, email ncei.info@noaa.gov. |
+| NCEI Accession 0163818 (DOI 10.7289/v53t9ffx) | ERMA SCAT shoreline oiling layers, May 2010 to March 2014. Each line is a band of oil with similar coverage and thickness. | Files over HTTPS: https://www.ncei.noaa.gov/data/oceans/archive/arc0110/0163818/1.1/ (`scripts/download_scat.sh`). Downloaded 11 Nov 2026. |
 | NCEI DIVER archive | Bulk archive of most Deepwater Horizon data held in DIVER, including field observations such as extent of oiling in marshes. | Linked as "direct download of data" from https://www.diver.orr.noaa.gov/deepwater-horizon-nrda-data/. |
 | DIVER Explorer | Query and export of the same data. | Same page, "Search & Query DWH Data in DIVER Explorer". |
 | Nixon et al. 2016, Mar. Pollut. Bull. 107(1):170-178 | Integrated segment database: 2,113 km oiled of 9,545 km surveyed, with habitat, oiling category and timing. | Ask the authors (Research Planning, Inc.) whether the segment database is shared. |

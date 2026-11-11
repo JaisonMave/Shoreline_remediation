@@ -1,0 +1,24 @@
+{
+  "drop": 0.025016169431886896,
+  "tau_years": 49.99999993465047,
+  "years_to_90pct_recovery": 115.12925449922943,
+  "drop_interval": [
+    -0.06771735366833939,
+    0.11164510616464492
+  ],
+  "years_to_90pct_interval": [
+    0.5420251424544563,
+    115.12925464376652
+  ],
+  "drop_in_noise_sd": 0.27139351357198654,
+  "n_observations": 108,
+  "n_pre_spill": 44,
+  "persistent_loss": null,
+  "persistent_loss_interval": null,
+  "spill_date": "2010-06-01",
+  "persistent_model": false,
+  "months_used": 108,
+  "real_impact_vs_largest_placebo": 0.98,
+  "placebo_check": "failed: false spill dates find similar impacts",
+  "benchmark_check": "No clear impact: the 90% interval for the drop includes zero, so recovery time is not meaningful."
+}

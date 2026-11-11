@@ -2,3 +2,4 @@ results/satellite/demo/
 data/raw/
 *.cpython-313.pyc
 .pytest_cache/
+*.cpython-313*.pyc

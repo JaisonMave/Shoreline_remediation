@@ -11,15 +11,18 @@ but is new to ML.
 ## Where things are
 
 - Repository: https://github.com/JaisonMave/Shoreline_remediation (public). `main` is at commit 4b0c118.
-- Unpushed work: seven commits on a branch called `process-model-audit`. They exist only in the file
-  `shoreline-improvements-files.zip` (46 changed or new files). To restore: clone `main`, unzip over it,
-  run `python -m pytest tests` (33 tests should pass), commit on a branch. Do not push unless asked;
-  pushing needs the Claude GitHub App installed on the repository.
+- Unpushed work: branch `process-model-audit`, three commits on top of `main`, held only in
+  `Shoreline_remediation-full.zip` (made 11 Nov 2026). The zip contains the whole repository including its
+  `.git` folder, so unzipping it restores the branch and history directly; no need to clone first. Run
+  `python -m pytest tests` (39 tests should pass). Do not push unless asked; pushing needs the Claude GitHub
+  App installed on the repository. Raw SCAT shapefiles are not in the zip; `scripts/download_scat.sh` fetches them.
 - Design document: https://claude.ai/artifact/BidoqGEG4kFHQ6A4YPUzQi
 - Literature review: https://claude.ai/artifact/4eR98SrUVEmUZ1Ygddh5cW
 - Project docs: `claude/process-model-audit.md`, `claude/data-acquisition.md`, `claude/handoff.md`.
 - Repository docs: `docs/PROCESS_MODEL_AUDIT.md`, `docs/RANKING_FIXES.md`,
-  `docs/EXPERT_SCORING_PROTOCOL.md`, `docs/DATA_ACQUISITION.md`.
+  `docs/EXPERT_SCORING_PROTOCOL.md`, `docs/DATA_ACQUISITION.md`, `docs/FINDINGS_2026-11-11.md`.
+- The earlier seven-commit history was not in the previous zip, so it was restored as one commit.
+  Network egress now works for NOAA, PLOS, Planetary Computer, Earth Search and PyPI (FTP is blocked).
 
 ## What has been done
 
@@ -29,9 +32,11 @@ but is new to ML.
 | Treatment ranking | No placeholder scores; all five SCAT sanity checks pass; top choice matches a documented method in 3 of 5 historical cases. Not independent tests. Labels are still rule-generated. |
 | Marsh recovery model (`marsh_recovery_model.py`) | Fitted to 63 published marsh cases from NOAA's "Oil Spills in Marshes". Does not beat a no-predictor baseline out of sample, with or without season, latitude and wetland type. Do not use it to rank treatments. |
 | Expert scoring | Blind sheet of 30 scenarios, ICC agreement statistic and protocol are ready. No scores collected yet. |
-| Satellite recovery (`recovery_timeseries.py`, `scripts/gee_export_ndvi.py`) | Built and tested on simulated data only. Never run on real imagery. |
-| Event study (`event_study.py`) | Built, tested on simulated panels, and run on real marsh data for Hurricanes Isaac and Ida. The pre-event check rejected 3 of 4 comparisons; the clean one found no detectable loss of cover after Isaac. |
-| Oil properties (`oil_library.py`, `data/oil_properties.csv`) | 1,460 oils from NOAA ADIOS. Not yet wired into the dashboard or `Scenario`. |
+| Satellite recovery (`recovery_timeseries.py`, `scripts/landsat_ndvi.py`) | Run once on real Landsat (1,044 scenes, 2006-2016) for 34 heavily oiled vs 4 reference segments in northern Barataria Bay. No detectable drop (+0.025, interval -0.057 to 0.113); placebo check failed. Does not reproduce Mo et al. (2017). |
+| Event study (`event_study.py`) | Run on Isaac and Ida (3 of 4 rejected by the pre-event check) and on the 2010 spill (`validation/oil_event_study.py`): 20 oiled vs 24 unoiled CRMS sites, no detectable effect. Most CRMS plots are hundreds of metres from the oiled edge, so they cannot see the spill. |
+| SCAT oiling (`scripts/download_scat.sh`, `data/external/scat_dwh/`) | NCEI 0163818 Louisiana layers downloaded (max oiling, and all surveys including No Oil Observed). CRMS sites matched by distance. |
+| Treatment effects (`treatment_effects.py`, `data/external/zengel2015/`) | Zengel et al. 2015 S1 Table loaded. Manual vs none: +34 points vegetation cover at year 2 (19 to 49); mechanical: +5 (-12 to 22); planting (randomized): +69 points Spartina. One site; observational except planting. Priors only. |
+| Oil properties (`oil_library.py`, `data/oil_properties.csv`) | 1,460 oils from NOAA ADIOS. Dashboard now chooses an oil by name and sets the category from measured properties. |
 | Marsh field data (`data/external/crms/`) | 341 Louisiana CRMS sites, 2006-2025, from a third-party GitHub repository. No oil information. Not checked against the original CRMS export. |
 
 ## Main conclusion so far
@@ -40,12 +45,16 @@ The limiting factor is outcome data, not the type of model. No open-source model
 shoreline together with treatment effects. Models trained on rule-generated or simulated labels only copy
 those rules.
 
-## Why work stopped
+## Next steps, in order (updated 11 Nov 2026; steps 1-6 of the earlier list are done, see FINDINGS)
 
-The session's network reached GitHub only. NOAA, PLOS, satellite archives and PyPI were blocked. Jaison is
-turning on "Allow network egress" (Settings > Capabilities) and starting a new chat.
+1. Higher-resolution outcome at the oiled edge: NAIP (about 1 m; on Planetary Computer for 2010 and
+   2013 onward, nothing before the spill) for oiled vs reference edge vegetation and shoreline retreat.
+2. More and closer reference segments, or Very Light oiling as a dose comparison.
+3. DIVER: segment-level treatment records, to extend the Zengel priors.
+4. Wire `treatment_prior()` into the dashboard for heavily oiled marsh, shown as out of scope elsewhere.
+5. Collect expert scores from three or more people (needs Jaison).
 
-## Next steps, in order
+## Earlier next steps (11 Nov 2026, first session)
 
 1. Test which hosts are reachable. Install `rasterio`, `pystac-client`, `geopandas` and `statsmodels` if
    package installs work.
@@ -70,3 +79,4 @@ turning on "Allow network egress" (Settings > Capabilities) and starting a new c
 - Never code predictors from information chosen after the outcome was known.
 - Label every assumed parameter as assumed, and every dataset with its source and how it was read.
 - The NOAA marsh case table was read from the PDF by an automated reader; rows need checking.
+- Zengel 2015 values were taken from the authors' Excel supplement, not read from figures or PDF.

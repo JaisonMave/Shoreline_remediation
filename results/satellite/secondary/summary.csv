@@ -1,0 +1,6 @@
+run,drop,drop_90ci,yrs90,persistent_loss,loss_ci,months,placebo,error
+pooled_persistent,0.021,"[-0.179, 0.272]",1.52,0.005,"[-0.25, 0.174]",124.0,failed,
+by_reference_LAJF02-018-20,,,,,,,,['oiled']
+by_reference_LAJF02-030-60,0.062,"[0.038, 0.1]",13.56,,,108.0,failed,
+by_reference_LAPL01-056-10,0.025,"[-0.068, 0.112]",115.13,,,108.0,failed,
+by_reference_LAPL01-059-10,0.055,"[0.032, 0.109]",115.13,,,112.0,failed,
