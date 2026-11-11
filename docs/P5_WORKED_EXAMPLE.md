@@ -12,10 +12,10 @@ cell nearest the centroid of the Zengel et al. (2022) field plots (29.44376 N, 8
 
 | Input | Value | Source |
 | --- | --- | --- |
-| Open water within 1 km (share, 2010) | 0.875 | NAIP 2010 |
+| Open water within 1 km (share, 2010) | 0.87 | NAIP 2010 |
 | Open water within 250 m (share, 2010) | 0.81 | NAIP 2010 |
-| Mean fetch (m, 16 directions, capped at 10 km) | 3.64e+03 | NAIP 2010 |
-| Pre-spill edge-loss trend 1999-2008 (m/yr, Landsat) | 0.584 | Landsat 1998-2000 vs 2007-2009 |
+| Mean fetch (m, 16 directions, capped at 10 km) | 3,638 | NAIP 2010 |
+| Pre-spill edge-loss trend 1999-2008 (m/yr, Landsat) | 0.58 | Landsat 1998-2000 vs 2007-2009 |
 
 ## Flags
 

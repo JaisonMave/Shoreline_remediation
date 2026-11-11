@@ -133,7 +133,8 @@ def render_site_evidence() -> None:
         st.markdown("#### Site")
         info = [("Cell", site["cell"]), ("Basin", str(site["basin"]).title()), ("SCAT segment", site.get("segment", "-")),
                 ("Shoreline (ESI)", site["esi_main"]), ("SCAT maximum oiling", _label(str(site["max_oiling"])))]
-        info += [(FEATURE_LABELS[f], "missing" if pd.isna(site.get(f)) else f"{float(site[f]):.3g}") for f in FEATURES]
+        info += [(FEATURE_LABELS[f], "missing" if pd.isna(site.get(f)) else
+                  (f"{float(site[f]):,.0f}" if f == "fetch_mean_m" else f"{float(site[f]):.2f}")) for f in FEATURES]
         st.dataframe(pd.DataFrame(info, columns=["Input", "Value"]), hide_index=True, width="stretch")
 
     values = {f: site.get(f) for f in FEATURES}
@@ -150,7 +151,7 @@ def render_site_evidence() -> None:
         cols = st.columns(4)
         cols[0].metric("Expected rate", f"{pred['rate']:.2f} m/yr")
         cols[1].metric("90% interval", f"{pred['lo']:.1f} to {pred['hi']:.1f}")
-        cols[2].metric("Heavy-oiling uplift", f"+{up[0]:.2f} to +{up[1]:.2f}")
+        cols[2].metric("Heavy-oil uplift, m/yr", f"+{up[0]:.1f} to {up[1]:.1f}")
         obs = site.get("observed_rate")
         cols[3].metric("Observed at this cell", "-" if obs is None or pd.isna(obs) else f"{obs:.2f} m/yr")
         st.pyplot(_interval_chart(pred, obs if obs is not None else None, sites), width="stretch")

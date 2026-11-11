@@ -52,7 +52,7 @@ st.markdown(
     [data-testid="stAlert"] p { color: #24323a !important; }
     [data-testid="stDataFrame"] { background: #ffffff; }
     .hero { background: #173f3f; color: #f5f3e8; padding: 2rem 2.2rem; border-radius: 0 0 18px 18px; margin: -1rem -1rem 1.5rem -1rem; }
-    .hero h1 { font-size: 2.25rem; margin: 0 0 .35rem 0; letter-spacing: 0; }
+    .hero h1 { font-size: 2.25rem; margin: 0 0 .35rem 0; letter-spacing: 0; color: #f5f3e8 !important; }
     .hero p { margin: 0; color: #c9ddd0; font-size: 1.05rem; }
     .metric-card { background: white; border: 1px solid #dce4db; border-radius: 10px; padding: 1rem; min-height: 110px; }
     .metric-label { color: #61716a; font-size: .82rem; text-transform: uppercase; letter-spacing: .04em; }

@@ -189,7 +189,8 @@ def write_example(sites: pd.DataFrame) -> None:
     L += ["| Input | Value | Source |", "| --- | --- | --- |"]
     src = {"water_1km_2010": "NAIP 2010", "water_250m_2010": "NAIP 2010", "fetch_mean_m": "NAIP 2010",
            "pre_rate": "Landsat 1998-2000 vs 2007-2009"}
-    L += [f"| {FEATURE_LABELS[f]} | {v[f]:.3g} | {src[f]} |" for f in FEATURES]
+    L += [f"| {FEATURE_LABELS[f]} | {v[f]:,.0f} | {src[f]} |" if f == "fetch_mean_m" else
+          f"| {FEATURE_LABELS[f]} | {v[f]:.2f} | {src[f]} |" for f in FEATURES]
     L += ["", "## Flags", ""]
     flags = fl.out_of_scope + fl.extrapolation + fl.evidence_scope
     L += [f"- {x}" for x in flags] or ["- None: inputs inside the central 98% of training cells; Heavy salt marsh."]
