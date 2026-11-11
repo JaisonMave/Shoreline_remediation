@@ -11,10 +11,10 @@ but is new to ML.
 ## Where things are
 
 - Repository: https://github.com/JaisonMave/Shoreline_remediation (public). `main` is at commit 4b0c118.
-- Unpushed work: branch `process-model-audit`, three commits on top of `main`, held only in
+- Unpushed work: branch `process-model-audit`, six commits on top of `main`, held only in
   `Shoreline_remediation-full.zip` (made 11 Nov 2026). The zip contains the whole repository including its
   `.git` folder, so unzipping it restores the branch and history directly; no need to clone first. Run
-  `python -m pytest tests` (39 tests should pass). Do not push unless asked; pushing needs the Claude GitHub
+  `python -m pytest tests` (41 tests should pass). Do not push unless asked; pushing needs the Claude GitHub
   App installed on the repository. Raw SCAT shapefiles are not in the zip; `scripts/download_scat.sh` fetches them.
 - Design document: https://claude.ai/artifact/BidoqGEG4kFHQ6A4YPUzQi
 - Literature review: https://claude.ai/artifact/4eR98SrUVEmUZ1Ygddh5cW
@@ -36,6 +36,7 @@ but is new to ML.
 | Event study (`event_study.py`) | Run on Isaac and Ida (3 of 4 rejected by the pre-event check) and on the 2010 spill (`validation/oil_event_study.py`): 20 oiled vs 24 unoiled CRMS sites, no detectable effect. Most CRMS plots are hundreds of metres from the oiled edge, so they cannot see the spill. |
 | SCAT oiling (`scripts/download_scat.sh`, `data/external/scat_dwh/`) | NCEI 0163818 Louisiana layers downloaded (max oiling, and all surveys including No Oil Observed). CRMS sites matched by distance. |
 | Treatment effects (`treatment_effects.py`, `data/external/zengel2015/`) | Zengel et al. 2015 S1 Table loaded. Manual vs none: +34 points vegetation cover at year 2 (19 to 49); mechanical: +5 (-12 to 22); planting (randomized): +69 points Spartina. One site; observational except planting. Priors only. |
+| Marsh-edge loss (`validation/naip_edge_loss.py`, plan `docs/NAIP_EDGE_LOSS_PLAN.md`) | NAIP 2010-2017, 4,779 salt-marsh edge cells in Barataria Bay. Heavily oiled edge lost 1.0 m/yr more than clean edge in the same 2 km block (90% interval 0.58 to 1.43), rising with oiling class; overlaps the low end of Zengel's 1.2-2.3 m/yr. No pre-spill image, so pre-existing differences are not ruled out. |
 | Oil properties (`oil_library.py`, `data/oil_properties.csv`) | 1,460 oils from NOAA ADIOS. Dashboard now chooses an oil by name and sets the category from measured properties. |
 | Marsh field data (`data/external/crms/`) | 341 Louisiana CRMS sites, 2006-2025, from a third-party GitHub repository. No oil information. Not checked against the original CRMS export. |
 
@@ -47,10 +48,10 @@ those rules.
 
 ## Next steps, in order (updated 11 Nov 2026; steps 1-6 of the earlier list are done, see FINDINGS)
 
-1. Higher-resolution outcome at the oiled edge: NAIP (about 1 m; on Planetary Computer for 2010 and
-   2013 onward, nothing before the spill) for oiled vs reference edge vegetation and shoreline retreat.
-2. More and closer reference segments, or Very Light oiling as a dose comparison.
-3. DIVER: segment-level treatment records, to extend the Zengel priors.
+1. Done: NAIP marsh-edge loss (see FINDINGS section 6).
+2. Pre-spill erosion per edge cell (NAIP 2007/2009 from USDA, needs a manual download; or Landsat 1999-2009)
+   to test whether oiled shore was already eroding faster. Finer exposure measure (fetch / water within 250 m).
+3. DIVER: segment-level treatment records, to split heavily oiled cells by cleanup method.
 4. Wire `treatment_prior()` into the dashboard for heavily oiled marsh, shown as out of scope elsewhere.
 5. Collect expert scores from three or more people (needs Jaison).
 
