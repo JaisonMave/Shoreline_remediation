@@ -4,7 +4,7 @@ Running list of scientific and technical concerns raised during development, so 
 sessions. Each note says where it bites and what would resolve it. Add new notes at the top of a section;
 mark resolved notes rather than deleting them. Decisions referred to are in `docs/ROADMAP.md`.
 
-Last updated 11 November 2026 (after P4; soil and sediment chemistry flagged in E0).
+Last updated 11 November 2026 (after P5).
 
 ## A. Claims we can and cannot make to leads
 
@@ -16,13 +16,13 @@ Last updated 11 November 2026 (after P4; soil and sediment chemistry flagged in 
    geographically generalisable yet.
 3. **"Heavy oiling" includes the cleanup that followed.** P1/P2 estimates mix oil and cleanup effects; P3's
    treatment contrasts come from one site with 5-9 plots per group.
-4. **Existing dashboard "Benchmark evidence" tab.** It shows models trained on `scenario_training_dataset.csv`
+4. **[Resolved in P5]** **Existing dashboard "Benchmark evidence" tab.** It shows models trained on `scenario_training_dataset.csv`
    and `lhs_scat_process_dataset.csv`, which are synthetic and rule-generated. A lead could read this as
    real-data evidence. P5 should relabel it ("method test on synthetic data") or move it out of the main view.
 
 ## B. Measurement
 
-0. **Oil table includes non-oils.** `data/oil_properties.csv` (NOAA ADIOS) holds additives and refinery
+0. **[Resolved in P5: chooser offers spill oils only unless a box is ticked]** **Oil table includes non-oils.** `data/oil_properties.csv` (NOAA ADIOS) holds additives and refinery
    intermediates, e.g. "MOTOR FUEL ANTI-KNOCK COMPOUNDS" (API -37.2, 1,500 kg/m3). The dashboard's oil search
    can offer them, and the API-based category is meaningless for them. P5: filter the chooser to crude oils
    and fuel oils by `product_type`, or flag the rest. (Found by the P4 range check.)
@@ -55,17 +55,29 @@ Last updated 11 November 2026 (after P4; soil and sediment chemistry flagged in 
    valid >= 90%) were fixed before outcomes but not varied. A sensitivity sweep on 2-3 of them would
    strengthen the PoC (candidate task for P6).
 
+7. **Cell-level prediction is weak (P5).** Held out by basin, the deployed model's error is 1.30 m/yr against
+   1.42 for the regional average; a single cell's 90% interval spans about 6 m/yr. For planners, a prediction for
+   a SCAT segment or 2 km block (averaging many cells) would be far tighter; P2 already reported block-level
+   errors. Candidate for P6 or later, with its own plan.
+8. **Rules and field evidence disagree on mechanical removal (P5).** Rules say ineligible in marsh; Zengel 2022
+   shows no clear extra erosion, but mechanical plots were the most heavily oiled and n = 5. Do not let the
+   evidence override the rules on this basis; present the disagreement.
+9. **Treatment mapping D13 was proposed by Claude, not decided by Jaison.** P3 assigned the mapping to Jaison;
+   the demo uses the proposed mapping until he reviews it.
+
 ## D. Reproducibility
 
 1. Imagery is read live from Microsoft Planetary Computer. Scene and tile IDs are saved
    (`tile_classifiers.csv`, `scene_endmembers.csv`), but a collection update could change results; the
    derived per-cell tables are committed so analyses rerun without the imagery.
 2. Analyses were run with Python 3.13; the README still says 3.11 for the dashboard. Check the dashboard on
-   3.11 before the demo, or update the README.
+   3.11 before the demo, or update the README. P5 raised the requirement to streamlit>=1.67 and added openpyxl;
+   the clean-install check was on Python 3.13 only.
 3. Memory: Landsat over a whole basin needs about 4 GB; the extraction is split into quadrants
    (`work` notes in P2 plan, amendment 3). A user rerunning on a laptop should know this.
 4. GRIIDC lists a checksum for the Zengel 2022 file that matches neither the zip nor the xlsx as served
    (`data/external/zengel2022/SOURCE.md`).
+5. The map's base tiles come from the internet; offline, the cells still draw on a blank background.
 
 ## E. Scope gaps against the project brief (for the "what next" slide)
 

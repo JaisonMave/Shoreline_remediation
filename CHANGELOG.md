@@ -13,6 +13,35 @@ Computer (no account needed).
 
 ## 2026-11-11 (session 2): proof-of-concept track
 
+### P5: demo dashboard ("Site evidence (real data)" view)
+- **Why:** leads need to see the tool working on a real site, with intervals and scope flags (roadmap P5; D9, D11).
+- **What:** a new first tab: map of Louisiana salt-marsh edge cells; site picker (worked example, any edge cell,
+  or a new site typed in); expected edge loss with a 90% interval and the heavy-oiling uplift as a separate range;
+  out-of-scope and extrapolation flags with reasons; rule screening for the site beside field evidence per option
+  (Zengel 2022 erosion, years 0-2 and 2-8; Zengel 2015 vegetation cover). The old view is now the second tab,
+  labelled as rules and synthetic data; its model tab is relabelled "Method test (synthetic data)". The oil search
+  offers spill oils only by default.
+- **Files:** `docs/P5_DEMO_PLAN.md` (committed before the build), `scripts/build_p5_demo.py`,
+  `models/p5_edge_loss_v1.json` (model card with coefficients, interval, training ranges and checksums),
+  `data/demo/p5_sites.csv`, `docs/P5_WORKED_EXAMPLE.md`, `src/shoreline_remediation/site_evidence.py` (logic),
+  `src/shoreline_remediation/site_view.py` (layout), `dashboard.py`, `oil_library.py` (`SPILL_OIL_TYPES`),
+  `tests/test_p5_demo.py` (12 checks incl. Streamlit AppTest), `tests/test_oil_library.py`.
+- **Run:** `python scripts/build_p5_demo.py` after any change to `data/external/p2`; then
+  `streamlit run src/shoreline_remediation/dashboard.py`.
+- **Result:** held-out error 1.30 vs 1.42 m/yr for the no-predictor baseline; worked example 1.42 m/yr (-1.74 to
+  4.30), observed 1.54. See FINDINGS section 10.
+- **Fixed on the way:** `openpyxl` added to `requirements.txt` (clean-install check failed without it);
+  `streamlit>=1.67` (map colours and the `width` argument; `use_container_width` is deprecated); hero title was
+  invisible (dark text on the dark banner).
+- **Status:** Under validation (awaiting Jaison's test as a user). D13 (treatment mapping) proposed.
+
+### Flagged: soil and sediment chemistry not in the PoC
+- **Why:** Jaison asked for the missing soil and sediment chemistry to be flagged with comments.
+- **What:** `data/meta/planned_variables.csv` (15 variables: why each matters, status absent/partial, open-source
+  candidates, comments), rendered at the end of `docs/VARIABLE_DICTIONARY.md`; soil shear strength (`SHST_KPA`,
+  Zengel 2022) added to the dictionary; REVIEW_NOTES E0 gives the reasoning and priorities.
+- **Status:** Completed as documentation; the variables themselves are future work.
+
 ### P4: data catalogue and variable dictionary
 - **Why:** every input to the demo must be traceable to source, date and method (roadmap P4).
 - **What:** 18 datasets and 49 files catalogued with role (external, derived, synthetic, reference,
@@ -128,9 +157,11 @@ Computer (no account needed).
 
 ## Known open issues
 - See `docs/REVIEW_NOTES.md` for the full list of open scientific and technical concerns.
+- No soil or sediment chemistry in any model (REVIEW_NOTES E0; `data/meta/planned_variables.csv`).
 - D10: land/water classification fails on water-dominated and plume tiles; Landsat maps not clean (Jaison).
 - One spill only; transfer shown within Louisiana, not to a new spill (D6).
 - Cleanup method per shoreline segment: no public machine-readable records (P3); treated stretches exist only
   as map figures in NOAA TM OR&R 42.
 - NAIP absolute edge-loss rates read about 1.2 m/yr below field measurements (P3, analysis C).
 - `seaborn` was imported by existing code but missing from `requirements.txt` (now in requirements-analysis.txt).
+- `openpyxl` was missing from `requirements.txt` (fixed in P5).

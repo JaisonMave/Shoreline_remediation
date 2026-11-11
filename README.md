@@ -142,6 +142,8 @@ it was run and run once.
 | [docs/DATA_CATALOGUE.md](docs/DATA_CATALOGUE.md) | Every dataset: source, licence, date, method, checksums |
 | [docs/VARIABLE_DICTIONARY.md](docs/VARIABLE_DICTIONARY.md) | Every variable: definition, unit, valid range, derivation |
 | [docs/REVIEW_NOTES.md](docs/REVIEW_NOTES.md) | Open scientific and technical concerns |
+| [docs/P5_WORKED_EXAMPLE.md](docs/P5_WORKED_EXAMPLE.md) | Worked example from the demo's Site evidence tab (Bay Jimmy, Barataria Bay) |
+| [models/p5_edge_loss_v1.json](models/p5_edge_loss_v1.json) | Deployed edge-loss model card: coefficients, 90% interval, training ranges, checksums |
 
 Main result so far: heavily oiled salt-marsh edge in Louisiana lost about 0.6 to 0.85 m/yr more than clean edge
 after the spill, once wave exposure and pre-spill erosion are accounted for. A model fitted on some basins
