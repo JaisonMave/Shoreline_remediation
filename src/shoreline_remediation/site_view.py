@@ -193,7 +193,7 @@ def render_site_evidence() -> None:
                "Evidence columns: differences against untreated (natural recovery) plots with 90% intervals, heavily oiled marsh at Bay Jimmy; "
                "erosion in m/yr (positive = more edge lost), vegetation cover in percentage points. One site, 5-9 plots per group; "
                "observational except planting, which was randomized. Where rules and evidence disagree (e.g. mechanical removal), "
-               "both are shown and neither overrides the other. Treatment mapping (manual, mechanical, natural recovery) is decision D13, awaiting review.")
+               "both are shown and neither overrides the other. Treatment mapping (manual, mechanical, natural recovery) follows decision D13 (approved).")
     with st.expander("Rule-screening inputs implied by this site"):
         st.dataframe(pd.DataFrame(site_scenario_inputs(site, oil), columns=["Input", "Value", "Basis"]),
                      hide_index=True, width="stretch")

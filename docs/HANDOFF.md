@@ -11,7 +11,7 @@ but is new to ML.
 ## Where things are
 
 - Repository: https://github.com/JaisonMave/Shoreline_remediation (public). `main` is at commit 4b0c118.
-- Unpushed work: branch `process-model-audit`, twenty-one commits on top of `main`, held only in
+- Unpushed work: branch `process-model-audit`, twenty-two commits on top of `main`, held only in
   `Shoreline_remediation-full.zip` (made 11 Nov 2026). The zip contains the whole repository including its
   `.git` folder, so unzipping it restores the branch and history directly; no need to clone first. Run
   `python -m pytest tests` (108 tests should pass). Do not push unless asked; pushing needs the Claude GitHub
@@ -74,7 +74,8 @@ those rules.
    evidence per option (FINDINGS section 10). D13 (treatment mapping) proposed, needs Jaison.
    Soil and sediment chemistry flagged as missing, with priorities (REVIEW_NOTES E0).
 5. P6 done (pending Jaison's review): report https://claude.ai/artifact/LKTwAyFJpAGwSGvYBqHYHr and slides
-   https://claude.ai/artifact/PdsU2ppjW3TmsTcVrVNMGc; sources of every number in `docs/P6_POC_REPORT.md`.
+   https://claude.ai/artifact/PdsU2ppjW3TmsTcVrVNMGc; walkthrough deck
+   https://claude.ai/artifact/C2YHim6F847wJDt2BRTfXd; sources of every number in `docs/P6_POC_REPORT.md`.
    D13 approved. Jaison parked his reviews of P1-P5, the variable check and the dashboard test (11 Nov).
    Expert scores (M6) remain on hold until Jaison has collaborators.
    Candidate before P6: segment- or block-level predictions, which would be much tighter than single cells

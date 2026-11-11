@@ -13,6 +13,11 @@ Computer (no account needed).
 
 ## 2026-11-11 (session 2): proof-of-concept track
 
+### P6: walkthrough deck for non-specialists
+- 69 slides in six parts, with aerial photos of the worked-example edge (2010 vs 2015, true colour and
+  near-infrared), a study-area map, step charts and 13 dashboard screenshots. Link in `docs/P6_POC_REPORT.md`;
+  generators in `scripts/walkthrough_deck/`. Dashboard caption updated: D13 approved.
+
 ### P6: proof-of-concept report and slides
 - **Why:** the deliverable for project leads (roadmap P6).
 - **What:** an editable report (claim, what the tool does, evidence with two charts, failures, limits, a phased

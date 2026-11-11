@@ -41,7 +41,7 @@ STATUS_TEXT = {
     "measurement_disagreement": "Out of scope: 2010 aerial and 2007-2009 Landsat land maps disagree by more than 0.4 here.",
 }
 
-# Tool treatment -> evidence group (D13, proposed; awaiting Jaison). natural_attenuation is the baseline.
+# Tool treatment -> evidence group (D13, approved by Jaison 2026-11-11). natural_attenuation is the baseline.
 TREATMENT_EVIDENCE = {
     "natural_attenuation": "none",
     "manual_removal": "manual",
