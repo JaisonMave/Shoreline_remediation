@@ -34,9 +34,10 @@ class HybridDecisionModel:
         return features, target
 
     def train_treatment_models(self):
+        labelled = set(make_synthetic_dataset(n_rows=1).columns)
         for treatment in TREATMENT_LIBRARY:
-            if treatment not in {"manual_removal", "natural_attenuation", "vacuum_removal", "mechanical_removal", "high_pressure_washing"}:
-                continue
+            if treatment not in labelled:
+                continue  # no labels exist; score_treatment marks these as evidence="none"
             X, y = self._build_training_data(treatment)
             model = GaussianProcessSuitabilityModel()
             model.fit(X, y)
@@ -51,7 +52,18 @@ class HybridDecisionModel:
 
         model = self.treatment_models.get(treatment)
         if model is None:
-            suitability = 5.0
+            # No labels, so no suitability score. A fixed placeholder of 5.0 used to be returned here; because
+            # it was higher than most modelled scores, passive sorbents topped the ranking for every scenario.
+            ecological_suitability = self._ecological_score(treatment, scenario)
+            return TreatmentScore(
+                treatment=treatment, feasibility=feasibility, suitability=float("nan"),
+                ecological_suitability=ecological_suitability,
+                utility=round(0.4 * ecological_suitability if feasibility != "ineligible" else 0.0, 2),
+                confidence=0.2,
+                reason=f"{treatment}: no suitability evidence yet, so it is listed after the scored treatments; "
+                       + self._reason_for_treatment(treatment, scenario, feasibility).split(": ", 1)[1],
+                evidence="none",
+            )
         else:
             input_df = pd.DataFrame([
                 {
@@ -92,7 +104,8 @@ class HybridDecisionModel:
                 scores.append(self.score_treatment(scenario, treatment))
             except Exception:
                 continue
-        scores.sort(key=lambda x: x.utility, reverse=True)
+        # Scored treatments first, by utility; treatments without suitability evidence follow.
+        scores.sort(key=lambda x: (x.evidence != "none", x.utility), reverse=True)
         return scores
 
     def _ecological_score(self, treatment: str, scenario: Scenario) -> float:
@@ -114,6 +127,11 @@ class HybridDecisionModel:
             return 6.0
 
         if treatment in {"high_pressure_washing", "high_pressure_heated_washing", "sediment_mixing"}:
+            # On hard substrates pressure washing is an accepted method, so it is not scored as the most
+            # damaging option there. Heated washing stays lower: hot-water-washed Exxon Valdez sites initially
+            # declined more than unwashed ones (NOAA OR&R). The values 4.5 and 3.0 are ASSUMED.
+            if shoreline in {"bedrock", "boulder", "cobble"} and treatment != "sediment_mixing":
+                return 4.5 if treatment == "high_pressure_washing" else 3.0
             return 2.0
 
         if treatment in {"low_pressure_flushing", "surface_washing_agents", "low_pressure_heated_flushing"}:
@@ -144,6 +162,9 @@ class HybridDecisionModel:
                 return {"score": 3.0, "basis": "Physical removal can disturb soft sediment, vegetation, or sensitive habitat."}
             return {"score": 6.0, "basis": "Physical removal is more compatible with firm or accessible shorelines."}
         if treatment in {"high_pressure_washing", "high_pressure_heated_washing", "sediment_mixing"}:
+            if shoreline in {"bedrock", "boulder", "cobble"} and treatment != "sediment_mixing":
+                score = 4.5 if treatment == "high_pressure_washing" else 3.0
+                return {"score": score, "basis": "Pressure washing is an accepted method on hard substrates; heated washing scores lower because hot-water-washed sites initially declined more than unwashed ones."}
             return {"score": 2.0, "basis": "High disturbance or redistribution risk for sediment and residual oil."}
         if treatment in {"low_pressure_flushing", "surface_washing_agents", "low_pressure_heated_flushing"}:
             return {"score": 4.5, "basis": "Moderate disturbance and potential residue or mobilization concerns."}

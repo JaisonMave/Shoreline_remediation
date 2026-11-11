@@ -1,0 +1,64 @@
+case_id,spill,stratum,oil_group,oiling,treatment_class,recovery_as_written,heldout_median_years_full_model,heldout_median_years_extended_model,log_distance_to_interval
+A01,"T/B Florida, Buzzards Bay, MA",all oiled marsh,light_refined,unstated,none_or_light,2-40+ yr,2.03,1.6,0.22
+A02,"T/B Bouchard 65, Buzzards Bay, MA",all oiled marsh,light_refined,unstated,none_or_light,3-25+ yr,1.94,2.23,0.3
+A03,"Exxon Bayway, Arthur Kill, NY",all oiled marsh,light_refined,heavy,none_or_light,3-7+ yr,2.63,2.79,0.07
+A04,"T/B North Cape, South Kingstown, RI",all oiled marsh,light_refined,unstated,none_or_light,0.5 yr,2.97,3.78,1.8
+A05,"Kinder Morgan Pipeline, Suisun Marsh, CA",all oiled marsh,light_refined,heavy,intensive,1-4 yr except the tilled area,6.9,2.08,0.0
+A06,"Galveston Bay, TX (Alexander and Webb 1985)",soil and lower stem oiling,light_refined,light,none_or_light,1 yr for soil and lower stem oiling,0.67,0.96,0.0
+A07,"Galveston Bay, TX (Alexander and Webb 1985)",higher and entire plant oiling,light_refined,heavy,none_or_light,2 yr for higher and entire plant oiling,2.97,2.98,0.18
+A08,"Galveston Bay, TX (Webb and Alexander 1991)",all plots,light_refined,unstated,none_or_light,>1 yr; likely <2 yr,2.14,1.89,0.0
+B01,"T/V Metula, Strait of Magellan, Chile",all oiled marsh,crude,heavy,none_or_light,18-40+ yr,3.28,5.62,1.16
+B02,"T/V Garbis, Florida Keys, FL",lightly oiled vegetation,crude,light,none_or_light,0.5 yr for lightly oiled only,1.3,0.86,0.32
+B03,"T/V Amoco Cadiz, Brittany, France",not treated,crude,heavy,none_or_light,4-5 yr not treated,4.09,8.47,0.53
+B04,"T/V Amoco Cadiz, Brittany, France",intensively treated,crude,heavy,intensive,4-12+ yr intensively treated,5.02,12.83,0.0
+B05,"Ixtoc I, Bay of Campeche, Mexico",light to moderate oiling,crude,light,none_or_light,3 mo for light-moderate oiling,1.53,1.06,1.22
+B06,"T/V Esso Bayway, Neches River, TX",flushing plots,crude,unstated,none_or_light,<1 yr for flushing,3.49,2.64,0.97
+B07,"T/V Esso Bayway, Neches River, TX",burn plots,crude,unstated,burn,>1 yr for burn/cut,1.43,1.77,0.0
+B08,"T/V Esso Bayway, Neches River, TX",cut plots,crude,unstated,cutting_raking,>1 yr for burn/cut,1.32,1.17,0.0
+B09,"Pipeline spill, Galveston Bay, TX",all oiled marsh,crude,unstated,none_or_light,>3 yr,2.96,3.07,0.0
+B11,"T/V El Omar, Milford Haven, Wales",all oiled marsh,crude,unstated,none_or_light,>1 yr,3.1,4.24,0.0
+B12,"Fidalgo Bay, WA",not treated,crude,unstated,none_or_light,0-2 yr not treated,3.48,9.61,1.57
+B13,"Fidalgo Bay, WA",treated,crude,unstated,none_or_light,3-4 yr treated,3.48,9.61,0.88
+B14,"Gulf War oil spill, Arabian Gulf",all oiled marsh,crude,unstated,none_or_light,10-30+ yr,2.74,2.69,1.31
+B15,"Three pipeline spills, Pass a Loutre, LA (Lin et al. 1999)",no-cleanup site,crude,unstated,none_or_light,>2 yr for no cleanup site,3.02,1.37,0.38
+B17,"T/V Sea Empress, South Wales, UK",all oiled marsh,crude,unstated,none_or_light,1-6 yr,3.22,4.62,0.0
+B18,"T/V Estrella Pampeana, Rio de la Plata, Argentina",all oiled marsh,crude,unstated,none_or_light,2-4 yr,3.19,1.59,0.23
+B19,"Mosquito Bay, LA (Williams pipeline)",lightly oiled areas,crude,light,burn,<0.5 yr for lightly oiled areas,0.63,0.49,0.0
+B20,"Mosquito Bay, LA (Williams pipeline)",heavily oiled areas,crude,heavy,burn,1 yr for heavily oiled areas,2.26,1.28,0.03
+B23,"Field, St. Louis Bay, MS (De La Cruz et al. 1981)",0.5-2 L/m2,crude,light,none_or_light,1 yr for 0.5-2 L/m2,1.03,0.93,0.0
+B24,"Field, St. Louis Bay, MS (De La Cruz et al. 1981)",2.4 L/m2,crude,moderate,none_or_light,2 yr for 2.4 L/m2,3.08,2.18,0.0
+B25,"Field, St. Louis Bay, MS (De La Cruz et al. 1981)",3.6-6 L/m2,crude,heavy,none_or_light,3 yr for 3.6-6 L/m2,4.29,2.72,0.0
+B26,"Field, Louisiana (DeLaune et al. 1979)",all plots,crude,unstated,none_or_light,>1 yr,2.62,2.1,0.0
+B27,"Field, Galveston Bay, TX (Alexander and Webb 1985)",highest oiling,crude,heavy,none_or_light,>1 yr for growing season / highest oiling,3.58,3.15,0.0
+C01,"T/V Arrow, Chedabucto Bay, Nova Scotia",heavily oiled cove,heavy_fuel,heavy,none_or_light,6-8+ yr,2.66,4.39,0.31
+C03,"T/V Golden Robin, Dalhousie, New Brunswick",heavily oiled marsh,heavy_fuel,heavy,intensive,~10 yr,3.71,5.6,0.29
+C04,"Barge Nepco-140, St. Lawrence River, NY",all oiled marsh,heavy_fuel,unstated,cutting_raking,<2 yr,1.43,0.56,0.0
+C05,"Bolivar Peninsula, TX",all oiled marsh,heavy_fuel,unstated,cutting_raking,<1 yr,1.6,1.99,0.69
+C06,"T/V Lang Fonn, Potomac River, MD",small cove,heavy_fuel,heavy,cutting_raking,>2 yr,1.22,1.29,0.44
+C07,"Barge STC-101, Chesapeake Bay, VA",all oiled marsh,heavy_fuel,unstated,cutting_raking,1 yr,1.34,1.65,0.28
+C09,"T/V Julie N, Fore River, ME",all oiled marsh,heavy_fuel,heavy,none_or_light,1 yr except for 96 patches,5.03,3.29,0.97
+C10,"Lake Wabamun, Alberta",all oiled marsh,heavy_fuel,unstated,cutting_raking,<2 yr,1.43,1.18,0.0
+C11,Georgia salt marsh (Lee et al. 1981),all plots,heavy_fuel,light,none_or_light,>2 yr,0.4,0.5,1.4
+C12,"Galveston Bay, TX (Alexander and Webb 1985)",all plots,heavy_fuel,unstated,none_or_light,1 yr,2.99,2.55,0.71
+D01,"Intracoastal City / McCormick Well Blowout, LA",all burned marsh,crude,heavy,burn,1-2 yr,2.03,1.59,0.0
+D02,"Harbor Island, TX",all burned marsh,crude,heavy,burn,N/A but likely <2 yr,2.17,4.27,0.76
+D03,"Trans-Alaska Pipeline, Fairbanks, AK",all burned wetland,crude,unstated,burn,N/A but likely <5 yr,1.45,2.41,0.0
+D04,"Texaco Lafitte oil field Site 3, LA",all burned marsh,crude,unstated,burn,<8 yrs,1.44,0.92,0.0
+D05,"Friendship II Pipeline, Kekcse, Hungary",all burned wetland,crude,unstated,burn,1.5 yr,1.43,2.47,0.28
+D06,"Pass a Loutre, Mississippi Delta, LA",all burned marsh,crude,unstated,burn,<4 yr,1.46,0.93,0.0
+D07,"Chiltipin Creek, TX",all burned marsh,crude,unstated,burn,Predicted 14-15 yr based on trajectory for climax species,1.27,1.43,2.28
+D08,"Texaco Lafitte oil field Site 1, LA",all burned marsh,crude,unstated,burn,~2.5 yr,1.39,0.82,0.82
+D09,"Meire Grove, MN (Amoco Pipeline)",all burned wetland,light_refined,unstated,burn,>2 yrs but likely <10 yr,0.82,0.9,0.8
+D10,"Naval Air Station Brunswick, ME",all burned wetland,light_refined,unstated,burn,<0.5 yr,1.34,1.37,1.01
+D11,"Rockefeller State Refuge, LA",all burned marsh,crude,unstated,burn,3 yr,1.37,1.15,0.67
+D12,"Chevron Pipeline MP 68, Corrine, UT (January burn)",all burned wetland,light_refined,heavy,burn,N/A but likely <5 yr,1.48,1.28,0.0
+D13,"Louisiana Point, LA",all burned marsh,crude,unstated,burn,">1.6 yr, but likely <5 yr",1.38,2.47,0.0
+D14,"Ruffy Brook, MN",all burned wetland,crude,unstated,burn,<1 yr,1.53,2.09,0.74
+D15,"Enbridge Pipeline, Cohasset, MN",all burned wetland,crude,unstated,burn,"Many years, likely >10 yr",1.27,1.13,2.18
+D16,"Chevron Texaco #2 Tank Battery, Sabine NWR, LA",all burned marsh,crude,unstated,burn,1 yr,1.46,0.91,0.0
+D17,"Chevron Empire, LA",all burned marsh,crude,unstated,burn,1 yr,1.46,1.28,0.02
+D18,"Octave Header, Delta NWR, LA",all burned marsh,crude,unstated,burn,<1 yr,1.53,1.37,0.31
+D19,"XTO Pipeline, Point a La Hache, LA",all burned marsh,crude,heavy,burn,<1 yr except at release site and heavily trampled areas,2.32,1.89,0.63
+D20,"Delta Farms pipeline, Bayou Perot, LA",all burned marsh,crude,unstated,burn,2 yr except at the release site,1.4,1.19,0.23
+D21,"Field, Terrebonne Bay, LA (Lindau et al. 1999)",all plots,crude,unstated,burn,1 yr,1.3,2.07,0.5
+D22,"Field, Terrebonne Bay, LA (Lindau et al. 2003)",all plots,crude,unstated,burn,1 yr,1.3,1.25,0.0

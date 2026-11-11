@@ -34,6 +34,9 @@ class TreatmentScore:
     utility: float
     confidence: float
     reason: str
+    # "synthetic_rules": suitability comes from a model trained on rule-generated labels (not field data).
+    # "none": no suitability labels exist for this treatment, so it is listed after the scored treatments.
+    evidence: str = "synthetic_rules"
 
 
 TREATMENT_LIBRARY: List[str] = [

@@ -25,7 +25,10 @@ class FASTRuleEngine:
         if shoreline in {"marsh", "mudflat", "peat", "tundra"}:
             if treatment in {"manual_removal", "passive_sorbents"}:
                 return "eligible"
-            if treatment in {"high_pressure_washing", "high_pressure_heated_washing", "mechanical_removal", "sediment_mixing"}:
+            # Heated flushing is included because hot-water methods should avoid sensitive habitats
+            # (docs/NOAA_ASSUMPTION_AUDIT.md). It previously fell through to a generic rule and came out eligible.
+            if treatment in {"high_pressure_washing", "high_pressure_heated_washing", "low_pressure_heated_flushing",
+                             "mechanical_removal", "sediment_mixing"}:
                 return "ineligible"
             if treatment in {"low_pressure_flushing", "surface_washing_agents", "vacuum_removal"}:
                 return "conditional"
@@ -41,8 +44,9 @@ class FASTRuleEngine:
         if shoreline in {"bedrock", "boulder", "cobble"}:
             if treatment in {"manual_removal", "passive_sorbents", "surface_washing_agents", "vacuum_removal"}:
                 return "eligible"
-            if treatment in {"high_pressure_washing", "high_pressure_heated_washing"}:
-                return "conditional"
+            # High-pressure washing is decided by the dedicated rule further down (eligible on hard substrate
+            # with more than 40% cover and less than 5 cm penetration). An early "conditional" return here
+            # used to make that rule unreachable for bedrock, boulder and cobble.
 
         if treatment == "natural_attenuation":
             if coverage < 30 and penetration < 8:

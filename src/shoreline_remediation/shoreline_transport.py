@@ -16,7 +16,7 @@ import numpy as np
 import pandas as pd
 from scipy.integrate import solve_ivp
 
-MODEL_VERSION = "adr_shoreline_transport_v1"
+MODEL_VERSION = "adr_shoreline_transport_v1_1"  # v1_1: mass-conserving dispersion
 N_CELLS = 40
 DX_M = 1.0
 SEGMENT_LENGTH_M = 100.0
@@ -102,9 +102,15 @@ def simulate_transect(scenario, treatment: str = "no_cleanup", survey_days: list
     surface_evap = evap * (1.0 if scenario.shoreline_type not in MARSH_TYPES else 0.6)
     n = N_CELLS
 
-    def laplacian(field: np.ndarray) -> np.ndarray:
-        padded = np.concatenate([[field[0]], field, [field[-1]]])  # no-flux ends
-        return (padded[2:] - 2.0 * padded[1:-1] + padded[:-2]) / DX_M**2
+    # Dispersion is written in flux form so that it conserves mass. The earlier form, d_eff times a plain
+    # Laplacian, is not conservative where d_eff changes between zones: with every sink switched off it raised
+    # total oil mass by 49% in 30 days on a sand beach. Face values use the harmonic mean, the standard choice
+    # for a coefficient that jumps between cells.
+    d_face = 2.0 * d_eff[:-1] * d_eff[1:] / (d_eff[:-1] + d_eff[1:])
+
+    def dispersion(field: np.ndarray) -> np.ndarray:
+        flux = d_face * np.diff(field) / DX_M  # flux across each interior face; the two ends are no-flux
+        return np.diff(flux, prepend=0.0, append=0.0) / DX_M
 
     def rhs(t: float, y: np.ndarray) -> np.ndarray:
         sl, sr, bl, br = y[:n], y[n:2 * n], y[2 * n:3 * n], y[3 * n:]
@@ -114,8 +120,8 @@ def simulate_transect(scenario, treatment: str = "no_cleanup", survey_days: list
         outflux_r = np.zeros(n)
         outflux_l[0] = v_out[0] * sl[0] / DX_M
         outflux_r[0] = v_out[0] * sr[0] / DX_M
-        d_sl = d_eff * laplacian(sl) - (surface_evap + k_inf + k_bio_labile + treat) * sl + k_up * bl - outflux_l
-        d_sr = d_eff * laplacian(sr) - (k_inf + k_bio_recalcitrant + treat) * sr + k_up * br - outflux_r
+        d_sl = dispersion(sl) - (surface_evap + k_inf + k_bio_labile + treat) * sl + k_up * bl - outflux_l
+        d_sr = dispersion(sr) - (k_inf + k_bio_recalcitrant + treat) * sr + k_up * br - outflux_r
         d_bl = k_inf * sl - (k_bio_labile * 0.5 + k_up + treat_sub) * bl
         d_br = k_inf * sr - (k_bio_recalcitrant * 0.5 + k_up + treat_sub) * br
         return np.concatenate([d_sl, d_sr, d_bl, d_br])

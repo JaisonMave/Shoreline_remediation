@@ -244,7 +244,7 @@ def render_validation_tab() -> None:
 
     st.markdown("### 5. Recommended next steps")
     st.markdown(
-        "1. Replace the constant 5.0 suitability for untrained treatments with expert scores (data/expert_scoring_template.csv), then re-run the historical check.\n"
+        "1. Collect expert scores for all 15 treatments (docs/EXPERT_SCORING_PROTOCOL.md); six treatments have no suitability labels and are listed after the scored ones. Then re-run the historical check.\n"
         "2. Add inputs the real responses used (net environmental benefit, access, waste, season) and a 'natural recovery' decision threshold.\n"
         "3. Source Prestige, Sea Empress and Wakashio from their agency reports and add them with the same traceability matrix.\n"
         "4. Calibrate the transport model's retention, dispersion and rate parameters against the Deepwater Horizon marsh and beach SCAT time series.\n"

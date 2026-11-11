@@ -1,0 +1,1461 @@
+oil_id,name,location,product_type,reference_year,api_gravity,api_source,density_kg_m3,density_ref_c,kinematic_viscosity_cst,viscosity_ref_c,viscosity_source,pour_point_c
+AD00005,ABSORPTION OIL,,Refinery Intermediate,1996,,,848.0,20.0,9.43,20.0,dynamic / density,
+AD00010,"ABU SAFAH, ARAMCO","Ras Tanura, Saudi Arabia",Crude Oil NOS,1992,28.4,stated,884.2,15.0,22.4,21.0,kinematic,-18.0
+AD00020,ALASKA NORTH SLOPE,"Alaska, USA",Crude Oil NOS,1996,24.9,stated,904.0,0.0,42.4,38.0,kinematic,-8.0
+AD00024,Alberta,"Alberta, Canada",Crude Oil NOS,1982,36.8,stated,840.0,15.0,,,,-24.0
+AD00025,ALBERTA SWEET MIXED BLEND,"Alberta, Canada",Crude Oil NOS,1992,37.0,stated,839.0,15.0,11.0,15.0,kinematic,-8.0
+AD00026,ALGERIAN BLEND,Algeria,Crude Oil NOS,1986,45.5,stated,798.7,15.0,6.0,38.0,kinematic,-29.0
+AD00027,ALGERIAN CONDENSATE,Algeria,Condensate,1986,65.0,stated,719.5,15.0,3.0,38.0,kinematic,-62.0
+AD00028,"ALGERIAN CONDENSATE, CITGO",Algeria,Condensate,1992,64.2,stated,722.4,15.0,0.71,38.0,kinematic,-32.0
+AD00039,"ARABIAN EXTRA LIGHT, PHILLIPS",Saudi Arabia,Crude Oil NOS,1992,37.2,stated,838.0,15.0,3.89,38.0,kinematic,-45.0
+AD00040,"ARABIAN EXTRA LIGHT, STAR ENTERPRISE",Saudi Arabia,Crude Oil NOS,1992,36.9,stated,839.5,15.0,4.2,40.0,kinematic,-35.0
+AD00041,"ARABIAN EXTRA LIGHT, ARAMCO",Saudi Arabia,Crude Oil NOS,1992,37.0,stated,839.0,15.0,6.2,21.0,kinematic,-20.0
+AD00042,ARABIAN HEAVY,Saudi Arabia,Crude Oil NOS,1996,27.9,stated,887.0,16.0,48.0,16.0,kinematic,-31.0
+AD00044,"ARABIAN HEAVY, CITGO",Saudi Arabia,Crude Oil NOS,1992,28.4,stated,884.2,15.0,17.8,38.0,kinematic,-29.0
+AD00046,"ARABIAN HEAVY, EXXON",Saudi Arabia,Crude Oil NOS,1991,27.4,stated,889.7,15.0,20.5,38.0,kinematic,-45.0
+AD00047,"ARABIAN HEAVY, AMOCO",Saudi Arabia,Crude Oil NOS,1992,27.7,stated,888.0,15.0,35.4,22.0,kinematic,20.0
+AD00049,"ARABIAN HEAVY, STAR ENTERPRISE",Saudi Arabia,Crude Oil NOS,1992,27.3,stated,890.3,15.0,17.9,40.0,kinematic,-34.0
+AD00050,"ARABIAN HEAVY, ARAMCO","Ras Tanura, Saudi Arabia",Crude Oil NOS,1992,28.3,stated,884.7,15.0,32.2,21.0,kinematic,-18.0
+AD00053,"ARABIAN LIGHT, CITGO",Saudi Arabia,Crude Oil NOS,1992,28.1,stated,885.8,15.0,19.1,38.0,kinematic,-37.0
+AD00055,"ARABIAN LIGHT, PHILLIPS",Saudi Arabia,Crude Oil NOS,1992,32.7,stated,861.0,15.0,6.71,38.0,kinematic,-48.0
+AD00057,"ARABIAN LIGHT, STAR ENTERPRISE",Saudi Arabia,Crude Oil NOS,1992,33.1,stated,858.9,15.0,5.96,40.0,kinematic,-54.0
+AD00058,"ARABIAN LIGHT, ARAMCO","Ras Tanura, Saudi Arabia",Crude Oil NOS,1992,33.5,stated,856.8,15.0,9.83,21.0,kinematic,-15.0
+AD00062,"ARABIAN MEDIUM, EXXON",Saudi Arabia,Crude Oil NOS,1991,30.0,stated,875.4,15.0,11.7,38.0,kinematic,-23.0
+AD00063,"ARABIAN MEDIUM, PHILLIPS",Saudi Arabia,Crude Oil NOS,1992,31.1,stated,869.5,15.0,10.4,38.0,kinematic,10.0
+AD00064,"ARABIAN MEDIUM, AMOCO",Saudi Arabia,Crude Oil NOS,1992,30.1,stated,875.0,15.0,18.0,22.0,kinematic,-16.0
+AD00065,"ARABIAN MEDIUM, STAR ENTERPRISE",Saudi Arabia,Crude Oil NOS,1992,31.3,stated,868.4,15.0,9.56,40.0,kinematic,-45.0
+AD00066,"ARABIAN MEDIUM, CHEVRON",Saudi Arabia,Crude Oil NOS,1991,30.1,stated,874.9,15.0,11.1,40.0,kinematic,-23.0
+AD00070,ARGYL,"North Sea, United Kingdom",Crude Oil NOS,1992,37.9,stated,835.0,15.0,3.7,15.0,kinematic,7.5
+AD00080,Atkinson,"Beaufort Sea, Canada",Crude Oil NOS,1996,23.7,stated,911.0,15.0,,,,-46.0
+AD00082,AUK,"North Sea, United Kingdom",Crude Oil NOS,1992,37.2,stated,838.0,15.0,4.38,40.0,kinematic,9.0
+AD00084,"AUTOMOTIVE GASOLINE, EXXON",,Distillate Fuel Oil,1991,60.0,stated,738.3,15.0,1.0,38.0,kinematic,-18.0
+AD00085,Avalon,"Newfoundland, Canada",Crude Oil NOS,1996,36.0,stated,844.0,15.0,,,,12.0
+AD00092,"AVIATION GASOLINE 100LL, STAR ENTERPRISE",,Distillate Fuel Oil,1992,72.5,stated,693.0,15.0,0.4,40.0,kinematic,-72.0
+AD00094,Aviation Gasoline 80,Unknown,Distillate Fuel Oil,1996,71.8,stated,695.3,15.0,,,,
+AD00095,"BACHAGUERO, CITGO",,Crude Oil NOS,1992,11.8,stated,986.6,15.0,1800.0,38.0,kinematic,-4.0
+AD00099,"BACHAQUERO 17, EXXON",Venezuela,Crude Oil NOS,1991,16.1,stated,957.8,15.0,407.0,38.0,kinematic,-18.0
+AD00100,BACHEQUERO HEAVY,"La Salina, Venezuela",Crude Oil NOS,1982,14.0,stated,971.7,15.0,890.0,38.0,kinematic,-18.0
+AD00101,BACHEQUERO MEDIUM,"La Salina, Venezuela",Crude Oil NOS,1982,17.0,stated,952.0,15.0,350.0,38.0,kinematic,-20.0
+AD00102,BAHIA,"Salvador, Brazil",Crude Oil NOS,1982,35.2,stated,848.1,15.0,17.0,38.0,kinematic,38.0
+AD00103,BAKR,"Ras Gharib, Egypt",Crude Oil NOS,1982,20.0,stated,933.2,15.0,152.0,38.0,kinematic,7.0
+AD00105,"BANOCO ABU SAFAH, ARAMCO",Saudi Arabia,Crude Oil NOS,1992,28.6,stated,883.0,15.0,22.6,21.0,kinematic,-20.0
+AD00109,BASRAH,Iraq,Crude Oil NOS,1986,33.7,stated,855.8,15.0,7.0,38.0,kinematic,-10.0
+AD00110,"BASRAH, EXXON",Iraq,Crude Oil NOS,1991,34.3,stated,852.7,15.0,6.2,38.0,kinematic,-45.0
+AD00115,BASS STRAIT,Australia,Crude Oil NOS,1986,44.4,stated,803.7,15.0,30.0,38.0,kinematic,16.0
+AD00121,BCF 13,Venezuela,Crude Oil NOS,1986,12.9,stated,979.1,15.0,846000.0,38.0,kinematic,-4.0
+AD00122,BCF 17,Venezuela,Crude Oil NOS,1986,16.9,stated,952.7,15.0,295.0,38.0,kinematic,-23.0
+AD00124,"BCF 22, CITGO",Venezuela,Crude Oil NOS,1992,21.7,stated,922.8,15.0,79.0,38.0,kinematic,-40.0
+AD00127,"BCF 17, AMOCO",Venezuela,Crude Oil NOS,1992,17.9,stated,946.0,14.0,1530.0,13.0,kinematic,-16.0
+AD00132,BELAYIM (MARINE),"Wadi Feiran, Egypt",Crude Oil NOS,1982,30.6,stated,872.2,15.0,12.0,38.0,kinematic,16.0
+AD00133,BELAYIM (LAND),"Wadi Feiran, Egypt",Crude Oil NOS,1982,21.6,stated,923.4,15.0,95.0,38.0,kinematic,5.0
+AD00142,"BERRI A-21, ARAMCO","Ras Tanura, Saudi Arabia",Crude Oil NOS,1992,38.4,stated,832.1,15.0,5.27,21.0,kinematic,
+AD00143,BERYL,"North Sea, United Kingdom",Crude Oil NOS,1992,36.4,stated,842.0,15.0,9.47,15.0,kinematic,-54.0
+AD00147,"BFC 21.9, CITGO",,Crude Oil NOS,1992,22.3,stated,919.2,15.0,66.0,38.0,kinematic,-34.0
+AD00159,"BONNY LIGHT, CITGO","Bonny Shore Terminal, Nigeria",Crude Oil NOS,1992,36.6,stated,841.0,15.0,3.7,38.0,kinematic,7.0
+AD00162,"BONNY MEDIUM, CITGO",Venezuela,Crude Oil NOS,1992,25.1,stated,902.8,15.0,11.9,38.0,kinematic,-34.0
+AD00163,"BONNY MEDIUM, AMOCO",Nigeria,Crude Oil NOS,1992,27.5,stated,889.0,15.0,18.8,15.0,kinematic,-20.0
+AD00165,BORHOLLA,India,Crude Oil NOS,1993,31.3,stated,868.4,15.0,7.36,50.0,kinematic,
+AD00171,"BOSCAN, AMOCO",Venezuela,Crude Oil NOS,1992,13.9,stated,972.0,25.0,5420.0,30.0,kinematic,0.0
+AD00174,BOW RIVER BLENDED,"Alberta, Canada",Crude Oil NOS,1992,26.7,stated,893.0,15.0,37.7,15.0,kinematic,-38.5
+AD00179,"BRASS RIVER, CITGO",Nigeria,Crude Oil NOS,1992,42.6,stated,812.0,15.0,2.09,38.0,kinematic,-1.0
+AD00181,"BRASS RIVER, PHILLIPS",Nigeria,Crude Oil NOS,1992,43.5,stated,807.9,15.0,1.53,38.0,kinematic,2.0
+AD00185,"BREGA, ARCO",Libya,Crude Oil NOS,1992,39.0,stated,829.2,15.0,4.13,38.0,kinematic,
+AD00187,BRENT,"North Sea, United Kingdom",Crude Oil NOS,1992,38.2,stated,833.1,15.0,4.6,38.0,kinematic,-4.5
+AD00189,"BRENT, CITGO","North Sea, United Kingdom",Crude Oil NOS,1992,39.1,stated,828.7,15.0,3.3,38.0,kinematic,-7.0
+AD00190,"BRENT, PHILLIPS",United Kingdom,Crude Oil NOS,1992,37.2,stated,838.0,15.0,4.19,38.0,kinematic,-1.0
+AD00196,"BRENT MIX, EXXON",United Kingdom,Crude Oil NOS,1991,37.8,stated,835.1,15.0,4.0,38.0,kinematic,-2.0
+AD00197,BRENT SPAR,,Crude Oil NOS,1987,38.0,stated,834.0,20.0,3.72,40.0,kinematic,-3.0
+AD00198,"BRIGHT STOCK 145, STAR ENTERPRISE",,Refined Product NOS,1992,25.5,stated,900.5,15.0,480.0,40.0,kinematic,-12.0
+AD00199,"BRIGHT STOCK 150, STAR ENTERPRISE",,Refined Product NOS,1992,26.0,stated,897.6,15.0,466.0,40.0,kinematic,-9.0
+AD00204,BUCHAN,"North Sea, United Kingdom",Crude Oil NOS,1996,33.7,stated,856.0,15.0,20.0,20.0,kinematic,6.0
+AD00208,BUNKER C FUEL OIL,,Residual Fuel Oil,1996,13.7,stated,974.0,15.0,49281.31,15.0,dynamic / density,15.0
+AD00213,"CABINDA, CITGO",Angola,Crude Oil NOS,1992,32.7,stated,861.0,15.0,13.5,38.0,kinematic,2.0
+AD00215,"CABINDA, PHILLIPS",Angola,Crude Oil NOS,1992,31.2,stated,868.9,15.0,17.6,38.0,kinematic,16.0
+AD00224,CAMAR,Indonesia,Crude Oil NOS,1986,35.6,stated,846.1,15.0,20.0,38.0,kinematic,32.0
+AD00226,"CANDON SEC, PHILLIPS",Argentina,Crude Oil NOS,1992,26.5,stated,894.8,15.0,26.1,38.0,kinematic,-15.0
+AD00227,"CANO LIMON, CITGO",,Crude Oil NOS,1992,29.3,stated,879.2,15.0,15.1,38.0,kinematic,-1.0
+AD00228,"CANO LIMON, PHILLIPS",Colombia,Crude Oil NOS,1992,29.1,stated,880.3,15.0,13.9,38.0,kinematic,-7.0
+AD00249,Clarified Oil,Unknown,Refinery Intermediate,1991,35.0,stated,850.0,15.0,,,,
+AD00254,COBAN BLEND,Guatemala,Crude Oil NOS,1986,26.5,stated,894.8,15.0,15.0,38.0,kinematic,10.0
+AD00255,"COBAN BLEND, PHILLIPS",Guatemala,Crude Oil NOS,1992,25.4,stated,901.1,15.0,24.9,38.0,kinematic,-1.0
+AD00258,COLD LAKE,"Alberta, Canada",Bitumen Blend,1992,25.2,stated,902.2,15.0,70.7,15.0,kinematic,-60.0
+AD00259,"COLD LAKE, EXXON","Quebec, Montreal, Canada",Bitumen Blend,1991,25.1,stated,902.8,15.0,27.7,38.0,kinematic,-45.0
+AD00262,"COLD LAKE BLEND, ESSO","Alberta, Canada",Bitumen Blend,1996,22.6,stated,917.0,15.0,206.0,16.0,kinematic,-45.0
+AD00263,"COLD LAKE DILUENT, ESSO","Alberta, Canada",Refinery Intermediate,1992,69.3,stated,704.0,15.0,0.88,15.0,dynamic / density,
+AD00269,"COOK INLET, DRIFT RIVER TERMINAL","Alaska, Anchorage, Drift River Terminal, USA",Crude Oil NOS,2017,34.1,stated,853.7,15.0,4.88,38.0,kinematic,-20.0
+AD00270,CORMORANT,,Crude Oil NOS,1987,34.8,stated,850.0,20.0,5.8,40.0,kinematic,12.0
+AD00279,"UNION, UNOCAL","Texas, Beaumont, USA",Crude Oil NOS,1993,28.6,stated,883.0,15.0,11.2,40.0,kinematic,-15.0
+AD00284,"CYRUS, ITOPF","Persian Gulf, Kharg Island, Iran",Crude Oil NOS,1982,19.0,stated,939.4,15.0,520.0,38.0,kinematic,-18.0
+AD00289,DANMARK,,Crude Oil NOS,1987,29.7,stated,877.0,20.0,8.6,40.0,kinematic,-30.0
+AD00293,"DF2 SUMMER (DIESEL), TESORO","Alaska, Kenai, USA",Distillate Fuel Oil,1993,32.0,stated,864.7,15.0,3.8,38.0,kinematic,-12.0
+AD00294,"DF2 WINTER (DIESEL), TESORO","Alaska, Kenai, USA",Distillate Fuel Oil,1993,34.0,stated,854.2,15.0,2.0,38.0,kinematic,-26.0
+AD00297,DIESEL,,Distillate Fuel Oil,1992,36.8,stated,840.0,15.0,1.9,40.0,kinematic,-26.0
+AD00299,FLASHED FEED STOCKS,,Refinery Intermediate,1992,62.5,stated,729.0,15.0,60.5,15.0,kinematic,
+AD00300,Straight Run Gasoline,,Distillate Fuel Oil,1992,62.1,stated,730.0,16.0,0.6,15.0,kinematic,
+AD00301,"DJENO, PHILLIPS",Zaire,Crude Oil NOS,1992,27.8,stated,887.5,15.0,35.5,38.0,kinematic,-4.0
+AD00311,"DUBAI, CITGO",Dubai,Crude Oil NOS,1992,31.3,stated,868.4,15.0,5.02,38.0,kinematic,-23.0
+AD00315,DUNLIN,"North Sea, United Kingdom",Crude Oil NOS,1987,34.8,stated,850.0,20.0,4.9,40.0,kinematic,6.0
+AD00316,"DURI, PHILLIPS","Sumatra, Indonesia",Crude Oil NOS,1992,21.3,stated,925.2,15.0,285.0,38.0,kinematic,18.0
+AD00319,EAST TEXAS,"Texas, USA",Crude Oil NOS,1992,38.0,stated,834.1,15.0,4.3,38.0,kinematic,7.0
+AD00322,"EC 195-CONDENSATE, PHILLIPS",,Condensate,1992,48.6,stated,785.0,15.0,1.3,38.0,kinematic,-50.0
+AD00328,EKOFISK,"North Sea, Norway",Crude Oil NOS,1996,43.2,stated,809.0,15.0,3.0,20.0,kinematic,-9.5
+AD00329,"EKOFISK, CITGO",Norway,Crude Oil NOS,1992,41.7,stated,816.3,15.0,2.84,38.0,kinematic,-16.0
+AD00332,"EKOFISK, EXXON",Norway,Crude Oil NOS,1991,40.1,stated,823.9,15.0,3.3,38.0,kinematic,-6.0
+AD00333,"EKOFISK, PHILLIPS",Norway,Crude Oil NOS,1992,40.5,stated,822.0,15.0,3.2,38.0,kinematic,-32.0
+AD00346,ELECTRICAL INSULATING OIL (VIRGIN),,Dielectric Oil,1996,31.0,stated,870.0,15.0,21.3,15.0,kinematic,-46.5
+AD00347,ELECTRICAL LUBRICATING OIL (USED),,Dielectric Oil,1996,30.5,stated,873.0,15.0,176.0,15.0,kinematic,-24.0
+AD00348,ELECTRICAL LUBRICATING OIL (VIRGIN),,Dielectric Oil,1996,30.5,stated,873.0,15.0,165.0,15.0,kinematic,-24.0
+AD00354,"EMPIRE ISLAND, AMOCO",,Crude Oil NOS,1992,33.3,stated,858.0,15.0,8.8,27.0,kinematic,-16.0
+AD00359,ERAWAN CONDENSATE,Thailand,Condensate,1986,54.8,stated,758.9,15.0,2.0,38.0,kinematic,-45.0
+AD00362,"ESCALANTE, PHILLIPS",Argentina,Crude Oil NOS,1992,23.6,stated,911.5,15.0,328.0,38.0,kinematic,-9.0
+AD00365,"ESCRAVOS, AMOCO",Nigeria,Crude Oil NOS,1992,37.6,stated,836.0,22.0,4.9,27.0,kinematic,12.0
+AD00366,"ESCRAVOS, CHEVRON","Escravos, Nigeria",Crude Oil NOS,1991,36.2,stated,843.0,15.0,3.5,38.0,kinematic,7.0
+AD00376,"FAO, CITGO",,Crude Oil NOS,1992,30.0,stated,875.4,15.0,11.5,38.0,kinematic,-40.0
+AD00377,FCC HEAVY CYCLE OIL,,Refinery Intermediate,1996,24.3,stated,908.0,15.0,2.77,15.0,kinematic,-58.0
+AD00378,FCC VGO,,Refinery Intermediate,1992,31.8,stated,866.0,15.0,1.15,15.0,dynamic / density,-60.0
+AD00379,FEDERATED,"Alberta, Canada",Crude Oil NOS,1996,39.0,stated,829.0,15.0,5.2,15.0,kinematic,-15.0
+AD00383,"FLOTTA, CITGO","North Sea, United Kingdom",Crude Oil NOS,1992,30.5,stated,872.7,15.0,14.8,38.0,kinematic,-34.0
+AD00384,FLOTTA,United Kingdom,Crude Oil NOS,1987,35.4,stated,847.0,20.0,4.58,40.0,kinematic,-9.0
+AD00385,"FLOTTA, PHILLIPS",United Kingdom,Crude Oil NOS,1992,35.3,stated,847.6,15.0,4.09,38.0,kinematic,-18.0
+AD00386,FLOTTA MIX,"North Sea, United Kingdom",Crude Oil NOS,1992,35.7,stated,845.6,15.0,30.8,4.0,kinematic,-7.5
+AD00388,"FORCADOS, CITGO",Nigeria,Crude Oil NOS,1992,28.8,stated,882.0,15.0,6.62,38.0,kinematic,-4.0
+AD00389,"FORCADOS, AMOCO",Nigeria,Crude Oil NOS,1992,29.9,stated,876.0,17.0,9.0,25.0,kinematic,-16.0
+AD00391,"FORKED ISLAND TERMINAL, AMOCO",,Crude Oil NOS,1992,42.8,stated,811.0,15.0,3.9,15.0,kinematic,-20.0
+AD00393,FORTIES,"North Sea, United Kingdom",Crude Oil NOS,1992,37.2,stated,838.0,15.0,6.8,20.0,kinematic,-7.0
+AD00397,FOSTERTON,Canada,Crude Oil NOS,1992,24.1,stated,908.6,15.0,30.0,38.0,kinematic,-9.0
+AD00403,"FUEL OIL NO.1 (AVJET A), STAR ENTERPRISE",,Distillate Fuel Oil,1992,44.6,stated,802.8,15.0,1.39,40.0,kinematic,-41.0
+AD00404,"FUEL OIL NO.1 (DIESEL/HEATING FUEL), PETRO STAR",,Distillate Fuel Oil,1993,39.0,stated,829.2,15.0,1.3,38.0,kinematic,-51.0
+AD00407,FUEL OIL NO.1 (JP-5),,Distillate Fuel Oil,1996,41.1,stated,819.0,15.0,9.0,-20.0,kinematic,-48.0
+AD00408,FUEL OIL NO.1 (JP-8),,Distillate Fuel Oil,1996,44.1,stated,805.0,15.0,8.0,-20.0,kinematic,
+AD00409,FUEL OIL NO.1 (JP-7),,Distillate Fuel Oil,1992,47.0,stated,792.0,15.0,8.0,-20.0,kinematic,
+AD00412,FUEL OIL NO.1 (JET FUEL A),,Distillate Fuel Oil,1992,41.7,stated,816.0,16.0,1.6,15.0,kinematic,-40.0
+AD00414,FUEL OIL NO.1 (JET FUEL B),,Distillate Fuel Oil,1996,55.4,stated,757.0,15.0,1.35,15.0,dynamic / density,
+AD00416,Fuel Oil No. 1 (Kerosene),Unknown,Distillate Fuel Oil,1991,43.3,stated,809.5,15.0,,,,
+AD00422,FUEL OIL NO.2,,Distillate Fuel Oil,1992,31.6,stated,866.8,15.0,4.3,15.0,kinematic,-16.5
+AD00431,"FUEL OIL NO.2 (DIESEL), STAR ENTERPRISE",,Distillate Fuel Oil,1992,34.5,stated,851.7,15.0,2.95,40.0,kinematic,-15.0
+AD00433,"FUEL OIL NO.2 (HO/DIESEL), EXXON",,Distillate Fuel Oil,1991,31.0,stated,870.0,15.0,2.0,38.0,kinematic,-32.0
+AD00434,FUEL OIL NO.4,,Distillate Fuel Oil,1992,25.0,stated,903.0,15.0,25.14,20.0,dynamic / density,-12.0
+AD00448,"FURRIAL, CITGO",,Crude Oil NOS,1992,28.0,stated,886.4,15.0,12.9,38.0,kinematic,-29.0
+AD00449,"FURRIAL/MESA 28, EXXON",Venezuela,Crude Oil NOS,1991,28.4,stated,884.2,15.0,12.3,38.0,kinematic,-33.0
+AD00458,"GAS OIL, EXXON",,Refinery Intermediate,1991,19.0,stated,939.4,15.0,35.0,38.0,kinematic,-4.0
+AD00459,"GAS OIL, TESORO","Alaska, Kenai, USA",Distillate Fuel Oil,1993,29.0,stated,880.9,15.0,8.53,38.0,kinematic,
+AD00468,"GASOLINE BLENDING STOCK (ALKYLATE), EXXON",,Refinery Intermediate,1991,70.5,stated,699.9,15.0,1.0,38.0,kinematic,-18.0
+AD00470,"GASOLINE BLENDING STOCK (REFORMATE), EXXON",,Refinery Intermediate,1991,32.5,stated,862.0,15.0,1.0,38.0,kinematic,-18.0
+AD00471,GASOLINE BLENDING STOCKS,,Refinery Intermediate,1992,47.0,stated,792.0,20.0,0.62,15.0,kinematic,
+AD00473,GASOLINE: BLENDING STOCKS (REFORMATES),,Refinery Intermediate,1996,46.3,stated,795.0,15.0,0.65,20.0,kinematic,
+AD00474,Gasoline (Polymer),Unknown,Distillate Fuel Oil,1991,68.1,stated,709.0,15.0,,,,
+AD00486,"GIPPSLAND, EXXON",Australia,Crude Oil NOS,1991,45.4,stated,799.2,15.0,2.0,38.0,kinematic,
+AD00487,"GIPPSLAND MIX, ITOPF","Western Port Bay, Australia",Crude Oil NOS,1982,44.4,stated,803.7,15.0,2.0,38.0,kinematic,16.0
+AD00506,"GUAFITA, CITGO",,Crude Oil NOS,1992,29.6,stated,877.6,15.0,15.6,38.0,kinematic,-32.0
+AD00513,"GULF OF SUEZ, PHILLIPS",Egypt,Crude Oil NOS,1992,30.4,stated,873.2,15.0,11.6,38.0,kinematic,-4.0
+AD00516,"GULLFAKS, EXXON","North Sea, Norway",Crude Oil NOS,1991,29.6,stated,877.6,15.0,8.9,38.0,kinematic,-50.0
+AD00529,"HEAVY CAT CYCLE OIL, EXXON",,Refinery Intermediate,1991,13.0,stated,978.4,15.0,5.0,38.0,kinematic,-7.0
+AD00530,HEAVY LAKE MIX,"La Salina, Venezuela",Crude Oil NOS,1982,17.4,stated,949.5,15.0,600.0,38.0,kinematic,-12.0
+AD00531,Heavy Reformate,Unknown,Refinery Intermediate,1996,21.8,stated,922.6,15.0,,,,28.0
+AD00534,"HI 317, PHILLIPS",,Crude Oil NOS,1992,41.3,stated,818.1,15.0,3.52,38.0,kinematic,-1.0
+AD00535,"HI 330/349 CONDENSATE, PHILLIPS",,Condensate,1992,44.9,stated,801.5,15.0,1.85,38.0,kinematic,-65.0
+AD00536,"HI 561-GRAND CHENIER, PHILLIPS",,Crude Oil NOS,1992,35.0,stated,849.1,15.0,4.79,38.0,kinematic,-73.0
+AD00537,"HI A-310-B/CONDENSATE, PHILLIPS",,Condensate,1992,35.0,stated,849.1,15.0,1.27,38.0,kinematic,-68.0
+AD00540,"HIGH ISLAND, AMOCO","Texas, USA",Crude Oil NOS,1992,37.6,stated,836.0,11.0,5.7,24.0,kinematic,-16.0
+AD00541,"HIGH ISLAND BLOCK 154, PHILLIPS",,Crude Oil NOS,1992,41.2,stated,818.6,15.0,3.5,38.0,kinematic,10.0
+AD00554,HUTTON,United Kingdom,Crude Oil NOS,1992,30.5,stated,872.7,15.0,10.9,38.0,kinematic,
+AD00563,INTERPROVINCIAL,Canada,Crude Oil NOS,1992,36.4,stated,842.0,15.0,4.8,38.0,kinematic,2.0
+AD00565,IPPL LIGHT SOUR BLEND,"Saskatchewan, Canada",Crude Oil NOS,1970,35.9,stated,844.5,15.0,6.8,21.0,kinematic,-12.0
+AD00573,Issungnak,"Beaufort Sea, Canada",Crude Oil NOS,1996,35.0,stated,849.0,15.0,,,,
+AD00575,"ISTHMUS, CITGO",Mexico,Crude Oil NOS,1992,28.0,stated,886.4,15.0,13.6,38.0,kinematic,-29.0
+AD00577,"ISTHMUS, PHILLIPS",Mexico,Crude Oil NOS,1992,33.0,stated,859.4,15.0,5.27,38.0,kinematic,-45.0
+AD00579,ISTHMUS/MAYA BLEND,Mexico,Crude Oil NOS,1986,26.0,stated,897.6,15.0,40.0,38.0,kinematic,-26.0
+AD00580,"ISTHMUS/REFORMA/CACTUS, API",,Crude Oil NOS,1986,32.8,stated,860.5,15.0,7.0,38.0,kinematic,
+AD00584,"JET A (DFA), TESORO","Alaska, Kenai, USA",Distillate Fuel Oil,1993,43.0,stated,810.2,15.0,1.25,40.0,kinematic,-51.0
+AD00589,JOBO,"Puerto Ordaz, Venezuela",Crude Oil NOS,1986,12.6,stated,981.1,15.0,20000.0,38.0,kinematic,32.0
+AD00590,"JOBO/MORICHAL, ITOPF","Puerto Ordaz, Venezuela",Crude Oil NOS,1982,12.2,stated,983.8,15.0,3780.0,38.0,kinematic,-1.0
+AD00602,Khafji,Kuwait/Iraq Divided Zone,Crude Oil NOS,1992,28.0,stated,886.7,15.0,21.0,27.0,kinematic,-48.0
+AD00610,KIRKUK,Iraq,Crude Oil NOS,1987,36.0,stated,844.0,20.0,4.62,40.0,kinematic,-34.0
+AD00611,"KIRKUK, EXXON",Iraq,Crude Oil NOS,1991,36.1,stated,843.5,15.0,4.5,38.0,kinematic,-48.0
+AD00615,Koakoak (Sample 0-22),"Beaufort Sea, Canada",Crude Oil NOS,1984,28.1,stated,886.5,16.0,,,,-48.0
+AD00619,"KOLE MARINE, AMOCO",,Crude Oil NOS,1992,33.1,stated,859.0,15.0,26.8,15.0,kinematic,0.0
+AD00622,KOPANOAR 2I-44,"Beaufort Sea, Canada",Crude Oil NOS,1996,26.6,stated,894.0,16.0,68.23,10.0,dynamic / density,3.0
+AD00623,KOPANOAR M-13,"Beaufort Sea, Canada",Crude Oil NOS,1992,26.6,stated,894.0,20.0,36.91,20.0,dynamic / density,3.0
+AD00624,KOPANOAR M-13A,"Beaufort Sea, Canada",Crude Oil NOS,1992,26.8,stated,893.0,21.0,36.95,20.0,dynamic / density,3.0
+AD00625,KUPARUK,"Alaska, North Slope, USA",Crude Oil NOS,1992,23.0,stated,915.0,15.0,80.0,16.0,kinematic,-48.0
+AD00630,"KUWAIT, ARCO",Kuwait,Crude Oil NOS,1992,31.0,stated,870.0,15.0,7.5,38.0,kinematic,
+AD00631,KUWAIT CRUDE OIL (LITERATURE VALUES),,Crude Oil NOS,1992,31.1,stated,870.0,15.0,10.0,38.0,kinematic,
+AD00633,"KUWAIT LIGHT, PHILLIPS",Kuwait,Crude Oil NOS,1992,37.8,stated,835.1,15.0,3.82,38.0,kinematic,-45.0
+AD00638,LA ROSA,Venezuela,Crude Oil NOS,1996,23.2,stated,914.0,15.0,24.0,50.0,kinematic,-46.0
+AD00644,LAGO MEDIO,Venezuela,Crude Oil NOS,1992,30.7,stated,872.0,15.0,47.1,15.0,kinematic,-26.0
+AD00647,"LAGO TRECO, CITGO",,Crude Oil NOS,1992,30.6,stated,872.2,15.0,10.2,38.0,kinematic,-26.0
+AD00648,LAGOTRECO,"Bachaquero-Puerto Miranda Terminal, Venezuela",Crude Oil NOS,1992,27.3,stated,891.0,15.0,34.8,21.0,kinematic,-48.0
+AD00649,LAGUNA,Venezuela,Crude Oil NOS,1986,11.5,stated,988.6,15.0,6600.0,38.0,kinematic,9.0
+AD00650,"LAGUNA, CITGO",Venezuela,Crude Oil NOS,1992,11.2,stated,990.7,15.0,4500.0,38.0,kinematic,10.0
+AD00651,"LAGUNA 22, CITGO",Venezuela,Crude Oil NOS,1992,22.0,stated,921.0,15.0,69.3,38.0,kinematic,-26.0
+AD00652,"LAGUNA BLEND 24, CITGO",Venezuela,Crude Oil NOS,1992,23.9,stated,909.8,15.0,43.5,38.0,kinematic,-32.0
+AD00665,LALANG,Indonesia,Crude Oil NOS,1986,39.7,stated,825.8,15.0,4.0,38.0,kinematic,-12.0
+AD00667,"LARG TRECO MEDIUM, CITGO",,Crude Oil NOS,1992,21.8,stated,922.2,15.0,59.9,38.0,kinematic,-37.0
+AD00672,LEDUC WOODBEND,"Alberta, Canada",Crude Oil NOS,1992,39.7,stated,825.8,15.0,3.8,38.0,kinematic,
+AD00674,"LEONA, CITGO",,Crude Oil NOS,1992,24.4,stated,906.8,15.0,34.6,38.0,kinematic,-48.0
+AD00678,"LIGHT CAT CYCLE OIL, EXXON",,Refinery Intermediate,1991,17.0,stated,952.0,15.0,1.8,38.0,kinematic,-29.0
+AD00679,"LIGHT NAPHTHA, EXXON",,Refinery Intermediate,1991,80.0,stated,668.5,15.0,1.0,38.0,kinematic,-18.0
+AD00680,LIGHT SOUR BLEND,"Saskatchewan, Canada",Crude Oil NOS,1992,36.4,stated,842.0,20.0,6.8,21.0,kinematic,-12.0
+AD00682,"LIUHUA, AMOCO",,Crude Oil NOS,1992,18.4,stated,943.0,16.0,403.0,30.0,kinematic,18.0
+AD00685,"LOKELE, CITGO",Cameroon,Crude Oil NOS,1992,21.2,stated,925.9,15.0,40.0,38.0,kinematic,-26.0
+AD00686,"LOKELE, EXXON",Cameroon,Crude Oil NOS,1991,20.5,stated,930.1,15.0,45.0,38.0,kinematic,-40.0
+AD00694,LSWR,Indonesia,Refinery Intermediate,1986,24.2,stated,908.0,15.0,300.0,38.0,kinematic,38.0
+AD00695,LUBRICATING OIL (EXTREME PRESSURE GEAR OIL),,Lube Oil,1992,27.3,stated,890.0,15.0,1100.0,15.0,kinematic,-11.0
+AD00696,"LUBRICATING OIL (AUTO ENGINE OIL, USED)",,Lube Oil,1996,28.3,stated,885.0,15.0,29.0,38.0,kinematic,-36.0
+AD00697,"LUBRICATING OIL (AUTO ENGINE OIL, VIRGIN)",,Lube Oil,1992,29.7,stated,877.0,15.0,66.0,40.0,kinematic,-39.5
+AD00716,"MARALAGO 22, CITGO",,Crude Oil NOS,1992,21.4,stated,924.6,15.0,156.0,38.0,kinematic,-34.0
+AD00717,MARGHAM,United Arab Republic,Crude Oil NOS,1986,50.4,stated,777.2,15.0,3.0,38.0,kinematic,-45.0
+AD00718,"MARIB, PHILLIPS",Yemen,Crude Oil NOS,1992,39.8,stated,825.3,15.0,3.02,38.0,kinematic,-32.0
+AD00721,MARINE DIESEL FUEL OIL,,Distillate Fuel Oil,1996,36.4,stated,842.0,16.0,7.0,40.0,kinematic,-30.0
+AD00725,"MARJAN/ZULUF, ARAMCO","Ras Tanura, Saudi Arabia",Crude Oil NOS,1992,31.9,stated,865.2,15.0,14.0,21.0,kinematic,-18.0
+AD00732,"MAYA, CITGO",Mexico,Crude Oil NOS,1992,22.0,stated,921.0,15.0,73.2,38.0,kinematic,-29.0
+AD00734,"MAYA, EXXON",Mexico,Crude Oil NOS,1991,21.9,stated,921.6,15.0,69.5,38.0,kinematic,-32.0
+AD00735,"MAYA, PHILLIPS",Mexico,Crude Oil NOS,1992,22.5,stated,918.0,15.0,66.4,38.0,kinematic,-20.0
+AD00736,"MAYA, AMOCO",Mexico,Crude Oil NOS,1992,22.3,stated,919.0,26.0,104.0,31.0,kinematic,-16.0
+AD00738,MAYOGIAK,"Beaufort Sea, Canada",Crude Oil NOS,1992,32.4,stated,863.0,20.0,17.0,15.0,kinematic,-30.0
+AD00741,MCARTHUR RIVER,"Alaska, Offshore Cook Inlet, USA",Crude Oil NOS,1992,35.2,stated,848.0,16.0,11.6,25.0,kinematic,-7.0
+AD00748,MENEMOTA,,Crude Oil NOS,1992,19.7,stated,936.0,15.0,91.7,40.0,kinematic,-30.0
+AD00750,"MENEMOTA, CITGO",Venezuela,Crude Oil NOS,1992,18.8,stated,940.6,15.0,269.0,38.0,kinematic,-20.0
+AD00756,"MESA 28, CITGO",,Crude Oil NOS,1992,27.9,stated,886.9,15.0,13.3,38.0,kinematic,-26.0
+AD00757,"MESA 30, CITGO",,Crude Oil NOS,1992,29.8,stated,876.5,15.0,8.44,38.0,kinematic,-34.0
+AD00758,METHYL TERTIARY BUTYL ETHER,,Refinery Intermediate,1992,58.0,stated,746.0,15.0,0.47,20.0,kinematic,
+AD00760,MIDDLE GROUND SHOAL,"Alaska, Offshore Cook Inlet, USA",Crude Oil NOS,1992,41.5,stated,818.0,16.0,4.7,25.0,kinematic,-15.0
+AD00768,MINERAL OIL,,Dielectric Oil,1996,40.9,stated,820.0,20.0,8.7,15.0,kinematic,
+AD00769,Mineral Seal Oil,Unknown,Refined Product NOS,1991,43.0,stated,810.9,15.0,,,,-12.0
+AD00778,MORICHAL,Venezuela,Crude Oil NOS,1986,12.0,stated,985.2,15.0,3780.0,38.0,kinematic,-1.0
+AD00781,MOTOR FUEL ANTI-KNOCK COMPOUNDS,,Refinery Intermediate,1992,-37.2,stated,1500.0,15.0,4.19,15.0,kinematic,
+AD00782,MOTOR OIL (USED),,Lube Oil,1992,28.3,stated,884.0,15.0,198.0,15.0,kinematic,
+AD00786,"MTBE, EXXON",,Refinery Intermediate,1991,58.0,stated,746.0,15.0,1.0,38.0,kinematic,-18.0
+AD00794,"NAPHTHA, EXXON",,Refinery Intermediate,1991,55.0,stated,758.0,15.0,1.0,38.0,kinematic,-18.0
+AD00796,Naphtha (Coal Tar),Unknown,Solvent,1991,32.9,stated,860.0,20.0,,,,
+AD00797,NAPHTHA (SOLVENT),,Solvent,1992,34.8,stated,850.0,15.0,1.43,15.0,kinematic,
+AD00798,NAPHTHA (PETROLEUM ETHER),,Solvent,1992,89.3,stated,640.0,15.0,0.39,15.0,kinematic,
+AD00799,NAPHTHA (RUBBER SOLVENT),,Solvent,1992,58.7,stated,743.3,15.0,0.54,25.0,dynamic / density,
+AD00800,NAPHTHA (SOLVENT),,Solvent,1992,,,858.0,20.0,6.73,20.0,kinematic,
+AD00801,NAPHTHA (STODDARD SOLVENT),,Solvent,1996,,,780.0,20.0,7.42,20.0,kinematic,
+AD00802,NAPHTHA (VARNISH MAKERS & PAINTERS),,Solvent,1992,,,750.0,20.0,5.77,15.0,kinematic,
+AD00803,"NAPHTHA CRACKING FRACTION, EXXON",,Refinery Intermediate,1991,35.0,stated,849.1,15.0,1.0,38.0,kinematic,-18.0
+AD00809,NEKTORALIK K-59,"Beaufort Sea, Canada",Crude Oil NOS,1996,24.5,stated,906.0,15.0,14.35,20.0,dynamic / density,3.0
+AD00810,NEKTORALIK K-59A,"Beaufort Sea, Canada",Crude Oil NOS,1996,39.6,stated,826.0,16.0,1.7,20.0,kinematic,-39.0
+AD00811,NERLERK,"Beaufort Sea, Canada",Crude Oil NOS,1992,23.9,stated,910.0,15.0,98.9,20.0,dynamic / density,
+AD00812,NERLERK M-98B,"Beaufort Sea, Canada",Crude Oil NOS,1996,23.7,stated,911.0,16.0,59.6,20.0,dynamic / density,
+AD00813,NERLERK M-98C,"Beaufort Sea, Canada",Crude Oil NOS,1992,25.9,stated,898.0,16.0,14.48,20.0,dynamic / density,
+AD00816,NIGERIAN CONDENSATE ,Nigeria,Condensate,1986,40.9,stated,820.0,15.0,3.0,38.0,kinematic,-40.0
+AD00817,NIGERIAN EXP. B1,Nigeria,Crude Oil NOS,1987,29.1,stated,880.0,20.0,6.25,40.0,kinematic,-12.0
+AD00818,NIGERIAN LGT G,Nigeria,Crude Oil NOS,1987,36.2,stated,843.0,20.0,3.6,40.0,kinematic,-9.0
+AD00819,NIGERIAN LGT M,Nigeria,Crude Oil NOS,1987,33.9,stated,855.0,20.0,3.42,40.0,kinematic,-3.0
+AD00820,NIGERIAN LIGHT,"Bonny, Nigeria",Crude Oil NOS,1987,37.6,stated,836.0,20.0,2.82,40.0,kinematic,9.0
+AD00823,NIGERIAN MEDIUM,Nigeria,Crude Oil NOS,1987,25.4,stated,901.0,20.0,12.0,40.0,kinematic,-30.0
+AD00824,NIKISKI,"Alaska, Cook Inlet, USA",Crude Oil NOS,1993,34.6,stated,851.2,15.0,7.34,18.0,kinematic,-20.0
+AD00825,NINIAN,"North Sea, United Kingdom",Crude Oil NOS,1992,36.1,stated,844.0,15.0,9.12,15.0,kinematic,-3.5
+AD00827,"NINIAN, CITGO","North Sea, United Kingdom",Crude Oil NOS,1992,37.7,stated,835.6,15.0,3.67,38.0,kinematic,7.0
+AD00834,NORTH EAST TEXAS,"Texas, USA",Crude Oil NOS,1992,27.0,stated,892.0,15.0,27.0,38.0,kinematic,
+AD00836,NORTH SLOPE,"Alaska, North Slope, USA",Crude Oil NOS,1992,26.8,stated,894.0,15.0,16.0,38.0,kinematic,-14.5
+AD00837,"NORTH SLOPE, CITGO","Alaska, North Slope, USA",Crude Oil NOS,1992,27.9,stated,886.9,15.0,13.2,38.0,kinematic,-12.0
+AD00838,"NORTH SLOPE, PHILLIPS","Alaska, North Slope, USA",Crude Oil NOS,1992,27.6,stated,888.6,15.0,13.2,38.0,kinematic,-20.0
+AD00839,NOWRUZ,"Bahrgan, Iran",Crude Oil NOS,1982,18.3,stated,943.8,15.0,270.0,38.0,kinematic,-26.0
+AD00846,"OGUENDJO, AMOCO",,Crude Oil NOS,1992,35.6,stated,846.0,15.0,79.7,13.0,kinematic,-5.0
+AD00849,"OLMECA, CITGO",,Crude Oil NOS,1992,39.3,stated,827.7,15.0,2.93,40.0,kinematic,-29.0
+AD00852,OMAN,Oman,Crude Oil NOS,1987,34.4,stated,852.0,20.0,7.89,40.0,kinematic,-33.0
+AD00853,"OMAN, PHILLIPS",Oman,Crude Oil NOS,1992,34.7,stated,850.6,15.0,8.95,38.0,kinematic,-45.0
+AD00855,OQUENDJO,Gabon,Crude Oil NOS,1986,35.7,stated,845.6,15.0,7.0,38.0,kinematic,-15.0
+AD00858,"ORIENTE, CITGO",Ecuador,Crude Oil NOS,1992,28.8,stated,882.0,15.0,18.7,38.0,kinematic,-9.0
+AD00859,Oseberg,"North Sea, Norway",Crude Oil NOS,1996,34.4,stated,852.2,15.0,,,,-9.0
+AD00860,"OSEBERG, EXXON",Norway,Crude Oil NOS,1991,33.7,stated,855.8,15.0,5.6,38.0,kinematic,-15.0
+AD00861,"OSEBERG, PHILLIPS",Norway,Crude Oil NOS,1992,35.5,stated,846.6,15.0,4.72,38.0,kinematic,-7.0
+AD00864,PALANCA,Angola,Crude Oil NOS,1986,40.0,stated,824.4,15.0,20.0,38.0,kinematic,10.0
+AD00868,PANUCO,"Tampico, Mexico",Crude Oil NOS,1982,12.8,stated,979.7,15.0,4700.0,38.0,kinematic,2.0
+AD00869,Panuke,"Nova Scotia, Canada",Crude Oil NOS,1996,50.8,stated,775.7,15.0,1.0,16.0,kinematic,-36.0
+AD00875,PARENTIS,North Sea,Crude Oil NOS,1992,32.5,stated,862.0,15.0,9.9,20.0,kinematic,
+AD00880,"PECAN ISLAND, AMOCO",,Crude Oil NOS,1992,47.9,stated,788.0,12.0,6.6,12.0,kinematic,-16.0
+AD00882,PEMBINA,"Alberta, Canada",Crude Oil NOS,1992,32.7,stated,861.0,15.0,5.2,38.0,kinematic,
+AD00884,Penetrating Oil,Unknown,Refined Product NOS,1991,,,910.0,10.0,,,,
+AD00893,PILON,"Carpito, Venezuela",Crude Oil NOS,1986,13.5,stated,975.0,15.0,1900.0,38.0,kinematic,-12.0
+AD00894,"PILON, CITGO",Venezuela,Crude Oil NOS,1992,12.8,stated,979.7,15.0,2260.0,38.0,kinematic,10.0
+AD00896,"PILON-ANACO WAX, CITGO",,Crude Oil NOS,1992,30.2,stated,874.3,15.0,8.21,38.0,kinematic,-4.0
+AD00897,PIPER,"North Sea, United Kingdom",Crude Oil NOS,1992,35.0,stated,850.0,15.0,3.55,50.0,kinematic,-9.0
+AD00899,"PL COMPOSITE, STAR ENTERPRISE",,Crude Oil NOS,1992,37.9,stated,834.6,15.0,3.41,40.0,kinematic,-37.0
+AD00900,PLATFORM B,Trinidad & Tobago,Crude Oil NOS,1986,28.5,stated,883.6,15.0,4.0,38.0,kinematic,10.0
+AD00913,"PREMIUM UNLEADED GASOLINE, STAR ENTERPRISE",,Distillate Fuel Oil,1992,54.5,stated,760.1,15.0,0.87,40.0,kinematic,
+AD00915,PRIMER ASPHALT,,Refined Product NOS,1992,18.6,stated,942.0,15.0,3481.95,15.0,dynamic / density,-17.0
+AD00924,"QUA IBOE, PHILLIPS",Nigeria,Crude Oil NOS,1992,34.8,stated,850.1,15.0,3.58,38.0,kinematic,13.0
+AD00932,RAGUSA,North Sea,Crude Oil NOS,1992,19.8,stated,934.4,15.0,277.0,38.0,kinematic,
+AD00935,RANGELAND-SOUTH LIGHT AND MEDIUM,"Alberta, Canada",Crude Oil NOS,1996,39.5,stated,827.0,15.0,3.0,40.0,kinematic,-40.0
+AD00937,RAS LANUF,"Ras Lanuf, Libya",Crude Oil NOS,1982,36.9,stated,839.5,15.0,4.0,38.0,kinematic,7.0
+AD00938,RATNA,India,Crude Oil NOS,1993,31.2,stated,868.9,15.0,12.8,50.0,kinematic,33.0
+AD00940,REDWATER,"Alberta, Canada",Crude Oil NOS,1992,34.7,stated,850.6,15.0,6.2,38.0,kinematic,
+AD00944,"RESIDUAL FUEL 900, TESORO","Alaska, Kenai, USA",Residual Fuel Oil,1993,13.5,stated,975.0,15.0,880.0,50.0,kinematic,
+AD00949,RIO ZULIA,"Santa Marta, Colombia",Crude Oil NOS,1982,40.8,stated,820.5,15.0,4.0,38.0,kinematic,27.0
+AD00950,ROAD OIL,,Refined Product NOS,1996,,,1100.0,25.0,84.55,100.0,dynamic / density,
+AD00964,SAN JOACHIM,"Puerto La Cruz, Venezuela",Crude Oil NOS,1982,41.5,stated,817.2,15.0,2.0,38.0,kinematic,24.0
+AD00971,SANTA CRUZ,Argentina,Crude Oil NOS,1986,28.5,stated,883.6,15.0,3.0,38.0,kinematic,30.0
+AD00973,SANTA MARIA,,Crude Oil NOS,1987,22.5,stated,918.0,20.0,43.0,40.0,kinematic,-35.0
+AD00977,SANTA ROSA CONDENSATE,Venezuela,Condensate,1986,50.5,stated,776.8,15.0,2.0,38.0,kinematic,-40.0
+AD00980,"SARIR, ITOPF","Marra El Alariga, Libya",Crude Oil NOS,1982,36.5,stated,841.5,15.0,10.0,38.0,kinematic,21.0
+AD00983,SCHOONEBEEK,,Crude Oil NOS,1987,25.1,stated,903.0,20.0,87.0,40.0,kinematic,24.0
+AD00995,SHARJAH,"Sharjah, United Arab Emirates",Crude Oil NOS,1986,22.0,stated,921.0,15.0,30.0,38.0,kinematic,-23.0
+AD00996,"SHARJAH CONDENSATE, API","Sharjah, United Arab Emirates",Condensate,1986,50.9,stated,775.1,15.0,2.0,38.0,kinematic,-45.0
+AD00999,"SHIP SHOAL 133, PHILLIPS",,Crude Oil NOS,1992,52.8,stated,767.1,15.0,0.88,38.0,kinematic,38.0
+AD01006,SIRTICA,,Crude Oil NOS,1987,42.0,stated,815.0,20.0,3.43,40.0,kinematic,-4.0
+AD01008,"SMI 147, PHILLIPS",,Crude Oil NOS,1992,49.4,stated,781.5,15.0,1.29,38.0,kinematic,-59.0
+AD01009,"SMI 66, PHILLIPS",,Crude Oil NOS,1992,39.6,stated,826.3,15.0,3.15,38.0,kinematic,-7.0
+AD01012,"SNO 200, STAR ENTERPRISE",,Refined Product NOS,1992,30.3,stated,873.8,15.0,38.8,40.0,kinematic,-18.0
+AD01022,SOUR BLEND,,Crude Oil NOS,1996,34.8,stated,850.0,15.0,7.85,20.0,kinematic,-22.0
+AD01025,SOUTH LOUISIANA,"Louisiana, USA",Crude Oil NOS,1996,37.0,stated,839.0,16.0,4.3,38.0,kinematic,-9.0
+AD01030,SOUTH WEST TEXAS LIGHT,"Texas, USA",Crude Oil NOS,1992,41.0,stated,819.6,15.0,1.4,38.0,kinematic,
+AD01031,SOYO,,Crude Oil NOS,1987,33.1,stated,859.0,20.0,11.2,40.0,kinematic,15.0
+AD01033,SPINDLE OIL,,Lube Oil,1996,29.1,stated,880.0,15.0,29.55,38.0,dynamic / density,
+AD01046,SUEZ MIX,Egypt,Crude Oil NOS,1986,32.0,stated,864.7,15.0,10.0,38.0,kinematic,5.0
+AD01050,"SUNNILAND, EXXON","Florida, USA",Crude Oil NOS,1991,24.9,stated,903.9,15.0,19.0,38.0,kinematic,-26.0
+AD01054,SWEET BLEND,"Alberta, Canada",Crude Oil NOS,1992,37.2,stated,838.0,15.0,6.39,15.0,kinematic,-33.0
+AD01058,TACHING,China,Crude Oil NOS,1996,31.0,stated,870.0,15.0,29.0,38.0,kinematic,38.0
+AD01059,TACHING,"Darien, China",Crude Oil NOS,1986,33.0,stated,859.4,15.0,20.0,38.0,kinematic,35.0
+AD01062,"TAKULA, API",Angola,Crude Oil NOS,1986,32.9,stated,860.0,15.0,20.0,38.0,kinematic,5.0
+AD01063,"TAKULA, CITGO",Angola,Crude Oil NOS,1992,32.9,stated,860.0,15.0,15.7,38.0,kinematic,10.0
+AD01064,"TAKULA, CHEVRON","Takula, Angola",Crude Oil NOS,1991,32.5,stated,862.0,15.0,13.9,38.0,kinematic,10.0
+AD01070,Tarsiut,"Beaufort Sea, Canada",Crude Oil NOS,1996,30.1,stated,875.0,15.0,,,,
+AD01071,TARSIUT A-25,"Beaufort Sea, Canada",Crude Oil NOS,1992,30.8,stated,871.0,21.0,5.74,20.0,dynamic / density,-32.0
+AD01076,Terra Nova,"Newfoundland, Canada",Crude Oil NOS,1996,33.7,stated,856.0,15.0,,,,
+AD01077,TERRA NOVA K-08 DST #1,"Newfoundland & Labrador, Canada",Crude Oil NOS,1992,31.0,stated,870.0,15.0,8.7,50.0,kinematic,27.0
+AD01078,TERRA NOVA K-08 DST #2,"Newfoundland & Labrador, Canada",Crude Oil NOS,1992,32.9,stated,860.0,15.0,16.7,25.0,kinematic,12.0
+AD01079,TERRA NOVA K-08 DST #3,"Newfoundland & Labrador, Canada",Crude Oil NOS,1992,32.6,stated,862.0,15.0,18.7,25.0,kinematic,12.0
+AD01080,TERRA NOVA K-08 DST #4,"Newfoundland & Labrador, Canada",Crude Oil NOS,1992,32.5,stated,862.0,15.0,18.2,25.0,kinematic,12.0
+AD01081,TEXAS GULF COAST HEAVY,"Texas, USA",Crude Oil NOS,1992,27.0,stated,892.0,15.0,11.0,38.0,kinematic,
+AD01082,TEXAS GULF COAST LIGHT,"Texas, USA",Crude Oil NOS,1992,35.0,stated,849.1,15.0,4.5,38.0,kinematic,
+AD01083,"TEXTRACT, STAR ENTERPRISE",,Crude Oil NOS,1992,9.4,stated,1003.4,15.0,1300.0,38.0,kinematic,28.0
+AD01088,TIA JUANA,Venezuela,Crude Oil NOS,1992,26.7,stated,893.7,15.0,26.0,38.0,kinematic,-30.0
+AD01094,"TIA JUANA LIGHT, CITGO",Venezuela,Crude Oil NOS,1992,31.7,stated,866.3,15.0,9.8,38.0,kinematic,-20.0
+AD01096,TIA JUANA MEDIUM,Venezuela,Crude Oil NOS,1986,26.9,stated,892.5,15.0,28.0,38.0,kinematic,-45.0
+AD01097,"TIA JUANA MEDIUM, CITGO",Venezuela,Crude Oil NOS,1992,24.0,stated,909.2,15.0,37.0,38.0,kinematic,-29.0
+AD01098,"TIA JUANA MEDIUM, ARCO",Venezuela,Crude Oil NOS,1992,26.0,stated,897.6,15.0,25.0,38.0,kinematic,
+AD01100,TIA JUANA PESADO,,Crude Oil NOS,1987,11.7,stated,987.0,20.0,3730.0,40.0,kinematic,3.0
+AD01118,TRADING BAY (OFFSHORE COOK INLET),"Alaska, Cook Inlet, USA",Crude Oil NOS,1992,30.8,stated,871.0,16.0,6.6,25.0,kinematic,-15.0
+AD01119,TRANSMOUNTAIN BLEND,,Crude Oil NOS,1996,32.4,stated,855.0,15.0,12.3,15.0,kinematic,2.0
+AD01121,TRINIDAD,Trinidad & Tobago,Crude Oil NOS,1986,30.0,stated,875.4,15.0,5.0,38.0,kinematic,7.0
+AD01133,Ula,"North Sea, Norway",Crude Oil NOS,1991,38.6,stated,832.0,15.0,,,,6.0
+AD01134,UMM SHAIF,Abu Dhabi,Crude Oil NOS,1986,37.4,stated,837.0,15.0,3.0,38.0,kinematic,-30.0
+AD01135,"UMM SHARIF, PHILLIPS",Abu Dhabi,Crude Oil NOS,1992,36.4,stated,842.0,15.0,3.82,38.0,kinematic,-23.0
+AD01137,"UNLEADED INTERM GASOLINE, STAR ENTERPRISE",,Distillate Fuel Oil,1992,57.5,stated,748.0,15.0,0.75,40.0,kinematic,
+AD01139,"UPPER ZAKUM, PHILLIPS",United Arab Emirates,Crude Oil NOS,1992,34.0,stated,854.2,15.0,5.61,38.0,kinematic,-45.0
+AD01140,URAL,Russia,Crude Oil NOS,1987,32.5,stated,862.0,20.0,6.83,40.0,kinematic,
+AD01141,Uviluk,"Beaufort Sea, Canada",Crude Oil NOS,1996,29.4,stated,878.7,15.0,,,,-12.0
+AD01147,VENEZUELA MIX,Venezuela,Crude Oil NOS,1986,22.5,stated,918.0,15.0,50.0,38.0,kinematic,-32.0
+AD01155,WAFRA EOCENE,"Neutral Zone, Mina Saud",Crude Oil NOS,1982,23.3,stated,913.3,15.0,271.0,38.0,kinematic,-29.0
+AD01162,"WC BLOCK 45 BEACH-CONDENSATE, PHILLIPS",,Condensate,1992,37.9,stated,834.6,15.0,3.72,38.0,kinematic,13.0
+AD01171,WEST GENERAL TEXAS,"Texas, USA",Crude Oil NOS,1992,40.0,stated,824.4,15.0,1.4,38.0,kinematic,
+AD01172,WEST NEDERLAND,,Crude Oil NOS,1987,20.5,stated,930.0,20.0,98.9,40.0,kinematic,-27.0
+AD01175,WEST TEXAS ELLENBURGER,"Texas, USA",Crude Oil NOS,1992,47.6,stated,789.4,15.0,1.8,38.0,kinematic,-32.0
+AD01177,WEST TEXAS LIGHT,"Texas, USA",Crude Oil NOS,1992,42.0,stated,814.9,15.0,3.3,38.0,kinematic,
+AD01180,WEYBURN-MIDALE,"Saskatchewan, Canada",Crude Oil NOS,1996,27.4,stated,890.0,25.0,20.22,20.0,dynamic / density,-28.0
+AD01184,"YANBU ARABIAN LIGHT, ARAMCO",Saudi Arabia,Crude Oil NOS,1992,34.5,stated,851.7,15.0,10.0,21.0,kinematic,
+AD01186,"YOMBO, AMOCO",,Crude Oil NOS,1992,18.9,stated,940.0,26.0,1870.0,33.0,kinematic,-5.0
+AD01189,Zaire,Zaire,Crude Oil NOS,1983,31.7,stated,866.6,15.0,,,,27.0
+AD01191,"ZAIRE, CHEVRON","Muanda Terminal, Zaire",Crude Oil NOS,1991,31.2,stated,868.9,15.0,19.4,38.0,kinematic,21.0
+AD01193,ZAKUA,Abu Dhabi,Crude Oil NOS,1986,40.6,stated,821.5,15.0,3.0,38.0,kinematic,-21.0
+AD01194,ZAKUM,,Crude Oil NOS,1987,39.2,stated,828.0,20.0,3.19,40.0,kinematic,-38.0
+AD01200,ZETA NORTH,"Puerto La Cruz, Venezuela",Crude Oil NOS,1982,35.0,stated,849.1,15.0,3.0,38.0,kinematic,21.0
+AD01215,"MARINE DIESEL F-76, MANCHESTER FUEL","Washington, Manchester, USA",Distillate Fuel Oil,1994,31.6,stated,866.8,15.0,4.2,40.0,kinematic,-12.0
+AD01217,KERN COUNTY BLEND,"California, Kern County, USA",Crude Oil NOS,1994,27.0,stated,892.0,15.0,35.0,21.0,kinematic,-4.0
+AD01219,VENEZUELA RECON,Venezuela,Crude Oil NOS,1994,34.9,stated,849.6,15.0,4.38,38.0,kinematic,-15.0
+AD01220,DAQIN,China,Crude Oil NOS,1994,32.7,stated,861.0,15.0,26.0,50.0,kinematic,
+AD01221,SHIAN LI,China,Crude Oil NOS,1994,22.3,stated,919.2,15.0,121.0,50.0,kinematic,
+AD01222,HUIZHOU,China,Crude Oil NOS,1994,24.9,stated,903.9,15.0,6.1,50.0,kinematic,
+AD01223,West Texas Intermediate,"Texas, USA",Crude Oil NOS,1994,40.8,stated,820.8,15.0,5.0,16.0,kinematic,-29.0
+AD01225,"MAIN PASS 140, PENNZOIL","Louisiana, USA",Crude Oil NOS,1994,36.0,stated,844.0,15.0,3.53,38.0,kinematic,
+AD01232,"JABIRU, BHP PETROLEUM",,Crude Oil NOS,1995,42.3,stated,813.0,15.0,3.69,20.0,kinematic,18.0
+AD01233,"JABIRU 1A, BHP PETROLEUM",,Crude Oil NOS,1995,42.1,stated,814.4,15.0,359.0,21.0,kinematic,13.0
+AD01235,"KUTUBU LIGHT, BHP PETROLEUM",,Crude Oil NOS,1995,44.0,stated,805.6,15.0,1.94,25.0,kinematic,2.0
+AD01236,"GIPPSLAND, BHP PETROLEUM",,Crude Oil NOS,1995,47.0,stated,792.0,15.0,2.51,20.0,kinematic,7.0
+AD01258,"UDANG, OIL & GAS","Natuna Sea, Indonesia",Crude Oil NOS,1995,38.0,stated,834.1,15.0,8.71,55.0,kinematic,38.0
+AD01262,"DURI, OIL & GAS",Indonesia,Crude Oil NOS,1995,21.1,stated,926.5,15.0,132.0,50.0,kinematic,
+AD01264,"SOVIET EXPORT, OIL & GAS",Russia,Crude Oil NOS,1995,32.5,stated,862.0,15.0,11.5,20.0,kinematic,-23.0
+AD01266,"DIA HUNG, OIL & GAS",Vietnam,Crude Oil NOS,1995,36.9,stated,839.5,15.0,3.61,40.0,kinematic,27.0
+AD01269,"BARROW ISLAND, OIL & GAS",Australia,Crude Oil NOS,1995,36.8,stated,840.0,15.0,3.4,10.0,kinematic,-30.0
+AD01301,"BELAYIM, OIL & GAS",Egypt,Crude Oil NOS,1995,27.5,stated,889.2,15.0,51.3,20.0,kinematic,6.0
+AD01326,"SHARJAH, OIL & GAS",United Arab Emirates,Crude Oil NOS,1995,49.7,stated,780.2,15.0,1.44,20.0,kinematic,-32.0
+AD01345,"LLOYDMINSTER, OIL & GAS","Alberta, Canada",Crude Oil NOS,1995,20.7,stated,928.9,15.0,101.0,40.0,kinematic,-32.0
+AD01357,"STATJORD, OIL & GAS",North Sea,Crude Oil NOS,1995,37.8,stated,835.1,15.0,6.09,20.0,kinematic,-3.0
+AD01369,"FLOTTA, OIL & GAS",North Sea,Crude Oil NOS,1995,34.7,stated,850.0,15.0,12.2,20.0,kinematic,-21.0
+AD01378,"FORTIES, OIL & GAS",North Sea,Crude Oil NOS,1995,38.8,stated,830.2,15.0,3.04,40.0,kinematic,-12.0
+AD01392,"ESCRAVOS, OIL & GAS",Nigeria,Crude Oil NOS,1995,36.2,stated,843.0,15.0,3.48,38.0,kinematic,-12.0
+AD01401,"BELIDA, OIL & GAS",Indonesia,Crude Oil NOS,1995,45.1,stated,800.5,15.0,8.1,21.0,kinematic,16.0
+AD01411,"RABBI, COASTAL EAGLE POINT OIL",,Crude Oil NOS,1995,33.4,stated,857.4,15.0,71.2,38.0,kinematic,13.0
+AD01412,"SOLVENT NEUTRAL OIL 320, STAR ENTERPRISE","Texas, Houston, USA",Solvent,1996,28.8,stated,882.0,16.0,62.5,40.0,kinematic,-12.0
+AD01413,"ROSSIIELF, RUSSIAN JOINT STOCK CO",Barents Sea,Crude Oil NOS,1996,23.4,stated,913.0,15.0,19.6,40.0,kinematic,
+AD01419,"KUTUBU, AMSA",Papua New Guinea,Crude Oil NOS,1996,44.0,stated,805.6,15.0,2.1,20.0,kinematic,3.0
+AD01420,"GRIFFIN, AMSA","North West, Australia",Crude Oil NOS,1996,55.0,stated,758.0,15.0,1.24,20.0,kinematic,-48.0
+AD01421,"NSW CONDENSATE, AMSA","North West, Australia",Condensate,1996,54.3,stated,760.9,15.0,0.95,20.0,kinematic,-45.0
+AD01423,"NAPHTHA N+A, MAPCO","Alaska, USA",Refinery Intermediate,1996,63.3,stated,726.0,16.0,0.71,16.0,kinematic,-62.0
+AD01424,"KABINDA, GALLAGER MARINE",Angola,Crude Oil NOS,2017,32.9,stated,860.0,15.0,39.0,20.0,kinematic,6.0
+AD01425,"NEMBA, GALLAGER MARINE",Angola,Crude Oil NOS,2017,38.5,stated,831.6,15.0,3.56,40.0,kinematic,
+AD01427,"FUEL OIL NO.2, AMOCO","Wisconsin, Green Bay, USA",Distillate Fuel Oil,1996,32.4,stated,862.6,15.0,2.7,38.0,kinematic,
+AD01428,"TEAK AND SAMAAN, AMOCO",Trinidad & Tobago,Crude Oil NOS,1996,30.6,stated,873.0,16.0,14.2,16.0,kinematic,-9.0
+AD01429,"GALEOTA MIX, AMOCO",Trinidad & Tobago,Crude Oil NOS,1996,31.1,stated,869.0,16.0,9.1,16.0,kinematic,
+AD01430,"POUI, AMOCO",Trinidad & Tobago,Crude Oil NOS,1996,32.3,stated,863.0,16.0,8.9,16.0,kinematic,-9.0
+AD01432,"QATAR/DUKHAM, CHEVRON",Qatar,Crude Oil NOS,1996,40.3,stated,823.0,16.0,295.0,40.0,kinematic,-12.0
+AD01433,"ALGERIAN CONDENSATE, SHELL OIL",Algeria,Condensate,1996,64.9,stated,719.8,15.0,1.7,38.0,kinematic,-48.0
+AD01434,"ARABIAN MEDIUM, SHELL OIL",Saudi Arabia,Crude Oil NOS,1996,30.4,stated,873.2,15.0,21.7,16.0,kinematic,-32.0
+AD01435,"ARUN CONDENSATE, SHELL OIL",Indonesia,Condensate,1996,54.6,stated,759.7,15.0,1.7,38.0,kinematic,-43.0
+AD01436,"BACHAQUERO, SHELL OIL",Venezuela,Crude Oil NOS,1996,12.2,stated,983.8,15.0,9010.0,27.0,kinematic,-12.0
+AD01437,"BADAK, SHELL OIL",Indonesia,Crude Oil NOS,1996,47.6,stated,789.4,15.0,1.7,38.0,kinematic,-26.0
+AD01438,"BETA PRODUCTION, SHELL OIL",USA,Crude Oil NOS,1996,15.1,stated,964.4,15.0,2000.0,27.0,kinematic,-9.0
+AD01439,"BONITO P/L SOUR, SHELL OIL",USA,Crude Oil NOS,1996,34.8,stated,850.1,15.0,7.24,27.0,kinematic,-36.0
+AD01440,"BONNY LIGHT, SHELL OIL",Nigeria,Crude Oil NOS,1996,34.6,stated,851.2,15.0,12.0,16.0,kinematic,9.0
+AD01441,"BRASS RIVER, SHELL OIL",Nigeria,Crude Oil NOS,1996,42.7,stated,811.6,15.0,9.34,16.0,kinematic,-9.0
+AD01442,"CABINDA BLEND, SHELL OIL",Angola,Crude Oil NOS,1996,32.6,stated,861.5,15.0,30.7,27.0,kinematic,13.0
+AD01443,"COGNAC-BLOCK 194, SHELL OIL",USA,Crude Oil NOS,1996,35.7,stated,845.6,15.0,5.61,27.0,kinematic,-28.0
+AD01444,"DJENO, SHELL OIL",Zaire,Crude Oil NOS,1996,27.2,stated,890.8,15.0,201.0,16.0,kinematic,-12.0
+AD01445,"ERAWAN CONDENSATE, SHELL OIL",Thailand,Condensate,1996,54.5,stated,760.1,15.0,1.7,38.0,kinematic,-40.0
+AD01446,"ESCRAVOS, SHELL OIL",Nigeria,Crude Oil NOS,1996,35.8,stated,845.0,15.0,7.04,16.0,kinematic,10.0
+AD01447,"ETCHEGOIN, SHELL OIL",USA,Crude Oil NOS,1996,10.7,stated,994.2,15.0,30200.0,27.0,kinematic,2.0
+AD01448,"FLOTTA, SHELL OIL",United Kingdom,Crude Oil NOS,1996,34.4,stated,852.2,15.0,9.75,16.0,kinematic,-23.0
+AD01449,"FORCADOS, SHELL OIL",Nigeria,Crude Oil NOS,1996,29.7,stated,877.0,15.0,14.1,16.0,kinematic,-9.0
+AD01450,"FORTIES, SHELL OIL",United Kingdom,Crude Oil NOS,1996,39.4,stated,827.2,15.0,5.49,16.0,kinematic,2.0
+AD01451,"FURRIAL, SHELL OIL",Venezuela,Crude Oil NOS,1996,28.1,stated,885.8,15.0,34.4,16.0,kinematic,-29.0
+AD01452,"GIPPSLAND, SHELL OIL",Australia,Crude Oil NOS,1996,47.3,stated,790.7,15.0,2.14,16.0,kinematic,7.0
+AD01453,"GREEN CANYON, SHELL OIL",USA,Crude Oil NOS,1996,30.1,stated,874.9,15.0,21.6,16.0,kinematic,-43.0
+AD01454,"GULLFAKS, SHELL OIL",Norway,Crude Oil NOS,1996,30.2,stated,874.3,15.0,17.6,16.0,kinematic,-43.0
+AD01455,"HARDING, SHELL OIL",United Kingdom,Crude Oil NOS,1996,19.4,stated,936.9,15.0,567.0,16.0,kinematic,-37.0
+AD01456,"HIGH ISLAND SWEET, SHELL OIL",USA,Crude Oil NOS,1996,38.9,stated,829.7,15.0,7.3,16.0,kinematic,-37.0
+AD01457,"HUNTINGTON BEACH, SHELL OIL",USA,Crude Oil NOS,1996,19.8,stated,934.4,15.0,1080.0,38.0,kinematic,-26.0
+AD01458,"ISTHMUS, SHELL OIL",Mexico,Crude Oil NOS,1996,31.8,stated,865.8,15.0,8.7,27.0,kinematic,-31.0
+AD01460,"JABIRU, SHELL OIL",Australia,Crude Oil NOS,1996,42.1,stated,814.4,15.0,15.8,16.0,kinematic,16.0
+AD01461,"KERN RIVER-SWEPI, SHELL OIL",USA,Crude Oil NOS,1996,13.1,stated,977.7,15.0,2680.0,38.0,kinematic,-7.0
+AD01462,"KIRKUK, SHELL OIL",Iraq,Crude Oil NOS,1996,36.0,stated,844.0,15.0,8.25,16.0,kinematic,
+AD01463,"KOLE, SHELL OIL",Cameroon,Crude Oil NOS,1996,31.6,stated,866.8,15.0,19.2,16.0,kinematic,-15.0
+AD01464,"KUTUBU, SHELL OIL",New Guinea,Crude Oil NOS,1996,43.4,stated,808.3,15.0,2.18,16.0,kinematic,5.0
+AD01465,"LAGOCINCO, SHELL OIL",Venezuela,Crude Oil NOS,1996,34.8,stated,850.1,15.0,10.7,16.0,kinematic,-23.0
+AD01466,"LAGOMAR, SHELL OIL",Venezuela,Crude Oil NOS,1996,30.5,stated,872.7,15.0,18.3,27.0,kinematic,
+AD01467,"LAGOTRECO, SHELL OIL",Venezuela,Crude Oil NOS,1996,31.1,stated,869.5,15.0,18.7,16.0,kinematic,-37.0
+AD01468,"LOKELE, SHELL OIL",Cameroon,Crude Oil NOS,1996,21.6,stated,923.4,15.0,61.4,27.0,kinematic,-43.0
+AD01469,"LLOYDMINSTER, SHELL OIL",Canada,Crude Oil NOS,1996,21.9,stated,921.6,15.0,97.4,27.0,kinematic,-40.0
+AD01470,"ARABIAN LIGHT, SHELL OIL",Saudi Arabia,Crude Oil NOS,1996,31.8,stated,865.8,15.0,10.5,27.0,kinematic,-15.0
+AD01471,"LORETO, SHELL OIL",Peru,Crude Oil NOS,1996,19.2,stated,938.1,15.0,270.0,27.0,kinematic,-7.0
+AD01472,"LUCINA, SHELL OIL",Gabon,Crude Oil NOS,1996,38.4,stated,832.1,15.0,23.7,16.0,kinematic,16.0
+AD01473,"MAIN PASS 49 CONDENSATE, SHELL OIL",USA,Condensate,1996,54.6,stated,759.7,15.0,1.71,38.0,kinematic,-43.0
+AD01474,"MAYA, SHELL OIL",Mexico,Crude Oil NOS,1996,22.5,stated,918.0,15.0,287.0,16.0,kinematic,-29.0
+AD01475,"MANDJI, SHELL OIL",Gabon,Crude Oil NOS,1996,29.7,stated,877.0,15.0,111.0,16.0,kinematic,2.0
+AD01476,"MURBAN, SHELL OIL",Abu Dhabi,Crude Oil NOS,1996,40.5,stated,822.0,15.0,4.82,16.0,kinematic,-7.0
+AD01477,"OLMECA, SHELL OIL",Mexico,Crude Oil NOS,1996,38.8,stated,830.2,15.0,3.69,27.0,kinematic,-36.0
+AD01478,"OMAN, SHELL OIL",Oman,Crude Oil NOS,1996,34.0,stated,854.2,15.0,20.4,16.0,kinematic,-32.0
+AD01479,"ORIENTE, SHELL OIL",Ecuador,Crude Oil NOS,1996,27.2,stated,890.8,15.0,61.1,16.0,kinematic,-9.0
+AD01480,"OSEBERG, SHELL OIL",Norway,Crude Oil NOS,1996,35.3,stated,847.6,15.0,8.84,16.0,kinematic,-7.0
+AD01481,"PALANCA, SHELL OIL",Angola,Crude Oil NOS,1996,39.1,stated,828.7,15.0,6.77,16.0,kinematic,-15.0
+AD01482,"PECAN ISLAND, SHELL OIL",USA,Crude Oil NOS,1996,47.4,stated,790.3,15.0,1.88,16.0,kinematic,-29.0
+AD01483,"QUA IBOE, SHELL OIL",Nigeria,Crude Oil NOS,1996,36.2,stated,843.0,15.0,3.82,16.0,kinematic,-9.0
+AD01484,"RABI BLEND, SHELL OIL",Gabon,Crude Oil NOS,1996,32.5,stated,862.0,15.0,82.0,27.0,kinematic,13.0
+AD01485,"RABI-KOUNGA, SHELL OIL",Gabon,Crude Oil NOS,1996,33.7,stated,855.8,15.0,228.0,16.0,kinematic,13.0
+AD01486,"SAHARAN BLEND BEJAIA, SHELL OIL",Algeria,Crude Oil NOS,1996,46.7,stated,793.4,15.0,2.84,16.0,kinematic,-40.0
+AD01487,"SAHARAN BLEND ARZEW, SHELL OIL",Algeria,Crude Oil NOS,1996,41.9,stated,815.3,15.0,5.17,16.0,kinematic,-23.0
+AD01488,"SKUA, SHELL OIL",Australia,Crude Oil NOS,1996,43.1,stated,809.7,15.0,2.59,16.0,kinematic,10.0
+AD01489,"SOYO, SHELL OIL",Angola,Crude Oil NOS,1996,37.3,stated,837.5,15.0,25.5,16.0,kinematic,13.0
+AD01490,"TIA JUANA LIGHT, SHELL OIL",Venezuela,Crude Oil NOS,1996,31.1,stated,869.5,15.0,20.1,16.0,kinematic,
+AD01491,"TIERRA DEL FUEGO, SHELL OIL",Argentina,Crude Oil NOS,1996,44.5,stated,803.3,15.0,4.03,16.0,kinematic,-7.0
+AD01492,"VENTURA SHELL TAYLOR LEASE, SHELL OIL",USA,Crude Oil NOS,1996,29.0,stated,880.9,15.0,28.5,16.0,kinematic,-9.0
+AD01493,"VIOSCA KNOLL 826, SHELL OIL",USA,Crude Oil NOS,1996,33.3,stated,857.9,15.0,12.5,16.0,kinematic,-9.0
+AD01494,"WEST DELTA BLOCK 89, SHELL OIL",USA,Crude Oil NOS,1996,36.1,stated,843.5,15.0,8.11,16.0,kinematic,-20.0
+AD01495,"WEST LAKE VERRET, SHELL OIL",USA,Crude Oil NOS,1996,31.9,stated,865.2,15.0,17.1,16.0,kinematic,-15.0
+AD01496,"XIJIANG, SHELL OIL",China,Crude Oil NOS,1996,37.9,stated,834.6,15.0,12.0,38.0,kinematic,-15.0
+AD01497,"YORBA LINDA SHELL, SHELL OIL",USA,Crude Oil NOS,1996,12.3,stated,983.1,15.0,4720.0,38.0,kinematic,2.0
+AD01498,"YOWLUMNE, SHELL OIL",USA,Crude Oil NOS,1996,31.0,stated,870.0,15.0,17.5,16.0,kinematic,-23.0
+AD01499,"ZAIRE, SHELL OIL",Zaire,Crude Oil NOS,1996,30.6,stated,872.2,15.0,36.0,27.0,kinematic,24.0
+AD01500,"JET A-1,  MARITIME SAFETY AUTHORITY OF NEW ZEALAND",New Zealand,Distillate Fuel Oil,1996,45.2,stated,800.0,15.0,3.52,20.0,kinematic,
+AD01501,"DUAL PURPOSE KEROSINE,  MARITIME SAFETY AUTHORITY OF NEW ZEALAND",New Zealand,Distillate Fuel Oil,1996,44.8,stated,802.0,15.0,3.99,20.0,kinematic,
+AD01506,"MAUI CONDENSATE, MARITIME SAFETY AUTHORITY OF NEW ZEALAND","New Plymouth, New Zealand",Condensate,1996,61.1,stated,734.0,20.0,0.65,38.0,kinematic,
+AD01507,"MCKEE BLEND, MARITIME SAFETY AUTHORITY OF NEW ZEALAND","New Plymouth, New Zealand",Crude Oil NOS,1996,51.5,stated,772.5,15.0,2.3,50.0,kinematic,
+AD01508,"MAUI F SAND, MARITIME SAFETY AUTHORITY OF NEW ZEALAND","Taranaki, New Zealand",Crude Oil NOS,1996,44.3,stated,804.2,15.0,2.59,30.0,kinematic,24.0
+AD01510,"MCKEE BLEND 50%, MARITIME SAFETY AUTHORITY OF NEW ZEALAND","New Plymouth, New Zealand",Crude Oil NOS,1996,41.6,stated,817.0,15.0,2.31,50.0,kinematic,
+AD01511,"MCKEE BLEND 25%, MARITIME SAFETY AUTHORITY OF NEW ZEALAND","New Plymouth, New Zealand",Crude Oil NOS,1996,37.5,stated,837.0,15.0,3.19,50.0,kinematic,
+AD01512,"MCKEE BLEND 10% NGAT-1, MARITIME SAFETY AUTHORITY OF NEW ZEALAND","New Plymouth, New Zealand",Crude Oil NOS,1996,37.2,stated,838.0,15.0,1.84,50.0,kinematic,
+AD01513,"MCKEE BLEND 10% NGAT-2, MARITIME SAFETY AUTHORITY OF NEW ZEALAND","New Plymouth, New Zealand",Crude Oil NOS,1996,30.8,stated,871.0,15.0,4.65,50.0,kinematic,
+AD01514,"MCKEE BLEND 10% NGAT-3, MARITIME SAFETY AUTHORITY OF NEW ZEALAND","New Plymouth, New Zealand",Crude Oil NOS,1996,47.0,stated,792.0,15.0,0.87,50.0,kinematic,
+AD01515,"HANDIL, MARITIME SAFETY AUTHORITY OF NEW ZEALAND",Indonesia,Crude Oil NOS,1996,37.3,stated,838.0,15.0,2.36,40.0,kinematic,16.0
+AD01516,"ARUN, MARITIME SAFETY AUTHORITY OF NEW ZEALAND",Indonesia,Condensate,1996,55.2,stated,757.0,15.0,0.7,40.0,kinematic,-54.0
+AD01517,"BARROW ISLAND, MARITIME SAFETY AUTHORITY OF NEW ZEALAND",Australia,Crude Oil NOS,1996,37.6,stated,836.0,16.0,1.9,40.0,kinematic,-54.0
+AD01518,"NORTHWEST SHELF, MARITIME SAFETY AUTHORITY OF NEW ZEALAND",Australia,Condensate,1996,54.0,stated,762.0,15.0,0.8,40.0,kinematic,-45.0
+AD01519,"BRASS RIVER, MARITIME SAFETY AUTHORITY OF NEW ZEALAND",Nigeria,Crude Oil NOS,1996,45.0,stated,801.0,15.0,2.3,40.0,kinematic,13.0
+AD01520,"DUBAI, MARITIME SAFETY AUTHORITY OF NEW ZEALAND",Dubai,Crude Oil NOS,1996,36.8,stated,840.0,15.0,6.0,40.0,kinematic,-29.0
+AD01521,"MURBAN, MARITIME SAFETY AUTHORITY OF NEW ZEALAND",United Arab Emirates,Crude Oil NOS,1996,39.2,stated,828.0,15.0,3.2,40.0,kinematic,-9.0
+AD01522,"MAUI B, MARITIME SAFETY AUTHORITY OF NEW ZEALAND","Taranaki, New Zealand",Crude Oil NOS,1996,59.0,stated,742.0,15.0,0.7,40.0,kinematic,-52.0
+AD01524,"KUTUBU, MARITIME SAFETY AUTHORITY OF NEW ZEALAND",Papua New Guinea,Crude Oil NOS,1996,44.1,stated,805.0,15.0,1.5,40.0,kinematic,-15.0
+AD01525,"GRIFFIN, MARITIME SAFETY AUTHORITY OF NEW ZEALAND",Australia,Crude Oil NOS,1996,54.8,stated,759.0,15.0,1.0,40.0,kinematic,-54.0
+AD01528,"MIRI LIGHT, MARITIME SAFETY AUTHORITY OF NEW ZEALAND",Malaysia,Crude Oil NOS,1996,30.6,stated,873.0,15.0,2.4,40.0,kinematic,-1.0
+AD01529,"SYNGAS, MARITIME SAFETY AUTHORITY OF NEW ZEALAND","New Plymouth, New Zealand",Crude Oil NOS,1996,61.0,stated,734.4,15.0,1.0,40.0,kinematic,
+AD01530,"LABUAN, MARITIME SAFETY AUTHORITY OF NEW ZEALAND",Malaysia,Crude Oil NOS,1996,31.9,stated,866.0,15.0,2.97,40.0,kinematic,15.0
+AD01533,"OMAN,  MARITIME SAFETY AUTHORITY OF NEW ZEALAND",Oman,Crude Oil NOS,1996,34.6,stated,852.0,15.0,10.9,40.0,kinematic,-35.0
+AD01535,"THEVENARD,  MARITIME SAFETY AUTHORITY OF NEW ZEALAND",Australia,Crude Oil NOS,1996,35.5,stated,847.0,16.0,3.17,40.0,kinematic,-45.0
+AD01536,"WIDURI,  MARITIME SAFETY AUTHORITY OF NEW ZEALAND",Indonesia,Crude Oil NOS,1996,33.2,stated,859.0,15.0,157.0,40.0,kinematic,40.0
+AD01537,"KHAFJI,  MARITIME SAFETY AUTHORITY OF NEW ZEALAND",Saudi Arabia,Crude Oil NOS,1996,28.5,stated,884.0,16.0,15.2,40.0,kinematic,-35.0
+AD01552,"FORCADOS, BP","Ohio, Toledo, USA",Crude Oil NOS,1996,28.4,stated,884.2,15.0,7.7,38.0,kinematic,-6.0
+AD01553,"WEST TEXAS SOUR, BP","Ohio, Toledo, USA",Crude Oil NOS,1996,32.7,stated,861.0,15.0,6.14,38.0,kinematic,-12.0
+AD01554,"LIGHT LOUISIANNA SWEET, BP","Ohio, Toledo, USA",Crude Oil NOS,1996,35.6,stated,846.1,15.0,5.3,38.0,kinematic,-18.0
+AD01556,"RINCON DE LOS SAUCES, OIL & GAS",Argentina,Crude Oil NOS,1995,36.1,stated,844.0,16.0,16.2,16.0,kinematic,-4.0
+AD01557,"MEDANITO, OIL & GAS",Argentina,Crude Oil NOS,1995,34.8,stated,850.0,16.0,16.2,16.0,kinematic,-1.0
+AD01561,"ESCRAVOS SWAMP BLEND, CHEVRON",Nigeria,Crude Oil NOS,1996,38.0,stated,834.1,15.0,10.73,30.0,dynamic / density,21.0
+AD01562,"BENIN RIVER, CHEVRON",Nigeria,Crude Oil NOS,1996,39.3,stated,827.7,15.0,114.89,30.0,dynamic / density,32.0
+AD01567,"NORTHWEST CHARGE STOCK, CHEVRON","Washington, Richmond Beach Asphalt Plant, USA",Refinery Intermediate,1997,11.3,stated,991.0,16.0,2000.0,50.0,kinematic,
+AD01577,"ARABIAN EXTRA LIGHT, BOUCHARD",Saudi Arabia,Crude Oil NOS,1997,36.4,stated,842.0,16.0,3.83,40.0,kinematic,-42.0
+AD01579,"BRENT, SUN","Pennsylvania, Philadelphia, USA",Crude Oil NOS,1997,38.2,stated,833.0,15.0,6.02,20.0,kinematic,-42.0
+AD01581,"MONTEREY, TORCH","California, USA",Crude Oil NOS,1997,17.1,stated,952.0,16.0,200.0,38.0,kinematic,
+AD01585,"ODUDU, EXXON",Nigeria,Crude Oil NOS,1997,26.8,stated,893.1,15.0,18.1,10.0,kinematic,
+AD01612,Belida,Indonesia,Crude Oil NOS,1994,45.1,stated,800.9,15.0,8.0,21.0,kinematic,16.0
+AD01614,BINTULU,Malaysia,Crude Oil NOS,1996,26.5,stated,895.0,15.0,5.0,56.0,kinematic,-5.0
+AD01627,CANO LIMON,Colombia,Crude Oil NOS,1996,30.8,stated,871.1,15.0,13.0,38.0,kinematic,16.0
+AD01634,Cusiana,Colombia,Crude Oil NOS,1995,36.4,stated,,,7.0,20.0,kinematic,0.0
+AD01652,FCC FEED,,Refinery Intermediate,1996,25.3,stated,902.0,15.0,10365.85,15.0,dynamic / density,29.0
+AD01654,FCC MEDIUM CYCLE OIL,,Refinery Intermediate,1996,12.3,stated,984.0,15.0,31.5,15.0,dynamic / density,-6.0
+AD01660,FUEL OIL NO.5,,Residual Fuel Oil,1996,19.7,stated,935.0,16.0,7.0,100.0,kinematic,-18.0
+AD01676,IFO 180,,Residual Fuel Oil,1996,14.7,stated,967.0,15.0,2399.17,15.0,dynamic / density,-10.0
+AD01690,Low Sulphur Waxy Gas Oil,Unknown,Refinery Intermediate,1996,43.5,stated,807.0,15.0,,,,
+AD01705,ORIENTE,Ecuador,Crude Oil NOS,1996,29.2,stated,880.0,15.0,13.0,40.0,kinematic,-4.0
+AD01706,ORIMULSION,Venezuela,Other,1996,8.5,stated,1010.0,15.0,616.83,15.0,dynamic / density,2.0
+AD01707,PENNINGTON,Nigeria,Crude Oil NOS,1996,36.6,stated,841.0,15.0,3.0,40.0,kinematic,6.0
+AD01708,Petroleum Ether,Ligroin,Solvent,1996,89.5,stated,640.4,15.0,,,,
+AD01712,Propylene Tetramer,Unknown,Solvent,1996,51.1,stated,774.6,15.0,,,,-60.0
+AD01726,SARIR,Libya,Crude Oil NOS,1996,38.3,stated,832.6,15.0,5.0,10.0,kinematic,-4.0
+AD01732,SIBERIAN BLEND,Russia,Crude Oil NOS,1996,37.6,stated,836.0,15.0,7.0,20.0,kinematic,
+AD01739,SOUTH PASS BLOCK 67,Gulf of America,Crude Oil NOS,1996,16.4,stated,956.0,15.0,40.79,15.0,dynamic / density,-9.0
+AD01757,NATURAL GASOLINE,Gulf of America,Condensate,1997,80.5,stated,666.9,15.0,0.75,16.0,kinematic,
+AD01758,Newfoundland Offshore Burn Experiment - Sample #1,"Alberta, Canada",Crude Oil NOS,1996,37.2,stated,838.4,15.0,,,,-21.0
+AD01765,"FUEL OIL NO.1 (JET B, ALASKA)","Alaska, USA",Distillate Fuel Oil,2017,42.9,stated,811.0,15.0,2.47,0.0,dynamic / density,-54.0
+AD01774,"DIESEL/HEATING OIL NO.2, CHEVRON","Mississippi, Pascagoula, USA",Distillate Fuel Oil,1998,33.5,stated,856.8,15.0,3.2,5.0,kinematic,-15.0
+AD01775,"DESTIN DOME CIS, MMS",,Solvent,1998,31.5,stated,867.3,15.0,3.16,40.0,kinematic,-15.0
+AD01776,"MOTOR GASOLINE-PREMIUM UNLEADED, SHELL REFINING PTY ",Australia,Distillate Fuel Oil,1998,58.8,stated,743.0,15.0,0.8,15.0,kinematic,
+AD01777,"MOTOR GASOLINE-UNLEADED, SHELL REFINING PTY ",Australia,Distillate Fuel Oil,1998,64.0,stated,723.0,15.0,0.8,15.0,kinematic,
+AD01778,"MOTOR GASOLINE-LEADED, SHELL REFINING PTY ",Australia,Distillate Fuel Oil,1998,61.6,stated,732.0,15.0,0.8,15.0,kinematic,
+AD01779,"AUTOMOTIVE DIESEL FUEL, SHELL REFINING PTY ",Australia,Distillate Fuel Oil,1998,34.8,stated,850.0,15.0,2.8,40.0,kinematic,
+AD01786,"AVIATION TURBINE FUEL, SHELL REFINING PTY ",Australia,Distillate Fuel Oil,1998,47.0,stated,792.0,15.0,2.96,-20.0,kinematic,-40.0
+AD01799,"MINERAL TURPS, SHELL REFINING PTY ",Australia,Refined Product NOS,1998,42.6,stated,812.0,15.0,1.06,15.0,kinematic,
+AD01800,"WHITE SPIRIT, SHELL REFINING PTY ",Australia,Solvent,1998,49.1,stated,783.0,15.0,1.13,15.0,kinematic,
+AD01804,"NKOSSA, SHELL REFINING PTY ",Congo,Crude Oil NOS,1998,39.1,stated,828.7,15.0,2.3,40.0,kinematic,6.0
+AD01805,"MURBAN, SHELL REFINING PTY ",Abu Dhabi,Crude Oil NOS,1998,39.7,stated,825.8,15.0,4.26,20.0,kinematic,-9.0
+AD01806,"OMAN, SHELL REFINING PTY ",Oman,Crude Oil NOS,1998,33.7,stated,855.8,15.0,33.7,10.0,kinematic,-27.0
+AD01809,"GIPPSLAND, SHELL REFINING PTY ",Australia,Crude Oil NOS,1998,46.2,stated,795.6,15.0,2.75,40.0,kinematic,15.0
+AD01810,"NWS CONDENSATE, SHELL REFINING PTY ",Australia,Condensate,1998,59.5,stated,740.2,15.0,0.79,20.0,kinematic,-48.0
+AD01811,"THEVENARD, SHELL REFINING PTY ",Australia,Crude Oil NOS,1998,37.4,stated,837.0,15.0,3.65,20.0,kinematic,-30.0
+AD01812,"XI-JANG, SHELL REFINING PTY ",China,Crude Oil NOS,1998,35.1,stated,848.6,15.0,10.8,50.0,kinematic,36.0
+AD01813,"ATTAKA, SHELL REFINING PTY ",Indonesia,Crude Oil NOS,1998,43.1,stated,809.7,15.0,1.78,20.0,kinematic,-30.0
+AD01814,"ARDJUNA, SHELL REFINING PTY ",Indonesia,Crude Oil NOS,1998,35.5,stated,846.6,15.0,3.5,40.0,kinematic,24.0
+AD01815,"CINTA, SHELL REFINING PTY ",Indonesia,Crude Oil NOS,1998,32.6,stated,861.5,15.0,18.6,60.0,kinematic,39.0
+AD01816,"WIDURI, SHELL REFINING PTY ",Indonesia,Crude Oil NOS,1998,32.8,stated,860.5,15.0,19.0,60.0,kinematic,39.0
+AD01817,"LALANG, SHELL REFINING PTY ",Indonesia,Crude Oil NOS,1998,39.2,stated,828.2,15.0,6.88,50.0,kinematic,33.0
+AD01818,"MINAS, SHELL REFINING PTY ",Indonesia,Crude Oil NOS,1998,36.0,stated,844.0,15.0,8.24,60.0,kinematic,36.0
+AD01819,"MAUI, SHELL REFINING PTY ",New Zealand,Crude Oil NOS,1998,43.2,stated,809.3,15.0,2.77,30.0,kinematic,18.0
+AD01820,"MCKEE, SHELL REFINING PTY ",New Zealand,Crude Oil NOS,1998,39.5,stated,826.8,15.0,3.02,40.0,kinematic,9.0
+AD01822,"BACH HO, SHELL REFINING PTY ",Vietnam,Crude Oil NOS,1998,41.3,stated,818.1,15.0,4.68,65.0,kinematic,36.0
+AD01823,"CHALLIS, BHP PETROLEUM",,Crude Oil NOS,1998,39.2,stated,828.0,16.0,3.04,20.0,kinematic,-9.0
+AD01824,"GRIFFIN, BHP PETROLEUM",,Crude Oil NOS,1998,54.8,stated,759.0,16.0,1.24,20.0,kinematic,-48.0
+AD01826,"HARRIET, APACHE ENERGY LTD","Western Australia, Australia",Crude Oil NOS,1998,37.8,stated,835.0,15.0,3.78,20.0,kinematic,12.0
+AD01827,"STAG, APACHE ENERGY LTD","Western Australia, Australia",Crude Oil NOS,1998,18.3,stated,944.0,15.0,38.5,40.0,kinematic,-30.0
+AD01830,"COOPER BASIN, SANTOS LTD",Australia,Crude Oil NOS,1998,45.2,stated,800.0,15.0,2.0,40.0,kinematic,12.0
+AD01831,"COOPER BASIN LIGHT NAPHTHA, SANTOS LTD",Australia,Refinery Intermediate,1998,82.7,stated,660.0,15.0,40.0,1.0,kinematic,
+AD01832,"COOPER BASIN FULL RANGE NAPHTHA, SANTOS LTD",Australia,Refinery Intermediate,1998,64.9,stated,720.0,15.0,1.0,40.0,kinematic,
+AD01833,"COOPER BASIN HEAVY NAPHTHA, SANTOS LTD",Australia,Refinery Intermediate,1998,59.5,stated,740.0,15.0,1.5,40.0,kinematic,
+AD01834,"GIPPSLAND, AMSA",Australia,Crude Oil NOS,1998,46.1,stated,796.0,60.0,2.39,20.0,kinematic,6.0
+AD01850,"ALASKA NORTH SLOPE-PUMP STATION #9, BP","Alaska, USA",Crude Oil NOS,1998,30.1,stated,875.0,15.0,17.6,15.0,kinematic,-30.0
+AD01851,"QATAR NORTH FIELD CONDENSATE (NFR-1), MOBIL","Arabian Gulf, Qatar (Offshore)",Condensate,1998,53.2,stated,766.0,16.0,0.9,40.0,kinematic,-35.0
+AD01853,"AIRILE, BP",Australia,Crude Oil NOS,1998,43.2,stated,809.0,15.0,2.54,20.0,kinematic,-18.0
+AD01854,"BARROW, BP",Australia,Crude Oil NOS,1998,36.7,stated,841.0,15.0,2.96,20.0,kinematic,-60.0
+AD01855,"BLINA, BP",Australia,Crude Oil NOS,1998,35.5,stated,847.0,15.0,6.39,40.0,kinematic,6.0
+AD01856,"JACKSON, BP",Australia,Crude Oil NOS,1998,45.4,stated,799.2,15.0,3.93,20.0,kinematic,15.0
+AD01857,"SURAT BASIN, BP",Australia,Crude Oil NOS,1998,44.8,stated,802.0,15.0,3.01,20.0,kinematic,12.0
+AD01858,"THEVENAND, BP",Australia,Crude Oil NOS,1998,37.4,stated,837.0,15.0,3.47,20.0,kinematic,-54.0
+AD01859,"VARANUS, BP",Australia,Crude Oil NOS,1998,37.5,stated,837.0,15.0,3.88,20.0,kinematic,6.0
+AD01860,"WANDO, BP",Australia,Crude Oil NOS,1998,19.3,stated,938.0,15.0,171.0,20.0,kinematic,-42.0
+AD01861,"UMM SHAIF, BP",Abu Dhabi,Crude Oil NOS,1998,37.5,stated,837.0,15.0,5.73,20.0,kinematic,-9.0
+AD01862,"UPPER ZAKUM, BP",Abu Dhabi,Crude Oil NOS,1998,33.2,stated,859.0,15.0,8.09,20.0,kinematic,-27.0
+AD01863,"MARGHAM, BP",Abu Dhabi,Crude Oil NOS,1998,53.3,stated,765.0,15.0,1.11,20.0,kinematic,-27.0
+AD01864,"KUWAIT, BP",Kuwait,Crude Oil NOS,1998,30.4,stated,874.0,15.0,19.3,20.0,kinematic,-57.0
+AD01865,"KHAFJI, BP",,Crude Oil NOS,1998,27.3,stated,891.0,15.0,28.2,20.0,kinematic,-51.0
+AD01866,"AL RAYYAN, BP",Qatar,Crude Oil NOS,1998,24.5,stated,907.0,15.0,63.9,20.0,kinematic,-18.0
+AD01868,"SAJAA CONDENSATE, BP","Sharjah, United Arab Emirates",Condensate,1998,57.5,stated,748.0,15.0,0.76,20.0,kinematic,-45.0
+AD01869,"NANNAI LIGHT, BP",China,Crude Oil NOS,1998,38.8,stated,831.0,15.0,6.36,20.0,kinematic,33.0
+AD01870,"BELIDA, BP",Indonesia,Crude Oil NOS,1998,45.7,stated,797.8,15.0,2.41,20.0,kinematic,15.0
+AD01872,"BONTANG MIX, BP",Indonesia,Crude Oil NOS,1998,50.8,stated,776.0,15.0,1.1,20.0,kinematic,-24.0
+AD01873,"HANDIL, BP",Indonesia,Crude Oil NOS,1998,33.8,stated,856.0,15.0,3.54,20.0,kinematic,30.0
+AD01874,"KERAPU, BP",Indonesia,Crude Oil NOS,1998,45.0,stated,801.0,15.0,3.4,20.0,kinematic,30.0
+AD01876,"MIRI LIGHT, BP",Malaysia,Crude Oil NOS,1998,32.4,stated,863.0,15.0,5.01,20.0,kinematic,0.0
+AD01877,"CHERVIL, NOVUS WA PTY LTD","Airlie Island, Australia",Crude Oil NOS,1998,43.0,stated,810.0,15.0,1.78,40.0,kinematic,-18.0
+AD01882,"ARABIAN EXTRA LIGHT, MOBIL OIL AUSTRALIA","Ras Tanura, Saudi Arabia",Crude Oil NOS,1998,37.1,stated,839.0,15.0,3.18,50.0,kinematic,-43.0
+AD01884,"BASRAH LIGHT, MOBIL OIL AUSTRALIA","Mina Al Bakr Terminal, Iraq",Crude Oil NOS,1998,34.2,stated,854.0,15.0,4.44,50.0,kinematic,-43.0
+AD01885,"BELIDA, MOBIL OIL AUSTRALIA ",Indonesia,Crude Oil NOS,1998,46.4,stated,795.0,15.0,2.07,50.0,kinematic,6.0
+AD01886,"CRACKER FEED, MOBIL OIL AUSTRALIA ",Australia,Refinery Intermediate,1998,24.4,stated,907.0,15.0,26.0,50.0,kinematic,33.0
+AD01887,"EAST SPAB, MOBIL OIL AUSTRALIA",Australia,Condensate,1998,57.5,stated,748.0,15.0,0.67,50.0,kinematic,-54.0
+AD01888,"ERAWAN, MOBIL OIL AUSTRALIA ",Thailand,Condensate,1998,56.4,stated,753.0,15.0,0.68,50.0,kinematic,-54.0
+AD01889,"KUTUBU LIGHT, MOBIL OIL AUSTRALIA ",New Guinea,Crude Oil NOS,1998,44.3,stated,805.0,15.0,1.47,50.0,kinematic,-15.0
+AD01891,"QATAR LAND, MOBIL OIL AUSTRALIA ",Qatar,Crude Oil NOS,1998,41.0,stated,820.0,15.0,2.2,50.0,kinematic,-28.0
+AD01892,"QATAR MARINE, MOBIL OIL AUSTRALIA",Qatar,Crude Oil NOS,1998,33.4,stated,858.0,15.0,4.21,50.0,kinematic,-27.0
+AD01893,"THAMMAMA, MOBIL OIL AUSTRALIA ",United Arab Emirates,Condensate,1998,58.2,stated,745.0,15.0,0.79,50.0,kinematic,-45.0
+AD01894,"UPPER ZAKUM, MOBIL OIL AUSTRALIA ",United Arab Emirates,Crude Oil NOS,1998,33.5,stated,857.0,15.0,4.55,50.0,kinematic,-29.0
+AD01895,"WANDOO, MOBIL OIL AUSTRALIA",Australia,Crude Oil NOS,1998,19.4,stated,938.0,15.0,29.3,50.0,kinematic,-39.0
+AD01896,"BELIDA, CALTEX",Indonesia,Crude Oil NOS,1998,46.0,stated,796.5,15.0,3.2,30.0,kinematic,12.0
+AD01897,"KUKAPU, CALTEX",Indonesia,Crude Oil NOS,1998,51.5,stated,772.5,15.0,1.29,50.0,kinematic,9.0
+AD01898,"BEKOPAI, CALTEX",Indonesia,Crude Oil NOS,1998,40.8,stated,820.5,15.0,2.78,20.0,kinematic,-21.0
+AD01899,"SENIPAH, CALTEX",Indonesia,Crude Oil NOS,1998,50.0,stated,778.9,15.0,1.06,21.0,kinematic,-50.0
+AD01900,"IMA, CALTEX",Nigeria,Crude Oil NOS,1998,43.0,stated,810.2,15.0,2.1,38.0,kinematic,7.0
+AD01904,"ORIENTE, OIL & GAS",Australia,Crude Oil NOS,1998,29.2,stated,879.8,15.0,13.0,40.0,kinematic,-4.0
+AD01906,"MAYA, OIL & GAS",Mexico,Crude Oil NOS,1998,22.2,stated,919.8,15.0,205.0,20.0,kinematic,-36.0
+AD01907,"OLMECA, OIL & GAS",Mexico,Crude Oil NOS,1998,39.8,stated,825.3,15.0,4.1,20.0,kinematic,-39.0
+AD01911,"BOSCAN, OIL & GAS",Venezuela,Crude Oil NOS,1998,10.1,stated,998.4,15.0,19800.0,38.0,kinematic,10.0
+AD01912,"LA ROSA MEDIUM, OIL & GAS",Venezuela,Crude Oil NOS,1998,25.3,stated,901.6,15.0,24.0,50.0,kinematic,-45.0
+AD01913,"MEREY, OIL & GAS",Venezuela,Crude Oil NOS,1998,17.4,stated,949.5,15.0,265.0,38.0,kinematic,-23.0
+AD01916,"MURBAN, OIL & GAS",United Arab Emirates,Crude Oil NOS,1998,40.5,stated,822.0,15.0,2.7,40.0,kinematic,-24.0
+AD01922,"BASRAH, OIL & GAS",Iraq,Crude Oil NOS,1998,33.7,stated,855.8,15.0,15.0,10.0,kinematic,-15.0
+AD01924,"KIRKUK, OIL & GAS",Iraq,Crude Oil NOS,1998,35.1,stated,848.6,15.0,12.8,10.0,kinematic,-22.0
+AD01925,"KUWAIT EXPORT, OIL & GAS",Kuwait,Crude Oil NOS,1998,31.4,stated,867.9,15.0,9.67,38.0,kinematic,-15.0
+AD01927,"ARABIAN LIGHT, OIL & GAS",Saudi Arabia,Crude Oil NOS,1998,33.4,stated,857.4,15.0,12.2,16.0,kinematic,-54.0
+AD01928,"SHARJAH CONDENSATE, OIL & GAS",United Arab Emirates,Condensate,1998,49.7,stated,780.2,15.0,1.44,20.0,kinematic,-32.0
+AD01929,"SEPINGGAN-YAKIN MIXED, OIL & GAS",Indonesia,Crude Oil NOS,1998,31.7,stated,866.3,15.0,3.16,38.0,kinematic,-7.0
+AD01930,"SAHARAN BLEND, OIL & GAS",Algeria,Crude Oil NOS,1998,45.5,stated,798.7,15.0,3.37,21.0,kinematic,-29.0
+AD01937,"COLD LAKE, OIL & GAS","Alberta, Canada",Bitumen Blend,1998,25.1,stated,903.0,15.0,70.7,15.0,kinematic,-60.0
+AD01938,"RAINBOW LIGHT AND MEDIUM, OIL & GAS","Alberta, Canada",Crude Oil NOS,1998,40.7,stated,821.0,15.0,3.77,40.0,kinematic,3.0
+AD01939,"RANGELAND-SOUTH, OIL & GAS","Alberta, Canada",Crude Oil NOS,1998,39.5,stated,826.8,15.0,2.67,40.0,kinematic,-40.0
+AD01944,"EKOFISK, OIL & GAS",North Sea,Crude Oil NOS,1998,43.4,stated,808.3,15.0,2.95,21.0,kinematic,-12.0
+AD01945,"GULLFAKS, OIL & GAS",North Sea,Crude Oil NOS,1998,29.3,stated,879.2,15.0,16.5,20.0,kinematic,-57.0
+AD01946,"OSEBERG, OIL & GAS",North Sea,Crude Oil NOS,1998,33.7,stated,855.8,15.0,8.52,20.0,kinematic,-6.0
+AD01947,"ARGYLL, OIL & GAS","North Sea, United Kingdom",Crude Oil NOS,1998,37.8,stated,835.0,15.0,4.79,40.0,kinematic,6.0
+AD01950,"BRENT, OIL & GAS",North Sea,Crude Oil NOS,1998,38.2,stated,833.1,15.0,3.72,40.0,kinematic,-3.0
+AD01970,"MIX GEISUM, GEISUM OIL",Gulf of Suez,Crude Oil NOS,1998,26.2,stated,897.0,16.0,24.0,38.0,kinematic,55.0
+AD01971,"NORTH GEISUM, GEISUM OIL",Gulf of Suez,Crude Oil NOS,1998,24.5,stated,907.0,60.0,51.7,38.0,kinematic,21.0
+AD01972,"TAWILA, GEISUM OIL",Gulf of Suez,Crude Oil NOS,1998,38.8,stated,831.0,16.0,3.1,38.0,kinematic,10.0
+AD01973,"SOUTH GEISUM, GEISUM OIL",Gulf of Suez,Crude Oil NOS,1998,16.1,stated,958.0,16.0,380.0,38.0,kinematic,16.0
+AD01978,VIOSCA KNOLL BLOCK 990,Gulf of America,Crude Oil NOS,1996,37.6,stated,834.0,15.0,8.39,15.0,dynamic / density,-32.0
+AD01979,Rangeland-South Light and Medium,"Alberta, Canada",Crude Oil NOS,1983,39.5,stated,827.1,15.0,3.0,40.0,kinematic,-40.0
+AD01981,"POSIDEN, EQUILON",Gulf of America,Crude Oil NOS,2017,31.5,stated,867.3,15.0,18.0,16.0,kinematic,
+AD01983,ABOOZAR,Iran,Crude Oil NOS,1999,26.9,stated,892.5,15.0,37.0,20.0,kinematic,-34.0
+AD01984,ABU AL BU KHOOSH,United Arab Emirates,Crude Oil NOS,1999,31.6,stated,866.8,15.0,7.0,38.0,kinematic,-12.0
+AD01985,Adgo,"Beaufort Sea, Canada",Crude Oil NOS,1996,16.8,stated,953.0,15.0,,,,
+AD01987,Alaska North Slope (Middle Pipeline),"Alaska, USA",Crude Oil NOS,1996,29.9,stated,876.1,15.0,,,,-54.0
+AD01989,Alaska North Slope (SOCSEX),"Alaska, USA",Crude Oil NOS,1996,28.9,stated,881.4,15.0,,,,
+AD01990,Alaska North Slope (Southern Pipeline),"Alaska, USA",Crude Oil NOS,1996,29.8,stated,876.6,15.0,,,,-30.0
+AD01991,"Alba, Oil and Gas Journal","North Sea, UK",Crude Oil NOS,1991,20.0,stated,933.5,15.0,259.0,25.0,kinematic,-30.0
+AD01993,Alberta Sweet Mixed Blend (Petawawa),"Alberta, Canada",Crude Oil NOS,1996,35.1,stated,848.7,15.0,,,,
+AD01994,Alberta Sweet Mixed Blend Reference #2,"Alberta, Canada",Crude Oil NOS,1996,37.0,stated,839.0,15.0,,,,-8.0
+AD01995,Alberta Sweet Mixed Blend Reference #3,"Alberta, Canada",Crude Oil NOS,1996,37.1,stated,838.6,15.0,,,,-10.0
+AD01998,AMAULIGAK,"Beaufort Sea, Canada",Crude Oil NOS,1999,26.7,stated,894.0,15.0,15.66,15.0,dynamic / density,-66.0
+AD01999,AMNA,Libya,Crude Oil NOS,1999,36.1,stated,843.5,15.0,14.0,38.0,kinematic,24.0
+AD02000,Arabian,Saudi Arabia,Crude Oil NOS,1981,32.5,stated,862.0,16.0,10.0,40.0,kinematic,
+AD02003,Arabian Medium,Saudi Arabia,Crude Oil NOS,1996,29.5,stated,878.3,15.0,,,,-10.0
+AD02006,Arimbi - Oil and Gas Journal,Indonesia,Crude Oil NOS,1983,31.8,stated,866.0,15.0,13.0,38.0,kinematic,38.0
+AD02007,ASHTART,Tunisia,Crude Oil NOS,1999,29.0,stated,880.9,15.0,24.0,20.0,kinematic,9.0
+AD02008,ASPHALT CHARGED STOCK,,Other,1999,15.6,stated,960.0,15.0,3854166.67,38.0,dynamic / density,50.0
+AD02012,ATTAKA,Indonesia,Crude Oil NOS,1999,42.3,stated,813.5,15.0,2.0,21.0,kinematic,-23.0
+AD02014,AVALON,"Newfoundland & Labrador, Canada",Crude Oil NOS,1999,26.2,stated,880.0,10.0,12.5,15.0,dynamic / density,12.0
+AD02015,Aviation Gasoline 100,Unknown,Distillate Fuel Oil,1996,66.2,stated,715.1,15.0,,,,
+AD02016,Aviation Gasoline 100LL,Unknown,Distillate Fuel Oil,1996,66.6,stated,714.3,15.0,,,,-75.0
+AD02017,AVIATION GASOLINE 80,,Distillate Fuel Oil,1999,72.0,stated,695.0,15.0,1.44,15.0,dynamic / density,
+AD02018,BACH HO,Vietnam,Crude Oil NOS,1999,38.6,stated,831.1,15.0,10.0,40.0,kinematic,33.0
+AD02019,BACHAQUERO,Venezuela,Crude Oil NOS,1999,16.8,stated,953.3,15.0,299.0,38.0,kinematic,-23.0
+AD02020,BADAK,Indonesia,Crude Oil NOS,1999,41.3,stated,818.1,15.0,6.0,38.0,kinematic,-26.0
+AD02021,BAHRGANSAR/NOWRUZ,Iran,Crude Oil NOS,1999,27.1,stated,891.4,15.0,20.0,38.0,kinematic,-33.0
+AD02022,Barrow Island,Australia,Crude Oil NOS,1996,36.7,stated,841.0,15.0,,,,-65.0
+AD02023,BASRAH HEAVY,Iraq,Crude Oil NOS,1999,24.7,stated,905.1,15.0,86.0,10.0,kinematic,-30.0
+AD02024,BASRAH LIGHT,Iraq,Crude Oil NOS,1999,33.7,stated,855.8,15.0,15.0,10.0,kinematic,-15.0
+AD02025,BASRAH MEDIUM,Iraq,Crude Oil NOS,1999,31.1,stated,869.5,15.0,41.0,10.0,kinematic,-30.0
+AD02026,BCF 24,Venezuela,Crude Oil NOS,1996,27.0,stated,912.9,5.0,,,,-42.0
+AD02027,BEATRICE,"North Sea, United Kingdom",Crude Oil NOS,1999,38.7,stated,830.6,15.0,7.0,40.0,kinematic,13.0
+AD02028,BEKAPAI,Indonesia,Crude Oil NOS,1999,40.0,stated,824.4,15.0,2.0,38.0,kinematic,-21.0
+AD02029,BEKOK,Malaysia,Crude Oil NOS,1999,49.1,stated,782.8,15.0,2.0,38.0,kinematic,-3.0
+AD02030,BELAYIM,Egypt,Crude Oil NOS,1999,27.5,stated,889.2,15.0,51.0,20.0,kinematic,6.0
+AD02032,Belridge Heavy,"California, USA",Crude Oil NOS,1996,13.6,stated,974.6,15.0,,,,2.0
+AD02033,Bent Horn,"Northwest Territories, Canada",Crude Oil NOS,1996,41.3,stated,818.1,15.0,,,,-18.0
+AD02035,Berri,Saudi Arabia,Crude Oil NOS,1992,37.2,stated,838.3,15.0,7.0,16.0,kinematic,-29.0
+AD02037,Beta,"California, USA",Crude Oil NOS,1996,13.7,stated,973.8,15.0,,,,3.0
+AD02039,BOMBAY HIGH,India,Crude Oil NOS,1999,39.4,stated,827.2,15.0,3.0,40.0,kinematic,30.0
+AD02040,BONNY LIGHT,Nigeria,Crude Oil NOS,1999,36.7,stated,840.5,15.0,3.0,38.0,kinematic,
+AD02041,BONNY MEDIUM,Nigeria,Crude Oil NOS,1999,25.2,stated,902.2,15.0,12.0,38.0,kinematic,-27.0
+AD02042,Boscan,Unknown,Crude Oil NOS,1996,10.9,stated,993.0,15.0,,,,21.0
+AD02045,BRAE,"North Sea, United Kingdom",Crude Oil NOS,1999,33.6,stated,856.3,15.0,14.0,10.0,kinematic,-6.0
+AD02046,BRASS RIVER,Nigeria,Crude Oil NOS,1999,40.9,stated,820.0,15.0,3.96,21.0,kinematic,2.0
+AD02047,BREGA,Libya,Crude Oil NOS,1999,40.4,stated,822.4,15.0,6.0,21.0,kinematic,-1.0
+AD02048,BRENT BLEND,"North Sea, United Kingdom",Crude Oil NOS,1999,37.8,stated,835.0,15.0,6.0,20.0,kinematic,-42.0
+AD02051,BUNKER C FUEL OIL,,Residual Fuel Oil,1999,12.3,stated,983.0,15.0,211.0,50.0,kinematic,15.0
+AD02052,Bunker C Fuel Oil (Alaska),"Alaska, USA",Residual Fuel Oil,1996,11.4,stated,989.1,15.0,,,,-2.0
+AD02054,BUNYU,Indonesia,Crude Oil NOS,1999,31.7,stated,866.3,15.0,3.0,38.0,kinematic,16.0
+AD02055,BURGAN,Kuwait/Iraq Divided Zone,Crude Oil NOS,1999,23.3,stated,913.3,15.0,28.1,50.0,kinematic,-21.0
+AD02056,CABINDA,Angola,Crude Oil NOS,1999,31.7,stated,866.3,15.0,18.7,38.0,kinematic,18.0
+AD02059,CANADON SECO,Argentina,Crude Oil NOS,1999,26.3,stated,895.9,15.0,279.0,20.0,kinematic,-3.0
+AD02060,Cano Limon,Colombia,Crude Oil NOS,1996,28.8,stated,881.7,15.0,,,,8.0
+AD02061,Carpinteria,"California, USA",Crude Oil NOS,1996,22.9,stated,915.5,15.0,,,,-21.0
+AD02062,Castor Oil Without Dye,Unknown,Natural Plant Oil,1996,15.2,stated,963.5,15.0,,,,-22.0
+AD02063,Catalytic Cracking Feed,Unknown,Refinery Intermediate,1996,23.2,stated,913.9,15.0,,,,25.0
+AD02064,CEUTA,Venezuela,Crude Oil NOS,1999,31.8,stated,865.8,15.0,10.7,38.0,kinematic,-37.0
+AD02065,Champion Export,Brunei,Crude Oil NOS,1983,23.9,stated,909.7,15.0,21.0,10.0,kinematic,-36.0
+AD02066,CINTA,Indonesia,Crude Oil NOS,1999,33.4,stated,857.4,15.0,64.0,38.0,kinematic,41.0
+AD02067,Coal Oil Point Seep Oil,"California, USA",Crude Oil NOS,1996,11.7,stated,987.2,15.0,,,,8.0
+AD02068,Cohasset,"Nova Scotia, Canada",Crude Oil NOS,1996,47.5,stated,790.0,15.0,2.06,15.0,kinematic,-30.0
+AD02069,Cold Lake Bitumen,"Alberta, Canada",Bitumen,1996,9.8,stated,1000.2,15.0,,,,9.0
+AD02070,Cold Lake Blend,"Alberta, Canada",Bitumen Blend,1996,22.6,stated,917.2,15.0,,,,-45.0
+AD02072,Cooper Basin,Australia,Crude Oil NOS,1994,45.2,stated,800.4,15.0,2.0,50.0,kinematic,12.0
+AD02073,CORMORANT NORTH,"North Sea, United Kingdom",Crude Oil NOS,1999,34.9,stated,850.0,15.0,6.0,40.0,kinematic,12.0
+AD02074,CORMORANT SOUTH,"North Sea, United Kingdom",Crude Oil NOS,1999,35.7,stated,846.0,15.0,5.0,40.0,kinematic,-6.0
+AD02075,Corrosion Inhibitor Solvent (Destin Dome),Unknown,Solvent,1996,32.3,stated,863.1,15.0,,,,-23.0
+AD02076,COSSACK,Australia,Crude Oil NOS,1999,47.3,stated,791.0,15.0,2.0,20.0,kinematic,-18.0
+AD02077,Cusiana,Colombia,Crude Oil NOS,1996,38.3,stated,832.8,15.0,,,,-19.0
+AD02078,DAI HUNG,Vietnam,Crude Oil NOS,1999,36.9,stated,839.5,15.0,4.0,40.0,kinematic,27.0
+AD02079,DAN,"North Sea, United Kingdom",Crude Oil NOS,1999,30.4,stated,873.2,15.0,9.0,40.0,kinematic,-43.0
+AD02080,DANISH NORTH SEA,"North Sea, Denmark",Crude Oil NOS,1999,34.5,stated,852.0,15.0,9.0,20.0,kinematic,-40.0
+AD02081,DIESEL FUEL OIL (ALASKA),,Distillate Fuel Oil,1999,38.8,stated,830.0,15.0,2.41,15.0,dynamic / density,-36.0
+AD02083,"Diesel Fuel Oil (Southern U.S.A., 1994)",Unknown,Distillate Fuel Oil,1994,37.2,stated,838.9,15.0,,,,-7.0
+AD02084,"Diesel Fuel Oil (Southern U.S.A., 1997)",Unknown,Distillate Fuel Oil,1997,37.6,stated,836.2,15.0,,,,-14.0
+AD02086,DJENO BLEND,Congo,Crude Oil NOS,1999,26.9,stated,892.5,15.0,220.0,10.0,kinematic,3.0
+AD02087,DORROOD,Iran,Crude Oil NOS,1999,33.6,stated,856.3,15.0,6.0,38.0,kinematic,-20.0
+AD02088,Dos Cuadras,"California, USA",Crude Oil NOS,1996,25.6,stated,900.0,15.0,,,,-30.0
+AD02089,Dubai,United Arab Emirates,Crude Oil NOS,1983,31.1,stated,870.3,15.0,13.0,20.0,kinematic,-9.0
+AD02090,Dukhan,Qatar,Crude Oil NOS,1983,41.7,stated,816.6,15.0,,,,-29.0
+AD02093,EAST ZEIT MIX,Egypt,Crude Oil NOS,1999,39.0,stated,830.0,15.0,7.0,15.0,kinematic,-1.0
+AD02099,Emerald,"North Sea, UK",Crude Oil NOS,1991,22.0,stated,921.7,15.0,170.0,16.0,kinematic,-29.0
+AD02100,Empire,"Louisiana, USA",Crude Oil NOS,1996,33.8,stated,855.4,15.0,,,,-41.0
+AD02101,FORCADOS,,Crude Oil NOS,2000,29.4,stated,878.7,15.0,4.79,50.0,kinematic,-12.0
+AD02102,KOME,Africa,Crude Oil NOS,2000,18.7,stated,941.3,15.0,74.37,88.0,dynamic / density,-2.0
+AD02103,MIANDOUM,Africa,Crude Oil NOS,2000,25.7,stated,899.3,15.0,42.25,88.0,dynamic / density,-8.0
+AD02104,BOLOBO,Africa,Crude Oil NOS,2000,20.7,stated,928.9,15.0,77.51,88.0,dynamic / density,-10.0
+AD02105,"CUSIANA, MOTIVA ENTERPRISES LLC",Colombia,Crude Oil NOS,2000,40.7,stated,821.0,15.0,3.3,20.0,kinematic,-4.0
+AD02107,"RABI, MOTIVA ENTERPRISES LLC",Gabon,Crude Oil NOS,2000,33.1,stated,858.9,15.0,20.4,20.0,kinematic,-4.0
+AD02108,"N'KOSSA EXP BLEND, CHEVRON",Congo,Crude Oil NOS,2000,46.6,stated,793.8,15.0,2.3,40.0,kinematic,-9.0
+AD02109,"ANTAN, HUVENSA",Nigeria,Crude Oil NOS,2000,31.6,stated,867.0,16.0,5.2,50.0,kinematic,2.0
+AD02110,Endicott,"Alaska, USA",Crude Oil NOS,1996,23.0,stated,914.9,15.0,,,,-2.0
+AD02111,EOCENE,Kuwait/Iraq Divided Zone,Crude Oil NOS,1999,18.6,stated,941.9,15.0,15.3,50.0,kinematic,-29.0
+AD02112,Es Sider,Libya,Crude Oil NOS,1983,36.7,stated,840.8,15.0,5.0,38.0,kinematic,7.0
+AD02113,Escalante,Argentina,Crude Oil NOS,1995,24.1,stated,908.9,15.0,2120.0,16.0,kinematic,-1.0
+AD02114,Escravos,Nigeria,Crude Oil NOS,1983,36.2,stated,843.3,15.0,,,,-12.0
+AD02115,ESPOIR,Ivory Coast,Crude Oil NOS,1999,31.2,stated,869.0,15.0,12.8,21.0,kinematic,-15.0
+AD02116,Eugene Island Block 32,Gulf of America,Crude Oil NOS,1996,36.9,stated,839.9,15.0,,,,7.0
+AD02117,Eugene Island Block 43,Gulf of America,Crude Oil NOS,1996,36.8,stated,840.4,15.0,,,,0.0
+AD02118,EVERDELL,"Alberta, Canada",Crude Oil NOS,1999,43.9,stated,806.0,15.0,4.96,15.0,dynamic / density,-21.0
+AD02119,Federated (1994),"Alberta, Canada",Crude Oil NOS,1994,39.0,stated,829.3,15.0,,,,-15.0
+AD02120,Federated (1998),"Alberta, Canada",Crude Oil NOS,1998,38.9,stated,829.8,15.0,,,,-22.0
+AD02121,Federated (SOCSEX),"Alberta, Canada",Crude Oil NOS,1996,39.1,stated,829.3,15.0,,,,
+AD02122,FEDERATED LIGHT AND MEDIUM,"Alberta, Canada",Crude Oil NOS,1999,39.7,stated,825.8,15.0,4.0,40.0,kinematic,-10.0
+AD02123,FLOTTA,"North Sea, United Kingdom",Crude Oil NOS,1999,34.7,stated,850.6,15.0,12.0,20.0,kinematic,-21.0
+AD02124,FLUID CATALYTIC CRACKER FEED,,Refinery Intermediate,1999,25.3,stated,902.0,15.0,10365.85,15.0,dynamic / density,29.0
+AD02125,FLUID CATALYTIC CRACKER HEAVY CYCLE OIL,,Refinery Intermediate,1999,24.3,stated,908.0,15.0,3.3,15.0,dynamic / density,-58.0
+AD02126,FLUID CATALYTIC CRACKER LIGHT CYCLE OIL,,Refinery Intermediate,1999,1.9,stated,1060.0,15.0,7000.0,15.0,dynamic / density,1.0
+AD02127,Fluid Catalytic Cracker Medium Cycle Oil,Unknown,Refinery Intermediate,1996,12.3,stated,983.5,15.0,,,,-6.0
+AD02128,Fluid Catalytic Cracker Virgin Gas Oil,Unknown,Refinery Intermediate,1996,31.8,stated,866.2,15.0,,,,-60.0
+AD02129,FORCADOS BLEND,Nigeria,Crude Oil NOS,1999,29.7,stated,877.0,15.0,11.0,10.0,kinematic,-20.0
+AD02130,FOROOZAN,Iran,Crude Oil NOS,1999,31.3,stated,868.4,15.0,15.0,20.0,kinematic,-37.0
+AD02132,FUEL OIL NO.1 (JP-1),,Distillate Fuel Oil,1999,45.4,stated,799.0,15.0,1.25,15.0,dynamic / density,-46.0
+AD02133,FUEL OIL NO.1 (JP-3),,Distillate Fuel Oil,1999,45.2,stated,800.0,20.0,1.25,15.0,dynamic / density,
+AD02134,Fuel Oil No. 1 (JP-4),Unknown,Distillate Fuel Oil,1996,55.9,stated,754.9,15.0,,,,
+AD02136,FUEL OIL NO.1 (JP-6),,Distillate Fuel Oil,1999,45.2,stated,800.0,15.0,8.0,-20.0,kinematic,-43.0
+AD02138,FUEL OIL NO.2,,Distillate Fuel Oil,1999,32.3,stated,866.0,15.0,4.62,20.0,dynamic / density,-27.0
+AD02139,FUEL OIL NO.2 (HIGH AROMATIC CONTENT HEATING OIL),,Distillate Fuel Oil,1999,33.7,stated,856.0,16.0,2.0,40.0,kinematic,-29.0
+AD02141,FUEL OIL NO.4,,Distillate Fuel Oil,1999,20.9,stated,925.0,20.0,24.86,20.0,dynamic / density,-3.0
+AD02143,FUEL OIL NO.6,,Residual Fuel Oil,1999,11.2,stated,991.0,15.0,230.0,50.0,kinematic,
+AD02144,FULMAR,"North Sea, United Kingdom",Crude Oil NOS,1999,39.3,stated,827.7,15.0,3.0,40.0,kinematic,-12.0
+AD02145,GALEOTA MIX,Trinidad & Tobago,Crude Oil NOS,1999,32.3,stated,863.0,27.0,4.0,38.0,kinematic,-21.0
+AD02146,GAMBA,Gabon,Crude Oil NOS,1999,31.8,stated,865.8,15.0,37.0,38.0,kinematic,23.0
+AD02147,Garden Banks Block 387,Gulf of America,Crude Oil NOS,1996,29.5,stated,878.2,15.0,,,,-39.0
+AD02148,Garden Banks Block 426,Gulf of America,Crude Oil NOS,1996,39.3,stated,828.5,15.0,,,,-22.0
+AD02149,Gas Oil (Cracked),Unknown,Refinery Intermediate,1991,34.4,stated,852.9,15.0,,,,
+AD02150,Gasoline (Casinghead),Unknown,Condensate,1991,78.8,stated,673.0,15.0,,,,
+AD02151,GASOLINE (LEADED),,Distillate Fuel Oil,1999,62.4,stated,729.0,15.0,1.37,20.0,dynamic / density,
+AD02153,"GASOLINE (UNLEADED), SHELL",,Distillate Fuel Oil,1999,57.0,stated,750.0,15.0,1.0,38.0,kinematic,
+AD02154,GASOLINE BLENDING STOCKS (ALKYLATES),,Refinery Intermediate,1999,67.9,stated,709.0,15.0,1.41,15.0,dynamic / density,
+AD02156,GENESIS,Gulf of America,Crude Oil NOS,1999,28.4,stated,884.0,15.0,29.41,15.0,dynamic / density,-62.0
+AD02157,GIPPSLAND,Australia,Crude Oil NOS,1999,47.0,stated,792.0,15.0,3.0,20.0,kinematic,9.0
+AD02158,GORM,"North Sea, Denmark",Crude Oil NOS,1999,33.9,stated,855.0,15.0,5.0,40.0,kinematic,-37.0
+AD02159,Granite Point,"Alaska, USA, Cook Inlet",Crude Oil NOS,1996,39.0,stated,829.3,15.0,,,,-37.0
+AD02160,Green Canyon Block 109,Gulf of America,Crude Oil NOS,1996,27.0,stated,892.1,15.0,,,,-36.0
+AD02161,Green Canyon Block 184,Gulf of America,Crude Oil NOS,1996,38.6,stated,831.4,15.0,,,,-44.0
+AD02162,Green Canyon Block 65,Gulf of America,Crude Oil NOS,1996,19.5,stated,936.5,15.0,,,,-28.0
+AD02163,GRIFFIN,Australia,Crude Oil NOS,1999,55.0,stated,758.0,15.0,1.0,20.0,kinematic,-48.0
+AD02164,GULF OF SUEZ MIX,Egypt,Crude Oil NOS,1999,31.9,stated,865.2,15.0,9.0,38.0,kinematic,2.0
+AD02165,Gullfaks,"North Sea, Norway",Crude Oil NOS,1996,31.0,stated,870.1,15.0,,,,-32.0
+AD02166,HANDIL,Indonesia,Crude Oil NOS,1999,32.8,stated,860.5,15.0,4.0,38.0,kinematic,29.0
+AD02168,HEBRON,"Newfoundland & Labrador, Canada",Crude Oil NOS,1999,20.4,stated,931.0,15.0,628.0,15.0,kinematic,-4.0
+AD02169,Heidrun,"Norwegian Sea, Norway",Crude Oil NOS,1996,28.6,stated,883.5,15.0,,,,-45.0
+AD02170,HIBERNIA,"Newfoundland & Labrador, Canada",Crude Oil NOS,1999,37.1,stated,839.0,15.0,18.0,15.0,kinematic,6.0
+AD02171,Hibernia (EPA 86),"Newfoundland, Canada",Crude Oil NOS,1996,28.3,stated,884.9,15.0,,,,15.0
+AD02172,High Viscosity Fuel Oil,Unknown,Fuel Oil NOS,1996,8.0,stated,1014.0,15.0,,,,2.0
+AD02174,HONDO BLEND,"California, USA",Crude Oil NOS,1999,20.8,stated,929.0,15.0,511.0,15.6,kinematic,-21.0
+AD02175,HONDO MONTEREY,"California, USA",Crude Oil NOS,1999,19.3,stated,938.0,15.0,1030.0,16.0,kinematic,
+AD02176,HONDO SANDSTONE,"California, USA",Crude Oil NOS,1999,35.2,stated,849.0,15.0,8.0,16.0,kinematic,-4.0
+AD02177,Hout,Kuwait/Iraq Divided Zone,Crude Oil NOS,1996,32.4,stated,862.8,15.0,,,,-14.0
+AD02178,HYDRA,Australia/Indonesia Zone of Cooperation,Crude Oil NOS,1999,37.5,stated,837.0,15.0,5.0,38.0,kinematic,10.0
+AD02179,IF-30 FUEL OIL,,Residual Fuel Oil,1999,19.7,stated,935.0,15.0,252.41,13.0,dynamic / density,6.0
+AD02180,IF-30 Fuel Oil (Svalbard),Unknown,Residual Fuel Oil,1996,18.3,stated,943.7,15.0,,,,-12.0
+AD02181,IF-30 FUEL OIL 180,,Residual Fuel Oil,1999,14.7,stated,967.0,15.0,2399.17,15.0,dynamic / density,-10.0
+AD02182,Intermediate Fuel Oil 180,Unknown,Residual Fuel Oil,1996,14.7,stated,967.0,15.0,,,,-10.0
+AD02183,INTERMEDIATE FUEL OIL 300,,Residual Fuel Oil,1999,11.9,stated,986.0,15.0,14705.88,15.0,dynamic / density,-6.0
+AD02184,Intermediate Fuel Oil 300,Unknown,Residual Fuel Oil,1996,11.9,stated,985.9,15.0,,,,-6.0
+AD02185,IPAR 3,Unknown,Other,1996,41.0,stated,819.8,15.0,,,,-56.0
+AD02186,Iranian Heavy,Iran,Crude Oil NOS,1996,30.0,stated,875.6,15.0,,,,-22.0
+AD02187,IRANIAN LIGHT,Iran,Crude Oil NOS,1999,33.8,stated,855.3,15.0,11.0,21.0,kinematic,-29.0
+AD02189,ISTHMUS,Mexico,Crude Oil NOS,1999,34.7,stated,850.0,15.0,7.0,20.0,kinematic,-45.0
+AD02192,JATIBARANG,Indonesia,Crude Oil NOS,1999,29.0,stated,880.9,15.0,84.0,50.0,kinematic,43.0
+AD02193,Jet A-Jet A-1,Unknown,Distillate Fuel Oil,1996,41.8,stated,815.9,15.0,,,,-55.0
+AD02194,JET B,,Distillate Fuel Oil,1999,55.3,stated,757.0,15.0,1.32,15.0,dynamic / density,-51.0
+AD02195,JET B (ALASKA),,Distillate Fuel Oil,1999,42.9,stated,811.0,15.0,2.47,15.0,dynamic / density,-54.0
+AD02197,Khalda,Egypt,Crude Oil NOS,1993,38.0,stated,834.4,15.0,5.0,60.0,kinematic,29.0
+AD02198,KIMKOL,Kazakhstan,Crude Oil NOS,1999,42.5,stated,812.5,15.0,7.0,30.0,kinematic,10.0
+AD02199,KIRKUK BLEND,Iraq,Crude Oil NOS,1999,35.1,stated,848.6,15.0,13.0,10.0,kinematic,-22.0
+AD02200,Kittiwake,"North Sea, UK",Crude Oil NOS,1991,36.6,stated,840.8,15.0,8.0,15.0,kinematic,-24.0
+AD02201,KOAKOAK,"Beaufort Sea, Canada",Crude Oil NOS,1999,28.1,stated,886.5,15.6,24.82,20.0,dynamic / density,-48.0
+AD02202,KOLE MARINE BLEND,Cameroon,Crude Oil NOS,1999,34.9,stated,849.6,15.0,11.0,10.0,kinematic,-6.0
+AD02203,Komineft,Russia,Crude Oil NOS,1996,36.7,stated,840.8,15.0,,,,12.0
+AD02204,KOPANOAR,"Beaufort Sea, Canada",Crude Oil NOS,1999,25.6,stated,900.0,20.0,36.67,15.0,dynamic / density,-37.0
+AD02206,KUTUBU,Papua New Guinea,Crude Oil NOS,1999,44.0,stated,806.0,15.0,2.0,25.0,kinematic,2.0
+AD02207,Kuwait,Kuwait,Crude Oil NOS,1996,30.6,stated,872.2,15.0,,,,-18.0
+AD02209,LABUAN BLEND,Malaysia,Crude Oil NOS,1999,33.2,stated,858.4,15.0,4.0,21.0,kinematic,11.0
+AD02210,Lago,Angola,Crude Oil NOS,1996,27.3,stated,890.7,15.0,,,,21.0
+AD02211,Lago Treco,Venezuela,Crude Oil NOS,1996,21.7,stated,923.0,15.0,,,,-20.0
+AD02212,Lagomedio,Venezuela,Crude Oil NOS,1996,30.6,stated,872.0,15.0,,,,
+AD02213,Leona,Venezuela,Crude Oil NOS,,24.0,stated,910.0,15.0,31.0,38.0,kinematic,-29.0
+AD02214,Liverpool Bay,Wales,Crude Oil NOS,,43.3,stated,809.1,15.0,7.0,20.0,kinematic,-18.0
+AD02215,Lloydminster,Alberta/Saskatchewan Canada,Crude Oil NOS,1982,25.4,stated,902.0,15.0,,,,-36.0
+AD02216,LORETO,Peru,Crude Oil NOS,1999,34.0,stated,854.2,15.0,8.25,27.0,kinematic,1.0
+AD02217,Louisiana,"Louisiana, USA",Crude Oil NOS,1996,34.5,stated,851.8,15.0,,,,-28.0
+AD02219,Low Sulphur Waxy Residuum,Unknown,Refinery Intermediate,1996,39.2,stated,827.0,15.0,,,,
+AD02220,Lubricating Oil (Air Compressor),Unknown,Lube Oil,1996,30.5,stated,873.4,15.0,,,,-28.0
+AD02221,LUBRICATING OIL (AIR COMPRESSOR) USED,,Lube Oil,1999,30.1,stated,875.0,15.0,262.86,15.0,dynamic / density,-25.0
+AD02223,LUBRICATING OIL (ELECTRICAL) NEW,,Lube Oil,1999,30.5,stated,873.0,15.0,164.95,15.0,dynamic / density,-24.0
+AD02224,LUBRICATING OIL (ELECTRICAL) USED,,Lube Oil,1999,30.5,stated,874.0,15.0,165.9,15.0,dynamic / density,-27.0
+AD02231,"LUBRICATING OIL (ENGINE, DIESEL LOCOMOTIVE) GRADE 40",,Lube Oil,1999,28.1,stated,886.0,15.0,145.0,40.0,kinematic,-12.0
+AD02232,"LUBRICATING OIL (ENGINE, DIESEL LOCOMOTIVE) GRADE 20W40",,Lube Oil,1999,29.0,stated,881.0,15.0,123.0,40.0,kinematic,-15.0
+AD02240,Lucula,Angola,Crude Oil NOS,1996,33.4,stated,857.4,15.0,,,,18.0
+AD02241,MAGNUS,"North Sea, United Kingdom",Crude Oil NOS,1999,39.3,stated,827.7,15.0,5.0,21.0,kinematic,-3.0
+AD02242,Main Pass Block 306,Gulf of America,Crude Oil NOS,1996,32.8,stated,860.6,15.0,,,,-53.0
+AD02243,Main Pass Block 37,Gulf of America,Crude Oil NOS,1996,38.7,stated,831.1,15.0,,,,-3.0
+AD02244,Malongo,Angola,Crude Oil NOS,1996,31.0,stated,870.1,15.0,,,,21.0
+AD02245,MANDJI,Gabon,Crude Oil NOS,1999,30.5,stated,872.7,15.0,44.0,10.0,kinematic,3.0
+AD02246,MARGHAM LIGHT,United Arab Emirates,Crude Oil NOS,1999,50.3,stated,777.6,15.0,1.0,20.0,kinematic,-8.0
+AD02247,MARINE DIESEL FUEL OIL,,Distillate Fuel Oil,1999,12.6,stated,981.0,15.0,30.0,50.0,kinematic,-30.0
+AD02248,MARINE GAS OIL,,Distillate Fuel Oil,1999,34.2,stated,853.2,15.0,4.0,40.0,kinematic,-11.0
+AD02249,MARINE GAS OIL (HEAVY),,Distillate Fuel Oil,1999,32.0,stated,864.7,15.0,6.0,40.0,kinematic,-4.0
+AD02250,Marine Intermediate Fuel Oil,Unknown,Residual Fuel Oil,1996,12.9,stated,978.7,15.0,,,,
+AD02251,Mars Blend,Gulf of America,Crude Oil NOS,1996,31.0,stated,870.3,15.0,,,,-36.0
+AD02252,MARS TLP,Gulf of America,Crude Oil NOS,1999,27.6,stated,888.0,15.0,37.16,15.0,dynamic / density,-28.0
+AD02253,MAUREEN,"North Sea, United Kingdom",Crude Oil NOS,1999,38.8,stated,830.2,15.0,15.1,21.0,kinematic,7.0
+AD02254,Maya,Mexico,Crude Oil NOS,1996,21.3,stated,925.5,15.0,,,,-15.0
+AD02255,Maya (1997),Mexico,Crude Oil NOS,1997,21.8,stated,921.9,15.0,,,,-20.0
+AD02256,MEDANITO,Argentina,Crude Oil NOS,1999,34.8,stated,850.0,15.0,16.0,16.0,kinematic,-1.0
+AD02257,Merey,Venezuela,Crude Oil NOS,1999,14.7,stated,967.9,15.0,992.0,38.0,kinematic,-12.0
+AD02258,Mineral Spirits,Unknown,Solvent,1996,46.9,stated,793.0,15.0,,,,
+AD02259,MIRI LIGHT,Malaysia,Crude Oil NOS,1999,36.3,stated,842.5,15.0,4.0,21.0,kinematic,1.0
+AD02260,Mississippi Canyon Block 194,Gulf of America,Crude Oil NOS,1996,35.2,stated,848.3,15.0,,,,-40.0
+AD02261,Mississippi Canyon Block 72,Gulf of America,Crude Oil NOS,1996,32.0,stated,864.9,15.0,,,,-28.0
+AD02263,MONTROSE,"North Sea, United Kingdom",Crude Oil NOS,1999,40.1,stated,823.9,15.0,5.0,20.0,kinematic,-9.0
+AD02264,Mousse Mix (Petawawa),Unknown,Other,1996,25.6,stated,900.1,15.0,,,,-12.0
+AD02265,MUBAREK,United Arab Emirates,Crude Oil NOS,1999,37.0,stated,839.0,15.0,3.0,38.0,kinematic,-12.0
+AD02266,Murban,United Arab Emirates,Crude Oil NOS,1982,39.4,stated,828.0,15.0,,,,-3.0
+AD02267,MURCHISON,"North Sea, United Kingdom",Crude Oil NOS,1999,38.0,stated,834.1,15.0,4.0,38.0,kinematic,7.0
+AD02270,Naphtha (Stoddard Solvent),Unknown,Solvent,1996,50.9,stated,775.8,15.0,,,,
+AD02273,Neptune SPAR,Gulf of America,Crude Oil NOS,1996,31.2,stated,868.7,15.0,,,,-1.0
+AD02275,NEWFOUNDLAND OFFSHORE BURN EXP SAMPLE #1,"Alberta, Canada",Crude Oil NOS,1999,37.2,stated,838.0,15.0,9.55,15.0,dynamic / density,-21.0
+AD02276,Newfoundland Offshore Burn Experiment Sample #12,"Alberta, Canada",Crude Oil NOS,1996,17.2,stated,950.6,15.0,,,,31.0
+AD02277,Newfoundland Offshore Burn Experiment Sample #15,"Alberta, Canada",Crude Oil NOS,1996,19.4,stated,936.5,15.0,,,,34.0
+AD02278,Newfoundland Offshore Burn Experiment Sample #4,"Alberta, Canada",Crude Oil NOS,1996,36.3,stated,843.1,15.0,,,,-21.0
+AD02279,NEWFOUNDLAND OFFSHORE BURN EXP SAMPLE #5,"Alberta, Canada",Crude Oil NOS,1999,36.1,stated,844.0,15.0,11.85,15.0,dynamic / density,-21.0
+AD02280,Newfoundland Offshore Burn Experiment Sample #7,"Alberta, Canada",Crude Oil NOS,1996,34.9,stated,849.6,15.0,,,,-21.0
+AD02281,Ninian Blend,"North Sea, UK",Crude Oil NOS,1996,36.1,stated,843.5,15.0,,,,-9.0
+AD02282,NORMAN WELLS,"Northwest Territories, Canada",Crude Oil NOS,1999,38.4,stated,832.0,15.0,4.81,20.0,dynamic / density,-50.0
+AD02283,Northwest Shelf Condensate,Australia,Condensate,1999,53.1,stated,766.0,15.0,1.0,20.0,kinematic,-36.0
+AD02284,Point Arguello Comingled,"California, USA",Crude Oil NOS,1996,21.4,stated,924.8,15.0,,,,-12.0
+AD02286,Point Arguello Heavy,"California, USA",Crude Oil NOS,1996,18.2,stated,944.7,15.0,,,,-4.0
+AD02287,OMAN EXPORT,Oman,Crude Oil NOS,1999,36.3,stated,842.5,15.0,11.5,16.0,kinematic,-26.0
+AD02289,Oriente,Ecuador,Crude Oil NOS,1996,25.9,stated,898.1,15.0,,,,0.0
+AD02290,ORIMULSION-100,Venezuela,Other,1999,8.5,stated,1010.0,15.0,542.57,20.0,dynamic / density,2.0
+AD02291,ORIMULSION-400 (1997),Venezuela,Other,1999,8.5,stated,1010.0,15.0,2722.77,0.0,dynamic / density,0.0
+AD02292,ORIMULSION-400,Venezuela,Other,1999,8.7,stated,1010.0,15.0,2336.63,0.0,dynamic / density,1.0
+AD02293,OSEBERG,"North Sea, Norway",Crude Oil NOS,1999,34.5,stated,852.0,15.0,9.0,20.0,kinematic,-6.0
+AD02294,PANUKE,"Nova Scotia, Canada",Crude Oil NOS,1999,27.4,stated,886.0,15.0,1.0,15.0,kinematic,-36.0
+AD02297,Pitas Point,"California, USA",Crude Oil NOS,1996,38.0,stated,834.1,15.0,,,,-60.0
+AD02298,PLATFORM GAIL,"California, USA",Crude Oil NOS,1999,20.6,stated,930.0,15.0,436.56,15.0,dynamic / density,-20.0
+AD02299,PLATFORM HOLLY,"California, USA",Crude Oil NOS,1999,11.0,stated,993.0,15.0,3333.33,15.0,dynamic / density,-9.0
+AD02300,Platform Irene,"California, USA",Crude Oil NOS,1996,11.2,stated,990.7,15.0,,,,12.0
+AD02301,Point Arguello Light,"California, USA",Crude Oil NOS,1996,30.3,stated,873.9,15.0,,,,-22.0
+AD02302,Port Hueneme,"California, USA",Crude Oil NOS,1996,14.8,stated,966.2,15.0,,,,-9.0
+AD02304,PRUDHOE BAY,"Alaska, USA",Crude Oil NOS,1999,24.8,stated,905.0,15.0,50.83,20.0,dynamic / density,0.0
+AD02305,Prudhoe Bay (1995),"Alaska, USA",Crude Oil NOS,1995,28.5,stated,883.7,15.0,,,,-15.0
+AD02306,Pulai,Malaysia,Crude Oil NOS,1983,42.5,stated,812.8,15.0,2.0,21.0,kinematic,-5.0
+AD02307,QATAR MARINE,Qatar,Crude Oil NOS,1999,35.3,stated,847.6,15.0,8.25,16.0,kinematic,-12.0
+AD02308,Qua Iboe,Nigeria,Crude Oil NOS,1983,35.8,stated,845.3,15.0,7.0,15.0,kinematic,7.0
+AD02311,Rangely,"Colorado, USA",Crude Oil NOS,1996,33.7,stated,856.7,15.0,,,,17.0
+AD02312,RINCON DE LOS SAUCES,Argentina,Crude Oil NOS,1999,36.1,stated,844.0,15.0,16.0,16.0,kinematic,-4.0
+AD02313,ROAD OIL,,Refined Product NOS,1999,,,1100.0,20.0,84.55,100.0,dynamic / density,
+AD02314,ROSTAM,Iran,Crude Oil NOS,1999,35.9,stated,844.5,15.0,3.0,50.0,kinematic,-23.0
+AD02315,Sable Island Condensate,"Nova Scotia, Canada",Condensate,1982,40.4,stated,823.0,15.0,,,,-22.0
+AD02316,Saharan Blend,Algeria,Crude Oil NOS,1996,43.6,stated,807.8,15.0,,,,-8.0
+AD02317,Sakhalin,Russia,Crude Oil NOS,1996,32.3,stated,863.2,15.0,,,,-75.0
+AD02318,SALADIN,Australia,Crude Oil NOS,1999,48.2,stated,787.0,15.0,2.0,20.0,kinematic,-30.0
+AD02319,SALAWATI,Indonesia,Crude Oil NOS,1999,38.0,stated,834.1,15.0,4.0,38.0,kinematic,-26.0
+AD02320,SALMON,Iran,Crude Oil NOS,1999,33.9,stated,854.8,15.0,7.97,25.0,kinematic,-21.0
+AD02322,SANGA SANGA,Indonesia,Crude Oil NOS,1999,25.7,stated,899.3,15.0,32.0,38.0,kinematic,-15.0
+AD02323,Santa Clara,"California, USA",Crude Oil NOS,1996,22.1,stated,920.2,15.0,,,,-3.0
+AD02325,Scotian Light,"Nova Scotia, Canada",Crude Oil NOS,1996,53.2,stated,765.5,15.0,,,,-22.0
+AD02327,SERIA LIGHT,Brunei,Crude Oil NOS,1999,36.2,stated,843.0,15.0,3.27,27.0,kinematic,2.0
+AD02328,SHARJAH CONDENSATE,United Arab Emirates,Condensate,1999,49.5,stated,781.0,15.0,1.0,20.0,kinematic,-32.0
+AD02329,SHENGLI,China,Crude Oil NOS,1999,24.2,stated,908.0,15.0,6.8,50.0,kinematic,21.0
+AD02330,Ship Shoal Block 239,Gulf of America,Crude Oil NOS,1996,26.1,stated,897.2,15.0,,,,-15.0
+AD02331,Ship Shoal Block 269,Gulf of America,Crude Oil NOS,1996,38.7,stated,830.9,15.0,,,,-42.0
+AD02332,SIBERIAN LIGHT,Russia,Crude Oil NOS,1999,37.6,stated,836.0,15.0,7.0,20.0,kinematic,-17.0
+AD02333,SIRRI,Iran,Crude Oil NOS,1999,30.9,stated,870.5,15.0,20.0,10.0,kinematic,-9.0
+AD02335,SKUA,Australia,Crude Oil NOS,1999,41.9,stated,815.0,15.0,3.0,20.0,kinematic,12.0
+AD02336,Sockeye,"California, USA",Crude Oil NOS,1996,26.2,stated,896.5,15.0,,,,-12.0
+AD02337,Sockeye Comingled,"California, USA",Crude Oil NOS,1996,19.8,stated,935.0,15.0,,,,-24.0
+AD02338,Sockeye Sour,"California, USA",Crude Oil NOS,1996,18.8,stated,940.9,15.0,,,,-22.0
+AD02339,Sockeye Sweet,"California, USA",Crude Oil NOS,1996,29.4,stated,879.2,15.0,,,,-20.0
+AD02340,SOROOSH,Iran,Crude Oil NOS,1999,18.1,stated,945.0,15.0,1380.0,20.0,kinematic,-12.0
+AD02341,SOUEDIE,Syria,Crude Oil NOS,1999,24.9,stated,903.9,15.0,88.0,10.0,kinematic,-30.0
+AD02344,South Pass Block 60,Gulf of America,Crude Oil NOS,1996,35.8,stated,845.3,15.0,,,,-9.0
+AD02345,South Pass Block 67,Gulf of America,Crude Oil NOS,1996,16.4,stated,956.4,15.0,,,,13.0
+AD02346,South Pass Block 93,Gulf of America,Crude Oil NOS,1996,33.4,stated,857.4,15.0,,,,-15.0
+AD02347,South Timbalier Block 130,Gulf of America,Crude Oil NOS,1996,35.1,stated,848.7,15.0,,,,-27.0
+AD02348,Soybean Oil,Unknown,Natural Plant Oil,1996,21.6,stated,923.2,15.0,,,,-10.0
+AD02349,SOYO BLEND,Angola,Crude Oil NOS,1999,33.7,stated,855.8,15.0,10.0,38.0,kinematic,18.0
+AD02350,SPRAY OIL,,Refined Product NOS,1999,41.1,stated,819.0,15.0,2.44,15.0,dynamic / density,
+AD02351,Statfjord,"North Sea, Norway",Crude Oil NOS,1996,37.8,stated,835.4,15.0,,,,-2.0
+AD02352,Sumatran Heavy,Indonesia,Crude Oil NOS,1996,20.3,stated,931.2,15.0,,,,18.0
+AD02353,SUMATRAN LIGHT,Indonesia,Crude Oil NOS,1999,32.9,stated,860.0,15.0,12.0,50.0,kinematic,38.0
+AD02354,Swanson River,"Alaska, USA, Cook Inlet",Crude Oil NOS,1996,36.5,stated,842.0,15.0,,,,-23.0
+AD02356,Synthetic,"Alberta, Canada",Crude Oil NOS,1996,32.6,stated,861.4,15.0,,,,-72.0
+AD02358,TAKULA,Angola,Crude Oil NOS,1999,32.2,stated,864.0,15.0,127.31,15.0,dynamic / density,15.0
+AD02359,TAPIS,Malaysia,Crude Oil NOS,1999,44.3,stated,804.2,15.0,3.0,21.0,kinematic,4.0
+AD02360,Tapis Blend,Malaysia,Crude Oil NOS,1996,44.9,stated,802.0,15.0,,,,18.0
+AD02362,TARTAN,"North Sea, United Kingdom",Crude Oil NOS,1999,41.7,stated,816.3,15.0,12.0,4.0,kinematic,-9.0
+AD02363,TEMBUNGO,Malaysia,Crude Oil NOS,1999,37.4,stated,837.0,15.0,2.0,38.0,kinematic,-4.0
+AD02364,TERRA NOVA,"Newfoundland & Labrador, Canada",Crude Oil NOS,1999,33.9,stated,856.0,15.0,25.7,15.0,dynamic / density,27.0
+AD02365,Terra Nova (1994),"Newfoundland, Canada",Crude Oil NOS,1994,35.7,stated,845.7,15.0,,,,5.0
+AD02366,Terra Nova (Petawawa),"Newfoundland, Canada",Crude Oil NOS,1996,32.5,stated,862.4,15.0,,,,15.0
+AD02367,Terra Nova (SOCSEX),"Newfoundland, Canada",Crude Oil NOS,1996,17.5,stated,945.7,15.0,,,,
+AD02368,Thevenard Island,Australia,Crude Oil NOS,1996,48.6,stated,785.5,15.0,,,,-70.0
+AD02369,THISTLE,"North Sea, United Kingdom",Crude Oil NOS,1999,37.0,stated,839.0,15.0,6.0,20.0,kinematic,12.0
+AD02370,TIA JUANA HEAVY,Venezuela,Crude Oil NOS,1999,12.1,stated,984.5,15.0,2980.0,50.0,kinematic,-1.0
+AD02371,TIA JUANA LIGHT,Venezuela,Crude Oil NOS,1999,32.1,stated,864.2,15.0,10.2,38.0,kinematic,-43.0
+AD02373,Trading Bay,"Alaska, USA",Crude Oil NOS,1996,32.8,stated,860.2,15.0,,,,-34.0
+AD02374,TRANSMOUNTAIN BLEND,"Alberta, Canada",Crude Oil NOS,1999,33.8,stated,855.0,15.0,12.87,15.0,dynamic / density,2.0
+AD02376,Udang,Indonesia,Crude Oil NOS,1996,14.3,stated,970.1,15.0,,,,3.0
+AD02381,Vasconia,Columbia,Crude Oil NOS,1996,26.3,stated,895.8,15.0,,,,6.0
+AD02382,Viosca Knoll Block 826,Gulf of America,Crude Oil NOS,1996,31.6,stated,866.8,15.0,,,,-4.0
+AD02383,Viosca Knoll Block 990,Gulf of America,Crude Oil NOS,1996,38.1,stated,833.7,15.0,,,,-32.0
+AD02384,WABASCA BITUMEN,"Alberta, Canada",Bitumen,1999,11.0,stated,992.1,15.0,423.34,25.0,dynamic / density,
+AD02385,WAINWRIGHT-KINSELLA,"Alberta, Canada",Crude Oil NOS,1999,23.1,stated,914.5,15.0,33.0,40.0,kinematic,-39.0
+AD02386,WALIO,Indonesia,Crude Oil NOS,1999,34.1,stated,853.7,15.0,5.0,38.0,kinematic,
+AD02387,Waxy Light Heavy Blend,"California, USA",Crude Oil NOS,1996,20.4,stated,931.1,15.0,,,,-30.0
+AD02388,West Delta Block 30,Gulf of America,Crude Oil NOS,1996,11.4,stated,989.4,15.0,,,,-23.0
+AD02389,West Delta Block 97,Gulf of America,Crude Oil NOS,1996,50.2,stated,778.3,15.0,,,,-27.0
+AD02390,WEST SAK,"Alaska, USA",Crude Oil NOS,1999,22.4,stated,918.6,15.0,96.0,16.0,kinematic,-46.0
+AD02391,West Texas Intermediate,"Texas, USA",Crude Oil NOS,1996,36.4,stated,842.0,15.0,,,,-23.0
+AD02392,West Texas Sour,"Texas, USA",Crude Oil NOS,1996,30.2,stated,874.3,15.0,,,,-27.0
+AD02394,Zaire,Zaire,Crude Oil NOS,1996,30.7,stated,872.0,15.0,,,,25.0
+AD02395,ZAKUM,United Arab Emirates,Crude Oil NOS,1999,40.6,stated,821.5,15.0,4.0,20.0,kinematic,-21.0
+AD02396,ZARZITINE,Algeria,Crude Oil NOS,1999,43.0,stated,810.2,15.0,7.0,10.0,kinematic,-12.0
+AD02397,ZUEITINA,Libya,Crude Oil NOS,1999,41.3,stated,818.1,15.0,42.8,16.0,kinematic,7.0
+AD02398,ZULUF/MARJAN,Saudi Arabia,Crude Oil NOS,1999,31.1,stated,869.5,15.0,19.0,21.0,kinematic,-29.0
+AD02400,FUEL OIL NO.1 (JP-8),,Distillate Fuel Oil,1999,45.2,stated,800.0,15.0,8.0,-20.0,kinematic,-50.0
+AD02401,GULF ALBERTA LIGHT AND MEDIUM,"Alberta, Canada",Crude Oil NOS,1999,35.1,stated,848.6,15.0,5.0,40.0,kinematic,-28.0
+AD02402,Koakoak (Sample 0-22A),"Beaufort Sea, Canada",Crude Oil NOS,1984,29.5,stated,878.5,16.0,,,,60.0
+AD02403,LUCINA MARINE,Gabon,Crude Oil NOS,1999,39.5,stated,826.8,15.0,16.0,20.0,kinematic,15.0
+AD02404,CANOLA OIL,,Natural Plant Oil,1999,,,915.0,19.0,82.5,19.0,kinematic,
+AD02408,"BELINDA, AMSA","Belinda, Indonesia",Crude Oil NOS,1996,46.4,stated,795.0,15.0,2.07,50.0,kinematic,24.5
+AD02413,"LOW SULFUR WAXY RESIDUE, AMSA","Victoria, Altona Refinery, Australia",Refinery Intermediate,1996,21.2,stated,926.0,15.0,68.6,50.0,kinematic,36.0
+AD02417,"UPPER ZAKUM, AMSA",United Arab Emirates,Crude Oil NOS,1996,33.5,stated,857.0,15.0,4.55,50.0,kinematic,-5.0
+AD02425,"JET FUEL, TESORO","Alaska, Kenai, USA",Distillate Fuel Oil,1993,43.0,stated,810.2,15.0,1.25,40.0,kinematic,-21.0
+AD02426,HOME HEATING OIL,,Distillate Fuel Oil,1999,33.7,stated,856.0,16.0,2.0,40.0,kinematic,-29.0
+AD02428,IFO 300,,Residual Fuel Oil,1999,11.9,stated,986.0,15.0,14705.88,15.0,dynamic / density,-6.0
+AD02429,JP-4,,Distillate Fuel Oil,1999,55.8,stated,755.0,15.0,1.32,15.0,dynamic / density,
+AD02430,JP-5,,Distillate Fuel Oil,1999,47.9,stated,788.0,15.0,2.79,15.0,kinematic,-48.0
+AD02433,JP-8,"Worth, Germany",Distillate Fuel Oil,1989,45.4,stated,799.2,15.0,3.2,-20.0,kinematic,
+AD02434,JP-8,"Maraven, Venezuela",Distillate Fuel Oil,1989,45.1,stated,800.5,15.0,4.0,-20.0,kinematic,
+AD02435,KUWAIT,Kuwait,Crude Oil NOS,2001,30.9,stated,870.5,15.0,8.17,50.0,kinematic,
+AD02436,"DIESEL FUEL OIL NO.2 (BONDED), TESORO","Hawaii, USA",Distillate Fuel Oil,2001,34.5,stated,851.7,15.0,3.9,40.0,kinematic,-3.0
+AD02437,"STAR 4, EQUILON","South Carolina, Charleston, USA",Crude Oil NOS,2001,34.1,stated,853.7,15.0,20.7,40.0,kinematic,
+AD02438,"STAR 5, EQUILON","South Carolina, Charleston, USA",Crude Oil NOS,2001,33.0,stated,859.4,15.0,27.8,40.0,kinematic,
+AD02439,"STAR 12, EQUILON","South Carolina, Charleston, USA",Crude Oil NOS,2001,30.7,stated,871.6,15.0,105.0,40.0,kinematic,
+AD02440,SAKHALIN II,,Crude Oil NOS,2002,37.8,stated,835.1,15.0,3.72,16.0,kinematic,-43.0
+AD02441,"ESCALANTE, ITS",Argentina,Crude Oil NOS,2001,23.3,stated,913.0,15.0,270.0,40.0,kinematic,-18.0
+AD02442,BIODIESEL,,Bio-fuel Oil,2017,28.1,stated,886.0,15.0,342.0,0.0,kinematic,-3.0
+AD02447,"MARINE DIESEL, U.S. NAVY",,Distillate Fuel Oil,2002,31.0,stated,870.0,15.0,3.7,40.0,kinematic,-20.0
+AD02448,LUCKENBACH FUEL OIL,"California, San Francisco, USA",Residual Fuel Oil,2002,12.8,stated,980.0,15.0,64100.0,21.0,kinematic,
+AD02450,"SCHIEHALLION BLEND, STATOIL",United Kingdom,Crude Oil NOS,2017,26.3,stated,895.9,15.0,50.8,20.0,kinematic,9.0
+AD02452,"TROLL, STATOIL",Norway,Crude Oil NOS,2017,27.1,stated,891.4,15.0,2340.0,20.0,kinematic,-33.0
+AD02454,"GLITNE, STATOIL",Norway,Crude Oil NOS,2017,31.9,stated,865.2,15.0,20.9,20.0,kinematic,9.0
+AD02456,"LUFENG, STATOIL",China,Crude Oil NOS,2017,33.3,stated,857.9,15.0,20.2,50.0,kinematic,40.0
+AD02458,"VARG, STATOIL",Norway,Crude Oil NOS,2017,36.0,stated,844.0,15.0,10.3,20.0,kinematic,15.0
+AD02459,"GULLFAKS C, STATOIL",Norway,Crude Oil NOS,2017,36.5,stated,841.5,15.0,6.91,20.0,kinematic,-9.0
+AD02460,"GULLFAKS A, STATOIL",Norway,Crude Oil NOS,2017,36.8,stated,840.0,15.0,6.7,20.0,kinematic,-18.0
+AD02462,"OSEBERG BLEND, STATOIL",Norway,Crude Oil NOS,2017,37.6,stated,836.0,15.0,5.7,20.0,kinematic,-10.0
+AD02463,"EKOFISK BLEND, STATOIL",Norway,Crude Oil NOS,2017,37.7,stated,835.6,15.0,8.16,20.0,kinematic,-9.0
+AD02464,"STATFJORD BLEND, STATOIL",Norway,Crude Oil NOS,2017,38.7,stated,830.6,15.0,5.54,20.0,kinematic,3.0
+AD02466,"ASGARD, STATOIL",Norway,Crude Oil NOS,2017,41.9,stated,815.3,15.0,3.25,20.0,kinematic,-9.0
+AD02467,"NJORD, STATOIL",Norway,Crude Oil NOS,2017,43.1,stated,809.7,15.0,3.65,20.0,kinematic,-18.0
+AD02468,"SLEIPNER CONDENSATE, STATOIL",Norway,Condensate,2017,58.7,stated,743.3,15.0,0.75,20.0,kinematic,-45.0
+AD02470,GIRASSOL,,Crude Oil NOS,2003,31.6,stated,866.8,15.0,20.0,21.0,kinematic,
+AD02471,"JOTUN, OIL & GAS JOURNAL","North Sea, Norway",Crude Oil NOS,2003,37.7,stated,836.0,15.0,6.5,20.0,kinematic,-3.0
+AD02472,"PIERCE, OIL & GAS JOURNAL","North Sea, United Kingdom",Crude Oil NOS,2003,37.8,stated,835.0,15.0,9.5,20.0,kinematic,0.0
+AD02473,"TEMPA ROSSA, OIL & GAS JOURNAL",Italy,Crude Oil NOS,2003,20.4,stated,931.0,15.0,123.0,20.0,kinematic,-36.0
+AD02474,"ZUATA SWEET, OIL & GAS JOURNAL",,Crude Oil NOS,2003,32.2,stated,863.6,15.0,6.52,38.0,kinematic,-15.0
+AD02476,"BUNKER C, JEA","Florida, Jacksonville, USA",Residual Fuel Oil,2004,10.2,stated,997.7,15.0,20.2,50.0,kinematic,38.0
+AD02477,MILNE POINT,"Alaska, Milne Point 2nd Stage Separator, USA",Crude Oil NOS,2004,22.2,stated,920.0,16.0,37.6,38.0,kinematic,
+AD02478,LISBURNE,"Alaska, Lisburne, USA",Crude Oil NOS,2004,30.1,stated,875.0,15.0,18.2,15.0,kinematic,-3.0
+AD02479,ALPINE SALES OIL,"Alaska, ALPINE MODULE AT KUPARUK CPF-2, USA",Crude Oil NOS,2004,38.3,stated,832.6,15.0,3.28,38.0,kinematic,
+AD02480,NORTHSTAR,"Alaska, Northstar, USA",Crude Oil NOS,2004,44.1,stated,805.0,16.0,2.8,27.0,kinematic,
+AD02481,WEST SAK,"Alaska, Kuparuk, USA",Crude Oil NOS,2004,17.0,stated,953.0,16.0,300.0,21.0,kinematic,
+AD02482,"BACHAQUERO-DELAWARE RIVER, CITGO",,Crude Oil NOS,2004,11.8,stated,986.6,15.0,2250.0,38.0,kinematic,0.0
+AD02483,"CONDENSATE (SWEET), ENCANA CORP.","Alberta, Calgary, Canada",Condensate,2005,57.2,stated,749.0,15.0,0.93,20.0,kinematic,
+AD02537,DECANT OIL,,Refinery Intermediate,2017,23.0,stated,915.1,15.0,6.0,50.0,kinematic,4.0
+AD02538,EAGLE FORD SHALE,"Texas, USA",Tight Oil,2014,50.7,stated,776.0,15.0,1.47,40.0,kinematic,
+AD02539,NAPO,,Crude Oil NOS,2015,19.0,stated,939.4,15.0,180.0,50.0,kinematic,-24.0
+AD02540,U.S. HIGH SWEET-CLEARBROOK,,Crude Oil NOS,2015,41.0,stated,819.6,15.0,3.04,20.0,kinematic,-29.0
+AD02541,ULTRA LOW SULFUR DIESEL,,Distillate Fuel Oil,2014,38.0,stated,834.1,15.0,2.6,40.0,kinematic,-21.0
+AD02542,ALPINE,"Alaska, North Slope, USA",Crude Oil NOS,2017,38.4,stated,832.1,15.0,9.61,10.0,dynamic / density,-36.0
+AD02543,"AUTOMOTIVE DIESEL OIL, ESSO",Norway,Distillate Fuel Oil,2017,38.0,stated,834.1,15.0,5.99,10.0,dynamic / density,-36.0
+AD02544,"MARINE DIESEL OIL, ESSO",Norway,Distillate Fuel Oil,2017,35.0,stated,849.0,16.0,8.24,10.0,dynamic / density,-36.0
+AD02545,"15W40 MOTOR OIL, SHELL",,Lube Oil,2017,29.3,stated,879.0,15.0,112.0,40.0,kinematic,
+AD02547,"HOOPS BLEND, ExxonMobil",Gulf of America,Crude Oil NOS,2017,32.5,stated,862.0,15.0,13.2,16.0,kinematic,-43.0
+AD02548,"AGBAMI, STATOIL",Nigeria,Crude Oil NOS,2016,47.9,stated,788.0,15.0,2.0,20.0,kinematic,5.0
+AD02549,ALBA,"North Sea, United Kingdom",Crude Oil NOS,2016,19.6,stated,936.0,15.0,283.0,20.0,kinematic,-24.0
+AD02550,"ALGERIAN CONDENSATE, STATOIL",Algeria,Condensate,2016,68.4,stated,707.0,15.0,0.64,20.0,kinematic,-45.0
+AD02551,"ALVHEIM BLEND, STATOIL",Norway,Crude Oil NOS,2016,34.9,stated,850.0,15.0,10.4,20.0,kinematic,-21.0
+AD02552,"AASGARD BLEND, STATOIL","North Sea, Norway",Crude Oil NOS,2016,53.7,stated,764.0,15.0,1.0,20.0,kinematic,-72.0
+AD02553,"AZERI BTC, STATOIL",Azerbaijan,Crude Oil NOS,2016,36.2,stated,843.0,15.0,9.48,20.0,kinematic,-5.0
+AD02554,"AZERI LIGHT, STATOIL",Azerbaijan,Crude Oil NOS,2016,35.2,stated,848.0,15.0,12.3,20.0,kinematic,-3.0
+AD02555,"CLOV, STATOIL",Angola,Crude Oil NOS,2016,33.2,stated,859.0,15.0,13.2,20.0,kinematic,-6.0
+AD02556,"DALIA, STATOIL",Angola,Crude Oil NOS,2016,22.9,stated,916.0,15.0,121.0,20.0,kinematic,-62.0
+AD02557,"DRAUGEN, STATOIL",Norway,Crude Oil NOS,2016,39.9,stated,825.0,15.0,4.02,20.0,kinematic,-15.0
+AD02558,"EKOFISK, STATOIL",Norway,Crude Oil NOS,2017,38.9,stated,830.0,15.0,6.3,20.0,kinematic,-3.0
+AD02559,"FORTIES, STATOIL",United Kingdom,Crude Oil NOS,2017,38.7,stated,831.0,15.0,5.07,20.0,kinematic,-15.0
+AD02560,"GIMBO, STATOIL",Angola,Crude Oil NOS,2017,25.3,stated,902.0,15.0,56.6,20.0,kinematic,-24.0
+AD02561,"GIRASSOL, STATOIL",Angola,Crude Oil NOS,2016,30.2,stated,875.0,15.0,21.4,20.0,kinematic,-15.0
+AD02562,"GOLIAT BLEND, STATOIL",Norway,Crude Oil NOS,2017,40.3,stated,823.0,15.0,4.31,20.0,kinematic,-18.0
+AD02563,"GRANE BLEND, STATOIL",Norway,Crude Oil NOS,2017,23.7,stated,911.0,15.0,76.3,20.0,kinematic,-20.0
+AD02564,"GUDRUN BLEND, STATOIL",Norway,Crude Oil NOS,2017,48.7,stated,785.0,15.0,1.69,20.0,kinematic,-69.0
+AD02565,"GULLFAKS, STATOIL",Norway,Crude Oil NOS,2017,39.1,stated,829.0,15.0,4.77,20.0,kinematic,-9.0
+AD02566,"HEIDRUN, STATOIL",Norway,Crude Oil NOS,2016,25.4,stated,901.0,15.0,41.5,20.0,kinematic,-65.0
+AD02567,"HIBERNIA BLEND, STATOIL","Newfoundland & Labrador, Canada",Crude Oil NOS,2017,35.1,stated,849.0,15.0,10.6,20.0,kinematic,3.0
+AD02568,"LOW SULFUR VACUUM GAS OIL, CHEVRON","California, USA",Refinery Intermediate,2017,27.2,stated,891.0,15.0,30.0,50.0,kinematic,6.0
+AD02569,"HUNGO BLEND, STATOIL",Angola,Crude Oil NOS,2017,28.3,stated,885.0,15.0,33.0,20.0,kinematic,-28.0
+AD02570,"ALASKA NORTH SLOPE, BP","Alaska, USA",Crude Oil NOS,2017,32.0,stated,865.0,15.0,10.3,20.0,kinematic,-24.0
+AD02572,ARABIAN LIGHT,Saudi Arabia,Crude Oil NOS,2017,32.1,stated,864.0,15.0,15.05,15.0,dynamic / density,-21.0
+AD02579,ALASKA NORTH SLOPE 2019,"Alaska, USA",Crude Oil NOS,2022,31.1,stated,870.0,15.0,14.6,15.0,dynamic / density,-51.0
+AD02580,AMSA Average Very Low Sulfur Fuel Oil (VLSFO),,Residual Fuel Oil,2022,18.8,stated,,,1955.7,20.0,kinematic,
+AD02582,VLSFO O-1 (AMSA),"Busan, South Korea",Distillate Fuel Oil,2022,23.5,stated,912.7,15.0,2717.0,20.0,kinematic,12.0
+AD02583,VLSFO O-2 (AMSA),"Yokohama, Japan",Distillate Fuel Oil,2022,21.8,stated,923.1,15.0,229.0,20.0,kinematic,-3.0
+AD02584,VLSFO O-3 (AMSA),"Zhousan, China",Distillate Fuel Oil,2022,17.5,stated,949.6,15.0,2174.0,20.0,kinematic,3.0
+AD02585,VLSFO O-4 (AMSA),"Bremerhaven, Germany",Distillate Fuel Oil,2022,12.5,stated,982.4,15.0,4603.0,20.0,kinematic,0.0
+AD02586,VLSFO O-5 (AMSA),"Hong Kong, China",Distillate Fuel Oil,2022,19.8,stated,935.0,15.0,196.0,20.0,kinematic,0.0
+AD02587,VLSFO O-6 (AMSA),"Auckland, New Zealand",Distillate Fuel Oil,2022,20.1,stated,933.3,15.0,11.3,20.0,kinematic,-6.0
+AD02588,VLSFO O-7 (AMSA),"Singapore, Singapore",Distillate Fuel Oil,2022,20.3,stated,932.3,15.0,3082.0,20.0,kinematic,12.0
+AD02589,VLSFO O-8 (AMSA),"Vancouver, Canada",Distillate Fuel Oil,2022,25.7,stated,900.2,15.0,27.5,20.0,kinematic,-36.0
+AD02590,VLSFO O-9 (AMSA),"Hong Kong, China",Distillate Fuel Oil,2022,11.4,stated,989.9,15.0,4165.0,20.0,kinematic,18.0
+AD02591,VLSFO O-10 (AMSA),"Higashiharima, Japan",Distillate Fuel Oil,2022,21.2,stated,926.6,15.0,408.0,20.0,kinematic,-9.0
+AD02593,LSFO Gwangyang Source Oil,"Gwangyang Port, South Korea",Distillate Fuel Oil,2021,15.1,stated,964.0,15.0,157.6,50.0,kinematic,17.0
+AD02606,ULSFO Gas Oil (SINTEF),"Mongstad, Norway",Distillate Fuel Oil,2014,38.2,stated,833.0,15.0,6.0,2.0,dynamic / density,-36.0
+AD02607,ULSFO Marine Gas Oil (SINTEF),"Esso Slagen, Norway",Distillate Fuel Oil,2014,34.4,stated,852.0,15.0,3.52,13.0,dynamic / density,-36.5
+AD02608,ULSFO Rotterdam Diesel (SINTEF),"Shell, the Netherlands",Distillate Fuel Oil,2014,28.2,stated,885.0,15.0,13.56,13.0,dynamic / density,-36.5
+AD02609,"VLSFO WRG oil, DMZ-RMA quality (SINTEF)","Mongstad, Norway",Distillate Fuel Oil,2014,28.2,stated,886.0,15.0,66.59,13.0,dynamic / density,-24.0
+AD02611,"Ultra Low Sulphur Fuel Oil (ULSFO), RMA-quality oil (SINTEF)","Shell, the Netherlands",Distillate Fuel Oil,2016,30.6,stated,872.0,15.0,4931.19,13.0,dynamic / density,24.0
+AD02612,Nile Blend,Sudan,Crude Oil NOS,2000,35.6,stated,845.3,15.0,33.36,40.0,dynamic / density,35.0
+AD02613,Nile Blend,,Crude Oil NOS,2009,34.8,stated,850.4,15.0,22.64,50.0,kinematic,33.0
+AD02614,Vacuum Gas Oil Galveston,"TX, Galveston",Refinery Intermediate,2024,26.0,stated,898.0,15.0,,,,12.0
+AD02615,Maria Ines,"Cuenca Austral, Argentina",Crude Oil NOS,2025,44.7,stated,802.4,15.0,4.3,20.0,kinematic,2.0
+AD02616,Medanito Argentinian Crude 2022,Argentina,Crude Oil NOS,2025,42.0,stated,815.0,15.0,5.35,20.0,kinematic,-18.0
+AD02617,Escalante,"Golfo San Jorge, Argentina",Crude Oil NOS,2025,23.9,stated,909.5,15.0,781.08,20.0,kinematic,-12.0
+AD02618,CANADON SECO,"Puerto Rosales, Argentina",Crude Oil NOS,2022,24.3,stated,907.1,15.0,92.51,20.0,kinematic,3.0
+AD02619,CRUZ DEL SUR,Rio Cullen,Crude Oil NOS,2024,55.0,stated,758.9,15.0,1.2,40.0,kinematic,
+AD02620,MIDEL Dielectric Fluid,,Dielectric Oil,2025,14.4,stated,972.8,10.0,70.7,20.0,kinematic,-56.0
+AD02621,FR3 Dielectric Fluid,,Dielectric Oil,2025,21.8,stated,925.8,10.0,67.3,20.0,kinematic,-21.0
+AD02622,CALTRAN Dielectric Fluid,,Dielectric Oil,2025,27.4,stated,893.9,10.0,20.3,20.0,kinematic,-64.0
+AD02623,HYVOLT Dielectric Fluid,,Dielectric Oil,2025,28.4,stated,887.7,10.0,20.4,20.0,kinematic,-40.0
+AD02624,DF-100 Dielectric Fluid,,Dielectric Oil,2025,30.9,stated,874.6,10.0,58.4,20.0,kinematic,
+AD02625,Castor Oil With Dye,Unknown,Natural Plant Oil,1996,15.5,stated,962.0,15.0,,,,-22.0
+EC00501,158 RGN Mistura,Brazil,Crude Oil NOS,2021,29.5,stated,878.7,15.0,,,,
+EC00506,Alaminos Canyon Block 25,Gulf of America,Crude Oil NOS,2021,30.9,stated,871.4,15.0,,,,-72.0
+EC00507,Alaska North Slope [2002],"Alaska, USA",Crude Oil NOS,2021,31.8,stated,866.3,15.0,,,,-32.0
+EC00511,Alberta Sweet Mixed Blend #4,"Alberta, Canada",Crude Oil NOS,2021,36.1,stated,843.9,15.0,,,,-9.0
+EC00512,Alberta Sweet Mixed Blend #5,"Alberta, Canada",Crude Oil NOS,2021,36.8,stated,840.4,15.0,,,,
+EC00515,Amauligak,"Beaufort Sea, Canada",Crude Oil NOS,2021,28.6,stated,883.3,15.0,,,,-78.0
+EC00517,Anadarko HIA-376,Gulf of America,Crude Oil NOS,2021,34.8,stated,850.7,15.0,,,,-35.0
+EC00519,Arabian Heavy [2004],Saudi Arabia,Crude Oil NOS,2021,27.0,stated,892.3,15.0,,,,
+EC00523,Arabian Light [2002],Saudi Arabia,Crude Oil NOS,2021,32.2,stated,864.1,15.0,,,,-21.0
+EC00527,Atkinson,"Beaufort Sea, Canada",Crude Oil NOS,2021,23.9,stated,910.3,15.0,,,,-39.0
+EC00539,Bunker C [1987],Unknown,Residual Fuel Oil,2021,12.4,stated,982.6,15.0,,,,15.0
+EC00540,Bunker C - IFO-300 [1994],Unknown,Residual Fuel Oil,2021,12.1,stated,985.0,15.0,,,,-24.0
+EC00552,Chayvo,Russia,Crude Oil NOS,2021,38.0,stated,834.5,15.0,,,,-4.0
+EC00561,Cook Inlet [2003],"Alaska, USA",Crude Oil NOS,2021,34.1,stated,854.4,15.0,,,,
+EC00567,Diesel [2002],Unknown,Distillate Fuel Oil,2021,38.7,stated,831.0,15.0,,,,-50.0
+EC00586,Fuel Oil # 5,Unknown,Residual Fuel Oil,2021,11.6,stated,988.3,15.0,,,,-19.0
+EC00593,Green Canyon Block 200,Gulf of America,Crude Oil NOS,2021,34.9,stated,850.1,15.0,,,,-11.0
+EC00599,Hebron M-04 [2005],"Newfoundland & Labrador, Canada",Crude Oil NOS,2021,22.4,stated,918.9,15.0,,,,-2.0
+EC00601,HFO 6303 [2002],Unknown,Residual Fuel Oil,2021,11.5,stated,988.8,15.0,,,,-1.0
+EC00604,Hibernia [1999],"Newfoundland & Labrador, Canada",Crude Oil NOS,2021,34.8,stated,850.4,15.0,,,,10.0
+EC00612,IFO 180 [2004],Unknown,Residual Fuel Oil,2021,14.5,stated,968.6,15.0,,,,
+EC00616,Issungnak,"Beaufort Sea, Canada",Crude Oil NOS,2021,33.5,stated,857.3,15.0,,,,-3.0
+EC00622,Kravtsovskoye,Russia,Crude Oil NOS,2021,39.4,stated,827.7,15.0,,,,
+EC00632,Marhm P-32,Unknown,Crude Oil NOS,2021,18.7,stated,941.4,15.0,,,,
+EC00638,Mars TLP [2000],Gulf of America,Crude Oil NOS,2021,26.8,stated,893.3,15.0,,,,
+EC00643,Maya [2004],"golfo de México, Mexico",Crude Oil NOS,2021,20.2,stated,932.1,15.0,,,,
+EC00647,Mississippi Canyon Block 807 [2002],Gulf of America,Crude Oil NOS,2021,16.4,stated,956.2,15.0,,,,-57.0
+EC00648,Morpeth Block EW921,Gulf of America,Crude Oil NOS,2021,25.7,stated,899.6,15.0,,,,-66.0
+EC00654,Norman Wells,"Northwest Territories, Canada",Crude Oil NOS,2021,37.4,stated,837.5,15.0,,,,-69.0
+EC00658,Odoptu,Russia,Crude Oil NOS,2021,33.8,stated,855.6,15.0,,,,-48.0
+EC00662,Orimulsion 400 [2001],"Orinoco, Venezuela",Other,2021,8.6,stated,1009.3,15.0,,,,1.0
+EC00668,Petronius Block VK786A,Gulf of America,Crude Oil NOS,2021,30.8,stated,871.3,15.0,,,,-19.0
+EC00670,Platform Elly,"California, USA",Crude Oil NOS,2021,15.7,stated,960.8,15.0,,,,
+EC00679,Prudhoe Bay [2004],"Alaska, USA",Crude Oil NOS,2021,26.6,stated,894.7,15.0,,,,
+EC00680,Pure Drill IA-35,Unknown,Other,2021,39.5,stated,826.9,15.0,,,,
+EC00690,Sockeye Sour,"California, USA",Crude Oil NOS,2021,19.7,stated,935.4,15.0,,,,-25.0
+EC00696,South Louisiana,"Louisiana, USA",Crude Oil NOS,2021,33.7,stated,856.2,15.0,,,,-41.0
+EC00698,South Louisiana,"Louisiana, USA",Crude Oil NOS,2021,37.1,stated,838.9,15.0,,,,-21.0
+EC00710,Swepco 737,Unknown,Lube Oil,2021,23.3,stated,913.5,15.0,,,,
+EC00721,Troll,"North Sea, Norway",Crude Oil NOS,2021,28.3,stated,885.2,15.0,,,,
+EC00734,West Delta Block 143,Gulf of America,Crude Oil NOS,2021,29.1,stated,880.6,15.0,,,,
+EC00736,West Texas Intermediate [2001],"Texas, USA",Crude Oil NOS,2021,35.4,stated,847.4,15.0,,,,-22.0
+EC00738,White Rose [2000],"Newfoundland & Labrador, Canada",Crude Oil NOS,2021,30.4,stated,873.8,15.0,,,,13.0
+EC01001,Diesel ULSD (2006),Unknown,Distillate Fuel Oil,2021,39.4,stated,827.5,15.0,,,,-27.0
+EC01172,Albian Heavy Synthetic,"Alberta, Canada",Bitumen Blend,2021,19.4,stated,937.1,15.0,,,,-30.0
+EC01346,Wabiska Heavy,"Alberta, Canada",Crude Oil NOS,2021,16.5,stated,957.2,15.0,,,,-6.0
+EC01456,Independent Hub,Gulf of America,Crude Oil NOS,2021,23.0,stated,915.3,15.0,,,,-39.0
+EC01459,Neptune BHP [2009],Gulf of America,Crude Oil NOS,2021,21.5,stated,924.4,15.0,,,,-30.0
+EC01464,Platform Irene,"California, USA",Crude Oil NOS,2021,15.9,stated,959.1,15.0,,,,3.0
+EC01465,Platform Irene Comingled,"California, USA",Crude Oil NOS,2021,13.0,stated,978.7,15.0,,,,0.0
+EC01466,Gail Well E010,"California, USA",Crude Oil NOS,2021,14.2,stated,970.9,15.0,,,,-6.0
+EC01467,Gail Well E019,"California, USA",Crude Oil NOS,2021,25.7,stated,899.6,15.0,,,,-3.0
+EC01482,Platform Ellen A038,"California, USA",Crude Oil NOS,2021,16.0,stated,958.7,15.0,,,,-9.0
+EC01483,Platform Ellen A040,"California, USA",Crude Oil NOS,2021,12.9,stated,979.0,15.0,,,,-15.0
+EC01487,Diesel (summer) COM ULSD,Unknown,Distillate Fuel Oil,2021,41.2,stated,818.7,15.0,,,,
+EC01497,Alaska North Slope [2010],"Alaska, USA",Crude Oil NOS,2021,32.5,stated,862.6,15.0,,,,
+EC01499,Heritage HE 05,"California, USA",Crude Oil NOS,2021,11.0,stated,992.2,15.0,,,,-3.0
+EC01500,Heritage HE 26,"California, USA",Crude Oil NOS,2021,11.9,stated,985.9,15.0,,,,-18.0
+EC01598,Deep Water Horizon Riser,Gulf of America,Crude Oil NOS,2021,37.3,stated,837.9,15.0,,,,
+EC01655,Deep Water Horizon Riser,Gulf of America,Crude Oil NOS,2021,37.2,stated,837.9,15.0,,,,
+EC01714,Deep Water Horizon Riser,Gulf of America,Crude Oil NOS,2021,39.3,stated,828.1,15.0,,,,
+EC01803,IFO 380,Unknown,Residual Fuel Oil,2021,,,,,,,,
+EC01822,Dos Cuadros HE-05 [2011],"California, USA",Crude Oil NOS,2021,24.4,stated,907.4,15.0,,,,-51.0
+EC01823,Dos Cuadros HE-26 [2011],"California, USA",Crude Oil NOS,2021,29.5,stated,878.5,15.0,,,,-27.0
+EC01950,Alaska North Slope [2011],"Alaska, USA",Crude Oil NOS,2021,30.1,stated,875.4,15.0,,,,-15.0
+EC01951,DOBA,Unknown,Crude Oil NOS,2021,21.1,stated,927.1,15.0,,,,-5.0
+EC01952,Endicott,"Alaska, USA",Crude Oil NOS,2021,25.2,stated,902.3,15.0,,,,6.0
+EC01953,Harmony,Unknown,Crude Oil NOS,2021,18.1,stated,945.6,15.0,,,,-9.0
+EC01954,IFO 120,Unknown,Residual Fuel Oil,2021,16.3,stated,956.7,15.0,,,,-9.0
+EC01955,IFO 180,Unknown,Residual Fuel Oil,2021,14.8,stated,966.4,15.0,,,,15.0
+EC01956,North Star,"Alaska, USA",Crude Oil NOS,2021,33.5,stated,857.1,15.0,,,,-15.0
+EC01957,Rock,"California, USA",Crude Oil NOS,2021,14.7,stated,967.4,15.0,,,,-15.0
+EC01958,Terra Nova [2011],"Newfoundland & Labrador, Canada",Crude Oil NOS,2021,32.5,stated,862.4,15.0,,,,9.0
+EC01969,Bakken,"North Dakota, USA",Tight Oil,2021,40.3,stated,823.0,15.0,,,,
+EC02152,Alaska North Slope [2012],"Alaska, USA",Crude Oil NOS,2021,32.0,stated,864.9,15.0,,,,-36.0
+EC02234,Access West Blend Winter,"Alberta, Canada",Bitumen Blend,2021,21.4,stated,925.3,15.0,,,,-25.0
+EC02235,Cold Lake Blend Winter [2013],"Alberta, Canada",Bitumen Blend,2021,21.4,stated,924.9,15.0,,,,-24.0
+EC02427,Cold Lake Blend Summer [2014],"Alberta, Canada",Bitumen Blend,2021,19.3,stated,937.9,15.0,,,,-39.0
+EC02542,Bunker C MV Manolis,Unknown,Residual Fuel Oil,2021,10.6,stated,995.3,15.0,,,,-9.0
+EC02664,Synthetic Bitumen Blend,"Alberta, Canada",Bitumen Blend,2021,20.3,stated,931.4,15.0,,,,-39.0
+EC02681,Sweet Synthetic Crude Oil [2015b],"Alberta, Canada",Crude Oil NOS,2021,35.1,stated,849.1,15.0,,,,-24.0
+EC02695,Sweet Synthetic Crude Oil [2015a],"Alberta, Canada",Crude Oil NOS,2021,34.6,stated,851.4,15.0,,,,-24.0
+EC02709,Western Canadian Select,"Alberta, Canada",Bitumen Blend,2021,21.5,stated,924.1,15.0,,,,-45.0
+EC02712,Cold Lake Blend Winter [2015],"Alberta, Canada",Bitumen Blend,2021,22.4,stated,918.6,15.0,,,,-60.0
+EC02713,Alaska North Slope [2015],"Alaska, USA",Crude Oil NOS,2021,32.2,stated,863.9,15.0,,,,-51.0
+EC02714,Bunker C Zalinski,Unknown,Residual Fuel Oil,2021,11.6,stated,988.1,15.0,,,,-15.0
+EC02932,Bunker C MV Manolis 2015-May operation,Unknown,Residual Fuel Oil,2021,10.6,stated,995.5,15.0,,,,
+EC03048,MV Arrow [2015],Unknown,Crude Oil NOS,2021,15.0,stated,965.4,15.0,,,,
+EC03072,Bunker C MV Manolis 2015-Oct. operation,Unknown,Residual Fuel Oil,2021,10.5,stated,995.7,15.0,,,,
+EC03097,Marine Safe Lube,Unknown,Lube Oil,2021,33.2,stated,858.7,15.0,,,,-81.0
+EC03126,Rail Bitumen,"Alberta, Canada",Bitumen Blend,2021,8.3,stated,1011.2,15.0,,,,-3.0
+EC03288,Husky Energy SGS,"Saskatchewan, Canada",Bitumen Blend,2021,17.2,stated,950.9,15.0,,,,-51.0
+EC03629,Diesel Echo Bay (B5 Biodiesel),"British Columbia, Canada",Bio-Petro Fuel Oil,2021,32.8,stated,860.8,15.0,,,,-21.0
+EC03720,Marine Diesel-Corporal Teather,"Ontario, Canada",Distillate Fuel Oil,2021,38.0,stated,834.3,15.0,,,,-33.0
+EC03721,Marine Diesel-Ile Saint Ours,Unknown,Distillate Fuel Oil,2021,37.6,stated,836.3,15.0,,,,-18.0
+EC03869,Marine Diesel-Hurst Marina,"Ontario, Canada",Distillate Fuel Oil,2021,41.2,stated,818.9,15.0,,,,-27.0
+EC04002,Alberta Sweet Mixed Blend #6,"Alberta, Canada",Crude Oil NOS,2021,36.8,stated,840.0,15.0,,,,-9.0
+EC04016,Terra Nova [2018],"Newfoundland & Labrador, Canada",Crude Oil NOS,2021,34.3,stated,853.0,15.0,,,,
+EC04024,Marine Diesel (B5),"British Colombia, Canada",Bio-Petro Fuel Oil,2021,33.0,stated,859.5,15.0,,,,-15.0
+EC04025,Marine Diesel-Burnaby BC,"British Colombia, Canada",Distillate Fuel Oil,2021,33.5,stated,857.0,15.0,,,,-15.0
+EC04026,Marine Diesel [2018],"Newfoundland & Labrador, Canada",Distillate Fuel Oil,2021,38.5,stated,832.0,15.0,,,,-6.0
+EC04027,Cold Lake Blend Winter [2018],"Alberta, Canada",Bitumen Blend,2021,22.0,stated,921.5,15.0,,,,-42.0
+EC04028,Hibernia [2018],"Newfoundland & Labrador, Canada",Crude Oil NOS,2021,33.5,stated,857.0,15.0,,,,12.0
+EC04029,Hebron [2018],"Newfoundland & Labrador, Canada",Crude Oil NOS,2021,20.3,stated,931.8,15.0,,,,-24.0
+EC04030,White Rose [2018],"Newfoundland & Labrador, Canada",Crude Oil NOS,2021,32.8,stated,860.9,15.0,,,,
+EC05517,Cold Lake Blend Winter [2019],"Manitoba, Canada",Bitumen Blend,2021,21.8,stated,922.7,15.0,,,,-27.0
+EC10021,Biodiesel Soy-1002-B100,Unknown,Bio-fuel Oil,2021,28.3,stated,884.8,15.0,,,,
+EC10022,Biodiesel Soy-1002-B20,Unknown,Bio-Petro Fuel Oil,2021,37.1,stated,838.7,15.0,,,,
+EC10023,Biodiesel Soy-1002-B5,Unknown,Bio-Petro Fuel Oil,2021,38.8,stated,830.3,15.0,,,,
+EC10032,Biodiesel Tallow B100,Unknown,Bio-fuel Oil,2021,29.6,stated,877.5,15.0,,,,
+EC10033,Biodiesel Tallow B20,Unknown,Bio-Petro Fuel Oil,2021,37.4,stated,837.6,15.0,,,,
+EC10034,Biodiesel Tallow B5,Unknown,Bio-Petro Fuel Oil,2021,38.9,stated,829.9,15.0,,,,
+EC10042,Biodiesel Canola-B100,Unknown,Bio-fuel Oil,2021,28.4,stated,884.2,15.0,,,,
+EC10043,Biodiesel Canola-B5,Unknown,Bio-Petro Fuel Oil,2021,38.8,stated,830.5,15.0,,,,
+EC10044,Biodiesel Canola-B20,Unknown,Bio-Petro Fuel Oil,2021,37.1,stated,838.6,15.0,,,,
+EC14842,Biodiesel Soy B100,Unknown,Bio-fuel Oil,2021,30.3,stated,874.1,15.0,,,,
+EC14843,Biodiesel Soy B20,Unknown,Bio-Petro Fuel Oil,2021,39.1,stated,829.0,15.0,,,,
+EC14844,Biodiesel Soy B5,Unknown,Bio-Petro Fuel Oil,2021,40.6,stated,821.6,15.0,,,,
+EC14852,Biodiesel Tallow B100,Unknown,Bio-fuel Oil,2021,29.9,stated,876.0,15.0,,,,
+EC14853,Biodiesel Tallow B20,Unknown,Bio-Petro Fuel Oil,2021,39.0,stated,829.4,15.0,,,,
+EC14854,Biodiesel Tallow B5,Unknown,Bio-Petro Fuel Oil,2021,40.7,stated,821.5,15.0,,,,
+EC14862,Biodiesel Canola B100,Unknown,Bio-fuel Oil,2021,28.5,stated,883.9,15.0,,,,
+EC14863,Biodiesel Canola B20,Unknown,Bio-Petro Fuel Oil,2021,38.8,stated,830.6,15.0,,,,
+EC14864,Biodiesel Canola B5,Unknown,Bio-Petro Fuel Oil,2021,40.6,stated,821.7,15.0,,,,
+EX00001,Aasgard Blend,,Crude Oil NOS,2020,52.5,stated,768.5,15.6,1.36,20.0,kinematic,-65.0
+EX00002,Alaska North Slope,"Alaska, USA",Crude Oil NOS,2020,32.1,stated,864.4,15.6,11.08,20.0,kinematic,-49.5
+EX00003,Azeri Light,,Crude Oil NOS,2020,35.3,stated,847.3,15.6,11.33,20.0,kinematic,-9.0
+EX00004,Balder Blend,,Crude Oil NOS,2020,26.4,stated,895.2,15.6,32.37,20.0,kinematic,-7.6
+EX00005,Banyu Urip,,Crude Oil NOS,2020,32.0,stated,864.7,15.6,55.2,20.0,kinematic,27.0
+EX00006,Basrah,,Crude Oil NOS,2020,29.9,stated,876.0,15.6,19.22,20.0,kinematic,-55.4
+EX00007,Basrah Heavy,,Crude Oil NOS,2020,24.0,stated,909.0,15.6,57.28,20.0,kinematic,-45.8
+EX00008,Bonga,,Crude Oil NOS,2020,28.6,stated,883.1,15.6,11.64,20.0,kinematic,-32.0
+EX00009,Brent Blend,,Crude Oil NOS,2020,40.1,stated,823.9,15.6,7.01,20.0,kinematic,-10.5
+EX00010,CLOV,,Crude Oil NOS,2020,32.7,stated,861.1,15.6,12.46,20.0,kinematic,-9.0
+EX00011,Cold Lake Blend,,Crude Oil NOS,2020,20.1,stated,932.7,15.6,307.6,20.0,kinematic,-33.0
+EX00012,Curlew,,Crude Oil NOS,2020,47.4,stated,790.3,15.6,2.04,20.0,kinematic,-13.5
+EX00013,Dalia,,Crude Oil NOS,2020,23.7,stated,910.9,15.6,104.34,20.0,kinematic,-48.0
+EX00014,Doba Blend,,Crude Oil NOS,2020,28.5,stated,883.6,15.6,134.97,20.0,kinematic,27.0
+EX00015,Ebok,,Crude Oil NOS,2020,19.8,stated,934.4,15.6,191.02,20.0,kinematic,-37.5
+EX00016,Ekofisk,,Crude Oil NOS,2020,39.1,stated,828.7,15.6,5.8,20.0,kinematic,-10.5
+EX00017,Erha,,Crude Oil NOS,2020,35.4,stated,847.1,15.6,5.47,20.0,kinematic,-10.5
+EX00018,Forties Blend,,Crude Oil NOS,2020,39.1,stated,828.7,15.6,5.05,20.0,kinematic,-22.5
+EX00019,Gindungo,,Crude Oil NOS,2020,32.3,stated,863.1,15.6,15.22,20.0,kinematic,-3.9
+EX00020,Gippsland Blend,,Crude Oil NOS,2020,55.4,stated,756.4,15.6,1.18,20.0,kinematic,-46.5
+EX00021,Girassol,,Crude Oil NOS,2020,30.2,stated,874.3,15.6,21.21,20.0,kinematic,-14.9
+EX00022,Gorgon,,Crude Oil NOS,2020,53.0,stated,766.3,15.6,0.98,20.0,kinematic,-36.8
+EX00023,Grane,,Crude Oil NOS,2020,28.4,stated,884.1,15.6,23.11,20.0,kinematic,1.3
+EX00024,Gudrun Blend,,Crude Oil NOS,2020,49.5,stated,781.1,15.6,1.6,20.0,kinematic,-82.7
+EX00025,Gullfaks Blend,,Crude Oil NOS,2020,39.6,stated,826.3,15.6,4.16,20.0,kinematic,-22.5
+EX00026,HOOPS Blend,,Crude Oil NOS,2020,35.2,stated,848.0,15.6,6.74,20.0,kinematic,-43.5
+EX00027,Hebron,,Crude Oil NOS,2020,20.4,stated,930.7,15.6,368.33,20.0,kinematic,-3.0
+EX00028,Hibernia Blend,,Crude Oil NOS,2020,34.1,stated,853.7,15.6,13.18,20.0,kinematic,3.0
+EX00029,Hungo Blend,,Crude Oil NOS,2020,29.4,stated,878.7,15.6,27.43,20.0,kinematic,-31.5
+EX00030,Jotun Blend,,Crude Oil NOS,2020,41.1,stated,819.2,15.6,4.22,20.0,kinematic,-52.4
+EX00031,Kearl,,Crude Oil NOS,2020,20.2,stated,932.2,15.6,308.63,20.0,kinematic,-42.0
+EX00032,Kissanje Blend,,Crude Oil NOS,2020,30.3,stated,873.8,15.6,21.59,20.0,kinematic,-21.0
+EX00033,Kutubu,,Crude Oil NOS,2020,51.4,stated,773.0,15.6,1.19,20.0,kinematic,-19.8
+EX00034,Marib Light,,Crude Oil NOS,2020,45.1,stated,800.6,15.6,1.91,20.0,kinematic,-34.5
+EX00035,Mondo,,Crude Oil NOS,2020,27.3,stated,890.3,15.6,40.2,20.0,kinematic,-54.0
+EX00036,Mostarda,,Crude Oil NOS,2020,28.3,stated,884.8,15.6,48.09,20.0,kinematic,0.7
+EX00037,Ormen Lange,,Crude Oil NOS,2020,62.4,stated,729.1,15.6,0.75,20.0,kinematic,-60.0
+EX00038,Oseberg Blend,,Crude Oil NOS,2020,39.6,stated,826.4,15.6,4.15,20.0,kinematic,-15.0
+EX00039,Oso Condensate,,Condensate,2020,49.2,stated,782.4,15.6,1.56,20.0,kinematic,-3.0
+EX00040,Pazflor,,Crude Oil NOS,2020,24.7,stated,905.1,15.6,58.53,20.0,kinematic,-48.0
+EX00041,Qua Iboe,,Crude Oil NOS,2020,37.6,stated,836.0,15.6,5.79,20.0,kinematic,9.0
+EX00042,Sable Island,,Crude Oil NOS,2020,61.1,stated,734.0,15.6,0.66,20.0,kinematic,-83.2
+EX00043,Saxi Batuque,,Crude Oil NOS,2020,34.6,stated,851.2,15.6,9.41,20.0,kinematic,-21.0
+EX00044,Sokol,,Crude Oil NOS,2020,34.8,stated,850.1,15.6,3.91,20.0,kinematic,-25.5
+EX00045,Statfjord Blend,,Crude Oil NOS,2020,39.4,stated,827.2,15.6,5.08,20.0,kinematic,-46.5
+EX00046,Tapis,,Crude Oil NOS,2020,42.7,stated,811.6,15.6,4.64,20.0,kinematic,16.0
+EX00047,Terengganu Condensate,,Condensate,2020,73.1,stated,691.0,15.6,0.53,20.0,kinematic,-36.0
+EX00048,Terra Nova,,Crude Oil NOS,2020,34.2,stated,853.2,15.6,14.08,20.0,kinematic,10.5
+EX00049,Thunder Horse,,Crude Oil NOS,2020,31.7,stated,866.4,15.6,14.7,20.0,kinematic,-9.0
+EX00050,Triton Blend,,Crude Oil NOS,2020,36.9,stated,839.5,15.6,7.8,20.0,kinematic,-4.5
+EX00051,Troll Blend,,Crude Oil NOS,2020,35.8,stated,845.0,15.6,5.67,20.0,kinematic,-36.0
+EX00052,Upper Zakum,,Crude Oil NOS,2020,33.9,stated,854.8,15.6,9.58,20.0,kinematic,-39.0
+EX00053,Usan,,Crude Oil NOS,2020,29.0,stated,880.9,15.6,13.84,20.0,kinematic,-77.4
+EX00054,Volve,,Crude Oil NOS,2020,29.1,stated,880.3,15.6,22.53,20.0,kinematic,-3.0
+EX00055,Woollybutt,,Crude Oil NOS,2020,49.0,stated,783.3,15.6,1.65,20.0,kinematic,-54.0
+EX00056,Yoho,,Crude Oil NOS,2020,40.5,stated,822.0,15.6,2.86,20.0,kinematic,18.0
+EX00057,Zafiro Blend,,Crude Oil NOS,2020,30.0,stated,875.4,15.6,12.9,20.0,kinematic,-54.0
+EX00058,Liza,Guyana,Crude Oil NOS,2020,32.1,stated,864.1,15.6,14.07,20.0,kinematic,3.0
+GN00001,Generic Condensate,N/A,Condensate,2025,56.5,stated,751.9,15.0,1.55,15.0,kinematic,-40.9
+GN00002,Generic Diesel,N/A,Distillate Fuel Oil,2025,34.3,stated,853.0,15.0,6.44,15.0,kinematic,-25.2
+GN00003,Generic Gasoline,N/A,Distillate Fuel Oil,2025,61.8,stated,731.5,15.0,1.07,15.0,kinematic,-54.0
+GN00004,Generic Heavy Crude,N/A,Crude Oil NOS,2025,15.2,stated,963.6,15.0,6148.9,15.0,kinematic,-9.1
+GN00005,Generic Jet Fuel,N/A,Distillate Fuel Oil,2025,44.7,stated,802.4,15.0,2.19,15.0,kinematic,-45.1
+GN00006,Generic Light Crude,N/A,Crude Oil NOS,2025,39.2,stated,828.0,15.0,8.38,15.0,kinematic,-7.7
+GN00007,Generic Medium Crude,N/A,Crude Oil NOS,2025,29.3,stated,879.1,15.0,40.45,15.0,kinematic,-14.4
+GN00008,Generic IFO,N/A,Residual Fuel Oil,2025,16.1,stated,958.0,15.0,2659.7,15.0,kinematic,-4.9
+GN00009,Generic Heavy Fuel Oil,N/A,Residual Fuel Oil,2025,12.7,stated,980.4,15.0,45828.0,15.0,kinematic,-5.3
+IM00001,ULSFO IM-1 (IMAROS),Sweden,Residual Fuel Oil,2022,17.7,stated,,,,,,27.0
+IM00002,VLSFO IM-2 (IMAROS),Sweden,Residual Fuel Oil,2022,20.4,stated,,,,,,27.0
+IM00003,VLSFO IM-3 (IMAROS),Belgium,Distillate Fuel Oil,2022,12.1,stated,,,,,,0.0
+IM00004,VLSFO IM-4 (IMAROS),Belgium,Distillate Fuel Oil,2022,16.9,stated,,,,,,21.0
+IM00005,VLSFO IM-5 (IMAROS),"Point d'Esny, Mauritius",Residual Fuel Oil,2022,23.9,stated,,,,,,9.0
+IM00006,VLSFO IM-6 (IMAROS),Malta,Distillate Fuel Oil,2022,13.9,stated,,,,,,-27.0
+IM00007,VLSFO IM-7 (IMAROS),Belgium,Distillate Fuel Oil,2022,18.5,stated,,,,,,15.0
+IM00008,VLSFO IM-8 (IMAROS),The Netherlands,Distillate Fuel Oil,2022,16.2,stated,,,,,,9.0
+IM00009,ULSFO IM-9 (IMAROS),The Netherlands,Residual Fuel Oil,2022,24.9,stated,,,,,,30.0
+IM00010,VLSFO IM-10 (IMAROS),The Netherlands,Distillate Fuel Oil,2022,18.5,stated,,,,,,0.0
+IM00011,VLSFO IM-11 (IMAROS),The Netherlands,Distillate Fuel Oil,2022,19.3,stated,,,,,,0.0
+IM00012,VLSFO IM-12 (IMAROS),Cyprus,Distillate Fuel Oil,2022,18.4,stated,,,,,,-9.0
+IM00013,VLSFO IM-13 (IMAROS),Spain,Distillate Fuel Oil,2022,16.1,stated,,,,,,-6.0
+IM00020,VLSFO IM-20 (IMAROS 2),Sweden,Residual Fuel Oil,2025,15.0,stated,,,,,,9.0
+IM00021,ULSFO IM-21 (IMAROS 2),Sweden,Residual Fuel Oil,2025,25.0,stated,,,,,,33.0
+IM00022,VLSFO IM-22 (IMAROS 2),Sweden,Residual Fuel Oil,2025,14.3,stated,,,,,,9.0
+IM00023,ULSFO IM-23 (IMAROS 2),Sweden,Residual Fuel Oil,2025,25.4,stated,,,,,,30.0
+IM00024,VLSFO IM-24 (IMAROS 2),Sweden,Residual Fuel Oil,2025,19.0,stated,,,,,,27.0
+IM00025,VLSFO IM-25 (IMAROS 2),Finland,Residual Fuel Oil,2025,10.7,stated,,,,,,33.0
+IM00027,VLSFO IM-27 (IMAROS 2),Danemark,Residual Fuel Oil,2025,16.5,stated,,,,,,9.0
+IM00028,VLSFO IM-28 (IMAROS 2),Malta,Residual Fuel Oil,2025,19.5,stated,,,,,,24.0
+IM00029,ULSFO IM-29 (IMAROS 2),Sweden,Residual Fuel Oil,2025,26.6,stated,,,,,,18.0
+IM00030,VLSFO IM-30 (IMAROS 2),Netherlands,Residual Fuel Oil,2025,13.7,stated,,,,,,3.0
+IM00031,VLSFO IM-31 (IMAROS 2),Netherlands,Residual Fuel Oil,2025,15.4,stated,,,,,,-12.0
+IM00032,ULSFO IM-32 (IMAROS 2),Netherlands,Residual Fuel Oil,2025,27.9,stated,,,,,,30.0
+IM00033,VLSFO IM-33 (IMAROS 2),Netherlands,Residual Fuel Oil,2025,12.8,stated,,,,,,-6.0
+IM00034,ULSFO IM-34 (IMAROS 2),Netherlands,Residual Fuel Oil,2025,26.6,stated,,,,,,33.0
+IM00036,VLSFO IM-36 (IMAROS 2),Belgium,Residual Fuel Oil,2025,17.9,stated,,,,,,-6.0
+IM00037,VLSFO IM-37 (IMAROS 2),Malta,Residual Fuel Oil,2025,16.2,stated,,,,,,27.0
+IM00038,VLSFO IM-38 (IMAROS 2),Malta,Residual Fuel Oil,2025,15.9,stated,,,,,,15.0
+IM00039,VLSFO IM-39 (IMAROS 2),Belgium,Residual Fuel Oil,2025,18.0,stated,,,,,,12.0
+LS00001,Heavy Reformate,,Refinery Intermediate,2021,39.2,stated,828.0,15.6,0.63,37.8,kinematic,-62.2
+LS00002,Ultra Low Sulfur Diesel (ULSFO),,Distillate Fuel Oil,2021,35.5,stated,847.0,15.6,3.83,37.8,kinematic,-20.0
+LS00003,Light Naphtha,,Refinery Intermediate,2021,64.8,stated,720.0,15.6,0.51,37.8,kinematic,-56.7
+LS00004,RMG 380,,Residual Fuel Oil,2021,12.8,stated,980.0,15.6,,,,-2.2
+LS00005,RMG 380,,Residual Fuel Oil,2021,12.3,stated,983.0,15.6,,,,-2.2
+LS00006,VLSFO RMG 380 A ,,Residual Fuel Oil,2021,12.9,stated,979.0,15.6,,,,-12.2
+LS00007,VLSFO RMG 380 B,,Residual Fuel Oil,2021,12.9,stated,979.0,15.6,,,,-10.0
+LS00008,VLSFO RMG 380 C,,Residual Fuel Oil,2021,12.9,stated,979.0,15.6,,,,-16.1
+LS00009,DMA (ULSFO),,Distillate Fuel Oil,2021,36.5,stated,841.0,15.6,2.35,37.8,kinematic,-39.4
+LS00010,DMB (ULSFO),,Distillate Fuel Oil,2021,25.2,stated,902.0,15.6,7.37,37.8,kinematic,-53.9
+LS00011,RMK 500,,Residual Fuel Oil,2021,10.3,stated,997.0,15.6,,,,-2.8
+LS00012,IFO 380,,Residual Fuel Oil,2021,12.3,stated,983.0,15.6,,,,3.9
+LS00013,VLSFO,,Residual Fuel Oil,2021,17.2,stated,951.0,15.6,,,,-3.9
+LS00014,Marine Gas Oil (ULSFO),,Distillate Fuel Oil,2021,37.4,stated,837.0,15.6,3.28,37.8,kinematic,-13.3
+LS00015,Reformate,,Refinery Intermediate,2021,43.1,stated,810.0,15.6,0.58,37.8,kinematic,-62.2
+LS00016,Light Reformate,,Refinery Intermediate,2021,89.7,stated,639.0,15.6,,,,-62.2
+LS00017,Heavy Cat Naphtha,,Refinery Intermediate,2021,48.0,stated,788.0,15.6,0.64,37.8,kinematic,-62.2
+LS00018,Pyrolysis Gasoline,,Refinery Intermediate,2021,36.7,stated,841.0,15.6,0.57,37.8,kinematic,-62.2
+NO00001,ALVE,Norway,Crude Oil NOS,2010,46.1,stated,796.1,15.0,16.33,5.0,dynamic / density,0.0
+NO00002,ALVHEIM BLEND,Norway,Crude Oil NOS,2009,36.8,stated,840.0,15.0,21.43,13.0,dynamic / density,-3.0
+NO00003,ALVHEIM BOA,Norway,Crude Oil NOS,2009,35.2,stated,848.1,15.0,18.87,13.0,dynamic / density,-36.0
+NO00004,ALVHEIM KAMELEON,Norway,Crude Oil NOS,2009,34.8,stated,850.0,15.0,15.29,13.0,dynamic / density,-39.0
+NO00005,ALVHEIM KNELER,Norway,Crude Oil NOS,2009,38.5,stated,831.5,15.0,61.33,13.0,dynamic / density,0.0
+NO00006,AVALDSNES,Norway,Crude Oil NOS,2012,27.2,stated,891.0,15.0,68.46,13.0,dynamic / density,3.0
+NO00007,BALDER,Norway,Crude Oil NOS,2002,23.2,stated,914.0,15.0,239.61,13.0,dynamic / density,
+NO00008,BALDER BLEND,Norway,Crude Oil NOS,2010,32.1,stated,864.0,15.0,37.04,13.0,dynamic / density,3.0
+NO00009,BRAGE,Norway,Crude Oil NOS,2013,39.7,stated,826.0,15.0,48.43,13.0,dynamic / density,-6.0
+NO00010,BREAM,Norway,Crude Oil NOS,2011,33.5,stated,857.0,15.0,822.64,13.0,dynamic / density,18.0
+NO00011,CAURUS,Norway,Crude Oil NOS,2011,46.3,stated,795.0,15.0,50.31,5.0,dynamic / density,-21.0
+NO00012,DRAUGEN,Norway,Crude Oil NOS,2008,40.3,stated,823.0,15.0,7.29,13.0,dynamic / density,-24.0
+NO00013,EKOFISK,Norway,Crude Oil NOS,2002,33.9,stated,854.8,15.0,67.85,13.0,dynamic / density,-12.0
+NO00014,EKOFISK BLEND,Norway,Crude Oil NOS,2002,34.7,stated,850.7,15.0,109.32,13.0,dynamic / density,0.0
+NO00015,EKOFISK BLEND,Norway,Crude Oil NOS,2015,36.6,stated,841.0,15.0,26.16,13.0,dynamic / density,-33.0
+NO00016,EKOFISK J,Norway,Crude Oil NOS,2015,35.6,stated,846.0,15.0,16.55,13.0,dynamic / density,-12.0
+NO00017,ELDFISK,Norway,Crude Oil NOS,2002,42.5,stated,812.5,15.0,11.08,13.0,dynamic / density,-6.0
+NO00018,ELDFISK B,Norway,Crude Oil NOS,2015,34.0,stated,854.0,15.0,58.55,13.0,dynamic / density,0.0
+NO00019,ELDFISK BLEND,Norway,Crude Oil NOS,2015,35.6,stated,846.0,15.0,59.1,13.0,dynamic / density,-12.0
+NO00020,ELDFISK KOMPLEKS,Norway,Crude Oil NOS,2015,36.4,stated,842.0,15.0,42.76,13.0,dynamic / density,0.0
+NO00021,ELLI,Norway,Crude Oil NOS,1999,37.0,stated,839.0,15.0,110.85,13.0,dynamic / density,3.0
+NO00022,ELLI SOUTH,Norway,Crude Oil NOS,1999,37.2,stated,838.0,15.0,121.72,13.0,dynamic / density,12.0
+NO00023,EMBLA,Norway,Crude Oil NOS,2002,41.7,stated,816.3,15.0,4.9,13.0,dynamic / density,-24.0
+NO00024,FORSETI,Norway,Crude Oil NOS,2002,22.8,stated,916.0,15.0,299.13,13.0,dynamic / density,-3.0
+NO00025,FOSSEKALL,Norway,Crude Oil NOS,2013,34.0,stated,854.0,20.0,1311.48,13.0,dynamic / density,18.0
+NO00026,FRAM,Norway,Crude Oil NOS,2013,34.8,stated,850.0,15.0,81.18,13.0,dynamic / density,3.0
+NO00027,FROY,Norway,Crude Oil NOS,1996,37.6,stated,836.0,15.0,11.96,13.0,dynamic / density,12.0
+NO00028,GARANTIANA,Norway,Crude Oil NOS,2013,30.4,stated,873.0,15.0,744.56,13.0,dynamic / density,30.0
+NO00029,GAUPE,Norway,Crude Oil NOS,2011,32.5,stated,862.0,15.0,765.66,13.0,dynamic / density,21.0
+NO00030,GJOA,Norway,Crude Oil NOS,2011,37.6,stated,836.0,15.0,5.98,13.0,dynamic / density,-36.0
+NO00031,GLITNE,Norway,Crude Oil NOS,2002,32.1,stated,864.0,15.0,288.19,13.0,dynamic / density,9.0
+NO00032,GOLIAT BLEND 50/50,Norway,Crude Oil NOS,2008,38.5,stated,831.4,15.0,23.82,5.0,dynamic / density,-6.0
+NO00033,GOLIAT BLEND 70/30,Norway,Crude Oil NOS,2008,40.4,stated,822.4,15.0,115.52,5.0,dynamic / density,-3.0
+NO00034,GOLIAT KOBBE,Norway,Crude Oil NOS,2008,46.0,stated,796.5,15.0,27.62,5.0,dynamic / density,-39.0
+NO00035,GOLIAT REALGRUNNEN,Norway,Crude Oil NOS,2008,33.5,stated,857.1,15.0,299.85,5.0,dynamic / density,-12.0
+NO00036,GRANE,Norway,Crude Oil NOS,1997,18.6,stated,942.0,15.0,677.28,13.0,dynamic / density,-24.0
+NO00037,GROSBEAK,Norway,Crude Oil NOS,2012,43.0,stated,810.0,15.0,50.62,13.0,dynamic / density,0.0
+NO00038,GUDRUN,Norway,Crude Oil NOS,2012,40.1,stated,824.0,15.0,18.2,13.0,dynamic / density,-6.0
+NO00039,GULLFAKS A BLEND,Norway,Crude Oil NOS,2010,37.4,stated,837.0,15.0,5.97,13.0,dynamic / density,-18.0
+NO00040,GULLFAKS C BLEND,Norway,Crude Oil NOS,2010,37.8,stated,835.0,15.0,11.98,13.0,dynamic / density,-24.0
+NO00041,GULLFAKS SOR,Norway,Crude Oil NOS,1996,33.7,stated,856.0,15.0,77.1,13.0,dynamic / density,3.0
+NO00042,GYDA,Norway,Crude Oil NOS,2002,40.2,stated,823.2,15.0,37.66,13.0,dynamic / density,-15.0
+NO00043,HAVIS,Norway,Crude Oil NOS,2013,34.8,stated,850.0,15.0,265.88,5.0,dynamic / density,3.0
+NO00044,HEIDRUN EXPORT BLEND,Norway,Crude Oil NOS,2004,27.0,stated,892.0,15.0,41.48,13.0,dynamic / density,-48.0
+NO00045,HEIDRUN TILJE,Norway,Crude Oil NOS,2004,36.0,stated,844.0,15.0,58.06,13.0,dynamic / density,-6.0
+NO00046,HEIDRUN AaRE,Norway,Crude Oil NOS,2004,21.2,stated,926.0,15.0,179.27,13.0,dynamic / density,-39.0
+NO00047,HULDRA KONDENSAT,Norway,Condensate,1998,43.3,stated,809.0,15.0,4.94,13.0,dynamic / density,-16.0
+NO00048,IFO-180LS,Norway,Residual Fuel Oil,2014,13.8,stated,973.0,15.0,7632.07,13.0,dynamic / density,6.0
+NO00049,IFO-180NS,Norway,Residual Fuel Oil,2014,13.3,stated,976.0,15.0,7577.87,13.0,dynamic / density,-3.0
+NO00050,IFO-80LS,Norway,Residual Fuel Oil,2014,16.4,stated,956.0,15.0,1419.46,13.0,dynamic / density,6.0
+NO00051,IFO-380LS,Norway,Residual Fuel Oil,2014,11.3,stated,990.0,15.0,27569.7,13.0,dynamic / density,-6.0
+NO00052,IVAR AASEN,Norway,Crude Oil NOS,2012,37.2,stated,838.0,15.0,10.74,13.0,dynamic / density,-6.0
+NO00053,JORDBAER,Norway,Crude Oil NOS,2011,44.8,stated,802.0,15.0,6.23,13.0,dynamic / density,-21.0
+NO00054,KRISTIN,Norway,Crude Oil NOS,2006,46.8,stated,793.0,15.0,2.52,13.0,dynamic / density,-39.0
+NO00055,KVITEBJORN,Norway,Crude Oil NOS,2009,44.9,stated,801.7,15.0,6.24,13.0,dynamic / density,-9.0
+NO00056,LAVRANS,Norway,Crude Oil NOS,1997,47.7,stated,789.0,15.0,2.53,13.0,dynamic / density,-6.0
+NO00057,LILLEFRIGG KONDENSAT,Norway,Condensate,1996,48.6,stated,785.0,15.0,2.55,13.0,dynamic / density,
+NO00058,LINERLE,Norway,Crude Oil NOS,2005,17.2,stated,951.0,15.0,1545.74,13.0,dynamic / density,-15.0
+NO00059,LUNO,Norway,Crude Oil NOS,2011,34.8,stated,850.0,15.0,35.29,13.0,dynamic / density,6.0
+NO00060,LUNO II,Norway,Crude Oil NOS,2014,34.6,stated,851.0,15.0,12.93,13.0,dynamic / density,-27.0
+NO00061,MARIA,Norway,Crude Oil NOS,2013,35.4,stated,847.0,15.0,21.25,13.0,dynamic / density,-24.0
+NO00062,MIDGARD,Norway,Crude Oil NOS,2003,53.5,stated,764.0,15.0,1.44,13.0,dynamic / density,
+NO00063,MORVIN,Norway,Crude Oil NOS,2008,41.5,stated,817.4,15.0,18.35,13.0,dynamic / density,-27.0
+NO00064,NJORD,Norway,Crude Oil NOS,2002,37.8,stated,835.0,15.0,61.08,13.0,dynamic / density,-9.0
+NO00065,NORNE,Norway,Crude Oil NOS,2010,32.3,stated,863.0,15.0,2280.42,13.0,dynamic / density,21.0
+NO00066,NORNE BLEND,Norway,Crude Oil NOS,2010,31.4,stated,867.6,15.0,102.58,13.0,dynamic / density,12.0
+NO00067,ORMEN LANGE KONDENSAT,Norway,Condensate,2008,57.0,stated,750.0,15.0,0.93,13.0,dynamic / density,-33.0
+NO00068,OSEBERG A,Norway,Crude Oil NOS,2013,25.2,stated,902.0,15.0,58.76,13.0,dynamic / density,-21.0
+NO00069,OSEBERG SOR,Norway,Crude Oil NOS,2013,37.0,stated,839.0,15.0,116.81,13.0,dynamic / density,9.0
+NO00070,OSEBERG OST,Norway,Crude Oil NOS,2013,36.4,stated,842.0,15.0,193.59,13.0,dynamic / density,9.0
+NO00071,OSELVAR,Norway,Crude Oil NOS,2012,47.2,stated,791.0,15.0,3.79,13.0,dynamic / density,-36.0
+NO00072,RINGHORNE,Norway,Crude Oil NOS,2002,38.8,stated,830.0,15.0,79.52,13.0,dynamic / density,6.0
+NO00073,SKARFJELL,Norway,Crude Oil NOS,2014,40.1,stated,824.0,15.0,47.33,13.0,dynamic / density,-12.0
+NO00074,SKARV,Norway,Crude Oil NOS,2004,32.9,stated,859.9,15.0,437.26,13.0,dynamic / density,12.0
+NO00075,SKARV KONDENSAT,Norway,Condensate,2014,39.0,stated,829.0,15.0,7.24,13.0,dynamic / density,6.0
+NO00076,SKRUGARD,Norway,Crude Oil NOS,2012,30.8,stated,871.0,15.0,36.74,5.0,dynamic / density,-36.0
+NO00077,SLEIPNER KONDENSAT,Norway,Condensate,2002,58.3,stated,745.0,15.0,1.34,13.0,dynamic / density,-30.0
+NO00078,SLEIPNER VEST,Norway,Crude Oil NOS,1998,23.4,stated,913.0,15.0,23612.27,5.0,dynamic / density,27.0
+NO00079,SMORBUKK,Norway,Crude Oil NOS,2003,41.1,stated,819.0,15.0,40.29,13.0,dynamic / density,0.0
+NO00080,SMORBUKK KONDENSAT,Norway,Condensate,2003,44.3,stated,804.0,15.0,3.73,13.0,dynamic / density,-15.0
+NO00081,SMORBUKK SOR,Norway,Crude Oil NOS,2003,39.0,stated,829.0,15.0,33.78,13.0,dynamic / density,-9.0
+NO00082,SNORRE B,Norway,Crude Oil NOS,2004,39.7,stated,826.0,15.0,36.32,13.0,dynamic / density,-6.0
+NO00083,SNORRE TLP,Norway,Crude Oil NOS,2004,38.0,stated,834.0,15.0,9.59,13.0,dynamic / density,3.0
+NO00084,SNOHVIT KONDENSAT,Norway,Condensate,2001,54.2,stated,761.1,15.0,0.92,5.0,dynamic / density,-45.0
+NO00085,STATFJORD A,Norway,Crude Oil NOS,2001,39.4,stated,827.4,15.0,51.97,13.0,dynamic / density,0.0
+NO00086,STATFJORD B,Norway,Crude Oil NOS,2001,39.2,stated,828.1,15.0,70.04,13.0,dynamic / density,-6.0
+NO00087,STATFJORD C,Norway,Crude Oil NOS,2001,38.1,stated,833.8,15.0,25.19,13.0,dynamic / density,-3.0
+NO00088,STAER,Norway,Crude Oil NOS,2010,31.5,stated,867.3,15.0,3268.77,5.0,dynamic / density,18.0
+NO00089,TAMBAR,Norway,Crude Oil NOS,2002,39.2,stated,828.0,15.0,7.25,13.0,dynamic / density,-6.0
+NO00090,TAU,Norway,Crude Oil NOS,1999,34.6,stated,851.0,15.0,1142.19,13.0,dynamic / density,18.0
+NO00091,TOR,Norway,Crude Oil NOS,2002,39.1,stated,828.8,15.0,51.88,13.0,dynamic / density,6.0
+NO00092,TORDIS,Norway,Crude Oil NOS,2002,36.8,stated,840.0,15.0,19.05,13.0,dynamic / density,3.0
+NO00093,TRESTAKK,Norway,Crude Oil NOS,2008,38.5,stated,831.4,15.0,6.01,13.0,dynamic / density,-39.0
+NO00094,TRYM KONDENSAT,Norway,Condensate,2011,45.7,stated,798.0,15.0,40.1,13.0,dynamic / density,9.0
+NO00095,TYRIHANS NORD,Norway,Crude Oil NOS,2004,29.7,stated,876.9,15.0,429.92,13.0,dynamic / density,15.0
+NO00096,TYRIHANS SOR,Norway,Crude Oil NOS,2004,35.3,stated,847.7,15.0,23.59,13.0,dynamic / density,-6.0
+NO00097,ULA,Norway,Crude Oil NOS,1999,38.4,stated,832.1,15.0,7.21,13.0,dynamic / density,-9.0
+NO00098,VALE,Norway,Crude Oil NOS,2014,41.8,stated,816.0,15.0,45.34,13.0,dynamic / density,-9.0
+NO00099,VALHALL,Norway,Crude Oil NOS,2002,36.5,stated,841.3,15.0,97.47,13.0,dynamic / density,-6.0
+NO00100,VARG,Norway,Crude Oil NOS,2000,34.2,stated,853.0,15.0,614.3,13.0,dynamic / density,15.0
+NO00101,VESLEFRIKK,Norway,Crude Oil NOS,2012,39.9,stated,825.0,15.0,8.48,13.0,dynamic / density,3.0
+NO00102,VIGDIS,Norway,Crude Oil NOS,2004,36.7,stated,840.7,15.0,41.63,13.0,dynamic / density,-3.0
+NO00103,VILJE,Norway,Crude Oil NOS,2009,36.3,stated,842.6,15.0,154.28,13.0,dynamic / density,9.0
+NO00104,VISUND,Norway,Crude Oil NOS,2009,47.2,stated,791.1,15.0,2.53,5.0,dynamic / density,-30.0
+NO00105,VOLUND,Norway,Crude Oil NOS,2010,32.9,stated,860.0,15.0,15.12,13.0,dynamic / density,-39.0
+NO00106,VOLVE,Norway,Crude Oil NOS,2006,27.5,stated,889.4,15.0,97.82,13.0,dynamic / density,6.0
+NO00107,WISTING,Norway,Crude Oil NOS,2015,35.8,stated,845.0,15.0,114.79,5.0,dynamic / density,-33.0
+NO00108,AASGARD A,Norway,Crude Oil NOS,2003,42.2,stated,814.0,15.0,31.94,13.0,dynamic / density,-36.0
+NO00109,SVALIN,Norway,Crude Oil NOS,2014,22.7,stated,917.0,20.0,177.75,15.0,dynamic / density,-20.0
+NO00110,ALTA,Norway,Crude Oil NOS,2016,39.5,stated,827.0,5.0,59.25,5.0,dynamic / density,14.0
+NO00111,DRIVIS,Norway,Crude Oil NOS,2017,37.2,stated,838.0,5.0,13.13,5.0,dynamic / density,-12.0
+NO00112,MARTIN LINGE CRUDE,Norway,Crude Oil NOS,2016,20.5,stated,930.0,15.0,316.13,15.0,dynamic / density,-30.0
+NO00113,MARTIN LINGE CONDENSATE,Norway,Condensate,2016,42.2,stated,814.0,15.0,7.37,15.0,dynamic / density,25.0
+NO00114,BRYNHILD CRUDE,Norway,Crude Oil NOS,2015,29.2,stated,880.0,15.0,47.73,15.0,dynamic / density,7.0
+NO00115,BOYLA CRUDE,Norway,Crude Oil NOS,2016,30.1,stated,875.0,15.0,52.57,15.0,dynamic / density,9.0
+NO00116,WISTING CENTRAL,Norway,Crude Oil NOS,2017,37.2,stated,838.0,5.0,11.93,5.0,dynamic / density,-36.0
+NO00117,SIGYN CONDENSATE,Norway,Condensate,2017,59.8,stated,739.0,13.0,13.53,13.0,dynamic / density,-3.0
+NO00118,NORNE CRUDE,Norway,Crude Oil NOS,2017,32.7,stated,861.0,5.0,0.0,20.0,kinematic,24.0
+NO00121,HEAVY DISTILLATE MARINE ECA 50,Norway,Distillate Fuel Oil,2017,25.1,stated,903.0,13.0,1112.96,13.0,dynamic / density,12.0
+NO00125,OSEBERG BLEND,Norway,Crude Oil NOS,2007,37.0,stated,839.0,13.0,8.34,13.0,dynamic / density,-1.5
+NO00126,BRASSE,Norway,Crude Oil NOS,2018,35.5,stated,846.5,13.0,10.63,13.0,dynamic / density,4.5
+NO00127,OSEBERG C,Norway,Crude Oil NOS,2013,35.8,stated,845.0,15.0,13.02,13.0,dynamic / density,-13.5
+NO00128,VEGA CONDENSATE,Norway,Condensate,2015,51.1,stated,774.0,13.0,2.58,13.0,dynamic / density,-0.5
+NO00129,FENJA (PIL),Norway,Crude Oil NOS,2015,35.2,stated,848.0,13.0,2464.62,13.0,dynamic / density,32.5
+NO00130,MARULK,Norway,Crude Oil NOS,2014,54.8,stated,759.0,13.0,1.32,13.0,dynamic / density,-36.0
+NO00131,GINA KROG CRUDE,Norway,Crude Oil NOS,2018,29.3,stated,879.0,5.0,124.0,5.0,dynamic / density,15.0
+NO00132,GUDRUN,Norway,Crude Oil NOS,2019,43.0,stated,810.0,13.0,20.99,13.0,dynamic / density,9.0
+NO00133,ATLA KONDENSAT,Norway,Condensate,2013,58.0,stated,746.0,13.0,1.34,13.0,dynamic / density,-16.5
+NO00134,OSEBERG SOR,Norway,Crude Oil NOS,2000,39.2,stated,828.0,13.0,10.87,13.0,dynamic / density,16.5
+NO00135,KVITEBJORN,Norway,Condensate,2019,56.5,stated,752.0,13.0,1.33,13.0,dynamic / density,-13.5
+NO00136,ODA,Norway,Crude Oil NOS,2019,44.7,stated,802.4,13.0,12.46,13.0,dynamic / density,10.5
+NO00137,IRIS CONDENSATE,Norway,Condensate,2020,44.6,stated,802.8,13.0,8.72,13.0,dynamic / density,15.0
+NO00138,AASTA HANSTEEN BLEND,Norway,Crude Oil NOS,2020,40.3,stated,823.0,13.0,2.43,13.0,dynamic / density,-21.0
+NO00139,VISUND SOR CONDENSATE,Norway,Condensate,2020,59.0,stated,742.0,13.0,1.35,13.0,dynamic / density,-22.5
+NO00140,VISUND CRUDE OIL,Norway,Crude Oil NOS,2020,46.5,stated,794.0,13.0,2.52,13.0,dynamic / density,-4.5
+NO00141,OSEBERG OST,Norway,Crude Oil NOS,1998,37.8,stated,835.0,13.0,19.16,13.0,dynamic / density,12.0
+NO00142,FROSK,Norway,Crude Oil NOS,2020,21.5,stated,924.0,13.0,369.05,13.0,dynamic / density,-33.0
+NO00143,DVALIN,Norway,Crude Oil NOS,2020,41.3,stated,818.0,13.0,13.45,13.0,dynamic / density,18.0
+NO00144,SKOGUL,Norway,Crude Oil NOS,2020,36.4,stated,842.0,13.0,79.57,13.0,dynamic / density,15.0
+NO00145,FOGELBERG CONDENSATE,Norway,Condensate,2021,45.4,stated,799.0,13.0,3.75,13.0,dynamic / density,16.5
+NO00146,UTGARD CONDENSATE,Norway,Condensate,2021,51.9,stated,771.0,13.0,1.3,13.0,dynamic / density,-3.0
+NO00147,NJORD,Norway,Crude Oil NOS,2003,43.7,stated,807.0,13.0,6.2,13.0,dynamic / density,-1.5
+NO00148,DUVA,Norway,Crude Oil NOS,2021,31.3,stated,868.3,13.0,7384.54,13.0,dynamic / density,31.5
+NO00149,VALHALL,Norway,Crude Oil NOS,2021,36.4,stated,842.0,13.0,17.81,13.0,dynamic / density,9.0
+NO00150,SF NORD BRENT,Norway,Crude Oil NOS,2021,35.8,stated,845.0,13.0,121.89,13.0,dynamic / density,25.5
+NO00151,SYGNA BRENT,Norway,Crude Oil NOS,2021,36.2,stated,843.0,13.0,53.38,13.0,dynamic / density,15.0
+NO00152,ALVE,Norway,Crude Oil NOS,2014,38.6,stated,831.0,13.0,6.02,13.0,dynamic / density,16.5
+NO00153,OSEBERG C,Norway,Crude Oil NOS,1995,33.5,stated,857.0,13.0,16.34,13.0,dynamic / density,1.5
+NO00154,DUGONG,Norway,Crude Oil NOS,2022,38.3,stated,832.5,13.0,18.02,13.0,dynamic / density,-3.0
+NO00155,LILLE PRINSEN,Norway,Crude Oil NOS,2022,34.6,stated,850.9,13.0,19.98,13.0,dynamic / density,12.0
+NO00156,TOR II,Norway,Crude Oil NOS,2022,34.0,stated,854.0,13.0,19.91,13.0,dynamic / density,9.0
+NO00157,VALE,Norway,Crude Oil NOS,2001,40.7,stated,821.0,13.0,9.74,13.0,dynamic / density,-3.0
+NO00158,GOLIAT REALGRUNNEN,Norway,Crude Oil NOS,2001,33.5,stated,857.0,13.0,299.88,13.0,dynamic / density,3.0
+NO00159,SVALE,Norway,Crude Oil NOS,2010,23.4,stated,913.8,5.0,281.24,5.0,dynamic / density,-33.0
+NO00160,BREIDABLIKK,Norway,Crude Oil NOS,2023,23.4,stated,913.4,13.0,137.95,13.0,dynamic / density,-21.0
+NO00162,YME,Norway,Crude Oil NOS,2023,36.5,stated,842.5,13.0,55.79,13.0,dynamic / density,9.0
+NO00163,OFELIA,Norway,Crude Oil NOS,2023,31.8,stated,866.9,13.0,6061.83,13.0,dynamic / density,30.0
+NO00164,HEIDRUN AARE,Norway,Crude Oil NOS,2023,25.8,stated,899.8,13.0,47.79,13.0,dynamic / density,-26.0

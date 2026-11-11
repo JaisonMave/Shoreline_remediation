@@ -8,7 +8,7 @@ import numpy as np
 import pandas as pd
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.gaussian_process import GaussianProcessRegressor
-from sklearn.gaussian_process.kernels import RBF, ConstantKernel as C
+from sklearn.gaussian_process.kernels import RBF, ConstantKernel as C, WhiteKernel
 from sklearn.model_selection import train_test_split
 from sklearn.exceptions import ConvergenceWarning
 
@@ -56,14 +56,22 @@ def make_synthetic_dataset(n_rows: int = 250) -> pd.DataFrame:
         if sensitivity == "very_high":
             base -= 1.5
 
+        # Two rule terms added after the validation checks E3 and E5 failed. Both magnitudes are ASSUMED.
+        # Thick oil (> 1 cm) calls for treatment: the Deepwater Horizon marsh endpoints required no thick
+        # (> 1 cm) oil (Michel et al. 2013), so natural attenuation scores lower there.
+        thick_oil_penalty = 2.0 if thickness > 10 else 0.0
+        # High-pressure washing is a method for bedrock, gravel and structures, not for sand or wetlands
+        # (docs/NOAA_ASSUMPTION_AUDIT.md), so its offset depends on the substrate.
+        high_pressure_offset = 0.5 if shoreline in {"bedrock", "cobble"} else -2.5
+
         treatment_scores = {
-            "natural_attenuation": max(0, min(10, round(base + rng.uniform(-2, 2), 2))),
+            "natural_attenuation": max(0, min(10, round(base - thick_oil_penalty + rng.uniform(-2, 2), 2))),
             "manual_removal": max(0, min(10, round(base + 1.2 + rng.uniform(-2, 2), 2))),
             "passive_sorbents": max(0, min(10, round(base + rng.uniform(-0.8, 2.0), 2))),
             "vacuum_removal": max(0, min(10, round(base + 0.7 + rng.uniform(-1.8, 1.8), 2))),
             "low_pressure_flushing": max(0, min(10, round(base + 0.5 + rng.uniform(-1.6, 1.8), 2))),
             "mechanical_removal": max(0, min(10, round(base - 0.6 + rng.uniform(-1.5, 1.5), 2))),
-            "high_pressure_washing": max(0, min(10, round(base - 2.5 + rng.uniform(-1.5, 1.0), 2))),
+            "high_pressure_washing": max(0, min(10, round(base + high_pressure_offset + rng.uniform(-1.5, 1.0), 2))),
             "surface_washing_agents": max(0, min(10, round(base - 0.3 + rng.uniform(-2.0, 1.8), 2))),
             "bioremediation": max(0, min(10, round(base + 1.0 + rng.uniform(-1.4, 1.6), 2))),
         }
@@ -95,8 +103,13 @@ class GaussianProcessSuitabilityModel:
     """A simple Gaussian Process regressor trained on engineered features."""
 
     def __init__(self):
-        kernel = C(1.0, (1e-3, 1e3)) * RBF(length_scale=1.0, length_scale_bounds=(1e-2, 1e3))
-        self.model = GaussianProcessRegressor(kernel=kernel, n_restarts_optimizer=5, normalize_y=True, random_state=0)
+        # The labels carry random scatter, so the kernel needs a noise term. Without it the model fits the
+        # scatter exactly and two near-identical scenarios can get different scores.
+        # Features are standardised in fit() so that one length scale suits both the 0/1 indicator columns
+        # and the numeric columns (coverage runs to 90, thickness to 25). On the rule-generated labels this
+        # raised cross-validated R2 for manual removal from about -0.07 to about 0.56.
+        kernel = C(1.0, (1e-3, 1e3)) * RBF(length_scale=3.0, length_scale_bounds=(1e-1, 1e3)) + WhiteKernel(1.0, (1e-3, 1e2))
+        self.model = GaussianProcessRegressor(kernel=kernel, n_restarts_optimizer=3, normalize_y=True, random_state=0)
 
     def _prepare_features(self, df: pd.DataFrame) -> pd.DataFrame:
         data = df.copy()
@@ -113,9 +126,12 @@ class GaussianProcessSuitabilityModel:
 
     def fit(self, X: pd.DataFrame, y: pd.Series):
         features = self._prepare_features(X)
+        matrix = features.to_numpy(dtype=float)
+        self.feature_mean = matrix.mean(axis=0)
+        self.feature_scale = np.where(matrix.std(axis=0) > 0, matrix.std(axis=0), 1.0)
         with warnings.catch_warnings():
             warnings.filterwarnings("ignore", category=ConvergenceWarning)
-            self.model.fit(features.to_numpy(), y.to_numpy())
+            self.model.fit((matrix - self.feature_mean) / self.feature_scale, y.to_numpy())
         self.feature_columns = features.columns.tolist()
         return self
 
@@ -125,8 +141,8 @@ class GaussianProcessSuitabilityModel:
         for c in missing:
             features[c] = 0.0
         features = features[self.feature_columns]
-        prediction = self.model.predict(features.to_numpy())
-        return np.clip(prediction, 0.0, 10.0)
+        matrix = (features.to_numpy(dtype=float) - self.feature_mean) / self.feature_scale
+        return np.clip(self.model.predict(matrix), 0.0, 10.0)
 
 
 class RandomForestSuitabilityModel:

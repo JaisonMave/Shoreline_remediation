@@ -1,0 +1,5 @@
+event,outcome,exposed_sites,comparison_sites,observations,pretrend_p_value,largest_effect,largest_effect_at,largest_effect_ci,recovery_lag_surveys
+Isaac 2012,cover_total,116,143,2278,0.246,-5.779,5,-10.662 to -0.897,
+Isaac 2012,ndvi_gs_mean,107,143,2205,0.008,0.053,4,0.036 to 0.070,
+Ida 2021,cover_total,120,104,1544,0.003,-17.229,1,-21.568 to -12.890,
+Ida 2021,ndvi_gs_mean,110,104,1255,0.0,-0.048,3,-0.090 to -0.005,

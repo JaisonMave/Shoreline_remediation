@@ -1,0 +1,8 @@
+model,median_inside_observed_interval,mean_log_distance_to_interval,within_factor_2_of_interval,mean_heldout_log_prob,gain_over_baseline,gain_standard_error
+no predictors (baseline),0.349,0.464,0.794,-1.534,0.0,0.0
+oil type and oiling degree,0.349,0.479,0.746,-1.555,-0.021,0.045
+treatment only,0.349,0.436,0.794,-1.523,0.012,0.044
+full model,0.317,0.433,0.746,-1.533,0.001,0.072
+"extended model (adds season, latitude, wetland type)",0.397,0.436,0.73,-1.539,-0.004,0.103
+random forest (imputed bounds),0.46,0.399,0.762,,,
+"random forest, extended features",0.317,0.423,0.762,,,
