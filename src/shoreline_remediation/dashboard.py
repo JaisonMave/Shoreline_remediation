@@ -21,6 +21,7 @@ from src.shoreline_remediation.scenario_runner import (  # noqa: E402
 from src.shoreline_remediation.noaa_crosswalk import NOAA_TREATMENT_CROSSWALK  # noqa: E402
 from src.shoreline_remediation.process_model import generate_lhs_scats, simulate_selected_scenario  # noqa: E402
 from src.shoreline_remediation.data_model import Scenario  # noqa: E402
+from src.shoreline_remediation.oil_library import scenario_oil_inputs, search_options  # noqa: E402
 from src.shoreline_remediation.decision_framework import HybridDecisionModel  # noqa: E402
 from src.shoreline_remediation.validation_panel import make_transect_figure, render_validation_tab  # noqa: E402
 
@@ -165,13 +166,31 @@ def build_scenario(preset: Scenario | None) -> Scenario:
             format_func=lambda value: value.replace("_", " ").title(),
         )
         shoreline_sensitivity = st.selectbox("Ecological sensitivity", ["low", "moderate", "high", "very_high"], index=selectbox_value(["low", "moderate", "high", "very_high"], source.shoreline_sensitivity), format_func=lambda value: value.replace("_", " ").title())
-        oil_category = st.selectbox("Oil category", ["light", "medium", "heavy", "solid"], index=selectbox_value(["light", "medium", "heavy", "solid"], source.oil_category), format_func=str.title)
+        temperature_c = st.slider("Temperature (°C)", -5.0, 35.0, float(source.temperature_c), 0.5)
+        oil_input = st.radio("Oil", ["Choose oil by name", "Enter category"], horizontal=True)
+        oil_category = None
+        if oil_input == "Choose oil by name":
+            query = st.text_input("Search NOAA ADIOS oils", value="South Louisiana")
+            options = search_options(query)
+            if options:
+                labels = dict(options)
+                oil_id = st.selectbox("Matching oils", list(labels), format_func=labels.get)
+                oil = scenario_oil_inputs(oil_id, temperature_c)
+                oil_category = oil["oil_category"]
+                viscosity = ("not measured" if oil["kinematic_viscosity_cst"] is None
+                             else f"{oil['kinematic_viscosity_cst']:.1f} cSt at {oil['viscosity_measured_at_c']:.0f} °C")
+                pour = "not measured" if oil["pour_point_c"] is None else f"{oil['pour_point_c']:.0f} °C"
+                st.caption(f"Category **{oil_category}** at {temperature_c:.1f} °C (API {oil['api_gravity']:.1f}; "
+                           f"viscosity {viscosity}; pour point {pour}). Source: NOAA ADIOS oil database.")
+            else:
+                st.caption("No oil with a measured API gravity matches that search. Enter a category instead.")
+        if oil_category is None:
+            oil_category = st.selectbox("Oil category", ["light", "medium", "heavy", "solid"], index=selectbox_value(["light", "medium", "heavy", "solid"], source.oil_category), format_func=str.title)
         oil_coverage = st.slider("Oil coverage (%)", 0, 100, int(source.oil_coverage), 1)
         oil_thickness = st.slider("Oil thickness (mm)", 0.0, 30.0, float(source.oil_thickness), 0.5)
         penetration_depth_cm = st.slider("Penetration depth (cm)", 0.0, 30.0, float(source.penetration_depth_cm), 0.5)
         wave_exposure = st.selectbox("Wave exposure", ["low", "moderate", "high", "very_high"], index=selectbox_value(["low", "moderate", "high", "very_high"], source.wave_exposure), format_func=lambda value: value.replace("_", " ").title())
         tidal_range = st.selectbox("Tidal range", ["low", "moderate", "high"], index=selectbox_value(["low", "moderate", "high"], source.tidal_range), format_func=str.title)
-        temperature_c = st.slider("Temperature (°C)", -5.0, 35.0, float(source.temperature_c), 0.5)
         season = st.selectbox("Season", ["spring", "summer", "autumn", "winter"], index=selectbox_value(["spring", "summer", "autumn", "winter"], source.season), format_func=str.title)
         substrate_permeability = st.selectbox("Substrate permeability", ["low", "moderate", "high"], index=selectbox_value(["low", "moderate", "high"], source.substrate_permeability), format_func=str.title)
         surface_oil = st.checkbox("Surface oil present", value=source.surface_oil)

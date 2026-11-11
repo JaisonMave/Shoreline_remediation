@@ -13,7 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from src.shoreline_remediation.oil_library import find_oil, load_oils, oil_category, scenario_oil_inputs  # noqa: E402
+from src.shoreline_remediation.oil_library import find_oil, load_oils, oil_category, scenario_oil_inputs, search_options  # noqa: E402
 
 
 def test_table_is_complete_and_plausible():
@@ -45,3 +45,11 @@ def test_scenario_inputs_use_measured_values():
     assert light["oil_category"] == "light"
     with pytest.raises(KeyError):
         scenario_oil_inputs("XX00000")
+
+
+def test_search_options_for_dashboard():
+    options = search_options("alaska north slope")
+    assert options and all(label.startswith("ALASKA NORTH SLOPE") or "API" in label for _, label in options)
+    ids = [oil_id for oil_id, _ in options]
+    assert all(scenario_oil_inputs(oil_id)["oil_category"] in {"light", "medium", "heavy", "solid"} for oil_id in ids)
+    assert search_options("   ") == [] and search_options("no such oil name") == []

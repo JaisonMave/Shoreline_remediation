@@ -41,6 +41,20 @@ def find_oil(query: str, limit: int = 10) -> pd.DataFrame:
     return found.sort_values(["_filled", "reference_year"], ascending=False).drop(columns="_filled").head(limit)
 
 
+def search_options(query: str, limit: int = 25) -> list[tuple[str, str]]:
+    """(oil_id, label) pairs for a name search, for a dropdown. Oils without an API gravity are left out
+    because they cannot be given a category."""
+    if not query.strip():
+        return []
+    found = find_oil(query, limit=limit * 2)
+    found = found[found["api_gravity"].notna()].head(limit)
+    labels = []
+    for oil in found.itertuples():
+        place = f", {oil.location}" if isinstance(oil.location, str) and oil.location else ""
+        labels.append((oil.oil_id, f"{oil.name}{place} (API {oil.api_gravity:.1f}, {oil.oil_id})"))
+    return labels
+
+
 def oil_category(api_gravity: float, pour_point_c: float | None = None, temperature_c: float = 20.0) -> str:
     if pour_point_c is not None and not pd.isna(pour_point_c) and pour_point_c > temperature_c:
         return "solid"

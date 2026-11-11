@@ -1,0 +1,3 @@
+outcome,role,oiled_sites,unoiled_sites,observations,pretrend_p_value,pretrend_check,largest_effect,at_event_time,largest_effect_90ci,recovery_lag_surveys
+cover_total,primary,20,24,320,0.106,passed,7.936,4,-2.485 to 18.358,
+ndvi_gs_mean,secondary,14,19,234,0.283,passed,0.06,4,-0.014 to 0.133,

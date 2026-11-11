@@ -1,0 +1,87 @@
+study,year,metric,treatment,mean,se,n
+main,2011,Oiled Vegetation Mat Cover (%),Reference,0.0,0.0,5
+main,2011,Oiled Vegetation Mat Cover (%),Manual Treatment,18.0,18.0,5
+main,2011,Oiled Vegetation Mat Cover (%),Mechanical Treatment,0.0,0.0,5
+main,2011,Oiled Vegetation Mat Cover (%),No Treatment,86.0,4.0,9
+main,2011,Surface Oil Cover (%),Reference,0.0,0.0,5
+main,2011,Surface Oil Cover (%),Manual Treatment,68.0,7.0,5
+main,2011,Surface Oil Cover (%),Mechanical Treatment,54.0,7.0,5
+main,2011,Surface Oil Cover (%),No Treatment,87.0,3.0,9
+main,2011,tPAH (mg/kg),Reference,0.08,0.03,5
+main,2011,tPAH (mg/kg),Manual Treatment,220.0,54.0,5
+main,2011,tPAH (mg/kg),Mechanical Treatment,,,
+main,2011,tPAH (mg/kg),No Treatment,260.0,102.0,9
+main,2011,Total Vegetation Cover (%),Reference,96.0,0.6,5
+main,2011,Total Vegetation Cover (%),Manual Treatment,22.0,4.0,5
+main,2011,Total Vegetation Cover (%),Mechanical Treatment,1.1,0.6,5
+main,2011,Total Vegetation Cover (%),No Treatment,7.0,2.0,9
+main,2011,Spartina alterniflora Cover (%),Reference,90.0,3.0,5
+main,2011,Spartina alterniflora Cover (%),Manual Treatment,5.0,1.0,5
+main,2011,Spartina alterniflora Cover (%),Mechanical Treatment,0.08,0.02,5
+main,2011,Spartina alterniflora Cover (%),No Treatment,0.3,0.1,9
+main,2011,Total Periwinkle Density (m-2),Reference,37.0,11.0,5
+main,2011,Total Periwinkle Density (m-2),Manual Treatment,0.2,0.2,5
+main,2011,Total Periwinkle Density (m-2),Mechanical Treatment,0.0,0.0,5
+main,2011,Total Periwinkle Density (m-2),No Treatment,0.1,0.1,9
+main,2011,Crab Burrow Density (m-2),Reference,17.0,1.0,5
+main,2011,Crab Burrow Density (m-2),Manual Treatment,16.0,5.0,5
+main,2011,Crab Burrow Density (m-2),Mechanical Treatment,17.0,0.9,5
+main,2011,Crab Burrow Density (m-2),No Treatment,6.0,2.0,9
+main,2011,Shoreline Retreat (m yr-1),Reference,0.8,0.2,5
+main,2011,Shoreline Retreat (m yr-1),Manual Treatment,2.8,0.6,5
+main,2011,Shoreline Retreat (m yr-1),Mechanical Treatment,,,
+main,2011,Shoreline Retreat (m yr-1),No Treatment,2.4,0.5,9
+main,2012,Oiled Vegetation Mat Cover (%),Reference,0.0,0.0,5
+main,2012,Oiled Vegetation Mat Cover (%),Manual Treatment,16.0,16.0,5
+main,2012,Oiled Vegetation Mat Cover (%),Mechanical Treatment,16.0,16.0,5
+main,2012,Oiled Vegetation Mat Cover (%),No Treatment,72.0,5.0,9
+main,2012,Surface Oil Cover (%),Reference,0.0,0.0,5
+main,2012,Surface Oil Cover (%),Manual Treatment,48.0,7.0,5
+main,2012,Surface Oil Cover (%),Mechanical Treatment,46.0,8.0,5
+main,2012,Surface Oil Cover (%),No Treatment,87.0,3.0,9
+main,2012,tPAH (mg/kg),Reference,1.5,1.0,5
+main,2012,tPAH (mg/kg),Manual Treatment,101.0,51.0,5
+main,2012,tPAH (mg/kg),Mechanical Treatment,178.0,104.0,5
+main,2012,tPAH (mg/kg),No Treatment,112.0,47.0,9
+main,2012,Total Vegetation Cover (%),Reference,95.0,0.0,5
+main,2012,Total Vegetation Cover (%),Manual Treatment,52.0,7.0,5
+main,2012,Total Vegetation Cover (%),Mechanical Treatment,23.0,8.0,5
+main,2012,Total Vegetation Cover (%),No Treatment,18.0,3.0,9
+main,2012,Spartina alterniflora Cover (%),Reference,87.0,3.0,5
+main,2012,Spartina alterniflora Cover (%),Manual Treatment,18.0,6.0,5
+main,2012,Spartina alterniflora Cover (%),Mechanical Treatment,9.0,5.0,5
+main,2012,Spartina alterniflora Cover (%),No Treatment,1.2,0.8,9
+main,2012,Total Periwinkle Density (m-2),Reference,183.0,41.0,5
+main,2012,Total Periwinkle Density (m-2),Manual Treatment,3.0,1.0,5
+main,2012,Total Periwinkle Density (m-2),Mechanical Treatment,9.0,2.0,5
+main,2012,Total Periwinkle Density (m-2),No Treatment,0.7,0.6,9
+main,2012,Juvenile Periwinkle Density (m-2),Reference,70.0,28.0,5
+main,2012,Juvenile Periwinkle Density (m-2),Manual Treatment,0.8,0.8,5
+main,2012,Juvenile Periwinkle Density (m-2),Mechanical Treatment,2.0,2.0,5
+main,2012,Juvenile Periwinkle Density (m-2),No Treatment,0.1,0.1,9
+main,2012,Sub-Adult Periwinkle Density (m-2),Reference,26.0,3.0,5
+main,2012,Sub-Adult Periwinkle Density (m-2),Manual Treatment,0.2,0.2,5
+main,2012,Sub-Adult Periwinkle Density (m-2),Mechanical Treatment,2.4,0.6,5
+main,2012,Sub-Adult Periwinkle Density (m-2),No Treatment,0.4,0.4,9
+main,2012,Adult Periwinkle Density (m-2),Reference,87.0,19.0,5
+main,2012,Adult Periwinkle Density (m-2),Manual Treatment,2.0,1.0,5
+main,2012,Adult Periwinkle Density (m-2),Mechanical Treatment,4.0,2.0,5
+main,2012,Adult Periwinkle Density (m-2),No Treatment,0.1,0.1,9
+main,2012,Crab Burrow Density (m-2),Reference,16.0,3.0,5
+main,2012,Crab Burrow Density (m-2),Manual Treatment,9.0,2.0,5
+main,2012,Crab Burrow Density (m-2),Mechanical Treatment,12.0,3.0,5
+main,2012,Crab Burrow Density (m-2),No Treatment,12.0,3.0,9
+main,2012,Shoreline Retreat (m yr-1),Reference,1.2,0.4,5
+main,2012,Shoreline Retreat (m yr-1),Manual Treatment,2.8,0.6,5
+main,2012,Shoreline Retreat (m yr-1),Mechanical Treatment,,,
+main,2012,Shoreline Retreat (m yr-1),No Treatment,3.1,0.6,9
+planting,2012,Spartina alterniflora Cover (%),Mechanical (Control),0.0,0.0,5
+planting,2012,Spartina alterniflora Cover (%),Mechanical (Planted),69.0,10.0,5
+planting,2012,Shoreline Retreat (m yr-1),Mechanical (Control),6.5,0.8,5
+planting,2012,Shoreline Retreat (m yr-1),Mechanical (Planted),4.4,0.3,5
+pre_treatment,2010,Oiled Vegetation Mat Cover (%),Manual Treatment,84.0,6.0,5
+pre_treatment,2010,Oiled Vegetation Mat Cover (%),Mechanical Treatment,84.0,4.0,5
+pre_treatment,2010,Oiled Vegetation Mat Cover (%),No Treatment,90.0,0.0,9
+pre_treatment,2010,Surface Oil Cover (%),Manual Treatment,88.0,2.0,5
+pre_treatment,2010,Surface Oil Cover (%),Mechanical Treatment,88.0,1.0,5
+pre_treatment,2010,Surface Oil Cover (%),No Treatment,89.0,1.0,9
