@@ -69,11 +69,11 @@ def _render_plausibility() -> None:
     st.write("Verdicts across 18 factor-method pairs: " + ", ".join(f"{k} = {v}" for k, v in counts.items()) + ".")
     for name in ("paper_permutation_importance.png", "paper_shap_beeswarm.png"):
         if (EXPLAIN / name).exists():
-            st.image(str(EXPLAIN / name), use_container_width=True)
+            st.image(str(EXPLAIN / name), width="stretch")
     flagged = paper[~paper["verdict"].isin(["Consistent"])][["output", "feature", "documented_expectation", "basis", "mean_share", "spearman_feature_vs_shap", "spearman_feature_vs_expert_score", "verdict"]]
-    st.dataframe(flagged.round(3), hide_index=True, use_container_width=True)
+    st.dataframe(flagged.round(3), hide_index=True, width="stretch")
     with st.expander("All 18 factor-method pairs"):
-        st.dataframe(paper.round(3), hide_index=True, use_container_width=True)
+        st.dataframe(paper.round(3), hide_index=True, width="stretch")
     st.caption(
         "Importance is the rise in held-out squared error when a factor is shuffled (5-fold x 6 repeats; GPR and random forest), "
         "shown as a share of the total. SHAP is computed out-of-fold on a random forest. A relationship is 'Consistent' when an expected driver "
@@ -83,9 +83,9 @@ def _render_plausibility() -> None:
     st.markdown("**3b. Shoreline model: checks against NOAA / SCAT logic**")
     n_pass = int((scat["verdict"] == "PASS").sum())
     (st.success if n_pass == len(scat) else st.error)(f"{n_pass} of {len(scat)} SCAT-logic checks pass.", icon=":material/rule:")
-    st.dataframe(scat, hide_index=True, use_container_width=True)
+    st.dataframe(scat, hide_index=True, width="stretch")
     if (EXPLAIN / "shoreline_feature_importance.png").exists():
-        st.image(str(EXPLAIN / "shoreline_feature_importance.png"), use_container_width=True)
+        st.image(str(EXPLAIN / "shoreline_feature_importance.png"), width="stretch")
     inert = perm[perm["mean_rank_shift"] < 0.05]["feature"].tolist()
     if inert:
         st.warning("Inputs that do not change the treatment ranking: " + ", ".join(f.replace("_", " ") for f in inert) + ".", icon=":material/tune:")
@@ -133,11 +133,11 @@ def render_validation_tab() -> None:
         view = comparison[(comparison["input_mode"] == "fuzzy") & (comparison["metric"].isin(["test_acc", "train_acc", "test_r", "test_mse"]))].copy()
         view["metric"] = view["metric"].map({"test_acc": "Testing accuracy (%)", "train_acc": "Training accuracy (%)", "test_r": "Testing correlation", "test_mse": "Testing MSE (0-1 scale)"})
         view = view.rename(columns={"model": "Model", "paper": "Paper", "reproduced": "Reproduced", "reproduced_sd": "SD across splits", "relative_difference_pct": "Difference (%)", "classification": "Verdict", "metric": "Metric"})
-        st.dataframe(view[["Model", "Metric", "Paper", "Reproduced", "SD across splits", "Difference (%)", "Verdict"]], hide_index=True, use_container_width=True)
+        st.dataframe(view[["Model", "Metric", "Paper", "Reproduced", "SD across splits", "Difference (%)", "Verdict"]], hide_index=True, width="stretch")
         st.caption("Difference (%) = |paper - reproduced| / paper x 100. Under 5 % excellent, 5-10 % acceptable, over 10 % requires investigation. Fuzzified inputs shown, as the paper states.")
         chart = REPRO / "paper_vs_reproduced_test_accuracy.png"
         if chart.exists():
-            st.image(str(chart), use_container_width=True)
+            st.image(str(chart), width="stretch")
         good = comparison[(comparison["input_mode"] == "fuzzy") & (comparison["model"].isin(["GPR", "SVR"])) & (comparison["metric"].isin(["test_acc", "test_r"]))]
         ann = comparison[(comparison["input_mode"] == "fuzzy") & (comparison["model"] == "ANN-GD") & (comparison["metric"] == "test_acc")]
         if len(good) and len(ann):
@@ -146,7 +146,7 @@ def render_validation_tab() -> None:
     items = _read(REPRO / "item_comparison.csv")
     if items is not None:
         with st.expander("Item-by-item comparison with the paper (inputs, preprocessing, split, hyperparameters, metrics)"):
-            st.dataframe(items, hide_index=True, use_container_width=True)
+            st.dataframe(items, hide_index=True, width="stretch")
 
     st.markdown("**Challenges in the reproduction**")
     st.markdown(
@@ -186,9 +186,9 @@ def render_validation_tab() -> None:
         st.caption(f"With only {n_cases} cases, precision, recall and F1 carry very wide uncertainty (95 % interval for class agreement: {_metric_value(metrics, 'class_agreement_ci95', 'n/a')}). Treat them as a diagnostic, not a score.")
         image = HIST / "historical_agreement.png"
         if image.exists():
-            st.image(str(image), use_container_width=True)
+            st.image(str(image), width="stretch")
         st.markdown("**Case table (every value is cited; blanks mean the source does not state it)**")
-        st.dataframe(sourced.drop(columns=[], errors="ignore"), hide_index=True, use_container_width=True)
+        st.dataframe(sourced.drop(columns=[], errors="ignore"), hide_index=True, width="stretch")
         if len(unsourced):
             st.info(f"{len(unsourced)} spills requested in the plan have no usable source retrieved and are kept as NOT_SOURCED rows rather than filled in: {', '.join(unsourced['Spill_Name'])}.")
         with st.expander("Traceability matrix: source, extracted variable, mapped model variable, confidence"):
@@ -196,17 +196,17 @@ def render_validation_tab() -> None:
             if trace is not None:
                 counts = trace["Confidence"].value_counts()
                 st.write("Confidence counts: " + ", ".join(f"{k} = {v}" for k, v in counts.items()) + ". High = directly reported; Medium = inferred from a documented shoreline description; Low = not stated (sampled over a plausible range).")
-                st.dataframe(trace, hide_index=True, use_container_width=True)
+                st.dataframe(trace, hide_index=True, width="stretch")
         with st.expander("Failure analysis"):
             failures = _read(HIST / "failure_analysis.csv")
             if failures is not None and len(failures):
-                st.dataframe(failures, hide_index=True, use_container_width=True)
+                st.dataframe(failures, hide_index=True, width="stretch")
             else:
                 st.write("No failures recorded.")
         with st.expander("Sources"):
             sources = _read(HIST / "sources.csv")
             if sources is not None:
-                st.dataframe(sources, hide_index=True, use_container_width=True)
+                st.dataframe(sources, hide_index=True, width="stretch")
         st.markdown("**Challenges in the historical validation**")
         st.markdown(
             "- Documented responses are qualitative (for example 'manual and mechanical cleanup'), so agreement is judged by method class and by whether the documented method appears in the model's ranking.\n"
@@ -229,7 +229,7 @@ def render_validation_tab() -> None:
         "and biodegradation with multiplicative Monod oxygen and nutrient limits."
     )
     st.latex(r"R_i\,\frac{\partial C_i}{\partial t} = D_i\,\frac{\partial^2 C_i}{\partial x^2} - \left(k_{evap}+k_{inf,i}+k_{bio}\,\frac{O_i}{K_O+O_i}\,\frac{N_i}{K_N+N_i}+k_{treat}\right) C_i")
-    st.dataframe(pd.DataFrame(LITERATURE, columns=["Reference", "Title", "Evidence status here", "What it contributes"]), hide_index=True, use_container_width=True)
+    st.dataframe(pd.DataFrame(LITERATURE, columns=["Reference", "Title", "Evidence status here", "What it contributes"]), hide_index=True, width="stretch")
     st.info(
         "No off-the-shelf, verified model of oil transport inside marsh interiors was found. The beach reactive-transport family (Geng and Boufadel) is the closest "
         "established basis; marsh retention and dispersion magnitudes are unpublished in the material read, so they are assumed and flagged.",
@@ -238,7 +238,7 @@ def render_validation_tab() -> None:
     from src.shoreline_remediation.shoreline_transport import PARAMETER_TABLE
 
     parameters = pd.DataFrame(PARAMETER_TABLE, columns=["Parameter", "Value used", "Status", "Basis"])
-    st.dataframe(parameters, hide_index=True, use_container_width=True)
+    st.dataframe(parameters, hide_index=True, width="stretch")
     sourced_count = int((parameters["Status"] == "SOURCED").sum())
     st.caption(f"{sourced_count} of {len(parameters)} parameters are taken from documents read; the rest are screening placeholders that must be calibrated to repeat SCAT observations before the process outputs are used for decisions.")
 

@@ -13,7 +13,8 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from src.shoreline_remediation.oil_library import find_oil, load_oils, oil_category, scenario_oil_inputs, search_options  # noqa: E402
+from src.shoreline_remediation.oil_library import (SPILL_OIL_TYPES, find_oil, load_oils, oil_category,  # noqa: E402
+                                                   scenario_oil_inputs, search_options)
 
 
 def test_table_is_complete_and_plausible():
@@ -53,3 +54,15 @@ def test_search_options_for_dashboard():
     ids = [oil_id for oil_id, _ in options]
     assert all(scenario_oil_inputs(oil_id)["oil_category"] in {"light", "medium", "heavy", "solid"} for oil_id in ids)
     assert search_options("   ") == [] and search_options("no such oil name") == []
+
+
+def test_search_options_leave_out_non_oils_by_default():
+    oils = load_oils()
+    additive = oils.loc[oils["api_gravity"].idxmin()]
+    assert additive["product_type"] not in SPILL_OIL_TYPES
+    word = "anti-knock"
+    assert word in additive["name"].lower()
+    assert search_options(word) == []
+    assert any(oil_id == additive["oil_id"] for oil_id, _ in search_options(word, spill_oils_only=False))
+    for oil_id, _ in search_options("crude"):
+        assert oils.set_index("oil_id").at[oil_id, "product_type"] in SPILL_OIL_TYPES

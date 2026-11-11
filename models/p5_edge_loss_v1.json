@@ -1,0 +1,101 @@
+{
+  "name": "p5-edge-loss-v1",
+  "built": "2026-11-11",
+  "target": "NAIP marsh-edge loss rate 2010-2015, m/yr (positive = land lost), per 100 m edge cell",
+  "algorithm": "ordinary least squares (P2 model M1: exposure + pre-spill trend, no oiling term)",
+  "terms": [
+    "const",
+    "water_1km_2010",
+    "water_250m_2010",
+    "log_fetch",
+    "pre_rate"
+  ],
+  "fetch_offset_m": 16.0,
+  "coefficients": [
+    -3.810348769810982,
+    -0.012141485279262641,
+    -0.05460382806352679,
+    0.6281858721412377,
+    0.22228373829030265
+  ],
+  "standard_errors_unclustered": [
+    0.12547575593512203,
+    0.16044317258947377,
+    0.1442555279366353,
+    0.022484755050701667,
+    0.014245512882957702
+  ],
+  "interval_level": 0.9,
+  "interval_offsets": [
+    -3.1589064743499446,
+    2.8815380261563366
+  ],
+  "interval_method": "5th/95th percentiles of leave-one-basin-out residuals (each basin predicted by a model fitted on the other two), added to the full-data prediction",
+  "training_cells": 12696,
+  "training_cells_by_basin": {
+    "terrebonne": 4104,
+    "barataria": 5386,
+    "breton": 3206
+  },
+  "training_range": {
+    "water_1km_2010": {
+      "p01": 0.23545725893375344,
+      "p99": 0.9815106541746124,
+      "min": 0.0015753254290688,
+      "max": 0.998922145759058
+    },
+    "water_250m_2010": {
+      "p01": 0.14379407616361067,
+      "p99": 0.9661495063469676,
+      "min": 0.001410437235543,
+      "max": 0.998589562764457
+    },
+    "fetch_mean_m": {
+      "p01": 57.0,
+      "p99": 4901.0999999999985,
+      "min": 23.0,
+      "max": 8219.0
+    },
+    "pre_rate": {
+      "p01": -2.3633384373452926,
+      "p99": 5.547362491488441,
+      "min": -8.613304297129313,
+      "max": 9.20135693417655
+    }
+  },
+  "training_box": {
+    "lat_min": 29.04757,
+    "lat_max": 30.32032,
+    "lon_min": -91.14198,
+    "lon_max": -89.37836
+  },
+  "lobo_mae": 1.2955798504035527,
+  "lobo_mae_no_predictor": 1.4164885444260336,
+  "heavy_uplift_range_m_per_yr": [
+    0.338,
+    0.831
+  ],
+  "heavy_uplift_source": "P2 training-fold coefficients for Heavy vs no oil observed (results/p2_basin_holdout/oil_effect_transfer.csv)",
+  "p1_headline": {
+    "estimate": 0.85,
+    "lo": 0.49,
+    "hi": 1.22,
+    "source": "docs/FINDINGS_2026-11-11.md section 7"
+  },
+  "measurement_note": "NAIP rates read about 1.2 m/yr below field erosion measurements (P3 analysis C); differences between sites are more reliable than absolute values.",
+  "validation": "P2 (docs/FINDINGS_2026-11-11.md section 8): held-out basins Barataria and western Breton, M1 beat the no-predictor baseline; 90% intervals covered 89% of held-out cells.",
+  "training_files_sha256": {
+    "terrebonne/cells_10A.csv": "8d22b57a8b6d92afa32debceaa9e3936a84ce57a726fd4f6913cce3f388f9487",
+    "terrebonne/cell_land_by_year.csv": "2791c09576e8caaf5df06079116b366947915cf5e86cb884cf8958bfde7e32f8",
+    "terrebonne/exposure.csv": "f1f21d215b626b407c69d37d22ebf3646afb0cf3affeb81844430322eaff98a6",
+    "terrebonne/landsat_cell_fraction.csv": "5376eeb6bef9f41b269372064c2cec7da1544507d614dee6e235940ed840e3de",
+    "barataria/cells_10A.csv": "b448a650d99de44d58e2acbfe670554c5ae813e9e7a8922220dbf166945d63e8",
+    "barataria/cell_land_by_year.csv": "7dba1e70a28031169bcf7f271fa21ab72a53c2b51247a821c018b66a7889d936",
+    "barataria/exposure.csv": "de4a16cb2ce57782763e0c6e72724498c91af4c7d42f3aeb488e429fd011dfa0",
+    "barataria/landsat_cell_fraction.csv": "ee06e80e2379a5ad82adfc5006e38656aac3db6550dbbfa72d3f5c692bedc993",
+    "breton/cells_10A.csv": "962dbb126e537f6f902bf30bb93738ad0f4d07535b2cacf70ceef2a57c8da3df",
+    "breton/cell_land_by_year.csv": "fa1018138b4acb3d8af0ffd97812d775a4121cfb9b5cda49afcc2636f2e3daef",
+    "breton/exposure.csv": "d9a64bbd0f43b1d3c806eb50f4e9813a7bad327f3ba3db37a8a3909003d848f4",
+    "breton/landsat_cell_fraction.csv": "1436b73590cd3eaa5f8714df6aa3e6b36d1e131314881129e003f80bffc5efaf"
+  }
+}

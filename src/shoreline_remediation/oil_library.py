@@ -41,12 +41,21 @@ def find_oil(query: str, limit: int = 10) -> pd.DataFrame:
     return found.sort_values(["_filled", "reference_year"], ascending=False).drop(columns="_filled").head(limit)
 
 
-def search_options(query: str, limit: int = 25) -> list[tuple[str, str]]:
+# Product types that are spilled oils for shoreline response purposes. The ADIOS table also holds additives,
+# solvents, lubricants, refinery intermediates and plant oils, for which the API-based category is not
+# meaningful (REVIEW_NOTES B0; e.g. an anti-knock additive at API -37.2).
+SPILL_OIL_TYPES = {"Crude Oil NOS", "Condensate", "Tight Oil", "Distillate Fuel Oil", "Residual Fuel Oil",
+                   "Fuel Oil NOS", "Bitumen Blend", "Bitumen", "Bio-Petro Fuel Oil"}
+
+
+def search_options(query: str, limit: int = 25, spill_oils_only: bool = True) -> list[tuple[str, str]]:
     """(oil_id, label) pairs for a name search, for a dropdown. Oils without an API gravity are left out
-    because they cannot be given a category."""
+    because they cannot be given a category; other products are left out unless spill_oils_only is False."""
     if not query.strip():
         return []
-    found = find_oil(query, limit=limit * 2)
+    found = find_oil(query, limit=len(load_oils()))
+    if spill_oils_only:
+        found = found[found["product_type"].isin(SPILL_OIL_TYPES)]
     found = found[found["api_gravity"].notna()].head(limit)
     labels = []
     for oil in found.itertuples():

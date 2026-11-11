@@ -3,5 +3,6 @@ pandas>=2.0
 scikit-learn>=1.4
 scipy>=1.11
 matplotlib>=3.8
-streamlit>=1.40
+streamlit>=1.67  # site view uses st.map colour/size and width="stretch"
 xgboost>=2.0
+openpyxl>=3.1  # reads the Zengel 2015/2022 Excel supplements (treatment evidence)

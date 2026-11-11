@@ -24,6 +24,7 @@ from src.shoreline_remediation.data_model import Scenario  # noqa: E402
 from src.shoreline_remediation.oil_library import scenario_oil_inputs, search_options  # noqa: E402
 from src.shoreline_remediation.decision_framework import HybridDecisionModel  # noqa: E402
 from src.shoreline_remediation.validation_panel import make_transect_figure, render_validation_tab  # noqa: E402
+from src.shoreline_remediation.site_view import render_site_evidence  # noqa: E402
 
 
 st.set_page_config(
@@ -171,7 +172,8 @@ def build_scenario(preset: Scenario | None) -> Scenario:
         oil_category = None
         if oil_input == "Choose oil by name":
             query = st.text_input("Search NOAA ADIOS oils", value="South Louisiana")
-            options = search_options(query)
+            other_products = st.checkbox("Include other products (additives, solvents, lubricants)", value=False)
+            options = search_options(query, spill_oils_only=not other_products)
             if options:
                 labels = dict(options)
                 oil_id = st.selectbox("Matching oils", list(labels), format_func=labels.get)
@@ -458,17 +460,28 @@ def make_constraint_chart(scenario: Scenario) -> plt.Figure:
 
 
 def main() -> None:
-    st.markdown('<div class="hero"><h1>Shoreline Remediation Decision Support</h1><p>Select one shoreline scenario, run the analysis, and compare treatment options in plain language.</p></div>', unsafe_allow_html=True)
+    st.markdown('<div class="hero"><h1>Shoreline Remediation Decision Support</h1><p>Oiled salt marsh, northern Gulf of Mexico: screen cleanup options, see expected marsh-edge loss with honest intervals, and check what field data say about each option.</p></div>', unsafe_allow_html=True)
+    site_tab, scenario_tab = st.tabs(["Site evidence (real data)", "Scenario screening (rules and synthetic data)"])
+    with site_tab:
+        render_site_evidence()
+    with scenario_tab:
+        render_scenario_view()
 
+
+def render_scenario_view() -> None:
+    st.info("This view ranks options with FAST-like rules and a suitability model trained on rule-generated (synthetic) labels; "
+            "the recovery curves come from a process model with ASSUMED rates. Nothing here has been validated against field outcomes. "
+            "Real-data evidence is in the **Site evidence** tab.", icon=":material/science:")
     with st.sidebar:
-        st.header("Choose a scenario")
+        st.header("Scenario screening inputs")
+        st.caption("These inputs drive the Scenario screening tab only.")
         preset_options = ["Custom scenario"] + [preset_name(index, scenario) for index, scenario in enumerate(SCENARIO_LIBRARY)]
         selected = st.selectbox("Starting point", preset_options)
         preset = None if selected == "Custom scenario" else SCENARIO_LIBRARY[preset_options.index(selected) - 1]
         st.caption("Change any input below. The analysis runs only when you press the button.")
 
     scenario = build_scenario(preset)
-    run_analysis = st.sidebar.button("Run scenario analysis", type="primary", use_container_width=True)
+    run_analysis = st.sidebar.button("Run scenario analysis", type="primary", width="stretch")
 
     if "analysis" not in st.session_state:
         st.session_state.analysis = None
@@ -478,7 +491,7 @@ def main() -> None:
         st.session_state.analysis = (scenario, results)
 
     if st.session_state.analysis is None:
-        st.info("Choose a preset or custom inputs in the sidebar, then select Run scenario analysis.")
+        st.write("Choose a preset or custom inputs in the sidebar, then select Run scenario analysis.")
         st.subheader("What you will see")
         st.write("A ranked recommendation, feasibility screening, uncertainty signal, key decision drivers, and clear treatment-by-treatment score explanations.")
         return
@@ -531,7 +544,7 @@ def main() -> None:
     st.subheader("Scientific result plots")
     st.caption("The recovery plot uses the ML-ranked top treatments as inputs to the cross-shore transport model (advection-dispersion-reaction in shoreline sediment). Shaded bands reflect the decision confidence signal; all curves remain screening predictions until calibrated with repeat SCAT observations.")
     st.markdown("#### Impact and recovery trajectories")
-    st.pyplot(make_recovery_chart(analyzed_scenario, results), use_container_width=True)
+    st.pyplot(make_recovery_chart(analyzed_scenario, results), width="stretch")
     trajectory_rows = []
     for ranked_result in [result for result in results if result.feasibility != "ineligible"][:5]:
         trajectory = simulate_selected_scenario(analyzed_scenario, ranked_result.treatment)
@@ -542,29 +555,29 @@ def main() -> None:
             "Process recovery index": f"{float(trajectory['habitat_recovery_index'].iloc[-1]):.0%}",
             "Decision confidence": f"{ranked_result.confidence:.0%}",
         })
-    st.dataframe(pd.DataFrame(trajectory_rows), hide_index=True, use_container_width=True)
+    st.dataframe(pd.DataFrame(trajectory_rows), hide_index=True, width="stretch")
     scientific_left, scientific_right = st.columns(2)
     with scientific_left:
         st.markdown("#### Time to recovery endpoint")
-        st.pyplot(make_endpoint_chart(analyzed_scenario, results), use_container_width=True)
+        st.pyplot(make_endpoint_chart(analyzed_scenario, results), width="stretch")
     with scientific_right:
         st.markdown("#### Suitability versus ecological fit")
-        st.pyplot(make_tradeoff_chart(results), use_container_width=True)
+        st.pyplot(make_tradeoff_chart(results), width="stretch")
     st.markdown("#### Environmental and operational constraint profile")
-    st.pyplot(make_constraint_chart(analyzed_scenario), use_container_width=True)
+    st.pyplot(make_constraint_chart(analyzed_scenario), width="stretch")
     st.caption("Interpretation: the recovery chart shows process-model predictions for the ML-ranked treatments; the endpoint chart compares indicative time to 80% recovery; the trade-off chart compares operational suitability with ecological fit; the constraint chart summarizes relative planning constraints.")
 
     ranking_tab, process_tab, model_tab, noaa_tab, validation_tab, constraints_tab, detail_tab, inputs_tab = st.tabs([
-        "Treatment ranking", "Process model", "ML model evidence", "NOAA cross-check", "Validation", "Constraints & endpoint", "Treatment details", "Scenario inputs"
+        "Treatment ranking", "Process model", "Method test (synthetic data)", "NOAA cross-check", "Validation", "Constraints & endpoint", "Treatment details", "Scenario inputs"
     ])
     with ranking_tab:
         left, right = st.columns([1.35, 1])
         with left:
             st.caption("Overall utility ranking. Green = eligible, amber = conditional, red = ineligible.")
-            st.pyplot(make_ranking_chart(results), use_container_width=True)
+            st.pyplot(make_ranking_chart(results), width="stretch")
         with right:
             st.caption("Top options: suitability, ecological fit, and confidence.")
-            st.pyplot(make_score_chart(results[:6]), use_container_width=True)
+            st.pyplot(make_score_chart(results[:6]), width="stretch")
         ranking_frame = pd.DataFrame([
             {
                 "Rank": index,
@@ -577,14 +590,14 @@ def main() -> None:
             }
             for index, result in enumerate(results, start=1)
         ])
-        st.dataframe(ranking_frame, hide_index=True, use_container_width=True)
+        st.dataframe(ranking_frame, hide_index=True, width="stretch")
 
     with process_tab:
         st.subheader("Cross-shore transport simulation")
         st.caption("Screening model: oil moves across the shore by tidal and swash dispersion with retention in vegetation and soil, and is lost by evaporation, infiltration and biodegradation (oxygen- and nutrient-limited). Marsh interiors are oxygen-poor, so oil persists there. Parameters marked ASSUMED in the Validation tab are not yet calibrated.")
         process_data = simulate_selected_scenario(analyzed_scenario, top.treatment)
-        st.pyplot(make_transect_figure(analyzed_scenario, top.treatment), use_container_width=True)
-        st.pyplot(make_process_chart(process_data), use_container_width=True)
+        st.pyplot(make_transect_figure(analyzed_scenario, top.treatment), width="stretch")
+        st.pyplot(make_process_chart(process_data), width="stretch")
         process_columns = st.columns(4)
         final_row = process_data.iloc[-1]
         process_metrics = [
@@ -599,7 +612,7 @@ def main() -> None:
             "survey_date", "survey_day", "surface_oil_mass_kg", "subsurface_oil_mass_kg",
             "residual_oil_kg", "residual_oil_pct_of_initial", "habitat_recovery_index",
             "endpoint_decision", "continued_monitoring",
-        ]], hide_index=True, use_container_width=True)
+        ]], hide_index=True, width="stretch")
         st.download_button(
             "Download selected process trajectory CSV",
             data=process_data.to_csv(index=False),
@@ -618,7 +631,9 @@ def main() -> None:
         st.info("Replace the synthetic LHS file with real SCAT/SOS/STR repeat-survey data before calibrating rates or using endpoint results operationally.")
 
     with model_tab:
-        st.subheader("Benchmark evidence")
+        st.subheader("Method test on synthetic data (not evidence)")
+        st.warning("Every model below was trained and scored on synthetic, rule-generated scenarios (data/scenario_training_dataset.csv, data/lhs_scat_process_dataset.csv). "
+                   "Good scores show the models can copy the rules; they say nothing about real cleanup outcomes.", icon=":material/warning:")
         st.info("The live dashboard keeps FAST feasibility as a hard gate and uses the current Gaussian Process suitability path for the treatments supported by the decision framework. These benchmark results are shown as evidence, not silently blended into the recommendation.")
         if benchmark.empty:
             st.warning("comparison_report.csv was not found. Run run_benchmark.py to generate model comparison results.")
@@ -630,8 +645,8 @@ def main() -> None:
             summary["Model"] = summary.pop("model").map(model_labels).fillna("Unknown")
             summary["Mean_MAE"] = summary["Mean_MAE"].round(3)
             summary["Mean_R2"] = summary["Mean_R2"].round(3)
-            st.pyplot(make_benchmark_chart(benchmark), use_container_width=True)
-            st.dataframe(summary[["Model", "Mean_MAE", "Mean_R2"]], hide_index=True, use_container_width=True)
+            st.pyplot(make_benchmark_chart(benchmark), width="stretch")
+            st.dataframe(summary[["Model", "Mean_MAE", "Mean_R2"]], hide_index=True, width="stretch")
             st.caption("These metrics are calculated from the current synthetic benchmark dataset. They should not be treated as production validation until real expert-labelled or incident data are used.")
             st.subheader("Why the models are not blended yet")
             best_model = summary.sort_values("Mean_R2", ascending=False).iloc[0]["Model"]
@@ -648,14 +663,14 @@ def main() -> None:
             {"Treatment group": "Low-pressure flushing / washing agents", "Typical E score": "4.5", "Reason": "Moderate disturbance and mobilization or residue concerns"},
             {"Treatment group": "Passive sorbents", "Typical E score": "6.5", "Reason": "Low-contact recovery with limited substrate disturbance"},
         ])
-        st.dataframe(ecological_rules, hide_index=True, use_container_width=True)
+        st.dataframe(ecological_rules, hide_index=True, width="stretch")
 
     with noaa_tab:
         st.subheader("NOAA / SCAT treatment cross-check")
         st.caption("Crosswalk based on manual_shore_assess_aug2013.pdf. Page references are PDF page numbers from the supplied manual. This is an audit aid, not a substitute for an approved Shoreline Treatment Recommendation.")
         crosswalk = pd.DataFrame(NOAA_TREATMENT_CROSSWALK)
         crosswalk["treatment"] = crosswalk["treatment"].str.replace("_", " ").str.title()
-        st.dataframe(crosswalk, hide_index=True, use_container_width=True)
+        st.dataframe(crosswalk, hide_index=True, width="stretch")
         st.warning("The current synthetic scores are not NOAA scores. NOAA provides method objectives, habitat applicability, constraints, and monitoring considerations; numeric suitability scores require calibrated expert or incident data.", icon=":material/verified_user:")
 
     with validation_tab:
@@ -683,7 +698,7 @@ def main() -> None:
 
     with inputs_tab:
         input_frame = pd.DataFrame({"Input": [field.replace("_", " ").title() for field in analyzed_scenario.__dataclass_fields__], "Value": [str(value) for value in analyzed_scenario.__dict__.values()]})
-        st.dataframe(input_frame, hide_index=True, use_container_width=True)
+        st.dataframe(input_frame, hide_index=True, width="stretch")
 
 
 if __name__ == "__main__":
