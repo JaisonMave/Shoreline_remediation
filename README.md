@@ -139,6 +139,9 @@ it was run and run once.
 | [docs/ROADMAP.md](docs/ROADMAP.md) | Proof-of-concept milestones P1-P6, full programme, decision register |
 | [docs/FINDINGS_2026-11-11.md](docs/FINDINGS_2026-11-11.md) | Results of every analysis, including nulls and failures |
 | [docs/HANDOFF.md](docs/HANDOFF.md) | Current state and next steps for a new session |
+| [docs/DATA_CATALOGUE.md](docs/DATA_CATALOGUE.md) | Every dataset: source, licence, date, method, checksums |
+| [docs/VARIABLE_DICTIONARY.md](docs/VARIABLE_DICTIONARY.md) | Every variable: definition, unit, valid range, derivation |
+| [docs/REVIEW_NOTES.md](docs/REVIEW_NOTES.md) | Open scientific and technical concerns |
 
 Main result so far: heavily oiled salt-marsh edge in Louisiana lost about 0.6 to 0.85 m/yr more than clean edge
 after the spill, once wave exposure and pre-spill erosion are accounted for. A model fitted on some basins

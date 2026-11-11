@@ -13,6 +13,19 @@ Computer (no account needed).
 
 ## 2026-11-11 (session 2): proof-of-concept track
 
+### P4: data catalogue and variable dictionary
+- **Why:** every input to the demo must be traceable to source, date and method (roadmap P4).
+- **What:** 18 datasets and 49 files catalogued with role (external, derived, synthetic, reference,
+  instrument), source, licence, date, how obtained and read, and SHA-256; 40 variables defined with unit,
+  type, valid range or allowed values, missing-value rule, derivation and module.
+- **Files:** `scripts/build_catalogue.py`, `data/meta/catalogue.csv`, `data/meta/variable_dictionary.csv`,
+  `docs/DATA_CATALOGUE.md`, `docs/VARIABLE_DICTIONARY.md`, `tests/test_data_catalogue.py` (42 checks).
+  Also `scripts/run_p2_measurements.sh` and `scripts/landsat_split.sh`, which record how the P2 tables were
+  built (previously only in a scratch folder), and `docs/REVIEW_NOTES.md` (open scientific concerns).
+- **Run:** `python scripts/build_catalogue.py` after any data change; `pytest tests/test_data_catalogue.py`.
+- **Found:** the oil table includes non-oils (an anti-knock additive at API -37.2); noted for P5.
+- **Status:** Under validation (awaiting Jaison's check of definitions). D11 approved; D12 implemented.
+
 ### P3: cleanup treatment and marsh-edge erosion
 - **Why:** the tool needs data-based treatment effects, not only rules (roadmap P3).
 - **What:** searched SCAT, the NCEI DIVER archive, NOAA TM OR&R 42 and the DWH administrative record for
@@ -114,6 +127,7 @@ Computer (no account needed).
   `docs/HANDOFF.md`.
 
 ## Known open issues
+- See `docs/REVIEW_NOTES.md` for the full list of open scientific and technical concerns.
 - D10: land/water classification fails on water-dominated and plume tiles; Landsat maps not clean (Jaison).
 - One spill only; transfer shown within Louisiana, not to a new spill (D6).
 - Cleanup method per shoreline segment: no public machine-readable records (P3); treated stretches exist only
