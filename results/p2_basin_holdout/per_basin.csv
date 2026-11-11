@@ -1,0 +1,4 @@
+basin,tested,cells,heavy,clean,observed_mean,MAE_M0,RMSE_M0,MAE_M1,RMSE_M1,MAE_M2,RMSE_M2,MAE_M3,RMSE_M3,skill_M1,skill_M2,skill_M3,coverage_90,block_MAE_M0,block_MAE_M1,block_MAE_M2,block_MAE_M3,block_groups
+terrebonne,False,4104,20,3660,,,,,,,,,,,,,,,,,,
+barataria,True,5386,501,3610,0.374,1.4993,2.4961,1.3065,2.3192,1.3419,2.3283,1.3893,2.3634,0.1286,0.105,0.0734,0.901,1.2,0.9978,1.0441,1.0849,282.0
+breton,True,3206,31,2892,0.549,1.4247,2.2174,1.3687,2.2122,1.3636,2.2066,1.4494,2.2881,0.0393,0.0429,-0.0173,0.877,1.0445,1.0747,1.068,1.0981,171.0

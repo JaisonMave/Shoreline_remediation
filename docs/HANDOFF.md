@@ -11,10 +11,10 @@ but is new to ML.
 ## Where things are
 
 - Repository: https://github.com/JaisonMave/Shoreline_remediation (public). `main` is at commit 4b0c118.
-- Unpushed work: branch `process-model-audit`, eight commits on top of `main`, held only in
+- Unpushed work: branch `process-model-audit`, eleven commits on top of `main`, held only in
   `Shoreline_remediation-full.zip` (made 11 Nov 2026). The zip contains the whole repository including its
   `.git` folder, so unzipping it restores the branch and history directly; no need to clone first. Run
-  `python -m pytest tests` (43 tests should pass). Do not push unless asked; pushing needs the Claude GitHub
+  `python -m pytest tests` (45 tests should pass). Do not push unless asked; pushing needs the Claude GitHub
   App installed on the repository. Raw SCAT shapefiles are not in the zip; `scripts/download_scat.sh` fetches them.
 - Design document: https://claude.ai/artifact/BidoqGEG4kFHQ6A4YPUzQi
 - Literature review: https://claude.ai/artifact/4eR98SrUVEmUZ1Ygddh5cW
@@ -22,7 +22,8 @@ but is new to ML.
   `claude/findings-2026-11-11.md`, `claude/roadmap.md`.
 - Repository docs: `docs/PROCESS_MODEL_AUDIT.md`, `docs/RANKING_FIXES.md`,
   `docs/EXPERT_SCORING_PROTOCOL.md`, `docs/DATA_ACQUISITION.md`, `docs/FINDINGS_2026-11-11.md`,
-  `docs/ROADMAP.md` (milestones and decision register), `docs/NAIP_EDGE_LOSS_PLAN.md`, `docs/P1_PRESPILL_CHECK_PLAN.md`.
+  `docs/ROADMAP.md` (milestones and decision register), `docs/NAIP_EDGE_LOSS_PLAN.md`, `docs/P1_PRESPILL_CHECK_PLAN.md`,
+  `docs/P2_BASIN_HOLDOUT_PLAN.md`.
 - The earlier seven-commit history was not in the previous zip, so it was restored as one commit.
   Network egress now works for NOAA, PLOS, Planetary Computer, Earth Search and PyPI (FTP is blocked).
 
@@ -39,6 +40,7 @@ but is new to ML.
 | SCAT oiling (`scripts/download_scat.sh`, `data/external/scat_dwh/`) | NCEI 0163818 Louisiana layers downloaded (max oiling, and all surveys including No Oil Observed). CRMS sites matched by distance. |
 | Treatment effects (`treatment_effects.py`, `data/external/zengel2015/`) | Zengel et al. 2015 S1 Table loaded. Manual vs none: +34 points vegetation cover at year 2 (19 to 49); mechanical: +5 (-12 to 22); planting (randomized): +69 points Spartina. One site; observational except planting. Priors only. |
 | Marsh-edge loss (`validation/naip_edge_loss.py`, plan `docs/NAIP_EDGE_LOSS_PLAN.md`) | NAIP 2010-2017, 4,779 salt-marsh edge cells in Barataria Bay. Heavily oiled edge lost 1.0 m/yr more than clean edge in the same 2 km block (90% interval 0.58 to 1.43), rising with oiling class. P1 Landsat check (1999-2015): part of that predates the spill and is explained by wave exposure; revised headline 0.85 m/yr (0.49 to 1.22), 0.62 to 0.85 across exposure adjustments. See FINDINGS section 7. |
+| Basin hold-out (`validation/p2_basin_holdout.py`, plan `docs/P2_BASIN_HOLDOUT_PLAN.md`) | Louisiana edge cells in 4 basins; birdfoot, eastern Breton and south-west Barataria excluded (land/water rule fails in plume/open-water tiles). Held out Barataria and western Breton: model beats the no-predictor baseline (pooled 8-10% lower error), 90% intervals cover 89%; oiling class adds no cell-level accuracy over exposure; heavy uplift 0.34-0.83 m/yr depending on training basins. |
 | Oil properties (`oil_library.py`, `data/oil_properties.csv`) | 1,460 oils from NOAA ADIOS. Dashboard now chooses an oil by name and sets the category from measured properties. |
 | Marsh field data (`data/external/crms/`) | 341 Louisiana CRMS sites, 2006-2025, from a third-party GitHub repository. No oil information. Not checked against the original CRMS export. |
 
@@ -52,8 +54,9 @@ those rules.
 
 1. Done: NAIP marsh-edge loss (see FINDINGS section 6).
 2. Done (P1, pending Jaison's review): pre-spill Landsat check and finer exposure; see FINDINGS section 7.
-   Proof-of-concept track and decisions D1-D7 are in docs/ROADMAP.md. Next: P2, holding out whole Louisiana
-   basins (D6), with the D7 predictors once approved.
+   Proof-of-concept track and decisions D1-D10 are in docs/ROADMAP.md.
+   P2 done (pending review): leave-one-basin-out within Louisiana; partly transfers (FINDINGS section 8).
+   Next: P3 (DIVER cleanup records), then P4-P6. Backlog D10: robust land/water classifier.
 3. DIVER: segment-level treatment records, to split heavily oiled cells by cleanup method.
 4. Wire `treatment_prior()` into the dashboard for heavily oiled marsh, shown as out of scope elsewhere.
 5. Collect expert scores from three or more people (needs Jaison).

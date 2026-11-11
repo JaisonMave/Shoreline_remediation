@@ -1,0 +1,3 @@
+check,cells,heavy_cells,blocks_2km,noo_mean_rate,heavy_effect,lo,hi,p,excludes_zero
+"R1 check 3 (pre-specified headline), agreeing cells only",5638,520,199,0.426,0.795,0.444,1.145,0.0002,True
+"R2 check 3 + finer exposure, agreeing cells only",5638,520,199,0.426,0.557,0.239,0.874,0.004,True
