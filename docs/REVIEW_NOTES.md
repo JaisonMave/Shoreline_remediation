@@ -4,7 +4,7 @@ Running list of scientific and technical concerns raised during development, so 
 sessions. Each note says where it bites and what would resolve it. Add new notes at the top of a section;
 mark resolved notes rather than deleting them. Decisions referred to are in `docs/ROADMAP.md`.
 
-Last updated 11 November 2026 (after P3).
+Last updated 11 November 2026 (after P4; soil and sediment chemistry flagged in E0).
 
 ## A. Claims we can and cannot make to leads
 
@@ -68,6 +68,30 @@ Last updated 11 November 2026 (after P3).
    (`data/external/zengel2022/SOURCE.md`).
 
 ## E. Scope gaps against the project brief (for the "what next" slide)
+
+0. **Soil and sediment chemistry is missing (flagged at Jaison's request, 11 Nov 2026).** The PoC uses no
+   soil, sediment or porewater chemistry in any model. The full list, with why each variable matters and open
+   candidates, is in `data/meta/planned_variables.csv` (rendered at the end of `docs/VARIABLE_DICTIONARY.md`).
+   Comments:
+   - What we do hold: sediment total PAH as group means only (Zengel 2015, 2011-2012) and soil shear strength
+     per plot (Zengel 2022, not analysed). Neither can enter a cell-level model.
+   - Consequence for claims: the tool predicts physical (edge loss) and biological (vegetation cover)
+     recovery, not chemical recovery. A slide must not say "recovery" without saying which kind.
+   - Total PAH is not exposure. Toxicity follows the freely dissolved fraction, which depends on soil organic
+     carbon; organic-rich marsh soils sorb strongly, so total PAH overstates risk there. Hopane-normalised
+     PAH is needed to tell degradation from physical removal, otherwise a cleanup that strips surface soil
+     looks like faster chemical recovery.
+   - Best next additions, in order: (1) soil organic matter and bulk density (CRMS station data exist, and
+     they separate organic from mineral marsh, which may explain why the oiling effect differs between basins
+     in P2 and how marsh soils respond to trampling under cleanup); (2) porewater salinity (CRMS; basins
+     differ in freshwater input); (3) DWH sediment PAH with forensic codes (NCEI 0163796, DIVER), if samples
+     fall near our edge cells, which is unverified.
+   - Caveat on CRMS: stations sit hundreds of metres inland from the edge (event study), so their soils may
+     not represent the eroding edge. Any interpolation to edge cells needs its own check.
+   - Redox, sulfide and root biomass would explain mechanisms but no open source covers these sites; treat
+     them as field-campaign asks for the "what next" slide.
+   - Jaison's own expertise is the right check here: whether these are the right priorities, and whether the
+     units and depth conventions above are what a soil scientist would expect.
 
 1. Cost, implementation time and waste are not in any data-based estimate yet (Goal 6).
 2. No chemical recovery outcome (oil in sediment over time) is modelled; only physical (edge loss) and

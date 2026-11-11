@@ -107,8 +107,8 @@ DATASETS = [
     dict(id="INS-EXPERT", role="instrument (no outcome data)", patterns=["data/expert_scoring_*.csv"],
          name="Blind expert scoring sheet and template", source="expert_scoring.py", licence="project", acquired="previous session",
          method="Generated; awaiting scores (M6, on hold)", checksums="see catalogue.csv", notes="", used_by="expert_scoring.py"),
-    dict(id="META", role="metadata", patterns=["data/meta/variable_dictionary.csv"],
-         name="Variable dictionary", source="hand-written", licence="project", acquired="2026-11-11",
+    dict(id="META", role="metadata", patterns=["data/meta/variable_dictionary.csv", "data/meta/planned_variables.csv"],
+         name="Variable dictionary and planned (missing) variables", source="hand-written", licence="project", acquired="2026-11-11",
          method="edited by hand; checked by tests/test_data_catalogue.py", checksums="see catalogue.csv", notes="", used_by="docs"),
 ]
 
@@ -197,6 +197,15 @@ def write_docs(cat: pd.DataFrame) -> None:
         files = "<br>".join(f"`{f}`" for f in r.files.split(";"))
         out.append(f"| `{r.variable}` | {r.definition} | {r.unit} | {r.dtype} | {rng} | {r.missing_rule} | "
                    f"{r.derived_by} | {r.source_dataset} | {r.module} | {files} |")
+    pv = pd.read_csv(META / "planned_variables.csv", dtype=str).fillna("")
+    out += ["", "## Required by the project brief but not in the proof of concept (flagged)", "",
+            "Soil, sediment and porewater variables from brief section 4 that the PoC does not use. Status: absent = no",
+            "data in hand; partial = some data in hand but not usable in a cell-level model yet. Open sources are",
+            "candidates; their coverage of our sites is unverified unless stated. Edit `data/meta/planned_variables.csv`.", "",
+            "| Variable | Matrix | Unit | Status | Why it matters here | Open-source candidates | Comment |",
+            "| --- | --- | --- | --- | --- | --- | --- |"]
+    out += [f"| `{r.variable}` | {r.matrix} | {r.unit} | {r.status} | {r.why_it_matters_here} | "
+            f"{r.open_source_candidates} | {r.comment} |" for r in pv.itertuples()]
     (ROOT / "docs" / "VARIABLE_DICTIONARY.md").write_text("\n".join(out) + "\n")
 
 
