@@ -71,3 +71,21 @@ measured a few plots on the most heavily oiled shoreline, and most heavily oiled
   estimate is "heavy oiling plus whatever cleanup followed".
 - Hurricane Isaac (August 2012) falls between the 2010 and 2013 flights.
 - One spill: no hold-out across spills is possible.
+
+## Amendments after the quality check (11 Nov 2026, before the model was run)
+
+No outcome had been compared by oiling class when these were made.
+
+1. Land classification. Per-tile Otsu thresholds on NDVI failed where water was turbid or hazy (a plume read
+   as marsh). A combined NDVI and near-infrared rule still failed on about 40% of later tiles. Final method:
+   2010 uses the combined Otsu rule (checked visually); each later tile-year uses a logistic-regression
+   classifier on its red, green, blue, near-infrared and NDVI values, trained on pixels more than 32 m inside
+   2010 land or 2010 water of the same quarter-quad. Held-out accuracy, median: 2013 0.92, 2015 0.96,
+   2017 0.95.
+2. Failure filters (ASSUMED values, class-blind): drop a tile-year whose land share moves more than 0.10
+   from 2010 (left 48, 53 and 52 of 60 tiles for 2013, 2015 and 2017); drop a 1 km block-year whose land
+   share moves more than 0.15 from 2010.
+3. Primary period changed from 2010-2013 to 2010-2015. The October 2013 flights are hazy and low-contrast;
+   visual checks showed blocks classified as 95% land where 2010 had 44%, and speckle along edges in blocks
+   that pass the filters. 2013 is therefore not used. 2010-2017 stays secondary.
+4. Imagery is read from each file's internal overviews at 2 m (blocks) and 8 to 16 m (training, exposure).
