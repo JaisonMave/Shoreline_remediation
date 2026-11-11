@@ -10,7 +10,7 @@ Land classification (amended twice after the quality checks, before any outcome 
 the 2010 open-water fraction within 1 km of each cell (16 m grid), and a quality-check image per year for a
 few blocks.
 
-Usage: python scripts/naip_edge_extract.py cells.gpkg out_dir
+Usage: python scripts/naip_edge_extract.py cells.gpkg out_dir [--years 2010,2015]
 Source: USDA NAIP via Microsoft Planetary Computer (collection 'naip').
 """
 import sys
@@ -220,4 +220,6 @@ def main(cells_path, out_dir):
 
 
 if __name__ == "__main__":
+    if "--years" in sys.argv:
+        YEARS[:] = [int(y) for y in sys.argv[sys.argv.index("--years") + 1].split(",")]
     main(*sys.argv[1:3])

@@ -8,7 +8,7 @@ Per epoch: per-pixel median over scenes (pixel needs >= 5 clear scenes, ASSUMED)
 computed by warping to 10 m (nearest) and averaging; a cell needs >= 90% valid area.
 Writes landsat_cell_fraction.csv (cell, epoch, land_fraction, valid_fraction, n_scenes_median),
 scene_endmembers.csv, and per-epoch median rasters for the quality check.
-Usage: python scripts/landsat_edge_fraction.py cells_10A.csv naip2010_land16.tif out_dir
+Usage: python scripts/landsat_edge_fraction.py cells_10A.csv naip2010_land16.tif out_dir [--epochs AB]
 """
 import sys
 from concurrent.futures import ThreadPoolExecutor
@@ -111,4 +111,9 @@ def main(cells_path, land16_path, out_dir):
 
 
 if __name__ == "__main__":
+    if "--epochs" in sys.argv:
+        keep = sys.argv[sys.argv.index("--epochs") + 1]
+        for k in list(EPOCHS):
+            if k not in keep:
+                del EPOCHS[k]
     main(*sys.argv[1:4])

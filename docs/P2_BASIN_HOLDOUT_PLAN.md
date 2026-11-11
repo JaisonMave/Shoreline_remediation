@@ -84,3 +84,36 @@ proof of concept because it is easier to explain and check.
 - Terrebonne has only 45 Heavy cells before filters and may fall below the test threshold.
 - Barataria dominates training when it is not the held-out basin.
 - Cleanup after oiling is unknown (P3).
+
+## Amendments after the quality check (11 Nov 2026, before the models were run)
+
+No outcome had been compared between basins or oiling classes when these were made.
+
+1. **Birdfoot delta excluded from P2 (training and testing).** In the active Mississippi River delta the 2010
+   land rule fails: bright, sediment-laden river water is classified as land (visual check of NAIP 2010
+   blocks), so the 2010 land mask, the edge-loss outcome, the exposure measures and the Landsat calibration
+   are all unreliable there. Only 7 of 84 Landsat scenes passed the marsh/water contrast check (interior
+   "land" read as dark as water in short-wave infrared). This is recorded as an applicability limit: the tool
+   should flag active river-delta shoreline as out of scope until a method that handles plumes exists.
+2. With three test basins, the "transfers" rule becomes: M2 beats M0 in all 3 test basins and pooled (was:
+   at least 3 of 4).
+3. **One validity rule for every area** (class-blind, ASSUMED threshold): Landsat is run per basin, or per
+   quadrant of a basin where memory requires it (Breton, Barataria; water and marsh values are then taken per
+   quadrant). An area is kept only if at least 50% of its Landsat scenes in each pre-spill epoch pass the
+   marsh/water contrast check, i.e. the 2010 NAIP land map agrees with Landsat physics there. Results before
+   any outcome comparison: Terrebonne passes (57 of 73 and 36 of 51 scenes); birdfoot fails (consistent with
+   amendment 1); Breton west/south-west and north-west quadrants pass (167 of 174, 79 of 81 scene-epochs);
+   Breton south-east fails (11 of 166) and north-east fails (0 usable; turbid Breton and Chandeleur Sound
+   water read as land in 2010). Failed areas are excluded from training and testing and recorded as
+   applicability limits.
+   Barataria (run per quadrant): north-west, south-east and north-east pass (85 of 87, 89 of 110, 130 of 135
+   scene-epochs); south-west (lower bay, Caminada and Grand Isle side) fails: no scene passes.
+   Diagnosis common to all failed areas: on NAIP tiles that are almost all open water, Otsu's method splits
+   two kinds of water instead of land from water, so part of the water is labelled land (interior "land"
+   reads 0.004 in Landsat short-wave infrared, like water).
+4. **Cell agreement filter** (class-blind, ASSUMED 0.4): drop a cell if its 2010 NAIP land fraction and its
+   2007-2009 Landsat land fraction differ by more than 0.4, which catches single mis-classified tiles inside
+   areas that pass rule 3. (Landsat reads about 0.1 lower than NAIP on average because of mixed pixels.)
+5. Backlog, not part of P2: a land/water classifier that does not depend on each tile containing both marsh
+   and water (e.g. trained on checked samples across tiles), together with Jaison's P1 note that the Landsat
+   land-fraction maps are not very clean.
