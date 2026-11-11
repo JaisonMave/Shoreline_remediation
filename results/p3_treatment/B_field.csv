@@ -1,0 +1,5 @@
+analysis,contrast,n_a,n_b,mean_a,mean_b,difference,lo90,hi90,excludes_zero
+B field 2010-2016 mean,"Manual minus Oiled, untreated",5,9,1.9918,2.0838,-0.092,-0.5859,0.402,False
+B field 2010-2016 mean,"Mechanical minus Oiled, untreated",6,9,1.6684,2.0838,-0.4154,-0.8943,0.0635,False
+B field 2010-2016 mean,"Mechanical + planted minus Oiled, untreated",0,9,,,,,,
+B field 2010-2016 mean,"Oiled, untreated minus Reference (unoiled)",9,5,2.0838,1.3162,0.7676,0.2638,1.2714,True

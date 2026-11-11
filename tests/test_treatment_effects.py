@@ -45,3 +45,12 @@ def test_prior_scope_and_no_extrapolation():
     assert not p.in_scope
     with pytest.raises(ValueError):
         te.treatment_prior("manual", 5)
+
+
+def test_erosion_priors_match_p3_and_flag_scope():
+    e = te.erosion_effects("2010-2012").set_index("treatment")
+    assert e.loc["manual", "n"] == 5 and e.loc["mechanical", "n"] == 9 and e.loc["manual", "n_untreated"] == 9
+    p = te.erosion_prior("planting")
+    assert p["hi"] < 0 and p["in_scope"]
+    assert te.erosion_prior("manual", habitat="sand beach")["in_scope"] is False
+    assert te.erosion_prior("natural recovery")["effect"] == 0.0

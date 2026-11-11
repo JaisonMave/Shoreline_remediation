@@ -13,6 +13,20 @@ Computer (no account needed).
 
 ## 2026-11-11 (session 2): proof-of-concept track
 
+### P3: cleanup treatment and marsh-edge erosion
+- **Why:** the tool needs data-based treatment effects, not only rules (roadmap P3).
+- **What:** searched SCAT, the NCEI DIVER archive, NOAA TM OR&R 42 and the DWH administrative record for
+  segment-level cleanup records (none public in usable form); obtained Zengel et al. 2022 plot data from GRIIDC
+  (CC0); pre-specified contrasts of erosion change by treatment; checked NAIP edge loss against field erosion.
+- **Files:** `docs/P3_TREATMENT_PLAN.md`, `data/external/zengel2022/` (with `SOURCE.md`),
+  `validation/p3_treatment_erosion.py`, `tests/test_p3_treatment_erosion.py`, `results/p3_treatment/`;
+  `treatment_effects.erosion_effects()` and `erosion_prior()` added with tests.
+- **Run:** `python -m validation.p3_treatment_erosion`
+- **Result:** 2010-2012 vs untreated: manual -0.64 m/yr (-1.25 to -0.02), mechanical +0.28 (-0.17 to 0.73),
+  mechanical + planting -1.47 (-2.06 to -0.89); oiling +1.89 vs reference, fading to +0.21 by 2012-2018.
+  NAIP ranks plots like field data (Spearman 0.68) but reads 1.2 m/yr low.
+- **Status:** Under validation (awaiting Jaison's review). D11 proposed.
+
 ### Changed: documentation and tracking
 - `CHANGELOG.md` (this file) and `requirements-analysis.txt` added. `README.md` gains a section on the
   real-data evidence. D9 approved by Jaison.
@@ -102,5 +116,7 @@ Computer (no account needed).
 ## Known open issues
 - D10: land/water classification fails on water-dominated and plume tiles; Landsat maps not clean (Jaison).
 - One spill only; transfer shown within Louisiana, not to a new spill (D6).
-- Cleanup method per shoreline segment unknown (P3).
+- Cleanup method per shoreline segment: no public machine-readable records (P3); treated stretches exist only
+  as map figures in NOAA TM OR&R 42.
+- NAIP absolute edge-loss rates read about 1.2 m/yr below field measurements (P3, analysis C).
 - `seaborn` was imported by existing code but missing from `requirements.txt` (now in requirements-analysis.txt).

@@ -1,0 +1,30 @@
+                               analysis                                    contrast  n_a  n_b  mean_a  mean_b  difference   lo90   hi90  excludes_zero
+  A 2010-2012 minus 2005-2010 (primary)               Manual minus Oiled, untreated    5    9   1.393   2.027      -0.635 -1.247 -0.023           True
+  A 2010-2012 minus 2005-2010 (primary)           Mechanical minus Oiled, untreated    9    9   2.307   2.027       0.280 -0.169  0.728          False
+  A 2010-2012 minus 2005-2010 (primary) Mechanical + planted minus Oiled, untreated    5    9   0.553   2.027      -1.474 -2.064 -0.885           True
+  A 2010-2012 minus 2005-2010 (primary)  Oiled, untreated minus Reference (unoiled)    9    5   2.027   0.142       1.885  1.565  2.205           True
+A 2012-2018 minus 2005-2010 (secondary)               Manual minus Oiled, untreated    5    9   0.607   0.737      -0.130 -0.619  0.360          False
+A 2012-2018 minus 2005-2010 (secondary)           Mechanical minus Oiled, untreated    9    9   0.502   0.737      -0.235 -0.736  0.265          False
+A 2012-2018 minus 2005-2010 (secondary) Mechanical + planted minus Oiled, untreated    5    9  -0.231   0.737      -0.968 -1.988  0.052          False
+A 2012-2018 minus 2005-2010 (secondary)  Oiled, untreated minus Reference (unoiled)    9    5   0.737   0.528       0.209 -0.557  0.975          False
+
+   period                                        term  estimate    lo90   hi90     p
+2010-2012               Manual minus Oiled, untreated    -0.634  -1.194 -0.075 0.062
+2010-2012           Mechanical minus Oiled, untreated     0.608   0.330  0.886 0.000
+2010-2012 Mechanical + planted minus Oiled, untreated    -1.460  -2.005 -0.915 0.000
+2010-2012  Reference (unoiled) minus Oiled, untreated    -1.128  -2.393  0.137 0.143
+2010-2012                              log wave power     6.775  -6.769 20.319 0.411
+2012-2018               Manual minus Oiled, untreated    -0.127  -0.608  0.354 0.663
+2012-2018           Mechanical minus Oiled, untreated    -0.237  -0.775  0.301 0.469
+2012-2018 Mechanical + planted minus Oiled, untreated    -0.927  -1.872  0.018 0.107
+2012-2018  Reference (unoiled) minus Oiled, untreated     2.175  -4.347  8.697 0.583
+2012-2018                              log wave power    21.057 -32.104 74.219 0.515
+
+              analysis                                    contrast  n_a  n_b  mean_a  mean_b  difference   lo90  hi90 excludes_zero
+B field 2010-2016 mean               Manual minus Oiled, untreated    5    9   1.992   2.084      -0.092 -0.586 0.402         False
+B field 2010-2016 mean           Mechanical minus Oiled, untreated    6    9   1.668   2.084      -0.415 -0.894 0.064         False
+B field 2010-2016 mean Mechanical + planted minus Oiled, untreated    0    9     NaN     NaN         NaN    NaN   NaN           NaN
+B field 2010-2016 mean  Oiled, untreated minus Reference (unoiled)    9    5   2.084   1.316       0.768  0.264 1.271          True
+
+ plots_with_gps  plots_in_naip_cells  distinct_cells  spearman  lo90  hi90  tracks  mean_naip_minus_plot  pearson
+             25                   17               7     0.677 0.299 0.909    True                -1.197    0.719

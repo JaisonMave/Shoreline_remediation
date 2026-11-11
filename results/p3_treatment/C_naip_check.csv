@@ -1,0 +1,2 @@
+plots_with_gps,plots_in_naip_cells,distinct_cells,spearman,lo90,hi90,tracks,mean_naip_minus_plot,pearson
+25,17,7,0.6772,0.2987,0.9088,True,-1.1974,0.7188

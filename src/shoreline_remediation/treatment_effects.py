@@ -158,3 +158,53 @@ if __name__ == "__main__":
              "interval_excludes_zero", "design"]].round(2).to_string(index=False))
     print()
     print(recovery_fraction().round(3).to_string(index=False))
+
+
+# ---------------------------------------------------------------------------------------------
+# Erosion priors from Zengel et al. (2022), added in P3 (docs/P3_TREATMENT_PLAN.md, analysis A/D).
+# Source: GRIIDC doi:10.7266/VF524143 (CC0), file data/external/zengel2022/zengel2022_griidc_erosion.xlsx.
+# Outcome: aerial-photo marsh-edge erosion per plot (m/yr, positive = erosion), change from the pre-spill period
+# 2005-2010 to 2010-2012 (spill period) or 2012-2018 (later). Baseline: oiled, untreated (natural recovery).
+# Same Welch interval as above. One site (Bay Jimmy, northern Barataria Bay), 5-9 plots per group; not
+# randomized except planting; the plots overlap Zengel et al. (2015), so this is not independent of the
+# vegetation priors above.
+# ---------------------------------------------------------------------------------------------
+EROSION_DATA = DATA.parents[1] / "zengel2022" / "zengel2022_griidc_erosion.xlsx"
+EROSION_GROUPS = {"REFERENCE": "reference", "UNTREATED": "none", "TREATED - MANUAL": "manual",
+                  "TREATED - MECHANICAL": "mechanical", "TREATED - PLANTED": "mechanical+planting"}
+
+
+def erosion_effects(period: str = "2010-2012", level: float = 0.90, path: Path | str = EROSION_DATA) -> pd.DataFrame:
+    """Pre-spill-adjusted erosion change per treatment, against oiled-untreated plots, with Welch intervals."""
+    d = pd.read_excel(path, sheet_name="DSAS lumped")
+    d["treatment"] = d.PLOT_TYPE.str.strip().map(EROSION_GROUPS)
+    w = d.pivot_table(index=["PLOT_ID", "treatment"], columns="TIME_PERIOD", values="EROSION_RATE").reset_index()
+    w["change"] = w[period] - w["2005-2010"]
+    base = w.loc[w.treatment == "none", "change"]
+    rows = []
+    for t in ("manual", "mechanical", "mechanical+planting", "reference"):
+        x = w.loc[w.treatment == t, "change"]
+        c = welch_contrast(x.mean(), x.std(ddof=1) / np.sqrt(len(x)), len(x),
+                           base.mean(), base.std(ddof=1) / np.sqrt(len(base)), len(base), level)
+        rows.append({"treatment": t, "period": period, "n": len(x), "n_untreated": len(base),
+                     "extra_erosion_vs_untreated": c["effect"], "lo": c["lo"], "hi": c["hi"]})
+    return pd.DataFrame(rows)
+
+
+def erosion_prior(treatment: str, period: str = "2010-2012", habitat: str = "salt marsh", oiling: str = "heavy") -> dict:
+    """Extra marsh-edge erosion (m/yr) of a treatment against natural recovery, with a 90% interval.
+
+    period "2010-2012" is the first two years after oiling; "2012-2018" the following six. `in_scope` is False
+    outside heavily oiled salt marsh. Point values must be shown with their interval, never alone.
+    """
+    name = {"natural recovery": "none", "no treatment": "none", "none": "none", "manual": "manual",
+            "mechanical": "mechanical", "planting": "mechanical+planting",
+            "mechanical+planting": "mechanical+planting"}[treatment.lower()]
+    in_scope = "marsh" in habitat.lower() and oiling.lower() == "heavy"
+    note = ("Zengel et al. 2022, one site, 5-9 plots per group; observational except planting."
+            if in_scope else "OUT OF SCOPE: Zengel et al. 2022 covers heavily oiled salt marsh only.")
+    if name == "none":
+        return {"treatment": name, "period": period, "effect": 0.0, "lo": 0.0, "hi": 0.0, "in_scope": in_scope, "note": note}
+    r = erosion_effects(period).set_index("treatment").loc[name]
+    return {"treatment": name, "period": period, "effect": float(r.extra_erosion_vs_untreated), "lo": float(r.lo),
+            "hi": float(r.hi), "in_scope": in_scope, "note": note}
