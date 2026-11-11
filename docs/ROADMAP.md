@@ -10,10 +10,10 @@ A milestone is Completed only when it is validated and documented, not when code
 | 1 Data infrastructure | Deepwater Horizon (DWH) SCAT oiling, CRMS marsh sites, Landsat and NAIP series for Barataria Bay, Zengel 2015 treatment table, 1,460 NOAA ADIOS oils, 63 NOAA marsh cases. One spill, oil only. No variable dictionary or schema yet. | In progress |
 | 2 Characterisation and risk | Oil category from measured properties; shoreline type and ESI. No sediment or water chemistry, no toxicity or bioavailability. | In progress (thin) |
 | 3 Remediation intelligence | Rule-based screening and ranking (FAST-like), five SCAT sanity checks pass; Zengel treatment priors. No ML suitability model: no outcome labels to train on. | In progress |
-| 4 Recovery prediction | Marsh-edge loss by oiling class from NAIP (heavy +1.0 m/yr, 90% CI 0.58 to 1.43); Zengel vegetation priors. Published-case recovery model did not beat a no-predictor baseline. | Under validation |
+| 4 Recovery prediction | Marsh-edge loss by oiling class from NAIP; after the pre-spill check, heavy oiling adds 0.85 m/yr (90% CI 0.49 to 1.22), 0.62 to 0.85 depending on exposure adjustment; Zengel vegetation priors. Published-case recovery model did not beat a no-predictor baseline. | Under validation |
 | 5 Generalisation and reliability | Uncertainty intervals on every estimate. No test on a second spill or region yet. | Not started |
 | 6 Scenarios and decision support | Dashboard compares treatments; oil chosen by name. Comparisons are rule-based, not yet driven by validated predictions. | In progress |
-| 7 Software | Modular Python package, Streamlit dashboard, 41 tests, branch `process-model-audit` (not pushed). | In progress |
+| 7 Software | Modular Python package, Streamlit dashboard, 43 tests, branch `process-model-audit` (not pushed). | In progress |
 
 ## Proof-of-concept track (Jaison working alone, with Claude)
 
@@ -24,7 +24,7 @@ fitted to." Not claimed: other contaminants, other ecosystems, other spills.
 
 | # | Milestone | Deliverable | Jaison's part | Done when | Status |
 | --- | --- | --- | --- | --- | --- |
-| P1 | Lock the core result | Pre-spill erosion check (Landsat 1999-2009 shoreline change; NAIP 2007/2009 if Jaison obtains it) and a finer exposure check | Optional: download pre-spill NAIP for Barataria Bay (USGS EarthExplorer, free login; availability to confirm); review the quality-check images | The 1.0 m/yr estimate survives both checks, or is revised and documented | In progress (plan: docs/P1_PRESPILL_CHECK_PLAN.md) |
+| P1 | Lock the core result | Pre-spill erosion check (Landsat 1999-2009 shoreline change; NAIP 2007/2009 if Jaison obtains it) and a finer exposure check | Optional: download pre-spill NAIP for Barataria Bay (USGS EarthExplorer, free login; availability to confirm); review the quality-check images | The 1.0 m/yr estimate survives both checks, or is revised and documented | Under validation: checks run, result revised to 0.85 m/yr (0.49 to 1.22); awaiting Jaison's review of the QA images and the write-up (FINDINGS section 7) |
 | P2 | Geographic hold-out within the spill | Edge cells and NAIP edge loss for other oiled Louisiana basins (e.g. Terrebonne, Breton Sound, Mississippi delta); predictive model fitted on some basins, tested on a held-out basin, against a no-predictor baseline | Agree the model and basins before it runs; judge marsh-type and exposure variables | Held-out error and interval coverage reported per basin, including any basin where it fails | Not started |
 | P3 | Treatment data check | Search NOAA DIVER for segment-level cleanup records; if usable, edge loss split by cleanup method; if not, Zengel 2015 priors stay and the gap is documented | Decide how cleanup categories map to the tool's treatments | Either a treatment split with intervals, or a documented "not available" | Not started |
 | P4 | Light data documentation | Variable dictionary, data catalogue with provenance, decision register, for the datasets the PoC uses only | Check the soil and sediment definitions | Every input in the demo traceable to source, date and method | Not started |
@@ -39,7 +39,7 @@ contaminants and ecosystems (M7), the full platform (M8-M10).
 
 | # | Milestone | Completion criteria | Depends on | Status |
 | --- | --- | --- | --- | --- |
-| M1 | Confirm the DWH edge-loss result | Same as P1 | Pre-spill imagery | In progress (as P1) |
+| M1 | Confirm the DWH edge-loss result | Same as P1 | Pre-spill imagery | Under validation (as P1) |
 | M2 | Data governance foundation | Variable dictionary, data schema, source inventory with provenance, decision register, dataset version records (P4 is the first part) | None | Not started |
 | M3 | Treatment-effect model at scale | DIVER segment-level cleanup records joined to edge cells; edge loss by cleanup method with intervals; compared with Zengel 2015 (P3 is the first part) | M1; DIVER records usable (unverified) | Not started |
 | M4 | Second and third spills | At least two further spills with shoreline oiling, cleanup and outcome data, harmonised to the M2 schema. Candidates (data availability unverified): Exxon Valdez 1989 beaches, other NOAA SCAT archives, Hebei Spirit 2007, Prestige 2002, Wakashio 2020 mangroves | M2 | Not started |
@@ -60,3 +60,4 @@ contaminants and ecosystems (M7), the full platform (M8-M10).
 | D4 | earlier | 4 | Published-case marsh recovery model not used for ranking (fails baseline). | Approved by Jaison 2026-11-11; implemented |
 | D5 | earlier | 5 | Validate by holding out whole spills, never single rows. | Approved |
 | D6 | 2026-11-11 | 5 | For the proof of concept, test generalisation by holding out whole Louisiana basins within Deepwater Horizon, because no second spill's data are in hand. This shows transfer to unseen marsh, not to unseen spills; D5 still applies to the full programme. | Approved by Jaison 2026-11-11 |
+| D7 | 2026-11-11 | 4, 5 | P2 predictive model includes open water within 250 m, mean fetch and each cell's pre-spill (1999-2008) edge-loss trend, in addition to oiling class and open water within 1 km. Reason: P1 showed exposure explains the pre-spill gap and about half of the original estimate. | Proposed (needs Jaison) |
