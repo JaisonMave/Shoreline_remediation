@@ -126,3 +126,22 @@ The NOAA cross-check is documented in [docs/NOAA_ASSUMPTION_AUDIT.md](docs/NOAA_
 ## Data and calibration boundary
 
 The current synthetic data are for workflow development only. Replace them with repeat SCAT/SOS/STR observations before operational use. Calibration should use held-out shoreline segments and include residual oil measurements, treatment timing, oil chemistry, weather/tide/wave conditions, habitat observations, and endpoint decisions. Report uncertainty intervals and validate endpoint classification separately from parameter fitting.
+
+## Evidence from real data (November 2026)
+
+The branch `process-model-audit` adds analyses on real Deepwater Horizon data: NOAA SCAT shoreline oiling,
+NAIP aerial imagery, Landsat, CRMS marsh stations and Zengel et al. (2015). Each was planned in writing before
+it was run and run once.
+
+| Document | What it holds |
+| --- | --- |
+| [CHANGELOG.md](CHANGELOG.md) | Every improvement on the branch: why, files, how to rerun, result, status |
+| [docs/ROADMAP.md](docs/ROADMAP.md) | Proof-of-concept milestones P1-P6, full programme, decision register |
+| [docs/FINDINGS_2026-11-11.md](docs/FINDINGS_2026-11-11.md) | Results of every analysis, including nulls and failures |
+| [docs/HANDOFF.md](docs/HANDOFF.md) | Current state and next steps for a new session |
+
+Main result so far: heavily oiled salt-marsh edge in Louisiana lost about 0.6 to 0.85 m/yr more than clean edge
+after the spill, once wave exposure and pre-spill erosion are accounted for. A model fitted on some basins
+predicts edge loss in a held-out basin better than a no-information guess, with calibrated 90% intervals.
+
+Install the extra packages with `pip install -r requirements-analysis.txt`.

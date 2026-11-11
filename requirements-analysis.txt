@@ -1,0 +1,13 @@
+# Extra packages for the real-data analyses (scripts/ and validation/ added in November 2026).
+# The dashboard alone needs only requirements.txt. Versions are those the analyses were run with.
+-r requirements.txt
+statsmodels>=0.14          # run with 0.15.0
+geopandas>=1.0             # run with 1.2.0
+shapely>=2.0               # run with 2.2.0
+pyproj>=3.6                # run with 3.8.0
+rasterio>=1.3              # run with 1.5.2
+pystac-client>=0.8         # run with 0.9.1
+planetary-computer>=1.0    # run with 1.0.0 (signs Microsoft Planetary Computer URLs; no account needed)
+openpyxl>=3.1              # run with 3.1.5 (Zengel 2015 supplement)
+seaborn>=0.13              # imported by existing plotting code but missing from requirements.txt
+pytest>=8

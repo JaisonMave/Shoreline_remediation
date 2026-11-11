@@ -11,7 +11,7 @@ but is new to ML.
 ## Where things are
 
 - Repository: https://github.com/JaisonMave/Shoreline_remediation (public). `main` is at commit 4b0c118.
-- Unpushed work: branch `process-model-audit`, eleven commits on top of `main`, held only in
+- Unpushed work: branch `process-model-audit`, twelve commits on top of `main`, held only in
   `Shoreline_remediation-full.zip` (made 11 Nov 2026). The zip contains the whole repository including its
   `.git` folder, so unzipping it restores the branch and history directly; no need to clone first. Run
   `python -m pytest tests` (45 tests should pass). Do not push unless asked; pushing needs the Claude GitHub
@@ -20,6 +20,7 @@ but is new to ML.
 - Literature review: https://claude.ai/artifact/4eR98SrUVEmUZ1Ygddh5cW
 - Project docs: `claude/process-model-audit.md`, `claude/data-acquisition.md`, `claude/handoff.md`,
   `claude/findings-2026-11-11.md`, `claude/roadmap.md`.
+- Change log: `CHANGELOG.md` lists every improvement on the branch (why, files, rerun command, result, status).
 - Repository docs: `docs/PROCESS_MODEL_AUDIT.md`, `docs/RANKING_FIXES.md`,
   `docs/EXPERT_SCORING_PROTOCOL.md`, `docs/DATA_ACQUISITION.md`, `docs/FINDINGS_2026-11-11.md`,
   `docs/ROADMAP.md` (milestones and decision register), `docs/NAIP_EDGE_LOSS_PLAN.md`, `docs/P1_PRESPILL_CHECK_PLAN.md`,
