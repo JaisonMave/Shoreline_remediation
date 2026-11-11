@@ -8,7 +8,8 @@ Unit: a 100 m x 100 m UTM 15N grid cell (ASSUMED size) crossed by SCAT-surveyed 
   segment      SCAT segment with most survey records in the cell
   cell_2km     2 km block, for clustered standard errors
 Box (ASSUMED extent of Barataria Bay): -90.15..-89.75 E, 29.25..29.62 N.
-Usage: python scripts/build_edge_cells.py all_surveys.shp max_oiling.shp out.gpkg
+Usage: python scripts/build_edge_cells.py all_surveys.shp max_oiling.shp out.gpkg [--louisiana]
+  --louisiana: box -91.20..-88.80 E, 28.90..30.35 N (all oiled Louisiana coast, P2) instead of Barataria Bay.
 """
 import sys
 import geopandas as gpd
@@ -23,9 +24,10 @@ RANK = {"NOO": 0, "NLE": 0, "Neg_TB": 0, "Very_Light": 1, "Light": 2, "Light_TB"
 NAMES = ["NOO", "Very_Light", "Light", "Moderate", "Heavy"]
 
 
-def main(all_path, max_path, out):
-    a = gpd.read_file(all_path).cx[BOX[0]:BOX[2], BOX[1]:BOX[3]].to_crs(UTM)
-    m = gpd.read_file(max_path).to_crs(4326).cx[BOX[0]:BOX[2], BOX[1]:BOX[3]].to_crs(UTM)
+def main(all_path, max_path, out, region=BOX):
+    BOX_ = region
+    a = gpd.read_file(all_path).cx[BOX_[0]:BOX_[2], BOX_[1]:BOX_[3]].to_crs(UTM)
+    m = gpd.read_file(max_path).to_crs(4326).cx[BOX_[0]:BOX_[2], BOX_[1]:BOX_[3]].to_crs(UTM)
     a["rank"] = a.OilCatCode.map(RANK); m["rank"] = m.OilCatCode.map(RANK)
     # candidate cells: only those within reach of a line (fast prefilter via sampled points)
     pts = gpd.GeoSeries(a.geometry.apply(lambda g: [g.interpolate(d) for d in np.arange(0, g.length + 1, 20)]).explode(), crs=UTM)
@@ -55,5 +57,7 @@ def main(all_path, max_path, out):
     print("blocks with both Heavy and NOO:", len(set(marsh[marsh.max_oiling == "Heavy"].cell_2km) & set(marsh[marsh.max_oiling == "NOO"].cell_2km)))
 
 
+LOUISIANA = (-91.20, 28.90, -88.80, 30.35)
+
 if __name__ == "__main__":
-    main(*sys.argv[1:4])
+    main(*sys.argv[1:4], region=LOUISIANA if "--louisiana" in sys.argv else BOX)
