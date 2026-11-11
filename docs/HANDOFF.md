@@ -11,7 +11,7 @@ but is new to ML.
 ## Where things are
 
 - Repository: https://github.com/JaisonMave/Shoreline_remediation (public). `main` is at commit 4b0c118.
-- Unpushed work: branch `process-model-audit`, twenty commits on top of `main`, held only in
+- Unpushed work: branch `process-model-audit`, twenty-one commits on top of `main`, held only in
   `Shoreline_remediation-full.zip` (made 11 Nov 2026). The zip contains the whole repository including its
   `.git` folder, so unzipping it restores the branch and history directly; no need to clone first. Run
   `python -m pytest tests` (108 tests should pass). Do not push unless asked; pushing needs the Claude GitHub
@@ -29,7 +29,7 @@ but is new to ML.
 - Repository docs: `docs/PROCESS_MODEL_AUDIT.md`, `docs/RANKING_FIXES.md`,
   `docs/EXPERT_SCORING_PROTOCOL.md`, `docs/DATA_ACQUISITION.md`, `docs/FINDINGS_2026-11-11.md`,
   `docs/ROADMAP.md` (milestones and decision register), `docs/NAIP_EDGE_LOSS_PLAN.md`, `docs/P1_PRESPILL_CHECK_PLAN.md`,
-  `docs/P2_BASIN_HOLDOUT_PLAN.md`, `docs/P3_TREATMENT_PLAN.md`, `docs/P5_DEMO_PLAN.md`, `docs/P5_WORKED_EXAMPLE.md`.
+  `docs/P2_BASIN_HOLDOUT_PLAN.md`, `docs/P3_TREATMENT_PLAN.md`, `docs/P5_DEMO_PLAN.md`, `docs/P5_WORKED_EXAMPLE.md`, `docs/P6_POC_REPORT.md`.
 - The earlier seven-commit history was not in the previous zip, so it was restored as one commit.
   Network egress now works for NOAA, PLOS, Planetary Computer, Earth Search and PyPI (FTP is blocked).
 
@@ -47,7 +47,7 @@ but is new to ML.
 | Treatment effects (`treatment_effects.py`, `data/external/zengel2015/`) | Zengel et al. 2015 S1 Table loaded. Manual vs none: +34 points vegetation cover at year 2 (19 to 49); mechanical: +5 (-12 to 22); planting (randomized): +69 points Spartina. One site; observational except planting. Priors only. |
 | Marsh-edge loss (`validation/naip_edge_loss.py`, plan `docs/NAIP_EDGE_LOSS_PLAN.md`) | NAIP 2010-2017, 4,779 salt-marsh edge cells in Barataria Bay. Heavily oiled edge lost 1.0 m/yr more than clean edge in the same 2 km block (90% interval 0.58 to 1.43), rising with oiling class. P1 Landsat check (1999-2015): part of that predates the spill and is explained by wave exposure; revised headline 0.85 m/yr (0.49 to 1.22), 0.62 to 0.85 across exposure adjustments. See FINDINGS section 7. |
 | Basin hold-out (`validation/p2_basin_holdout.py`, plan `docs/P2_BASIN_HOLDOUT_PLAN.md`) | Louisiana edge cells in 4 basins; birdfoot, eastern Breton and south-west Barataria excluded (land/water rule fails in plume/open-water tiles). Held out Barataria and western Breton: model beats the no-predictor baseline (pooled 8-10% lower error), 90% intervals cover 89%; oiling class adds no cell-level accuracy over exposure; heavy uplift 0.34-0.83 m/yr depending on training basins. |
-| Treatment and erosion (`validation/p3_treatment_erosion.py`, plan `docs/P3_TREATMENT_PLAN.md`) | Zengel et al. 2022 GRIIDC plot data: vs untreated in 2010-2012, manual -0.64 m/yr, mechanical +0.28 (n.s.), planting -1.47; oiling +1.89 vs reference, fading after 2012. Priors in `treatment_effects.erosion_prior()`. NAIP ranks like field data but reads 1.2 m/yr low. Segment-level cleanup records: none public. |
+| Treatment and erosion (`validation/p3_treatment_erosion.py`, plan `docs/P3_TREATMENT_PLAN.md`) | Zengel et al. 2022 GRIIDC plot data: vs untreated in 2010-2012, manual -0.63 m/yr, mechanical +0.28 (n.s.), planting -1.47; oiling +1.88 vs reference, fading after 2012. Priors in `treatment_effects.erosion_prior()`. NAIP ranks like field data but reads 1.2 m/yr low. Segment-level cleanup records: none public. |
 | Oil properties (`oil_library.py`, `data/oil_properties.csv`) | 1,460 oils from NOAA ADIOS. Dashboard chooses an oil by name (spill oils only by default) and sets the category from measured properties. |
 | Demo (P5: `site_evidence.py`, `site_view.py`, plan `docs/P5_DEMO_PLAN.md`) | Map, site picker, expected edge loss with 90% interval, scope and extrapolation flags, rule screening beside field evidence per option. Worked example at Bay Jimmy: 1.42 m/yr (-1.74 to 4.30), observed 1.54. Runs from a clean install. |
 | Marsh field data (`data/external/crms/`) | 341 Louisiana CRMS sites, 2006-2025, from a third-party GitHub repository. No oil information. Not checked against the original CRMS export. |
@@ -73,7 +73,10 @@ those rules.
    (held-out error 1.30 vs 1.42 m/yr baseline), 90% intervals, scope flags, and rule screening beside Zengel
    evidence per option (FINDINGS section 10). D13 (treatment mapping) proposed, needs Jaison.
    Soil and sediment chemistry flagged as missing, with priorities (REVIEW_NOTES E0).
-5. Next: P6, proof-of-concept report and slides. Expert scores (M6) remain on hold until Jaison has collaborators.
+5. P6 done (pending Jaison's review): report https://claude.ai/artifact/LKTwAyFJpAGwSGvYBqHYHr and slides
+   https://claude.ai/artifact/PdsU2ppjW3TmsTcVrVNMGc; sources of every number in `docs/P6_POC_REPORT.md`.
+   D13 approved. Jaison parked his reviews of P1-P5, the variable check and the dashboard test (11 Nov).
+   Expert scores (M6) remain on hold until Jaison has collaborators.
    Candidate before P6: segment- or block-level predictions, which would be much tighter than single cells
    (REVIEW_NOTES C7; needs its own plan).
 

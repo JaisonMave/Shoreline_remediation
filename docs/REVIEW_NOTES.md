@@ -4,7 +4,7 @@ Running list of scientific and technical concerns raised during development, so 
 sessions. Each note says where it bites and what would resolve it. Add new notes at the top of a section;
 mark resolved notes rather than deleting them. Decisions referred to are in `docs/ROADMAP.md`.
 
-Last updated 11 November 2026 (after P5).
+Last updated 11 November 2026 (after P6).
 
 ## A. Claims we can and cannot make to leads
 
@@ -21,6 +21,9 @@ Last updated 11 November 2026 (after P5).
    real-data evidence. P5 should relabel it ("method test on synthetic data") or move it out of the main view.
 
 ## B. Measurement
+
+6. **Rounding in reported numbers.** Several P3 values in docs had been rounded up from the results files
+   (1.8849 shown as 1.89). Fixed; reports should round from the CSV values, never from rounded text.
 
 0. **[Resolved in P5: chooser offers spill oils only unless a box is ticked]** **Oil table includes non-oils.** `data/oil_properties.csv` (NOAA ADIOS) holds additives and refinery
    intermediates, e.g. "MOTOR FUEL ANTI-KNOCK COMPOUNDS" (API -37.2, 1,500 kg/m3). The dashboard's oil search
@@ -62,8 +65,8 @@ Last updated 11 November 2026 (after P5).
 8. **Rules and field evidence disagree on mechanical removal (P5).** Rules say ineligible in marsh; Zengel 2022
    shows no clear extra erosion, but mechanical plots were the most heavily oiled and n = 5. Do not let the
    evidence override the rules on this basis; present the disagreement.
-9. **Treatment mapping D13 was proposed by Claude, not decided by Jaison.** P3 assigned the mapping to Jaison;
-   the demo uses the proposed mapping until he reviews it.
+9. **[Resolved: D13 approved by Jaison, 11 Nov]** Treatment mapping D13 was proposed by Claude; P3 had assigned it
+   to Jaison.
 
 ## D. Reproducibility
 

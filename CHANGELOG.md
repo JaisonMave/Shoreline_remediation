@@ -13,6 +13,18 @@ Computer (no account needed).
 
 ## 2026-11-11 (session 2): proof-of-concept track
 
+### P6: proof-of-concept report and slides
+- **Why:** the deliverable for project leads (roadmap P6).
+- **What:** an editable report (claim, what the tool does, evidence with two charts, failures, limits, a phased
+  path to scale with gates, method, sources) and a 12-slide deck with speaker notes. Links and the source of
+  every number: `docs/P6_POC_REPORT.md`.
+- **Checked:** numbers against results files; citations against publishers' records (one wrong title corrected).
+- **Status:** Under validation (awaiting Jaison's review). D13 approved by Jaison.
+
+### Corrected: rounding of P3 results
+- Several P3 values had been rounded up in the docs (e.g. 1.8849 reported as 1.89, -0.6347 as -0.64). Corrected in
+  FINDINGS section 9, HANDOFF and here from `results/p3_treatment/A_prespill_adjusted.csv`. No analysis changed.
+
 ### P5: demo dashboard ("Site evidence (real data)" view)
 - **Why:** leads need to see the tool working on a real site, with intervals and scope flags (roadmap P5; D9, D11).
 - **What:** a new first tab: map of Louisiana salt-marsh edge cells; site picker (worked example, any edge cell,
@@ -64,8 +76,8 @@ Computer (no account needed).
   `validation/p3_treatment_erosion.py`, `tests/test_p3_treatment_erosion.py`, `results/p3_treatment/`;
   `treatment_effects.erosion_effects()` and `erosion_prior()` added with tests.
 - **Run:** `python -m validation.p3_treatment_erosion`
-- **Result:** 2010-2012 vs untreated: manual -0.64 m/yr (-1.25 to -0.02), mechanical +0.28 (-0.17 to 0.73),
-  mechanical + planting -1.47 (-2.06 to -0.89); oiling +1.89 vs reference, fading to +0.21 by 2012-2018.
+- **Result:** 2010-2012 vs untreated: manual -0.63 m/yr (-1.25 to -0.02), mechanical +0.28 (-0.17 to 0.73),
+  mechanical + planting -1.47 (-2.06 to -0.88); oiling +1.88 vs reference, fading to +0.21 by 2012-2018.
   NAIP ranks plots like field data (Spearman 0.68) but reads 1.2 m/yr low.
 - **Status:** Under validation (awaiting Jaison's review). D11 proposed.
 

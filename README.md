@@ -142,6 +142,7 @@ it was run and run once.
 | [docs/DATA_CATALOGUE.md](docs/DATA_CATALOGUE.md) | Every dataset: source, licence, date, method, checksums |
 | [docs/VARIABLE_DICTIONARY.md](docs/VARIABLE_DICTIONARY.md) | Every variable: definition, unit, valid range, derivation |
 | [docs/REVIEW_NOTES.md](docs/REVIEW_NOTES.md) | Open scientific and technical concerns |
+| [docs/P6_POC_REPORT.md](docs/P6_POC_REPORT.md) | Proof-of-concept report and slides (links) and where each number comes from |
 | [docs/P5_WORKED_EXAMPLE.md](docs/P5_WORKED_EXAMPLE.md) | Worked example from the demo's Site evidence tab (Bay Jimmy, Barataria Bay) |
 | [models/p5_edge_loss_v1.json](models/p5_edge_loss_v1.json) | Deployed edge-loss model card: coefficients, 90% interval, training ranges, checksums |
 

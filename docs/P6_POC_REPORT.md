@@ -1,0 +1,40 @@
+# P6: proof-of-concept report and slides (11 November 2026)
+
+The deliverables are live, editable artifacts in claude.ai (private to Jaison until he shares them):
+
+- Report (Docs): https://claude.ai/artifact/LKTwAyFJpAGwSGvYBqHYHr
+  Exports to Word, PDF or Markdown from the doc's Export menu.
+- Slides (12 slides, speaker notes on each): https://claude.ai/artifact/PdsU2ppjW3TmsTcVrVNMGc
+  Exports to PowerPoint or PDF.
+
+## What they claim
+
+"For oiled salt marsh in the northern Gulf of Mexico, the tool screens cleanup options, predicts marsh-edge loss
+with honest intervals, and holds up on marsh it was not fitted to." Not claimed: other spills, oils,
+contaminants or shorelines; chemical recovery; precise forecasts for a single 100 m stretch.
+
+## Where every number comes from
+
+| Report section / slide | Source in this repository |
+| --- | --- |
+| Oil effect (0.85 m/yr, 0.49 to 1.22; checks) | `results/p1_prespill/checks.csv`, `exploratory.csv`, `robustness_agreement_filter.csv` |
+| Transfer to unseen marsh (MAE table, 89% coverage, uplift 0.34 to 0.83) | `results/p2_basin_holdout/per_basin.csv`, `pooled.csv`, `oil_effect_transfer.csv` |
+| Cleanup methods (erosion contrasts) | `results/p3_treatment/A_prespill_adjusted.csv`, `A2_wave_power.csv`, `C_naip_check.csv` |
+| Deployed model (1.30 vs 1.42 m/yr) and worked example | `models/p5_edge_loss_v1.json`, `docs/P5_WORKED_EXAMPLE.md` |
+| What failed | `docs/FINDINGS_2026-11-11.md` sections 2-4, 6, 8, 9; `docs/PROCESS_MODEL_AUDIT.md` |
+| Limits | `docs/REVIEW_NOTES.md` (A-E) |
+| Path to scale | `docs/ROADMAP.md` (M1-M10, D1-D13) |
+
+## Checks made before delivery
+
+- Every number in the report was compared with the results files above. Several P3 values had been rounded up
+  in earlier docs (e.g. 1.8849 reported as 1.89); the report and FINDINGS now use the file values.
+- Both citations were checked against the publishers' records; the 2015 title in a first draft was wrong and
+  was corrected before delivery:
+  - Zengel S, Bernik BM, Rutherford N, Nixon Z, Michel J (2015) Heavily oiled salt marsh following the Deepwater
+    Horizon oil spill, ecological comparisons of shoreline cleanup treatments and recovery. PLoS ONE 10(7):
+    e0132324. doi:10.1371/journal.pone.0132324
+  - Zengel S, Nixon Z, Weaver J, Rutherford N, Bernik BM, Michel J (2022) Accelerated marsh erosion following the
+    Deepwater Horizon oil spill confirmed, ameliorated by planting. Scientific Reports 12: 13802.
+    doi:10.1038/s41598-022-18102-1
+- Not done: Jaison's scientific review (parked by him on 11 Nov 2026). P6 is "Under validation" until he signs off.
