@@ -6,6 +6,7 @@ for the map's base tiles.
 from __future__ import annotations
 
 import math
+from pathlib import Path
 
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -118,6 +119,143 @@ def _interval_chart(pred: dict, observed: float | None, sites: pd.DataFrame) -> 
     return fig
 
 
+# ---- Compare options (plan A4.3/A4.4). The rule engine's verdicts are not touched; this section only adds paired evidence. ----
+_KNOWLEDGE = Path(__file__).resolve().parents[2] / "data" / "knowledge"
+COMPARE_DRAWS = 2000                      # <= 2000 so the app stays fast
+MEASURED_OPTIONS = ["natural_attenuation", "manual_removal", "mechanical_removal", "planting (after mechanical cleanup)"]
+YEARS = (2, 5, 8)
+A41_NOTE = ("Where an option is marked distinguished, the 90% interval of its paired difference from natural recovery (same simulated "
+            "baseline in each draw) excludes zero. That difference does not depend on this site: it comes from one site's field evidence "
+            "(Bay Jimmy, Zengel et al. 2015, 2022) accumulated over time, so 'distinguished' means the evidence distinguishes the options, "
+            "not that this site was measured. Elicited options have no edge-loss difference; their prior acts on vegetation recovery time only "
+            "and is ASSUMED from the literature table, not measured.")
+
+
+@st.cache_data
+def _elicited() -> dict:
+    d = pd.read_csv(_KNOWLEDGE / "elicited_priors.csv")
+    return {r.option: (float(r.tau_multiplier_lo), float(r.tau_multiplier_hi)) for r in d.itertuples()}
+
+
+@st.cache_data
+def _conditions() -> pd.DataFrame:
+    return pd.read_csv(_KNOWLEDGE / "treatment_conditions.csv")
+
+
+@st.cache_data(show_spinner="Composing option outcomes (cell)...")
+def _compare_cell(inputs: tuple) -> pd.DataFrame:
+    from src.shoreline_remediation import scenario_composer as sc
+    site = dict(inputs)
+    el = _elicited()
+    _, summ = sc.compose(site, MEASURED_OPTIONS + list(el), n_draws=COMPARE_DRAWS, elicited=el)
+    return summ
+
+
+@st.cache_data(show_spinner="Composing option outcomes (2 km block)...")
+def _compare_block(block: str) -> tuple[pd.DataFrame, int]:
+    from src.shoreline_remediation import scenario_composer as sc
+    cells = _sites()
+    cells = cells[(cells.cell_2km == block) & (cells.status == "in_scope")]
+    if cells.empty:
+        return pd.DataFrame(), 0
+    el = _elicited()
+    _, summ = sc.compose_block(cells, MEASURED_OPTIONS + list(el), n_draws=COMPARE_DRAWS, elicited=el)
+    return summ, len(cells)
+
+
+def _rng_text(r, prefix: str, y: int, unit_fmt: str = "{:+.2f}") -> str:
+    med, lo, hi = (r.get(f"{prefix}_y{y}_{k}") for k in ("median", "lo90", "hi90"))
+    if med is None or pd.isna(med):
+        return "-"
+    f = unit_fmt.format
+    return f"{f(med)} ({f(lo)} to {f(hi)})"
+
+
+def _flags_text(r, col: str) -> str:
+    out = []
+    for y in YEARS:
+        v = r.get(f"{col}_y{y}")
+        out.append("-" if v is None or pd.isna(v) else ("yes" if bool(v) else "no"))
+    return " / ".join(out)
+
+
+def _evidence_short(label: str) -> str:
+    return "ELICITED, not measured" if label.startswith("ELICITED") else ("MEASURED" if label.startswith("MEASURED") else "NO EVIDENCE")
+
+
+def _compare_table(summ: pd.DataFrame, kind: str) -> pd.DataFrame:
+    rows = []
+    for _, r in summ.iterrows():
+        if kind == "cell":
+            row = {"Option": _label(r.option), "Evidence": _evidence_short(r.evidence)}
+            for y in YEARS:
+                row[f"Edge loss diff, yr {y} (m)"] = "baseline" if r.option == "natural_attenuation" else _rng_text(r, "paired_diff_cum_edge_loss", y)
+            row["Edge loss distinguished yr 2 / 5 / 8"] = _flags_text(r, "edge_distinguished")
+            for y in YEARS:
+                row[f"Vegetation diff, yr {y} (fraction of reference cover)"] = "baseline" if r.option == "natural_attenuation" else _rng_text(r, "paired_diff_veg_ratio", y)
+            row["Vegetation distinguished yr 2 / 5 / 8"] = _flags_text(r, "veg_distinguished")
+        else:
+            row = {"Option": _label(r.option), "Evidence": _evidence_short(r.evidence)}
+            for y in YEARS:
+                row[f"Marsh area lost diff, yr {y} (ha)"] = "baseline" if r.option == "natural_attenuation" else _rng_text(r, "paired_diff_area_ha", y, "{:+.2f}")
+            row["Distinguished yr 2 / 5 / 8"] = _flags_text(r, "area_distinguished")
+        rows.append(row)
+    return pd.DataFrame(rows)
+
+
+def _conditions_table(options: list[str]) -> pd.DataFrame:
+    c = _conditions()
+    rows = []
+    for opt in options:
+        d = c[c.treatment == _label(opt)]
+        for r in d.itertuples():
+            askable = str(r.site_data_can_check).lower().startswith("no")
+            text = (f"Is this true: {r.condition.rstrip('.')}? If so, the literature reports it {r.effect_when_met}." if askable
+                    else f"{r.condition} ({r.effect_when_met}; the site data can only partly check this: {r.site_data_can_check})")
+            rows.append({"Option": _label(opt), "Condition to check": text, "Evidence class": r.evidence_class, "Source": r.source})
+    return pd.DataFrame(rows)
+
+
+def _compare_options(site: dict, flags) -> None:
+    st.subheader("Compare options")
+    if not flags.in_scope:
+        st.info("No prediction for this site: option comparison needs the edge-loss model, and this site is outside what it was fitted "
+                "and tested on (see the reason above). No numbers are shown rather than a guess.", icon=":material/block:")
+        return
+    st.caption("Each option is compared with natural recovery draw by draw (the same simulated baseline in each draw), so the shared site "
+               "noise cancels. Ranges are 90% intervals from 2,000 Monte Carlo draws; cumulative differences are in metres of marsh edge "
+               "(negative = less land lost than natural recovery). No arbitrary threshold is applied to these differences.")
+    inputs = tuple((k, site.get(k)) for k in (*FEATURES, "max_oiling"))
+    summ = _compare_cell(inputs)
+    st.markdown("**This cell**")
+    st.dataframe(_compare_table(summ, "cell"), hide_index=True, width="stretch")
+    verdict = str(summ.veg_curve_verdict.iloc[0])
+    st.caption(f"Vegetation curve status: {verdict.split(' (')[0].upper()} (leave-one-study-out test of the A1 recovery curve; "
+               "'suggestive' means not validated). Vegetation differences exist only where a field shift (year 2 only) or an elicited range exists, "
+               "and elicited ranges are ASSUMED and wide.")
+    block = site.get("cell_2km")
+    if site.get("source") == "edge cell" and block is not None and not pd.isna(block):
+        bsumm, n = _compare_block(str(block))
+        if n:
+            st.markdown(f"**Its 2 km block ({block}, {n} in-scope cells; one cell ASSUMED to hold 100 m of edge, a known underestimate)**")
+            st.dataframe(_compare_table(bsumm, "block"), hide_index=True, width="stretch")
+            st.caption("Block totals sum the cumulative retreat of every in-scope cell, with one block-level residual shared by all cells "
+                       "plus independent within-block residuals (plan A4.2). Block ranges are narrower than single-cell ranges only "
+                       "modestly, because the shared block error and the oil excess do not average out.")
+    else:
+        st.caption("No 2 km block for a typed-in site: only the single-cell comparison is shown.")
+    cond = _conditions_table(list(summ.option))
+    st.markdown("**Conditions to check**")
+    if cond.empty:
+        st.caption("No conditions listed.")
+    else:
+        st.dataframe(cond, hide_index=True, width="stretch")
+        st.caption("Conditions under which the literature reports benefit or harm (data/knowledge/treatment_conditions.csv). They are shown "
+                   "as questions because the site data cannot verify them (season, water over the soil, days since oiling). They do not change the "
+                   "rule screening verdicts above. Options without rows have no conditions recorded.")
+    st.info(A41_NOTE, icon=":material/info:")
+
+
 def render_site_evidence() -> None:
     m = load_model()
     sites = _sites()
@@ -172,6 +310,7 @@ def render_site_evidence() -> None:
                        help="Deepwater Horizon oil was a light crude that arrived weathered and emulsified.")
     if site["esi_main"] != "10A":
         st.info("Rule screening here is set up for salt marsh only; use the Scenario screening tab for other shorelines.")
+        _compare_options(site, flags)
         return
     inputs = tuple((k, site.get(k)) for k in ("max_oiling", "fetch_mean_m"))
     ranked = _screen(inputs, oil)
@@ -205,3 +344,4 @@ def render_site_evidence() -> None:
             "- Physical (edge loss) and biological (vegetation) recovery only: no soil or sediment chemistry, so no chemical recovery prediction.\n"
             "- Out of scope: active river delta, water-dominated or plume areas where land/water mapping fails, and any non-salt-marsh shoreline.\n"
             "- Scope codes for every cell: " + "; ".join(f"`{k}` {v.split(':')[0].lower()}" for k, v in STATUS_TEXT.items()) + ".")
+    _compare_options(site, flags)

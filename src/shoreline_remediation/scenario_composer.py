@@ -115,7 +115,10 @@ def compose(site: dict, options: list[str], horizon_years: int = 8, n_draws: int
     tidy columns: option, year, outcome, median, lo90, hi90, evidence. Natural recovery is always included.
     summary: one row per option, with cumulative edge loss at years 2, 5, 8 (median, lo90, hi90), probability that
     the option has less cumulative edge loss than natural recovery, the paired difference at year 8, vegetation at
-    year 2, and cannot_be_distinguished flags (90% ranges overlap natural recovery).
+    year 2, and cannot_be_distinguished flags (90% ranges overlap natural recovery: the old rule, kept for transparency).
+    Plan A4.1: paired differences (option minus natural, same draw) at years 2, 5, 8 for cumulative edge loss
+    (paired_diff_cum_edge_loss_y{y}_*) and, where a shift or elicited range exists, vegetation ratio (paired_diff_veg_ratio_y{y}_*),
+    with edge_distinguished_y{y} / veg_distinguished_y{y} true when the 90% interval of the paired difference excludes zero.
     """
     elicited = elicited or {}
     options = list(dict.fromkeys([NATURAL] + list(options)))
@@ -208,6 +211,21 @@ def compose(site: dict, options: list[str], horizon_years: int = 8, n_draws: int
             row.update({f"cum_edge_loss_y{y}_median": med, f"cum_edge_loss_y{y}_lo90": lo, f"cum_edge_loss_y{y}_hi90": hi,
                         f"p_less_edge_loss_than_natural_y{y}": float(np.mean(m["cum"][:, j] < nat["cum"][:, j])) if m["has_edge_shift"] else np.nan,
                         f"edge_cannot_be_distinguished_y{y}": (np.nan if opt == NATURAL else bool(lo <= nhi and hi >= nlo))})
+        for y in SUMMARY_YEARS:      # A4.1: paired difference from natural recovery (same draw), excludes zero -> distinguished
+            if y > horizon_years:
+                continue
+            pm, plo, phi = _q(m["cum"][:, y - 1] - nat["cum"][:, y - 1])
+            row.update({f"paired_diff_cum_edge_loss_y{y}_median": pm, f"paired_diff_cum_edge_loss_y{y}_lo90": plo,
+                        f"paired_diff_cum_edge_loss_y{y}_hi90": phi,
+                        f"edge_distinguished_y{y}": np.nan if opt == NATURAL else bool(plo > 0 or phi < 0)})
+            if m["veg"] is not None:
+                vm_, vlo_, vhi_ = _q(m["veg"][:, y - 1] - nat["veg"][:, y - 1])
+                row.update({f"paired_diff_veg_ratio_y{y}_median": vm_, f"paired_diff_veg_ratio_y{y}_lo90": vlo_,
+                            f"paired_diff_veg_ratio_y{y}_hi90": vhi_,
+                            f"veg_distinguished_y{y}": np.nan if opt == NATURAL else bool(m["has_veg_shift"] and (vlo_ > 0 or vhi_ < 0))})
+                if not m["has_veg_shift"]:     # no shift and no elicited range: no vegetation difference to report
+                    for k_ in ("median", "lo90", "hi90"):
+                        row[f"paired_diff_veg_ratio_y{y}_{k_}"] = np.nan
         jl = min(8, horizon_years) - 1
         d = m["cum"][:, jl] - nat["cum"][:, jl]
         dm, dlo, dhi = _q(d)
@@ -224,5 +242,118 @@ def compose(site: dict, options: list[str], horizon_years: int = 8, n_draws: int
             row["veg_curve_verdict"] = veg["verdict"]
         else:
             row["veg_curve_verdict"] = veg["verdict"] + " (curve not used)"
+        srows.append(row)
+    return tidy, pd.DataFrame(srows)
+
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Plan A4.2: block-level composer
+CELL_LENGTH_M = 100.0   # ASSUMED: one cell holds 100 m of marsh edge (known to be an underestimate)
+MIN_BLOCK_CELLS = 5     # ASSUMED: blocks with fewer valid cells are not used to build the block/within-block residual pools
+BLOCK_OUTCOMES = ("mean_edge_loss_rate_m_per_yr", "mean_cumulative_edge_loss_m", "cumulative_area_lost_m2", "cumulative_area_lost_ha")
+
+
+@lru_cache(maxsize=1)
+def _block_pools() -> tuple[np.ndarray, np.ndarray]:
+    """(block mean residuals, within-block residuals) of the deployed model's held-out (leave-one-basin-out) residuals,
+    from blocks (2 km cells) with at least MIN_BLOCK_CELLS valid cells."""
+    s = se.load_sites()
+    s = s[(s.status == "in_scope") & s.observed_rate.notna() & s.lobo_pred.notna()]
+    return split_block_residuals(s.cell_2km, (s.observed_rate - s.lobo_pred))
+
+
+def split_block_residuals(block_ids, residuals, min_cells: int = MIN_BLOCK_CELLS) -> tuple[np.ndarray, np.ndarray]:
+    """Split residuals into block means (one per block with >= min_cells cells) and within-block deviations (cell minus block mean)."""
+    d = pd.DataFrame({"b": np.asarray(block_ids), "r": np.asarray(residuals, float)}).dropna()
+    d = d[d.groupby("b").r.transform("size") >= min_cells]
+    mean = d.groupby("b").r.transform("mean")
+    return d.groupby("b").r.mean().to_numpy(), (d.r - mean).to_numpy()
+
+
+def compose_block(cells: pd.DataFrame, options: list[str], horizon_years: int = 8, n_draws: int = 2000, seed: int = 20261112,
+                  elicited: dict | None = None, residual_pools: tuple[np.ndarray, np.ndarray] | None = None) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Compose a set of edge cells (a 2 km block or any selection). Plan A4.2.
+
+    cells: one row per cell with either `pred_rate` (m/yr baseline prediction) or the four edge-loss features, and optionally
+    `max_oiling` (default Heavy; only Heavy cells get the oil excess and treatment shifts, as in compose()).
+    Noise: per draw ONE block residual (resampled from the empirical block-mean residuals) shared by all cells plus an
+    independent within-block residual per cell (resampled from the empirical within-block deviations). Oil excess and
+    treatment shifts are drawn once per draw and shared by all cells. Natural recovery is always included.
+    Outcomes per option and year: mean edge loss rate over cells (m/yr), mean cumulative edge loss (m), cumulative area lost
+    (sum over cells of cumulative retreat x CELL_LENGTH_M, m2 and ha). Returns (tidy, summary); summary holds the paired
+    differences from natural recovery at years 2, 5, 8 for cumulative area (m2 and ha) and `area_distinguished_y{y}`.
+    """
+    elicited = elicited or {}
+    options = list(dict.fromkeys([NATURAL] + list(options)))
+    cells = cells.reset_index(drop=True)
+    n = len(cells)
+    if n == 0:
+        raise ValueError("compose_block needs at least one cell")
+    years = np.arange(1, horizon_years + 1)
+    heavy = (cells["max_oiling"].to_numpy() == HEAVY) if "max_oiling" in cells else np.ones(n, bool)
+    if "pred_rate" in cells and cells["pred_rate"].notna().all():
+        base = cells["pred_rate"].to_numpy(float)
+    else:
+        base = np.array([se.predict_edge_loss({k: float(r[k]) for k in se.FEATURES})["rate"] for _, r in cells.iterrows()])
+    bpool, wpool = _block_pools() if residual_pools is None else (np.asarray(residual_pools[0], float), np.asarray(residual_pools[1], float))
+
+    shared = _rng(seed, "block-shared")
+    block_res = shared.choice(bpool, n_draws)                    # (n_draws,) one per draw, shared by all cells
+    within = shared.choice(wpool, (n_draws, n))                  # (n_draws, n_cells) independent
+    baseline = base[None, :] + block_res[:, None] + within       # (n_draws, n_cells)
+    oil = _oil_excess()
+    oil_by_period = {p: _normal_from_interval(shared, oil[p][1], oil[p][2], n_draws, effect=oil[p][0]) for p in ("2010-2012", "2012-2018")}
+    hv = heavy.astype(float)[None, :]
+
+    mats, labels = {}, {}
+    for opt in options:
+        g = GROUPS.get(opt)
+        r = _rng(seed, "block-option", opt)
+        shift, label = None, EVIDENCE_NONE
+        if opt in elicited:
+            label = EVIDENCE_ELICITED
+        elif g == "none":
+            label = EVIDENCE_MEASURED + " (comparison group)"
+        elif g is not None and heavy.any():
+            shift = {}
+            for p in ("2010-2012", "2012-2018"):
+                e = _erosion(g, p)
+                shift[p] = _normal_from_interval(r, e["lo"], e["hi"], n_draws, effect=e["effect"])
+            label = EVIDENCE_MEASURED
+        cum = np.zeros((n_draws, n))
+        cols_rate, cols_cum, cols_area = [], [], []
+        for y in years:
+            p = "2010-2012" if y <= 2 else "2012-2018"
+            rate = baseline + hv * (oil_by_period[p][:, None] + (shift[p][:, None] if shift else 0.0))
+            cum = cum + rate
+            cols_rate.append(rate.mean(1))
+            cols_cum.append(cum.mean(1))
+            cols_area.append(cum.sum(1) * CELL_LENGTH_M)
+        mats[opt] = {"rate": np.column_stack(cols_rate), "cum": np.column_stack(cols_cum), "area": np.column_stack(cols_area)}
+        labels[opt] = label
+
+    rows = []
+    for opt in options:
+        m = mats[opt]
+        arrays = {BLOCK_OUTCOMES[0]: m["rate"], BLOCK_OUTCOMES[1]: m["cum"], BLOCK_OUTCOMES[2]: m["area"], BLOCK_OUTCOMES[3]: m["area"] / 1e4}
+        for name, arr in arrays.items():
+            for j, y in enumerate(years):
+                med, lo, hi = _q(arr[:, j])
+                rows.append({"option": opt, "year": int(y), "outcome": name, "median": med, "lo90": lo, "hi90": hi, "evidence": labels[opt]})
+    tidy = pd.DataFrame(rows)
+
+    nat = mats[NATURAL]
+    srows = []
+    for opt in options:
+        m = mats[opt]
+        row = {"option": opt, "evidence": labels[opt], "n_cells": n, "n_heavy_cells": int(heavy.sum())}
+        for y in SUMMARY_YEARS:
+            if y > horizon_years:
+                continue
+            j = y - 1
+            for tag, key, scale in (("area_m2", "area", 1.0), ("area_ha", "area", 1e-4), ("mean_rate", "rate", 1.0)):
+                pm, plo, phi = _q((m[key][:, j] - nat[key][:, j]) * scale)
+                row.update({f"paired_diff_{tag}_y{y}_median": pm, f"paired_diff_{tag}_y{y}_lo90": plo, f"paired_diff_{tag}_y{y}_hi90": phi})
+            row[f"area_distinguished_y{y}"] = np.nan if opt == NATURAL else bool(row[f"paired_diff_area_m2_y{y}_lo90"] > 0 or row[f"paired_diff_area_m2_y{y}_hi90"] < 0)
         srows.append(row)
     return tidy, pd.DataFrame(srows)

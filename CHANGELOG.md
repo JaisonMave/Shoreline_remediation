@@ -26,6 +26,17 @@ Computer (no account needed).
   distinguishable from natural recovery; conditions for use recorded. FINDINGS 17.
 - **Status:** Under validation.
 
+### Phase A4: option differences, block-level composer, conditions, dashboard section
+- **Plan:** A4 section of `docs/SCENARIO_PROGRAMME_PLAN.md` (committed first; amends the A2 labelling rule).
+- **What:** paired-difference flags and `compose_block()` in `scenario_composer.py`;
+  `validation/scenario_block_check.py`; "Compare options" in `site_view.py`;
+  `data/knowledge/treatment_conditions.csv`; tests (149 pass).
+- **Result:** check C2 passes (88% and 93% block coverage) but block ranges are only 17% narrower than cell
+  ranges. Planting after mechanical cleanup is distinguished from natural recovery (-2.5 ha, -4.3 to -0.8, in
+  the worked block by year 8); manual and mechanical are not; untested options cannot be ranked. FINDINGS 18.
+- **Rerun:** `python -m validation.scenario_block_check`; `streamlit run src/shoreline_remediation/dashboard.py`.
+- **Status:** Under validation (awaiting Jaison's test as a user).
+
 ### Stage 3b: foundation architecture (design only)
 - **What:** `docs/ARCHITECTURE_FOUNDATION.md`: common data schema, model interface, knowledge tables,
   orchestration, process-informed layer in gated steps, offshore models as an upstream provider, model

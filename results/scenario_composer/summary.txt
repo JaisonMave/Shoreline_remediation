@@ -25,3 +25,11 @@ spread of the edge-loss model), so passing says the ranges are wide enough, not 
 composed median (1.66 m/yr) is 0.6 m/yr above the mean observed NAIP rate in the heavy cells (1.09 m/yr), i.e. the added oil excess
 is not visible in NAIP over 2010-2015 at these cells (consistent with P2, where oiling did not improve on exposure alone).
 Ranges also include negative cumulative loss (marsh gain), which is the model's residual spread, not a prediction of gain.
+
+Check C2 (plan A4.2, block-level composer). Run once.
+
+C2: composed 90% range of the block mean 2010-2015 edge loss (natural recovery) vs observed block mean NAIP rate, 2 km blocks with >= 5 valid cells in the held-out basins; baseline = P2 held-out M1 prediction per cell, block and within-block residual pools from the other basin(s) (small leak as in C1), Heavy cells only get the oil excess. Gate: coverage 80-97% (pre-specified). Blocks are the unit.
+  barataria: 192 blocks, coverage 0.875, median block range width 4.61 m/yr vs median cell range width 5.73 m/yr -> PASSES 80-97%
+  breton: 155 blocks, coverage 0.929, median block range width 5.07 m/yr vs median cell range width 5.94 m/yr -> PASSES 80-97%
+  pooled: 347 blocks, coverage 0.899, median block range width 4.77 m/yr vs median cell range width 5.73 m/yr -> PASSES 80-97%
+Worked block 400_1630 (46 in-scope cells, containing 8018_32612): see worked_block.csv. One cell is ASSUMED to hold 100 m of edge.

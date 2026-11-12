@@ -11,7 +11,7 @@ but is new to ML.
 ## Where things are
 
 - Repository: https://github.com/JaisonMave/Shoreline_remediation (public). `main` is at commit 4b0c118.
-- Unpushed work: branch `process-model-audit`, thirty-one commits on top of `main`, held only in
+- Unpushed work: branch `process-model-audit`, thirty-three commits on top of `main`, held only in
   `Shoreline_remediation-full.zip` (remade 12 Nov 2026). The zip contains the whole repository including its
   `.git` folder, so unzipping it restores the branch and history directly; no need to clone first. Run
   `python -m pytest tests` (all tests should pass; install `requirements-analysis.txt` first). Do not push unless asked; pushing needs the Claude GitHub
@@ -51,9 +51,14 @@ State of the three jobs (updated at each checkpoint):
 | Phase C mangrove inventory | Done, committed (`docs/MANGROVE_INVENTORY.md`, FINDINGS 16). Web items partly unchecked. |
 | A3 literature evidence for untested treatments | Done, committed (`data/knowledge/`, FINDINGS 17). First pass: most primary papers not opened. Elicited ranges set by the plan's rule, all Proposed; no untested option is distinguishable from natural recovery. |
 
-Next steps: (1) move the treatment conditions from the evidence notes into the rule screening and re-check key numbers against primary papers; (2) plan and
-build option-difference and block-level outputs in the composer; (3) put the composer in the dashboard;
-(4) Galeta mangrove natural-recovery description; (5) Jaison's decisions on D14-D21.
+| A4 paired differences, block-level composer, conditions, "Compare options" in the dashboard | Done, checked, committed (FINDINGS 18). C2 passes; block ranges barely narrower than cell ranges; only planting is distinguished from natural recovery. |
+
+Next steps (none started): (1) Jaison tests the "Compare options" section and reviews the conditions table
+and elicited ranges (all Proposed); (2) re-check key numbers in the evidence table against primary papers
+(`docs/LITERATURE_TO_DOWNLOAD.md` should gain those papers); (3) Phase B gate: produce all inputs for a
+place outside the fitted basins and rerun the basin hold-out through the composer; (4) soil PAH decline
+from DIVER with censoring (needs Jaison's unit check first); (5) Galeta mangrove natural-recovery
+description; (6) decisions D14-D21.
 
 ## Session of 12 November 2026 (read this first)
 

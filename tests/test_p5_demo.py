@@ -137,3 +137,38 @@ def test_dashboard_scenario_tab_still_runs(app):
     assert not app.exception, app.exception
     assert "Method test (synthetic data)" in [t.label for t in app.tabs]
     assert any("synthetic" in i.value for i in app.info)
+
+
+# ---- Compare options (plan A4.3/A4.4) ----------------------------------------------------------------------------------
+def _md_text(at) -> str:
+    return " ".join([m.value for m in at.markdown] + [c.value for c in at.caption] + [i.value for i in at.info])
+
+
+def test_compare_options_renders_for_worked_example():
+    from streamlit.testing.v1 import AppTest
+    at = AppTest.from_file(str(ROOT / "src" / "shoreline_remediation" / "dashboard.py"), default_timeout=300)
+    at.run()
+    assert not at.exception, at.exception
+    assert any(s.value == "Compare options" for s in at.subheader)
+    cols = [set(t.value.columns) for t in at.dataframe]
+    assert any("Edge loss distinguished yr 2 / 5 / 8" in c and "Evidence" in c for c in cols)
+    assert any("Marsh area lost diff, yr 8 (ha)" in c for c in cols)
+    assert any("Condition to check" in c for c in cols)
+    txt = _md_text(at)
+    assert "suggestive" in txt.lower() and "does not depend on this site" in txt and "Is this true" in " ".join(
+        str(v) for t in at.dataframe if "Condition to check" in t.value.columns for v in t.value["Condition to check"])
+    cell_table = next(t.value for t in at.dataframe if "Edge loss distinguished yr 2 / 5 / 8" in t.value.columns)
+    assert {"MEASURED", "ELICITED, not measured"} <= set(cell_table.Evidence)
+    assert "Expected rate" in {m.label for m in at.metric}       # existing content is still there
+
+
+def test_compare_options_out_of_scope_site_says_no_prediction_not_error():
+    from streamlit.testing.v1 import AppTest
+    at = AppTest.from_file(str(ROOT / "src" / "shoreline_remediation" / "dashboard.py"), default_timeout=300)
+    at.run()
+    at.radio(key="site_mode").set_value("Pick a Louisiana edge cell").run()
+    at.selectbox(key="pick_basin").set_value("birdfoot").run()
+    at.checkbox(key="pick_scope").uncheck().run()
+    assert not at.exception, at.exception
+    assert any("No prediction for this site" in i.value for i in at.info)
+    assert not any("Edge loss distinguished yr 2 / 5 / 8" in t.value.columns for t in at.dataframe)

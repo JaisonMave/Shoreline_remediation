@@ -1,6 +1,7 @@
 """Checks of src/shoreline_remediation/scenario_composer.py (plan A2): determinism, natural recovery = baseline + oil
 excess, no-evidence options get no shift and say so, elicited options act on tau only, outputs are ranges."""
 import numpy as np
+import pytest
 
 from src.shoreline_remediation import scenario_composer as sc
 from src.shoreline_remediation import site_evidence as se
@@ -86,3 +87,77 @@ def test_veg_curve_not_used_when_verdict_not_usable(monkeypatch):
     tidy, summ = sc.compose(SITE, ["natural_attenuation"], n_draws=300, seed=9)
     assert "veg_cover_ratio_to_reference" not in set(tidy.outcome)
     assert "curve not used" in summ.veg_curve_verdict.iloc[0]
+
+
+# ---- A4.1: paired-difference rule ------------------------------------------------------------------------------------
+def test_paired_difference_flags_distinguish_measured_options_but_not_unshifted_ones():
+    _, s = sc.compose(SITE, OPTS, n_draws=3000, seed=11)
+    s = s.set_index("option")
+    # old overlap flag kept; new flag added. Manual removal: Zengel 2022 shift is a clear negative paired difference at year 2
+    assert "edge_cannot_be_distinguished_y2" in s.columns and "edge_distinguished_y2" in s.columns
+    assert bool(s.loc["manual_removal", "edge_distinguished_y2"]) and bool(s.loc["manual_removal", "edge_cannot_be_distinguished_y2"])
+    # no-evidence option: paired difference is exactly zero, never distinguished
+    assert s.loc["passive sorbents", "paired_diff_cum_edge_loss_y5_lo90"] == 0.0 and not bool(s.loc["passive sorbents", "edge_distinguished_y5"])
+    # natural recovery has no flag; the year-8 paired columns still equal the earlier summary columns
+    assert np.isnan(s.loc["natural_attenuation", "edge_distinguished_y2"])
+    assert s.loc["manual_removal", "paired_diff_cum_edge_loss_y8_median"] == s.loc["manual_removal", "paired_diff_cum_edge_loss_median"]
+
+
+def test_vegetation_paired_difference_only_where_shift_or_elicited_range_exists():
+    _, s = sc.compose(SITE, ["manual_removal", "passive sorbents", "bioremediation"], n_draws=2000, seed=12, elicited={"bioremediation": (0.6, 1.0)})
+    s = s.set_index("option")
+    assert np.isnan(s.loc["passive sorbents", "paired_diff_veg_ratio_y2_median"]) and not bool(s.loc["passive sorbents", "veg_distinguished_y2"])
+    assert not np.isnan(s.loc["manual_removal", "paired_diff_veg_ratio_y2_median"])
+    assert not np.isnan(s.loc["bioremediation", "paired_diff_veg_ratio_y5_median"])
+    assert not bool(s.loc["bioremediation", "edge_distinguished_y8"])      # elicited: no edge-loss effect
+
+
+# ---- A4.2: block composer on SIMULATED cells ---------------------------------------------------------------------------
+import pandas as pd  # noqa: E402
+
+SIM_CELLS = pd.DataFrame({"pred_rate": np.linspace(0.2, 1.0, 25), "max_oiling": "Heavy"})
+RNG = np.random.default_rng(0)
+WIDE, NARROW = RNG.normal(0, 2.0, 400), np.zeros(1)
+
+
+def _rate_range(cells, pools, **kw):
+    t, _ = sc.compose_block(cells, ["natural_attenuation"], n_draws=1500, seed=3, residual_pools=pools, **kw)
+    r = t[(t.outcome == "mean_edge_loss_rate_m_per_yr") & (t.year == 5)].iloc[0]
+    return r.hi90 - r.lo90
+
+
+def test_block_range_narrower_than_cell_range_when_within_block_noise_dominates():
+    one, many = SIM_CELLS.iloc[[0]], SIM_CELLS
+    w1, w25 = _rate_range(one, (NARROW, WIDE)), _rate_range(many, (NARROW, WIDE))
+    assert w25 < 0.5 * w1          # independent cell noise averages out (about 1/5 for 25 cells, plus shared oil excess)
+
+
+def test_block_range_equals_cell_range_when_all_noise_is_block_level():
+    # block residual shared by all cells; same pred_rate so the mean over cells equals one cell exactly
+    same = pd.DataFrame({"pred_rate": [0.5] * 25, "max_oiling": "Heavy"})
+    w1, w25 = _rate_range(same.iloc[[0]], (WIDE, np.zeros(1))), _rate_range(same, (WIDE, np.zeros(1)))
+    assert w25 == pytest.approx(w1, rel=1e-9)
+
+
+def test_block_composer_deterministic_and_units():
+    a, sa = sc.compose_block(SIM_CELLS, ["manual_removal", "bioremediation"], n_draws=500, seed=9, residual_pools=(WIDE, WIDE),
+                             elicited={"bioremediation": (0.6, 1.6)})
+    b, sb = sc.compose_block(SIM_CELLS, ["manual_removal", "bioremediation"], n_draws=500, seed=9, residual_pools=(WIDE, WIDE),
+                             elicited={"bioremediation": (0.6, 1.6)})
+    assert a.equals(b) and sa.equals(sb)
+    m2 = a[(a.outcome == "cumulative_area_lost_m2") & (a.year == 8)].set_index("option")
+    ha = a[(a.outcome == "cumulative_area_lost_ha") & (a.year == 8)].set_index("option")
+    mc = a[(a.outcome == "mean_cumulative_edge_loss_m") & (a.year == 8)].set_index("option")
+    assert np.allclose(m2["median"] / 1e4, ha["median"])
+    assert np.allclose(m2["median"], mc["median"] * 25 * sc.CELL_LENGTH_M, rtol=1e-6)   # sum x 100 m = mean x n x 100 m
+    s = sa.set_index("option")
+    assert s.loc["bioremediation", "paired_diff_area_m2_y8_median"] == 0.0 and not bool(s.loc["bioremediation", "area_distinguished_y8"])
+    assert bool(s.loc["manual_removal", "area_distinguished_y2"])      # shared shift across 25 cells, paired draw: clearly negative
+
+
+def test_block_composer_non_heavy_cells_get_no_oil_excess_or_shift():
+    light = pd.DataFrame({"pred_rate": [0.3] * 6, "max_oiling": "Light"})
+    t, s = sc.compose_block(light, ["manual_removal"], n_draws=400, seed=2, residual_pools=(np.zeros(1), np.zeros(1)))
+    r = t[(t.option == "natural_attenuation") & (t.outcome == "mean_edge_loss_rate_m_per_yr") & (t.year == 1)].iloc[0]
+    assert r["median"] == pytest.approx(0.3) and r.lo90 == pytest.approx(0.3)
+    assert s.set_index("option").loc["manual_removal", "paired_diff_area_m2_y8_median"] == 0.0
