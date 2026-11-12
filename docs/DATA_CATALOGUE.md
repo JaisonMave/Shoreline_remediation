@@ -11,16 +11,17 @@ not evidence; reference = read or typed from a report; instrument = forms withou
 | EXT-NAIP | external (not stored) | USDA NAIP aerial imagery, Louisiana, 2010/2013/2015/2017 | Microsoft Planetary Computer STAC collection 'naip' | public domain (USDA) | read 2026-11-11 | 0 |
 | EXT-LANDSAT | external (not stored) | Landsat 5/7/8 Collection 2 Level-2 surface reflectance | Microsoft Planetary Computer STAC collection 'landsat-c2-l2' | public domain (USGS) | read 2026-11-11 | 0 |
 | EXT-CRMS | external | Louisiana CRMS marsh vegetation by site and year, 2006-2025 | github.com/anamikadristi/coastal-marsh-vegetation-extreme-events, commit 76e2143 (derived by A. Dristi from CPRA CRMS, NOAA HURDAT2, NASA MOD13Q1) | MIT | previous session (source commit dated 2026-10-24) | 2 |
+| EXT-CRMS-SOIL | external | CPRA CRMS soil properties (cores by station, date and depth slice), Louisiana, 2006-2023 | CPRA CIMS full-table export https://cims.coastal.la.gov/RequestedDownloads/ZippedFiles/CRMS_Soil_Properties.zip | not found; CRMS disclaimer page says public information, may be copied, byline requested (wording refers to USGS data; applicability ASSUMED) | 2026-11-12 | 1 |
 | EXT-ZENGEL2015 | external | Zengel et al. 2015 S1 Table: heavily oiled marsh, treatment groups 2010-2012 | PLoS ONE 10(7):e0132324, doi:10.1371/journal.pone.0132324, supplementary S1 Table | CC BY 4.0 | 2026-11-11 | 1 |
 | EXT-ZENGEL2022 | external | Zengel et al. 2022 marsh erosion by treatment, plot data 1956-2018 | GRIIDC doi:10.7266/VF524143 (UDI R6.x813.000:0007); paper Sci. Rep. 12:13802 | CC0 | 2026-11-11 | 1 |
 | EXT-TURNER2016 | external | Turner et al. island erosion rates, Barataria Bay, Breton Sound, Terrebonne Bay, 1988-2013 | GRIIDC doi:10.7266/N72J68WS (UDI R4.x264.196:0008) | CC0 (landing-page JSON-LD; visible wording not found) | 2026-11-12 | 1 |
 | EXT-ZENGEL2022-META | external | Zengel et al. synthesis of wetland vegetation response to oiling (compiled dataset, 1,158 rows) | GRIIDC doi:10.7266/n7-cn03-z792 (UDI R6.x813.000:0001); linked from the NOAA repository record of Ecol. Appl. 32(1):e02489 | CC0 (landing-page JSON-LD; visible wording not found) | 2026-11-12 | 1 |
 | EXT-CHANDELEUR-SHORELINE | external | Chandeleur Islands shoreline movement 2012-2017 (shapefiles and net shoreline movement table) | GRIIDC doi:10.7266/n7-0caw-d652 (UDI R4.x262.212:0004) | CC0 (landing-page JSON-LD; visible wording not found) | 2026-11-12 | 52 |
 | EXT-CHANDELEUR-FINGERPRINT | external | Chandeleur Island salt marsh oil residue fingerprinting, 2016-2017 (categorical results) | GRIIDC doi:10.7266/N7GQ6WCZ (UDI R4.x262.000:0042) | CC0 (landing-page JSON-LD; visible wording not found) | 2026-11-12 | 1 |
-| EXT-HUETTEL2018 | external | Huettel et al. 2018: Pensacola Beach oxygen profiles and St. George Island reference-core hydrocarbons and TOC | GRIIDC doi:10.7266/N7XW4HBZ (R5.x278.000:0006) and doi:10.7266/N7BZ64J8 (R5.x278.000:0011); paper Mar. Pollut. Bull. 126:488-500, doi:10.1016/j.marpolbul.2017.10.061 | not found (GRIIDC terms not fetched) | 2026-11-12 | 2 |
+| EXT-HUETTEL2018 | external | Huettel et al. 2018: Pensacola Beach oxygen profiles, buried-agglomerate n-alkanes, and St. George Island reference-core hydrocarbons and TOC | GRIIDC doi:10.7266/N7XW4HBZ (R5.x278.000:0006), doi:10.7266/n7-jjcn-y650 (R5.x278.000:0015) and doi:10.7266/N7BZ64J8 (R5.x278.000:0011); paper Mar. Pollut. Bull. 126:488-500, doi:10.1016/j.marpolbul.2017.10.061 | not found (GRIIDC terms not fetched) | 2026-11-12 | 3 |
 | EXT-DIVER-WETLAND | external (not committed) | NOAA DIVER DWH Shoreline package: Coastal Wetland Vegetation Plan samples 2010-2013 (soil, sediment, tissue chemistry) | NCEI DWH DIVER archive https://www.ncei.noaa.gov/data/deepwater-horizon-diver-system/archive/Shoreline/ (five CoastalWetlandVegetationPlan Samples tars: Fall 2010, Spring 2011, Fall 2011, Fall 2012, Fall 2013; also read: RapidMarshOilingAssessment and Shoreline-Baseline-2010 Samples tars). The DIVER packages carry no accession number. Related ERMA GIS accession 0163814, DOI 10.7289/v5mw2fcq, was NOT downloaded (download timed out) | Access level 'Public' and NOAA/NCEI no-warranty wording in the Fall 2010 metadata XML; no licence identifier found; full text of the access constraints not read | 2026-11-12 (downloaded and counted, not kept) | 0 |
 | EXT-DIVER-NEARSHORE | external (not committed) | NOAA DIVER DWH Nearshore Sediment and Water samples, 2010-2011 | NCEI dataset gov.noaa.ncdc:C02078, DOI 10.25921/4E7E-MS59; archive folder https://www.ncei.noaa.gov/data/deepwater-horizon-diver-system/archive/NearshoreSedimentandWater/ (Baseline Sampling for Louisiana, Preassessment Sampling for Louisiana, Blank Study 2011). No NCEI accession number stated on the page | ISO record lists https://creativecommons.org/publicdomain/zero/1.0/ but also an access level of 'non-public'; the NCEI page says 'All data is publicly available'. Conflict unresolved | 2026-11-12 (downloaded and counted, not kept) | 0 |
-| EXT-GRIIDC-LANDSAT-MARSH | external (not committed) | Landsat TM-derived marsh cover and vulnerability, Terrebonne, Barataria and Breton Sound basins (clear-sky data set with missing pixels) | GRIIDC doi:10.7266/N7Z31X2K (UDI R4.x264.000:0051, dataset id 3209) | CC0 (landing-page JSON-LD; visible wording not found) | not downloaded | 0 |
+| EXT-GRIIDC-LANDSAT-MARSH | external (not committed) | Landsat TM-derived marsh cover and vulnerability, Terrebonne, Barataria and Breton Sound basins (clear-sky data set with missing pixels) | GRIIDC doi:10.7266/N7Z31X2K (UDI R4.x264.000:0051, dataset id 3209) | CC0 per the landing-page JSON-LD; visible wording not found; licence not checked | 2026-11-12 | 0 |
 | EXT-PLANT-OILING | external (not committed) | Plant oiling observations (DIVER FieldObservations and ERMA vegetation layers) | NCEI DIVER FieldObservations tars in the Shoreline CWVP folders; ERMA accession 0163814 (DOI 10.7289/v5mw2fcq) | not checked | not obtained | 0 |
 | EXT-MICHEL2017 | external (not committed) | Michel et al. 2017 sand-beach shoreline treatment data | Mar. Ecol. Prog. Ser. 576:203-218, doi:10.3354/meps11917 (DOI taken from the NOAA repository record) | article CC BY per the NOAA repository record; no data licence found | not obtained | 0 |
 | EXT-ADIOS | external (derived table) | NOAA ADIOS oil properties, 1,460 oils | github.com/NOAA-ORR-ERD/noaa-oil-data | public (NOAA) | previous session | 1 |
@@ -31,6 +32,7 @@ not evidence; reference = read or typed from a report; instrument = forms withou
 | DER-NAIP-EDGE | derived | NAIP edge cells, Barataria Bay box, 2010-2017 | EXT-NAIP + EXT-SCAT | as inputs | 2026-11-11 | 4 |
 | DER-P1 | derived | P1 exposure and Landsat epochs for the Barataria box | EXT-NAIP + EXT-LANDSAT | as inputs | 2026-11-11 | 4 |
 | DER-P2 | derived | P2 Louisiana edge cells by basin: NAIP 2010/2015, exposure, Landsat pre-spill | EXT-NAIP + EXT-LANDSAT + EXT-SCAT | as inputs | 2026-11-11 | 19 |
+| DER-SOIL-LAYERS | derived (retrieved values, tabulated) | SSURGO map-unit horizons and SoilGrids v2 values at the 392 CRMS site positions | USDA NRCS Soil Data Access (SSURGO) and ISRIC SoilGrids v2.0 cloud rasters, at positions from EXT-CRMS-SOIL | not checked | 2026-11-12 | 3 |
 | DER-ZENGEL2015 | derived | Zengel 2015 S1 Table as a tidy table (86 values) | EXT-ZENGEL2015 | CC BY 4.0 | 2026-11-11 | 1 |
 | DER-P5 | derived | P5 demo site table: every Louisiana SCAT edge cell with model inputs, scope status, observed rate and held-out predictions | DER-P2 + results/p2_basin_holdout/predictions.csv | as inputs | 2026-11-11 | 1 |
 | SYN-SCENARIOS | synthetic (not evidence) | Synthetic scenario and process datasets | Generated by training_pipeline.py and process_model.py | project | previous sessions | 2 |
@@ -85,6 +87,21 @@ not evidence; reference = read or typed from a report; instrument = forms withou
 | --- | --- | --- |
 | `data/external/crms/crms_marsh_site_year.csv` | 6439 | e8eda51bf35a |
 | `data/external/crms/hurricane_site_events.csv` | 1607 | 343a9f0fffb1 |
+
+## EXT-CRMS-SOIL: CPRA CRMS soil properties (cores by station, date and depth slice), Louisiana, 2006-2023
+
+- Role: external
+- Source: CPRA CIMS full-table export https://cims.coastal.la.gov/RequestedDownloads/ZippedFiles/CRMS_Soil_Properties.zip
+- Licence: not found; CRMS disclaimer page says public information, may be copied, byline requested (wording refers to USGS data; applicability ASSUMED)
+- Obtained: 2026-11-12
+- How obtained and read: curl download of the zip; CSV (latin-1, 16,508 rows, 392 sites) copied unchanged; read with pandas
+- Checksums: zip a5b67ff4...; csv 0bf7f73b... (SHA-256; see SOURCE.md)
+- Used by: validation/soil_layer_check.py
+- Notes: Soil Salinity (ppt) not labelled as porewater or extract salinity. Marsh interiors, not the oiled edge.
+
+| File | Rows | SHA-256 (first 12) |
+| --- | --- | --- |
+| `data/external/crms_soil/CRMS_Soil_Properties.csv` | 16508 | 0bf7f73b048c |
 
 ## EXT-ZENGEL2015: Zengel et al. 2015 S1 Table: heavily oiled marsh, treatment groups 2010-2012
 
@@ -227,19 +244,20 @@ not evidence; reference = read or typed from a report; instrument = forms withou
 | --- | --- | --- |
 | `data/external/chandeleur_fingerprint/GRIIDC Metadata - oil residue.csv` | 12 | dbaa25b6fe58 |
 
-## EXT-HUETTEL2018: Huettel et al. 2018: Pensacola Beach oxygen profiles and St. George Island reference-core hydrocarbons and TOC
+## EXT-HUETTEL2018: Huettel et al. 2018: Pensacola Beach oxygen profiles, buried-agglomerate n-alkanes, and St. George Island reference-core hydrocarbons and TOC
 
 - Role: external
-- Source: GRIIDC doi:10.7266/N7XW4HBZ (R5.x278.000:0006) and doi:10.7266/N7BZ64J8 (R5.x278.000:0011); paper Mar. Pollut. Bull. 126:488-500, doi:10.1016/j.marpolbul.2017.10.061
+- Source: GRIIDC doi:10.7266/N7XW4HBZ (R5.x278.000:0006), doi:10.7266/n7-jjcn-y650 (R5.x278.000:0015) and doi:10.7266/N7BZ64J8 (R5.x278.000:0011); paper Mar. Pollut. Bull. 126:488-500, doi:10.1016/j.marpolbul.2017.10.061
 - Licence: not found (GRIIDC terms not fetched)
 - Obtained: 2026-11-12
-- How obtained and read: https://data.griidc.org/download/dataset/3500 and /3510; xlsx copied unchanged; read with pandas
+- How obtained and read: https://data.griidc.org/download/dataset/3500, /3510 and (0015) dataset_4193.zip; xlsx copied unchanged; read with pandas
 - Checksums: see catalogue.csv; SOURCE.md
 - Used by: catalogue only
-- Notes: Florida beaches, not Louisiana marsh. Report-style sheets with multi-row headers. The 17.7 MB lab tide file (R5.x278.000:0012) is not committed; six of the nine GRIIDC DOIs for the study were not checked. Not analysed.
+- Notes: Florida beaches, not Louisiana marsh. Report-style sheets with multi-row headers. Alkanes.xlsx (R5.x278.000:0015; zip sha256 c9b83d64...) holds n-alkanes C15-C40 in mg/kg by day after start (0-1152) and depth (0-50 cm) for sediment-oil agglomerates buried in Pensacola Beach, 2010-10-22 to 2013-12-16. The 17.7 MB lab tide file (R5.x278.000:0012) is not committed. Records R5.x278.000:0003, 0004 and 0005 return HTTP 404 at the GRIIDC data URL (2026-11-12); other records of the study were not checked. Not analysed.
 
 | File | Rows | SHA-256 (first 12) |
 | --- | --- | --- |
+| `data/external/huettel2018/Alkanes.xlsx` |  | 2692502d6e7b |
 | `data/external/huettel2018/Beach oxygen profiles.xlsx` |  | 695a5d4ba1da |
 | `data/external/huettel2018/Hydrocarbons and TOC St George reference cores.xlsx` |  | b7a11065535b |
 
@@ -269,12 +287,12 @@ not evidence; reference = read or typed from a report; instrument = forms withou
 
 - Role: external (not committed)
 - Source: GRIIDC doi:10.7266/N7Z31X2K (UDI R4.x264.000:0051, dataset id 3209)
-- Licence: CC0 (landing-page JSON-LD; visible wording not found)
-- Obtained: not downloaded
-- How obtained and read: Landing page and DOI reachable (HTTP 200); zip at https://data.griidc.org/download/dataset/3209 not fetched because the stated size is 1.11 GB
-- Checksums: none (not downloaded)
+- Licence: CC0 per the landing-page JSON-LD; visible wording not found; licence not checked
+- Obtained: 2026-11-12
+- How obtained and read: https://data.griidc.org/download/dataset/3209 (302 to /api/datasets/zip/3209, HTTP 200); zip 1,113,115,709 bytes, not committed; ENVI rasters read from headers and one raster
+- Checksums: zip SHA-256 51a3f39fa50920c2eaffb9168ac5da4dd24681ea0f207e496e3006324d0c5bc0; s_2009_0902_veg_md 7447cb4930c229c6d37367a9597ef87d060a8080cb830327b9976a6cd218ffe7
 - Used by: none yet
-- Notes: Landing page: 55 files, ENVI .dat/.hdr plus .txt, UTM zone 15N stated (not verified from a header), class values 0/1/2 (masked, marsh vegetation <= 40 %, > 40 %). Landing page gives a collection period of 2009-09-02 while the abstract says scenes span 1984-2011; unresolved. Contents unread. Relevant to decision D10 (land/water classifier cross-check).
+- Notes: Downloaded (not committed). Single base scene 2009-09-02, Landsat TM path 022 rows 039/040 (a 2010-10-07 clear-sky scene fills a thin line of missing data per the ReadMe). 27 ENVI rasters, 5298 x 3964 at 30 m, UTM zone 15N (EPSG code not stated in the header): three-class vegetation maps (0 unclassified, 1 vegetation <= 40 %, 2 vegetation > 40 %), plus surface reflectance (-sr, 3 bands) and unmixing fractions (-spun; ReadMe says 3 bands, header says 4, unresolved). The landing page lists a 2009-09-02 collection period while the abstract says scenes span 1984-2011; the archive holds the 2009 scene only. Only the headers and one raster were read. Relevant to decision D10 (land/water classifier cross-check).
 
 ## EXT-PLANT-OILING: Plant oiling observations (DIVER FieldObservations and ERMA vegetation layers)
 
@@ -445,6 +463,23 @@ not evidence; reference = read or typed from a report; instrument = forms withou
 | `data/external/p2/terrebonne/landsat_cell_fraction.csv` | 14996 | 5376eeb6bef9 |
 | `data/external/p2/terrebonne/scene_endmembers.csv` | 124 | d553ad650846 |
 | `data/external/p2/terrebonne/tile_classifiers.csv` | 156 | d234e630a3ac |
+
+## DER-SOIL-LAYERS: SSURGO map-unit horizons and SoilGrids v2 values at the 392 CRMS site positions
+
+- Role: derived (retrieved values, tabulated)
+- Source: USDA NRCS Soil Data Access (SSURGO) and ISRIC SoilGrids v2.0 cloud rasters, at positions from EXT-CRMS-SOIL
+- Licence: not checked
+- Obtained: 2026-11-12
+- How obtained and read: scripts/fetch_soil_layers.py (docs/SOIL_LAYER_CHECK_PLAN.md)
+- Checksums: see catalogue.csv; SOURCE.md
+- Used by: validation/soil_layer_check.py, tests/test_soil_layer_check.py
+- Notes: Values as returned by the services; SoilGrids has no raster value at 90 of 392 sites (bdod).
+
+| File | Rows | SHA-256 (first 12) |
+| --- | --- | --- |
+| `data/external/soil_layers/soilgrids_raw.csv` | 7056 | e0fa729a77d7 |
+| `data/external/soil_layers/ssurgo_horizons.csv` | 760 | 509e54f1ef1f |
+| `data/external/soil_layers/ssurgo_sites.csv` | 392 | 6c6375bc0b26 |
 
 ## DER-ZENGEL2015: Zengel 2015 S1 Table as a tidy table (86 values)
 

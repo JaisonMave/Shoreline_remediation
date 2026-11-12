@@ -13,6 +13,36 @@ Computer (no account needed).
 
 ## 2026-11-12 (session 3): literature reconciliation and data inventory
 
+### Stage 3b: foundation architecture (design only)
+- **What:** `docs/ARCHITECTURE_FOUNDATION.md`: common data schema, model interface, knowledge tables,
+  orchestration, process-informed layer in gated steps, offshore models as an upstream provider, model
+  registry. Decisions D14 to D20, all **Proposed**; nothing built.
+- **Status:** Not started (design awaiting Jaison's decisions).
+
+### Stage 3a: soil layer check (SSURGO and SoilGrids against CRMS cores)
+- **Why:** can soil maps stand in for measurements at sites without cores?
+- **What:** plan committed first (`docs/SOIL_LAYER_CHECK_PLAN.md`); `scripts/fetch_soil_layers.py`,
+  `validation/soil_layer_check.py`, tests; CRMS soil cores in `data/external/crms_soil/`, retrieved map values
+  cached in `data/external/soil_layers/`.
+- **Result:** null. Neither map beats the regional median for bulk density, organic matter or pH at 392
+  sites; SoilGrids bulk density is 1.06 g/cm3 too high. SSURGO salinity ranks sites moderately (0.42).
+  FINDINGS section 13.
+- **Rerun:** `python -m validation.soil_layer_check` (uses the cache; `scripts/fetch_soil_layers.py` refetches).
+- **Status:** Under validation (awaiting Jaison's review).
+
+### Period-split check (did the heavy-oiling excess fade?)
+- **What:** `validation/period_split_check.py`, tests, `results/period_split/`; plan committed first.
+- **Result:** inconclusive. Heavy minus clean 0.42 (0.07 to 0.76) in 2010-2015 and 0.28 (-0.27 to 0.84) in
+  2015-2017; Light shore shows an unexpected +0.78 in 2015-2017. Adjusted range for the headline is now 0.42
+  to 0.85. Part B (Landsat split) not run and not recommended (sensor gap in 2012). FINDINGS section 12.
+- **Rerun:** `python -m validation.period_split_check`.
+- **Status:** Under validation.
+
+### Stage 3 downloads
+- GRIIDC Landsat marsh cover fetched (1.11 GB, one 2009-09-02 scene, not committed; catalogue entry updated).
+  Huettel 2018: buried-oil n-alkane series found (GRIIDC R5.x278.000:0015) and committed; records 0003-0005
+  return 404.
+
 ### Stage 2: dataset inventory (no modelling)
 - **Why:** find chemistry, vegetation and erosion data beyond the proof of concept, and say what is reachable.
 - **What:** ten sources checked (`docs/STAGE2_INVENTORY.md`). Five small datasets committed under

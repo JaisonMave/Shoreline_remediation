@@ -50,6 +50,14 @@ DATASETS = [
                 "from CPRA CRMS, NOAA HURDAT2, NASA MOD13Q1)", licence="MIT", acquired="previous session (source commit dated 2026-10-24)",
          method="Copied unchanged; read with pandas", checksums="see catalogue.csv",
          notes="Not checked against the original CRMS export; no oil information", used_by="event studies"),
+    dict(id="EXT-CRMS-SOIL", role="external", patterns=["data/external/crms_soil/*.csv"],
+         name="CPRA CRMS soil properties (cores by station, date and depth slice), Louisiana, 2006-2023",
+         source="CPRA CIMS full-table export https://cims.coastal.la.gov/RequestedDownloads/ZippedFiles/CRMS_Soil_Properties.zip",
+         licence="not found; CRMS disclaimer page says public information, may be copied, byline requested (wording refers to USGS data; applicability ASSUMED)",
+         acquired="2026-11-12", method="curl download of the zip; CSV (latin-1, 16,508 rows, 392 sites) copied unchanged; read with pandas",
+         checksums="zip a5b67ff4...; csv 0bf7f73b... (SHA-256; see SOURCE.md)",
+         notes="Soil Salinity (ppt) not labelled as porewater or extract salinity. Marsh interiors, not the oiled edge.",
+         used_by="validation/soil_layer_check.py"),
     dict(id="EXT-ZENGEL2015", role="external", patterns=["data/external/zengel2015/zengel2015_S1_Table.xlsx"],
          name="Zengel et al. 2015 S1 Table: heavily oiled marsh, treatment groups 2010-2012",
          source="PLoS ONE 10(7):e0132324, doi:10.1371/journal.pone.0132324, supplementary S1 Table",
@@ -92,13 +100,16 @@ DATASETS = [
          notes="12 rows; categorical results only, no concentrations, no detection limits; one blank-date row and one NA row; file is "
                "not valid UTF-8 (read as cp1252). PDF not read.", used_by="catalogue only"),
     dict(id="EXT-HUETTEL2018", role="external", patterns=["data/external/huettel2018/*.xlsx"],
-         name="Huettel et al. 2018: Pensacola Beach oxygen profiles and St. George Island reference-core hydrocarbons and TOC",
-         source="GRIIDC doi:10.7266/N7XW4HBZ (R5.x278.000:0006) and doi:10.7266/N7BZ64J8 (R5.x278.000:0011); paper Mar. Pollut. "
-                "Bull. 126:488-500, doi:10.1016/j.marpolbul.2017.10.061", licence="not found (GRIIDC terms not fetched)",
-         acquired="2026-11-12", method="https://data.griidc.org/download/dataset/3500 and /3510; xlsx copied unchanged; read with pandas",
+         name="Huettel et al. 2018: Pensacola Beach oxygen profiles, buried-agglomerate n-alkanes, and St. George Island reference-core hydrocarbons and TOC",
+         source="GRIIDC doi:10.7266/N7XW4HBZ (R5.x278.000:0006), doi:10.7266/n7-jjcn-y650 (R5.x278.000:0015) and doi:10.7266/N7BZ64J8 "
+                "(R5.x278.000:0011); paper Mar. Pollut. Bull. 126:488-500, doi:10.1016/j.marpolbul.2017.10.061", licence="not found (GRIIDC terms not fetched)",
+         acquired="2026-11-12", method="https://data.griidc.org/download/dataset/3500, /3510 and (0015) dataset_4193.zip; xlsx copied unchanged; read with pandas",
          checksums="see catalogue.csv; SOURCE.md",
-         notes="Florida beaches, not Louisiana marsh. Report-style sheets with multi-row headers. The 17.7 MB lab tide file "
-               "(R5.x278.000:0012) is not committed; six of the nine GRIIDC DOIs for the study were not checked. Not analysed.",
+         notes="Florida beaches, not Louisiana marsh. Report-style sheets with multi-row headers. Alkanes.xlsx (R5.x278.000:0015; zip sha256 "
+               "c9b83d64...) holds n-alkanes C15-C40 in mg/kg by day after start (0-1152) and depth (0-50 cm) for sediment-oil agglomerates "
+               "buried in Pensacola Beach, 2010-10-22 to 2013-12-16. The 17.7 MB lab tide file (R5.x278.000:0012) is not committed. "
+               "Records R5.x278.000:0003, 0004 and 0005 return HTTP 404 at the GRIIDC data URL (2026-11-12); other records of the study "
+               "were not checked. Not analysed.",
          used_by="catalogue only"),
     dict(id="EXT-DIVER-WETLAND", role="external (not committed)", patterns=[],
          name="NOAA DIVER DWH Shoreline package: Coastal Wetland Vegetation Plan samples 2010-2013 (soil, sediment, tissue chemistry)",
@@ -141,12 +152,16 @@ DATASETS = [
                "9.6 GB, 0.4 GB), FieldObservations tar, which licence applies. No analysis done.", used_by="planned_variables.csv (candidate source), not yet used"),
     dict(id="EXT-GRIIDC-LANDSAT-MARSH", role="external (not committed)", patterns=[],
          name="Landsat TM-derived marsh cover and vulnerability, Terrebonne, Barataria and Breton Sound basins (clear-sky data set with missing pixels)",
-         source="GRIIDC doi:10.7266/N7Z31X2K (UDI R4.x264.000:0051, dataset id 3209)", licence="CC0 (landing-page JSON-LD; visible wording not found)",
-         acquired="not downloaded", method="Landing page and DOI reachable (HTTP 200); zip at https://data.griidc.org/download/dataset/3209 "
-                "not fetched because the stated size is 1.11 GB", checksums="none (not downloaded)",
-         notes="Landing page: 55 files, ENVI .dat/.hdr plus .txt, UTM zone 15N stated (not verified from a header), class values 0/1/2 "
-               "(masked, marsh vegetation <= 40 %, > 40 %). Landing page gives a collection period of 2009-09-02 while the abstract says "
-               "scenes span 1984-2011; unresolved. Contents unread. Relevant to decision D10 (land/water classifier cross-check).",
+         source="GRIIDC doi:10.7266/N7Z31X2K (UDI R4.x264.000:0051, dataset id 3209)", licence="CC0 per the landing-page JSON-LD; visible wording not found; licence not checked",
+         acquired="2026-11-12", method="https://data.griidc.org/download/dataset/3209 (302 to /api/datasets/zip/3209, HTTP 200); "
+                "zip 1,113,115,709 bytes, not committed; ENVI rasters read from headers and one raster",
+         checksums="zip SHA-256 51a3f39fa50920c2eaffb9168ac5da4dd24681ea0f207e496e3006324d0c5bc0; s_2009_0902_veg_md 7447cb4930c229c6d37367a9597ef87d060a8080cb830327b9976a6cd218ffe7",
+         notes="Downloaded (not committed). Single base scene 2009-09-02, Landsat TM path 022 rows 039/040 (a 2010-10-07 clear-sky scene "
+               "fills a thin line of missing data per the ReadMe). 27 ENVI rasters, 5298 x 3964 at 30 m, UTM zone 15N (EPSG code not stated in the header): "
+               "three-class vegetation maps (0 unclassified, 1 vegetation <= 40 %, 2 vegetation > 40 %), plus surface reflectance (-sr, 3 bands) "
+               "and unmixing fractions (-spun; ReadMe says 3 bands, header says 4, unresolved). The landing page lists a 2009-09-02 collection "
+               "period while the abstract says scenes span 1984-2011; the archive holds the 2009 scene only. Only the headers and one raster were "
+               "read. Relevant to decision D10 (land/water classifier cross-check).",
          used_by="none yet"),
     dict(id="EXT-PLANT-OILING", role="external (not committed)", patterns=[],
          name="Plant oiling observations (DIVER FieldObservations and ERMA vegetation layers)",
@@ -198,6 +213,13 @@ DATASETS = [
          licence="as inputs", acquired="2026-11-11",
          method="build_edge_cells.py --louisiana, assign_basins.py, run_p2_measurements.sh, landsat_split.sh (docs/P2_BASIN_HOLDOUT_PLAN.md)",
          checksums="see catalogue.csv", notes="Birdfoot excluded; Breton and Barataria keep only valid quadrants", used_by="validation/p2_basin_holdout.py, P3 C"),
+    dict(id="DER-SOIL-LAYERS", role="derived (retrieved values, tabulated)", patterns=["data/external/soil_layers/*.csv"],
+         name="SSURGO map-unit horizons and SoilGrids v2 values at the 392 CRMS site positions",
+         source="USDA NRCS Soil Data Access (SSURGO) and ISRIC SoilGrids v2.0 cloud rasters, at positions from EXT-CRMS-SOIL",
+         licence="not checked", acquired="2026-11-12", method="scripts/fetch_soil_layers.py (docs/SOIL_LAYER_CHECK_PLAN.md)",
+         checksums="see catalogue.csv; SOURCE.md",
+         notes="Values as returned by the services; SoilGrids has no raster value at 90 of 392 sites (bdod).",
+         used_by="validation/soil_layer_check.py, tests/test_soil_layer_check.py"),
     dict(id="DER-ZENGEL2015", role="derived", patterns=["data/external/zengel2015/zengel2015_group_means.csv"],
          name="Zengel 2015 S1 Table as a tidy table (86 values)", source="EXT-ZENGEL2015", licence="CC BY 4.0",
          acquired="2026-11-11", method="Parsed from the xlsx; no typing", checksums="see catalogue.csv", notes="", used_by="treatment_effects.py"),

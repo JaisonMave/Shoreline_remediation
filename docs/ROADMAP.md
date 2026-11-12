@@ -1,4 +1,4 @@
-# Roadmap and milestones (status on 11 November 2026)
+# Roadmap and milestones (status on 12 November 2026)
 
 Status words: Not started, In progress, Awaiting data, Under validation, Completed, On hold.
 A milestone is Completed only when it is validated and documented, not when code exists.
@@ -30,6 +30,16 @@ fitted to." Not claimed: other contaminants, other ecosystems, other spills.
 | P4 | Light data documentation | Variable dictionary, data catalogue with provenance, decision register, for the datasets the PoC uses only | Check the soil and sediment definitions | Every input in the demo traceable to source, date and method | Under validation: data catalogue (19 datasets, 51 files, checksums), variable dictionary (45 entries with units, ranges, derivation), both checked by tests; awaiting Jaison's check of definitions. Soil and sediment chemistry absent from the PoC and flagged (15 planned variables with comments). |
 | P5 | Demo dashboard | Map of a site; rule screening of options; predicted edge loss per option against no treatment, with intervals; out-of-scope and extrapolation flags; one worked Barataria example | Test it as a user; flag anything a lead would question | Runs end to end from a clean install; tests pass | Under validation: built (plan `docs/P5_DEMO_PLAN.md`, FINDINGS section 10); runs from a clean install; 108 tests pass; worked example `docs/P5_WORKED_EXAMPLE.md`. Awaiting Jaison's test as a user. |
 | P6 | Proof-of-concept report and slides | What works (with validated numbers), what failed and why, limits, and what scaling needs (data, people, other spills, other contaminants) | Scientific review; present to leads | Jaison signs off | Under validation: report (Docs) and 12-slide deck delivered 11 Nov, every number checked against results files (`docs/P6_POC_REPORT.md`). Awaiting Jaison's review and sign-off (parked). |
+
+## Work after the proof of concept (12 Nov 2026)
+
+| # | Item | Status |
+| --- | --- | --- |
+| S1 | Reconcile P1 with Challenger 2021 and Turner 2016 | Under validation: note, not revision (FINDINGS 11); full texts not read (`docs/LITERATURE_TO_DOWNLOAD.md`) |
+| S1b | Period-split check | Under validation: inconclusive (FINDINGS 12) |
+| S2 | Dataset inventory | Under validation: ten sources checked, seven datasets catalogued (`docs/STAGE2_INVENTORY.md`); plant-oiling layers and beach treatment data not obtained |
+| S3a | Soil layer check | Under validation: null result (FINDINGS 13) |
+| S3b | Foundation architecture | Not started: design written, D14-D20 Proposed |
 
 Order: P1 -> P2 -> P3 (can run alongside P2) -> P4 -> P5 -> P6.
 Parked by Jaison (11 Nov, no laptop): his reviews of P1-P5, his check of the variable definitions and his
@@ -69,3 +79,12 @@ contaminants and ecosystems (M7), the full platform (M8-M10).
 | D11 | 2026-11-11 | 3, 6 | Demo (P5) uses Zengel et al. 2022 erosion priors by treatment against natural recovery, with intervals, for heavily oiled salt marsh in years 0-2, and shows that differences are not clear after year 2. NAIP-based absolute rates carry a note that they read about 1.2 m/yr low. | Approved by Jaison 2026-11-11 |
 | D12 | 2026-11-11 | 1 | Data documentation is generated from data: `scripts/build_catalogue.py` writes the catalogue (with SHA-256 per file) and the dictionary docs; tests fail if data change without a rebuild or a variable leaves its valid range. Git history of `data/meta/catalogue.csv` is the dataset version history. | Implemented (P4) |
 | D13 | 2026-11-11 | 3, 6 | Map tool treatments to field-evidence groups: natural_attenuation = untreated (natural recovery, baseline); manual_removal = Zengel manual treatment; mechanical_removal = Zengel mechanical treatment; planting shown as a restoration add-on; every other treatment shows "no outcome evidence". Evidence is shown beside the rule screening, never combined into one score. | Approved by Jaison 2026-11-11; implemented in P5 |
+| D9a | 2026-11-12 | 4, 6 | Wording: the heavy-oiling excess is quoted as "average over 2010-2015", with the adjusted range 0.42 to 0.85 and "duration not resolved by our data"; "for at least seven years" withdrawn. Reason: Challenger 2021, Turner 2016, period-split check (FINDINGS sections 11, 12). | Implemented in the dashboard caption and docs (Jaison delegated the call, 12 Nov); P6 report and decks not yet edited |
+| D14 | 2026-11-12 | 1 | Common multi-site schema: source, site, event, observation (with censoring fields), intervention. | Proposed (`docs/ARCHITECTURE_FOUNDATION.md`) |
+| D15 | 2026-11-12 | 4, 5, 7 | Standard model interface: site and scenario in; value, interval, scope flags and explanation out. | Proposed |
+| D16 | 2026-11-12 | 3 | Knowledge base as editable tables (technologies, screening rules, evidence effects) with source and status per row. | Proposed |
+| D17 | 2026-11-12 | 6, 7 | Orchestration as a fixed, logged pipeline; no language-model agents in the decision path; multi-criteria ranking deferred until two validated outcomes and cost data exist. | Proposed |
+| D18 | 2026-11-12 | 4 | Process-informed layer in gated steps: literature priors, Monte Carlo, Bayesian calibration against DIVER soil PAH, ML surrogate only if speed requires it (not now). | Proposed |
+| D19 | 2026-11-12 | 1, 2 | Offshore fate models (PyGNOME, OpenOil) as an upstream provider of an arrival record; deferred until a forecasting use or second spill. | Proposed |
+| D20 | 2026-11-12 | 5 | Model registry with experimental and validated states and a promotion gate. | Proposed |
+| D21 | 2026-11-12 | 1, 2 | Do not use SSURGO or SoilGrids values as soil predictors in marsh; measured data only. Evidence: FINDINGS section 13. | Proposed |

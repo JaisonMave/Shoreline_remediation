@@ -4,7 +4,7 @@ Running list of scientific and technical concerns raised during development, so 
 sessions. Each note says where it bites and what would resolve it. Add new notes at the top of a section;
 mark resolved notes rather than deleting them. Decisions referred to are in `docs/ROADMAP.md`.
 
-Last updated 12 November 2026 (after Stage 2 inventory).
+Last updated 12 November 2026 (after Stage 3).
 
 ## A. Claims we can and cannot make to leads
 
@@ -51,6 +51,10 @@ Last updated 12 November 2026 (after Stage 2 inventory).
    a fading oil effect. Bites: any slide or dashboard text that reads 0.85 (or 0.3-0.8) as a continuing annual
    rate; FINDINGS section 6 "at least seven years" (withdrawn). Resolves with: a pre-specified period-split
    check (FINDINGS section 11). Neither paper's full text was read (abstracts and Zengel 2022 Table 1 only).
+   **Update (period-split check run, FINDINGS section 12): inconclusive.** 2010-2015: 0.42 (0.07 to 0.76);
+   2015-2017: 0.28 (-0.27 to 0.84). Lightly oiled shore shows +0.78 in 2015-2017 where no effect is expected,
+   so unexplained differences of that size exist in this design. Quote the headline with the adjusted range
+   0.42 to 0.85 and "duration not resolved". Still open; field data, not more imagery, would close it.
 
 1. **Barataria Bay was used to develop every method**, then reused as a P2 test basin. Its P2 result is the
    least independent; western Breton (31 heavy cells) is the only other test basin, and it is small.
@@ -92,6 +96,11 @@ Last updated 12 November 2026 (after Stage 2 inventory).
 5. The map's base tiles come from the internet; offline, the cells still draw on a blank background.
 
 ## E. Scope gaps against the project brief (for the "what next" slide)
+
+000. **Gridded soil maps fail in marsh (Stage 3a, FINDINGS section 13).** SSURGO and SoilGrids do not beat the
+   regional median for bulk density, organic matter or pH at 392 CRMS sites; SoilGrids overstates bulk density
+   about sixfold. Bites: any plan to fill missing soil predictors from maps, here or on other
+   coasts. Resolves with: measured data only (CRMS, DIVER); repeat the check before trusting maps elsewhere.
 
 00. **Soil chemistry data now located, but censored (Stage 2, 12 Nov).** NOAA DIVER wetland files: PAH, organic
    matter, bulk density, pH, salinity, nutrients, metals at about 200 marsh stations over five campaigns

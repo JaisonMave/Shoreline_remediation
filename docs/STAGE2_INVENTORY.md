@@ -50,3 +50,19 @@ the six remaining Huettel GRIIDC records (item 10), the DIVER field-observation 
 ## Not verified
 Licence wording for GRIIDC is the page's machine-readable field (CC0), not a read licence text. All Huettel contents beyond the first rows are agent-reported. Why DIVER soil rows carry mg/L
 units is unknown. The sample counts in the brief (1,894; 1,731; 2,779) could not be traced to a package.
+
+## Update after Stage 3 downloads (12 Nov 2026)
+
+- **Item 1, Landsat marsh cover: downloaded** (1,113,115,709 bytes; not committed). It is one base scene,
+  2009-09-02 (Landsat TM path 022, rows 039/040), not a time series: 27 ENVI rasters, 5298 x 3964 pixels at
+  30 m, UTM 15N; three-class vegetation maps (40% cover threshold) plus surface reflectance and unmixing
+  fractions (vegetation, water, soil). Use for D10: a one-date, pre-spill cross-check of our 2007-2009
+  Landsat land fraction. Not yet compared (needs a plan). Licence not checked.
+- **Item 10, Huettel: the buried-oil series is found** (GRIIDC R5.x278.000:0015, doi 10.7266/n7-jjcn-y650):
+  n-alkanes C15-C40 in mg/kg at 11 sampling days over 1,152 days and six depths, in sediment-oil agglomerates
+  buried at Pensacola Beach. In repo. This is the first oil-degradation time series for a beach in the
+  project (one site, one experiment). Records 0003-0005 return HTTP 404.
+- **New: CRMS soil cores** (CPRA CIMS; 16,508 rows, 392 sites, 2006-2023; bulk density, organic matter, pH,
+  conductance, salinity, some carbon, nutrients and texture; coordinates included). In repo. Used in the
+  soil layer check (FINDINGS section 13).
+

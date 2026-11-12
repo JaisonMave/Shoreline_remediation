@@ -1,4 +1,4 @@
-# Handoff: Shoreline Remediation Model (state on 11 November 2026)
+# Handoff: Shoreline Remediation Model (state on 12 November 2026)
 
 ## Who and what
 
@@ -11,10 +11,10 @@ but is new to ML.
 ## Where things are
 
 - Repository: https://github.com/JaisonMave/Shoreline_remediation (public). `main` is at commit 4b0c118.
-- Unpushed work: branch `process-model-audit`, twenty-two commits on top of `main`, held only in
-  `Shoreline_remediation-full.zip` (made 11 Nov 2026). The zip contains the whole repository including its
+- Unpushed work: branch `process-model-audit`, twenty-seven commits on top of `main`, held only in
+  `Shoreline_remediation-full.zip` (remade 12 Nov 2026). The zip contains the whole repository including its
   `.git` folder, so unzipping it restores the branch and history directly; no need to clone first. Run
-  `python -m pytest tests` (108 tests should pass). Do not push unless asked; pushing needs the Claude GitHub
+  `python -m pytest tests` (all tests should pass; install `requirements-analysis.txt` first). Do not push unless asked; pushing needs the Claude GitHub
   App installed on the repository. Raw SCAT shapefiles are not in the zip; `scripts/download_scat.sh` fetches them.
 - Design document: https://claude.ai/artifact/BidoqGEG4kFHQ6A4YPUzQi
 - Literature review: https://claude.ai/artifact/4eR98SrUVEmUZ1Ygddh5cW
@@ -32,6 +32,33 @@ but is new to ML.
   `docs/P2_BASIN_HOLDOUT_PLAN.md`, `docs/P3_TREATMENT_PLAN.md`, `docs/P5_DEMO_PLAN.md`, `docs/P5_WORKED_EXAMPLE.md`, `docs/P6_POC_REPORT.md`.
 - The earlier seven-commit history was not in the previous zip, so it was restored as one commit.
   Network egress now works for NOAA, PLOS, Planetary Computer, Earth Search and PyPI (FTP is blocked).
+
+## Session of 12 November 2026 (read this first)
+
+1. **P1 against the literature (FINDINGS 11).** Challenger et al. 2021 and Turner et al. 2016 do not
+   contradict P1 on whether heavy oiling raised erosion; they disagree on duration (1 to 2.5 years). P1's
+   0.85 m/yr is an average over 2010-2015. "For at least seven years" is withdrawn. Full texts were not
+   readable; `docs/LITERATURE_TO_DOWNLOAD.md` lists what to get and what each would settle.
+2. **Period-split check (FINDINGS 12): inconclusive.** 0.42 (0.07 to 0.76) in 2010-2015, 0.28 (-0.27 to 0.84)
+   in 2015-2017, fully adjusted. Quote the headline with the adjusted range 0.42 to 0.85 (D9a).
+3. **Inventory (`docs/STAGE2_INVENTORY.md`).** In repo: Turner islands, Zengel meta-analysis (1,158 rows, 10
+   studies, no coordinates), Chandeleur shoreline and fingerprinting, Huettel beach series, CRMS soil cores.
+   Not committed, refetch with `scripts/download_diver.sh`: NOAA DIVER wetland chemistry (14,926 soil sample
+   IDs, 202 stations, 2010-2013, censoring flags) and nearshore sediment. Not obtained: plant-oiling layers,
+   beach treatment data.
+4. **Soil layer check (FINDINGS 13): null.** SSURGO and SoilGrids do not beat the regional median in marsh.
+   Do not use them as predictors (D21 proposed).
+5. **Architecture (`docs/ARCHITECTURE_FOUNDATION.md`).** D14-D20 proposed, nothing built.
+
+Waiting on Jaison: decisions D14-D21; his check of DIVER soil units (some soil rows are in mg/L) and
+analytes; editing the P6 report and decks with the correction in `docs/P6_POC_REPORT.md`; the parked
+reviews of P1-P5.
+
+Next step (proposed): build the D14 schema with loaders for DIVER wetland chemistry and the Zengel table,
+then two pre-specified analyses: vegetation recovery held out by study, and soil PAH decline with censoring.
+
+Model routing used this session: small models for reachability and downloads, a mid model for loaders,
+scripts and tests, the orchestrator for judgement and for checking every reported number against files.
 
 ## What has been done
 
