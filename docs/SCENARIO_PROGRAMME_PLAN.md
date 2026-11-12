@@ -141,3 +141,37 @@ A "Compare options" section in the Site evidence view: for the selected cell, an
 table per option of evidence label (MEASURED / ELICITED), paired difference from natural recovery with 90%
 interval at years 2, 5 and 8 (edge loss; vegetation where available), the distinguished flag, and the
 conditions to check. Always shows ranges, the vegetation curve's "suggestive" status, and the note in A4.1.
+
+## Phase B1: long-horizon forecast check (plan added 12 Nov 2026, before it was run)
+
+C1 and C2 already test the composer on held-out basins for 2010-2015 (about 5 years). B1 extends this to
+the longest outcome we hold, and wraps the composer as a forecast.
+
+- `forecast(site or cells, option, horizons=(1, 3, 5, 8))` in `scenario_composer.py`: cumulative edge loss and
+  (block) area lost with 90% ranges at each horizon; any horizon beyond 8 years is refused with an
+  "extrapolation: no outcome data beyond 2018" message. Inputs are only those available at forecast time
+  (oiling class, exposure, pre-spill trend, habitat, option).
+- **Check B1 (run once):** Barataria cells that have a NAIP 2010-2017 rate (`results/naip_edge_loss/`) and a
+  P2 held-out prediction (model fitted on the other basins). Natural-recovery option. The composed 90% range
+  for the 2010-2017 mean edge-loss rate should contain the observed value in 80-97% of cells, and of 2 km
+  blocks with at least 5 cells. Report by oiling class as well, and the bias (composed median minus
+  observed). If cells cannot be matched between the two tables, report that and stop.
+- Known in advance: only one basin has a 7-year outcome, and it is the basin used to develop every method
+  (REVIEW_NOTES C1), so this is the weakest of the hold-out checks; cleanup is unrecorded, so "natural
+  recovery" is compared with shoreline that was mostly cleaned.
+
+## Phase C1: Galeta mangrove description (plan added 12 Nov 2026; descriptive only)
+
+Data: NCEI accession 9400033 (Bahia Las Minas / Galeta, Panama, 1986 refinery spill; monitoring 1987-1992),
+already downloaded to the session disk. Licence is unclear, so raw files are **not committed**; a download
+script and a catalogue entry are added instead.
+
+- Document every file: variables, units, codes, sites, dates, oiled or unoiled status, from the archive's
+  own documentation.
+- Describe, with the **site** as the unit (never the tree, root or seedling): for each outcome the archive
+  holds (for example tree condition or defoliation, seedling survival and growth, prop-root cover), the
+  yearly mean by oiled and unoiled sites with the number of sites, and a plot. No model, no significance
+  test, no recovery-time estimate.
+- State what cannot be done: no pre-spill data, no cleanup variable, no coordinates.
+- Output: `docs/GALETA_MANGROVE_DESCRIPTION.md`, `results/galeta/` summary tables. A model is proposed only
+  if the description shows a usable oiled-versus-unoiled series at three or more sites per group.
