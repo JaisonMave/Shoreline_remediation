@@ -1,0 +1,74 @@
+outcome,unit,stratum,cond,year,n_sites,mean_of_site_means,sd_between_sites,min_site,max_site
+caged_mytilopsis_survival,"share live of live + dead, final count per cage (transplant experiment, not natural)",all,oiled,1990,4,0.6647542425368512,0.12058519679453696,0.5284615384615384,0.8143589743589743
+caged_mytilopsis_survival,"share live of live + dead, final count per cage (transplant experiment, not natural)",all,oiled,1991,4,0.5305352944157292,0.1688459869011254,0.3696666666666667,0.7645351170568562
+caged_mytilopsis_survival,"share live of live + dead, final count per cage (transplant experiment, not natural)",all,unoiled,1990,4,0.6704360494577886,0.13757253772002584,0.5416666666666666,0.7968298368298369
+caged_mytilopsis_survival,"share live of live + dead, final count per cage (transplant experiment, not natural)",all,unoiled,1991,4,0.6827990107510348,0.2774995361479104,0.3732071912761568,0.9759743589743589
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,oiled,1988,12,49.90609043441938,14.487362556336542,32.9945,70.5305
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,oiled,1989,12,49.63475,15.2378564191293,32.653999999999996,91.71549999999999
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,oiled,1991,13,55.064276923076925,10.806170240357579,34.4436,64.979
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,unoiled,1988,12,21.11991666666667,10.548165501496918,5.3,36.848
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,unoiled,1989,12,28.958315789473684,13.407099781129904,12.9445,54.586
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,unoiled,1991,12,31.841033333333332,8.922216146668875,19.7575,51.9705
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,oiled,1987,8,6.369909722222221,11.666580282066334,0.0,33.87
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,oiled,1988,12,22.602340277777774,29.203415617198036,0.1875,78.16666666666667
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,oiled,1989,13,19.738304487179487,20.712899835922503,0.052125000000000005,66.552125
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,oiled,1990,13,5.99386282051282,8.9080216008247,0.0015,30.429666666666666
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,oiled,1991,13,0.6924529914529914,1.1917747194485817,0.0,4.182611111111111
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,unoiled,1987,7,0.0,0.0,0.0,0.0
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,unoiled,1988,13,0.06269230769230769,0.15356089840591178,0.0,0.43875
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,unoiled,1989,12,0.0,0.0,0.0,0.0
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,unoiled,1990,12,0.0,0.0,0.0,0.0
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,unoiled,1991,12,0.0,0.0,0.0,0.0
+dowel_total_biomass,"g (NETGM, 'total' rows; deployment days vary, NUMDAYS)",all,oiled,1988,12,2.511791666666667,2.729173812182861,0.6696666666666667,10.910166666666667
+dowel_total_biomass,"g (NETGM, 'total' rows; deployment days vary, NUMDAYS)",all,oiled,1989,5,5.4874,3.0394018819498028,2.41,10.132000000000001
+dowel_total_biomass,"g (NETGM, 'total' rows; deployment days vary, NUMDAYS)",all,unoiled,1988,13,18.85522638888889,30.375616318214863,0.9731111111111111,102.8375
+dowel_total_biomass,"g (NETGM, 'total' rows; deployment days vary, NUMDAYS)",all,unoiled,1989,6,59.89630555555556,92.31028181208664,3.95,245.675
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,oiled,1989,12,7.373190402704291,0.7103655523477393,5.993197278911564,8.476190476190476
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,oiled,1990,12,6.438771876271876,0.7570243067345661,5.103174603174604,7.616402116402116
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,oiled,1991,12,5.753306878306877,0.9230417010982219,4.531746031746032,7.428571428571428
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,unoiled,1989,14,8.216219225785553,1.1602501592219212,6.122448979591836,9.857142857142858
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,unoiled,1990,14,7.597141912320484,1.3773619004095028,4.634920634920635,9.702380952380953
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,unoiled,1991,14,7.403656462585034,1.4485648654623609,4.428968253968254,9.682539682539682
+litter_leaf_dry_mass_rate,"g per trap per day (GML / NUMDAYS, derived)",all,oiled,1989,12,1.3696243751335695,0.559524494910443,0.5110120851370851,2.585297619047619
+litter_leaf_dry_mass_rate,"g per trap per day (GML / NUMDAYS, derived)",all,oiled,1990,12,1.3463719501999678,0.4372462225355189,0.5972307437849216,2.059215206533214
+litter_leaf_dry_mass_rate,"g per trap per day (GML / NUMDAYS, derived)",all,unoiled,1989,13,1.5391845480603088,0.40741362200354997,1.0063426382047072,2.196122198879552
+litter_leaf_dry_mass_rate,"g per trap per day (GML / NUMDAYS, derived)",all,unoiled,1990,13,1.5259166981046106,0.47068205823140785,0.9320326908721375,2.708409104022131
+litter_reproductive_dry_mass_rate,"g per trap per day (GMR / NUMDAYS, derived)",all,oiled,1989,12,0.1169269853733158,0.06716990053329741,0.024879148629148626,0.22262987012987012
+litter_reproductive_dry_mass_rate,"g per trap per day (GMR / NUMDAYS, derived)",all,oiled,1990,12,0.11415221676039693,0.08449156205098003,0.007148955424653914,0.28600031856243824
+litter_reproductive_dry_mass_rate,"g per trap per day (GMR / NUMDAYS, derived)",all,unoiled,1989,13,0.14975571279695687,0.0808843361925669,0.0599052676626206,0.30797472075249854
+litter_reproductive_dry_mass_rate,"g per trap per day (GMR / NUMDAYS, derived)",all,unoiled,1990,13,0.15417608759942145,0.1433521965658058,0.02394944774255119,0.45845243942945096
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,oiled,1987,11,0.0,0.0,0.0,0.0
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,oiled,1988,11,0.08652597402597402,0.050012946684996125,0.0,0.18601190476190477
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,oiled,1989,11,0.16893939393939394,0.11144903664000862,0.07291666666666666,0.45535714285714285
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,oiled,1990,11,0.2911255411255411,0.06736057582770529,0.1923611111111111,0.4
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,oiled,1991,11,0.3202561327561328,0.0911936558559103,0.1388888888888889,0.4761904761904762
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,unoiled,1987,12,0.0,0.0,0.0,0.0
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,unoiled,1988,12,0.015580357142857144,0.020756384252679897,0.0,0.05
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,unoiled,1989,11,0.0457070707070707,0.0679788528796476,0.0,0.1840277777777778
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,unoiled,1990,11,0.11927308802308802,0.07919293198813654,0.0,0.29642857142857143
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,unoiled,1991,11,0.14034992784992784,0.08406116114062759,0.037037037037037035,0.3333333333333333
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,oiled,1987,11,8.437454545454544,15.070075675746532,0.0,50.8
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,oiled,1988,11,15.412769191919192,18.478785456291675,1.20225,50.00175
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,oiled,1989,11,13.992204545454543,20.13969706320647,0.0015,64.55225
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,oiled,1990,11,10.058272727272726,14.930549674013406,0.00075,48.27675
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,oiled,1991,11,5.5840151515151515,7.321625938294241,0.0,18.86733333333333
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,unoiled,1987,12,0.0,0.0,0.0,0.0
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,unoiled,1988,12,0.004208333333333333,0.014499542835008365,0.0,0.050249999999999996
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,unoiled,1989,11,0.0,0.0,0.0,0.0
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,unoiled,1990,11,0.004545454545454546,0.015075567228888182,0.0,0.05
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,unoiled,1991,11,0.0,0.0,0.0,0.0
+seedling_dead_flag_share,share of seedling records with status x (dead),all,oiled,1990,12,0.0,0.0,0.0,0.0
+seedling_dead_flag_share,share of seedling records with status x (dead),all,oiled,1991,12,0.05150297641834981,0.05735361761321991,0.0056179775280898875,0.1742690058479532
+seedling_dead_flag_share,share of seedling records with status x (dead),all,oiled,1992,12,0.026254350181999998,0.033951918898182984,0.0,0.11851851851851852
+seedling_dead_flag_share,share of seedling records with status x (dead),all,unoiled,1990,2,0.0,0.0,0.0,0.0
+seedling_dead_flag_share,share of seedling records with status x (dead),all,unoiled,1991,2,0.06015024458420684,0.08506529167104412,0.0,0.12030048916841368
+seedling_dead_flag_share,share of seedling records with status x (dead),all,unoiled,1992,2,0.1360135821052263,0.07690624738847632,0.08163265306122448,0.19039451114922812
+seedling_height,cm,natural,oiled,1990,12,75.20636225301628,28.495221395176014,45.797069597069594,127.7591944310317
+seedling_height,cm,natural,oiled,1991,12,105.61781772262351,44.71311854652498,48.255642191899504,191.2807486631016
+seedling_height,cm,natural,oiled,1992,12,137.21794144740724,56.189095898497605,64.93850332661906,241.295
+seedling_height,cm,natural,unoiled,1990,2,54.786165414269504,23.42087114503802,38.22510860631678,71.34722222222223
+seedling_height,cm,natural,unoiled,1991,2,108.89996149199636,51.48071699767135,72.49759740259739,145.30232558139534
+seedling_height,cm,natural,unoiled,1992,2,167.98191757779645,111.28278814902367,89.29310344827586,246.67073170731706
+seedling_height,cm,planted by refinery,oiled,1990,8,77.55384295364134,21.341772547047213,48.6,117.44444444444444
+seedling_height,cm,planted by refinery,oiled,1991,8,134.3724856321839,54.315447973935726,73.41666666666667,240.4080459770115
+seedling_height,cm,planted by refinery,oiled,1992,8,209.85339674294414,93.80707690901615,94.35,412.85185185185185

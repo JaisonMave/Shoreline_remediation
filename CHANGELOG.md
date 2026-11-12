@@ -26,6 +26,15 @@ Computer (no account needed).
   distinguishable from natural recovery; conditions for use recorded. FINDINGS 17.
 - **Status:** Under validation.
 
+### Phase B1, Phase C1, DIVER structure
+- **B1:** `forecast()` in `scenario_composer.py`, `validation/forecast_horizon_check.py`, tests (152 pass).
+  7-year check in Barataria passes (92% of cells, 94% of blocks); heavy cells over-predicted by 0.53 m/yr.
+  FINDINGS 19. Rerun: `python -m validation.forecast_horizon_check`.
+- **C1:** `docs/GALETA_MANGROVE_DESCRIPTION.md`, `scripts/galeta_description.py`, `scripts/download_galeta.sh`
+  (not run), `results/galeta/`; catalogue entry EXT-GALETA (raw data not committed). FINDINGS 20.
+- **DIVER:** `docs/DIVER_SOIL_STRUCTURE.md`; `docs/PAH_DECLINE_PLAN_DRAFT.md` (Proposed, not run). FINDINGS 21.
+- **Status:** Under validation; PAH analysis awaiting Jaison's choices.
+
 ### Phase A4: option differences, block-level composer, conditions, dashboard section
 - **Plan:** A4 section of `docs/SCENARIO_PROGRAMME_PLAN.md` (committed first; amends the A2 labelling rule).
 - **What:** paired-difference flags and `compose_block()` in `scenario_composer.py`;

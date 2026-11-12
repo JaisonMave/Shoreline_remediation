@@ -32,6 +32,16 @@ DATASETS = [
          method="HTTPS archive folder arc0110/0163818/1.1 (scripts/download_scat.sh); read with geopandas",
          checksums="18611 .shp 616806d1..., .dbf f8dcba8f...; 18612 .shp ab2c89b4..., .dbf 97c80130... (SHA-256)",
          notes="65 MB; not committed; every derived edge-cell table starts here", used_by="P1, P2, CRMS match, Landsat site choice"),
+    dict(id="EXT-GALETA", role="external (not committed)", patterns=[],
+         name="Bahia Las Minas (Galeta), Panama 1986 refinery oil spill: mangrove forest (MGF) and mangrove fringe/prop-root (MGR) monitoring, 1987-1992",
+         source="NCEI/NODC accession 9400033 (MMS OCS Study 93-0048, Keller and Jackson eds. 1993; Duke 1993 and Garrity and Levings 1993), "
+                "https://www.ncei.noaa.gov/archive/accession/9400033; files from https://www.ncei.noaa.gov/data/oceans/archive/arc0001/9400033/1.1/data/0-data",
+         licence="UNCLEAR: catalogue record says CC0 1.0 but access level 'non-public' and rights 'otherRestrictions' (conflict, ask NCEI); .doc files request citation",
+         acquired="2026-11-12", method="Directory index over HTTPS (scripts/download_galeta.sh); comma-separated text, no header row, column names "
+                "from mgf.doc and mgr.doc; read with pandas (scripts/galeta_description.py)",
+         checksums="25 data files; SHA-256 listed in scripts/download_galeta.sh and docs/MANGROVE_INVENTORY.md",
+         notes="No pre-spill data, no cleanup variable, no coordinates. Raw files not committed; summaries in results/galeta/ (results are not catalogued).",
+         used_by="Phase C1 description (docs/GALETA_MANGROVE_DESCRIPTION.md)"),
     dict(id="EXT-NAIP", role="external (not stored)", patterns=[],
          name="USDA NAIP aerial imagery, Louisiana, 2010/2013/2015/2017",
          source="Microsoft Planetary Computer STAC collection 'naip'", licence="public domain (USDA)", acquired="read 2026-11-11",

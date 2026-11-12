@@ -357,3 +357,38 @@ def compose_block(cells: pd.DataFrame, options: list[str], horizon_years: int = 
             row[f"area_distinguished_y{y}"] = np.nan if opt == NATURAL else bool(row[f"paired_diff_area_m2_y{y}_lo90"] > 0 or row[f"paired_diff_area_m2_y{y}_hi90"] < 0)
         srows.append(row)
     return tidy, pd.DataFrame(srows)
+
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Plan B1: forecast wrapper
+FORECAST_MAX_YEARS = 8
+EXTRAPOLATION_MESSAGE = ("extrapolation: no outcome data beyond 2018 (the longest outcome held is 8 years after the 2010 oiling); "
+                         "horizons beyond 8 years are refused")
+
+
+def forecast(site_or_cells, option: str = NATURAL, horizons: tuple = (1, 3, 5, 8), n_draws: int = 2000, seed: int = 20261112,
+             elicited: dict | None = None, residual_pool=None, residual_pools=None) -> pd.DataFrame:
+    """Cumulative edge loss with 90% ranges at each horizon (plan B1). Refuses any horizon beyond 8 years (ValueError).
+
+    site_or_cells: a site dict (as compose(); outputs cumulative edge loss in m) or a DataFrame of cells (as compose_block();
+    outputs mean cumulative edge loss in m and cumulative area lost in m2 and ha, one cell ASSUMED = 100 m of edge).
+    Inputs are only what is known at forecast time (oiling class, exposure features or pred_rate, pre-spill trend, option).
+    Returns DataFrame [option, horizon_years, outcome, median, lo90, hi90, evidence]. Deterministic for a given seed.
+    """
+    hs = sorted({int(h) for h in horizons})
+    if not hs or hs[0] < 1:
+        raise ValueError("horizons must be whole years >= 1")
+    if hs[-1] > FORECAST_MAX_YEARS:
+        raise ValueError(f"horizon {hs[-1]} years refused: {EXTRAPOLATION_MESSAGE}")
+    top = hs[-1]
+    if isinstance(site_or_cells, pd.DataFrame):
+        tidy, _ = compose_block(site_or_cells, [option], horizon_years=top, n_draws=n_draws, seed=seed, elicited=elicited,
+                                residual_pools=residual_pools)
+        keep = ("mean_cumulative_edge_loss_m", "cumulative_area_lost_m2", "cumulative_area_lost_ha")
+    else:
+        tidy, _ = compose(site_or_cells, [option], horizon_years=top, n_draws=n_draws, seed=seed, elicited=elicited,
+                          residual_pool=residual_pool)
+        keep = ("cumulative_edge_loss_m",)
+    t = tidy[(tidy.option == option) & tidy.outcome.isin(keep) & tidy.year.isin(hs)]
+    return t.rename(columns={"year": "horizon_years"}).reset_index(drop=True)[
+        ["option", "horizon_years", "outcome", "median", "lo90", "hi90", "evidence"]]

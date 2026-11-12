@@ -161,3 +161,27 @@ def test_block_composer_non_heavy_cells_get_no_oil_excess_or_shift():
     r = t[(t.option == "natural_attenuation") & (t.outcome == "mean_edge_loss_rate_m_per_yr") & (t.year == 1)].iloc[0]
     assert r["median"] == pytest.approx(0.3) and r.lo90 == pytest.approx(0.3)
     assert s.set_index("option").loc["manual_removal", "paired_diff_area_m2_y8_median"] == 0.0
+
+
+# ---- Plan B1: forecast()
+def test_forecast_returns_ranges_at_each_horizon_for_site_and_cells():
+    f = sc.forecast(SITE, horizons=(1, 3, 5, 8), n_draws=500, seed=1)
+    assert sorted(f.horizon_years.unique()) == [1, 3, 5, 8]
+    assert (f.lo90 <= f["median"]).all() and (f["median"] <= f.hi90).all() and (f.hi90 > f.lo90).all()
+    fb = sc.forecast(SIM_CELLS, n_draws=500, seed=1, residual_pools=(WIDE, WIDE))
+    assert set(fb.outcome) == {"mean_cumulative_edge_loss_m", "cumulative_area_lost_m2", "cumulative_area_lost_ha"}
+    assert sorted(fb.horizon_years.unique()) == [1, 3, 5, 8] and (fb.hi90 > fb.lo90).all()
+
+
+def test_forecast_refuses_horizon_beyond_8_with_clear_message():
+    with pytest.raises(ValueError, match="extrapolation: no outcome data beyond 2018"):
+        sc.forecast(SITE, horizons=(1, 10), n_draws=100)
+    with pytest.raises(ValueError, match="extrapolation"):
+        sc.forecast(SIM_CELLS, horizons=(9,), n_draws=100, residual_pools=(WIDE, WIDE))
+
+
+def test_forecast_deterministic_with_seed():
+    a = sc.forecast(SITE, n_draws=500, seed=7)
+    b = sc.forecast(SITE, n_draws=500, seed=7)
+    c = sc.forecast(SITE, n_draws=500, seed=8)
+    assert a.equals(b) and not a["median"].equals(c["median"])

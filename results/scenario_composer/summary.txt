@@ -33,3 +33,15 @@ C2: composed 90% range of the block mean 2010-2015 edge loss (natural recovery) 
   breton: 155 blocks, coverage 0.929, median block range width 5.07 m/yr vs median cell range width 5.94 m/yr -> PASSES 80-97%
   pooled: 347 blocks, coverage 0.899, median block range width 4.77 m/yr vs median cell range width 5.73 m/yr -> PASSES 80-97%
 Worked block 400_1630 (46 in-scope cells, containing 8018_32612): see worked_block.csv. One cell is ASSUMED to hold 100 m of edge.
+
+Check B1 (plan Phase B1, long-horizon forecast). Run once.
+
+B1: Barataria cells with a NAIP 2010-2017 rate and a P2 held-out M1 prediction; natural recovery; composed 90% range of the 2010-2017 mean edge-loss rate (cumulative loss at year 7 / 7; ASSUMED mapping of 2010-2017 to 7 model years, NAIP interval averages 7.1 yr) vs observed. Residual pools from Breton only (small leak as in C1). Gate 80-97% (pre-specified). One basin has a 7-year outcome and it is the basin used to develop the methods, and cleanup is unrecorded, so this is the weakest hold-out check.
+Matching: 4727 cells have a NAIP 2010-2017 rate; 5386 Barataria cells have a P2 held-out prediction; 3778 matched on cell id; oiling class mismatches 8, 2 km block mismatches 0. Dropped: NAIP cells in Breton or outside the P2 table, and P2 cells without a valid 2010-2017 NAIP rate. Blocks: 149 with matched cells, 128 with >= 5 (used).
+  cells pooled: n 3778, coverage 0.919, mean observed 0.363, mean composed median 0.514, bias +0.150 m/yr -> PASSES 80-97%
+  blocks pooled (>=5 cells): n 128, coverage 0.938, mean observed 0.483, mean composed median 0.421, bias -0.062 m/yr -> PASSES 80-97%
+  cells, oiling Heavy: n 487, coverage 0.934, mean observed 0.943, mean composed median 1.477, bias +0.534 m/yr -> PASSES 80-97%
+  cells, oiling Light: n 381, coverage 0.948, mean observed 0.177, mean composed median 0.401, bias +0.223 m/yr -> PASSES 80-97%
+  cells, oiling Moderate: n 471, coverage 0.913, mean observed 0.555, mean composed median 0.598, bias +0.044 m/yr -> PASSES 80-97%
+  cells, oiling NOO: n 2176, coverage 0.911, mean observed 0.245, mean composed median 0.309, bias +0.064 m/yr -> PASSES 80-97%
+  cells, oiling Very_Light: n 263, coverage 0.932, mean observed 0.196, mean composed median 0.435, bias +0.239 m/yr -> PASSES 80-97%

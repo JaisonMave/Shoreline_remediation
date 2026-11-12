@@ -11,7 +11,7 @@ but is new to ML.
 ## Where things are
 
 - Repository: https://github.com/JaisonMave/Shoreline_remediation (public). `main` is at commit 4b0c118.
-- Unpushed work: branch `process-model-audit`, thirty-three commits on top of `main`, held only in
+- Unpushed work: branch `process-model-audit`, thirty-five commits on top of `main`, held only in
   `Shoreline_remediation-full.zip` (remade 12 Nov 2026). The zip contains the whole repository including its
   `.git` folder, so unzipping it restores the branch and history directly; no need to clone first. Run
   `python -m pytest tests` (all tests should pass; install `requirements-analysis.txt` first). Do not push unless asked; pushing needs the Claude GitHub
@@ -53,12 +53,17 @@ State of the three jobs (updated at each checkpoint):
 
 | A4 paired differences, block-level composer, conditions, "Compare options" in the dashboard | Done, checked, committed (FINDINGS 18). C2 passes; block ranges barely narrower than cell ranges; only planting is distinguished from natural recovery. |
 
-Next steps (none started): (1) Jaison tests the "Compare options" section and reviews the conditions table
-and elicited ranges (all Proposed); (2) re-check key numbers in the evidence table against primary papers
-(`docs/LITERATURE_TO_DOWNLOAD.md` should gain those papers); (3) Phase B gate: produce all inputs for a
-place outside the fitted basins and rerun the basin hold-out through the composer; (4) soil PAH decline
-from DIVER with censoring (needs Jaison's unit check first); (5) Galeta mangrove natural-recovery
-description; (6) decisions D14-D21.
+| B1 long-horizon forecast check | Done, checked, committed (FINDINGS 19). Passes; heavy cells over-predicted by about 0.5 m/yr. |
+| C1 Galeta mangrove description | Done, committed (FINDINGS 20). Descriptive only; raw data not committed. |
+| DIVER soil chemistry structure | Done, committed (FINDINGS 21). Draft PAH plan `docs/PAH_DECLINE_PLAN_DRAFT.md` is Proposed and not run. |
+
+Next steps (none started): (1) Jaison: test "Compare options"; review the conditions table, elicited
+ranges and the six marked choices in the PAH draft plan; decisions D14-D21. (2) After his PAH choices: commit
+the final plan, then run it once. (3) Re-check key numbers in the treatment evidence table against primary
+papers. (4) Correct the heavy-oiling over-prediction: needs a measured excess for cleaned shoreline
+(segment-level treatment records, P3) or digitising the treated stretches from NOAA TM OR&R 42. (5) TROPICS
+tables transcribed, if mangrove treatment evidence is wanted. (6) P6 report and decks still need the
+wording correction.
 
 ## Session of 12 November 2026 (read this first)
 

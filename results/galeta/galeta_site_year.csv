@@ -1,0 +1,751 @@
+outcome,unit,stratum,site,cond,year,value,n_visits,n_records
+caged_mytilopsis_survival,"share live of live + dead, final count per cage (transplant experiment, not natural)",all,aler,unoiled,1990,0.7968298368298369,1,4
+caged_mytilopsis_survival,"share live of live + dead, final count per cage (transplant experiment, not natural)",all,aler,unoiled,1991,0.9759743589743589,1,5
+caged_mytilopsis_survival,"share live of live + dead, final count per cage (transplant experiment, not natural)",all,hidr,unoiled,1990,0.5416666666666666,1,1
+caged_mytilopsis_survival,"share live of live + dead, final count per cage (transplant experiment, not natural)",all,hidr,unoiled,1991,0.5343478260869565,1,4
+caged_mytilopsis_survival,"share live of live + dead, final count per cage (transplant experiment, not natural)",all,lrrs,oiled,1990,0.5284615384615384,1,2
+caged_mytilopsis_survival,"share live of live + dead, final count per cage (transplant experiment, not natural)",all,lrrs,oiled,1991,0.7645351170568562,1,5
+caged_mytilopsis_survival,"share live of live + dead, final count per cage (transplant experiment, not natural)",all,merr,unoiled,1990,0.7816666666666666,1,5
+caged_mytilopsis_survival,"share live of live + dead, final count per cage (transplant experiment, not natural)",all,merr,unoiled,1991,0.8476666666666667,1,5
+caged_mytilopsis_survival,"share live of live + dead, final count per cage (transplant experiment, not natural)",all,payr,oiled,1990,0.6222061191626409,1,4
+caged_mytilopsis_survival,"share live of live + dead, final count per cage (transplant experiment, not natural)",all,payr,oiled,1991,0.3696666666666667,1,5
+caged_mytilopsis_survival,"share live of live + dead, final count per cage (transplant experiment, not natural)",all,pmre,oiled,1990,0.8143589743589743,1,3
+caged_mytilopsis_survival,"share live of live + dead, final count per cage (transplant experiment, not natural)",all,pmre,oiled,1991,0.46066666666666667,1,5
+caged_mytilopsis_survival,"share live of live + dead, final count per cage (transplant experiment, not natural)",all,pmrw,oiled,1990,0.6939903381642513,1,5
+caged_mytilopsis_survival,"share live of live + dead, final count per cage (transplant experiment, not natural)",all,pmrw,oiled,1991,0.5272727272727273,1,5
+caged_mytilopsis_survival,"share live of live + dead, final count per cage (transplant experiment, not natural)",all,unr,unoiled,1990,0.5615810276679842,1,4
+caged_mytilopsis_survival,"share live of live + dead, final count per cage (transplant experiment, not natural)",all,unr,unoiled,1991,0.3732071912761568,1,5
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,aler,unoiled,1988,19.91,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,aler,unoiled,1989,17.3735,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,aler,unoiled,1991,21.741999999999997,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,drom,oiled,1988,42.4735,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,drom,oiled,1989,47.9015,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,drom,oiled,1991,64.648,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,hidr,unoiled,1988,9.272,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,hidr,unoiled,1989,18.6355,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,hidr,unoiled,1991,22.823,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,linm,unoiled,1988,30.0045,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,linm,unoiled,1989,54.586,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,linm,unoiled,1991,30.951,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,lrcs,unoiled,1988,23.339,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,lrcs,unoiled,1989,43.819,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,lrcs,unoiled,1991,32.0364,1,25
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,lrcw,oiled,1988,60.7255,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,lrcw,oiled,1989,45.488,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,lrcw,oiled,1991,34.4436,1,25
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,lrrs,oiled,1988,70.5305,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,lrrs,oiled,1989,91.71549999999999,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,lrrs,oiled,1991,64.979,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,macn,unoiled,1988,14.489500000000001,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,macn,unoiled,1989,21.0105,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,macn,unoiled,1991,34.2895,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,macs,unoiled,1988,11.7915,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,macs,unoiled,1989,23.9065,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,macs,unoiled,1991,39.7905,2,45
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,merr,unoiled,1988,5.3,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,merr,unoiled,1989,18.6485,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,merr,unoiled,1991,19.7575,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,minm,oiled,1988,35.158,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,minm,oiled,1989,45.815,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,minm,oiled,1991,42.052,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,msm,unoiled,1988,36.848,1,15
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,msm,unoiled,1989,44.09578947368421,1,19
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,msm,unoiled,1991,51.9705,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,padm,unoiled,1988,36.38,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,padm,unoiled,1989,39.8495,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,padm,unoiled,1991,34.482,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,payr,oiled,1988,32.9945,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,payr,oiled,1989,32.653999999999996,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,payr,oiled,1991,60.398,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,pbm,unoiled,1988,30.767000000000003,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,pbm,unoiled,1989,21.5345,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,pbm,unoiled,1991,37.9255,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,pce,oiled,1988,34.177894736842106,1,19
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,pce,oiled,1991,36.3565,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,pcs,oiled,1988,35.363,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,pcs,oiled,1989,36.0515,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,pcs,oiled,1991,53.025,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,pgm,oiled,1988,64.589,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,pgm,oiled,1989,46.466,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,pgm,oiled,1991,54.528499999999994,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,pmm,oiled,1989,49.7625,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,pmm,oiled,1991,63.919500000000006,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,pmre,oiled,1988,69.0955,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,pmre,oiled,1989,55.137,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,pmre,oiled,1991,63.998000000000005,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,pmrw,oiled,1988,61.266190476190474,1,21
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,pmrw,oiled,1989,37.6105,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,pmrw,oiled,1991,57.452999999999996,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,sbce,oiled,1988,48.3775,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,sbce,oiled,1989,59.02,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,sbce,oiled,1991,63.2365,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,sbcs,oiled,1988,44.122,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,sbcs,oiled,1989,47.9955,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,sbcs,oiled,1991,56.798,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,sbcw,unoiled,1988,14.520499999999998,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,sbcw,unoiled,1989,31.095999999999997,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,sbcw,unoiled,1991,27.9875,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,unr,unoiled,1988,20.817,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,unr,unoiled,1989,12.9445,1,20
+canopy_light_ratio,% (under canopy lux / open lux x 100),all,unr,unoiled,1991,28.337,1,20
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,aler,unoiled,1988,0.43875,4,18
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,aler,unoiled,1989,0.0,4,18
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,aler,unoiled,1990,0.0,4,19
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,aler,unoiled,1991,0.0,3,12
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,drom,oiled,1988,4.001125,4,18
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,drom,oiled,1989,0.052125000000000005,4,19
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,drom,oiled,1990,0.902,4,20
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,drom,oiled,1991,0.002,3,14
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,galm,oiled,1987,0.1505,2,16
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,hidc,unoiled,1988,0.0,2,9
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,hidr,unoiled,1987,0.0,3,25
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,hidr,unoiled,1988,0.0,4,15
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,hidr,unoiled,1989,0.0,4,18
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,hidr,unoiled,1990,0.0,4,20
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,hidr,unoiled,1991,0.0,3,13
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,linm,unoiled,1988,0.0,4,16
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,linm,unoiled,1989,0.0,4,19
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,linm,unoiled,1990,0.0,4,17
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,linm,unoiled,1991,0.0,3,13
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,lrcs,unoiled,1988,0.0,1,4
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,lrcs,unoiled,1989,0.0,4,16
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,lrcs,unoiled,1990,0.0,4,19
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,lrcs,unoiled,1991,0.0,3,14
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,lrcw,oiled,1987,10.178777777777778,2,19
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,lrcw,oiled,1989,3.4051666666666667,3,14
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,lrcw,oiled,1990,1.101,5,16
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,lrcw,oiled,1991,0.06866666666666667,3,15
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,lrrs,oiled,1987,33.87,3,25
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,lrrs,oiled,1988,22.523541666666667,4,16
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,lrrs,oiled,1989,7.50375,4,19
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,lrrs,oiled,1990,6.8629999999999995,4,19
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,lrrs,oiled,1991,0.5188333333333334,3,14
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,macn,unoiled,1987,0.0,1,5
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,macn,unoiled,1988,0.0,4,16
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,macn,unoiled,1989,0.0,4,19
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,macn,unoiled,1990,0.0,3,12
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,macn,unoiled,1991,0.0,3,12
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,macs,unoiled,1987,0.0,1,5
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,macs,unoiled,1988,0.0,3,13
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,macs,unoiled,1989,0.0,4,20
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,macs,unoiled,1990,0.0,3,14
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,macs,unoiled,1991,0.0,3,15
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,merr,unoiled,1988,0.0,4,18
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,merr,unoiled,1989,0.0,4,19
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,merr,unoiled,1990,0.0,4,20
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,merr,unoiled,1991,0.0,3,14
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,minm,oiled,1987,0.0,1,5
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,minm,oiled,1988,7.3838333333333335,4,15
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,minm,oiled,1989,6.5504999999999995,4,19
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,minm,oiled,1990,0.08416666666666667,4,16
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,minm,oiled,1991,0.0,3,13
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,msm,unoiled,1987,0.0,3,25
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,msm,unoiled,1988,0.0,3,12
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,msm,unoiled,1989,0.0,4,18
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,msm,unoiled,1990,0.0,4,19
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,msm,unoiled,1991,0.0,3,11
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,padm,unoiled,1988,0.0,4,16
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,padm,unoiled,1989,0.0,4,19
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,padm,unoiled,1990,0.0,3,13
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,padm,unoiled,1991,0.0,3,14
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,payr,oiled,1987,0.01,1,3
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,payr,oiled,1988,78.16666666666667,3,12
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,payr,oiled,1989,44.577625,4,19
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,payr,oiled,1990,30.429666666666666,4,13
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,payr,oiled,1991,1.668,3,14
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,pbm,unoiled,1987,0.0,1,3
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,pbm,unoiled,1988,0.0,4,16
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,pbm,unoiled,1989,0.0,5,18
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,pbm,unoiled,1990,0.0,4,18
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,pbm,unoiled,1991,0.0,3,13
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,pce,oiled,1988,3.9018749999999995,4,17
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,pce,oiled,1989,23.689875,4,17
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,pce,oiled,1990,0.563125,4,16
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,pce,oiled,1991,0.06866666666666667,3,12
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,pcs,oiled,1988,1.4375,4,13
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,pcs,oiled,1989,3.4025,4,20
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,pcs,oiled,1990,4.0515,4,20
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,pcs,oiled,1991,1.1346666666666667,3,15
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,pgm,oiled,1987,0.0,1,5
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,pgm,oiled,1988,7.666666666666667,3,13
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,pgm,oiled,1989,0.301,4,19
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,pgm,oiled,1990,0.0015,4,16
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,pgm,oiled,1991,0.0,3,13
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,pmm,oiled,1988,0.1875,4,16
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,pmm,oiled,1989,5.651125,4,18
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,pmm,oiled,1990,0.2030833333333333,4,17
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,pmm,oiled,1991,0.16777777777777778,3,12
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,pmre,oiled,1988,70.11666666666666,4,12
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,pmre,oiled,1989,24.703,4,20
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,pmre,oiled,1990,10.8508,5,19
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,pmre,oiled,1991,1.186,3,14
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,pmrw,oiled,1988,60.988749999999996,4,17
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,pmrw,oiled,1989,66.552125,4,19
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,pmrw,oiled,1990,16.9525,4,20
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,pmrw,oiled,1991,0.0013333333333333333,3,14
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,sbce,oiled,1987,2.0,1,5
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,sbce,oiled,1988,6.603125,4,15
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,sbce,oiled,1989,36.868291666666664,4,17
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,sbce,oiled,1990,4.503,4,19
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,sbce,oiled,1991,4.182611111111111,3,12
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,sbcs,oiled,1987,4.75,1,4
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,sbcs,oiled,1988,8.250833333333334,3,13
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,sbcs,oiled,1989,33.340875,4,18
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,sbcs,oiled,1990,1.414875,4,17
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,sbcs,oiled,1991,0.0033333333333333335,3,13
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,sbcw,unoiled,1987,0.0,2,19
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,sbcw,unoiled,1988,0.37625,4,16
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,sbcw,unoiled,1989,0.0,4,19
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,sbcw,unoiled,1990,0.0,4,18
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,sbcw,unoiled,1991,0.0,3,14
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,unr,unoiled,1987,0.0,1,5
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,unr,unoiled,1988,0.0,4,16
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,unr,unoiled,1989,0.0,4,19
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,unr,unoiled,1990,0.0,4,19
+dowel_oil_cover,% cover of recruitment dowel by oil (GROUP2 = OI),all,unr,unoiled,1991,0.0,3,13
+dowel_total_biomass,"g (NETGM, 'total' rows; deployment days vary, NUMDAYS)",all,aler,unoiled,1988,11.12495,4,15
+dowel_total_biomass,"g (NETGM, 'total' rows; deployment days vary, NUMDAYS)",all,aler,unoiled,1989,27.942,1,5
+dowel_total_biomass,"g (NETGM, 'total' rows; deployment days vary, NUMDAYS)",all,drom,oiled,1988,1.1267666666666667,3,14
+dowel_total_biomass,"g (NETGM, 'total' rows; deployment days vary, NUMDAYS)",all,hidc,unoiled,1988,25.032833333333333,3,13
+dowel_total_biomass,"g (NETGM, 'total' rows; deployment days vary, NUMDAYS)",all,hidr,unoiled,1988,15.014244444444444,3,13
+dowel_total_biomass,"g (NETGM, 'total' rows; deployment days vary, NUMDAYS)",all,hidr,unoiled,1989,3.95,1,1
+dowel_total_biomass,"g (NETGM, 'total' rows; deployment days vary, NUMDAYS)",all,linm,unoiled,1988,1.3736666666666668,3,12
+dowel_total_biomass,"g (NETGM, 'total' rows; deployment days vary, NUMDAYS)",all,lrcs,unoiled,1988,102.8375,1,4
+dowel_total_biomass,"g (NETGM, 'total' rows; deployment days vary, NUMDAYS)",all,lrcs,unoiled,1989,28.563333333333333,1,3
+dowel_total_biomass,"g (NETGM, 'total' rows; deployment days vary, NUMDAYS)",all,lrrs,oiled,1988,1.5218666666666667,3,13
+dowel_total_biomass,"g (NETGM, 'total' rows; deployment days vary, NUMDAYS)",all,macn,unoiled,1988,15.852066666666666,3,13
+dowel_total_biomass,"g (NETGM, 'total' rows; deployment days vary, NUMDAYS)",all,macn,unoiled,1989,45.9275,1,4
+dowel_total_biomass,"g (NETGM, 'total' rows; deployment days vary, NUMDAYS)",all,macs,unoiled,1988,0.9935,2,9
+dowel_total_biomass,"g (NETGM, 'total' rows; deployment days vary, NUMDAYS)",all,merr,unoiled,1988,1.9939999999999998,3,14
+dowel_total_biomass,"g (NETGM, 'total' rows; deployment days vary, NUMDAYS)",all,minm,oiled,1988,1.1662708333333334,4,15
+dowel_total_biomass,"g (NETGM, 'total' rows; deployment days vary, NUMDAYS)",all,msm,unoiled,1988,0.9731111111111111,3,10
+dowel_total_biomass,"g (NETGM, 'total' rows; deployment days vary, NUMDAYS)",all,padm,unoiled,1988,1.5309166666666665,3,11
+dowel_total_biomass,"g (NETGM, 'total' rows; deployment days vary, NUMDAYS)",all,payr,oiled,1988,2.45,2,8
+dowel_total_biomass,"g (NETGM, 'total' rows; deployment days vary, NUMDAYS)",all,payr,oiled,1989,3.35,1,1
+dowel_total_biomass,"g (NETGM, 'total' rows; deployment days vary, NUMDAYS)",all,pbm,unoiled,1988,1.2616874999999999,4,12
+dowel_total_biomass,"g (NETGM, 'total' rows; deployment days vary, NUMDAYS)",all,pce,oiled,1988,1.6392999999999998,3,13
+dowel_total_biomass,"g (NETGM, 'total' rows; deployment days vary, NUMDAYS)",all,pcs,oiled,1988,10.910166666666667,3,9
+dowel_total_biomass,"g (NETGM, 'total' rows; deployment days vary, NUMDAYS)",all,pcs,oiled,1989,10.132000000000001,1,5
+dowel_total_biomass,"g (NETGM, 'total' rows; deployment days vary, NUMDAYS)",all,pgm,oiled,1988,0.6696666666666667,3,10
+dowel_total_biomass,"g (NETGM, 'total' rows; deployment days vary, NUMDAYS)",all,pmm,oiled,1988,1.146388888888889,3,12
+dowel_total_biomass,"g (NETGM, 'total' rows; deployment days vary, NUMDAYS)",all,pmre,oiled,1988,2.445177777777778,3,9
+dowel_total_biomass,"g (NETGM, 'total' rows; deployment days vary, NUMDAYS)",all,pmrw,oiled,1988,1.9580625,4,15
+dowel_total_biomass,"g (NETGM, 'total' rows; deployment days vary, NUMDAYS)",all,pmrw,oiled,1989,2.41,1,1
+dowel_total_biomass,"g (NETGM, 'total' rows; deployment days vary, NUMDAYS)",all,sbce,oiled,1988,2.9743333333333335,3,11
+dowel_total_biomass,"g (NETGM, 'total' rows; deployment days vary, NUMDAYS)",all,sbce,oiled,1989,5.005,1,2
+dowel_total_biomass,"g (NETGM, 'total' rows; deployment days vary, NUMDAYS)",all,sbcs,oiled,1988,2.1334999999999997,2,9
+dowel_total_biomass,"g (NETGM, 'total' rows; deployment days vary, NUMDAYS)",all,sbcs,oiled,1989,6.54,1,3
+dowel_total_biomass,"g (NETGM, 'total' rows; deployment days vary, NUMDAYS)",all,sbcw,unoiled,1988,62.080533333333335,3,15
+dowel_total_biomass,"g (NETGM, 'total' rows; deployment days vary, NUMDAYS)",all,sbcw,unoiled,1989,245.675,1,4
+dowel_total_biomass,"g (NETGM, 'total' rows; deployment days vary, NUMDAYS)",all,unr,unoiled,1988,5.048933333333333,3,12
+dowel_total_biomass,"g (NETGM, 'total' rows; deployment days vary, NUMDAYS)",all,unr,unoiled,1989,7.32,1,4
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,ccpq,oiled,1989,6.7346938775510194,7,147
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,ccpq,oiled,1990,5.103174603174604,12,252
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,ccpq,oiled,1991,4.777777777777778,6,126
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,ccsb,oiled,1989,7.530612244897959,7,147
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,ccsb,oiled,1990,5.5476190476190474,12,252
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,ccsb,oiled,1991,4.531746031746032,6,126
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,codr,oiled,1989,7.598639455782313,7,357
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,codr,oiled,1990,7.616402116402116,12,588
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,codr,oiled,1991,7.428571428571428,6,126
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,crku,oiled,1989,5.993197278911564,7,147
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,crku,oiled,1990,5.583333333333333,12,252
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,crku,oiled,1991,4.888888888888889,6,126
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,ecpy,oiled,1989,6.907738095238095,8,357
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,ecpy,oiled,1990,6.38034188034188,13,588
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,ecpy,oiled,1991,6.246031746031746,6,126
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,eopm,oiled,1989,7.931972789115647,7,147
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,eopm,oiled,1990,7.3690476190476195,12,252
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,eopm,oiled,1991,6.936507936507937,6,126
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,erja,unoiled,1989,9.551020408163266,7,147
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,erja,unoiled,1990,8.087301587301587,12,252
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,erja,unoiled,1991,7.071428571428572,6,126
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,erpn,oiled,1989,6.761904761904762,7,147
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,erpn,oiled,1990,6.174603174603175,12,252
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,erpn,oiled,1991,5.436507936507937,6,126
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,erps,oiled,1989,6.903880070546737,9,357
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,erps,oiled,1990,6.256613756613756,12,588
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,erps,oiled,1991,6.761904761904762,6,126
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,erun,unoiled,1989,7.870748299319728,7,147
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,erun,unoiled,1990,7.01984126984127,12,252
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,erun,unoiled,1991,6.484126984126984,6,126
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,goli,unoiled,1989,8.006802721088436,7,147
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,goli,unoiled,1990,7.0476190476190474,12,252
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,goli,unoiled,1991,7.341269841269842,6,126
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,gomg,unoiled,1989,9.428571428571429,7,147
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,gomg,unoiled,1990,9.123015873015873,12,252
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,gomg,unoiled,1991,8.76984126984127,6,126
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,goms,unoiled,1989,8.714285714285714,7,147
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,goms,unoiled,1990,8.337301587301587,12,252
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,goms,unoiled,1991,9.682539682539682,6,126
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,gopa,unoiled,1989,9.222222222222223,7,357
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,gopa,unoiled,1990,9.191798941798941,12,588
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,gopa,unoiled,1991,9.087301587301587,6,126
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,gopb,unoiled,1989,9.857142857142858,7,147
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,gopb,unoiled,1990,9.702380952380953,12,252
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,gopb,unoiled,1991,9.206349206349207,6,126
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,mcno,unoiled,1989,8.653061224489795,7,147
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,mcno,unoiled,1990,7.753968253968254,12,252
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,mcno,unoiled,1991,7.634920634920635,6,126
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,mcsu,unoiled,1989,7.564625850340136,7,147
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,mcsu,unoiled,1990,7.178571428571428,12,252
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,mcsu,unoiled,1991,7.103174603174604,6,126
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,nrme,unoiled,1989,6.122448979591836,7,147
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,nrme,unoiled,1990,4.634920634920635,12,252
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,nrme,unoiled,1991,4.428968253968254,6,123
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,wclr,oiled,1989,7.7687074829931975,7,147
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,wclr,oiled,1990,6.753968253968254,12,252
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,wclr,oiled,1991,5.063492063492063,6,126
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,wcls,unoiled,1989,8.443452380952381,8,357
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,wcls,unoiled,1990,8.182539682539682,12,588
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,wcls,unoiled,1991,7.23015873015873,6,126
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,wcno,unoiled,1989,8.258503401360544,7,147
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,wcno,unoiled,1990,7.8769841269841265,12,252
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,wcno,unoiled,1991,7.063492063492063,6,126
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,wcsu,unoiled,1989,6.292517006802721,7,147
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,wcsu,unoiled,1990,6.365277777777777,12,251
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,wcsu,unoiled,1991,7.134920634920635,6,126
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,womi,oiled,1989,8.068027210884354,7,147
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,womi,oiled,1990,6.690476190476191,12,252
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,womi,oiled,1991,5.896825396825396,6,126
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,wopg,oiled,1989,8.476190476190476,7,147
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,wopg,oiled,1990,7.063492063492063,12,252
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,wopg,oiled,1991,5.642857142857142,6,126
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,wrhd,unoiled,1989,7.041666666666667,8,357
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,wrhd,unoiled,1990,5.858465608465608,12,588
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,wrhd,unoiled,1991,5.412698412698412,6,126
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,wrrb,oiled,1989,7.802721088435375,7,147
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,wrrb,oiled,1990,6.726190476190477,12,252
+leaves_per_shoot,leaves per tagged shoot (LV; R. mangle),all,wrrb,oiled,1991,5.428571428571428,6,126
+litter_leaf_dry_mass_rate,"g per trap per day (GML / NUMDAYS, derived)",all,ccpq,oiled,1989,2.585297619047619,6,12
+litter_leaf_dry_mass_rate,"g per trap per day (GML / NUMDAYS, derived)",all,ccpq,oiled,1990,1.788825393110383,4,9
+litter_leaf_dry_mass_rate,"g per trap per day (GML / NUMDAYS, derived)",all,ccsb,oiled,1989,0.5110120851370851,6,22
+litter_leaf_dry_mass_rate,"g per trap per day (GML / NUMDAYS, derived)",all,ccsb,oiled,1990,0.5972307437849216,9,19
+litter_leaf_dry_mass_rate,"g per trap per day (GML / NUMDAYS, derived)",all,codr,oiled,1989,0.9367786003290205,7,13
+litter_leaf_dry_mass_rate,"g per trap per day (GML / NUMDAYS, derived)",all,codr,oiled,1990,1.3474074074074074,7,7
+litter_leaf_dry_mass_rate,"g per trap per day (GML / NUMDAYS, derived)",all,crku,oiled,1989,1.7485421176046174,6,22
+litter_leaf_dry_mass_rate,"g per trap per day (GML / NUMDAYS, derived)",all,crku,oiled,1990,1.3695318484010168,9,32
+litter_leaf_dry_mass_rate,"g per trap per day (GML / NUMDAYS, derived)",all,ecpy,oiled,1989,1.0667658730158731,6,25
+litter_leaf_dry_mass_rate,"g per trap per day (GML / NUMDAYS, derived)",all,ecpy,oiled,1990,1.1763933565370346,8,25
+litter_leaf_dry_mass_rate,"g per trap per day (GML / NUMDAYS, derived)",all,eopm,oiled,1989,1.3189490415149414,7,24
+litter_leaf_dry_mass_rate,"g per trap per day (GML / NUMDAYS, derived)",all,eopm,oiled,1990,1.241023861691965,8,19
+litter_leaf_dry_mass_rate,"g per trap per day (GML / NUMDAYS, derived)",all,erja,unoiled,1989,1.2864484126984126,6,11
+litter_leaf_dry_mass_rate,"g per trap per day (GML / NUMDAYS, derived)",all,erja,unoiled,1990,0.9320326908721375,9,17
+litter_leaf_dry_mass_rate,"g per trap per day (GML / NUMDAYS, derived)",all,erpn,oiled,1989,0.9737698412698412,6,23
+litter_leaf_dry_mass_rate,"g per trap per day (GML / NUMDAYS, derived)",all,erpn,oiled,1990,0.8146147378589907,9,37
+litter_leaf_dry_mass_rate,"g per trap per day (GML / NUMDAYS, derived)",all,erps,oiled,1989,1.0694444444444444,6,36
+litter_leaf_dry_mass_rate,"g per trap per day (GML / NUMDAYS, derived)",all,erps,oiled,1990,0.8967683154081622,9,53
+litter_leaf_dry_mass_rate,"g per trap per day (GML / NUMDAYS, derived)",all,erun,unoiled,1989,1.35421626984127,6,25
+litter_leaf_dry_mass_rate,"g per trap per day (GML / NUMDAYS, derived)",all,erun,unoiled,1990,1.1893763846534782,7,26
+litter_leaf_dry_mass_rate,"g per trap per day (GML / NUMDAYS, derived)",all,goli,unoiled,1989,1.2639945360860392,6,18
+litter_leaf_dry_mass_rate,"g per trap per day (GML / NUMDAYS, derived)",all,goli,unoiled,1990,1.4054308356607208,9,27
+litter_leaf_dry_mass_rate,"g per trap per day (GML / NUMDAYS, derived)",all,gomg,unoiled,1989,1.3321231932534614,6,18
+litter_leaf_dry_mass_rate,"g per trap per day (GML / NUMDAYS, derived)",all,gomg,unoiled,1990,1.4762047866006998,9,27
+litter_leaf_dry_mass_rate,"g per trap per day (GML / NUMDAYS, derived)",all,gopa,unoiled,1989,1.4037669882767922,6,13
+litter_leaf_dry_mass_rate,"g per trap per day (GML / NUMDAYS, derived)",all,gopa,unoiled,1990,1.310243529575426,8,12
+litter_leaf_dry_mass_rate,"g per trap per day (GML / NUMDAYS, derived)",all,gopb,unoiled,1989,1.6052225334578276,6,16
+litter_leaf_dry_mass_rate,"g per trap per day (GML / NUMDAYS, derived)",all,gopb,unoiled,1990,1.7686940082055025,9,19
+litter_leaf_dry_mass_rate,"g per trap per day (GML / NUMDAYS, derived)",all,mcno,unoiled,1989,1.1077155695611578,6,32
+litter_leaf_dry_mass_rate,"g per trap per day (GML / NUMDAYS, derived)",all,mcno,unoiled,1990,1.138009121597357,9,51
+litter_leaf_dry_mass_rate,"g per trap per day (GML / NUMDAYS, derived)",all,mcsu,unoiled,1989,2.1754531936231283,6,18
+litter_leaf_dry_mass_rate,"g per trap per day (GML / NUMDAYS, derived)",all,mcsu,unoiled,1990,1.8962922276681573,9,27
+litter_leaf_dry_mass_rate,"g per trap per day (GML / NUMDAYS, derived)",all,nrme,unoiled,1989,1.0063426382047072,5,20
+litter_leaf_dry_mass_rate,"g per trap per day (GML / NUMDAYS, derived)",all,nrme,unoiled,1990,1.0533438780293127,9,25
+litter_leaf_dry_mass_rate,"g per trap per day (GML / NUMDAYS, derived)",all,wclr,oiled,1989,1.876773956496179,6,18
+litter_leaf_dry_mass_rate,"g per trap per day (GML / NUMDAYS, derived)",all,wclr,oiled,1990,1.6186679771378047,8,12
+litter_leaf_dry_mass_rate,"g per trap per day (GML / NUMDAYS, derived)",all,wcls,unoiled,1989,1.9671310993533215,6,18
+litter_leaf_dry_mass_rate,"g per trap per day (GML / NUMDAYS, derived)",all,wcls,unoiled,1990,1.8215975675618077,9,27
+litter_leaf_dry_mass_rate,"g per trap per day (GML / NUMDAYS, derived)",all,wcno,unoiled,1989,1.3120779806175344,3,6
+litter_leaf_dry_mass_rate,"g per trap per day (GML / NUMDAYS, derived)",all,wcno,unoiled,1990,1.3818848407162583,9,9
+litter_leaf_dry_mass_rate,"g per trap per day (GML / NUMDAYS, derived)",all,wcsu,unoiled,1989,2.196122198879552,4,7
+litter_leaf_dry_mass_rate,"g per trap per day (GML / NUMDAYS, derived)",all,wcsu,unoiled,1990,2.708409104022131,9,9
+litter_leaf_dry_mass_rate,"g per trap per day (GML / NUMDAYS, derived)",all,womi,oiled,1989,1.1398324008189908,6,18
+litter_leaf_dry_mass_rate,"g per trap per day (GML / NUMDAYS, derived)",all,womi,oiled,1990,1.4174304603678805,9,22
+litter_leaf_dry_mass_rate,"g per trap per day (GML / NUMDAYS, derived)",all,wopg,oiled,1989,1.3428095238095237,5,9
+litter_leaf_dry_mass_rate,"g per trap per day (GML / NUMDAYS, derived)",all,wopg,oiled,1990,2.059215206533214,9,9
+litter_leaf_dry_mass_rate,"g per trap per day (GML / NUMDAYS, derived)",all,wrhd,unoiled,1989,1.998784510930809,6,10
+litter_leaf_dry_mass_rate,"g per trap per day (GML / NUMDAYS, derived)",all,wrhd,unoiled,1990,1.7553981001969508,6,6
+litter_leaf_dry_mass_rate,"g per trap per day (GML / NUMDAYS, derived)",all,wrrb,oiled,1989,1.8655169981146993,5,16
+litter_leaf_dry_mass_rate,"g per trap per day (GML / NUMDAYS, derived)",all,wrrb,oiled,1990,1.829354094160833,9,10
+litter_reproductive_dry_mass_rate,"g per trap per day (GMR / NUMDAYS, derived)",all,ccpq,oiled,1989,0.22262987012987012,6,12
+litter_reproductive_dry_mass_rate,"g per trap per day (GMR / NUMDAYS, derived)",all,ccpq,oiled,1990,0.28600031856243824,4,9
+litter_reproductive_dry_mass_rate,"g per trap per day (GMR / NUMDAYS, derived)",all,ccsb,oiled,1989,0.024879148629148626,6,22
+litter_reproductive_dry_mass_rate,"g per trap per day (GMR / NUMDAYS, derived)",all,ccsb,oiled,1990,0.007148955424653914,9,19
+litter_reproductive_dry_mass_rate,"g per trap per day (GMR / NUMDAYS, derived)",all,codr,oiled,1989,0.06097327820016896,7,13
+litter_reproductive_dry_mass_rate,"g per trap per day (GMR / NUMDAYS, derived)",all,codr,oiled,1990,0.05731670445956161,7,7
+litter_reproductive_dry_mass_rate,"g per trap per day (GMR / NUMDAYS, derived)",all,crku,oiled,1989,0.20783549783549785,6,22
+litter_reproductive_dry_mass_rate,"g per trap per day (GMR / NUMDAYS, derived)",all,crku,oiled,1990,0.2252995333117037,9,32
+litter_reproductive_dry_mass_rate,"g per trap per day (GMR / NUMDAYS, derived)",all,ecpy,oiled,1989,0.06895833333333333,6,25
+litter_reproductive_dry_mass_rate,"g per trap per day (GMR / NUMDAYS, derived)",all,ecpy,oiled,1990,0.12466105374510549,8,25
+litter_reproductive_dry_mass_rate,"g per trap per day (GMR / NUMDAYS, derived)",all,eopm,oiled,1989,0.14357232841404668,7,24
+litter_reproductive_dry_mass_rate,"g per trap per day (GMR / NUMDAYS, derived)",all,eopm,oiled,1990,0.0644377439751003,8,19
+litter_reproductive_dry_mass_rate,"g per trap per day (GMR / NUMDAYS, derived)",all,erja,unoiled,1989,0.1128968253968254,6,11
+litter_reproductive_dry_mass_rate,"g per trap per day (GMR / NUMDAYS, derived)",all,erja,unoiled,1990,0.1107174399215756,9,17
+litter_reproductive_dry_mass_rate,"g per trap per day (GMR / NUMDAYS, derived)",all,erpn,oiled,1989,0.06763888888888889,6,23
+litter_reproductive_dry_mass_rate,"g per trap per day (GMR / NUMDAYS, derived)",all,erpn,oiled,1990,0.04322648091230467,9,37
+litter_reproductive_dry_mass_rate,"g per trap per day (GMR / NUMDAYS, derived)",all,erps,oiled,1989,0.054910714285714285,6,36
+litter_reproductive_dry_mass_rate,"g per trap per day (GMR / NUMDAYS, derived)",all,erps,oiled,1990,0.046595095411187365,9,53
+litter_reproductive_dry_mass_rate,"g per trap per day (GMR / NUMDAYS, derived)",all,erun,unoiled,1989,0.11456547619047619,6,25
+litter_reproductive_dry_mass_rate,"g per trap per day (GMR / NUMDAYS, derived)",all,erun,unoiled,1990,0.08557117394555817,7,26
+litter_reproductive_dry_mass_rate,"g per trap per day (GMR / NUMDAYS, derived)",all,goli,unoiled,1989,0.0610426392779334,6,18
+litter_reproductive_dry_mass_rate,"g per trap per day (GMR / NUMDAYS, derived)",all,goli,unoiled,1990,0.05496465645890933,9,27
+litter_reproductive_dry_mass_rate,"g per trap per day (GMR / NUMDAYS, derived)",all,gomg,unoiled,1989,0.06804843499766872,6,18
+litter_reproductive_dry_mass_rate,"g per trap per day (GMR / NUMDAYS, derived)",all,gomg,unoiled,1990,0.029100458295860596,9,27
+litter_reproductive_dry_mass_rate,"g per trap per day (GMR / NUMDAYS, derived)",all,gopa,unoiled,1989,0.0599052676626206,6,13
+litter_reproductive_dry_mass_rate,"g per trap per day (GMR / NUMDAYS, derived)",all,gopa,unoiled,1990,0.05820733426444634,8,12
+litter_reproductive_dry_mass_rate,"g per trap per day (GMR / NUMDAYS, derived)",all,gopb,unoiled,1989,0.06095873534599025,6,16
+litter_reproductive_dry_mass_rate,"g per trap per day (GMR / NUMDAYS, derived)",all,gopb,unoiled,1990,0.03274749601186383,9,19
+litter_reproductive_dry_mass_rate,"g per trap per day (GMR / NUMDAYS, derived)",all,mcno,unoiled,1989,0.1651454248366013,6,32
+litter_reproductive_dry_mass_rate,"g per trap per day (GMR / NUMDAYS, derived)",all,mcno,unoiled,1990,0.10151895083605698,9,51
+litter_reproductive_dry_mass_rate,"g per trap per day (GMR / NUMDAYS, derived)",all,mcsu,unoiled,1989,0.2281263616557734,6,18
+litter_reproductive_dry_mass_rate,"g per trap per day (GMR / NUMDAYS, derived)",all,mcsu,unoiled,1990,0.41174589002513273,9,27
+litter_reproductive_dry_mass_rate,"g per trap per day (GMR / NUMDAYS, derived)",all,nrme,unoiled,1989,0.14548768472906404,5,20
+litter_reproductive_dry_mass_rate,"g per trap per day (GMR / NUMDAYS, derived)",all,nrme,unoiled,1990,0.19734125161708096,9,25
+litter_reproductive_dry_mass_rate,"g per trap per day (GMR / NUMDAYS, derived)",all,wclr,oiled,1989,0.13152263374485598,6,18
+litter_reproductive_dry_mass_rate,"g per trap per day (GMR / NUMDAYS, derived)",all,wclr,oiled,1990,0.07391246684350133,8,12
+litter_reproductive_dry_mass_rate,"g per trap per day (GMR / NUMDAYS, derived)",all,wcls,unoiled,1989,0.30797472075249854,6,18
+litter_reproductive_dry_mass_rate,"g per trap per day (GMR / NUMDAYS, derived)",all,wcls,unoiled,1990,0.2462347342360114,9,27
+litter_reproductive_dry_mass_rate,"g per trap per day (GMR / NUMDAYS, derived)",all,wcno,unoiled,1989,0.2210660356096462,3,6
+litter_reproductive_dry_mass_rate,"g per trap per day (GMR / NUMDAYS, derived)",all,wcno,unoiled,1990,0.02394944774255119,9,9
+litter_reproductive_dry_mass_rate,"g per trap per day (GMR / NUMDAYS, derived)",all,wcsu,unoiled,1989,0.15791316526610644,4,7
+litter_reproductive_dry_mass_rate,"g per trap per day (GMR / NUMDAYS, derived)",all,wcsu,unoiled,1990,0.45845243942945096,9,9
+litter_reproductive_dry_mass_rate,"g per trap per day (GMR / NUMDAYS, derived)",all,womi,oiled,1989,0.12960048855642725,6,18
+litter_reproductive_dry_mass_rate,"g per trap per day (GMR / NUMDAYS, derived)",all,womi,oiled,1990,0.13753261461115868,9,22
+litter_reproductive_dry_mass_rate,"g per trap per day (GMR / NUMDAYS, derived)",all,wopg,oiled,1989,0.0848095238095238,5,9
+litter_reproductive_dry_mass_rate,"g per trap per day (GMR / NUMDAYS, derived)",all,wopg,oiled,1990,0.10297344205390183,9,9
+litter_reproductive_dry_mass_rate,"g per trap per day (GMR / NUMDAYS, derived)",all,wrhd,unoiled,1989,0.24369349463923498,6,10
+litter_reproductive_dry_mass_rate,"g per trap per day (GMR / NUMDAYS, derived)",all,wrhd,unoiled,1990,0.19373786600798093,6,6
+litter_reproductive_dry_mass_rate,"g per trap per day (GMR / NUMDAYS, derived)",all,wrrb,oiled,1989,0.20579311865231403,5,16
+litter_reproductive_dry_mass_rate,"g per trap per day (GMR / NUMDAYS, derived)",all,wrrb,oiled,1990,0.20072219181414586,9,10
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,aler,unoiled,1987,0.0,1,5
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,aler,unoiled,1988,0.0,4,28
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,aler,unoiled,1989,0.041666666666666664,4,34
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,aler,unoiled,1990,0.12251984126984126,4,33
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,aler,unoiled,1991,0.08928571428571429,3,21
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,drom,oiled,1987,0.0,1,5
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,drom,oiled,1988,0.025,5,25
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,drom,oiled,1989,0.08125,4,30
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,drom,oiled,1990,0.3251984126984127,4,34
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,drom,oiled,1991,0.2708333333333333,2,14
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,hidc,unoiled,1987,0.0,1,4
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,hidc,unoiled,1988,0.0,2,11
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,hidr,unoiled,1987,0.0,1,5
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,hidr,unoiled,1988,0.0,4,29
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,hidr,unoiled,1989,0.0,4,28
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,hidr,unoiled,1990,0.027777777777777776,4,35
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,hidr,unoiled,1991,0.12037037037037036,3,25
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,linm,unoiled,1987,0.0,1,5
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,linm,unoiled,1988,0.05,4,23
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,linm,unoiled,1989,0.0,4,31
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,linm,unoiled,1990,0.11458333333333333,4,35
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,linm,unoiled,1991,0.0625,2,15
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,macn,unoiled,1987,0.0,1,3
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,macn,unoiled,1988,0.0,4,24
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,macn,unoiled,1989,0.041666666666666664,4,27
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,macn,unoiled,1990,0.125,4,16
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,macn,unoiled,1991,0.125,2,8
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,macs,unoiled,1987,0.0,1,4
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,macs,unoiled,1988,0.0,4,25
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,macs,unoiled,1989,0.0,4,27
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,macs,unoiled,1990,0.0,4,22
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,macs,unoiled,1991,0.3333333333333333,2,8
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,merr,unoiled,1987,0.0,1,5
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,merr,unoiled,1988,0.05,4,22
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,merr,unoiled,1989,0.0,4,28
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,merr,unoiled,1990,0.059027777777777776,4,34
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,merr,unoiled,1991,0.1037037037037037,3,29
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,minm,oiled,1987,0.0,1,5
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,minm,oiled,1988,0.0,4,26
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,minm,oiled,1989,0.1294642857142857,4,30
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,minm,oiled,1990,0.24791666666666667,4,33
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,minm,oiled,1991,0.30952380952380953,2,16
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,msm,unoiled,1987,0.0,1,5
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,msm,unoiled,1988,0.0,4,28
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,msm,unoiled,1989,0.03125,4,26
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,msm,unoiled,1990,0.15892857142857142,4,33
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,msm,unoiled,1991,0.25,2,12
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,padm,unoiled,1987,0.0,1,5
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,padm,unoiled,1988,0.02,5,26
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,padm,unoiled,1989,0.1840277777777778,4,26
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,padm,unoiled,1990,0.1388888888888889,4,32
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,padm,unoiled,1991,0.14583333333333331,2,14
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,payr,oiled,1987,0.0,1,3
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,payr,oiled,1988,0.18601190476190477,4,24
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,payr,oiled,1989,0.45535714285714285,4,29
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,payr,oiled,1990,0.4,4,24
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,payr,oiled,1991,0.4761904761904762,3,17
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,pbm,unoiled,1987,0.0,1,5
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,pbm,unoiled,1988,0.03125,4,29
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,pbm,unoiled,1989,0.17291666666666666,4,24
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,pbm,unoiled,1990,0.29642857142857143,4,33
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,pbm,unoiled,1991,0.14285714285714285,2,15
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,pce,oiled,1987,0.0,1,5
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,pce,oiled,1988,0.10416666666666666,4,29
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,pce,oiled,1989,0.14791666666666667,4,29
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,pce,oiled,1990,0.1923611111111111,4,36
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,pce,oiled,1991,0.1388888888888889,2,15
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,pcs,oiled,1987,0.0,1,3
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,pcs,oiled,1988,0.11309523809523808,4,25
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,pcs,oiled,1989,0.16964285714285715,4,24
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,pcs,oiled,1990,0.2296626984126984,4,31
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,pcs,oiled,1991,0.30952380952380953,2,13
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,pgm,oiled,1987,0.0,1,5
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,pgm,oiled,1988,0.07142857142857142,4,26
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,pgm,oiled,1989,0.08571428571428572,4,23
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,pgm,oiled,1990,0.30238095238095236,4,29
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,pgm,oiled,1991,0.3333333333333333,2,18
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,pmm,oiled,1987,0.0,1,5
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,pmm,oiled,1988,0.06666666666666667,5,29
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,pmm,oiled,1989,0.25089285714285714,4,28
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,pmm,oiled,1990,0.3626984126984127,4,31
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,pmm,oiled,1991,0.29166666666666663,2,17
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,pmre,oiled,1987,0.0,1,4
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,pmre,oiled,1988,0.0625,4,25
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,pmre,oiled,1989,0.07291666666666666,4,28
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,pmre,oiled,1990,0.33611111111111114,4,31
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,pmre,oiled,1991,0.44285714285714284,3,18
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,pmrw,oiled,1987,0.0,1,2
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,pmrw,oiled,1988,0.11458333333333333,4,23
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,pmrw,oiled,1989,0.08333333333333333,4,28
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,pmrw,oiled,1990,0.24851190476190477,4,28
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,pmrw,oiled,1991,0.3333333333333333,3,16
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,sbce,oiled,1987,0.0,1,5
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,sbce,oiled,1988,0.09375,4,25
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,sbce,oiled,1989,0.16517857142857142,4,21
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,sbce,oiled,1990,0.3402777777777778,4,31
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,sbce,oiled,1991,0.25,2,16
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,sbcs,oiled,1987,0.0,1,5
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,sbcs,oiled,1988,0.11458333333333333,4,21
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,sbcs,oiled,1989,0.21666666666666667,4,19
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,sbcs,oiled,1990,0.21726190476190477,4,25
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,sbcs,oiled,1991,0.3666666666666667,2,11
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,sbcw,unoiled,1987,0.0,1,5
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,sbcw,unoiled,1988,0.0,4,25
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,sbcw,unoiled,1989,0.03125,4,24
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,sbcw,unoiled,1990,0.17063492063492064,4,31
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,sbcw,unoiled,1991,0.13392857142857142,2,15
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,unr,unoiled,1987,0.0,1,5
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,unr,unoiled,1988,0.03571428571428571,4,28
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,unr,unoiled,1989,0.0,4,30
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,unr,unoiled,1990,0.09821428571428571,4,33
+root_documented_dead_share,share of roots whose RC code is labelled (dead) among codes labelled (dead) or (live),all,unr,unoiled,1991,0.037037037037037035,3,23
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,aler,unoiled,1987,0.0,1,5
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,aler,unoiled,1988,0.0,4,35
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,aler,unoiled,1989,0.0,4,40
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,aler,unoiled,1990,0.0,4,40
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,aler,unoiled,1991,0.0,3,30
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,drom,oiled,1987,0.0,1,5
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,drom,oiled,1988,10.141222222222222,5,35
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,drom,oiled,1989,1.40175,4,40
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,drom,oiled,1990,0.752,4,40
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,drom,oiled,1991,0.001,2,20
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,hidc,unoiled,1987,0.0,1,5
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,hidc,unoiled,1988,0.0,2,15
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,hidr,unoiled,1987,0.0,1,5
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,hidr,unoiled,1988,0.050249999999999996,4,35
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,hidr,unoiled,1989,0.0,4,40
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,hidr,unoiled,1990,0.0,4,40
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,hidr,unoiled,1991,0.0,3,30
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,linm,unoiled,1987,0.0,1,5
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,linm,unoiled,1988,0.0,4,35
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,linm,unoiled,1989,0.0,4,40
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,linm,unoiled,1990,0.0,4,40
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,linm,unoiled,1991,0.0,2,20
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,macn,unoiled,1987,0.0,1,5
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,macn,unoiled,1988,0.0,4,35
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,macn,unoiled,1989,0.0,4,40
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,macn,unoiled,1990,0.0,4,40
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,macn,unoiled,1991,0.0,2,20
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,macs,unoiled,1987,0.0,1,5
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,macs,unoiled,1988,0.0,4,35
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,macs,unoiled,1989,0.0,4,40
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,macs,unoiled,1990,0.0,4,40
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,macs,unoiled,1991,0.0,2,20
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,merr,unoiled,1987,0.0,1,5
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,merr,unoiled,1988,0.0,4,35
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,merr,unoiled,1989,0.0,4,40
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,merr,unoiled,1990,0.0,4,40
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,merr,unoiled,1991,0.0,3,30
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,minm,oiled,1987,0.0,1,5
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,minm,oiled,1988,1.702088888888889,5,35
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,minm,oiled,1989,0.0015,4,40
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,minm,oiled,1990,0.00075,4,40
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,minm,oiled,1991,0.0,2,20
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,msm,unoiled,1987,0.0,1,5
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,msm,unoiled,1988,0.0,4,35
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,msm,unoiled,1989,0.0,4,40
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,msm,unoiled,1990,0.0,4,40
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,msm,unoiled,1991,0.0,2,20
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,padm,unoiled,1987,0.0,1,5
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,padm,unoiled,1988,0.0,5,36
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,padm,unoiled,1989,0.0,4,40
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,padm,unoiled,1990,0.0,4,40
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,padm,unoiled,1991,0.0,2,20
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,payr,oiled,1987,2.604,1,5
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,payr,oiled,1988,50.00175,4,35
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,payr,oiled,1989,64.55225,4,40
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,payr,oiled,1990,48.27675,4,40
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,payr,oiled,1991,17.134333333333334,3,30
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,pbm,unoiled,1987,0.0,1,5
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,pbm,unoiled,1988,0.0,4,35
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,pbm,unoiled,1989,0.0,4,40
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,pbm,unoiled,1990,0.0,4,40
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,pbm,unoiled,1991,0.0,2,20
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,pce,oiled,1987,2.402,1,5
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,pce,oiled,1988,1.3285,4,35
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,pce,oiled,1989,0.17525000000000002,4,40
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,pce,oiled,1990,0.7262500000000001,4,40
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,pce,oiled,1991,0.1,2,20
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,pcs,oiled,1987,1.004,1,5
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,pcs,oiled,1988,6.2525,4,35
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,pcs,oiled,1989,0.7262500000000001,4,40
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,pcs,oiled,1990,2.4772499999999997,4,40
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,pcs,oiled,1991,3.6014999999999997,2,20
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,pgm,oiled,1987,0.0,1,5
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,pgm,oiled,1988,1.20225,4,35
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,pgm,oiled,1989,0.025750000000000002,4,40
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,pgm,oiled,1990,0.10074999999999999,4,40
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,pgm,oiled,1991,0.0,2,20
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,pmm,oiled,1987,8.0,1,5
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,pmm,oiled,1988,2.7323999999999997,5,35
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,pmm,oiled,1989,0.97675,4,40
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,pmm,oiled,1990,0.5015,4,40
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,pmm,oiled,1991,0.20099999999999998,2,20
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,pmre,oiled,1987,50.8,1,5
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,pmre,oiled,1988,31.776,4,35
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,pmre,oiled,1989,27.851499999999998,4,40
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,pmre,oiled,1990,13.7515,4,40
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,pmre,oiled,1991,18.86733333333333,3,30
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,pmrw,oiled,1987,12.602,1,5
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,pmrw,oiled,1988,46.6505,4,35
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,pmrw,oiled,1989,20.051,4,40
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,pmrw,oiled,1990,17.20175,4,40
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,pmrw,oiled,1991,12.967,3,30
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,sbce,oiled,1987,15.4,1,5
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,sbce,oiled,1988,12.6505,4,35
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,sbce,oiled,1989,27.250999999999998,4,40
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,sbce,oiled,1990,22.32575,4,40
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,sbce,oiled,1991,6.7010000000000005,2,20
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,sbcs,oiled,1987,0.0,1,5
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,sbcs,oiled,1988,5.10275,4,35
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,sbcs,oiled,1989,10.90125,4,40
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,sbcs,oiled,1990,4.52675,4,40
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,sbcs,oiled,1991,1.851,2,20
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,sbcw,unoiled,1987,0.0,1,5
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,sbcw,unoiled,1988,0.00025,4,35
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,sbcw,unoiled,1989,0.0,4,40
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,sbcw,unoiled,1990,0.05,4,40
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,sbcw,unoiled,1991,0.0,2,20
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,unr,unoiled,1987,0.0,1,5
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,unr,unoiled,1988,0.0,4,35
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,unr,unoiled,1989,0.0,4,40
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,unr,unoiled,1990,0.0,4,40
+root_oil_cover,% cover of root by oil (GROUP2 = OI),all,unr,unoiled,1991,0.0,3,30
+seedling_dead_flag_share,share of seedling records with status x (dead),all,ccpq,oiled,1990,0.0,3,101
+seedling_dead_flag_share,share of seedling records with status x (dead),all,ccpq,oiled,1991,0.0056179775280898875,2,117
+seedling_dead_flag_share,share of seedling records with status x (dead),all,ccpq,oiled,1992,0.014285714285714285,1,70
+seedling_dead_flag_share,share of seedling records with status x (dead),all,ccsb,oiled,1990,0.0,1,206
+seedling_dead_flag_share,share of seedling records with status x (dead),all,ccsb,oiled,1991,0.01098901098901099,3,397
+seedling_dead_flag_share,share of seedling records with status x (dead),all,ccsb,oiled,1992,0.0012106537530266344,2,510
+seedling_dead_flag_share,share of seedling records with status x (dead),all,codr,oiled,1990,0.0,2,56
+seedling_dead_flag_share,share of seedling records with status x (dead),all,codr,oiled,1991,0.031914893617021274,2,61
+seedling_dead_flag_share,share of seedling records with status x (dead),all,codr,oiled,1992,0.11851851851851852,2,37
+seedling_dead_flag_share,share of seedling records with status x (dead),all,crku,oiled,1990,0.0,2,223
+seedling_dead_flag_share,share of seedling records with status x (dead),all,crku,oiled,1991,0.013100436681222707,1,229
+seedling_dead_flag_share,share of seedling records with status x (dead),all,crku,oiled,1992,0.017467248908296942,1,229
+seedling_dead_flag_share,share of seedling records with status x (dead),all,ecpy,oiled,1990,0.0,1,128
+seedling_dead_flag_share,share of seedling records with status x (dead),all,ecpy,oiled,1991,0.1742690058479532,2,167
+seedling_dead_flag_share,share of seedling records with status x (dead),all,ecpy,oiled,1992,0.0056179775280898875,2,223
+seedling_dead_flag_share,share of seedling records with status x (dead),all,eopm,oiled,1990,0.0,2,131
+seedling_dead_flag_share,share of seedling records with status x (dead),all,eopm,oiled,1991,0.03007688828584351,2,166
+seedling_dead_flag_share,share of seedling records with status x (dead),all,eopm,oiled,1992,0.0,1,261
+seedling_dead_flag_share,share of seedling records with status x (dead),all,erja,unoiled,1990,0.0,1,36
+seedling_dead_flag_share,share of seedling records with status x (dead),all,erja,unoiled,1991,0.0,1,44
+seedling_dead_flag_share,share of seedling records with status x (dead),all,erja,unoiled,1992,0.08163265306122448,1,49
+seedling_dead_flag_share,share of seedling records with status x (dead),all,erpn,oiled,1990,0.0,1,135
+seedling_dead_flag_share,share of seedling records with status x (dead),all,erpn,oiled,1991,0.018633540372670808,1,161
+seedling_dead_flag_share,share of seedling records with status x (dead),all,erpn,oiled,1992,0.008032128514056224,1,249
+seedling_dead_flag_share,share of seedling records with status x (dead),all,erps,oiled,1990,0.0,1,111
+seedling_dead_flag_share,share of seedling records with status x (dead),all,erps,oiled,1991,0.03816793893129771,1,131
+seedling_dead_flag_share,share of seedling records with status x (dead),all,erps,oiled,1992,0.05161290322580645,1,155
+seedling_dead_flag_share,share of seedling records with status x (dead),all,nrme,unoiled,1990,0.0,2,575
+seedling_dead_flag_share,share of seedling records with status x (dead),all,nrme,unoiled,1991,0.12030048916841368,2,800
+seedling_dead_flag_share,share of seedling records with status x (dead),all,nrme,unoiled,1992,0.19039451114922812,1,583
+seedling_dead_flag_share,share of seedling records with status x (dead),all,wclr,oiled,1990,0.0,2,281
+seedling_dead_flag_share,share of seedling records with status x (dead),all,wclr,oiled,1991,0.02867526320873177,3,373
+seedling_dead_flag_share,share of seedling records with status x (dead),all,wclr,oiled,1992,0.03547297297297297,2,339
+seedling_dead_flag_share,share of seedling records with status x (dead),all,womi,oiled,1990,0.0,1,11
+seedling_dead_flag_share,share of seedling records with status x (dead),all,womi,oiled,1991,0.16666666666666666,1,12
+seedling_dead_flag_share,share of seedling records with status x (dead),all,womi,oiled,1992,0.0,1,10
+seedling_dead_flag_share,share of seedling records with status x (dead),all,wopg,oiled,1990,0.0,2,61
+seedling_dead_flag_share,share of seedling records with status x (dead),all,wopg,oiled,1991,0.04918032786885246,1,61
+seedling_dead_flag_share,share of seedling records with status x (dead),all,wopg,oiled,1992,0.017241379310344827,2,67
+seedling_dead_flag_share,share of seedling records with status x (dead),all,wrrb,oiled,1990,0.0,2,241
+seedling_dead_flag_share,share of seedling records with status x (dead),all,wrrb,oiled,1991,0.05074376702283679,2,314
+seedling_dead_flag_share,share of seedling records with status x (dead),all,wrrb,oiled,1992,0.04559270516717325,1,329
+seedling_height,cm,natural,ccpq,oiled,1990,101.09181818181818,2,69
+seedling_height,cm,natural,ccpq,oiled,1991,191.2807486631016,2,73
+seedling_height,cm,natural,ccpq,oiled,1992,171.73529411764707,1,34
+seedling_height,cm,natural,ccsb,oiled,1990,46.55235602094241,1,191
+seedling_height,cm,natural,ccsb,oiled,1991,48.255642191899504,3,373
+seedling_height,cm,natural,ccsb,oiled,1992,64.93850332661906,2,467
+seedling_height,cm,natural,codr,oiled,1990,96.60909090909091,1,44
+seedling_height,cm,natural,codr,oiled,1991,121.42857142857143,2,32
+seedling_height,cm,natural,codr,oiled,1992,195.6,2,27
+seedling_height,cm,natural,crku,oiled,1990,127.7591944310317,2,223
+seedling_height,cm,natural,crku,oiled,1991,143.69555555555556,1,225
+seedling_height,cm,natural,crku,oiled,1992,160.0493273542601,1,223
+seedling_height,cm,natural,ecpy,oiled,1990,64.83157894736843,1,95
+seedling_height,cm,natural,ecpy,oiled,1991,84.37857142857143,2,115
+seedling_height,cm,natural,ecpy,oiled,1992,82.8418260261194,2,195
+seedling_height,cm,natural,eopm,oiled,1990,45.797069597069594,2,131
+seedling_height,cm,natural,eopm,oiled,1991,69.70623080298377,2,139
+seedling_height,cm,natural,eopm,oiled,1992,91.54405286343612,1,227
+seedling_height,cm,natural,erja,unoiled,1990,71.34722222222223,1,36
+seedling_height,cm,natural,erja,unoiled,1991,145.30232558139534,1,43
+seedling_height,cm,natural,erja,unoiled,1992,246.67073170731706,1,41
+seedling_height,cm,natural,erpn,oiled,1990,65.93809523809524,1,105
+seedling_height,cm,natural,erpn,oiled,1991,118.43589743589743,1,117
+seedling_height,cm,natural,erpn,oiled,1992,126.44366197183099,1,213
+seedling_height,cm,natural,erps,oiled,1990,114.37037037037037,1,81
+seedling_height,cm,natural,erps,oiled,1991,165.27209302325582,1,86
+seedling_height,cm,natural,erps,oiled,1992,241.295,1,100
+seedling_height,cm,natural,nrme,unoiled,1990,38.22510860631678,2,575
+seedling_height,cm,natural,nrme,unoiled,1991,72.49759740259739,2,454
+seedling_height,cm,natural,nrme,unoiled,1992,89.29310344827586,1,232
+seedling_height,cm,natural,wclr,oiled,1990,80.75944877900497,2,281
+seedling_height,cm,natural,wclr,oiled,1991,112.1720057150377,3,302
+seedling_height,cm,natural,wclr,oiled,1992,195.70238095238096,2,243
+seedling_height,cm,natural,womi,oiled,1990,46.36363636363637,1,11
+seedling_height,cm,natural,womi,oiled,1991,59.875,1,8
+seedling_height,cm,natural,womi,oiled,1992,71.875,1,8
+seedling_height,cm,natural,wopg,oiled,1990,60.861363636363635,2,42
+seedling_height,cm,natural,wopg,oiled,1991,89.94117647058823,1,34
+seedling_height,cm,natural,wopg,oiled,1992,133.63888888888889,2,44
+seedling_height,cm,natural,wrrb,oiled,1990,51.54232456140351,2,227
+seedling_height,cm,natural,wrrb,oiled,1991,62.97231995601979,2,277
+seedling_height,cm,natural,wrrb,oiled,1992,110.95136186770428,1,257
+seedling_height,cm,planted by refinery,ccpq,oiled,1990,117.44444444444444,3,32
+seedling_height,cm,planted by refinery,ccpq,oiled,1991,240.4080459770115,2,32
+seedling_height,cm,planted by refinery,ccpq,oiled,1992,412.85185185185185,1,27
+seedling_height,cm,planted by refinery,ccsb,oiled,1990,48.6,1,15
+seedling_height,cm,planted by refinery,ccsb,oiled,1991,73.41666666666667,3,12
+seedling_height,cm,planted by refinery,ccsb,oiled,1992,94.35,2,11
+seedling_height,cm,planted by refinery,codr,oiled,1990,67.4,2,12
+seedling_height,cm,planted by refinery,codr,oiled,1991,114.66666666666666,2,5
+seedling_height,cm,planted by refinery,codr,oiled,1992,200.0,1,1
+seedling_height,cm,planted by refinery,ecpy,oiled,1990,88.04838709677419,1,31
+seedling_height,cm,planted by refinery,ecpy,oiled,1991,124.5,2,24
+seedling_height,cm,planted by refinery,ecpy,oiled,1992,166.525,2,23
+seedling_height,cm,planted by refinery,erpn,oiled,1990,85.61666666666666,1,30
+seedling_height,cm,planted by refinery,erpn,oiled,1991,172.27586206896552,1,29
+seedling_height,cm,planted by refinery,erpn,oiled,1992,245.3448275862069,1,29
+seedling_height,cm,planted by refinery,erps,oiled,1990,85.23333333333333,1,30
+seedling_height,cm,planted by refinery,erps,oiled,1991,157.3793103448276,1,29
+seedling_height,cm,planted by refinery,erps,oiled,1992,223.67857142857142,1,28
+seedling_height,cm,planted by refinery,wopg,oiled,1990,69.35714285714286,2,19
+seedling_height,cm,planted by refinery,wopg,oiled,1991,108.83333333333333,1,18
+seedling_height,cm,planted by refinery,wopg,oiled,1992,176.0,2,17
+seedling_height,cm,planted by refinery,wrrb,oiled,1990,58.73076923076923,1,13
+seedling_height,cm,planted by refinery,wrrb,oiled,1991,83.5,2,13
+seedling_height,cm,planted by refinery,wrrb,oiled,1992,160.07692307692307,1,13

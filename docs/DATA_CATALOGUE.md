@@ -8,6 +8,7 @@ not evidence; reference = read or typed from a report; instrument = forms withou
 | ID | Role | Dataset | Source | Licence | Obtained | Files |
 | --- | --- | --- | --- | --- | --- | --- |
 | EXT-SCAT | external (not committed) | Deepwater Horizon SCAT shoreline oiling, Louisiana | NOAA ERMA SCAT layers archived at NCEI, Accession 0163818, DOI 10.7289/v53t9ffx; layers 18611 (maximum oiling per zone) and 18612 (all ground surveys incl. No Oil Observed) | US Government work, public | 2026-11-11 | 0 |
+| EXT-GALETA | external (not committed) | Bahia Las Minas (Galeta), Panama 1986 refinery oil spill: mangrove forest (MGF) and mangrove fringe/prop-root (MGR) monitoring, 1987-1992 | NCEI/NODC accession 9400033 (MMS OCS Study 93-0048, Keller and Jackson eds. 1993; Duke 1993 and Garrity and Levings 1993), https://www.ncei.noaa.gov/archive/accession/9400033; files from https://www.ncei.noaa.gov/data/oceans/archive/arc0001/9400033/1.1/data/0-data | UNCLEAR: catalogue record says CC0 1.0 but access level 'non-public' and rights 'otherRestrictions' (conflict, ask NCEI); .doc files request citation | 2026-11-12 | 0 |
 | EXT-NAIP | external (not stored) | USDA NAIP aerial imagery, Louisiana, 2010/2013/2015/2017 | Microsoft Planetary Computer STAC collection 'naip' | public domain (USDA) | read 2026-11-11 | 0 |
 | EXT-LANDSAT | external (not stored) | Landsat 5/7/8 Collection 2 Level-2 surface reflectance | Microsoft Planetary Computer STAC collection 'landsat-c2-l2' | public domain (USGS) | read 2026-11-11 | 0 |
 | EXT-CRMS | external | Louisiana CRMS marsh vegetation by site and year, 2006-2025 | github.com/anamikadristi/coastal-marsh-vegetation-extreme-events, commit 76e2143 (derived by A. Dristi from CPRA CRMS, NOAA HURDAT2, NASA MOD13Q1) | MIT | previous session (source commit dated 2026-10-24) | 2 |
@@ -50,6 +51,17 @@ not evidence; reference = read or typed from a report; instrument = forms withou
 - Checksums: 18611 .shp 616806d1..., .dbf f8dcba8f...; 18612 .shp ab2c89b4..., .dbf 97c80130... (SHA-256)
 - Used by: P1, P2, CRMS match, Landsat site choice
 - Notes: 65 MB; not committed; every derived edge-cell table starts here
+
+## EXT-GALETA: Bahia Las Minas (Galeta), Panama 1986 refinery oil spill: mangrove forest (MGF) and mangrove fringe/prop-root (MGR) monitoring, 1987-1992
+
+- Role: external (not committed)
+- Source: NCEI/NODC accession 9400033 (MMS OCS Study 93-0048, Keller and Jackson eds. 1993; Duke 1993 and Garrity and Levings 1993), https://www.ncei.noaa.gov/archive/accession/9400033; files from https://www.ncei.noaa.gov/data/oceans/archive/arc0001/9400033/1.1/data/0-data
+- Licence: UNCLEAR: catalogue record says CC0 1.0 but access level 'non-public' and rights 'otherRestrictions' (conflict, ask NCEI); .doc files request citation
+- Obtained: 2026-11-12
+- How obtained and read: Directory index over HTTPS (scripts/download_galeta.sh); comma-separated text, no header row, column names from mgf.doc and mgr.doc; read with pandas (scripts/galeta_description.py)
+- Checksums: 25 data files; SHA-256 listed in scripts/download_galeta.sh and docs/MANGROVE_INVENTORY.md
+- Used by: Phase C1 description (docs/GALETA_MANGROVE_DESCRIPTION.md)
+- Notes: No pre-spill data, no cleanup variable, no coordinates. Raw files not committed; summaries in results/galeta/ (results are not catalogued).
 
 ## EXT-NAIP: USDA NAIP aerial imagery, Louisiana, 2010/2013/2015/2017
 
