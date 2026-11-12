@@ -1,0 +1,2 @@
+contrast,period,estimate,lo90,hi90,interval,boot_mean,n_NOO,n_Very_Light,n_Light,n_Moderate,n_Heavy,n_cells,n_blocks
+Heavy minus clean,difference (2015-2017 minus 2010-2015),-0.1388,-0.7962,0.5228,"block-bootstrap 5th-95th pct, 2000 valid resamples",-0.133,2542,274,409,500,516,4241,159

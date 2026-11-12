@@ -1,0 +1,29 @@
+Period-split check (plan: docs/PERIOD_SPLIT_CHECK_PLAN.md, parts A1-A3). Run once; part B not run.
+
+FILTERS (cells)
+  2010-2015 sample after F1-F4: 4779
+  2010-2017 sample after F1-F4: 4727
+  cells passing F1-F4 in both periods: 4255
+  removed by F5 (block share 2015 vs 2017 > 0.15): 14
+  removed by F6 (no exposure / Landsat pre-spill trend): 0
+  removed by F7 (non-positive 2015-2017 interval): 0
+  final cells: 4241
+
+CELLS PER CLASS: NOO 2542, Very_Light 274, Light 409, Moderate 500, Heavy 516; 2 km blocks 159
+median interval 2010-2015 4.78 y; 2015-2017 2.35 y
+
+A1 Heavy minus clean (m/yr, 90% interval, SE clustered by 2 km block)
+  2010-2015: 0.420 (0.074 to 0.765)
+  2015-2017: 0.281 (-0.274 to 0.836)
+A2 difference 2015-2017 minus 2010-2015 (Heavy), block bootstrap 90%
+  -0.139 (-0.796 to 0.523)
+A3 null baseline
+  Very_Light: 2010-2015 -0.055 (-0.499 to 0.390); 2015-2017 -0.002 (-0.388 to 0.384); difference 0.053 (-0.382 to 0.507)
+  Light: 2010-2015 -0.179 (-0.472 to 0.113); 2015-2017 0.776 (0.017 to 1.534); difference 0.955 (0.206 to 1.781)
+
+PRE-SPECIFIED READING: row 3 of the plan table. Inconclusive: report as such; run B.
+  Quoted: 2015-2017 interval includes zero; estimate 0.281 vs half of 2010-2015 (0.210); at least as large as 2010-2015 (0.420): False.
+
+LIMITS (plan, plus): two-year interval, power not computed (ASSUMED adequate); cells eroded away by 2015 drop out;
+bootstrap percentile interval for the difference is not the same object as the clustered-SE intervals in A1.
+DEVIATIONS: none from the plan. F5 is an added filter (documented above); the Landsat trend is the P1 rate_AB column.

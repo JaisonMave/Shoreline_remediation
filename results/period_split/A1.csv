@@ -1,0 +1,3 @@
+contrast,period,estimate,lo90,hi90,interval,n_NOO,n_Very_Light,n_Light,n_Moderate,n_Heavy,n_cells,n_blocks
+Heavy minus clean,2010-2015,0.4197,0.0745,0.7649,clustered-SE 90%,2542,274,409,500,516,4241,159
+Heavy minus clean,2015-2017,0.2809,-0.2743,0.836,clustered-SE 90%,2542,274,409,500,516,4241,159

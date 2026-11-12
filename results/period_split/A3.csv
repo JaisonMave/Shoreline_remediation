@@ -1,0 +1,7 @@
+contrast,period,estimate,lo90,hi90,interval,n_NOO,n_Very_Light,n_Light,n_Moderate,n_Heavy,n_cells,n_blocks
+Very_Light minus clean,2010-2015,-0.0546,-0.4992,0.3901,clustered-SE 90%,2542,274,409,500,516,4241,159
+Very_Light minus clean,2015-2017,-0.0019,-0.3879,0.3841,clustered-SE 90%,2542,274,409,500,516,4241,159
+Very_Light minus clean,difference (2015-2017 minus 2010-2015),0.0526,-0.3821,0.5074,"block-bootstrap 5th-95th pct, 2000 valid resamples",2542,274,409,500,516,4241,159
+Light minus clean,2010-2015,-0.1794,-0.4716,0.1128,clustered-SE 90%,2542,274,409,500,516,4241,159
+Light minus clean,2015-2017,0.7756,0.0175,1.5338,clustered-SE 90%,2542,274,409,500,516,4241,159
+Light minus clean,difference (2015-2017 minus 2010-2015),0.9551,0.2061,1.7815,"block-bootstrap 5th-95th pct, 2000 valid resamples",2542,274,409,500,516,4241,159
