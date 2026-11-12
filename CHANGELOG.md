@@ -13,6 +13,17 @@ Computer (no account needed).
 
 ## 2026-11-12 (session 3): literature reconciliation and data inventory
 
+### Scenario programme (Phase A1, A2; Phase C step 1)
+- **Plan:** `docs/SCENARIO_PROGRAMME_PLAN.md`, committed before any analysis.
+- **A1:** `validation/veg_recovery_curve.py`, tests, `results/veg_recovery/`, `models/veg_recovery_v1.json`.
+  Result: suggestive only (held-out error 0.417 vs 0.450 baseline, interval of the difference includes zero;
+  worse than baseline for heavily oiled sites). FINDINGS 14. Rerun: `python -m validation.veg_recovery_curve`.
+- **A2:** `src/shoreline_remediation/scenario_composer.py`, `validation/scenario_composer_check.py`, tests,
+  `results/scenario_composer/`. Check C1 passes (94% and 81% coverage); single-cell option ranges all overlap.
+  FINDINGS 15. Not in the dashboard.
+- **Phase C:** `docs/MANGROVE_INVENTORY.md`. FINDINGS 16.
+- **Status:** Under validation. A3 (untested treatments from literature): see HANDOFF for its state.
+
 ### Stage 3b: foundation architecture (design only)
 - **What:** `docs/ARCHITECTURE_FOUNDATION.md`: common data schema, model interface, knowledge tables,
   orchestration, process-informed layer in gated steps, offshore models as an upstream provider, model

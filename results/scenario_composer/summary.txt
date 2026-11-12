@@ -1,0 +1,27 @@
+Scenario composer check C1 (plan A2, docs/SCENARIO_PROGRAMME_PLAN.md). Run once.
+
+C1: composed 90% range of the 2010-2015 mean edge loss (natural recovery) vs observed NAIP rate, heavily oiled cells,
+baseline = P2 held-out M1 prediction, residual pool from the other basin(s). Gate: coverage 80-97% (pre-specified).
+
+  barataria: 501 heavy cells, coverage 0.942, mean observed 1.07 m/yr, mean composed median 1.66 m/yr -> PASSES 80-97%
+  breton: 31 heavy cells, coverage 0.806, mean observed 1.44 m/yr, mean composed median 1.63 m/yr -> PASSES 80-97%
+  pooled: 532 heavy cells, coverage 0.934, mean observed 1.09 m/yr, mean composed median 1.66 m/yr -> PASSES 80-97%
+
+Overall (pooled over both held-out basins): coverage 0.934 -> PASSES.
+Reported whether or not it passes. NAIP reads about 1.2 m/yr below field erosion measurements, which pushes coverage
+down; the composed oil excess comes from aerial-photo field plots at one bay (Bay Jimmy). Residual pools come from
+leave-one-basin-out predictions made by models that included the held-out basin in training (small leak).
+
+Worked example cell 8018_32612 (Bay Jimmy cell of docs/P5_WORKED_EXAMPLE.md): cumulative edge loss, m, median (90% range)
+  natural_attenuation: y2 6.7 (0.1 to 12.4); y5 11.8 (-4.6 to 26.2); y8 16.9 (-9.8 to 40.0)
+  manual_removal: y2 5.5 (-1.1 to 11.3); y5 10.2 (-6.3 to 24.8); y8 14.9 (-11.6 to 38.6); P(less than natural, y8) 0.86; ranges overlap natural: True
+  mechanical_removal: y2 7.3 (0.7 to 13.1); y5 11.7 (-5.1 to 26.4); y8 16.1 (-10.7 to 40.0); P(less than natural, y8) 0.67; ranges overlap natural: True
+  planting (after mechanical cleanup): y2 3.8 (-2.7 to 9.7); y5 6.0 (-10.6 to 20.6); y8 8.1 (-18.0 to 32.3); P(less than natural, y8) 0.99; ranges overlap natural: True
+Most of each range is baseline uncertainty shared by all options (the paired difference is much narrower), so ranges
+overlap natural recovery even where the paired probability is high. See worked_example.csv.
+
+Reading C1 (added after the run, no rerun): the gate is met, but the composed range is about 6 m/yr wide (single-cell residual
+spread of the edge-loss model), so passing says the ranges are wide enough, not that the central values are right: the mean
+composed median (1.66 m/yr) is 0.6 m/yr above the mean observed NAIP rate in the heavy cells (1.09 m/yr), i.e. the added oil excess
+is not visible in NAIP over 2010-2015 at these cells (consistent with P2, where oiling did not improve on exposure alone).
+Ranges also include negative cumulative loss (marsh gain), which is the model's residual spread, not a prediction of gain.

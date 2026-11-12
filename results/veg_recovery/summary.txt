@@ -1,0 +1,45 @@
+Vegetation recovery curve, plan section A1 (docs/SCENARIO_PROGRAMME_PLAN.md). Run once.
+
+Filters (all oiled vs reference sites)
+  rows 1158 -> with Oiled/Reference label 1158 -> with cover, year, zone 921 (studies with rows: 9)
+  study x year x zone cells 37 -> cells with both oiled and reference 37 units from 9 studies
+  units by study: Cebrian 2, Hester 8, Hughes 2, McClenahan 3, Rabalais 2, Silliman 6, Willis 6, Zengel (A) 2, Zengel (B) 6
+Filters (heavy-oiling subset, Site type (HO))
+  rows with HO label 567 -> with cover 433 -> units 22 from 4 studies
+  units by study: Hester 8, Silliman 6, Zengel (A) 2, Zengel (B) 6
+
+Study-averaged leave-one-study-out MAE of lnRR (all sites)
+  M0: 0.450
+  M1: 0.410
+  M2: 0.417
+  M3: 0.426
+  M1 minus M0: -0.039 (90% bootstrap over studies -0.163 to +0.083)
+  M2 minus M0: -0.032 (90% bootstrap over studies -0.144 to +0.082)
+  M3 minus M0: -0.024 (90% bootstrap over studies -0.168 to +0.148)
+
+VERDICT (primary, M2 vs M0): SUGGESTIVE. Plan reading table row applying: row 2 (suggestive: show the curve with its interval and say so).
+  M2 0.417 vs M0 0.450; difference -0.032, 90% interval -0.144 to +0.082.
+
+M2 fitted on all units: A = 1.15 (90% 0.43 to 3.72), tau = 1.83 years (90% 0.54 to 4.46); tau grid 0.25 to 50 years (ASSUMED).
+Years until expected cover reaches 80% of reference: 3.0 (90% 1.2 to 5.2); within the observed time range. Bootstrap resamples with A <= 0.223 (already at 80% at t = 0) count as 0 years.
+
+Per study (MAE of lnRR: M0, M1, M2, M3; coverage of the 90% interval M0 / M2):
+  Cebrian: n=2  0.661 0.284 0.331 0.337  cov 0.50 / 1.00
+  Hester: n=8  0.128 0.346 0.370 0.309  cov 1.00 / 0.88 <- M2 worse than M0
+  Hughes: n=2  0.667 0.288 0.338 0.345  cov 1.00 / 1.00
+  McClenahan: n=3  0.457 0.749 0.739 1.127  cov 0.67 / 0.67 <- M2 worse than M0
+  Rabalais: n=2  0.317 0.128 0.136 0.161  cov 1.00 / 1.00
+  Silliman: n=6  0.681 0.627 0.648 0.632  cov 0.83 / 0.83
+  Willis: n=6  0.149 0.158 0.158 0.134  cov 1.00 / 1.00 <- M2 worse than M0
+  Zengel (A): n=2  0.326 0.326 0.326 0.092  cov 1.00 / 1.00
+  Zengel (B): n=6  0.661 0.786 0.711 0.694  cov 0.83 / 0.83 <- M2 worse than M0
+  M2 worse than M0 in 4 of 9 studies.
+
+Secondary: heavy-oiling subset (M0 and M2 only)
+  study-averaged MAE M0 0.500, M2 0.588; M2 minus M0 +0.088 (90% +0.026 to +0.158); reading would be not usable (secondary, not a gate)
+  M2: A = 1.34 (90% 0.66 to 4.97), tau = 2.24 (90% 0.51 to 6.73); years to 80% 4.0 (90% 1.6 to 7.8)
+
+Limits known in advance (plan): ten studies, several with one or two years; one spill; no coordinates; oiling severity differs
+between studies; cleanup unrecorded and mixed into 'oiled'. lnRR uses +1 pp and t = Year - 2010 + 0.5 (both ASSUMED).
+Bootstrap of M2 - M0 resamples the per-study leave-one-study-out errors; the 90% prediction interval offsets come from the pooled
+leave-one-study-out residuals, which include the held-out study's own residuals (as pre-specified).

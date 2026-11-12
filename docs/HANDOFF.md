@@ -42,18 +42,18 @@ Plan for the new work: `docs/SCENARIO_PROGRAMME_PLAN.md` (committed before any a
 Jaison: Phase A compare treatments including untested ones from literature; Phase B long-term forecast
 (months to years) at a new place; Phase C mangroves, not beaches.
 
-Three background jobs were started. Their outputs may exist on the session disk but are **not yet checked
-by the orchestrator and not committed** unless a later line here says so:
+State of the three jobs (updated at each checkpoint):
 
-| Job | Output to look for | State |
-| --- | --- | --- |
-| A3 literature evidence for untested marsh treatments | session folder `phaseA/treatment_evidence_untested.csv`, `treatment_evidence_notes.md`; destination `data/knowledge/` | Started; unverified |
-| Phase C mangrove data inventory | session folder `phaseC/mangrove_inventory.md` | Started; unverified |
-| A1 vegetation recovery curve + A2 scenario composer + check C1 | `validation/veg_recovery_curve.py`, `src/shoreline_remediation/scenario_composer.py`, `results/veg_recovery/`, `results/scenario_composer/`, `models/veg_recovery_v1.json` | Started; unverified |
+| Job | State |
+| --- | --- |
+| A1 vegetation recovery curve | Done, checked, committed. Suggestive only (FINDINGS 14). |
+| A2 scenario composer + check C1 | Done, checked, committed. C1 passes; single-cell option ranges overlap (FINDINGS 15). Not in the dashboard. |
+| Phase C mangrove inventory | Done, committed (`docs/MANGROVE_INVENTORY.md`, FINDINGS 16). Web items partly unchecked. |
+| A3 literature evidence for untested treatments | Running when this was written; output expected in session folder `phaseA/`, destination `data/knowledge/`. Not checked, not committed, no priors set. |
 
-If the session folder is gone, rerun from the plan: nothing depends on the lost files. To resume: (1) check
-each output against its files, (2) run the tests, (3) set elicited priors from the evidence table using the
-rule in the plan (A3), (4) write FINDINGS sections 14 onward, (5) commit and remake the zip.
+Next steps: (1) check the A3 evidence table and set elicited ranges by the rule in the plan; (2) plan and
+build option-difference and block-level outputs in the composer; (3) put the composer in the dashboard;
+(4) Galeta mangrove natural-recovery description; (5) Jaison's decisions on D14-D21.
 
 ## Session of 12 November 2026 (read this first)
 
