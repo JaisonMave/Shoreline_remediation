@@ -11,7 +11,7 @@ but is new to ML.
 ## Where things are
 
 - Repository: https://github.com/JaisonMave/Shoreline_remediation (public). `main` is at commit 4b0c118.
-- Unpushed work: branch `process-model-audit`, twenty-seven commits on top of `main`, held only in
+- Unpushed work: branch `process-model-audit`, thirty-one commits on top of `main`, held only in
   `Shoreline_remediation-full.zip` (remade 12 Nov 2026). The zip contains the whole repository including its
   `.git` folder, so unzipping it restores the branch and history directly; no need to clone first. Run
   `python -m pytest tests` (all tests should pass; install `requirements-analysis.txt` first). Do not push unless asked; pushing needs the Claude GitHub
@@ -49,9 +49,9 @@ State of the three jobs (updated at each checkpoint):
 | A1 vegetation recovery curve | Done, checked, committed. Suggestive only (FINDINGS 14). |
 | A2 scenario composer + check C1 | Done, checked, committed. C1 passes; single-cell option ranges overlap (FINDINGS 15). Not in the dashboard. |
 | Phase C mangrove inventory | Done, committed (`docs/MANGROVE_INVENTORY.md`, FINDINGS 16). Web items partly unchecked. |
-| A3 literature evidence for untested treatments | Running when this was written; output expected in session folder `phaseA/`, destination `data/knowledge/`. Not checked, not committed, no priors set. |
+| A3 literature evidence for untested treatments | Done, committed (`data/knowledge/`, FINDINGS 17). First pass: most primary papers not opened. Elicited ranges set by the plan's rule, all Proposed; no untested option is distinguishable from natural recovery. |
 
-Next steps: (1) check the A3 evidence table and set elicited ranges by the rule in the plan; (2) plan and
+Next steps: (1) move the treatment conditions from the evidence notes into the rule screening and re-check key numbers against primary papers; (2) plan and
 build option-difference and block-level outputs in the composer; (3) put the composer in the dashboard;
 (4) Galeta mangrove natural-recovery description; (5) Jaison's decisions on D14-D21.
 

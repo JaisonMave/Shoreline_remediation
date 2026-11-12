@@ -14,6 +14,7 @@ not evidence; reference = read or typed from a report; instrument = forms withou
 | EXT-CRMS-SOIL | external | CPRA CRMS soil properties (cores by station, date and depth slice), Louisiana, 2006-2023 | CPRA CIMS full-table export https://cims.coastal.la.gov/RequestedDownloads/ZippedFiles/CRMS_Soil_Properties.zip | not found; CRMS disclaimer page says public information, may be copied, byline requested (wording refers to USGS data; applicability ASSUMED) | 2026-11-12 | 1 |
 | EXT-ZENGEL2015 | external | Zengel et al. 2015 S1 Table: heavily oiled marsh, treatment groups 2010-2012 | PLoS ONE 10(7):e0132324, doi:10.1371/journal.pone.0132324, supplementary S1 Table | CC BY 4.0 | 2026-11-11 | 1 |
 | EXT-ZENGEL2022 | external | Zengel et al. 2022 marsh erosion by treatment, plot data 1956-2018 | GRIIDC doi:10.7266/VF524143 (UDI R6.x813.000:0007); paper Sci. Rep. 12:13802 | CC0 | 2026-11-11 | 1 |
+| REF-TREATMENT-EVIDENCE | reference (compiled from literature) | Literature evidence for cleanup treatments without project outcome data, and elicited prior ranges | Compiled 2026-11-12 by a reading agent from NOAA marsh guidance (2022 update), Hoff 1995, Pezeshki et al. 2000, Michel and Rutherford 2014 (abstract) and others; each row carries its citation and access level | facts compiled from cited sources | 2026-11-12 | 3 |
 | EXT-TURNER2016 | external | Turner et al. island erosion rates, Barataria Bay, Breton Sound, Terrebonne Bay, 1988-2013 | GRIIDC doi:10.7266/N72J68WS (UDI R4.x264.196:0008) | CC0 (landing-page JSON-LD; visible wording not found) | 2026-11-12 | 1 |
 | EXT-ZENGEL2022-META | external | Zengel et al. synthesis of wetland vegetation response to oiling (compiled dataset, 1,158 rows) | GRIIDC doi:10.7266/n7-cn03-z792 (UDI R6.x813.000:0001); linked from the NOAA repository record of Ecol. Appl. 32(1):e02489 | CC0 (landing-page JSON-LD; visible wording not found) | 2026-11-12 | 1 |
 | EXT-CHANDELEUR-SHORELINE | external | Chandeleur Islands shoreline movement 2012-2017 (shapefiles and net shoreline movement table) | GRIIDC doi:10.7266/n7-0caw-d652 (UDI R4.x262.212:0004) | CC0 (landing-page JSON-LD; visible wording not found) | 2026-11-12 | 52 |
@@ -132,6 +133,23 @@ not evidence; reference = read or typed from a report; instrument = forms withou
 | File | Rows | SHA-256 (first 12) |
 | --- | --- | --- |
 | `data/external/zengel2022/zengel2022_griidc_erosion.xlsx` |  | e1615f1317dc |
+
+## REF-TREATMENT-EVIDENCE: Literature evidence for cleanup treatments without project outcome data, and elicited prior ranges
+
+- Role: reference (compiled from literature)
+- Source: Compiled 2026-11-12 by a reading agent from NOAA marsh guidance (2022 update), Hoff 1995, Pezeshki et al. 2000, Michel and Rutherford 2014 (abstract) and others; each row carries its citation and access level
+- Licence: facts compiled from cited sources
+- Obtained: 2026-11-12
+- How obtained and read: Web search and reading; rows marked FULL TEXT, ABSTRACT or SECONDARY. elicited_priors.csv set by the orchestrator with the rule in docs/SCENARIO_PROGRAMME_PLAN.md (A3)
+- Checksums: see catalogue.csv
+- Used by: scenario_composer (elicited options)
+- Notes: Most primary papers were not opened; numbers came through text extraction of guidance PDFs and are not re-checked against originals. Prior ranges are ASSUMED, wide, and Proposed.
+
+| File | Rows | SHA-256 (first 12) |
+| --- | --- | --- |
+| `data/knowledge/TREATMENT_EVIDENCE_NOTES.md` |  | 1996c07cec67 |
+| `data/knowledge/elicited_priors.csv` | 10 | 54213bb1e18f |
+| `data/knowledge/treatment_evidence_untested.csv` | 54 | 1fb202f3aabc |
 
 ## EXT-TURNER2016: Turner et al. island erosion rates, Barataria Bay, Breton Sound, Terrebonne Bay, 1988-2013
 

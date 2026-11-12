@@ -22,7 +22,9 @@ Computer (no account needed).
   `results/scenario_composer/`. Check C1 passes (94% and 81% coverage); single-cell option ranges all overlap.
   FINDINGS 15. Not in the dashboard.
 - **Phase C:** `docs/MANGROVE_INVENTORY.md`. FINDINGS 16.
-- **Status:** Under validation. A3 (untested treatments from literature): see HANDOFF for its state.
+- **A3:** `data/knowledge/` (evidence table, notes, elicited ranges; catalogued). No untested treatment is
+  distinguishable from natural recovery; conditions for use recorded. FINDINGS 17.
+- **Status:** Under validation.
 
 ### Stage 3b: foundation architecture (design only)
 - **What:** `docs/ARCHITECTURE_FOUNDATION.md`: common data schema, model interface, knowledge tables,

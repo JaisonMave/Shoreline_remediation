@@ -69,6 +69,17 @@ DATASETS = [
          acquired="2026-11-11", method="https://data.griidc.org/download/dataset/4762; read with pandas",
          checksums="see catalogue.csv; GRIIDC's listed checksum does not match (SOURCE.md)",
          notes="5-9 plots per group, one site", used_by="P3, erosion priors"),
+    dict(id="REF-TREATMENT-EVIDENCE", role="reference (compiled from literature)",
+         patterns=["data/knowledge/*.csv", "data/knowledge/*.md"],
+         name="Literature evidence for cleanup treatments without project outcome data, and elicited prior ranges",
+         source="Compiled 2026-11-12 by a reading agent from NOAA marsh guidance (2022 update), Hoff 1995, Pezeshki et al. 2000, "
+                "Michel and Rutherford 2014 (abstract) and others; each row carries its citation and access level",
+         licence="facts compiled from cited sources", acquired="2026-11-12",
+         method="Web search and reading; rows marked FULL TEXT, ABSTRACT or SECONDARY. elicited_priors.csv set by the "
+                "orchestrator with the rule in docs/SCENARIO_PROGRAMME_PLAN.md (A3)",
+         checksums="see catalogue.csv",
+         notes="Most primary papers were not opened; numbers came through text extraction of guidance PDFs and are not "
+               "re-checked against originals. Prior ranges are ASSUMED, wide, and Proposed.", used_by="scenario_composer (elicited options)"),
     dict(id="EXT-TURNER2016", role="external", patterns=["data/external/turner2016/*.xlsx"],
          name="Turner et al. island erosion rates, Barataria Bay, Breton Sound, Terrebonne Bay, 1988-2013",
          source="GRIIDC doi:10.7266/N72J68WS (UDI R4.x264.196:0008)", licence="CC0 (landing-page JSON-LD; visible wording not found)",
