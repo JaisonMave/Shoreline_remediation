@@ -1,0 +1,13 @@
+Date,Site,Latitude,Longitude,Replicate,Depth (cm),Result,PDF Title
+20 Sep. 2016,2,29.895448º, -88.827780º,A,0-10,No residue detected,2017080-12
+18 Oct. 2016,2,29.895448º, -88.827780º,A,0-10,No residue detected,2017080-13
+15 Nov. 2016,2,29.895448º, -88.827780º,A,0-10,"Heavily weathered residue, possible MC252 match",2017080-14
+23 Feb. 2017,2,29.895448º, -88.827780º,A,0-10,Heavily weathered residue,2017080-04
+23 Feb. 2017,2,29.895448º, -88.827780º,B,0-10,Heavily weathered residue,2017080-05
+23 Feb. 2017,2,29.895448º, -88.827780º,C,0-10,Heavily weathered residue,2017080-06
+23 Feb. 2017,2,29.895448º, -88.827780º,NA,0-5,Heavily weathered MC252 match,"2017080-01,02,03 COMBO"
+23 Feb. 2017,3,29.927599º ,-88.829308º,A,0-10,No residue detected,2017080-07
+23 Feb. 2017,3,29.927599º ,-88.829308º,B,0-10,No residue detected,2017080-08
+23 Feb. 2017,3,29.927599º ,-88.829308º,C,0-10,"Little residue detected, non-match",2017080-09
+NA,NA,NA,NA,NA,NA,Macondo 252 source oil,2017080_MC252 Source Oil
+,,,,,,,

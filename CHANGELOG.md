@@ -13,6 +13,23 @@ Computer (no account needed).
 
 ## 2026-11-12 (session 3): literature reconciliation and data inventory
 
+### Stage 2: dataset inventory (no modelling)
+- **Why:** find chemistry, vegetation and erosion data beyond the proof of concept, and say what is reachable.
+- **What:** ten sources checked (`docs/STAGE2_INVENTORY.md`). Five small datasets committed under
+  `data/external/` with `SOURCE.md` (Turner 2016 islands, Zengel 2022 meta-analysis, Chandeleur shoreline and
+  fingerprinting, Huettel 2018); ten catalogue entries added (`scripts/build_catalogue.py`);
+  `scripts/download_diver.sh` (not run) for the 630 MB NOAA DIVER files, which are git-ignored;
+  DIVER pointers added to 7 rows of `data/meta/planned_variables.csv`.
+- **Result:** DIVER wetland files hold 14,926 soil sample IDs at 202 stations, 2010-2013, with censoring
+  flags (counts verified from the files); nearshore files 1,870 sediment sample IDs. These do not match the
+  counts in the brief (1,894; 1,731). Not obtained: plant-oiling layers, Michel 2017 data (none found),
+  Landsat marsh cover (1.11 GB, reachable, not downloaded), six of nine Huettel records.
+- **Also:** `docs/LITERATURE_TO_DOWNLOAD.md` (papers not reachable); `docs/PERIOD_SPLIT_CHECK_PLAN.md`
+  (proposed, not run); dashboard uplift caption now says "average over 2010-2015"; correction note for the P6
+  artifacts in `docs/P6_POC_REPORT.md` (artifacts themselves not edited).
+- **Rerun:** `python scripts/build_catalogue.py`; `python -m pytest tests` (108 pass).
+- **Status:** Under validation (awaiting Jaison's review of the inventory).
+
 ### Stage 1: P1 headline against Challenger et al. 2021 and Turner et al. 2016
 - **Why:** Challenger et al. report extra loss on heavily oiled shore only in the first year; P1 reports
   0.85 m/yr averaged over 2010-2015.

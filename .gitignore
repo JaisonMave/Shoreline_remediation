@@ -3,3 +3,4 @@ data/raw/
 *.cpython-313.pyc
 .pytest_cache/
 *.cpython-313*.pyc
+data/external/diver_dwh/

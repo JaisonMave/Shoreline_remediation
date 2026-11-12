@@ -13,6 +13,16 @@ not evidence; reference = read or typed from a report; instrument = forms withou
 | EXT-CRMS | external | Louisiana CRMS marsh vegetation by site and year, 2006-2025 | github.com/anamikadristi/coastal-marsh-vegetation-extreme-events, commit 76e2143 (derived by A. Dristi from CPRA CRMS, NOAA HURDAT2, NASA MOD13Q1) | MIT | previous session (source commit dated 2026-10-24) | 2 |
 | EXT-ZENGEL2015 | external | Zengel et al. 2015 S1 Table: heavily oiled marsh, treatment groups 2010-2012 | PLoS ONE 10(7):e0132324, doi:10.1371/journal.pone.0132324, supplementary S1 Table | CC BY 4.0 | 2026-11-11 | 1 |
 | EXT-ZENGEL2022 | external | Zengel et al. 2022 marsh erosion by treatment, plot data 1956-2018 | GRIIDC doi:10.7266/VF524143 (UDI R6.x813.000:0007); paper Sci. Rep. 12:13802 | CC0 | 2026-11-11 | 1 |
+| EXT-TURNER2016 | external | Turner et al. island erosion rates, Barataria Bay, Breton Sound, Terrebonne Bay, 1988-2013 | GRIIDC doi:10.7266/N72J68WS (UDI R4.x264.196:0008) | CC0 (landing-page JSON-LD; visible wording not found) | 2026-11-12 | 1 |
+| EXT-ZENGEL2022-META | external | Zengel et al. synthesis of wetland vegetation response to oiling (compiled dataset, 1,158 rows) | GRIIDC doi:10.7266/n7-cn03-z792 (UDI R6.x813.000:0001); linked from the NOAA repository record of Ecol. Appl. 32(1):e02489 | CC0 (landing-page JSON-LD; visible wording not found) | 2026-11-12 | 1 |
+| EXT-CHANDELEUR-SHORELINE | external | Chandeleur Islands shoreline movement 2012-2017 (shapefiles and net shoreline movement table) | GRIIDC doi:10.7266/n7-0caw-d652 (UDI R4.x262.212:0004) | CC0 (landing-page JSON-LD; visible wording not found) | 2026-11-12 | 52 |
+| EXT-CHANDELEUR-FINGERPRINT | external | Chandeleur Island salt marsh oil residue fingerprinting, 2016-2017 (categorical results) | GRIIDC doi:10.7266/N7GQ6WCZ (UDI R4.x262.000:0042) | CC0 (landing-page JSON-LD; visible wording not found) | 2026-11-12 | 1 |
+| EXT-HUETTEL2018 | external | Huettel et al. 2018: Pensacola Beach oxygen profiles and St. George Island reference-core hydrocarbons and TOC | GRIIDC doi:10.7266/N7XW4HBZ (R5.x278.000:0006) and doi:10.7266/N7BZ64J8 (R5.x278.000:0011); paper Mar. Pollut. Bull. 126:488-500, doi:10.1016/j.marpolbul.2017.10.061 | not found (GRIIDC terms not fetched) | 2026-11-12 | 2 |
+| EXT-DIVER-WETLAND | external (not committed) | NOAA DIVER DWH Shoreline package: Coastal Wetland Vegetation Plan samples 2010-2013 (soil, sediment, tissue chemistry) | NCEI DWH DIVER archive https://www.ncei.noaa.gov/data/deepwater-horizon-diver-system/archive/Shoreline/ (five CoastalWetlandVegetationPlan Samples tars: Fall 2010, Spring 2011, Fall 2011, Fall 2012, Fall 2013; also read: RapidMarshOilingAssessment and Shoreline-Baseline-2010 Samples tars). The DIVER packages carry no accession number. Related ERMA GIS accession 0163814, DOI 10.7289/v5mw2fcq, was NOT downloaded (download timed out) | Access level 'Public' and NOAA/NCEI no-warranty wording in the Fall 2010 metadata XML; no licence identifier found; full text of the access constraints not read | 2026-11-12 (downloaded and counted, not kept) | 0 |
+| EXT-DIVER-NEARSHORE | external (not committed) | NOAA DIVER DWH Nearshore Sediment and Water samples, 2010-2011 | NCEI dataset gov.noaa.ncdc:C02078, DOI 10.25921/4E7E-MS59; archive folder https://www.ncei.noaa.gov/data/deepwater-horizon-diver-system/archive/NearshoreSedimentandWater/ (Baseline Sampling for Louisiana, Preassessment Sampling for Louisiana, Blank Study 2011). No NCEI accession number stated on the page | ISO record lists https://creativecommons.org/publicdomain/zero/1.0/ but also an access level of 'non-public'; the NCEI page says 'All data is publicly available'. Conflict unresolved | 2026-11-12 (downloaded and counted, not kept) | 0 |
+| EXT-GRIIDC-LANDSAT-MARSH | external (not committed) | Landsat TM-derived marsh cover and vulnerability, Terrebonne, Barataria and Breton Sound basins (clear-sky data set with missing pixels) | GRIIDC doi:10.7266/N7Z31X2K (UDI R4.x264.000:0051, dataset id 3209) | CC0 (landing-page JSON-LD; visible wording not found) | not downloaded | 0 |
+| EXT-PLANT-OILING | external (not committed) | Plant oiling observations (DIVER FieldObservations and ERMA vegetation layers) | NCEI DIVER FieldObservations tars in the Shoreline CWVP folders; ERMA accession 0163814 (DOI 10.7289/v5mw2fcq) | not checked | not obtained | 0 |
+| EXT-MICHEL2017 | external (not committed) | Michel et al. 2017 sand-beach shoreline treatment data | Mar. Ecol. Prog. Ser. 576:203-218, doi:10.3354/meps11917 (DOI taken from the NOAA repository record) | article CC BY per the NOAA repository record; no data licence found | not obtained | 0 |
 | EXT-ADIOS | external (derived table) | NOAA ADIOS oil properties, 1,460 oils | github.com/NOAA-ORR-ERD/noaa-oil-data | public (NOAA) | previous session | 1 |
 | REF-NOAA-MARSH | reference (read from report) | 63 published marsh oil-spill cases (NOAA 'Oil Spills in Marshes', Appendices A-D) | NOAA/ORR report, see docs/PROCESS_MODEL_AUDIT.md | US Government work | previous session | 1 |
 | REF-MOHAMMADIUN | reference (read from thesis) | Mohammadiun et al. 2022 Appendix C dataset (marine response method choice) | J. Hazard. Mater. 436:129282 and the UBC thesis holding Appendix C | see source | previous session | 1 |
@@ -105,6 +115,188 @@ not evidence; reference = read or typed from a report; instrument = forms withou
 | File | Rows | SHA-256 (first 12) |
 | --- | --- | --- |
 | `data/external/zengel2022/zengel2022_griidc_erosion.xlsx` |  | e1615f1317dc |
+
+## EXT-TURNER2016: Turner et al. island erosion rates, Barataria Bay, Breton Sound, Terrebonne Bay, 1988-2013
+
+- Role: external
+- Source: GRIIDC doi:10.7266/N72J68WS (UDI R4.x264.196:0008)
+- Licence: CC0 (landing-page JSON-LD; visible wording not found)
+- Obtained: 2026-11-12
+- How obtained and read: https://data.griidc.org/download/dataset/2486; copied unchanged; read with pandas
+- Checksums: see catalogue.csv; SOURCE.md
+- Used by: catalogue only (no model uses it yet)
+- Notes: Sheet1 (width) has 41 island rows, Sheet2 (length) 46 (Terrebonne 5 vs 10), unresolved; multi-row headers; lat/lon in degrees and minutes, datum not stated. Not analysed.
+
+| File | Rows | SHA-256 (first 12) |
+| --- | --- | --- |
+| `data/external/turner2016/R4.x264.196.0008_data to Jason islands.2.xlsx` |  | 3cb9ffcccb6f |
+
+## EXT-ZENGEL2022-META: Zengel et al. synthesis of wetland vegetation response to oiling (compiled dataset, 1,158 rows)
+
+- Role: external
+- Source: GRIIDC doi:10.7266/n7-cn03-z792 (UDI R6.x813.000:0001); linked from the NOAA repository record of Ecol. Appl. 32(1):e02489
+- Licence: CC0 (landing-page JSON-LD; visible wording not found)
+- Obtained: 2026-11-12
+- How obtained and read: https://data.griidc.org/download/dataset/3632; copied unchanged; read with pandas
+- Checksums: see catalogue.csv; SOURCE.md
+- Used by: catalogue only
+- Notes: No coordinates; missing values are the string 'NA'; no detection limits. Link to the Ecol. Appl. supplement unconfirmed (Wiley page blocked by a bot challenge, not bypassed). Not analysed.
+
+| File | Rows | SHA-256 (first 12) |
+| --- | --- | --- |
+| `data/external/zengel2022_meta/dataset_compiled_for_GRIIDC.xlsx` |  | bb2b48914228 |
+
+## EXT-CHANDELEUR-SHORELINE: Chandeleur Islands shoreline movement 2012-2017 (shapefiles and net shoreline movement table)
+
+- Role: external
+- Source: GRIIDC doi:10.7266/n7-0caw-d652 (UDI R4.x262.212:0004)
+- Licence: CC0 (landing-page JSON-LD; visible wording not found)
+- Obtained: 2026-11-12
+- How obtained and read: https://data.griidc.org/download/dataset/1916; 52 files copied unchanged; table read with pandas, geometry not read
+- Checksums: see catalogue.csv; SOURCE.md
+- Used by: catalogue only
+- Notes: NetShorelineMovement 488 rows x 12 columns. Metadata calls IntersectX/Y decimal degrees, but the values (322,164 to 323,645 and 3,305,083 to 3,312,677) are projected metres; .prj of ACERShorelines and Sites reads NAD_1983_UTM_Zone_16N. Rate-of-change unit not written (m/yr ASSUMED). Not analysed.
+
+| File | Rows | SHA-256 (first 12) |
+| --- | --- | --- |
+| `data/external/chandeleur_shoreline/2012_10OCT29.shp` |  | 4f380196583e |
+| `data/external/chandeleur_shoreline/2012_OCT29.cpg` |  | 3ad3031f5503 |
+| `data/external/chandeleur_shoreline/2012_OCT29.dbf` |  | e8fe55c1ca7b |
+| `data/external/chandeleur_shoreline/2012_OCT29.prj` |  | 4e281145e067 |
+| `data/external/chandeleur_shoreline/2012_OCT29.qpj` |  | b1eaa72d99c1 |
+| `data/external/chandeleur_shoreline/2012_OCT29.shx` |  | 70dbe8046380 |
+| `data/external/chandeleur_shoreline/2014_11NOV26.cpg` |  | 3ad3031f5503 |
+| `data/external/chandeleur_shoreline/2014_11NOV26.dbf` |  | b3078db973b7 |
+| `data/external/chandeleur_shoreline/2014_11NOV26.prj` |  | 4e281145e067 |
+| `data/external/chandeleur_shoreline/2014_11NOV26.qpj` |  | b1eaa72d99c1 |
+| `data/external/chandeleur_shoreline/2014_11NOV26.shp` |  | 4046b8c15bcf |
+| `data/external/chandeleur_shoreline/2014_11NOV26.shx` |  | c91fc3ac6449 |
+| `data/external/chandeleur_shoreline/2015_08AUG25.shp` |  | 88585248856e |
+| `data/external/chandeleur_shoreline/2015_AUG25.cpg` |  | 3ad3031f5503 |
+| `data/external/chandeleur_shoreline/2015_AUG25.dbf` |  | a8444033fd0f |
+| `data/external/chandeleur_shoreline/2015_AUG25.prj` |  | 4e281145e067 |
+| `data/external/chandeleur_shoreline/2015_AUG25.qpj` |  | b1eaa72d99c1 |
+| `data/external/chandeleur_shoreline/2015_AUG25.shx` |  | 06b352dce1c0 |
+| `data/external/chandeleur_shoreline/2017_09SEP08.cpg` |  | 3ad3031f5503 |
+| `data/external/chandeleur_shoreline/2017_09SEP08.dbf` |  | b4266ad15a8c |
+| `data/external/chandeleur_shoreline/2017_09SEP08.prj` |  | 4e281145e067 |
+| `data/external/chandeleur_shoreline/2017_09SEP08.qpj` |  | b1eaa72d99c1 |
+| `data/external/chandeleur_shoreline/2017_09SEP08.shp` |  | 8ed13c0bd5e4 |
+| `data/external/chandeleur_shoreline/2017_09SEP08.shx` |  | 19648f21cbc5 |
+| `data/external/chandeleur_shoreline/ACERShorelines.cpg` |  | 3ad3031f5503 |
+| `data/external/chandeleur_shoreline/ACERShorelines.dbf` |  | d4c1ac952927 |
+| `data/external/chandeleur_shoreline/ACERShorelines.prj` |  | 4e281145e067 |
+| `data/external/chandeleur_shoreline/ACERShorelines.qpj` |  | b1eaa72d99c1 |
+| `data/external/chandeleur_shoreline/ACERShorelines.shp` |  | 8eaa66aa421c |
+| `data/external/chandeleur_shoreline/ACERShorelines.shp.xml` |  | 620f00892773 |
+| `data/external/chandeleur_shoreline/ACERShorelines.shx` |  | 9d4061f9d4c3 |
+| `data/external/chandeleur_shoreline/Baselines.cpg` |  | 3ad3031f5503 |
+| `data/external/chandeleur_shoreline/Baselines.dbf` |  | 8689aa55d99c |
+| `data/external/chandeleur_shoreline/Baselines.prj` |  | 4e281145e067 |
+| `data/external/chandeleur_shoreline/Baselines.qpj` |  | b1eaa72d99c1 |
+| `data/external/chandeleur_shoreline/Baselines.shp` |  | 444f26c594eb |
+| `data/external/chandeleur_shoreline/Baselines.shp.xml` |  | 73ea62d89342 |
+| `data/external/chandeleur_shoreline/Baselines.shx` |  | 558f82fcf73c |
+| `data/external/chandeleur_shoreline/NetShorelineMovement.xlsx` |  | 4d6235de8ad6 |
+| `data/external/chandeleur_shoreline/Sites.cpg` |  | 3ad3031f5503 |
+| `data/external/chandeleur_shoreline/Sites.dbf` |  | f3caaaad4e19 |
+| `data/external/chandeleur_shoreline/Sites.prj` |  | 4e281145e067 |
+| `data/external/chandeleur_shoreline/Sites.qpj` |  | b1eaa72d99c1 |
+| `data/external/chandeleur_shoreline/Sites.shp` |  | e607460c8187 |
+| `data/external/chandeleur_shoreline/Sites.shx` |  | 5988cc9ccbad |
+| `data/external/chandeleur_shoreline/Transects.cpg` |  | 3ad3031f5503 |
+| `data/external/chandeleur_shoreline/Transects.dbf` |  | ca3854888230 |
+| `data/external/chandeleur_shoreline/Transects.prj` |  | 4e281145e067 |
+| `data/external/chandeleur_shoreline/Transects.qpj` |  | b1eaa72d99c1 |
+| `data/external/chandeleur_shoreline/Transects.shp` |  | 2ab6275ff082 |
+| `data/external/chandeleur_shoreline/Transects.shp.xml` |  | c95e52d1d2e3 |
+| `data/external/chandeleur_shoreline/Transects.shx` |  | 56c305c9eb8f |
+
+## EXT-CHANDELEUR-FINGERPRINT: Chandeleur Island salt marsh oil residue fingerprinting, 2016-2017 (categorical results)
+
+- Role: external
+- Source: GRIIDC doi:10.7266/N7GQ6WCZ (UDI R4.x262.000:0042)
+- Licence: CC0 (landing-page JSON-LD; visible wording not found)
+- Obtained: 2026-11-12
+- How obtained and read: https://data.griidc.org/download/dataset/4020; only the CSV copied unchanged; the 9.8 MB chromatogram PDF is not committed (name, size, sha256 in SOURCE.md)
+- Checksums: see catalogue.csv; SOURCE.md
+- Used by: catalogue only
+- Notes: 12 rows; categorical results only, no concentrations, no detection limits; one blank-date row and one NA row; file is not valid UTF-8 (read as cp1252). PDF not read.
+
+| File | Rows | SHA-256 (first 12) |
+| --- | --- | --- |
+| `data/external/chandeleur_fingerprint/GRIIDC Metadata - oil residue.csv` | 12 | dbaa25b6fe58 |
+
+## EXT-HUETTEL2018: Huettel et al. 2018: Pensacola Beach oxygen profiles and St. George Island reference-core hydrocarbons and TOC
+
+- Role: external
+- Source: GRIIDC doi:10.7266/N7XW4HBZ (R5.x278.000:0006) and doi:10.7266/N7BZ64J8 (R5.x278.000:0011); paper Mar. Pollut. Bull. 126:488-500, doi:10.1016/j.marpolbul.2017.10.061
+- Licence: not found (GRIIDC terms not fetched)
+- Obtained: 2026-11-12
+- How obtained and read: https://data.griidc.org/download/dataset/3500 and /3510; xlsx copied unchanged; read with pandas
+- Checksums: see catalogue.csv; SOURCE.md
+- Used by: catalogue only
+- Notes: Florida beaches, not Louisiana marsh. Report-style sheets with multi-row headers. The 17.7 MB lab tide file (R5.x278.000:0012) is not committed; six of the nine GRIIDC DOIs for the study were not checked. Not analysed.
+
+| File | Rows | SHA-256 (first 12) |
+| --- | --- | --- |
+| `data/external/huettel2018/Beach oxygen profiles.xlsx` |  | 695a5d4ba1da |
+| `data/external/huettel2018/Hydrocarbons and TOC St George reference cores.xlsx` |  | b7a11065535b |
+
+## EXT-DIVER-WETLAND: NOAA DIVER DWH Shoreline package: Coastal Wetland Vegetation Plan samples 2010-2013 (soil, sediment, tissue chemistry)
+
+- Role: external (not committed)
+- Source: NCEI DWH DIVER archive https://www.ncei.noaa.gov/data/deepwater-horizon-diver-system/archive/Shoreline/ (five CoastalWetlandVegetationPlan Samples tars: Fall 2010, Spring 2011, Fall 2011, Fall 2012, Fall 2013; also read: RapidMarshOilingAssessment and Shoreline-Baseline-2010 Samples tars). The DIVER packages carry no accession number. Related ERMA GIS accession 0163814, DOI 10.7289/v5mw2fcq, was NOT downloaded (download timed out)
+- Licence: Access level 'Public' and NOAA/NCEI no-warranty wording in the Fall 2010 metadata XML; no licence identifier found; full text of the access constraints not read
+- Obtained: 2026-11-12 (downloaded and counted, not kept)
+- How obtained and read: scripts/download_diver.sh into data/external/diver_dwh/ (git-ignored); long-format CSV, 60 columns, one row per analytical result
+- Checksums: tar SHA-256 values are in /home/claude/work/stage2/inventory_noaa_beach.md (not in the repository)
+- Used by: planned_variables.csv (candidate source), not yet used
+- Notes: Counts as verified by the orchestrator (not the 1,894 samples or 2,779 sites first asked for): five CWVP CSVs plus rapid marsh oiling plus baseline 2010 = 484,289 result rows, 2010-05-24 to 2013-12-11; distinct Sample_ID by matrix Soil 14,926, Tissue 3,078, Sediment 998, Water 6, Water-Blank 3, Tarball 2; stations by matrix Soil 202, Tissue 188, Sediment 151; lat 28.998 to 30.483, lon -91.112 to -87.003. Units as recorded (PPB 348,901 rows; ug/L, mg/L, PCT, % by Weight, m2 also present; soil rows carry mg/L and ug/L, which was not checked for correctness). Basis: Dry Weight 356,165 rows, Not Defined 119,662, Wet Weight 7,670. Censoring: only a Detection_Extent category and Qualifier_Code, no numeric detection or reporting limit column found; 'At or Below Detection Limit' 115,991 rows and 'No Detection Limit Available' 95,090 rows. Sharing flag: Publicly Available 475,493 rows, Trustee and RP 8,796 rows (the Trustee and RP rows may not be redistributable; not checked). Datum NAD83 from the Fall 2010 metadata only. NOT checked: whether any package is the 1,894-sample soil set, the CVHSS package (not located), FieldObservations tars, other datums, the full licence text, depth intervals, analytical methods. No analysis done.
+
+## EXT-DIVER-NEARSHORE: NOAA DIVER DWH Nearshore Sediment and Water samples, 2010-2011
+
+- Role: external (not committed)
+- Source: NCEI dataset gov.noaa.ncdc:C02078, DOI 10.25921/4E7E-MS59; archive folder https://www.ncei.noaa.gov/data/deepwater-horizon-diver-system/archive/NearshoreSedimentandWater/ (Baseline Sampling for Louisiana, Preassessment Sampling for Louisiana, Blank Study 2011). No NCEI accession number stated on the page
+- Licence: ISO record lists https://creativecommons.org/publicdomain/zero/1.0/ but also an access level of 'non-public'; the NCEI page says 'All data is publicly available'. Conflict unresolved
+- Obtained: 2026-11-12 (downloaded and counted, not kept)
+- How obtained and read: scripts/download_diver.sh into data/external/diver_dwh/ (git-ignored); 15 long-format CSVs, 60 columns
+- Checksums: tar SHA-256 values are in /home/claude/work/stage2/inventory_noaa_beach.md (not in the repository)
+- Used by: planned_variables.csv (candidate source), not yet used
+- Notes: Counts as verified by the orchestrator: 176,816 result rows, 2010-06-21 to 2011-03-24; distinct Sample_ID Sediment 1,870, Water 651, Blank 135 (not the 1,731 first asked for); lat 29.0 to 30.151, lon -93.897 to -89.035. Units as recorded: PPB 83,414 rows, ug/L 80,590, PCT 5,639, ng/L 3,164, PPM 605, mg/L 535. Basis: Dry Weight 89,069 rows, Total (water) 84,289, Wet Weight 589. Censoring by category only: 'At or Below Detection Limit' 90,992 rows, 'Between Detection Limit and Reporting Limit' 25,705, no numeric limit column found. Sharing flag: Publicly Available 167,140 rows, Trustee and RP 9,676. Subtidal and nearshore sediment, not marsh soil. NOT checked: datum, analyte list, Photographs and RelatedFiles tars (4.9 and 9.6 GB, 0.4 GB), FieldObservations tar, which licence applies. No analysis done.
+
+## EXT-GRIIDC-LANDSAT-MARSH: Landsat TM-derived marsh cover and vulnerability, Terrebonne, Barataria and Breton Sound basins (clear-sky data set with missing pixels)
+
+- Role: external (not committed)
+- Source: GRIIDC doi:10.7266/N7Z31X2K (UDI R4.x264.000:0051, dataset id 3209)
+- Licence: CC0 (landing-page JSON-LD; visible wording not found)
+- Obtained: not downloaded
+- How obtained and read: Landing page and DOI reachable (HTTP 200); zip at https://data.griidc.org/download/dataset/3209 not fetched because the stated size is 1.11 GB
+- Checksums: none (not downloaded)
+- Used by: none yet
+- Notes: Landing page: 55 files, ENVI .dat/.hdr plus .txt, UTM zone 15N stated (not verified from a header), class values 0/1/2 (masked, marsh vegetation <= 40 %, > 40 %). Landing page gives a collection period of 2009-09-02 while the abstract says scenes span 1984-2011; unresolved. Contents unread. Relevant to decision D10 (land/water classifier cross-check).
+
+## EXT-PLANT-OILING: Plant oiling observations (DIVER FieldObservations and ERMA vegetation layers)
+
+- Role: external (not committed)
+- Source: NCEI DIVER FieldObservations tars in the Shoreline CWVP folders; ERMA accession 0163814 (DOI 10.7289/v5mw2fcq)
+- Licence: not checked
+- Obtained: not obtained
+- How obtained and read: Not downloaded: the FieldObservations tars were not fetched and the ERMA download endpoint timed out
+- Checksums: none
+- Used by: none yet
+- Notes: Nothing was read. Whether these hold oiling length or percent cover per plant or site is not known. Sample tars checked for Rapid Marsh Oiling contain tissue and water rows only.
+
+## EXT-MICHEL2017: Michel et al. 2017 sand-beach shoreline treatment data
+
+- Role: external (not committed)
+- Source: Mar. Ecol. Prog. Ser. 576:203-218, doi:10.3354/meps11917 (DOI taken from the NOAA repository record)
+- Licence: article CC BY per the NOAA repository record; no data licence found
+- Obtained: not obtained
+- How obtained and read: No public dataset found on the abstract and repository pages read
+- Checksums: none
+- Used by: none yet
+- Notes: Not found. The full text and supplement were not read, so a data availability statement may exist. NOAA ERMA shoreline treatment layers (accession 0163818 appeared in a search) were not opened for treatment fields.
 
 ## EXT-ADIOS: NOAA ADIOS oil properties, 1,460 oils
 
@@ -326,5 +518,5 @@ not evidence; reference = read or typed from a report; instrument = forms withou
 
 | File | Rows | SHA-256 (first 12) |
 | --- | --- | --- |
-| `data/meta/planned_variables.csv` | 15 | 426a71fd1a6a |
+| `data/meta/planned_variables.csv` | 15 | d04aadfc30c6 |
 | `data/meta/variable_dictionary.csv` | 45 | f11dffe0d226 |

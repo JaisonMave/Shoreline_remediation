@@ -4,7 +4,7 @@ Running list of scientific and technical concerns raised during development, so 
 sessions. Each note says where it bites and what would resolve it. Add new notes at the top of a section;
 mark resolved notes rather than deleting them. Decisions referred to are in `docs/ROADMAP.md`.
 
-Last updated 12 November 2026 (after Stage 1 literature reconciliation).
+Last updated 12 November 2026 (after Stage 2 inventory).
 
 ## A. Claims we can and cannot make to leads
 
@@ -92,6 +92,14 @@ Last updated 12 November 2026 (after Stage 1 literature reconciliation).
 5. The map's base tiles come from the internet; offline, the cells still draw on a blank background.
 
 ## E. Scope gaps against the project brief (for the "what next" slide)
+
+00. **Soil chemistry data now located, but censored (Stage 2, 12 Nov).** NOAA DIVER wetland files: PAH, organic
+   matter, bulk density, pH, salinity, nutrients, metals at about 200 marsh stations over five campaigns
+   (2010-2013). No numeric detection limits, only a category per result; 30% of rows have no limit available.
+   Some soil rows carry mg/L units (unexplained; possibly extracts). Bites: any chemical-recovery model.
+   Resolves with: a censored-data method fixed in a plan before running, and Jaison's check of units and
+   analytes (his field). Licence wording is NOAA "no warranty", no identifier; 2% of rows are "Trustee and RP".
+
 
 0. **Soil and sediment chemistry is missing (flagged at Jaison's request, 11 Nov 2026).** The PoC uses no
    soil, sediment or porewater chemistry in any model. The full list, with why each variable matters and open
