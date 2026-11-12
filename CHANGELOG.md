@@ -11,6 +11,20 @@ Computer (no account needed).
 
 ---
 
+## 2026-11-12 (session 3): literature reconciliation and data inventory
+
+### Stage 1: P1 headline against Challenger et al. 2021 and Turner et al. 2016
+- **Why:** Challenger et al. report extra loss on heavily oiled shore only in the first year; P1 reports
+  0.85 m/yr averaged over 2010-2015.
+- **What:** comparison of periods, sites, oiling definitions and methods (`docs/FINDINGS_2026-11-11.md`
+  section 11; extraction in `docs/STAGE1_PAPER_EXTRACTION.md`; `docs/REVIEW_NOTES.md` C0). No analysis rerun.
+- **Result:** not contradictory; P1 gets a note, not a revision. 0.85 m/yr is a period average, compatible with
+  a 1 to 2.5 year effect; "for at least seven years" (section 6) withdrawn. Our NAIP data show no fade
+  (implied 2015-2017 excess about 1.04 m/yr), so residual exposure confounding remains possible.
+- **Not done:** full texts not reachable (abstracts, Turner's data file and Zengel 2022 Table 1 only).
+  Period-split check proposed, not run. Dashboard and P6 wording not changed (needs Jaison).
+- **Status:** Under validation (awaiting Jaison's review).
+
 ## 2026-11-11 (session 2): proof-of-concept track
 
 ### P6: walkthrough deck for non-specialists

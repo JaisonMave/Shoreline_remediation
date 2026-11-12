@@ -4,7 +4,7 @@ Running list of scientific and technical concerns raised during development, so 
 sessions. Each note says where it bites and what would resolve it. Add new notes at the top of a section;
 mark resolved notes rather than deleting them. Decisions referred to are in `docs/ROADMAP.md`.
 
-Last updated 11 November 2026 (after P6).
+Last updated 12 November 2026 (after Stage 1 literature reconciliation).
 
 ## A. Claims we can and cannot make to leads
 
@@ -42,6 +42,15 @@ Last updated 11 November 2026 (after P6).
    independent, so its interval is optimistic.
 
 ## C. Design and inference
+
+0. **Duration of the oil effect is unresolved, and our headline hides it (Stage 1, 12 Nov).** P1's 0.85 m/yr
+   is an average over 2010-2015. Challenger et al. 2021 (131 field sites) find extra loss on heavily oiled
+   shore only in Fall 2010 to Fall 2011; Zengel 2022 and our P3 find about 2 years; Turner et al. 2016 find
+   double the unoiled rate at 2.5 years. Our NAIP estimates for 2010-2015 and 2010-2017 are equal (1.00, 1.01),
+   implying about 1.04 m/yr still in 2015-2017, which looks more like a persistent exposure difference than
+   a fading oil effect. Bites: any slide or dashboard text that reads 0.85 (or 0.3-0.8) as a continuing annual
+   rate; FINDINGS section 6 "at least seven years" (withdrawn). Resolves with: a pre-specified period-split
+   check (FINDINGS section 11). Neither paper's full text was read (abstracts and Zengel 2022 Table 1 only).
 
 1. **Barataria Bay was used to develop every method**, then reused as a P2 test basin. Its P2 result is the
    least independent; western Breton (31 heavy cells) is the only other test basin, and it is small.
