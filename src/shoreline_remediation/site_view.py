@@ -159,7 +159,8 @@ def render_site_evidence() -> None:
         st.caption(
             "Expected rate: marsh edge with this exposure and pre-spill trend, from model p5-edge-loss-v1 (exposure only, no oiling term). "
             f"Heavy-oiling uplift: extra loss associated with heavy oiling in P2's training folds, shown separately because it was unstable "
-            f"between basins (P1 headline 0.85, 0.49 to 1.22). "
+            f"between basins (P1 headline 0.85, 0.49 to 1.22). It is an average over 2010-2015, not a continuing annual rate: "
+            "field studies place most of the extra loss in the first 1 to 2.5 years after oiling. "
             + (f"When this basin was held out entirely in P2, the model predicted {held:.2f} m/yr here. " if held is not None and not pd.isna(held) else "")
             + f"The interval is wide because single 100 m cells are noisy: the model's held-out error is {m['lobo_mae']:.2f} m/yr against "
             f"{m['lobo_mae_no_predictor']:.2f} m/yr for predicting the average everywhere (leave-one-basin-out). " + m["measurement_note"])

@@ -1,5 +1,10 @@
 # P6: proof-of-concept report and slides (11 November 2026)
 
+**Correction pending in the report and both decks (12 Nov 2026, not yet applied to the artifacts):** wherever
+the heavy-oiling excess (0.85 m/yr, or the 0.3 to 0.8 uplift) appears, add "average over 2010-2015; published
+field studies place most of the excess in the first 1 to 2.5 years". Remove any "for at least seven years".
+Reason: FINDINGS section 11.
+
 The deliverables are live, editable artifacts in claude.ai (private to Jaison until he shares them):
 
 - Report (Docs): https://claude.ai/artifact/LKTwAyFJpAGwSGvYBqHYHr
