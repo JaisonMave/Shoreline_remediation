@@ -98,3 +98,46 @@ seedling recruitment over decades; oil persists in anoxic sediment; cleanup opti
 The marsh model must not be reused. Step 1 is an inventory of open mangrove outcome data
 (`docs` entry to follow); a model is proposed only if at least two independent sites with outcome series
 and a reference exist.
+
+## Phase A4: option differences, block-level totals, conditions (plan added 12 Nov 2026, before any of it was run)
+
+Reason: FINDINGS 15. At single-cell scale every option's range overlaps natural recovery, because the range
+is dominated by cell-level noise that is the same whichever option is chosen.
+
+### A4.1 Amendment to the A2 labelling rule
+The "cannot be distinguished" label was defined on overlap of each option's own range. That ignores the
+fact that the baseline and its noise are shared between options. **New rule:** an option is "distinguished
+from natural recovery" on an outcome when the 90% interval of the **paired difference** (option minus
+natural recovery, same simulated baseline in each draw) excludes zero. The old overlap flag is kept in the
+output for transparency. Consequence to state wherever shown: the paired difference does not depend on the
+site; it is the field evidence (one site, Zengel 2015/2022) accumulated over time, so "distinguished" means
+"the evidence distinguishes the options", not "this site was measured". Elicited options have no edge-loss
+difference and remain undistinguished unless their range excludes 1.
+
+### A4.2 Block-level composer
+`compose_block(cells, options, ...)`: for a set of edge cells (a 2 km block, or any user selection), total
+outcome = mean edge loss rate over cells and cumulative marsh area lost (sum over cells of cumulative
+retreat x 100 m cell length, in m2 and ha; one cell is ASSUMED to hold 100 m of edge, known to be an
+underestimate). Noise model: held-out residuals of the deployed model (P2 predictions) split into a block
+component (block mean residual) and a within-block component (cell minus block mean); each draw takes one
+block residual for the whole block and independent within-block residuals per cell, both resampled from the
+empirical held-out sets. Oil excess and treatment shifts are drawn once per draw and shared by all cells.
+
+**Check C2 (pre-specified, run once):** for 2 km blocks with at least 5 valid cells in the two P2 held-out
+basins, natural-recovery option, cells given their own oiling class effect only if Heavy (as in A2): the
+composed 90% range for the block mean edge loss 2010-2015 should contain the observed block mean in 80-97%
+of blocks. Report per basin, with the median width of the block range against the median width of the
+cell range. Blocks are the unit; nothing is tuned after seeing coverage.
+
+### A4.3 Conditions in the screening view
+`data/knowledge/treatment_conditions.csv` (written by the orchestrator from the evidence notes, each row
+with its source and evidence class) lists, per treatment, the conditions under which the literature reports
+benefit or harm. The Site evidence view shows them as "conditions to check" beside each option. **The rule
+engine's verdicts are not changed** (they need Jaison's review first); conditions the site data cannot
+verify (season, water over the soil, days since oiling) are shown as questions for the user.
+
+### A4.4 Dashboard
+A "Compare options" section in the Site evidence view: for the selected cell, and for its 2 km block, a
+table per option of evidence label (MEASURED / ELICITED), paired difference from natural recovery with 90%
+interval at years 2, 5 and 8 (edge loss; vegetation where available), the distinguished flag, and the
+conditions to check. Always shows ranges, the vegetation curve's "suggestive" status, and the note in A4.1.
