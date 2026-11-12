@@ -33,6 +33,28 @@ but is new to ML.
 - The earlier seven-commit history was not in the previous zip, so it was restored as one commit.
   Network egress now works for NOAA, PLOS, Planetary Computer, Earth Search and PyPI (FTP is blocked).
 
+## In progress when the session was paused (12 Nov 2026, afternoon): read this first
+
+Jaison set usage limits (stop and hand off at 90% of the top-model allowance or 95% overall). Claude cannot
+see the usage meter, so this section is kept current at every checkpoint.
+
+Plan for the new work: `docs/SCENARIO_PROGRAMME_PLAN.md` (committed before any analysis). Direction from
+Jaison: Phase A compare treatments including untested ones from literature; Phase B long-term forecast
+(months to years) at a new place; Phase C mangroves, not beaches.
+
+Three background jobs were started. Their outputs may exist on the session disk but are **not yet checked
+by the orchestrator and not committed** unless a later line here says so:
+
+| Job | Output to look for | State |
+| --- | --- | --- |
+| A3 literature evidence for untested marsh treatments | session folder `phaseA/treatment_evidence_untested.csv`, `treatment_evidence_notes.md`; destination `data/knowledge/` | Started; unverified |
+| Phase C mangrove data inventory | session folder `phaseC/mangrove_inventory.md` | Started; unverified |
+| A1 vegetation recovery curve + A2 scenario composer + check C1 | `validation/veg_recovery_curve.py`, `src/shoreline_remediation/scenario_composer.py`, `results/veg_recovery/`, `results/scenario_composer/`, `models/veg_recovery_v1.json` | Started; unverified |
+
+If the session folder is gone, rerun from the plan: nothing depends on the lost files. To resume: (1) check
+each output against its files, (2) run the tests, (3) set elicited priors from the evidence table using the
+rule in the plan (A3), (4) write FINDINGS sections 14 onward, (5) commit and remake the zip.
+
 ## Session of 12 November 2026 (read this first)
 
 1. **P1 against the literature (FINDINGS 11).** Challenger et al. 2021 and Turner et al. 2016 do not
