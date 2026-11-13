@@ -14,3 +14,4 @@ Lower priority (cited through secondary sources only; not blocking):
 | # | Paper | DOI | Why |
 | --- | --- | --- | --- |
 | L3 | Deis DR, Mendelssohn IA, Fleeger JW, Bourgoin SM, Lin Q (2019). Legacy effects of Hurricane Katrina influenced marsh shoreline erosion following the Deepwater Horizon oil spill. Sci Total Environ 672:456-467 | not checked | The other paper questioning DWH erosion studies (cyclones, exposure); citation taken from Zengel 2022 reference list |
+| L4 | Hoff R, Michel J (eds) (2014). Oil Spills in Mangroves: Planning and Response Considerations. NOAA Office of Response and Restoration | not checked | Verify mangrove screening rows marked "to verify" (`data/knowledge/mangrove_screening.csv`); chapter 3 was cut off when read |
