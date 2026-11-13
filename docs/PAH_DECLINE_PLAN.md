@@ -1,4 +1,4 @@
-# Draft plan: soil PAH decline in oiled marsh (DIVER) - PROPOSED, NOT APPROVED, NOT RUN
+# Plan: soil PAH decline in oiled marsh (DIVER) - APPROVED 13 Nov 2026, run once
 
 Written 12 Nov 2026 after a structure-only inspection of the files (`docs/DIVER_SOIL_STRUCTURE.md`): counts,
 names and codes only; no concentration was summarised by time or by oiling. Each choice marked **[Jaison]**
@@ -39,3 +39,16 @@ is a soil-chemistry judgement that needs his confirmation before anything is run
 No pre-spill or fall-2010 PAH. Stations were chosen by the damage assessment, not at random. Cleanup is
 unrecorded. Total PAH is not exposure: the freely dissolved fraction depends on soil organic carbon
 (REVIEW_NOTES E0). Sums from different compound lists are not comparable with published totals.
+
+## Final choices (13 Nov 2026; Jaison's decisions, with the orchestrator's adaptation where the data require it)
+
+Fixed before any concentration is summarised by time or oiling. These supersede the "Proposed choices" table.
+
+| # | Jaison's decision | How it is applied, and why |
+| --- | --- | --- |
+| 1 | PAH = sum of individual compounds | Sum of the compounds reported in all four PAH campaigns (spring 2011 to fall 2013), parent and alkylated, dry weight, ppb (ug/kg). Compound list fixed from names alone, before values are read. "Total PAH" text rows not used. Rows: matrix soil, Analysis_Type PAH, dry weight; water-type analytes filed under soil, tarball/oil rows and wet-weight rows excluded. |
+| 2 | Normalise to hopane | Second outcome = sum / C30 17a(H),21b(H)-hopane, same sample. Where hopane is non-detected the ratio is not computed (a censored denominator gives an unbounded ratio); count reported. |
+| 3 | Mean of replicates; if they deviate strongly keep only the value within range | Mean of replicates per sample and compound. If two results differ by more than 50% relative percent difference (ASSUMED; usual lab acceptance for soil organics is 30-50%), keep the one closer to the median of that compound at the same station and campaign; with three, drop the one farthest from their median. Same rule where two labs report one sample. Counts reported. |
+| 4 | Estimate non-detects by regression on other soil properties, within the limit | No numeric limit in the files, so a **proxy limit** per compound and campaign: 5th percentile of detected values (ASSUMED). Non-detects estimated by censored (Tobit) regression of log concentration on soil organic matter, bulk density, salinity (same sample, where measured), depth class and campaign, per compound; each non-detect gets its expected value given it lies below the proxy limit. Fewer than 30 detects, or missing soil properties: half the proxy limit. Sensitivity runs: non-detects = 0 and = proxy limit. Share of each sum that is estimated is reported; samples above 50% flagged. |
+| 5 | Depth to 1 m if available, otherwise top 50 cm | Files hold only surface samples (mostly 0-2 cm grabs, some 0-10 cm cores, a few 0-5/0-11/0-12/1-2 cm); nothing deeper exists. All are within the top 50 cm, so all are used with depth class (0-2 cm; deeper) as a covariate, plus a sensitivity run on 0-2 cm only. Without the covariate, depth mixing would masquerade as decline (cores dilute surface oil). |
+| 6 | Orchestrator's decision | Station as unit; Fall 2013 samples matched to stations by coordinates within 30 m (ASSUMED); SCAT maximum oiling within 100 m (ASSUMED); M0 constant per station vs M1 first-order decline by oiling class (mixed model, station random effect); whole stations held out (grouped 5-fold, seed 20261112); verdict rule above. Also pre-specified: half-life by oiling class with 90% interval for both outcomes. A decline in the sum with **no** decline in the hopane ratio means physical loss (erosion, burial, removal), not degradation. |
