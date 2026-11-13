@@ -175,3 +175,23 @@ script and a catalogue entry are added instead.
 - State what cannot be done: no pre-spill data, no cleanup variable, no coordinates.
 - Output: `docs/GALETA_MANGROVE_DESCRIPTION.md`, `results/galeta/` summary tables. A model is proposed only
   if the description shows a usable oiled-versus-unoiled series at three or more sites per group.
+
+## Phase C2: mangrove damage-trajectory model and mangrove mode in the tool (plan added 13 Nov 2026, before it was run)
+
+Decisions taken by the orchestrator at Jaison's request (13 Nov 2026), with reasons:
+- **What can be modelled.** Galeta (1987-1991) gives oiled vs unoiled sites but no pre-spill data and no
+  cleanup variable. So the model estimates the **oiling effect over time** (oiled minus unoiled), not
+  recovery after treatment. Treatment comparison in mangroves stays rule- and literature-based.
+- **Outcomes.** Primary: share of prop roots recorded dead (damage); leaves per shoot (canopy condition).
+  Secondary: root oil cover. Others stay descriptive. Reason: these have 11-14 sites per group and 3-5 years.
+- **Model.** Per outcome, site-year means; linear mixed model outcome ~ oiled x year-since-spill (year as a
+  factor), site random intercept. Baseline M0: unoiled-group mean per year (no oiling effect). Validation:
+  leave one whole site out; error of M1 vs M0 on the held-out site's years, averaged over sites; 90%
+  prediction intervals from leave-one-site-out residuals with coverage. Verdict rule as A1 (validated /
+  suggestive / not usable). Model card `models/mangrove_damage_v1.json`.
+- **In the tool.** A habitat selector in the Site evidence view. For "mangrove (Rhizophora fringe)": the
+  oiling effect by year 1-5 with 90% intervals and the verdict; rule screening for mangrove from the existing
+  rules engine; mangrove treatment conditions from `data/knowledge/` (TROPICS: dispersed oil caused less
+  mangrove damage than untreated oil; cutting, burning and heavy foot traffic are advised against in
+  guidance); scope flags that cannot be dismissed: one spill, Caribbean, red mangrove fringe, years 1-5 only,
+  no treatment data, licence of the source unclear. No edge-loss or marsh model is applied to mangroves.
