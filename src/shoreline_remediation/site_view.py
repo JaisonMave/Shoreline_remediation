@@ -256,7 +256,79 @@ def _compare_options(site: dict, flags) -> None:
     st.info(A41_NOTE, icon=":material/info:")
 
 
+# ---- Mangrove mode (plan Phase C2). No marsh edge-loss or vegetation model is applied here. ----
+_MANGROVE_RESULTS = Path(__file__).resolve().parents[2] / "results" / "mangrove"
+MANGROVE_SCOPE_FLAGS = [
+    "One spill only: Bahia Las Minas, Panama, April 1986 (Galeta). Nothing here has been tested on another spill or oil.",
+    "Caribbean coast only. Other regions and climates were not tested.",
+    "Red mangrove (Rhizophora mangle) fringe only. Other mangrove types and species were not tested.",
+    "Years 1 to 5 after the spill only (1987 to 1991; leaves per shoot years 3 to 5 only). Nothing is said about later years.",
+    "No treatment or cleanup data. The model estimates the oiling effect (oiled minus unoiled sites), not the effect of any cleanup.",
+    "Licence of the source data (NCEI accession 9400033) is unclear; only site-level summaries are used here.",
+]
+_OUTCOME_TITLES = {"root_documented_dead_share": "Share of prop roots recorded dead (primary)",
+                   "leaves_per_shoot": "Leaves per shoot (primary)", "root_oil_cover": "Root oil cover, % (secondary)"}
+_VERDICT_TEXT = {"validated": "validated: oiling information predicts held-out sites better than ignoring it",
+                 "suggestive": "suggestive: better than ignoring oiling, but the interval includes zero",
+                 "not usable": "not usable: no better than ignoring oiling; show site-year means only"}
+
+
+@st.cache_data
+def _mangrove_results() -> tuple[pd.DataFrame, pd.DataFrame]:
+    return pd.read_csv(_MANGROVE_RESULTS / "effect_by_year.csv"), pd.read_csv(_MANGROVE_RESULTS / "summary.csv")
+
+
+@st.cache_data
+def _mangrove_screening() -> pd.DataFrame:
+    return pd.read_csv(_KNOWLEDGE / "mangrove_screening.csv")
+
+
+def render_mangrove_view() -> None:
+    eff, summ = _mangrove_results()
+    st.markdown("Mangrove mode shows what one field study found: how much worse oiled red mangrove fringe sites were than "
+                "unoiled sites in the first five years after a spill. It is not a cleanup recommendation and it applies no "
+                "marsh edge-loss or vegetation model.")
+    for x in MANGROVE_SCOPE_FLAGS:
+        st.warning(x, icon=":material/warning:")
+    st.subheader("Oiling effect by year since the spill")
+    for outcome, title in _OUTCOME_TITLES.items():
+        e = eff[eff.outcome == outcome]
+        s = summ[summ.outcome == outcome].set_index("row")
+        verdict = next(k[len("verdict_"):].replace("_", " ") for k in s.index if k.startswith("verdict_"))
+        d = s.loc["MAE_M1_minus_M0"]
+        st.markdown(f"**{title}**: {e.n_oiled_sites.iloc[0]} oiled and {e.n_unoiled_sites.iloc[0]} unoiled sites. "
+                    f"Verdict **{verdict}** ({_VERDICT_TEXT[verdict]}). Held-out error (leave one site out) with oiling effect "
+                    f"minus without: {d.estimate:+.3f} (90% interval {d.lo90:+.3f} to {d.hi90:+.3f}).")
+        fig, ax = plt.subplots(figsize=(6, 2.4))
+        ax.errorbar(e.year_since_spill, e.effect, yerr=[e.effect - e.lo90, e.hi90 - e.effect], fmt="o-", capsize=4, color="#a32a2a")
+        ax.axhline(0, color="#555", lw=0.8)
+        ax.set_xticks(e.year_since_spill)
+        ax.set_xlabel("Year since spill (1 = 1987)")
+        ax.set_ylabel("Oiled minus unoiled")
+        for spine in ["top", "right"]:
+            ax.spines[spine].set_visible(False)
+        fig.tight_layout()
+        st.pyplot(fig, width="stretch")
+        plt.close(fig)
+        st.dataframe(pd.DataFrame({"Year since spill": e.year_since_spill, "Oiled minus unoiled": e.effect.round(3),
+                                   "90% low": e.lo90.round(3), "90% high": e.hi90.round(3)}), hide_index=True, width="stretch")
+    st.caption("Intervals are 90% Wald intervals from a mixed model with a random intercept per site; the site is the unit of "
+               "analysis. Oiled and unoiled sites were chosen by the investigators, so differences are associations. "
+               "Year since spill = calendar year minus 1986 (ASSUMED convention).")
+    st.subheader("Cleanup options in mangroves (screening table)")
+    t = _mangrove_screening()
+    st.dataframe(t.rename(columns={"treatment": "Treatment", "verdict": "Verdict", "reason": "Reason", "conditions": "Conditions",
+                                   "source": "Source", "evidence_class": "Evidence class"})
+                 [["Treatment", "Verdict", "Reason", "Conditions", "Source", "Evidence class"]], hide_index=True, width="stretch")
+    st.caption("Verdicts are rule- and literature-based and were not tested with the Galeta data (no treatment variable). "
+               "Entries marked 'to verify' are judgements that still need checking against the sources.")
+
+
 def render_site_evidence() -> None:
+    habitat = st.selectbox("Habitat", ["salt marsh (Louisiana)", "mangrove (Rhizophora fringe)"], key="site_habitat")
+    if habitat.startswith("mangrove"):
+        render_mangrove_view()
+        return
     m = load_model()
     sites = _sites()
     st.markdown("Everything in this tab comes from real data: Deepwater Horizon shoreline surveys (SCAT), aerial and "

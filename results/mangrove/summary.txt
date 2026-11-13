@@ -1,0 +1,26 @@
+Mangrove oiling-effect model, plan Phase C2 (docs/SCENARIO_PROGRAMME_PLAN.md). Run once.
+Verdict rule (as A1): M1 below M0 and 90% interval of the difference excludes zero -> validated; M1 below M0 only -> suggestive; else not usable.
+Year since spill = calendar year - 1986 (ASSUMED). Effects are oiled minus unoiled; Wald intervals from the mixed model fitted on all sites.
+
+root_documented_dead_share (share of prop roots recorded dead (primary))
+  sites: 11 oiled, 12 unoiled; calendar years [1987, 1988, 1989, 1990, 1991] (year since spill [1, 2, 3, 4, 5]); site-years 112
+  site-averaged LOSO MAE: M0 0.0715, M1 0.0438; M1 minus M0 -0.0278 (90% bootstrap over sites -0.0407 to -0.0158); M1 worse than M0 at 4 of 23 sites
+  VERDICT: VALIDATED
+  90% interval coverage (pooled LOSO residual quantiles): M0 0.89, M1 0.89; M1 offsets -0.0982 / +0.1375
+  oiling effect (oiled minus unoiled, mixed model, 90% Wald interval) by year since spill: y1 -0.000 (-0.046 to +0.046); y2 +0.071 (+0.025 to +0.117); y3 +0.124 (+0.077 to +0.171); y4 +0.173 (+0.125 to +0.220); y5 +0.181 (+0.133 to +0.228)
+
+leaves_per_shoot (leaves per shoot, R. mangle (primary))
+  sites: 12 oiled, 14 unoiled; calendar years [1989, 1990, 1991] (year since spill [3, 4, 5]); site-years 78
+  site-averaged LOSO MAE: M0 1.1561, M1 0.9125; M1 minus M0 -0.2436 (90% bootstrap over sites -0.4129 to -0.0793); M1 worse than M0 at 6 of 26 sites
+  VERDICT: VALIDATED
+  90% interval coverage (pooled LOSO residual quantiles): M0 0.90, M1 0.90; M1 offsets -2.0825 / +1.8153
+  oiling effect (oiled minus unoiled, mixed model, 90% Wald interval) by year since spill: y3 -0.843 (-1.569 to -0.117); y4 -1.158 (-1.885 to -0.432); y5 -1.650 (-2.376 to -0.924)
+
+root_oil_cover (root oil cover, % (secondary))
+  sites: 11 oiled, 12 unoiled; calendar years [1987, 1988, 1989, 1990, 1991] (year since spill [1, 2, 3, 4, 5]); site-years 112
+  site-averaged LOSO MAE: M0 5.1170, M1 6.0102; M1 minus M0 +0.8932 (90% bootstrap over sites -1.0470 to +2.7414); M1 worse than M0 at 18 of 23 sites
+  VERDICT: NOT USABLE
+  90% interval coverage (pooled LOSO residual quantiles): M0 0.95, M1 0.89; M1 offsets -14.8127 / +16.4847
+  oiling effect (oiled minus unoiled, mixed model, 90% Wald interval) by year since spill: y1 +8.437 (+0.883 to +15.992); y2 +15.409 (+7.854 to +22.963); y3 +13.992 (+6.347 to +21.638); y4 +10.054 (+2.408 to +17.700); y5 +5.584 (-2.062 to +13.230)
+
+Scope: One spill (Bahia Las Minas, Panama, April 1986); Caribbean coast; red mangrove (Rhizophora mangle) fringe; years 1-5 after the spill only (calendar 1987-1991; leaves per shoot years 3-5 only); no treatment or cleanup variable and no pre-spill data, so this is the oiling effect (oiled minus unoiled sites), not a treatment effect or recovery after cleanup; oiled and unoiled sites were chosen by the investigators, not randomised; source licence unclear.

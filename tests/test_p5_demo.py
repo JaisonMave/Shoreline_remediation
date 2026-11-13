@@ -172,3 +172,37 @@ def test_compare_options_out_of_scope_site_says_no_prediction_not_error():
     assert not at.exception, at.exception
     assert any("No prediction for this site" in i.value for i in at.info)
     assert not any("Edge loss distinguished yr 2 / 5 / 8" in t.value.columns for t in at.dataframe)
+
+
+# ---- Mangrove mode (plan Phase C2) ---------------------------------------------------------------------------------------
+def _fresh_app():
+    from streamlit.testing.v1 import AppTest
+    at = AppTest.from_file(str(ROOT / "src" / "shoreline_remediation" / "dashboard.py"), default_timeout=300)
+    at.run()
+    return at
+
+
+def test_mangrove_mode_renders_with_scope_flags_and_no_marsh_model():
+    at = _fresh_app()
+    at.selectbox(key="site_habitat").set_value("mangrove (Rhizophora fringe)").run()
+    assert not at.exception, at.exception
+    w = " ".join(x.value for x in at.warning)
+    for part in ("One spill", "Caribbean", "red mangrove", "Years 1 to 5", "No treatment or cleanup data", "Licence"):
+        assert part.lower() in w.lower(), part
+    assert any(s.value == "Oiling effect by year since the spill" for s in at.subheader)
+    assert "Expected rate" not in {m.label for m in at.metric}
+    assert not any("Extra erosion vs natural recovery, yr 0-2" in t.value.columns for t in at.dataframe)
+    cols = [set(t.value.columns) for t in at.dataframe]
+    assert any({"Verdict", "Reason", "Conditions", "Source", "Evidence class"} <= c for c in cols)
+    assert sum(1 for m in at.markdown if "Verdict **" in m.value) == 3
+
+
+def test_marsh_mode_is_default_and_unchanged_after_switching_back():
+    at = _fresh_app()
+    assert at.selectbox(key="site_habitat").value == "salt marsh (Louisiana)"
+    base = ({m.label: m.value for m in at.metric}, [tuple(t.value.columns) for t in at.dataframe])
+    at.selectbox(key="site_habitat").set_value("mangrove (Rhizophora fringe)").run()
+    at.selectbox(key="site_habitat").set_value("salt marsh (Louisiana)").run()
+    assert not at.exception, at.exception
+    assert ({m.label: m.value for m in at.metric}, [tuple(t.value.columns) for t in at.dataframe]) == base
+    assert not any("Caribbean" in x.value for x in at.warning)

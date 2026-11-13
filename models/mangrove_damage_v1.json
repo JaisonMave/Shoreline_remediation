@@ -1,0 +1,319 @@
+{
+ "name": "mangrove-damage-v1",
+ "status": "experimental",
+ "built": "2026-11-13",
+ "plan": "docs/SCENARIO_PROGRAMME_PLAN.md Phase C2",
+ "model": "M1: value ~ oiled * C(year since spill) + (1 | site); M0: unoiled-group mean per year",
+ "target": "oiling effect (oiled minus unoiled site-year means)",
+ "outcomes": {
+  "root_documented_dead_share": {
+   "label": "share of prop roots recorded dead (primary)",
+   "verdict": "validated",
+   "sites": [
+    "aler",
+    "drom",
+    "hidc",
+    "hidr",
+    "linm",
+    "macn",
+    "macs",
+    "merr",
+    "minm",
+    "msm",
+    "padm",
+    "payr",
+    "pbm",
+    "pce",
+    "pcs",
+    "pgm",
+    "pmm",
+    "pmre",
+    "pmrw",
+    "sbce",
+    "sbcs",
+    "sbcw",
+    "unr"
+   ],
+   "n_oiled": 11,
+   "n_unoiled": 12,
+   "calendar_years": [
+    1987,
+    1988,
+    1989,
+    1990,
+    1991
+   ],
+   "mae_m0": 0.0715065366396888,
+   "mae_m1": 0.0437525871519146,
+   "m1_minus_m0": {
+    "diff": -0.027753949487774206,
+    "lo": -0.040697464007414905,
+    "hi": -0.015767310752464226
+   },
+   "fixed_effect_parameters": {
+    "Intercept": 0.0,
+    "C(ys)[T.2]": 0.015580357142857021,
+    "C(ys)[T.3]": 0.044998872655123034,
+    "C(ys)[T.4]": 0.1185648899711399,
+    "C(ys)[T.5]": 0.13964172979798023,
+    "oiled": -1.9551439105736696e-16,
+    "oiled:C(ys)[T.2]": 0.07094561688311651,
+    "oiled:C(ys)[T.3]": 0.12394052128427108,
+    "oiled:C(ys)[T.4]": 0.17256065115440067,
+    "oiled:C(ys)[T.5]": 0.1806144029581529
+   },
+   "residual_offsets_90_M1": [
+    -0.09822355356101305,
+    0.13746086760461732
+   ],
+   "interval_coverage": {
+    "M0": 0.8928571428571429,
+    "M1": 0.8928571428571429
+   },
+   "effect_by_year": [
+    {
+     "year_since_spill": 1,
+     "year": 1987,
+     "effect": -1.9551439105736696e-16,
+     "lo90": -0.04621427201826148,
+     "hi90": 0.046214272018261095,
+     "se": 0.028096282405330856
+    },
+    {
+     "year_since_spill": 2,
+     "year": 1988,
+     "effect": 0.07094561688311632,
+     "lo90": 0.02473134486485501,
+     "hi90": 0.11715988890137763,
+     "se": 0.028096282405330866
+    },
+    {
+     "year_since_spill": 3,
+     "year": 1989,
+     "effect": 0.12394052128427088,
+     "lo90": 0.07673178038625289,
+     "hi90": 0.17114926218228887,
+     "se": 0.028700876554902582
+    },
+    {
+     "year_since_spill": 4,
+     "year": 1990,
+     "effect": 0.17256065115440047,
+     "lo90": 0.12535191025638248,
+     "hi90": 0.21976939205241847,
+     "se": 0.02870087655490258
+    },
+    {
+     "year_since_spill": 5,
+     "year": 1991,
+     "effect": 0.1806144029581527,
+     "lo90": 0.1334056620601347,
+     "hi90": 0.2278231438561707,
+     "se": 0.028700876554902582
+    }
+   ]
+  },
+  "leaves_per_shoot": {
+   "label": "leaves per shoot, R. mangle (primary)",
+   "verdict": "validated",
+   "sites": [
+    "ccpq",
+    "ccsb",
+    "codr",
+    "crku",
+    "ecpy",
+    "eopm",
+    "erja",
+    "erpn",
+    "erps",
+    "erun",
+    "goli",
+    "gomg",
+    "goms",
+    "gopa",
+    "gopb",
+    "mcno",
+    "mcsu",
+    "nrme",
+    "wclr",
+    "wcls",
+    "wcno",
+    "wcsu",
+    "womi",
+    "wopg",
+    "wrhd",
+    "wrrb"
+   ],
+   "n_oiled": 12,
+   "n_unoiled": 14,
+   "calendar_years": [
+    1989,
+    1990,
+    1991
+   ],
+   "mae_m0": 1.1560964980891286,
+   "mae_m1": 0.9124985385211256,
+   "m1_minus_m0": {
+    "diff": -0.24359795956800326,
+    "lo": -0.4129400865893021,
+    "hi": -0.07932244702762056
+   },
+   "fixed_effect_parameters": {
+    "Intercept": 8.216219225785544,
+    "C(ys)[T.4]": -0.6190773134650661,
+    "C(ys)[T.5]": -0.8125627632005151,
+    "oiled": -0.8430288230812543,
+    "oiled:C(ys)[T.4]": -0.3153412129673482,
+    "oiled:C(ys)[T.5]": -0.8073207611968976
+   },
+   "residual_offsets_90_M1": [
+    -2.0825437162044165,
+    1.815317044067039
+   ],
+   "interval_coverage": {
+    "M0": 0.8974358974358975,
+    "M1": 0.8974358974358975
+   },
+   "effect_by_year": [
+    {
+     "year_since_spill": 3,
+     "year": 1989,
+     "effect": -0.8430288230812543,
+     "lo90": -1.5691695237264967,
+     "hi90": -0.11688812243601188,
+     "se": 0.4414621998864739
+    },
+    {
+     "year_since_spill": 4,
+     "year": 1990,
+     "effect": -1.1583700360486024,
+     "lo90": -1.8845107366938452,
+     "hi90": -0.43222933540335984,
+     "se": 0.441462199886474
+    },
+    {
+     "year_since_spill": 5,
+     "year": 1991,
+     "effect": -1.650349584278152,
+     "lo90": -2.3764902849233946,
+     "hi90": -0.9242088836329093,
+     "se": 0.441462199886474
+    }
+   ]
+  },
+  "root_oil_cover": {
+   "label": "root oil cover, % (secondary)",
+   "verdict": "not usable",
+   "sites": [
+    "aler",
+    "drom",
+    "hidc",
+    "hidr",
+    "linm",
+    "macn",
+    "macs",
+    "merr",
+    "minm",
+    "msm",
+    "padm",
+    "payr",
+    "pbm",
+    "pce",
+    "pcs",
+    "pgm",
+    "pmm",
+    "pmre",
+    "pmrw",
+    "sbce",
+    "sbcs",
+    "sbcw",
+    "unr"
+   ],
+   "n_oiled": 11,
+   "n_unoiled": 12,
+   "calendar_years": [
+    1987,
+    1988,
+    1989,
+    1990,
+    1991
+   ],
+   "mae_m0": 5.116961025472112,
+   "mae_m1": 6.010169494458985,
+   "m1_minus_m0": {
+    "diff": 0.893208468986873,
+    "lo": -1.0470178619908803,
+    "hi": 2.7413755216324254
+   },
+   "fixed_effect_parameters": {
+    "Intercept": -4.2459482273951125e-15,
+    "C(ys)[T.2]": 0.0042083333333365275,
+    "C(ys)[T.3]": -0.00014213873787488187,
+    "C(ys)[T.4]": 0.0044033158075790935,
+    "C(ys)[T.5]": -0.00014213873787561864,
+    "oiled": 8.437454545454552,
+    "oiled:C(ys)[T.2]": 6.971106313131304,
+    "oiled:C(ys)[T.3]": 5.554892138737867,
+    "oiled:C(ys)[T.4]": 1.6164148660105966,
+    "oiled:C(ys)[T.5]": -2.853297255201524
+   },
+   "residual_offsets_90_M1": [
+    -14.812689250000005,
+    16.48467299999997
+   ],
+   "interval_coverage": {
+    "M0": 0.9464285714285714,
+    "M1": 0.8928571428571429
+   },
+   "effect_by_year": [
+    {
+     "year_since_spill": 1,
+     "year": 1987,
+     "effect": 8.437454545454552,
+     "lo90": 0.8831381031030832,
+     "hi90": 15.99177098780602,
+     "se": 4.5926982915509855
+    },
+    {
+     "year_since_spill": 2,
+     "year": 1988,
+     "effect": 15.408560858585854,
+     "lo90": 7.8542444162343905,
+     "hi90": 22.96287730093732,
+     "se": 4.592698291550983
+    },
+    {
+     "year_since_spill": 3,
+     "year": 1989,
+     "effect": 13.99234668419242,
+     "lo90": 6.346500029911543,
+     "hi90": 21.638193338473297,
+     "se": 4.648344709219801
+    },
+    {
+     "year_since_spill": 4,
+     "year": 1990,
+     "effect": 10.053869411465149,
+     "lo90": 2.4080227571842725,
+     "hi90": 17.699716065746024,
+     "se": 4.648344709219801
+    },
+    {
+     "year_since_spill": 5,
+     "year": 1991,
+     "effect": 5.584157290253028,
+     "lo90": -2.061689364027848,
+     "hi90": 13.230003944533905,
+     "se": 4.648344709219801
+    }
+   ]
+  }
+ },
+ "assumed": {
+  "spill_year": 1986,
+  "n_boot": 2000,
+  "seed": 20261112
+ },
+ "scope": "One spill (Bahia Las Minas, Panama, April 1986); Caribbean coast; red mangrove (Rhizophora mangle) fringe; years 1-5 after the spill only (calendar 1987-1991; leaves per shoot years 3-5 only); no treatment or cleanup variable and no pre-spill data, so this is the oiling effect (oiled minus unoiled sites), not a treatment effect or recovery after cleanup; oiled and unoiled sites were chosen by the investigators, not randomised; source licence unclear.",
+ "training_data": "results/galeta/galeta_site_year.csv (NCEI 9400033; licence unclear)"
+}
