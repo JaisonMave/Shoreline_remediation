@@ -26,6 +26,10 @@ Computer (no account needed).
   distinguishable from natural recovery; conditions for use recorded. FINDINGS 17.
 - **Status:** Under validation.
 
+## 2026-11-13: full walkthrough slide deck
+- 92-slide deck (https://claude.ai/artifact/MeLp9tsyde7PwAHsnVCd8S) with 13 charts from results files and 11
+  dashboard screenshots; number sources in `docs/deck/NUMBER_SOURCES.md`. Five dashboard views lack screenshots.
+
 ## 2026-11-13: PAH decline, mangrove model and mode, expert review
 
 - **PAH decline:** `diver_soil.py`, `validation/pah_decline.py`, tests, `results/pah_decline/`. Sum validated

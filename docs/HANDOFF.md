@@ -33,6 +33,20 @@ but is new to ML.
 - The earlier seven-commit history was not in the previous zip, so it was restored as one commit.
   Network egress now works for NOAA, PLOS, Planetary Computer, Earth Search and PyPI (FTP is blocked).
 
+## Latest (13 Nov 2026, wrap-up)
+
+- **Full walkthrough deck (92 slides):** https://claude.ai/artifact/MeLp9tsyde7PwAHsnVCd8S. Covers the tool in
+  one page, what changed since the earlier 69-page walkthrough, every dataset with collection and reproduction
+  steps, every analysis with method, validation and verdict, a slide per dashboard view with pros and cons,
+  the Bay Jimmy worked example, strengths and limits, conclusions, recommendations, future scope and an
+  appendix (decisions D1-D24, glossary, file and results maps). Speaker notes give each number's source;
+  `docs/deck/NUMBER_SOURCES.md` lists them; chart scripts in `docs/deck/chart_scripts/`.
+- **Deck gaps:** screenshots exist for 11 views only (landing, map, picker, cleanup options, Compare options
+  cell and block, conditions, new site, sidebar). The edge-loss panel shot was a duplicate and is replaced by
+  its numbers; mangrove mode, the out-of-scope message, the oil chooser, the rules tab and the synthetic method
+  test have no screenshot and are described in words. Next session: take those shots and add slides.
+- Everything else in this file below still holds.
+
 ## In progress when the session was paused (12 Nov 2026, afternoon): read this first
 
 Jaison set usage limits (stop and hand off at 90% of the top-model allowance or 95% overall). Claude cannot
