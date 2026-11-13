@@ -39,6 +39,10 @@ fitted to." Not claimed: other contaminants, other ecosystems, other spills.
 | S1b | Period-split check | Under validation: inconclusive (FINDINGS 12) |
 | S2 | Dataset inventory | Under validation: ten sources checked, seven datasets catalogued (`docs/STAGE2_INVENTORY.md`); plant-oiling layers and beach treatment data not obtained |
 | S3a | Soil layer check | Under validation: null result (FINDINGS 13) |
+| SA | Treatment comparison (A1-A4) | Under validation (FINDINGS 14-18, 24) |
+| SB | Long-horizon forecast (B1) | Under validation (FINDINGS 19) |
+| SC | Mangroves (C1, C2) | Under validation (FINDINGS 20, 23) |
+| SD | Soil PAH decline | Under validation (FINDINGS 22) |
 | S3b | Foundation architecture | Not started: design written, D14-D20 Proposed |
 
 Order: P1 -> P2 -> P3 (can run alongside P2) -> P4 -> P5 -> P6.
@@ -88,3 +92,6 @@ contaminants and ecosystems (M7), the full platform (M8-M10).
 | D19 | 2026-11-12 | 1, 2 | Offshore fate models (PyGNOME, OpenOil) as an upstream provider of an arrival record; deferred until a forecasting use or second spill. | Proposed |
 | D20 | 2026-11-12 | 5 | Model registry with experimental and validated states and a promotion gate. | Proposed |
 | D21 | 2026-11-12 | 1, 2 | Do not use SSURGO or SoilGrids values as soil predictors in marsh; measured data only. Evidence: FINDINGS section 13. | Proposed |
+| D22 | 2026-11-13 | 2, 4 | Soil PAH: sum of individual compounds and hopane ratio; replicates averaged with a 50% RPD rule; non-detects estimated below a proxy limit by censored regression; all surface depths with depth as covariate. Chemical recovery is judged on the hopane ratio, not the sum. | Approved by Jaison (choices 1-5) and orchestrator (6); implemented |
+| D23 | 2026-11-13 | 3 | Expert-revised ranges and verdicts for untested treatments; conditions advisory only. | Approved by orchestrator under Jaison's delegation; implemented |
+| D24 | 2026-11-13 | 3, 4, 6 | Mangrove mode: Galeta damage model plus mangrove screening (work from water or fringe only); no marsh model applied to mangroves. | Approved by orchestrator under Jaison's delegation; implemented (experimental) |

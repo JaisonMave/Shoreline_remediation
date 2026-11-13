@@ -1,0 +1,37 @@
+[read] cwvp_Fall2010_samples.csv: rows 142461, soil rows 19278, soil samples 783
+[read] cwvp_Spring2011_samples.csv: rows 127661, soil rows 124603, soil samples 4086
+[read] cwvp_Fall2011_samples.csv: rows 92833, soil rows 85884, soil samples 3991
+[read] cwvp_Fall2012_samples.csv: rows 73291, soil rows 64416, soil samples 3508
+[read] cwvp_Fall2013_samples.csv: rows 42218, soil rows 36283, soil samples 2558
+[rows] soil rows, five files: 330464; samples 14926
+[rows] Analysis_Type PAH or hopane: 128084 rows; PAH samples 1703
+[rows] drop non-PPB / water-type units: 0
+[rows] drop tarball/oil rows: 355
+[rows] drop wet-weight / not dry-weight rows: 142
+[rows] drop rejected (qualifier R) rows: 2
+[rows] drop non-numeric results: 0
+[rows] kept: 127585 rows; PAH samples 1698; hopane samples 1698
+[rows] total organic carbon rows (same-sample soil property, PCT): 1802; samples 1698
+[rows] Organic Matter: measured on 0 of 1698 PAH/hopane samples (plan covariate; not usable if 0)
+[rows] Bulk Density: measured on 0 of 1698 PAH/hopane samples (plan covariate; not usable if 0)
+[rows] Salinity: measured on 0 of 1698 PAH/hopane samples (plan covariate; not usable if 0)
+[compounds] campaigns with PAH rows: ['Fall2011', 'Fall2012', 'Fall2013', 'Spring2011']; names per campaign: {'Fall2011': 70, 'Fall2012': 70, 'Fall2013': 70, 'Spring2011': 72}; reported in all: 70
+[compounds] removed by name as isomers contained in homologue-group rows (double counting): ['1-Methyldibenzothiophene', '1-Methylnaphthalene', '1-Methylphenanthrene', '2,3,5-Trimethylnaphthalene', '2,6-Dimethylnaphthalene', '2-Methylanthracene', '2-Methylnaphthalene', '2-Methylphenanthrene', '2/3-Methyldibenzothiophene', '3-Methylphenanthrene', '4-Methyldibenzothiophene', '4/9-Methylphenanthrene']
+[compounds] final list (58): Acenaphthene; Acenaphthylene; Anthracene; Benzo(a)anthracene; Benzo(a)fluoranthene; Benzo(a)pyrene; Benzo(b)fluoranthene; Benzo(b)fluorene; Benzo(b)thiophene; Benzo(e)pyrene; Benzo(g,h,i)perylene; Benzo(j+k)fluoranthene; Biphenyl; C1-Benzo(b)thiophenes; C1-Chrysenes; C1-Dibenzothiophenes; C1-Fluoranthenes/pyrenes; C1-Fluorenes; C1-Naphthalenes; C1-Naphthobenzothiophenes; C1-Phenanthrenes/anthracenes; C2-Benzo(b)thiophenes; C2-Chrysenes; C2-Dibenzothiophenes; C2-Fluoranthenes/pyrenes; C2-Fluorenes; C2-Naphthalenes; C2-Naphthobenzothiophenes; C2-Phenanthrenes/anthracenes; C3-Benzo(b)thiophenes; C3-Chrysenes; C3-Dibenzothiophenes; C3-Fluoranthenes/pyrenes; C3-Fluorenes; C3-Naphthalenes; C3-Naphthobenzothiophenes; C3-Phenanthrenes/anthracenes; C4-Benzo(b)thiophenes; C4-Chrysenes; C4-Dibenzothiophenes; C4-Fluoranthenes/pyrenes; C4-Naphthalenes; C4-Naphthobenzothiophenes; C4-Phenanthrenes/anthracenes; Carbazole; Chrysene + Triphenylene; Dibenzo(a,h+a,c)anthracene; Dibenzofuran; Dibenzothiophene; Fluoranthene; Fluorene; Indeno(1,2,3-c,d)pyrene; Naphthalene; Naphthobenzothiophene; Perylene; Phenanthrene; Pyrene; Retene
+[stations] samples without label: 303; matched by coordinates within 30 m: 303; unmatched: 0; matches with a second station also within the radius: 2
+[stations] PAH/hopane samples 1698; with station 1698; stations 200
+[replicates] rows with an assigned station: 106021 of 106021
+[replicates] sample-compound keys: 100181; keys with >1 row: 5840
+[replicates] keys mixing detect and non-detect replicates (non-detect rows dropped): 282
+[replicates] rule outcomes per sample-compound (RPD limit 50 %, ASSUMED): {'single': 94623, 'mean': 4946, 'closer_to_median': 612, 'drop_farthest': 0}
+[replicates] two-lab case: PAH rows come from one laboratory (Alpha Analytical) only, so the same rule was applied to replicate and re-extraction rows (1A/2A, several Lab_IDs).
+[oiling] stations 200; SCAT zone within 100 m: 144; classes: {'unknown': 56, 'none': 46, 'heavy': 38, 'moderate': 26, 'light': 24, 'very_light': 10}
+[proxy] proxy limit (5th percentile of detects, ASSUMED) per compound x campaign: 232 cells; 1 cells with no detect in that campaign took the compound's pooled value; 0 cells without any detect (non-detects set to 0)
+[tobit] compounds with a fitted Tobit model: 58; compounds with non-detects that fell back to half the proxy limit (fewer than 30 detects or fit failure): 0
+[tobit] non-detect values by method: {'tobit': 24705}
+[sum] samples with any compound of the list: 1698; with all 58 compounds: 1697; dropped for missing compounds: 1
+[sum] samples with a sum: 1697; with hopane ratio: 1587; hopane non-detected (ratio not computed): 110; hopane missing: 0
+[sum] share of the sum estimated from non-detects: pooled 0.0028; mean per sample 0.0987; samples above 50 % flagged: 91
+[table] station-campaign-depth rows 684; stations 200; stations by number of campaigns: {1: 4, 2: 33, 3: 38, 4: 125}
+[model] PAH sum: cells 684; stations 200; target cells 482 in 196 stations
+[model] PAH sum / hopane: cells 658; stations 198; target cells 458 in 193 stations

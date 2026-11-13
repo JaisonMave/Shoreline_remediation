@@ -11,7 +11,7 @@ but is new to ML.
 ## Where things are
 
 - Repository: https://github.com/JaisonMave/Shoreline_remediation (public). `main` is at commit 4b0c118.
-- Unpushed work: branch `process-model-audit`, thirty-five commits on top of `main`, held only in
+- Unpushed work: branch `process-model-audit`, forty commits on top of `main`, held only in
   `Shoreline_remediation-full.zip` (remade 12 Nov 2026). The zip contains the whole repository including its
   `.git` folder, so unzipping it restores the branch and history directly; no need to clone first. Run
   `python -m pytest tests` (all tests should pass; install `requirements-analysis.txt` first). Do not push unless asked; pushing needs the Claude GitHub
@@ -57,13 +57,15 @@ State of the three jobs (updated at each checkpoint):
 | C1 Galeta mangrove description | Done, committed (FINDINGS 20). Descriptive only; raw data not committed. |
 | DIVER soil chemistry structure | Done, committed (FINDINGS 21). Draft PAH plan `docs/PAH_DECLINE_PLAN_DRAFT.md` is Proposed and not run. |
 
-Next steps (none started): (1) Jaison: test "Compare options"; review the conditions table, elicited
-ranges and the six marked choices in the PAH draft plan; decisions D14-D21. (2) After his PAH choices: commit
-the final plan, then run it once. (3) Re-check key numbers in the treatment evidence table against primary
-papers. (4) Correct the heavy-oiling over-prediction: needs a measured excess for cleaned shoreline
-(segment-level treatment records, P3) or digitising the treated stretches from NOAA TM OR&R 42. (5) TROPICS
-tables transcribed, if mangrove treatment evidence is wanted. (6) P6 report and decks still need the
-wording correction.
+| PAH decline (DIVER) | Done, checked, committed (FINDINGS 22). Sum falls (half-life about 1.6-1.8 y where heavily or moderately oiled); hopane ratio does not, so loss is mostly physical. |
+| Mangrove model and mangrove mode | Done, checked, committed (FINDINGS 23). Validated within one spill; in the dashboard. |
+| Expert review of treatments | Done, committed (FINDINGS 24; `data/knowledge/EXPERT_REVIEW.md`). |
+
+Next steps (none started): (1) Jaison: test the dashboard (Compare options; mangrove mode); review D22-D24.
+(2) Show the PAH decline in the tool as "surface concentration, mostly physical loss" with the hopane ratio
+as the chemical-recovery indicator. (3) Verify mangrove screening rows marked "to verify" against NOAA 2014
+(literature list L4). (4) Correct the heavy-oiling over-prediction (needs treated-segment records).
+(5) A second spill (M4) remains the precondition for any claim of transfer between spills.
 
 ## Session of 12 November 2026 (read this first)
 

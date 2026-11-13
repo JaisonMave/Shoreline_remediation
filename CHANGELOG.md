@@ -26,6 +26,18 @@ Computer (no account needed).
   distinguishable from natural recovery; conditions for use recorded. FINDINGS 17.
 - **Status:** Under validation.
 
+## 2026-11-13: PAH decline, mangrove model and mode, expert review
+
+- **PAH decline:** `diver_soil.py`, `validation/pah_decline.py`, tests, `results/pah_decline/`. Sum validated
+  (half-life 1.6 y heavy, 1.8 y moderate); hopane ratio does not decline, so loss is mostly physical.
+  FINDINGS 22. Rerun: `python -m validation.pah_decline` (needs the DIVER files: `scripts/download_diver.sh`).
+- **Mangrove:** `mangrove_model.py`, `validation/mangrove_damage.py`, `models/mangrove_damage_v1.json`,
+  Habitat selector and mangrove mode in `site_view.py`. Dead roots and leaves per shoot validated within
+  Galeta. FINDINGS 23. Rerun: `python -m validation.mangrove_damage`.
+- **Expert review:** `data/knowledge/EXPERT_REVIEW.md`, revised `elicited_priors.csv`, approved
+  `treatment_conditions.csv`, new `mangrove_screening.csv`. FINDINGS 24. Decisions D22-D24.
+- 167 tests pass. **Status:** Under validation.
+
 ### Phase B1, Phase C1, DIVER structure
 - **B1:** `forecast()` in `scenario_composer.py`, `validation/forecast_horizon_check.py`, tests (152 pass).
   7-year check in Barataria passes (92% of cells, 94% of blocks); heavy cells over-predicted by 0.53 m/yr.

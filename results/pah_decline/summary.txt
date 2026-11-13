@@ -1,0 +1,44 @@
+PAH decline in oiled marsh, DIVER: run once (plan docs/PAH_DECLINE_PLAN.md, Final choices).
+
+Outcome: PAH sum
+  Verdict rule (validated if M1 beats M0 and the 90% interval of the difference excludes zero; suggestive if it only leans; else not usable): VALIDATED
+  stations 200, cells 684, held-out stations 196, held-out cells 482
+  M0 mean abs error (ln units) 0.631; M1 0.592; M1 - M0 = -0.039 (90% interval -0.066 to -0.010)
+  M1 90% prediction interval for ln value: -1.38 to +1.18; coverage 0.89
+  half-life (years, 90% interval) by oiling class:
+    pooled      stations 200 (2+ campaigns 196); k +0.147/yr (+0.095 to +0.200); half-life 4.72 (3.47 to 7.29)
+    none        stations  46 (2+ campaigns  45); k -0.056/yr (-0.118 to +0.015); half-life no decline (45.04 to no decline)
+    very_light  stations  10 (2+ campaigns  10); k +0.088/yr (-0.040 to +0.252); half-life 7.91 (2.75 to no decline)
+    light       stations  24 (2+ campaigns  24); k +0.242/yr (+0.080 to +0.424); half-life 2.86 (1.63 to 8.72)
+    moderate    stations  26 (2+ campaigns  25); k +0.378/yr (+0.213 to +0.579); half-life 1.83 (1.20 to 3.26)
+    heavy       stations  38 (2+ campaigns  36); k +0.430/yr (+0.291 to +0.556); half-life 1.61 (1.25 to 2.38)
+    unknown     stations  56 (2+ campaigns  56); k +0.069/yr (-0.009 to +0.155); half-life 10.07 (4.48 to no decline)
+
+Outcome: PAH sum / hopane
+  Verdict rule (validated if M1 beats M0 and the 90% interval of the difference excludes zero; suggestive if it only leans; else not usable): VALIDATED
+  stations 198, cells 658, held-out stations 193, held-out cells 458
+  M0 mean abs error (ln units) 0.450; M1 0.429; M1 - M0 = -0.020 (90% interval -0.033 to -0.007)
+  M1 90% prediction interval for ln value: -0.90 to +0.93; coverage 0.89
+  half-life (years, 90% interval) by oiling class:
+    pooled      stations 198 (2+ campaigns 193); k -0.086/yr (-0.117 to -0.052); half-life no decline (no decline to no decline)
+    none        stations  46 (2+ campaigns  45); k -0.089/yr (-0.156 to -0.011); half-life no decline (no decline to no decline)
+    very_light  stations  10 (2+ campaigns  10); k -0.036/yr (-0.183 to +0.121); half-life no decline (5.71 to no decline)
+    light       stations  24 (2+ campaigns  23); k -0.102/yr (-0.261 to +0.064); half-life no decline (10.86 to no decline)
+    moderate    stations  26 (2+ campaigns  25); k -0.043/yr (-0.105 to +0.030); half-life no decline (22.82 to no decline)
+    heavy       stations  38 (2+ campaigns  36); k +0.018/yr (-0.047 to +0.077); half-life 37.58 (8.96 to no decline)
+    unknown     stations  54 (2+ campaigns  54); k -0.150/yr (-0.219 to -0.091); half-life no decline (no decline to no decline)
+
+Sum versus hopane: a decline in the sum with no decline in the ratio means physical loss (erosion, burial, removal), not degradation (plan).
+
+Sensitivity runs: see sensitivity.csv. Processing counts: processing_log.txt.
+
+Bug fixes after seeing real results: none (the pipeline was run once; no code was changed after the results).
+Notes and departures from the plan (all recorded in processing_log.txt):
+1. Organic matter, bulk density and salinity are measured on none of the PAH samples (different Sample_IDs), so the Tobit used the one
+   soil property measured on the same samples, total organic carbon (ASSUMED substitute for organic matter), with campaign. Depth class was
+   not used in the Tobit (too few deeper samples). A run with every non-detect set to half the proxy limit (the plan's fallback) is in sensitivity.csv.
+2. Individual alkyl isomers contained in homologue-group rows were removed by name before summing to avoid double counting (58 compounds kept).
+3. Reading the hopane outcome: the verdict rule is about error against M0. For the ratio, M1 beats M0 with a NEGATIVE k (the ratio rises over
+   time, pooled half-life undefined), so "validated" there means a rise was predicted better than no change, not a decline.
+4. By state: errors only (by_oiling_class.csv, stratum_type = state); no state-specific half-life was fitted.
+5. Oiling classes with few stations (very_light 10) have wide intervals; 56 stations are "unknown" (no SCAT zone within 100 m).
