@@ -185,11 +185,15 @@ def export_lhs_dataset(path: str | Path, n_segments: int = 100, seed: int = 42) 
     return data
 
 
-def simulate_selected_scenario(scenario, treatment: str, survey_days: list[int] | None = None, engine: str = "transport") -> pd.DataFrame:
+def simulate_selected_scenario(scenario, treatment: str, survey_days: list[int] | None = None, engine: str = "transport",
+                               oil_thickness: float | None = None, penetration_depth_cm: float | None = None,
+                               season: str | None = None, parameter_overrides: dict | None = None) -> pd.DataFrame:
     if engine == "transport":
         from src.shoreline_remediation.shoreline_transport import simulate_transect
 
-        return simulate_transect(scenario, treatment, survey_days)
+        return simulate_transect(scenario, treatment, survey_days, oil_thickness=oil_thickness,
+                                 penetration_depth_cm=penetration_depth_cm, season=season,
+                                 parameter_overrides=parameter_overrides)
     record = {
         "survey_date": date.today(),
         "segment_id": "SELECTED-SCENARIO",

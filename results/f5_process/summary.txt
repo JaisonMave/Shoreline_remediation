@@ -1,0 +1,19 @@
+F5 process model, run once. Plan: docs/F5_PROCESS_MODEL_PLAN.md.
+
+Step 2. Residual surface oil / initial oil, marsh heavy no_cleanup, 400 prior draws.
+  day 365: p05 0.1567, p50 0.3794, p95 0.6008
+  day 730: p05 0.1160, p50 0.2946, p95 0.5136
+Influential rate coefficients (mean total-order index):
+  labile_fraction_heavy: 0.318
+  k_up_per_day: 0.245
+  edge_export_scale: 0.151
+  evap_heavy_per_day: 0.114
+
+Step 3. Held-out station MAE on log relative PAH (heavy and moderate).
+  stations 61, cells 130
+  prior 0.7946
+  empirical k 0.7499 (heavy 0.43016/yr, moderate 0.37798/yr)
+  calibrated 0.7748
+  beats prior: True; beats empirical: False; posterior differs: True
+  full-data effective sample size: 361.8
+GATE: FAIL. The process model is illustrative and must not enter the decision path.

@@ -1,0 +1,33 @@
+{
+  "name": "process-model-v2",
+  "model_id": "process_model_v2",
+  "status": "experimental",
+  "label": "illustrative",
+  "decision_path": false,
+  "built": "2026-11-14",
+  "plan": "docs/F5_PROCESS_MODEL_PLAN.md",
+  "engine": "adr_shoreline_transport_v1_1",
+  "scenario": "marsh, heavy oil category, no_cleanup; moderate differs by coverage 40% and thickness 10 mm",
+  "influential_parameters": [
+    "labile_fraction_heavy",
+    "k_up_per_day",
+    "edge_export_scale",
+    "evap_heavy_per_day"
+  ],
+  "gate": {
+    "n_stations": 61,
+    "n_cells": 130,
+    "mae_prior": 0.794579191199463,
+    "mae_empirical": 0.7498628336504957,
+    "mae_calibrated": 0.7747745240635959,
+    "ess_full": 361.7521575218301,
+    "k_heavy": 0.4301617640977481,
+    "k_moderate": 0.3779795673004565,
+    "any_differs": true,
+    "beats_prior": true,
+    "beats_empirical": false,
+    "gate_pass": false
+  },
+  "limits": "Soil PAH is mostly physical loss (FINDINGS section 22). The engine has no erosion term. Calibration updates only the influential rate coefficients and does not identify cleanup, which is unrecorded at these stations. Not wired into the dashboard.",
+  "decision_path_statement": "Gate failed. This process model is illustrative and must not enter the decision path."
+}

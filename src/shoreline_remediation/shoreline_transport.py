@@ -70,36 +70,87 @@ def _zone_arrays(scenario) -> dict[str, np.ndarray]:
     return dict(R=R, D=D * wave * tide, oxygen=oxygen, nutrient=nutrient, k_inf=k_inf * perm, v_out=v_out * wave)
 
 
-def _initial_state(scenario) -> tuple[np.ndarray, float, int, int]:
-    labile_fraction = {"light": 0.80, "medium": 0.55, "heavy": 0.35, "solid": 0.25}[scenario.oil_category]
-    band = int(round(np.clip(3 + scenario.oil_coverage / 100.0 * 12, 3, 15)))
+# ASSUMED Gulf-coast seasonal set-points. Used only when season is passed; scenario.season stays ignored.
+SEASON_TEMPERATURE_C = {"winter": 12.0, "spring": 20.0, "summer": 28.0, "fall": 22.0, "autumn": 22.0}
+SURFACE_OIL_CM = 5.0  # NOAA Shoreline Assessment Manual, Appendix I
+THICKNESS_REF_MM = 10.0  # ASSUMED: a 10 mm film keeps the screening surface-loss rates
+
+
+def _initial_state(scenario, thickness_mm: float | None = None, labile_fraction: float | None = None,
+                   band_m: float | None = None) -> tuple[np.ndarray, float, int, int]:
+    labile = {"light": 0.80, "medium": 0.55, "heavy": 0.35, "solid": 0.25}[scenario.oil_category]
+    if labile_fraction is not None:
+        labile = float(labile_fraction)
+    if band_m is None:
+        band = int(round(np.clip(3 + scenario.oil_coverage / 100.0 * 12, 3, 15)))
+    else:
+        band = int(round(np.clip(band_m, 3, 15)))
     start = 0 if scenario.shoreline_type in MARSH_TYPES else (10 if scenario.shoreline_type not in HARD_TYPES else 0)
     stop = min(start + band, N_CELLS)
-    thickness_m = max(scenario.oil_thickness, 0.1) / 1000.0
+    thickness_m = max(scenario.oil_thickness if thickness_mm is None else thickness_mm, 0.1) / 1000.0
     surface = np.zeros(N_CELLS)
     surface[start:stop] = thickness_m * OIL_DENSITY * (scenario.oil_coverage / 100.0)
-    state = np.concatenate([surface * labile_fraction, surface * (1 - labile_fraction), np.zeros(N_CELLS), np.zeros(N_CELLS)])
-    return state, labile_fraction, start, stop
+    state = np.concatenate([surface * labile, surface * (1 - labile), np.zeros(N_CELLS), np.zeros(N_CELLS)])
+    return state, labile, start, stop
 
 
-def simulate_transect(scenario, treatment: str = "no_cleanup", survey_days: list[int] | None = None, return_profiles: bool = False):
+def _apply_penetration(state: np.ndarray, penetration_depth_cm: float | None) -> np.ndarray:
+    """Move the below-5 cm share of the initial oil into the subsurface. None leaves the state unchanged."""
+    if penetration_depth_cm is None or penetration_depth_cm <= SURFACE_OIL_CM:
+        return state
+    sub_frac = (float(penetration_depth_cm) - SURFACE_OIL_CM) / float(penetration_depth_cm)
+    n = N_CELLS
+    out = state.copy()
+    out[2 * n:3 * n] += sub_frac * state[:n]
+    out[3 * n:] += sub_frac * state[n:2 * n]
+    out[:n] *= 1.0 - sub_frac
+    out[n:2 * n] *= 1.0 - sub_frac
+    return out
+
+
+def simulate_transect(scenario, treatment: str = "no_cleanup", survey_days: list[int] | None = None,
+                      return_profiles: bool = False, oil_thickness: float | None = None,
+                      penetration_depth_cm: float | None = None, season: str | None = None,
+                      parameter_overrides: dict | None = None):
     from src.shoreline_remediation.process_model import TREATMENT_PARAMETERS
 
     days = sorted(set(survey_days or [0, 7, 14, 30, 60, 90, 180, 365]))
     zones = _zone_arrays(scenario)
-    state0, _, start, stop = _initial_state(scenario)
+    ov = parameter_overrides or {}
+    # Default path uses the screening literals below. Overrides are applied only when a draw is supplied,
+    # so an omitted argument cannot change an existing trajectory.
+    if ov:
+        for key, field in (("R_scale", "R"), ("D_scale", "D"), ("oxygen_scale", "oxygen"),
+                           ("k_inf_scale", "k_inf"), ("v_out_scale", "v_out")):
+            if key in ov:
+                zones[field] = zones[field] * float(ov[key])
+    state0, _, start, stop = _initial_state(
+        scenario, thickness_mm=oil_thickness, labile_fraction=ov.get("labile_fraction"), band_m=ov.get("band_m"))
+    state0 = _apply_penetration(state0, penetration_depth_cm)
     params = TREATMENT_PARAMETERS.get(treatment, TREATMENT_PARAMETERS["no_cleanup"])
     access = {"good": 1.0, "moderate": 0.7, "restricted": 0.4}.get(scenario.accessibility, 0.7)
-    temperature_factor = 2.0 ** ((scenario.temperature_c - 20.0) / 10.0)
-    evap = {"light": 0.10, "medium": 0.03, "heavy": 0.01, "solid": 0.005}[scenario.oil_category]
-    k_o, k_n = 1.0, 0.5
+    if "treatment_scale" in ov:
+        params = {k: (v * float(ov["treatment_scale"]) if k != "disturbance" else v) for k, v in params.items()}
+    treatment_days = float(ov.get("treatment_duration_days", TREATMENT_DAYS))
+    temperature_c = scenario.temperature_c if season is None else SEASON_TEMPERATURE_C[season.strip().lower()]
+    if "temperature_c" in ov:
+        temperature_c = float(ov["temperature_c"])
+    q10 = float(ov.get("q10", 2.0))
+    temperature_factor = q10 ** ((temperature_c - 20.0) / 10.0)
+    evap = float(ov.get("evap", {"light": 0.10, "medium": 0.03, "heavy": 0.01, "solid": 0.005}[scenario.oil_category]))
+    k_o, k_n = float(ov.get("k_o", 1.0)), float(ov.get("k_n", 0.5))
     monod = (zones["oxygen"] / (k_o + zones["oxygen"])) * (zones["nutrient"] / (k_n + zones["nutrient"]))
-    k_bio_labile = 0.01 * temperature_factor * monod
-    k_bio_recalcitrant = 0.0005 * temperature_factor * monod
+    k_bio_labile = float(ov.get("k_bio_labile", 0.01)) * temperature_factor * monod
+    k_bio_recalcitrant = float(ov.get("k_bio_recalcitrant", 0.0005)) * temperature_factor * monod
     d_eff = zones["D"] / zones["R"]
     k_inf, v_out = zones["k_inf"], zones["v_out"]
-    k_up = 0.002
+    k_up = float(ov.get("k_up", 0.002))
     surface_evap = evap * (1.0 if scenario.shoreline_type not in MARSH_TYPES else 0.6)
+    if oil_thickness is not None:
+        # Thicker oil: a smaller fraction of the mass is at the air and oxygen interface.
+        loss_scale = float(np.clip(THICKNESS_REF_MM / max(float(oil_thickness), 1.0), 0.2, 5.0))
+        surface_evap = surface_evap * loss_scale
+        k_bio_labile = k_bio_labile * loss_scale
     n = N_CELLS
 
     # Dispersion is written in flux form so that it conserves mass. The earlier form, d_eff times a plain
@@ -114,8 +165,8 @@ def simulate_transect(scenario, treatment: str = "no_cleanup", survey_days: list
 
     def rhs(t: float, y: np.ndarray) -> np.ndarray:
         sl, sr, bl, br = y[:n], y[n:2 * n], y[2 * n:3 * n], y[3 * n:]
-        treat = (params["surface_removal"] * access) if t <= TREATMENT_DAYS else 0.0
-        treat_sub = (params["subsurface_removal"] * access) if t <= TREATMENT_DAYS else 0.0
+        treat = (params["surface_removal"] * access) if t <= treatment_days else 0.0
+        treat_sub = (params["subsurface_removal"] * access) if t <= treatment_days else 0.0
         outflux_l = np.zeros(n)
         outflux_r = np.zeros(n)
         outflux_l[0] = v_out[0] * sl[0] / DX_M
