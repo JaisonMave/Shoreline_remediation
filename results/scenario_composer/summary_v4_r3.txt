@@ -1,0 +1,108 @@
+R3 diagnostic (plan docs/R3_OIL_DOUBLE_COUNT_PLAN.md section 2). Run once, before any fix.
+
+Refit M1 on the full 12696-cell p5-edge-loss-v1 training panel; max |coefficient difference| vs the deployed model card = 5.77e-15 -> matches models/p5_edge_loss_v1.json.
+
+Mean in-sample residual (observed minus fitted) by SCAT maximum oiling class, 90% cluster bootstrap by 2 km block (2000 resamples):
+  NOO: n 10162 cells, 548 blocks, mean residual -0.036 m/yr, 90% CI (-0.140 to +0.067), 0 resamples dropped (no cells of this class drawn)
+  Very_Light: n 610 cells, 74 blocks, mean residual +0.026 m/yr, 90% CI (-0.277 to +0.297), 0 resamples dropped (no cells of this class drawn)
+  Light: n 684 cells, 100 blocks, mean residual -0.186 m/yr, 90% CI (-0.461 to +0.072), 0 resamples dropped (no cells of this class drawn)
+  Moderate: n 688 cells, 85 blocks, mean residual +0.346 m/yr, 90% CI (+0.106 to +0.555), 0 resamples dropped (no cells of this class drawn)
+  Heavy: n 552 cells, 56 blocks, mean residual +0.434 m/yr, 90% CI (+0.224 to +0.697), 0 resamples dropped (no cells of this class drawn)
+
+Confirmation rule (pre-specified): Heavy interval entirely above zero -> CONFIRMED: +0.434 m/yr (+0.224 to +0.697).
+For reference, NOO (clean, used only as a sanity reference, not part of the confirmation rule): -0.036 m/yr (-0.140 to +0.067).
+
+R3 fix: clean-edge baseline model (plan section 3). Run once.
+
+models/p5_edge_loss_clean_v1.json: 10772 clean-edge cells (NOO + Very_Light; v1 used 12696 cells of all classes).
+Coefficients (const, water_1km_2010, water_250m_2010, log_fetch, pre_rate):
+  const: v1 -3.8103 -> clean -3.6206
+  water_1km_2010: v1 -0.0121 -> clean -0.0261
+  water_250m_2010: v1 -0.0546 -> clean -0.0663
+  log_fetch: v1 +0.6282 -> clean +0.5934
+  pre_rate: v1 +0.2223 -> clean +0.2489
+90% interval offsets: v1 (-3.159 to +2.882) -> clean (-3.127 to +2.922)
+LOBO MAE: v1 1.296 -> clean 1.294 (clean no-predictor baseline 1.384)
+Check C1b: C1 rerun with the R3 clean-edge baseline (plan section 4, docs/R3_OIL_DOUBLE_COUNT_PLAN.md). Run once.
+
+  barataria: 501 heavy cells, coverage 0.940, mean observed 1.07 m/yr, mean composed median 1.64 m/yr, heavy bias +0.574 m/yr -> PASSES 80-97% coverage, DOES NOT PASS heavy bias +/-0.25
+  breton: 31 heavy cells, coverage 0.806, mean observed 1.44 m/yr, mean composed median 1.58 m/yr, heavy bias +0.146 m/yr -> PASSES 80-97% coverage, PASSES heavy bias +/-0.25
+  pooled: 532 heavy cells, coverage 0.932, mean observed 1.09 m/yr, mean composed median 1.64 m/yr, heavy bias +0.549 m/yr -> PASSES 80-97% coverage, DOES NOT PASS heavy bias +/-0.25
+NOO-cell bias (same held-out cells, n=6502): clean +0.428 m/yr, original (v1) +0.441 m/yr; |clean| - |original| = -0.013 -> PASSES (gate: not worse by more than 0.10 m/yr).
+
+Overall: pooled coverage 0.932 (PASSES 80-97%), pooled heavy bias +0.549 m/yr (DOES NOT PASS +/-0.25), NOO bias gate PASSES.
+C1b DOES NOT PASS all gates.
+
+
+Check C2b: C2 rerun with the R3 clean-edge baseline (plan section 4, docs/R3_OIL_DOUBLE_COUNT_PLAN.md). Run once.
+
+  barataria: 192 blocks, coverage 0.875, mean observed block mean 0.43 m/yr, mean composed median 0.54 m/yr -> PASSES 80-97%
+  breton: 155 blocks, coverage 0.929, mean observed block mean 0.70 m/yr, mean composed median 1.34 m/yr -> PASSES 80-97%
+  pooled: 347 blocks, coverage 0.899, mean observed block mean 0.55 m/yr, mean composed median 0.90 m/yr -> PASSES 80-97%
+Cell-level bias within the >= 5-cell blocks used above: heavy cells (n=531) bias +0.608 m/yr -> DOES NOT PASS +/-0.25.
+NOO cells (n=6369) bias: clean +0.458 m/yr, original (v1) +0.447 m/yr; |clean| - |original| = +0.011 -> PASSES (gate: not worse by more than 0.10 m/yr).
+
+Overall: pooled coverage 0.899 (PASSES 80-97%).
+C2b DOES NOT PASS all gates.
+
+
+Check B1b: B1 rerun with the R3 clean-edge baseline (plan section 4, docs/R3_OIL_DOUBLE_COUNT_PLAN.md). Run once.
+
+Matching: 4727 cells have a NAIP 2010-2017 rate; 5386 Barataria cells have a clean-edge-model held-out prediction; 3778 matched on cell id; oiling class mismatches 8, 2 km block mismatches 0. Blocks: 149 with matched cells, 128 with >= 5 (used).
+  cells pooled: n 3778, coverage 0.923, mean observed 0.363, mean composed median 0.557, bias +0.194 m/yr -> PASSES 80-97%
+  blocks pooled (>=5 cells): n 128, coverage 0.922, mean observed 0.483, mean composed median 0.433, bias -0.050 m/yr -> PASSES 80-97%
+  cells, oiling Heavy: n 487, coverage 0.940, mean observed 0.943, mean composed median 1.532, bias +0.589 m/yr -> PASSES 80-97%
+  cells, oiling Light: n 381, coverage 0.950, mean observed 0.177, mean composed median 0.437, bias +0.260 m/yr -> PASSES 80-97%
+  cells, oiling Moderate: n 471, coverage 0.913, mean observed 0.555, mean composed median 0.626, bias +0.072 m/yr -> PASSES 80-97%
+  cells, oiling NOO: n 2176, coverage 0.915, mean observed 0.245, mean composed median 0.356, bias +0.111 m/yr -> PASSES 80-97%
+  cells, oiling Very_Light: n 263, coverage 0.935, mean observed 0.196, mean composed median 0.471, bias +0.275 m/yr -> PASSES 80-97%
+Heavy-cell bias: clean +0.589 m/yr (original v1 was +0.534) -> DOES NOT PASS +/-0.25.
+NOO-cell bias: clean +0.111 m/yr, original (v1, read from b1_horizon_coverage.csv) +0.064 m/yr; |clean| - |original| = +0.047 -> PASSES (gate: not worse by more than 0.10 m/yr).
+
+B1b DOES NOT PASS all gates.
+
+Overall R3 reading (added after all runs; nothing above was rerun or retuned after seeing these numbers).
+
+The diagnostic confirmed the double count (Heavy in-sample residual +0.434 m/yr, 90% CI +0.224 to +0.697, entirely
+above zero), so the clean-edge refit (primary fix, D27) was expected to and did remove that specific mechanism:
+a model that never saw Heavy, Moderate or Light cells during training can no longer be absorbing part of their
+extra erosion before the Zengel excess is added on top.
+
+Coverage (the pre-specified, unchanged 80-97% gate) PASSES in every b-check (C1b 93.2%, C2b 89.9%, B1b cells
+92.3%/blocks 92.2%), same as the originals, and the NOO-bias-not-worse-than-original gate PASSES everywhere too
+(differences of -0.013, +0.011 and +0.047 m/yr, all well inside the 0.10 m/yr allowance) -- the fix did not make
+clean-cell predictions worse.
+
+The NEW heavy-bias gate (+/-0.25 m/yr) DOES NOT PASS in any of the three checks: heavy bias is +0.549 m/yr (C1b,
+was +0.57 m/yr under the original v1 baseline), +0.608 m/yr (C2b, no original comparator computed by the plan),
+and +0.589 m/yr (B1b, was +0.534 m/yr originally -- slightly WORSE, not better). So the fix is correctly built
+and removes the identified in-sample mechanism, but it does not, on its own, bring the heavy-cell bias within the
+new gate, and in one check (B1b) the bias moved in the wrong direction.
+
+What weakens the conclusion / plain reading: the clean-edge model was fitted on about 85% of the original cells
+but with far fewer blocks near Heavy-oiled shoreline, so its coefficients differ non-trivially from v1's (e.g.
+pre_rate 0.222 -> 0.249, log_fetch 0.628 -> 0.593) and shift predictions for every cell, not just Heavy ones, in
+a direction that is not guaranteed to reduce Heavy bias specifically -- it happened to help a little in C1b
+(barataria and breton both improved slightly) and to hurt a little in B1b (barataria alone, different held-out
+pool). A large share of the measured bias comes from sources the fix does not touch and that were already named
+against the originals: NAIP reads about 1.2 m/yr low against field erosion plots, most heavily oiled shoreline
+was actually cleaned (so real-world erosion is lower than the untreated-plot Zengel excess used here), and the
+single pooled leave-one-basin-out residual (mixing all oiling classes, as in the originals) carries its own
+basin-transfer bias -- breton in particular shows a large positive NOO-cell prediction gap (~+0.58 m/yr, checked
+directly, not from a model defect but from basin-to-basin transfer) that inflates both the clean and the original
+bias figures by similar amounts, which is why the clean-vs-original comparison stays small even though the
+absolute bias is large in both. In short: the double count was real and is now fixed, but it was not the main
+source of the heavy-cell over-prediction documented in B1/C1; the larger remaining sources (measurement gap,
+cleaned-vs-untreated mismatch, basin transfer) are outside this fix's scope and remain open, as the original
+checks already said.
+
+
+Orchestrator reading (added after the run, 14 Nov 2026; no rerun). The pre-specified confirmation rule was mis-specified.
+A positive Heavy in-sample residual (+0.434) means M1 UNDER-predicts heavy cells, i.e. M1 did not absorb the oil effect;
+a double count would show a residual near zero. Absorption is the shift in heavy-cell predictions between the all-cell and
+clean-cell fits, which is small (heavy bias changes -0.02 to +0.06 m/yr across C1b, C2b, B1b). So the double count is minor.
+The over-prediction comes from the size of the added excess: the Zengel untreated-plot excess averages about 0.88 m/yr over
+five years (2 x 1.88 + 3 x 0.21) / 5, while NAIP shows about 0.43 m/yr beyond exposure and pre-spill trend (this diagnostic).
+Candidate correction (new decision D32, needs its own plan): scale or replace the oil excess with a NAIP-based within-model
+estimate, or keep Zengel and show the bias. Relative to NOO cells in the same held-out basins, the C1b heavy excess bias is
++0.12 m/yr (0.549 - 0.428); in B1b it is +0.48 (0.589 - 0.111), so part of the C1 gap is a basin-level shift common to all cells.

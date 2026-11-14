@@ -1,0 +1,113 @@
+{
+  "name": "p5-edge-loss-clean-v1",
+  "built": "2026-11-14",
+  "target": "NAIP marsh-edge loss rate 2010-2015, m/yr (positive = land lost), per 100 m edge cell",
+  "algorithm": "ordinary least squares (P2 model M1: exposure + pre-spill trend, no oiling term; fitted on clean-edge cells only, max_oiling in NOO and Very_Light, to avoid the composer's separate oil-excess term being added on top of a baseline that already includes heavily oiled cells; docs/R3_OIL_DOUBLE_COUNT_PLAN.md)",
+  "terms": [
+    "const",
+    "water_1km_2010",
+    "water_250m_2010",
+    "log_fetch",
+    "pre_rate"
+  ],
+  "fetch_offset_m": 16.0,
+  "coefficients": [
+    -3.6206392757409662,
+    -0.0261222595988271,
+    -0.06631603755181853,
+    0.5934360619696483,
+    0.2489403239976773
+  ],
+  "standard_errors_unclustered": [
+    0.13623620595325864,
+    0.17776200144790963,
+    0.15843488779012221,
+    0.024333588682843754,
+    0.015699531669481404
+  ],
+  "interval_level": 0.9,
+  "interval_offsets": [
+    -3.127326211122073,
+    2.9221070001897727
+  ],
+  "interval_method": "5th/95th percentiles of leave-one-basin-out residuals (each basin's cells, any oiling class, predicted by a clean-edge-only model fitted on the other two basins' clean cells), added to the full-data prediction",
+  "training_cells": 10772,
+  "training_cells_by_basin": {
+    "terrebonne": 3828,
+    "barataria": 3949,
+    "breton": 2995
+  },
+  "training_range": {
+    "water_1km_2010": {
+      "p01": 0.23663875300555506,
+      "p99": 0.9817486112262662,
+      "min": 0.0015753254290688,
+      "max": 0.998922145759058
+    },
+    "water_250m_2010": {
+      "p01": 0.1430465444287729,
+      "p99": 0.9675599435825106,
+      "min": 0.001410437235543,
+      "max": 0.998589562764457
+    },
+    "fetch_mean_m": {
+      "p01": 58.0,
+      "p99": 4771.769999999988,
+      "min": 23.0,
+      "max": 7550.0
+    },
+    "pre_rate": {
+      "p01": -2.2229179739952087,
+      "p99": 5.617663959662117,
+      "min": -8.613304297129313,
+      "max": 9.20135693417655
+    }
+  },
+  "training_box": {
+    "lat_min": 29.04757,
+    "lat_max": 30.32032,
+    "lon_min": -91.14198,
+    "lon_max": -89.37869
+  },
+  "lobo_mae": 1.2936189471258512,
+  "lobo_mae_no_predictor": 1.3843009058588513,
+  "heavy_uplift_range_m_per_yr": [
+    0.338,
+    0.831
+  ],
+  "heavy_uplift_source": "P2 training-fold coefficients for Heavy vs no oil observed (results/p2_basin_holdout/oil_effect_transfer.csv)",
+  "p1_headline": {
+    "estimate": 0.85,
+    "lo": 0.49,
+    "hi": 1.22,
+    "source": "docs/FINDINGS_2026-11-11.md section 7"
+  },
+  "measurement_note": "NAIP rates read about 1.2 m/yr below field erosion measurements (P3 analysis C); differences between sites are more reliable than absolute values.",
+  "validation": "R3 fix (docs/R3_OIL_DOUBLE_COUNT_PLAN.md): refit of P2 M1 on clean-edge cells (NOO, Very_Light) only, leave-one-basin-out residuals computed over every cell (any oiling class) of each held-out basin, as for p5-edge-loss-v1. See results/scenario_composer/c1b_coverage.csv, c2b_block_coverage.csv, b1b_horizon_coverage.csv for held-out coverage and bias.",
+  "training_files_sha256": {
+    "terrebonne/cells_10A.csv": "8d22b57a8b6d92afa32debceaa9e3936a84ce57a726fd4f6913cce3f388f9487",
+    "terrebonne/cell_land_by_year.csv": "2791c09576e8caaf5df06079116b366947915cf5e86cb884cf8958bfde7e32f8",
+    "terrebonne/exposure.csv": "f1f21d215b626b407c69d37d22ebf3646afb0cf3affeb81844430322eaff98a6",
+    "terrebonne/landsat_cell_fraction.csv": "5376eeb6bef9f41b269372064c2cec7da1544507d614dee6e235940ed840e3de",
+    "barataria/cells_10A.csv": "b448a650d99de44d58e2acbfe670554c5ae813e9e7a8922220dbf166945d63e8",
+    "barataria/cell_land_by_year.csv": "7dba1e70a28031169bcf7f271fa21ab72a53c2b51247a821c018b66a7889d936",
+    "barataria/exposure.csv": "de4a16cb2ce57782763e0c6e72724498c91af4c7d42f3aeb488e429fd011dfa0",
+    "barataria/landsat_cell_fraction.csv": "ee06e80e2379a5ad82adfc5006e38656aac3db6550dbbfa72d3f5c692bedc993",
+    "breton/cells_10A.csv": "962dbb126e537f6f902bf30bb93738ad0f4d07535b2cacf70ceef2a57c8da3df",
+    "breton/cell_land_by_year.csv": "fa1018138b4acb3d8af0ffd97812d775a4121cfb9b5cda49afcc2636f2e3daef",
+    "breton/exposure.csv": "d9a64bbd0f43b1d3c806eb50f4e9813a7bad327f3ba3db37a8a3909003d848f4",
+    "breton/landsat_cell_fraction.csv": "1436b73590cd3eaa5f8714df6aa3e6b36d1e131314881129e003f80bffc5efaf"
+  },
+  "clean_training_filter": {
+    "kept_oiling_classes": [
+      "NOO",
+      "Very_Light"
+    ],
+    "excluded_oiling_classes": [
+      "Light",
+      "Moderate",
+      "Heavy"
+    ]
+  },
+  "fixes": "docs/R3_OIL_DOUBLE_COUNT_PLAN.md; docs/V4_PROGRAMME_PLAN.md section R3"
+}

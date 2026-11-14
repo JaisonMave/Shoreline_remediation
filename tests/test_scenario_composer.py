@@ -28,7 +28,9 @@ def test_option_order_does_not_change_results():
 def test_natural_recovery_is_baseline_plus_oil_excess():
     pool = np.zeros(1)                       # no residual spread, so the baseline is the model prediction itself
     tidy, _ = sc.compose(SITE, ["natural_attenuation"], n_draws=20000, seed=4, residual_pool=pool)
-    base = se.predict_edge_loss({k: SITE[k] for k in se.FEATURES})["rate"]
+    # R3 fix: the composer's baseline is the clean-edge model (docs/R3_OIL_DOUBLE_COUNT_PLAN.md), not site_evidence's
+    # default (p5-edge-loss-v1, used elsewhere e.g. the dashboard).
+    base = se.predict_edge_loss({k: SITE[k] for k in se.FEATURES}, model=sc._baseline_model())["rate"]
     oil = sc._oil_excess()
     rate = tidy[tidy.outcome == "edge_loss_rate_m_per_yr"].set_index("year")["median"]
     assert abs(rate[1] - (base + oil["2010-2012"][0])) < 0.03 and abs(rate[2] - rate[1]) < 0.03
@@ -185,3 +187,33 @@ def test_forecast_deterministic_with_seed():
     b = sc.forecast(SITE, n_draws=500, seed=7)
     c = sc.forecast(SITE, n_draws=500, seed=8)
     assert a.equals(b) and not a["median"].equals(c["median"])
+
+
+# ---- R3 fix: composer baseline is the clean-edge model (docs/R3_OIL_DOUBLE_COUNT_PLAN.md) ----------------------------
+def test_composer_baseline_uses_clean_card_not_site_evidence_default():
+    v1_rate = se.predict_edge_loss({k: SITE[k] for k in se.FEATURES})["rate"]            # site_evidence default (v1)
+    clean_rate = se.predict_edge_loss({k: SITE[k] for k in se.FEATURES}, model=sc._baseline_model())["rate"]
+    assert sc._baseline_model()["name"] == "p5-edge-loss-clean-v1"
+    assert clean_rate != pytest.approx(v1_rate)          # different coefficients -> different prediction
+    pool = np.zeros(1)
+    tidy, _ = sc.compose(SITE, ["natural_attenuation"], n_draws=20000, seed=4, residual_pool=pool)
+    rate_y1 = tidy[(tidy.outcome == "edge_loss_rate_m_per_yr") & (tidy.year == 1)]["median"].iloc[0]
+    oil = sc._oil_excess()["2010-2012"][0]
+    assert rate_y1 == pytest.approx(clean_rate + oil, abs=0.03)
+    assert rate_y1 != pytest.approx(v1_rate + oil, abs=1e-3)   # would be wrong if the v1 (all-cells) baseline leaked back in
+
+
+def test_clean_card_training_cells_exclude_light_moderate_heavy():
+    import sys
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    sys.path.insert(0, str(root))
+    from validation.p2_basin_holdout import BASINS, load_basin
+    panel = pd.concat([load_basin(root / "data" / "external" / "p2" / b, b) for b in BASINS])
+    model = sc._baseline_model()
+    kept = set(model["clean_training_filter"]["kept_oiling_classes"])
+    assert kept == {"NOO", "Very_Light"}
+    clean = panel[panel.max_oiling.isin(kept)]
+    assert len(clean) == model["training_cells"]
+    assert not (set(clean.max_oiling.unique()) & {"Light", "Moderate", "Heavy"})
+    assert set(clean.max_oiling.unique()) <= kept

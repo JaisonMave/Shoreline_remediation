@@ -3,9 +3,12 @@
 For a site and a list of options it simulates yearly outcomes to `horizon_years` from `n_draws` Monte Carlo draws:
 
   Edge loss rate (m/yr, positive = land lost), year y = baseline + oil excess(y) + treatment shift(y)
-    baseline        deployed model p5-edge-loss-v1 prediction + a draw from its leave-one-basin-out residuals (the
-                    residuals are rebuilt from data/demo/p5_sites.csv; their 5th/95th percentiles equal the model card's
-                    interval offsets). One draw per site, shared by all options.
+    baseline        clean-edge model p5-edge-loss-clean-v1 prediction (R3 fix, docs/R3_OIL_DOUBLE_COUNT_PLAN.md:
+                    M1 refitted on clean-edge cells only, NOO and Very_Light, so it does not itself absorb part of
+                    the oil effect added below) + a draw from its leave-one-basin-out residuals (the residuals are
+                    rebuilt from data/demo/p5_sites_clean_lobo.csv; their 5th/95th percentiles equal that model
+                    card's interval offsets). One draw per site, shared by all options. site_evidence's own default
+                    model (p5-edge-loss-v1, used by the dashboard) is unaffected.
     oil excess      Zengel et al. 2022, oiled-untreated minus reference, change from 2005-2010 (results/p3_treatment):
                     +1.88 m/yr years 1-2 (90% 1.57 to 2.20), +0.21 m/yr years 3-8 (90% -0.56 to 0.97); drawn as normal with
                     the 90% interval read as +/-1.645 sd (ASSUMED). Shared by all options. Heavy oiling only.
@@ -41,6 +44,13 @@ from src.shoreline_remediation import treatment_effects as te
 ROOT = Path(__file__).resolve().parents[2]
 VEG_MODEL = ROOT / "models" / "veg_recovery_v1.json"
 P3_A = ROOT / "results" / "p3_treatment" / "A_prespill_adjusted.csv"
+# R3 fix (docs/R3_OIL_DOUBLE_COUNT_PLAN.md): the composer baseline is the clean-edge refit of M1 (max_oiling in
+# NOO, Very_Light only), not the deployed p5-edge-loss-v1 card (which was fitted on all cells, including Heavy,
+# and so partly absorbed the oil effect that the Zengel excess below then added a second time). site_evidence's
+# own default model (used by the dashboard) is unchanged; only the composer's baseline is swapped, via the
+# `model=` argument of site_evidence.predict_edge_loss.
+BASELINE_MODEL_PATH = ROOT / "models" / "p5_edge_loss_clean_v1.json"
+BASELINE_LOBO_PATH = ROOT / "data" / "demo" / "p5_sites_clean_lobo.csv"
 Z90 = 1.6448536269514722
 USABLE_VEG = ("validated", "suggestive")
 NATURAL = "natural_attenuation"
@@ -60,10 +70,25 @@ def _veg_model() -> dict:
 
 
 @lru_cache(maxsize=1)
+def _baseline_model() -> dict:
+    """The composer's own baseline model (R3 fix): clean-edge M1, not site_evidence's default p5-edge-loss-v1."""
+    with open(BASELINE_MODEL_PATH) as f:
+        return json.load(f)
+
+
+@lru_cache(maxsize=1)
+def _baseline_lobo() -> pd.DataFrame:
+    """Per-cell leave-one-basin-out predictions from the clean-edge baseline (data/demo/p5_sites_clean_lobo.csv),
+    built by scripts/build_clean_baseline.py. Every in-scope cell, any oiling class; data/demo/p5_sites.csv (the
+    v1 table) is not touched."""
+    return pd.read_csv(BASELINE_LOBO_PATH, dtype={"cell": str, "cell_2km": str})
+
+
+@lru_cache(maxsize=1)
 def _lobo_residuals() -> np.ndarray:
-    s = se.load_sites()
-    s = s[(s.status == "in_scope") & s.observed_rate.notna() & s.lobo_pred.notna()]
-    return (s.observed_rate - s.lobo_pred).to_numpy()
+    s = _baseline_lobo()
+    s = s[s.observed_rate.notna() & s.lobo_pred_clean.notna()]
+    return (s.observed_rate - s.lobo_pred_clean).to_numpy()
 
 
 @lru_cache(maxsize=1)
@@ -131,7 +156,7 @@ def compose(site: dict, options: list[str], horizon_years: int = 8, n_draws: int
     if site.get("pred_rate") is not None:
         base_rate = float(site["pred_rate"])
     else:
-        base_rate = se.predict_edge_loss({k: site[k] for k in se.FEATURES})["rate"]
+        base_rate = se.predict_edge_loss({k: site[k] for k in se.FEATURES}, model=_baseline_model())["rate"]
     baseline = base_rate + shared.choice(pool, n_draws)
     oil = _oil_excess()
     oil_by_period = {p: _normal_from_interval(shared, oil[p][1], oil[p][2], n_draws, effect=oil[p][0]) for p in ("2010-2012", "2012-2018")}
@@ -255,11 +280,11 @@ BLOCK_OUTCOMES = ("mean_edge_loss_rate_m_per_yr", "mean_cumulative_edge_loss_m",
 
 @lru_cache(maxsize=1)
 def _block_pools() -> tuple[np.ndarray, np.ndarray]:
-    """(block mean residuals, within-block residuals) of the deployed model's held-out (leave-one-basin-out) residuals,
-    from blocks (2 km cells) with at least MIN_BLOCK_CELLS valid cells."""
-    s = se.load_sites()
-    s = s[(s.status == "in_scope") & s.observed_rate.notna() & s.lobo_pred.notna()]
-    return split_block_residuals(s.cell_2km, (s.observed_rate - s.lobo_pred))
+    """(block mean residuals, within-block residuals) of the clean-edge baseline's held-out (leave-one-basin-out)
+    residuals, from blocks (2 km cells) with at least MIN_BLOCK_CELLS valid cells."""
+    s = _baseline_lobo()
+    s = s[s.observed_rate.notna() & s.lobo_pred_clean.notna()]
+    return split_block_residuals(s.cell_2km, (s.observed_rate - s.lobo_pred_clean))
 
 
 def split_block_residuals(block_ids, residuals, min_cells: int = MIN_BLOCK_CELLS) -> tuple[np.ndarray, np.ndarray]:
@@ -294,7 +319,8 @@ def compose_block(cells: pd.DataFrame, options: list[str], horizon_years: int = 
     if "pred_rate" in cells and cells["pred_rate"].notna().all():
         base = cells["pred_rate"].to_numpy(float)
     else:
-        base = np.array([se.predict_edge_loss({k: float(r[k]) for k in se.FEATURES})["rate"] for _, r in cells.iterrows()])
+        base = np.array([se.predict_edge_loss({k: float(r[k]) for k in se.FEATURES}, model=_baseline_model())["rate"]
+                        for _, r in cells.iterrows()])
     bpool, wpool = _block_pools() if residual_pools is None else (np.asarray(residual_pools[0], float), np.asarray(residual_pools[1], float))
 
     shared = _rng(seed, "block-shared")
