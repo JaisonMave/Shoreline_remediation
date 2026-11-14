@@ -43,8 +43,33 @@
       "adapter": "MangroveDamageAdapter",
       "card": "models/mangrove_damage_v1.json",
       "declared_state": "experimental",
-      "evidence_grade": "experimental: oiling effect, one spill (Galeta)",
-      "wraps": "mangrove_model / models/mangrove_damage_v1.json"
+      "evidence_grade": "experimental: oiling effect, one spill (Galeta); per-outcome 'validated' in the card is a one-spill test verdict, not a promotion",
+      "wraps": "mangrove_model / models/mangrove_damage_v1.json",
+      "max_state": "experimental"
+    },
+    {
+      "model_id": "beach_sand_persistence_v1",
+      "title": "Sand-beach visible-oil persistence (DWH SCAT)",
+      "adapter": "BeachSandPersistenceAdapter",
+      "card": "models/beach_sand_persistence_v1.json",
+      "declared_state": "experimental",
+      "max_state": "experimental",
+      "evidence_grade": "experimental: gates B-1 and B-2 failed; baseline fallback (FINDINGS_V5 48)",
+      "wraps": "beach_model.persistence_curve"
+    }
+  ],
+  "cards_without_adapter": [
+    {
+      "model_id": "oil_excess_oos_v1",
+      "title": "Out-of-sample heavy-oiling excess by class",
+      "card": "models/oil_excess_oos_v1.json",
+      "evidence_grade": "experimental: gate failed, adding the excess did not improve cell-level accuracy (FINDINGS_V5 44)"
+    },
+    {
+      "model_id": "edge_loss_v2",
+      "title": "Marsh-edge loss v2 (per-class intervals)",
+      "card": "models/p5_edge_loss_v2.json",
+      "evidence_grade": "experimental: gate failed (FINDINGS_V5 45)"
     }
   ]
 }

@@ -160,25 +160,29 @@ def test_sheltered_rocky_shore_excludes_hot_water_with_the_noaa_source_cited():
 
 
 def test_sand_beach_is_rules_and_literature_only(sand):
-    assert sand.scope_tier == "rules_and_literature" and "not integrated" in sand.scope_message
+    assert sand.scope_tier == "experimental" and sand.scope_message.startswith(dp.BEACH_TIER_TEXT)   # ESI 3A: experimental persistence reference
     row = sand.option("high_pressure_heated_washing")
     assert row["recommendation_class"] == "E"
     sources = [r["source"] for r in row["exclusion_reasons"]]
     assert "rule" in sources and any("NOAA" in x for x in sources)   # rule and NOAA table (not applicable on sand, p.23) both cited
     assert sand.option(dp.PLANTING)["recommendation_class"] == "E"
-    assert sand.version["models_used"] == []
+    assert sand.version["models_used"] == ["beach_sand_persistence_v1"]   # reference only, experimental
     assert sand.headline.startswith(("No clear difference from natural recovery (evidence exists)",
                                      "Insufficient evidence to compare with natural recovery"))
 
 
-def test_beach_persistence_hook_returns_none_until_the_data_model_is_integrated():
-    assert dp._beach_persistence_reference({"esi": "3A"}) is None
+def test_beach_persistence_hook_only_for_esi_3a():
+    ref = dp._beach_persistence_reference({"esi": "3A", "oiling": "Light"})
+    assert ref and ref["state"] == "experimental" and ref["group"] == "surface_light"
+    for esi in ("4", "5", "6A", "10A", None):
+        assert dp._beach_persistence_reference({"esi": esi}) is None
 
 
 @pytest.mark.parametrize("shoreline,esi", [("sand_beach", "3A"), ("mixed_sediment", "5"), ("gravel_beach", "6A"), ("cobble", "6A")])
 def test_beach_screening_and_scope_by_esi(shoreline, esi):
     r = dp.run_decision(Scenario(shoreline_type=shoreline, oil_category="heavy", oil_coverage=60.0, penetration_depth_cm=3.0))
-    assert r.characterisation["esi_code"] == esi and r.scope_tier == "rules_and_literature"
+    assert r.characterisation["esi_code"] == esi
+    assert r.scope_tier == ("experimental" if esi == "3A" else "rules_and_literature")
     assert r.characterisation["noaa_oil_category"] == "IV"
     hot = r.option("high_pressure_heated_washing")
     assert hot["habitat_rating"]["rating"] == {"3A": "-", "5": "D", "6A": "C"}[esi]
@@ -265,3 +269,34 @@ def test_decide_case_uses_the_generic_path_and_refuses_unsourced_cases():
     assert sampled.option("high_pressure_heated_washing")["recommendation_class"] == "D"   # NOAA 1A rating C: flag, option stays
     unsourced = dp.decide_case({"Case_ID": "PRE-NS", "Shoreline_Type": ""})
     assert unsourced.scope_tier == "out_of_scope" and "NOT_SOURCED" in unsourced.headline
+
+
+# ---- wave 2: beach persistence reference hook and registry entries (D40, D39) -----------------------------------------
+def test_beach_reference_only_for_esi_3a():
+    from src.shoreline_remediation.data_model import Scenario
+    from src.shoreline_remediation.decision_pipeline import BEACH_TIER_TEXT, run_decision
+    r3 = run_decision(Scenario(shoreline_type="sand_beach"), habitat="3A", oiling_class="Moderate", n_draws=200)
+    ref = r3.natural_recovery["reference"][0]
+    assert ref["curves_by_group"] and ref["state_label"] == "experimental (gate failed)" and ref["reference_only"]
+    assert r3.scope_tier == "experimental" and r3.scope_message.startswith(BEACH_TIER_TEXT)
+    for esi, st_ in (("4", "sand_beach"), ("5", "mixed_sediment"), ("6A", "mixed_sediment")):
+        r = run_decision(Scenario(shoreline_type=st_), habitat=esi, oiling_class="Moderate", n_draws=200)
+        assert not any(x.get("curves_by_group") for x in r.natural_recovery["reference"]), esi
+        assert r.scope_tier == "rules_and_literature"
+
+
+def test_registry_beach_and_card_only_entries_are_experimental():
+    from src.shoreline_remediation import registry
+    assert registry.get("beach_sand_persistence_v1").state == "experimental"
+    assert registry.get("mangrove_damage_v1").state == "experimental"
+    assert {m.model_id for m in registry.validated_only()} == {"edge_loss_v1", "pah_decline_v1"}
+    cards = registry.card_only()
+    assert set(cards) == {"oil_excess_oos_v1", "edge_loss_v2"}
+    assert all(c.state == "experimental" and not c.has_adapter for c in cards.values())
+
+
+def test_max_state_caps_promotion():
+    from src.shoreline_remediation import registry
+    card = {"plan": "x", "baseline_beaten": True, "interval_coverage": 0.9, "training_range": {"a": 1}}
+    assert registry.resolve_state("validated", card) == "validated"
+    assert registry.resolve_state("validated", card, "experimental") == "experimental"

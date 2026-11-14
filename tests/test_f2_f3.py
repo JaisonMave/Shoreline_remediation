@@ -260,6 +260,8 @@ def test_every_registered_model_returns_a_prediction_with_interval_and_scope(wor
     assert reg.model_ids()  # non-empty registry
     for model in reg.list():
         site = mangrove_site if model.model_id == "mangrove_damage_v1" else worked_site
+        if model.model_id == "beach_sand_persistence_v1":
+            site = SiteRecord(site_id="beach", habitat="3A", oiling="Light_TB", fields={"days_spill_to_first_oiled": 60})
         prediction = model.predict(site, scenario)
         assert isinstance(prediction, Prediction)
         assert prediction.interval_lo <= prediction.value <= prediction.interval_hi

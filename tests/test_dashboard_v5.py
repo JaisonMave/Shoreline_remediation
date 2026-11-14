@@ -50,8 +50,7 @@ def test_every_habitat_loads(habitat):
     txt = all_text(at)
     assert "Decision confidence" not in txt and "ML-ranked" not in txt
     assert "Scope: " in txt
-    if habitat.startswith("beach"):
-        assert "Sand-beach oil persistence model: being integrated" in txt
+    assert "being integrated" not in txt
 
 
 def test_marsh_landing_has_answer_first_and_pipeline_classes(app):
@@ -117,13 +116,49 @@ def test_beach_function_tolerates_missing_module():
     assert callable(C.render_beach_persistence)
 
 
-def test_headline_numbers_agree_between_card_and_detail():
+def test_headline_is_the_clean_no_excess_prediction_and_excess_is_separate():
+    import json
     at = fresh()
     from src.shoreline_remediation import scenario_composer as sc
     from src.shoreline_remediation.site_evidence import load_sites
     from src.shoreline_remediation.site_view import EXAMPLE_CELL
     site = load_sites().query("cell == @EXAMPLE_CELL").iloc[0].to_dict()
-    med = sc.natural_recovery_summary(site)["mean_rate_y1_5"]["median"]
+    bl = sc.natural_recovery_summary(site)["baseline"]
     m = next(x for x in at.metric if x.label.startswith("Expected marsh-edge loss"))
-    assert m.value == f"{med:.2f} m/yr"
-    assert re.search(r"Natural recovery here: " + f"{med:.2f}", all_text(at))
+    assert m.value == f"{bl['rate']:.2f} m/yr"
+    card = json.loads((ROOT / "models" / "oil_excess_oos_v1.json").read_text())["excess_by_class_deployable"]["Heavy"]
+    extra = next(x for x in at.metric if x.label.startswith("AVERAGE extra loss"))
+    assert extra.value == f"+{card['excess_m_per_yr']:.2f}"
+    txt = all_text(at)
+    assert "did not improve cell-level accuracy" in txt
+    assert re.search(r"between \d+% and \d+% of the time", txt)
+
+
+def test_pipeline_fields_shown():
+    txt = all_text(fresh())
+    assert "Against natural recovery:" in txt and "Design of the evidence:" in txt
+
+
+def test_beach_fine_shows_persistence_reference():
+    at = fresh()
+    at.segmented_control(key="site_habitat").set_value("beach_fine").run()
+    assert not at.exception, at.exception
+    txt = all_text(at)
+    assert "Experimental: failed validation" in txt
+    assert "being integrated" not in txt
+    assert "not natural recovery and not a comparison of treatments" in txt.replace("\n", " ") or "not natural" in txt
+    import pandas as pd
+    r = pd.read_csv(ROOT / "results" / "v5_beach" / "reoiling.csv").query("subset == 'all'").iloc[0]
+    assert f"{r.share_reoiled:.0%} of cleared segments ({int(r.n_reoiled)} of {int(r.n_cleared_with_later_visit)})" in txt
+    assert "did not beat a simple baseline on held-out states" in txt
+
+
+@pytest.mark.parametrize("habitat", ["beach_coarse", "beach_mixed", "beach_gravel"])
+def test_other_beaches_have_no_outcome_model(habitat):
+    at = fresh()
+    at.segmented_control(key="site_habitat").set_value(habitat).run()
+    assert not at.exception, at.exception
+    txt = all_text(at)
+    assert "No outcome model: rules and literature only" in txt and "Experimental: failed validation" not in txt
+    if habitat != "beach_coarse":
+        assert "literature, not a prediction" in txt

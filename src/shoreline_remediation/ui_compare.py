@@ -144,7 +144,7 @@ def render_detailed_comparison(site: dict, flags, sites: pd.DataFrame) -> None:
     from src.shoreline_remediation import scenario_composer as sc
     nrs = sc.natural_recovery_summary(site)
     mr = nrs["mean_rate_y1_5"]
-    st.caption(f"Natural recovery here: {mr['median']:.2f} m/yr mean marsh-edge loss over years 1 to 5 "
+    st.caption(f"Natural recovery as the option comparison uses it (includes the field-measured oil excess for heavy sites): {mr['median']:.2f} m/yr mean marsh-edge loss over years 1 to 5 "
                f"(90% range {mr['lo90']:.2f} to {mr['hi90']:.2f}). Every option below is compared with this.")
     inputs = tuple((k, site.get(k)) for k in (*FEATURES, "max_oiling"))
     summ = _compare_cell(inputs)

@@ -145,6 +145,24 @@ def _edge_chart(pred: dict, observed, sites: pd.DataFrame) -> alt.Chart:
 # ---------------------------------------------------------------------------------------------------------------
 # Marsh
 
+@st.cache_data
+def _oil_excess_card() -> dict:
+    import json
+    path = Path(__file__).resolve().parents[2] / "models" / "oil_excess_oos_v1.json"
+    return json.loads(path.read_text()) if path.exists() else {}
+
+
+@st.cache_data
+def _interval_coverage_range() -> tuple[float, float] | None:
+    """Held-out coverage of the per-class 90% interval across basin x oiling-class groups with 100 or more cells."""
+    path = Path(__file__).resolve().parents[2] / "results" / "v5_p0" / "interval_by_basin_class.csv"
+    if not path.exists():
+        return None
+    d = pd.read_csv(path)
+    d = d[d["n_cells"] >= 100]
+    return (float(d["m1_class_oos_coverage"].min()), float(d["m1_class_oos_coverage"].max())) if len(d) else None
+
+
 def _ref_grade(view, text: str, default: str = "experimental") -> str:
     if view is None:
         return default
@@ -178,19 +196,22 @@ def render_marsh() -> None:
              f"Salt marsh | SCAT oiling: {T.OILING_LABELS.get(site['max_oiling'], site['max_oiling'])}")
     metrics = None
     if nrs is not None:
-        mr = nrs["mean_rate_y1_5"]
-        up = m["heavy_uplift_range_m_per_yr"]
+        bl = nrs["baseline"]
+        up = _oil_excess_card().get("excess_by_class_deployable", {}).get(str(site["max_oiling"]))
+        has_rng = bl["lo90"] is not None
         metrics = [
-            {"label": T.LABELS["edge_loss"] + ", years 1 to 5", "value": f"{mr['median']:.2f} m/yr",
-             "range": f"90% range: {mr['lo90']:.1f} to {mr['hi90']:.1f}", "grade": _ref_grade(view, "natural recovery cumulative"),
-             "help": "Natural recovery means no active cleanup. Same number as in the option comparison."},
+            {"label": T.LABELS["edge_loss"], "value": f"{bl['rate']:.2f} m/yr",
+             "range": f"90% range: {bl['lo90']:.1f} to {bl['hi90']:.1f}" if has_rng else None, "grade": _ref_grade(view, "edge-loss rate", "validated"),
+             "help": "Clean-edge prediction with no oiling term. The extra loss in oiled marsh is shown separately, as an average."},
             {"label": "Observed at this cell, 2010 to 2015 (aerial images)", "value": "not available" if obs is None or pd.isna(obs) else f"{obs:.2f} m/yr",
              "help": "Aerial-image measurements read about 1.2 m/yr lower than field erosion measurements, so compare sites rather than absolute values."},
-            {"label": "Extra loss where oiling was heavy (m/yr)", "value": f"+{up[0]:.1f} to {up[1]:.1f}",
-             "help": "Image-based comparison of heavily oiled with other cells. It was unstable between basins and is an average over 2010 to 2015."},
+            {"label": f"AVERAGE extra loss where oiling was {T.OILING_LABELS.get(site['max_oiling'], site['max_oiling']).lower()} (m/yr)",
+             "value": f"+{up['excess_m_per_yr']:.2f}" if up else "not estimated",
+             "range": f"90% range: {up['lo90']:.2f} to {up['hi90']:.2f}" if up else None, "grade": "experimental" if up else None,
+             "grade_text": "Experimental: failed validation",
+             "help": "An average over sites in other basins, NOT added to this site's number: adding it did not improve cell-level accuracy."},
             {"label": "Typical error, basin held out (m/yr)", "value": f"{m['lobo_mae']:.2f}",
              "range": f"predicting the average everywhere: {m['lobo_mae_no_predictor']:.2f}",
-             "grade": _ref_grade(view, "edge-loss rate", "validated"),
              "help": "Single 100 m cells are noisy, so the model beats the plain average only slightly."},
         ]
     with answer:
@@ -207,15 +228,26 @@ def render_marsh() -> None:
 
     st.subheader("Expected marsh-edge loss at this site")
     if nrs is not None:
-        mr = nrs["mean_rate_y1_5"]
-        st.altair_chart(_edge_chart({"rate": mr["median"], "lo": mr["lo90"], "hi": mr["hi90"]}, obs, sites), theme="streamlit", width="stretch")
+        bl = nrs["baseline"]
+        if bl["lo90"] is not None:
+            st.altair_chart(_edge_chart({"rate": bl["rate"], "lo": bl["lo90"], "hi": bl["hi90"]}, obs, sites), theme="streamlit", width="stretch")
+        cov = _interval_coverage_range()
+        if cov:
+            st.caption(f"The 90% range is wide because single 100 m cells are noisy. Checked on basins held out, it covered the observed value "
+                       f"between {cov[0]:.0%} and {cov[1]:.0%} of the time, depending on basin and oiling class (the target is 90%).")
+        up = _oil_excess_card().get("excess_by_class_deployable", {}).get(str(site["max_oiling"]))
+        if up:
+            st.caption(f"Extra loss in {T.OILING_LABELS.get(site['max_oiling'], site['max_oiling']).lower()} oiling is an AVERAGE effect "
+                       f"(+{up['excess_m_per_yr']:.2f} m/yr, 90% range {up['lo90']:.2f} to {up['hi90']:.2f}), not part of the site number above. "
+                       "Adding it did not improve cell-level accuracy.")
         with st.expander("How this number was built"):
             bl = nrs["baseline"]
-            text = (f"Starting point: a baseline model that uses only open water nearby, wind exposure and the pre-spill trend, with no "
+            text = (f"The site number is a baseline model that uses only open water nearby, wind exposure and the pre-spill trend, with no "
                     f"oiling term of its own: {bl['rate']:.2f} m/yr (90% range {bl['lo90']:.1f} to {bl['hi90']:.1f}). ")
             if nrs["heavy"]:
+                text += "The option comparison below adds the field-measured extra loss for heavily oiled marsh. "
                 oe = nrs["oil_excess"]
-                text += (f"For heavily oiled marsh it adds the extra loss measured on untreated oiled plots (Zengel et al. 2022): "
+                text += (f"That extra loss, measured on untreated oiled plots (Zengel et al. 2022): "
                          f"+{oe['2010-2012']['effect']:.2f} m/yr in years 1 to 2 (90% range {oe['2010-2012']['lo90']:.2f} to {oe['2010-2012']['hi90']:.2f}) and "
                          f"+{oe['2012-2018']['effect']:.2f} m/yr in years 3 to 8 (90% range {oe['2012-2018']['lo90']:.2f} to {oe['2012-2018']['hi90']:.2f}). "
                          + nrs["bias_note"] + " ")
@@ -291,7 +323,7 @@ _OUTCOME_TITLES = {"root_documented_dead_share": "Share of prop roots recorded d
 _VERDICT_TEXT = {"validated": "oiling information predicts held-out sites better than ignoring it",
                  "suggestive": "better than ignoring oiling, but the range includes zero",
                  "not usable": "no better than ignoring oiling; show site-year means only"}
-_VERDICT_GRADE = {"validated": "validated", "suggestive": "experimental", "not usable": "illustrative"}
+_VERDICT_GRADE = {"validated": "experimental", "suggestive": "experimental", "not usable": "illustrative"}
 
 
 @st.cache_data
@@ -327,7 +359,7 @@ def render_mangrove() -> None:
         verdict = next(k[len("verdict_"):].replace("_", " ") for k in s.index if k.startswith("verdict_"))
         metrics.append({"label": _OUTCOME_TITLES[outcome] + f", year {int(e.year_since_spill)}: oiled minus unoiled", "value": f"{e.effect:+.2f}",
                         "range": f"90% range: {e.lo90:+.2f} to {e.hi90:+.2f}", "grade": _VERDICT_GRADE.get(verdict, "illustrative"),
-                        "grade_text": f"Model test: {verdict}"})
+                        "grade_text": f"Experimental (one spill); test: {verdict}"})
     C.answer_card(view, "Mangrove (Rhizophora fringe) | Bahia Las Minas, Panama, 1986", metrics)
     if err:
         st.error(f"The decision pipeline could not run ({err}).")
@@ -378,12 +410,18 @@ def _beach_renderer(h: "HabitatView") -> Callable[[], None]:
         exposure = c3.selectbox("Wave exposure", ["low", "moderate", "high", "very_high"], index=1,
                                 format_func=_label, key=f"beach_{h.key}_exposure")
         scen = _scenario(h.shoreline_type, wave_exposure=exposure, oil_category=oil)
-        report, err = P.decision_for_scenario(P.scenario_items(scen), oiling, oil, None)
+        report, err = P.decision_for_scenario(P.scenario_items(scen), oiling, oil, None, h.esi)
         view = E.report_view(report) if report is not None else None
         C.answer_card(view, f"{h.label} | oiling: {T.OILING_LABELS[oiling]} | {oil} oil | {_label(exposure)} wave exposure")
         if err:
             st.error(f"The decision pipeline could not run ({err}).")
-        C.render_beach_persistence({"habitat": h.key, "label": h.label, "oiling_class": oiling, "oil_category": oil, "exposure": exposure})
+        ref = next((r for r in (view.reference if view else []) if E.field(r, "curves_by_group")), None)
+        C.render_beach_persistence({"habitat": h.key, "esi": h.esi, "label": h.label, "oiling_class": oiling, "oil_category": oil,
+                                    "exposure": exposure, "reference": ref, "literature_notes": view.literature_notes if view else []})
+        if view is not None and view.advisories:
+            with st.expander("Advisory notes (AI-proposed, not used to set the classes)"):
+                for a in view.advisories:
+                    st.markdown(f"- {a}")
         st.subheader("Options and what the evidence says")
         C.render_pipeline_section(view, f"beach_{h.key}")
         C.render_sources_and_decisions(view)
@@ -398,20 +436,21 @@ class HabitatView:
     render: Callable[[], None]
     shoreline_type: str = ""
     note: str = ""
+    esi: str = ""
 
 
-_BEACH_NOTE = ("The rule screening has one sand-beach type and one mixed-sediment type, so it cannot tell grain sizes apart. "
-               "The grain size you picked sets which type is used: ")
+_BEACH_NOTE = ("The beach type you picked is passed to the decision pipeline by its shoreline class (ESI code). The generic rule "
+               "screening has only a sand-beach and a mixed-sediment type: ")
 HABITATS = [
     HabitatView("marsh", "Salt marsh", render_marsh),
     HabitatView("mangrove", "Mangrove", render_mangrove),
 ]
-for _k, _l, _t, _n in [("beach_fine", "Fine-to-medium sand beach", "sand_beach", "sand beach."),
-                       ("beach_coarse", "Coarse sand beach", "sand_beach", "sand beach (ASSUMED: coarse sand is treated like other sand)."),
-                       ("beach_mixed", "Mixed sand and gravel beach", "mixed_sediment", "mixed sediment."),
-                       ("beach_gravel", "Gravel beach", "mixed_sediment", "mixed sediment (ASSUMED: the rules have no separate gravel type).")]:
-    _h = HabitatView(_k, _l, lambda: None, _t, _BEACH_NOTE + _n)
-    HABITATS.append(HabitatView(_k, _l, _beach_renderer(_h), _t, _h.note))
+for _k, _l, _t, _e, _n in [("beach_fine", "Fine-to-medium sand beach", "sand_beach", "3A", "sand beach (ESI 3A)."),
+                           ("beach_coarse", "Coarse sand beach", "sand_beach", "4", "sand beach (ESI 4)."),
+                           ("beach_mixed", "Mixed sand and gravel beach", "mixed_sediment", "5", "mixed sediment (ESI 5)."),
+                           ("beach_gravel", "Gravel beach", "mixed_sediment", "6A", "mixed sediment (ESI 6A).")]:
+    _h = HabitatView(_k, _l, lambda: None, _t, _BEACH_NOTE + _n, _e)
+    HABITATS.append(HabitatView(_k, _l, _beach_renderer(_h), _t, _h.note, _e))
 HABITAT_BY_KEY = {h.key: h for h in HABITATS}
 
 

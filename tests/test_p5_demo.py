@@ -166,12 +166,12 @@ def test_compare_options_detail_tables_for_worked_example():
     assert "AI-proposed range, not evidence" in _all_text(at)
 
 
-def test_site_headline_and_detail_natural_recovery_agree_for_worked_example():
+def test_site_headline_is_clean_baseline_for_worked_example():
     from src.shoreline_remediation import scenario_composer as sc
     at = _fresh_app()
     headline = next(m.value for m in at.metric if m.label.startswith("Expected marsh-edge loss"))
     site = SITES[SITES.cell == EXAMPLE_CELL].iloc[0].to_dict()
-    assert headline == f"{sc.natural_recovery_summary(site)['mean_rate_y1_5']['median']:.2f} m/yr"
+    assert headline == f"{sc.natural_recovery_summary(site)['baseline']['rate']:.2f} m/yr"
 
 
 def test_compare_options_out_of_scope_site_says_no_prediction_not_error():

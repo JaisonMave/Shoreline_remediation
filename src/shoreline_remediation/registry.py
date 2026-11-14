@@ -17,6 +17,7 @@ from functools import lru_cache
 from pathlib import Path
 
 from . import model_interface as mi
+from .beach_model import BeachSandPersistenceAdapter
 from . import scenario_composer as sc
 from . import site_evidence as se
 from .model_interface import (Prediction, ScenarioRequest, SiteRecord, STATE_EXPERIMENTAL, STATE_VALIDATED,
@@ -73,8 +74,13 @@ def meets_promotion_criteria(card: dict) -> tuple[bool, list]:
     return (not reasons), reasons
 
 
-def resolve_state(declared_state: str, card: dict) -> str:
-    """Final state: validated only if declared validated AND the D20 check passes."""
+def resolve_state(declared_state: str, card: dict, max_state: str | None = None) -> str:
+    """Final state: validated only if declared validated AND the D20 check passes AND the entry does not cap it.
+
+    `max_state: "experimental"` in registry.json caps an entry (mangrove: one spill, so a per-outcome 'validated' test
+    verdict in its card means "beat ignoring oiling at Galeta", not a promotion; beach and card-only models: gates failed)."""
+    if max_state == STATE_EXPERIMENTAL:
+        return STATE_EXPERIMENTAL
     passes, _ = meets_promotion_criteria(card)
     return STATE_VALIDATED if (declared_state == STATE_VALIDATED and passes) else STATE_EXPERIMENTAL
 
@@ -104,7 +110,7 @@ class _Adapter(mi.BaseModel):
         self.card = _load_card(entry["card"])
         self.declared_state = entry.get("declared_state", STATE_EXPERIMENTAL)
         self.evidence_grade = entry.get("evidence_grade", "")
-        self.state = resolve_state(self.declared_state, self.card)
+        self.state = resolve_state(self.declared_state, self.card, entry.get("max_state"))
         self.model_version = self.card.get("name", self.model_id)
 
 
@@ -222,6 +228,7 @@ class MangroveDamageAdapter(_Adapter):
             interval_method="Wald 90% interval from the mixed-model fixed effects",
             scope=scope, scope_reasons=reasons,
             explanation={"outcome": outcome, "year_since_spill": ys,
+                         "one_spill_test_verdict": card_outcome.get("verdict"),
                          "verdict": card_outcome.get("verdict"),
                          "note": "oiled minus unoiled site-year means from a mixed model"},
             evidence_grade=self.evidence_grade, model_id=self.model_id,
@@ -234,7 +241,38 @@ _ADAPTERS = {
     "VegRecoveryAdapter": VegRecoveryAdapter,
     "PahDeclineAdapter": PahDeclineAdapter,
     "MangroveDamageAdapter": MangroveDamageAdapter,
+    "BeachSandPersistenceAdapter": BeachSandPersistenceAdapter,
 }
+
+
+class CardOnly:
+    """A model card with no adapter (no predict). Registered so the dashboard and audits can read its card and state.
+    Always experimental: these cards record failed gates (FINDINGS_V5 44, 45)."""
+
+    state = STATE_EXPERIMENTAL
+
+    def __init__(self, entry: dict):
+        self.model_id = entry["model_id"]
+        self.title = entry.get("title", self.model_id)
+        self.card_path = entry["card"]
+        self.card = _load_card(entry["card"])
+        self.declared_state = STATE_EXPERIMENTAL
+        self.evidence_grade = entry.get("evidence_grade", "experimental (gate failed)")
+        self.model_version = self.card.get("name", self.model_id)
+        self.has_adapter = False
+
+
+@lru_cache(maxsize=1)
+def _card_only() -> dict:
+    with open(REGISTRY_JSON) as f:
+        spec = json.load(f)
+    return {e["model_id"]: CardOnly(e) for e in spec.get("cards_without_adapter", [])}
+
+
+def card_only(model_id: str | None = None):
+    """Cards without adapters: all of them (dict), or one by id."""
+    cards = _card_only()
+    return cards if model_id is None else cards[model_id]
 
 
 @lru_cache(maxsize=1)

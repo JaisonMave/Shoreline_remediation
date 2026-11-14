@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import re
 from html import escape
+from pathlib import Path
 
 import altair as alt
 import matplotlib.pyplot as plt
@@ -128,6 +129,8 @@ def answer_card(view, where: str, metrics: list[dict] | None = None) -> None:
             st.markdown("Evidence behind this recommendation: " + T.grade_html(view.headline_grade, view.headline_grade_text)
                         + "&nbsp; Scope of the tool for this input: " + T.grade_html(view.tier_grade, view.tier_text),
                         unsafe_allow_html=True)
+            if view.evidence_state_label:
+                st.markdown(f"Against natural recovery: **{view.evidence_state_label}**")
             st.caption(info["legend"])
         if metrics:
             cols = st.columns(len(metrics))
@@ -206,6 +209,10 @@ def _option_card(o) -> None:
         st.markdown(f'<div class="sr-opt-title">{escape(o.name)}</div>'
                     f'{T.class_html(o.cls, with_name=False)} {T.grade_html(o.grade)}', unsafe_allow_html=True)
         st.write(o.verdict_text)
+        if o.evidence_state_label:
+            st.caption(f"Evidence state: {o.evidence_state_label}.")
+        if o.evidence_design:
+            st.caption(f"Design of the evidence: {o.evidence_design}")
         st.caption(f"Source: {o.source_text}.", help="; ".join(o.source_ids) or None)
         with st.expander("Details and caveats"):
             st.markdown(f"**Evidence grade:** {T.grade_info(o.grade)['label']}. {o.grade_note}.")
@@ -215,6 +222,10 @@ def _option_card(o) -> None:
                 if x.decision_point or x.year is None:
                     continue
                 st.markdown(f"- {x.label}, year {x.year}: {E.fmt_interval(x.median, x.lo, x.hi, 2)}")
+            if o.advisory_notes:
+                st.markdown("**Advisory notes** (AI-proposed, not used to set the class):")
+                for c in o.advisory_notes:
+                    st.markdown(f"- {c}")
             if o.conditions:
                 st.markdown("**Conditions to check** (AI-proposed, not human-reviewed):")
                 for c in o.conditions:
@@ -339,28 +350,98 @@ def render_ai_ranges(rows: list[dict], key: str = "ai") -> None:
 
 
 # ---------------------------------------------------------------------------------------------------------------
-# Beach persistence placeholder (integration point for the sand-beach model)
+# Beach persistence (sand-beach baseline curve for ESI 3A; rules and literature only elsewhere)
+
+_BEACH_RESULTS = Path(__file__).resolve().parents[2] / "results" / "v5_beach"
+GROUP_LABELS = {"surface_light": "Light surface oil", "surface_mod_heavy": "Moderate or heavy surface oil",
+                "tb_neg_light": "Light tarballs (or none)", "tb_mod_heavy": "Moderate or heavy tarballs"}
+
+
+@st.cache_data
+def reoiling_figures() -> dict | None:
+    """Re-oiling of cleared segments, read from results/v5_beach/reoiling.csv (row 'all')."""
+    path = _BEACH_RESULTS / "reoiling.csv"
+    if not path.exists():
+        return None
+    df = pd.read_csv(path)
+    row = df[df["subset"] == "all"]
+    if row.empty:
+        return None
+    r = row.iloc[0]
+    return {"cleared": int(r["n_cleared_with_later_visit"]), "reoiled": int(r["n_reoiled"]), "share": float(r["share_reoiled"]),
+            "median_days": float(r["median_days_clear_to_reoil"])}
+
+
+def _beach_reference(site: dict | None):
+    """The persistence reference: from the pipeline report if given, else from beach_model (imported defensively)."""
+    ref = (site or {}).get("reference")
+    if ref and ref.get("curves_by_group"):
+        return ref
+    try:
+        from src.shoreline_remediation import beach_model
+        card = beach_model.load_card()
+        curves = card["baseline_curves_all_states"]
+        by_group = {g: {"n_segments": c["n"], "median": c["median"], "lo90": c["lo90"], "hi90": c["hi90"]} for g, c in curves.items()}
+        group = next(iter(by_group))
+        return {"curves_by_group": by_group, "group": group, "curve": by_group[group], "horizons_days": list(beach_model.HORIZONS),
+                "scope_reasons": list(card.get("caveats_short", []))}
+    except Exception:  # module missing or still changing
+        return None
+
+
+def _persistence_chart(horizons, med, lo, hi) -> alt.Chart:
+    d = pd.DataFrame({"days": horizons, "median": med, "lo": lo, "hi": hi})
+    d["Range"] = [f"{m:.0%} (90% range {a:.0%} to {b:.0%})" for m, a, b in zip(d["median"], d["lo"], d["hi"])]
+    x = alt.X("days:O", title="Days after the first oiled survey")
+    y = alt.Y("lo:Q", title="Share of segments still recorded oiled", scale=alt.Scale(domain=[0, 1]), axis=alt.Axis(format="%"))
+    blue = T.OKABE_ITO["blue"]
+    bars = alt.Chart(d).mark_rule(size=5, color=blue, opacity=0.75).encode(x=x, y=y, y2="hi:Q", tooltip=["days", "Range"])
+    dots = alt.Chart(d).mark_point(filled=True, size=110, color=blue, opacity=0.75).encode(x="days:O", y="median:Q", tooltip=["days", "Range"])
+    line = alt.Chart(d).mark_line(color=blue, opacity=0.4).encode(x="days:O", y="median:Q")
+    zero = alt.Chart(pd.DataFrame({"y": [0.0]})).mark_rule(strokeDash=[5, 4], strokeWidth=2, color=T.NEUTRAL).encode(y="y:Q")
+    return (zero + line + bars + dots).properties(height=240)
+
 
 def render_beach_persistence(site: dict | None) -> None:
-    """Panel for the sand-beach oil persistence model. Returns without error if beach_model.py does not exist yet.
-
-    Integration step (a follow-up): replace the body of `_beach_model_output` with a call into the new module and render its
-    prediction, interval and evidence grade here. The placeholder below stays for habitats the model does not cover.
-    """
-    module = None
-    try:
-        from src.shoreline_remediation import beach_model as module  # noqa: F401
-    except Exception:  # file not there yet, or not importable yet: show the placeholder
-        module = None
+    """Persistence panel for beaches. Sand beach (ESI 3A): the packaged baseline curve with a 90% range, as a REFERENCE (visible oil
+    under the cleanup as carried out; not natural recovery, not a treatment comparison). ESI 4, 5 and 6A: no outcome model, rules and
+    literature only, plus the literature notes the pipeline returns. Never raises if beach_model is missing or changing."""
+    site = site or {}
+    esi = str(site.get("esi", ""))
     with st.container(border=True):
-        st.markdown("#### Sand-beach oil persistence model: being integrated")
-        st.markdown(T.grade_html("illustrative", "Placeholder, no numbers yet"), unsafe_allow_html=True)
-        st.caption("This panel will show how long oil is expected to persist on this kind of beach, with a 90% range and its "
-                   "evidence grade. Until the model is connected, no persistence number is shown for beaches.")
-        if module is not None and not _beach_model_output(module, site):
-            st.caption("A beach model file was found but its output is not wired into the dashboard yet.")
-
-
-def _beach_model_output(module, site: dict | None) -> bool:
-    """Hook for the follow-up integration. Return True when the model's output has been rendered."""
-    return False
+        if esi != "3A":
+            st.markdown("#### No outcome model: rules and literature only")
+            st.markdown(T.grade_html("rules_literature"), unsafe_allow_html=True)
+            st.caption("There is no persistence or recovery model for this beach type. The options below come from screening rules and "
+                       "published findings, and the notes are not a prediction for this site.")
+            notes = site.get("literature_notes") or []
+            if notes:
+                st.markdown("**Literature notes (literature, not a prediction)**")
+                for n in notes:
+                    st.markdown(f"- {E.field(n, 'statement', '')} ({E.field(n, 'source', '')}; {E.field(n, 'label', 'literature, not a prediction')})")
+            return
+        ref = _beach_reference(site)
+        st.markdown("#### How long visible oil stayed on fine-to-medium sand beaches")
+        st.markdown(T.grade_html("experimental", "Experimental: failed validation"), unsafe_allow_html=True)
+        if ref is None:
+            st.info("The sand-beach persistence data are not available in this installation.", icon=":material/info:")
+            return
+        groups = list(ref["curves_by_group"])
+        default = ref.get("group") if ref.get("group") in groups else groups[0]
+        group = st.segmented_control("First oiling category seen at the segment", groups, default=default, required=True,
+                                     key=f"beach_group_{site.get('habitat', 'x')}", format_func=lambda g: GROUP_LABELS.get(g, g),
+                                     help="The pipeline does not know which category was seen first, so you choose it.")
+        c = ref["curves_by_group"][group]
+        horizons = ref.get("horizons_days") or [90, 180, 365, 730]
+        st.altair_chart(_persistence_chart(horizons, c["median"], c["lo90"], c["hi90"]), theme="streamlit", width="stretch")
+        ro = reoiling_figures()
+        text = ("This is visible oil on the beach under the cleanup as it was actually carried out in 2010 to 2013. It is not natural "
+                "recovery and not a comparison of treatments. ")
+        if ro:
+            text += (f"About {ro['share']:.0%} of cleared segments ({ro['reoiled']} of {ro['cleared']}) were recorded oiled again, a median of "
+                     f"{ro['median_days']:.0f} days later, so 'no oil observed' was often not lasting. ")
+        text += ("Results differed strongly between states and depend on how often a segment was surveyed. The model did not beat a "
+                 f"simple baseline on held-out states, so only the baseline curve is shown (n = {c.get('n_segments', '?')} segments in this group).")
+        st.markdown(text)
+        for r in ref.get("scope_reasons", [])[:1]:
+            st.caption(str(r))

@@ -107,6 +107,9 @@ class OptionView:
     harm_flags: list = dc_field(default_factory=list)
     exclusion_reasons: list = dc_field(default_factory=list)
     rank_in_class: int | None = None
+    evidence_state_label: str = ""
+    evidence_design: str = ""
+    advisory_notes: list = dc_field(default_factory=list)
     ecological_score: float | None = None
     model_id: str | None = None
     raw: dict = dc_field(default_factory=dict)
@@ -131,7 +134,9 @@ def _outcomes(row) -> list:
 
 def derive_grade(row) -> tuple[str, str]:
     """Evidence grade and a one-line reason for an option row."""
-    explicit = grade_from_text(field(row, "evidence_state"))
+    # `evidence_state` from the pipeline is a verdict state (benefit / no clear difference / insufficient evidence), not a
+    # grade, so it is shown as a label (see OptionView.evidence_state_label) and does not set the grade.
+    explicit = grade_from_text(field(row, "evidence_grade"))
     cls = str(field(row, "recommendation_class", ""))
     source = str(field(row, "evidence_source", ""))
     rule_id = str(field(row, "rule_id", ""))
@@ -211,7 +216,9 @@ def option_view(row) -> OptionView:
         rule_reason=str(field(row, "rule_reason", "")), evidence_verdict=str(field(row, "evidence_verdict", "")),
         outcomes=outs, caveats=caveats, conditions=list(field(row, "conditions", []) or []),
         harm_flags=list(field(row, "harm_flags", []) or []), exclusion_reasons=list(field(row, "exclusion_reasons", []) or []),
-        rank_in_class=int(rank) if finite(rank) else None, ecological_score=float(eco) if finite(eco) else None,
+        rank_in_class=int(rank) if finite(rank) else None,
+        evidence_state_label=str(field(row, "evidence_state_label", "") or ""), evidence_design=str(field(row, "evidence_design", "") or ""),
+        advisory_notes=[str(x) if not isinstance(x, dict) else str(x.get("text") or x.get("detail") or x) for x in field(row, "advisory_notes", []) or []], ecological_score=float(eco) if finite(eco) else None,
         model_id=field(row, "model_id"), raw=dict(row) if isinstance(row, dict) else {})
 
 
@@ -227,6 +234,9 @@ class ReportView:
     headline_grade: str
     headline_grade_text: str
     out_of_scope: bool
+    evidence_state_label: str = ""
+    literature_notes: list = dc_field(default_factory=list)
+    advisories: list = dc_field(default_factory=list)
     extra: dict = dc_field(default_factory=dict)
 
     def by_class(self) -> dict:
@@ -252,7 +262,7 @@ def report_view(report) -> ReportView:
     options.sort(key=lambda o: (T.CLASS_ORDER.index(o.cls) if o.cls in T.CLASS_ORDER else 99, o.rank_in_class or 999, o.option))
     tier_grade = T.TIER_TO_GRADE.get(tier, grade_from_text(tier) or "rules_literature")
     tier_text = T.TIER_TEXT.get(tier, tier.replace("_", " ").capitalize())
-    report_level = grade_from_text(field(report, "evidence_state"))
+    report_level = None
     a_options = [o for o in options if o.cls == "A"]
     if tier == "out_of_scope":
         hg, hg_text = "out_of_scope", "Out of scope"
@@ -267,6 +277,9 @@ def report_view(report) -> ReportView:
     return ReportView(headline=headline, tier=tier, tier_grade=tier_grade, tier_text=tier_text,
                       scope_message=str(field(report, "scope_message", "")), options=options, reference=reference_rows(report),
                       headline_grade=hg, headline_grade_text=hg_text, out_of_scope=tier == "out_of_scope",
+                      evidence_state_label=str(field(report, "evidence_state_label", "") or ""),
+                      literature_notes=list(field(report, "literature_notes", []) or []),
+                      advisories=[str(x) for x in field(report, "advisories", []) or []],
                       extra={"version": field(report, "version", {}), "trace": field(report, "trace", []),
                              "characterisation": field(report, "characterisation", {}), "plots": field(report, "plots", {})})
 

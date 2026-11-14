@@ -385,6 +385,8 @@ def _scope_tier(ctx: dict) -> tuple[str, str, list]:
         ref = _beach_persistence_reference(ctx)
         if ref is not None:   # filled by the integrating agent when the sand-beach data model exists
             reasons = ["sand-beach data model: one spill (Deepwater Horizon), outcome is a response endpoint, not chemical or ecological recovery"]
+            if esi == "3A":
+                return "experimental", BEACH_TIER_TEXT + " Reason: " + reasons[0], reasons
             return "experimental", TIER_MESSAGES["experimental"] + " Reasons: " + reasons[0], reasons
         return "rules_and_literature", TIER_MESSAGES["rules_and_literature"] + TIER_SAND_NOTE, []
     if esi in ("5", "6A"):
@@ -392,14 +394,43 @@ def _scope_tier(ctx: dict) -> tuple[str, str, list]:
     return "rules_and_literature", TIER_MESSAGES["rules_and_literature"], []
 
 
-def _beach_persistence_reference(ctx: dict):
-    """HOOK (D36): the agent that integrates the sand-beach data model fills this in.
+BEACH_TIER_TEXT = ("Rules and literature, plus an experimental persistence reference (did not beat its baseline; not transferable "
+                   "between states).")
+# ASSUMED mapping from the pipeline's SCAT maximum-oiling class to a first-oiling category group of the beach model. The
+# dashboard lets the user pick the group, so this only sets the default shown.
+_BEACH_GROUP_OF_OILING = {"Heavy": "surface_mod_heavy", "Moderate": "surface_mod_heavy", "Light": "surface_light",
+                          "Very_Light": "tb_neg_light", "NOO": "tb_neg_light"}
 
-    Return None while no sand-beach model is integrated (ESI 3A and 4). When it returns a dict (same keys as a row of
-    `_reference_rows`: quantity, value, lo90, hi90, unit, model_id, state, scope, note), the pipeline shows it as a reference
-    number and the scope tier becomes "experimental". Never called for ESI 5 and 6A (rules and literature only by owner decision).
-    """
-    return None
+
+def _beach_persistence_reference(ctx: dict):
+    """Persistence REFERENCE for fine-to-medium sand beach (ESI 3A) only; None for ESI 4, 5 and 6A (and anything else).
+
+    Returns the packaged baseline curve of beach_sand_persistence_v1 (Turnbull curve by first oiling category; both gates
+    failed, so the model itself is not packaged). It is visible oil under the cleanup as carried out in 2010-2013, not natural
+    recovery and not a treatment comparison. Same keys as a row of `_reference_rows`, plus `curve` (the chosen group) and
+    `curves_by_group` (all four groups, for the dashboard)."""
+    if ctx.get("esi") != "3A":
+        return None
+    try:
+        model = registry.get("beach_sand_persistence_v1")
+        card = model.card
+        curves = card["baseline_curves_all_states"]
+        horizons = [90, 180, 365, 730]
+    except (KeyError, FileNotFoundError, ImportError):
+        return None
+    group = _BEACH_GROUP_OF_OILING.get(ctx.get("oiling"), "tb_neg_light")
+    i365 = horizons.index(365)
+    by_group = {g: {"n_segments": c["n"], "median": c["median"], "lo90": c["lo90"], "hi90": c["hi90"]} for g, c in curves.items()}
+    c = by_group[group]
+    return {"quantity": "visible oil still recorded 365 days after the first oiled survey (sand beach, baseline by first oiling category)",
+            "value": c["median"][i365], "lo90": c["lo90"][i365], "hi90": c["hi90"][i365], "unit": "probability",
+            "model_id": model.model_id, "state": "experimental", "state_label": "experimental (gate failed)",
+            "evidence_state": "experimental", "scope": "in range", "scope_reasons": list(card.get("caveats_short", [])),
+            "reference_only": True, "horizons_days": horizons, "group": group, "curve": c, "curves_by_group": by_group,
+            "group_mapping_note": "default group ASSUMED from the SCAT oiling class; choose the group seen at the first oiled survey",
+            "note": ("Persistence of visible oil under the 2010-2013 cleanup as it was carried out. Not natural recovery, not a "
+                     "treatment comparison. Model did not beat its baseline (gates B-1 and B-2 failed); results differed strongly "
+                     "between states. " + "; ".join(card.get("caveats_short", [])))}
 
 
 # ---------------------------------------------------------------------------------------------------------------
