@@ -1,3 +1,5 @@
+> **Provenance: written by an AI agent asked to act as an expert. Not a human expert review. Treat every range and verdict as AI-PROPOSED until reviewed by named human experts (V4 plan R6, F8).**
+
 # Expert review of treatment conditions and literature ranges (13 Nov 2026)
 
 Done by the orchestrator at Jaison's request ("act as a senior soil and environmental chemist and decide").

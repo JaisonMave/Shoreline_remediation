@@ -158,7 +158,7 @@ def test_compare_options_renders_for_worked_example():
     assert "suggestive" in txt.lower() and "does not depend on this site" in txt and "Is this true" in " ".join(
         str(v) for t in at.dataframe if "Condition to check" in t.value.columns for v in t.value["Condition to check"])
     cell_table = next(t.value for t in at.dataframe if "Edge loss distinguished yr 2 / 5 / 8" in t.value.columns)
-    assert {"MEASURED", "ELICITED, not measured"} <= set(cell_table.Evidence)
+    assert {"MEASURED", "AI-proposed range (not human-reviewed)"} <= set(cell_table.Evidence)
     assert "Expected rate" in {m.label for m in at.metric}       # existing content is still there
 
 

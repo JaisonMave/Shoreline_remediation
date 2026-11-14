@@ -127,8 +127,8 @@ YEARS = (2, 5, 8)
 A41_NOTE = ("Where an option is marked distinguished, the 90% interval of its paired difference from natural recovery (same simulated "
             "baseline in each draw) excludes zero. That difference does not depend on this site: it comes from one site's field evidence "
             "(Bay Jimmy, Zengel et al. 2015, 2022) accumulated over time, so 'distinguished' means the evidence distinguishes the options, "
-            "not that this site was measured. Elicited options have no edge-loss difference; their prior acts on vegetation recovery time only "
-            "and is ASSUMED from the literature table, not measured.")
+            "not that this site was measured. AI-proposed ranges (not human-reviewed) have no edge-loss difference; their range acts on vegetation "
+            "recovery time only and is ASSUMED from the literature table, not measured.")
 
 
 @st.cache_data
@@ -180,7 +180,8 @@ def _flags_text(r, col: str) -> str:
 
 
 def _evidence_short(label: str) -> str:
-    return "ELICITED, not measured" if label.startswith("ELICITED") else ("MEASURED" if label.startswith("MEASURED") else "NO EVIDENCE")
+    return ("AI-proposed range (not human-reviewed)" if label.startswith(("ELICITED", "AI-proposed"))
+            else ("MEASURED" if label.startswith("MEASURED") else "NO EVIDENCE"))
 
 
 def _compare_table(summ: pd.DataFrame, kind: str) -> pd.DataFrame:
@@ -212,7 +213,8 @@ def _conditions_table(options: list[str]) -> pd.DataFrame:
             askable = str(r.site_data_can_check).lower().startswith("no")
             text = (f"Is this true: {r.condition.rstrip('.')}? If so, the literature reports it {r.effect_when_met}." if askable
                     else f"{r.condition} ({r.effect_when_met}; the site data can only partly check this: {r.site_data_can_check})")
-            rows.append({"Option": _label(opt), "Condition to check": text, "Evidence class": r.evidence_class, "Source": r.source})
+            rows.append({"Option": _label(opt), "Condition to check": text, "Evidence class": r.evidence_class, "Source": r.source,
+                         "Provenance": r.provenance})
     return pd.DataFrame(rows)
 
 
@@ -232,7 +234,7 @@ def _compare_options(site: dict, flags) -> None:
     verdict = str(summ.veg_curve_verdict.iloc[0])
     st.caption(f"Vegetation curve status: {verdict.split(' (')[0].upper()} (leave-one-study-out test of the A1 recovery curve; "
                "'suggestive' means not validated). Vegetation differences exist only where a field shift (year 2 only) or an elicited range exists, "
-               "and elicited ranges are ASSUMED and wide.")
+               "and AI-proposed ranges (not human-reviewed) are ASSUMED and wide.")
     block = site.get("cell_2km")
     if site.get("source") == "edge cell" and block is not None and not pd.isna(block):
         bsumm, n = _compare_block(str(block))
@@ -250,7 +252,8 @@ def _compare_options(site: dict, flags) -> None:
         st.caption("No conditions listed.")
     else:
         st.dataframe(cond, hide_index=True, width="stretch")
-        st.caption("Conditions under which the literature reports benefit or harm (data/knowledge/treatment_conditions.csv). They are shown "
+        st.caption("Conditions under which the literature reports benefit or harm, extracted by an AI agent (AI-proposed, not human-reviewed; "
+                   "data/knowledge/treatment_conditions.csv). They are shown "
                    "as questions because the site data cannot verify them (season, water over the soil, days since oiling). They do not change the "
                    "rule screening verdicts above. Options without rows have no conditions recorded.")
     st.info(A41_NOTE, icon=":material/info:")
@@ -315,12 +318,12 @@ def render_mangrove_view() -> None:
     st.caption("Intervals are 90% Wald intervals from a mixed model with a random intercept per site; the site is the unit of "
                "analysis. Oiled and unoiled sites were chosen by the investigators, so differences are associations. "
                "Year since spill = calendar year minus 1986 (ASSUMED convention).")
-    st.subheader("Cleanup options in mangroves (screening table)")
+    st.subheader("Cleanup options in mangroves (AI-proposed screening table, not human-reviewed)")
     t = _mangrove_screening()
     st.dataframe(t.rename(columns={"treatment": "Treatment", "verdict": "Verdict", "reason": "Reason", "conditions": "Conditions",
-                                   "source": "Source", "evidence_class": "Evidence class"})
-                 [["Treatment", "Verdict", "Reason", "Conditions", "Source", "Evidence class"]], hide_index=True, width="stretch")
-    st.caption("Verdicts are rule- and literature-based and were not tested with the Galeta data (no treatment variable). "
+                                   "source": "Source", "evidence_class": "Evidence class", "provenance": "Provenance"})
+                 [["Treatment", "Verdict", "Reason", "Conditions", "Source", "Evidence class", "Provenance"]], hide_index=True, width="stretch")
+    st.caption("Verdicts are AI-proposed (not reviewed by a human expert), based on rules and literature, and were not tested with the Galeta data (no treatment variable). "
                "Entries marked 'to verify' are judgements that still need checking against the sources.")
 
 
