@@ -1,0 +1,88 @@
+{
+  "records": 40427,
+  "records_by_state": {
+    "FL": 18082,
+    "MS": 11860,
+    "AL": 10485
+  },
+  "segments": 3007,
+  "date_min": "2010-05-05",
+  "date_max": "2013-06-18",
+  "esi_3A": {
+    "records": 31954,
+    "segment_zone_series": 6168,
+    "with_3plus_surveys": 3075,
+    "with_5plus_surveys": 2107
+  },
+  "esi_4": {
+    "records": 79,
+    "segment_zone_series": 67,
+    "with_3plus_surveys": 4,
+    "with_5plus_surveys": 0
+  },
+  "esi_5": {
+    "records": 118,
+    "segment_zone_series": 116,
+    "with_3plus_surveys": 0,
+    "with_5plus_surveys": 0
+  },
+  "esi_6A": {
+    "records": 12,
+    "segment_zone_series": 12,
+    "with_3plus_surveys": 0,
+    "with_5plus_surveys": 0
+  },
+  "esi_missing_records": 3959,
+  "esi_missing_records_that_are_NOO": 3858,
+  "oilcatcode_counts": {
+    "NOO": 16994,
+    "Light_TB": 12747,
+    "Light": 4104,
+    "Mod_TB": 2558,
+    "Neg_TB": 2417,
+    "Heavy": 576,
+    "Very_Light": 498,
+    "Heavy_TB": 339,
+    "Moderate": 190,
+    "Undefined": 4
+  },
+  "duplicate_ZoneSurvID": 3,
+  "this_build": {
+    "segments_by_esi_class": {
+      "3A": 1552,
+      "other": 1417,
+      "unknown": 29,
+      "4": 9
+    },
+    "visits": 28628,
+    "visit_status": {
+      "oiled": 14341,
+      "clear": 14284,
+      "partial_clear": 3
+    },
+    "esi_3A_segments_ever_oiled": 1010,
+    "esi_3A_oiled_with_a_later_visit": 1007,
+    "esi_3A_oiled_by_state": {
+      "FL": 502,
+      "MS": 269,
+      "AL": 239
+    },
+    "esi_4_segments_ever_oiled": 0,
+    "esi_4_oiled_with_a_later_visit": 0,
+    "assumed": {
+      "ESI_SHARE_MIN": 0.8,
+      "NOO_COVER_MIN": 0.5,
+      "RAY_BEARINGS": [
+        120,
+        140,
+        160,
+        180,
+        200,
+        220,
+        240
+      ],
+      "RAY_LENGTH_M": 20000.0,
+      "RAY_SKIP_M": 200.0
+    }
+  }
+}

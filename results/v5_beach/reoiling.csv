@@ -1,0 +1,9 @@
+subset,n_cleared_with_later_visit,n_reoiled,share_reoiled,median_days_clear_to_reoil,reoil_category_counts
+all,686,510,0.7434402332361516,16.0,"{""Light_TB"": 264, ""Light"": 149, ""Mod_TB"": 62, ""Neg_TB"": 20, ""Heavy"": 12, ""Moderate"": 1, ""Heavy_TB"": 1, ""Very_Light"": 1}"
+state=AL,125,114,0.912,26.0,"{""Light_TB"": 62, ""Light"": 27, ""Mod_TB"": 15, ""Neg_TB"": 7, ""Moderate"": 1, ""Heavy_TB"": 1, ""Heavy"": 1}"
+state=FL,394,243,0.616751269035533,10.0,"{""Light_TB"": 96, ""Light"": 88, ""Mod_TB"": 40, ""Neg_TB"": 10, ""Heavy"": 9}"
+state=MS,167,153,0.9161676646706587,39.0,"{""Light_TB"": 106, ""Light"": 34, ""Mod_TB"": 7, ""Neg_TB"": 3, ""Heavy"": 2, ""Very_Light"": 1}"
+group=surface_light,314,298,0.9490445859872612,16.5,"{""Light_TB"": 151, ""Light"": 94, ""Mod_TB"": 25, ""Neg_TB"": 18, ""Heavy"": 10}"
+group=surface_mod_heavy,36,35,0.9722222222222222,18.0,"{""Light_TB"": 24, ""Light"": 6, ""Mod_TB"": 3, ""Neg_TB"": 1, ""Heavy"": 1}"
+group=tb_mod_heavy,48,43,0.8958333333333334,15.0,"{""Light_TB"": 19, ""Mod_TB"": 17, ""Light"": 7}"
+group=tb_neg_light,288,134,0.4652777777777778,15.0,"{""Light_TB"": 70, ""Light"": 42, ""Mod_TB"": 17, ""Neg_TB"": 1, ""Moderate"": 1, ""Heavy_TB"": 1, ""Very_Light"": 1, ""Heavy"": 1}"
