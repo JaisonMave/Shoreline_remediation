@@ -7,6 +7,7 @@ import pandas as pd
 
 from .data_model import Scenario, TreatmentScore, TREATMENT_LIBRARY
 from .fast_engine import FASTRuleEngine
+from . import knowledge
 from .ml_models import GaussianProcessSuitabilityModel, make_synthetic_dataset
 
 
@@ -130,72 +131,12 @@ class HybridDecisionModel:
         return scores
 
     def _ecological_score(self, treatment: str, scenario: Scenario) -> float:
-        shoreline = scenario.shoreline_type.lower()
-        sensitivity = scenario.shoreline_sensitivity.lower()
-        base = 5.0
-
-        if treatment == "natural_attenuation":
-            if shoreline in {"marsh", "mudflat"} and sensitivity in {"high", "very_high"}:
-                return 8.5
-            return 7.0
-
-        if treatment == "bioremediation":
-            return 6.0
-
-        if treatment in {"manual_removal", "vacuum_removal", "mechanical_removal"}:
-            if shoreline in {"marsh", "mudflat", "tundra"}:
-                return 3.0
-            return 6.0
-
-        if treatment in {"high_pressure_washing", "high_pressure_heated_washing", "sediment_mixing"}:
-            # On hard substrates pressure washing is an accepted method, so it is not scored as the most
-            # damaging option there. Heated washing stays lower: hot-water-washed Exxon Valdez sites initially
-            # declined more than unwashed ones (NOAA OR&R). The values 4.5 and 3.0 are ASSUMED.
-            if shoreline in {"bedrock", "boulder", "cobble"} and treatment != "sediment_mixing":
-                return 4.5 if treatment == "high_pressure_washing" else 3.0
-            return 2.0
-
-        if treatment in {"low_pressure_flushing", "surface_washing_agents", "low_pressure_heated_flushing"}:
-            return 4.5
-
-        if treatment in {"vegetation_cutting", "sediment_relocation"}:
-            if shoreline in {"marsh", "tundra"}:
-                return 2.5
-            return 4.0
-
-        if treatment == "passive_sorbents":
-            return 6.5
-
-        return base
+        # ASSUMED ecological (do-no-harm) scores moved to data/knowledge/tables/ecological_score.csv (D16, F2).
+        return knowledge.ecological_score(treatment, scenario)
 
     def ecological_score_explanation(self, treatment: str, scenario: Scenario) -> dict:
-        """Return the rule rationale used for the ecological suitability score."""
-        shoreline = scenario.shoreline_type.lower()
-        sensitivity = scenario.shoreline_sensitivity.lower()
-        if treatment == "natural_attenuation":
-            if shoreline in {"marsh", "mudflat"} and sensitivity in {"high", "very_high"}:
-                return {"score": 8.5, "basis": "Low-disturbance treatment aligned with sensitive wetland recovery."}
-            return {"score": 7.0, "basis": "Generally low-disturbance treatment with good ecological compatibility."}
-        if treatment == "bioremediation":
-            return {"score": 6.0, "basis": "Potentially low physical disturbance, but effectiveness depends on nutrient, oxygen, access, and monitoring evidence; NOAA notes limited evidence for bioaugmentation."}
-        if treatment in {"manual_removal", "vacuum_removal", "mechanical_removal"}:
-            if shoreline in {"marsh", "mudflat", "tundra"}:
-                return {"score": 3.0, "basis": "Physical removal can disturb soft sediment, vegetation, or sensitive habitat."}
-            return {"score": 6.0, "basis": "Physical removal is more compatible with firm or accessible shorelines."}
-        if treatment in {"high_pressure_washing", "high_pressure_heated_washing", "sediment_mixing"}:
-            if shoreline in {"bedrock", "boulder", "cobble"} and treatment != "sediment_mixing":
-                score = 4.5 if treatment == "high_pressure_washing" else 3.0
-                return {"score": score, "basis": "Pressure washing is an accepted method on hard substrates; heated washing scores lower because hot-water-washed sites initially declined more than unwashed ones."}
-            return {"score": 2.0, "basis": "High disturbance or redistribution risk for sediment and residual oil."}
-        if treatment in {"low_pressure_flushing", "surface_washing_agents", "low_pressure_heated_flushing"}:
-            return {"score": 4.5, "basis": "Moderate disturbance and potential residue or mobilization concerns."}
-        if treatment in {"vegetation_cutting", "sediment_relocation"}:
-            if shoreline in {"marsh", "tundra"}:
-                return {"score": 2.5, "basis": "Vegetation or sediment disturbance is poorly suited to sensitive habitats."}
-            return {"score": 4.0, "basis": "Moderate habitat and sediment disturbance risk."}
-        if treatment == "passive_sorbents":
-            return {"score": 6.5, "basis": "Low-contact recovery option with limited substrate disturbance."}
-        return {"score": 5.0, "basis": "Neutral ecological baseline because no treatment-specific rule was triggered."}
+        """Return the rule rationale used for the ecological suitability score (read from ecological_score.csv)."""
+        return knowledge.ecological_score_explanation(treatment, scenario)
 
     def _decision_utility(self, feasibility: str, suitability: float, ecological_suitability: float) -> float:
         if feasibility == "ineligible":

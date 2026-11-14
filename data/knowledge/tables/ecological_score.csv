@@ -1,0 +1,14 @@
+rule_id,order,technology,condition,score,basis,source,evidence_type,status
+natatt_sensitive,10,natural_attenuation,shoreline in marsh|mudflat; sensitivity in high|very_high,8.5,"Low-disturbance treatment aligned with sensitive wetland recovery.",docs/NOAA_ASSUMPTION_AUDIT.md,assumed,proposed
+natatt_default,20,natural_attenuation,,7.0,"Generally low-disturbance treatment with good ecological compatibility.",docs/NOAA_ASSUMPTION_AUDIT.md,assumed,proposed
+bio_default,30,bioremediation,,6.0,"Potentially low physical disturbance, but effectiveness depends on nutrient, oxygen, access, and monitoring evidence; NOAA notes limited evidence for bioaugmentation.",docs/NOAA_ASSUMPTION_AUDIT.md,assumed,proposed
+removal_sensitive,40,manual_removal|vacuum_removal|mechanical_removal,shoreline in marsh|mudflat|tundra,3.0,"Physical removal can disturb soft sediment, vegetation, or sensitive habitat.",docs/NOAA_ASSUMPTION_AUDIT.md,assumed,proposed
+removal_default,50,manual_removal|vacuum_removal|mechanical_removal,,6.0,"Physical removal is more compatible with firm or accessible shorelines.",docs/NOAA_ASSUMPTION_AUDIT.md,assumed,proposed
+hpw_hard,60,high_pressure_washing,shoreline in bedrock|boulder|cobble,4.5,"Pressure washing is an accepted method on hard substrates; heated washing scores lower because hot-water-washed sites initially declined more than unwashed ones.",docs/NOAA_ASSUMPTION_AUDIT.md,assumed,proposed
+hphw_hard,70,high_pressure_heated_washing,shoreline in bedrock|boulder|cobble,3.0,"Pressure washing is an accepted method on hard substrates; heated washing scores lower because hot-water-washed sites initially declined more than unwashed ones.",docs/NOAA_ASSUMPTION_AUDIT.md,assumed,proposed
+hpw_sedmix_default,80,high_pressure_washing|high_pressure_heated_washing|sediment_mixing,,2.0,"High disturbance or redistribution risk for sediment and residual oil.",docs/NOAA_ASSUMPTION_AUDIT.md,assumed,proposed
+flushing_default,90,low_pressure_flushing|surface_washing_agents|low_pressure_heated_flushing,,4.5,"Moderate disturbance and potential residue or mobilization concerns.",docs/NOAA_ASSUMPTION_AUDIT.md,assumed,proposed
+vegcut_sedreloc_sensitive,100,vegetation_cutting|sediment_relocation,shoreline in marsh|tundra,2.5,"Vegetation or sediment disturbance is poorly suited to sensitive habitats.",docs/NOAA_ASSUMPTION_AUDIT.md,assumed,proposed
+vegcut_sedreloc_default,110,vegetation_cutting|sediment_relocation,,4.0,"Moderate habitat and sediment disturbance risk.",docs/NOAA_ASSUMPTION_AUDIT.md,assumed,proposed
+passive_default,120,passive_sorbents,,6.5,"Low-contact recovery option with limited substrate disturbance.",docs/NOAA_ASSUMPTION_AUDIT.md,assumed,proposed
+neutral_default,999,*,,5.0,"Neutral ecological baseline because no treatment-specific rule was triggered.",docs/NOAA_ASSUMPTION_AUDIT.md,assumed,proposed

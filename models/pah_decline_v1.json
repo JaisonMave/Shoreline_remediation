@@ -1,0 +1,33 @@
+{
+  "name": "pah-decline-v1",
+  "state": "validated",
+  "built": "2026-11-13",
+  "plan": "docs/PAH_DECLINE_PLAN.md (final choices by Jaison, committed before the run)",
+  "model": "M1: Tobit decline of ln(PAH sum) vs time since spill with total organic carbon and campaign, per oiling class; M0: no-change baseline",
+  "target": "soil PAH sum half-life (years) in oiled marsh, by SCAT oiling class",
+  "outcome_unit": "years",
+  "validation": "FINDINGS 22 (docs/FINDINGS_2026-11-11.md): M1 beats the M0 no-change baseline on whole held-out stations (ln-MAE 0.592 vs 0.631; difference -0.039, 90% interval -0.066 to -0.010); 90% prediction interval covers 0.89 of held-out cells. Validated WITHIN Deepwater Horizon only (one spill).",
+  "baseline_beaten": true,
+  "interval_level": 0.9,
+  "interval_coverage": 0.89,
+  "interval_method": "90% interval on the class half-life from the 90% interval on the decline rate k (results/pah_decline/by_oiling_class.csv)",
+  "held_out_units": "whole stations (196 of 200 stations held out; never split rows within a station)",
+  "training_range": {
+    "spill": "Deepwater Horizon (2010)",
+    "region": "northern Gulf of Mexico marsh (LA, MS, AL, FL)",
+    "stations": 200,
+    "campaigns": "spring 2011 to fall 2013",
+    "oiling_classes": ["none", "very_light", "light", "moderate", "heavy", "unknown"]
+  },
+  "results_file": "results/pah_decline/by_oiling_class.csv",
+  "summary_file": "results/pah_decline/summary.txt",
+  "half_life_years_by_class": {
+    "none": {"half_life": null, "lo90": 45.04, "hi90": null, "k_per_year": -0.0558, "note": "no decline"},
+    "very_light": {"half_life": 7.91, "lo90": 2.75, "hi90": null, "k_per_year": 0.0876},
+    "light": {"half_life": 2.86, "lo90": 1.63, "hi90": 8.72, "k_per_year": 0.2422},
+    "moderate": {"half_life": 1.83, "lo90": 1.20, "hi90": 3.26, "k_per_year": 0.3780},
+    "heavy": {"half_life": 1.61, "lo90": 1.25, "hi90": 2.38, "k_per_year": 0.4302},
+    "pooled": {"half_life": 4.72, "lo90": 3.47, "hi90": 7.29, "k_per_year": 0.1470}
+  },
+  "limits": "Outcome is the PAH sum (physical loss plus degradation). A decline in the sum with no decline in the PAH/hopane ratio means physical loss (erosion, burial, removal), not degradation. One spill; no treatment variable; 56 stations have no SCAT class within 100 m (unknown)."
+}

@@ -1,0 +1,50 @@
+{
+  "description": "Model registry (D15/D20, V4 F3). Each entry wraps an existing model behind the standard interface. declared_state is the intended state; the registry keeps a model 'validated' only if it both declares validated and passes the D20 promotion check (registry.meets_promotion_criteria). No new science: adapters are thin wrappers.",
+  "models": [
+    {
+      "model_id": "edge_loss_v1",
+      "title": "Marsh-edge loss v1",
+      "adapter": "EdgeLossV1Adapter",
+      "card": "models/p5_edge_loss_v1.json",
+      "declared_state": "validated",
+      "evidence_grade": "validated (P2 held-out basins)",
+      "wraps": "site_evidence.predict_edge_loss + site_flags"
+    },
+    {
+      "model_id": "composer_natural_recovery_v1",
+      "title": "Scenario composer natural recovery",
+      "adapter": "ComposerNaturalRecoveryAdapter",
+      "card": "models/p5_edge_loss_clean_v1.json",
+      "declared_state": "experimental",
+      "evidence_grade": "experimental: R3 bias gate failed (FINDINGS_V4 26)",
+      "wraps": "scenario_composer.natural_recovery_summary / compose"
+    },
+    {
+      "model_id": "veg_recovery_v1",
+      "title": "Vegetation recovery curve",
+      "adapter": "VegRecoveryAdapter",
+      "card": "models/veg_recovery_v1.json",
+      "declared_state": "experimental",
+      "evidence_grade": "experimental: suggestive (worse than baseline for heavy oiling)",
+      "wraps": "models/veg_recovery_v1.json curve"
+    },
+    {
+      "model_id": "pah_decline_v1",
+      "title": "Soil PAH decline",
+      "adapter": "PahDeclineAdapter",
+      "card": "models/pah_decline_v1.json",
+      "declared_state": "validated",
+      "evidence_grade": "validated within Deepwater Horizon (FINDINGS 22)",
+      "wraps": "results/pah_decline half-lives by oiling class"
+    },
+    {
+      "model_id": "mangrove_damage_v1",
+      "title": "Mangrove oiling damage",
+      "adapter": "MangroveDamageAdapter",
+      "card": "models/mangrove_damage_v1.json",
+      "declared_state": "experimental",
+      "evidence_grade": "experimental: oiling effect, one spill (Galeta)",
+      "wraps": "mangrove_model / models/mangrove_damage_v1.json"
+    }
+  ]
+}
