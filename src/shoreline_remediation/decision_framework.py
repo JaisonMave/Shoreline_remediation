@@ -104,8 +104,9 @@ class HybridDecisionModel:
                 scores.append(self.score_treatment(scenario, treatment))
             except Exception:
                 continue
-        # Scored treatments first, by utility; treatments without suitability evidence follow.
-        scores.sort(key=lambda x: (x.evidence != "none", x.utility), reverse=True)
+        # Feasibility tier first (rules are hard constraints), then scored before unscored, then utility (D25).
+        tier = {"eligible": 0, "conditional": 1, "ineligible": 2}
+        scores.sort(key=lambda x: (tier[x.feasibility], x.evidence == "none", -x.utility))
         return scores
 
     def _ecological_score(self, treatment: str, scenario: Scenario) -> float:
@@ -177,7 +178,9 @@ class HybridDecisionModel:
         return {"score": 5.0, "basis": "Neutral ecological baseline because no treatment-specific rule was triggered."}
 
     def _decision_utility(self, feasibility: str, suitability: float, ecological_suitability: float) -> float:
-        feasibility_weight = {"eligible": 1.0, "conditional": 0.6, "ineligible": 0.0}[feasibility]
+        if feasibility == "ineligible":
+            return 0.0  # a rule exclusion is final; ecology cannot lift an excluded option (V4 R1, D25)
+        feasibility_weight = {"eligible": 1.0, "conditional": 0.6}[feasibility]
         return round((0.6 * feasibility_weight * suitability) + (0.4 * ecological_suitability), 2)
 
     def _confidence(self, feasibility: str, suitability: float, ecological_suitability: float) -> float:

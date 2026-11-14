@@ -27,17 +27,39 @@ def model() -> HybridDecisionModel:
     return trained
 
 
+TIER = {"eligible": 0, "conditional": 1, "ineligible": 2}
+
+
 def rank_of(model, scenario, treatment) -> int:
     return [score.treatment for score in model.rank_treatments(scenario)].index(treatment) + 1
 
 
-def test_every_treatment_is_listed_and_unscored_ones_come_last(model):
+def test_every_treatment_is_listed_and_unscored_ones_come_last_within_a_tier(model):
     ranked = model.rank_treatments(Scenario("sand_beach", oil_category="heavy"))
     assert sorted(score.treatment for score in ranked) == sorted(TREATMENT_LIBRARY)
-    evidence = [score.evidence for score in ranked]
-    assert evidence == sorted(evidence, key=lambda value: value == "none")  # all scored treatments first
+    keys = [(TIER[score.feasibility], score.evidence == "none") for score in ranked]
+    assert keys == sorted(keys)  # within a feasibility tier, scored treatments first
     for score in ranked:
         assert math.isnan(score.suitability) == (score.evidence == "none")  # no placeholder scores
+
+
+
+
+def test_no_ineligible_treatment_ranks_above_an_allowed_one(model):
+    """V4 R1: scored-but-ineligible options used to keep 0.4*E and sort above unscored eligible options."""
+    from src.shoreline_remediation.expert_scoring import build_scoring_sheet
+
+    scenarios = [Scenario("sand_beach", oil_category="heavy", oil_coverage=80, oil_thickness=20),
+                 Scenario("marsh", shoreline_sensitivity="very_high", oil_category="heavy", oil_coverage=80,
+                          oil_thickness=20, substrate_permeability="low")]
+    fields = set(Scenario.__dataclass_fields__)
+    for _, row in build_scoring_sheet().iterrows():
+        scenarios.append(Scenario(**{k: v for k, v in row.items() if k in fields}))
+    for scenario in scenarios:
+        ranked = model.rank_treatments(scenario)
+        tiers = [TIER[score.feasibility] for score in ranked]
+        assert tiers == sorted(tiers)
+        assert all(score.utility == 0.0 for score in ranked if score.feasibility == "ineligible")
 
 
 def test_top_choice_depends_on_the_scenario(model):
