@@ -1,0 +1,13 @@
+held_out_basin,predictor,oiling_class,lo_offset,hi_offset,n_calibration_cells,fallback_to_all_class
+none (all three basins),M1,__all__,-3.1609,2.8872,12696,False
+none (all three basins),M1,NOO,-3.2753,2.7802,10162,False
+none (all three basins),M1,Very_Light,-3.1771,2.9612000000000003,610,False
+none (all three basins),M1,Light,-3.7636999999999996,2.7936,684,False
+none (all three basins),M1,Moderate,-2.4395,4.2015,688,False
+none (all three basins),M1,Heavy,-1.2474,3.5758,552,False
+none (all three basins),composer,__all__,-3.2445,2.8267,12696,False
+none (all three basins),composer,NOO,-3.2445,2.796,10162,False
+none (all three basins),composer,Very_Light,-3.1367000000000003,3.0205,610,False
+none (all three basins),composer,Light,-4.156071500575053,2.515128499424947,684,False
+none (all three basins),composer,Moderate,-3.383566673232492,3.2917333267675075,688,False
+none (all three basins),composer,Heavy,-1.7955687304102659,3.123731269589734,552,False

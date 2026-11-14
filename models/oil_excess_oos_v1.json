@@ -1,0 +1,436 @@
+{
+  "name": "oil-excess-oos-v1",
+  "built": "2026-11-14",
+  "state": "experimental (gate failed)",
+  "decision": "D37 (Proposed)",
+  "plan": "docs/V5_P0_PLAN.md Part 0.1 (written before the run)",
+  "target": "Extra NAIP marsh-edge loss rate 2010-2015 (m/yr, positive = more land lost) of oiling-class-c 100 m edge cells over no-oil-observed (NOO) cells in the same 2 km block",
+  "data": "data/demo/p5_sites_clean_lobo.csv (12,696 in-scope ESI 10A cells in Terrebonne, Barataria, Breton; observed NAIP rate, SCAT max_oiling, 2 km block, clean-edge baseline leave-one-basin-out prediction)",
+  "method": "Weighted mean of within-block differences (class c minus NOO), weights n_c*n_NOO/(n_c+n_NOO) (block fixed effects); for a held-out basin estimated from the other two basins only; no Zengel term; added to the clean-edge baseline prediction fitted without the held-out basin. 90% interval: 2,000 block-bootstrap replicates stratified by basin, seed 20261114.",
+  "baseline": "Clean-edge baseline (p5-edge-loss-clean-v1 leave-one-basin-out prediction) with no excess",
+  "excess_by_class_deployable": {
+    "Heavy": {
+      "excess_m_per_yr": 0.714203,
+      "lo90": 0.349311,
+      "hi90": 1.145022,
+      "n_blocks": 42,
+      "n_class_cells_in_blocks": 321,
+      "n_noo_cells_in_blocks": 743
+    },
+    "Moderate": {
+      "excess_m_per_yr": 0.793835,
+      "lo90": 0.464238,
+      "hi90": 1.110916,
+      "n_blocks": 71,
+      "n_class_cells_in_blocks": 593,
+      "n_noo_cells_in_blocks": 1086
+    },
+    "Light": {
+      "excess_m_per_yr": 0.32402,
+      "lo90": 0.004347,
+      "hi90": 0.661908,
+      "n_blocks": 85,
+      "n_class_cells_in_blocks": 603,
+      "n_noo_cells_in_blocks": 1454
+    }
+  },
+  "excess_by_class_deployable_note": "Estimated from all three basins (for use at a new site). The held-out test below used the two-basin estimates.",
+  "held_out_excess": [
+    {
+      "held_out_basin": "terrebonne",
+      "oiling_class": "Heavy",
+      "excess_m_per_yr": 0.689996,
+      "lo90": 0.265507,
+      "hi90": 1.152825,
+      "n_blocks": 33,
+      "n_class_cells_in_blocks": 302
+    },
+    {
+      "held_out_basin": "terrebonne",
+      "oiling_class": "Moderate",
+      "excess_m_per_yr": 0.624245,
+      "lo90": 0.267632,
+      "hi90": 1.024628,
+      "n_blocks": 54,
+      "n_class_cells_in_blocks": 487
+    },
+    {
+      "held_out_basin": "terrebonne",
+      "oiling_class": "Light",
+      "excess_m_per_yr": 0.227299,
+      "lo90": -0.157342,
+      "hi90": 0.658049,
+      "n_blocks": 68,
+      "n_class_cells_in_blocks": 483
+    },
+    {
+      "held_out_basin": "barataria",
+      "oiling_class": "Heavy",
+      "excess_m_per_yr": 0.529169,
+      "lo90": 0.135432,
+      "hi90": 1.305671,
+      "n_blocks": 13,
+      "n_class_cells_in_blocks": 45
+    },
+    {
+      "held_out_basin": "barataria",
+      "oiling_class": "Moderate",
+      "excess_m_per_yr": 1.035667,
+      "lo90": 0.561346,
+      "hi90": 1.461389,
+      "n_blocks": 29,
+      "n_class_cells_in_blocks": 148
+    },
+    {
+      "held_out_basin": "barataria",
+      "oiling_class": "Light",
+      "excess_m_per_yr": 0.238072,
+      "lo90": -0.105603,
+      "hi90": 0.565835,
+      "n_blocks": 38,
+      "n_class_cells_in_blocks": 245
+    },
+    {
+      "held_out_basin": "breton",
+      "oiling_class": "Heavy",
+      "excess_m_per_yr": 0.782516,
+      "lo90": 0.352846,
+      "hi90": 1.296808,
+      "n_blocks": 38,
+      "n_class_cells_in_blocks": 295
+    },
+    {
+      "held_out_basin": "breton",
+      "oiling_class": "Moderate",
+      "excess_m_per_yr": 0.846149,
+      "lo90": 0.511926,
+      "hi90": 1.204179,
+      "n_blocks": 59,
+      "n_class_cells_in_blocks": 551
+    },
+    {
+      "held_out_basin": "breton",
+      "oiling_class": "Light",
+      "excess_m_per_yr": 0.461246,
+      "lo90": 0.110628,
+      "hi90": 0.835636,
+      "n_blocks": 64,
+      "n_class_cells_in_blocks": 478
+    }
+  ],
+  "held_out_results_by_basin_class": [
+    {
+      "basin": "barataria",
+      "oiling_class": "Heavy",
+      "n_cells": 501,
+      "mae_no_excess": 1.011278,
+      "mae_oos_excess": 1.036255,
+      "bias_no_excess": -0.445664,
+      "bias_oos_excess": 0.083505,
+      "mae_zengel_ref": 1.187732,
+      "mae_d32_ref": 1.085117
+    },
+    {
+      "basin": "barataria",
+      "oiling_class": "Light",
+      "n_cells": 427,
+      "mae_no_excess": 1.202681,
+      "mae_oos_excess": 1.244887,
+      "bias_no_excess": 0.329336,
+      "bias_oos_excess": 0.567408,
+      "mae_zengel_ref": 1.202681,
+      "mae_d32_ref": 1.202681
+    },
+    {
+      "basin": "barataria",
+      "oiling_class": "Moderate",
+      "n_cells": 509,
+      "mae_no_excess": 1.192181,
+      "mae_oos_excess": 1.574409,
+      "bias_no_excess": -0.23794,
+      "bias_oos_excess": 0.797726,
+      "mae_zengel_ref": 1.192181,
+      "mae_d32_ref": 1.192181
+    },
+    {
+      "basin": "barataria",
+      "oiling_class": "NOO",
+      "n_cells": 3610,
+      "mae_no_excess": 1.38653,
+      "mae_oos_excess": 1.38653,
+      "bias_no_excess": 0.002011,
+      "bias_oos_excess": 0.002011,
+      "mae_zengel_ref": 1.38653,
+      "mae_d32_ref": 1.38653
+    },
+    {
+      "basin": "barataria",
+      "oiling_class": "Very_Light",
+      "n_cells": 339,
+      "mae_no_excess": 1.17655,
+      "mae_oos_excess": 1.17655,
+      "bias_no_excess": 0.290918,
+      "bias_oos_excess": 0.290918,
+      "mae_zengel_ref": 1.17655,
+      "mae_d32_ref": 1.17655
+    },
+    {
+      "basin": "breton",
+      "oiling_class": "Heavy",
+      "n_cells": 31,
+      "mae_no_excess": 1.57031,
+      "mae_oos_excess": 1.742501,
+      "bias_no_excess": -0.952116,
+      "bias_oos_excess": -0.1696,
+      "mae_zengel_ref": 1.78939,
+      "mae_d32_ref": 1.685422
+    },
+    {
+      "basin": "breton",
+      "oiling_class": "Light",
+      "n_cells": 125,
+      "mae_no_excess": 1.697968,
+      "mae_oos_excess": 1.838272,
+      "bias_no_excess": 0.316045,
+      "bias_oos_excess": 0.77729,
+      "mae_zengel_ref": 1.697968,
+      "mae_d32_ref": 1.697968
+    },
+    {
+      "basin": "breton",
+      "oiling_class": "Moderate",
+      "n_cells": 55,
+      "mae_no_excess": 1.479195,
+      "mae_oos_excess": 1.85424,
+      "bias_no_excess": 0.098045,
+      "bias_oos_excess": 0.944194,
+      "mae_zengel_ref": 1.479195,
+      "mae_d32_ref": 1.479195
+    },
+    {
+      "basin": "breton",
+      "oiling_class": "NOO",
+      "n_cells": 2892,
+      "mae_no_excess": 1.370933,
+      "mae_oos_excess": 1.370933,
+      "bias_no_excess": 0.579381,
+      "bias_oos_excess": 0.579381,
+      "mae_zengel_ref": 1.370933,
+      "mae_d32_ref": 1.370933
+    },
+    {
+      "basin": "breton",
+      "oiling_class": "Very_Light",
+      "n_cells": 103,
+      "mae_no_excess": 0.646553,
+      "mae_oos_excess": 0.646553,
+      "bias_no_excess": 0.153289,
+      "bias_oos_excess": 0.153289,
+      "mae_zengel_ref": 0.646553,
+      "mae_d32_ref": 0.646553
+    },
+    {
+      "basin": "terrebonne",
+      "oiling_class": "Heavy",
+      "n_cells": 20,
+      "mae_no_excess": 1.26785,
+      "mae_oos_excess": 1.19314,
+      "bias_no_excess": -0.80244,
+      "bias_oos_excess": -0.112444,
+      "mae_zengel_ref": 1.212082,
+      "mae_d32_ref": 1.190595
+    },
+    {
+      "basin": "terrebonne",
+      "oiling_class": "Light",
+      "n_cells": 132,
+      "mae_no_excess": 1.827777,
+      "mae_oos_excess": 1.752071,
+      "bias_no_excess": -0.337627,
+      "bias_oos_excess": -0.110328,
+      "mae_zengel_ref": 1.827777,
+      "mae_d32_ref": 1.827777
+    },
+    {
+      "basin": "terrebonne",
+      "oiling_class": "Moderate",
+      "n_cells": 124,
+      "mae_no_excess": 2.030649,
+      "mae_oos_excess": 1.785217,
+      "bias_no_excess": -0.988307,
+      "bias_oos_excess": -0.364062,
+      "mae_zengel_ref": 2.030649,
+      "mae_d32_ref": 2.030649
+    },
+    {
+      "basin": "terrebonne",
+      "oiling_class": "NOO",
+      "n_cells": 3660,
+      "mae_no_excess": 1.147293,
+      "mae_oos_excess": 1.147293,
+      "bias_no_excess": -0.422243,
+      "bias_oos_excess": -0.422243,
+      "mae_zengel_ref": 1.147293,
+      "mae_d32_ref": 1.147293
+    },
+    {
+      "basin": "terrebonne",
+      "oiling_class": "Very_Light",
+      "n_cells": 168,
+      "mae_no_excess": 1.794152,
+      "mae_oos_excess": 1.794152,
+      "bias_no_excess": -0.845657,
+      "bias_oos_excess": -0.845657,
+      "mae_zengel_ref": 1.794152,
+      "mae_d32_ref": 1.794152
+    },
+    {
+      "basin": "barataria",
+      "oiling_class": "all",
+      "n_cells": 5386,
+      "mae_no_excess": 1.305466,
+      "mae_oos_excess": 1.347258,
+      "bias_no_excess": -0.018174,
+      "bias_oos_excess": 0.147798,
+      "mae_zengel_ref": 1.32188,
+      "mae_d32_ref": 1.312335
+    },
+    {
+      "basin": "breton",
+      "oiling_class": "all",
+      "n_cells": 3206,
+      "mae_no_excess": 1.364197,
+      "mae_oos_excess": 1.377766,
+      "bias_no_excess": 0.532359,
+      "bias_oos_excess": 0.572425,
+      "mae_zengel_ref": 1.366315,
+      "mae_d32_ref": 1.36531
+    },
+    {
+      "basin": "terrebonne",
+      "oiling_class": "all",
+      "n_cells": 4104,
+      "mae_no_excess": 1.222937,
+      "mae_oos_excess": 1.212723,
+      "bias_no_excess": -0.455811,
+      "bias_oos_excess": -0.426276,
+      "mae_zengel_ref": 1.222666,
+      "mae_d32_ref": 1.222561
+    },
+    {
+      "basin": "barataria+breton",
+      "oiling_class": "Heavy",
+      "n_cells": 532,
+      "mae_no_excess": 1.043853,
+      "mae_oos_excess": 1.077409,
+      "bias_no_excess": -0.475175,
+      "bias_oos_excess": 0.068756,
+      "mae_zengel_ref": 1.222791,
+      "mae_d32_ref": 1.120097
+    }
+  ],
+  "gate": {
+    "text": "In each held-out basin with 30 or more heavy cells, the heavy-cell mean absolute error with the out-of-sample excess is strictly below that of the no-excess baseline, AND (heavy-cell bias minus unoiled-cell bias) is within plus or minus 0.25 m/yr.",
+    "rows": [
+      {
+        "basin": "terrebonne",
+        "n_heavy": 20,
+        "gated": false,
+        "mae_no_excess": 1.26785,
+        "mae_oos_excess": 1.19314,
+        "mae_strictly_below": true,
+        "heavy_minus_noo_bias_oos": 0.309799,
+        "heavy_minus_noo_bias_no_excess": -0.380197,
+        "bias_within_0_25": false,
+        "mae_diff_boot90": [
+          -0.420881,
+          0.099092
+        ]
+      },
+      {
+        "basin": "barataria",
+        "n_heavy": 501,
+        "gated": true,
+        "mae_no_excess": 1.011278,
+        "mae_oos_excess": 1.036255,
+        "mae_strictly_below": false,
+        "heavy_minus_noo_bias_oos": 0.081494,
+        "heavy_minus_noo_bias_no_excess": -0.447675,
+        "bias_within_0_25": true,
+        "mae_diff_boot90": [
+          -0.046415,
+          0.088001
+        ]
+      },
+      {
+        "basin": "breton",
+        "n_heavy": 31,
+        "gated": true,
+        "mae_no_excess": 1.57031,
+        "mae_oos_excess": 1.742501,
+        "mae_strictly_below": false,
+        "heavy_minus_noo_bias_oos": -0.748981,
+        "heavy_minus_noo_bias_no_excess": -1.531497,
+        "bias_within_0_25": false,
+        "mae_diff_boot90": [
+          -0.324351,
+          0.449489
+        ]
+      }
+    ],
+    "verdict": "FAILED"
+  },
+  "composer_time_profile": {
+    "status": "ASSUMED",
+    "rule": "Zengel et al. 2022 untreated-minus-reference time shape, scaled so that its years 1-5 mean equals the class excess (as D32 did); level drawn as a normal from the 90% bootstrap interval. Years 6-8 are not tested by any data.",
+    "zengel_untreated_minus_reference_m_per_yr": {
+      "2010-2012": 1.8849,
+      "2012-2018": 0.2091,
+      "mean_years_1_5": 0.87942
+    }
+  },
+  "composer_residual_offsets_by_class_deployable": {
+    "__all__": [
+      -3.2445,
+      2.8267
+    ],
+    "NOO": [
+      -3.2445,
+      2.796
+    ],
+    "Very_Light": [
+      -3.1367,
+      3.0205
+    ],
+    "Light": [
+      -4.156072,
+      2.515128
+    ],
+    "Moderate": [
+      -3.383567,
+      3.291733
+    ],
+    "Heavy": [
+      -1.795569,
+      3.123731
+    ]
+  },
+  "composer_residual_offsets_note": "Descriptive only: conformal 5th/95th offsets of the leave-one-basin-out residuals of (clean baseline + out-of-sample excess), all three basins (results/v5_p0/deployable_offsets.csv). Not gated.",
+  "results_files": [
+    "results/v5_p0/oil_excess_summary.txt",
+    "results/v5_p0/oil_excess_estimates.csv",
+    "results/v5_p0/oil_excess_by_basin_class.csv",
+    "results/v5_p0/oil_excess_gate.csv",
+    "results/v5_p0/oil_excess_mae_diff_boot.csv",
+    "results/v5_p0/oil_excess_cells.csv"
+  ],
+  "run": "python -m validation.v5_p0_oil_excess && python -m validation.v5_p0_intervals && python -m validation.v5_p0_cards",
+  "disclosure": "Gates were set on 14 Nov 2026 after the reviewer had already seen the no-excess baseline's error and bias on these same cells, so the test is not blind; only three basins have data (Terrebonne, Barataria, Breton), so the training set for held-out Barataria has few heavy cells (51); all cells are one spill (Deepwater Horizon).",
+  "limits": [
+    "Gate failed: barataria (n=501) MAE 1.036 vs no excess 1.011, heavy-minus-NOO bias +0.081; breton (n=31) MAE 1.743 vs no excess 1.570, heavy-minus-NOO bias -0.749.",
+    "A mean-based excess shifts the average error; it need not lower MAE (MAE is minimised by the median, and heavy-cell residuals need not be symmetric).",
+    "Within-block differencing removes exposure differences between blocks, not within them.",
+    "Hidden manual treatment and oiling misclassification (worst class ever recorded, whole cell) are not addressed.",
+    "One spill, one oil, one marsh type, one period (NAIP 2010-2015); NAIP reads about 1.2 m/yr below field measurements."
+  ]
+}

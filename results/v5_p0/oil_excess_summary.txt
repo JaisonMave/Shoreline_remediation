@@ -1,0 +1,33 @@
+V5 Phase 0.1: out-of-sample oil excess (docs/V5_P0_PLAN.md Part 0.1). Run once.
+Gate 0.1: "In each held-out basin with 30 or more heavy cells, the heavy-cell mean absolute error with the out-of-sample excess is strictly below that of the no-excess baseline, AND (heavy-cell bias minus unoiled-cell bias) is within plus or minus 0.25 m/yr."
+
+Excess per held-out basin (m/yr, estimated from the other two basins; 90% block-bootstrap interval):
+              terrebonne    Heavy: +0.690 (+0.266 to +1.153); 33 blocks, 302 class cells, 518 NOO cells
+              terrebonne Moderate: +0.624 (+0.268 to +1.025); 54 blocks, 487 class cells, 705 NOO cells
+              terrebonne    Light: +0.227 (-0.157 to +0.658); 68 blocks, 483 class cells, 1028 NOO cells
+               barataria    Heavy: +0.529 (+0.135 to +1.306); 13 blocks, 45 class cells, 292 NOO cells
+               barataria Moderate: +1.036 (+0.561 to +1.461); 29 blocks, 148 class cells, 522 NOO cells
+               barataria    Light: +0.238 (-0.106 to +0.566); 38 blocks, 245 class cells, 670 NOO cells
+                  breton    Heavy: +0.783 (+0.353 to +1.297); 38 blocks, 295 class cells, 676 NOO cells
+                  breton Moderate: +0.846 (+0.512 to +1.204); 59 blocks, 551 class cells, 945 NOO cells
+                  breton    Light: +0.461 (+0.111 to +0.836); 64 blocks, 478 class cells, 1210 NOO cells
+   all_basins_deployable    Heavy: +0.714 (+0.349 to +1.145); 42 blocks, 321 class cells, 743 NOO cells
+   all_basins_deployable Moderate: +0.794 (+0.464 to +1.111); 71 blocks, 593 class cells, 1086 NOO cells
+   all_basins_deployable    Light: +0.324 (+0.004 to +0.662); 85 blocks, 603 class cells, 1454 NOO cells
+
+Reference constant excesses (Heavy only, descriptive): Zengel years 1-5 mean +0.879, D32 +0.665.
+
+Heavy cells per held-out basin (MAE / bias pred-obs, m/yr):
+  terrebonne: n=20 (not gated, < 30 heavy cells); no excess 1.268 / -0.802; out-of-sample excess 1.193 / -0.112; Zengel ref 1.212 / +0.077; D32 ref 1.191 / -0.138
+     NOO bias -0.422; heavy minus NOO bias: out-of-sample +0.310 (no excess -0.380); MAE strictly below baseline: yes; bias within +/-0.25: NO
+     MAE difference (oos - no excess) -0.075, 90% block bootstrap -0.421 to +0.099 (10 blocks; descriptive)
+  barataria: n=501; no excess 1.011 / -0.446; out-of-sample excess 1.036 / +0.084; Zengel ref 1.188 / +0.434; D32 ref 1.085 / +0.219
+     NOO bias +0.002; heavy minus NOO bias: out-of-sample +0.081 (no excess -0.448); MAE strictly below baseline: NO; bias within +/-0.25: yes
+     MAE difference (oos - no excess) +0.025, 90% block bootstrap -0.046 to +0.088 (41 blocks; descriptive)
+  breton: n=31; no excess 1.570 / -0.952; out-of-sample excess 1.743 / -0.170; Zengel ref 1.789 / -0.073; D32 ref 1.685 / -0.288
+     NOO bias +0.579; heavy minus NOO bias: out-of-sample -0.749 (no excess -1.531); MAE strictly below baseline: NO; bias within +/-0.25: NO
+     MAE difference (oos - no excess) +0.172, 90% block bootstrap -0.324 to +0.449 (5 blocks; descriptive)
+
+Pooled Barataria+Breton heavy (n=532, descriptive): no excess 1.044 / -0.475; out-of-sample 1.077 / +0.069
+
+GATE 0.1: FAILED

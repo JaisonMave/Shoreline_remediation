@@ -1,0 +1,3 @@
+V5 Phase 0 summary (docs/V5_P0_PLAN.md). Details: oil_excess_summary.txt, interval_summary.txt.
+GATE 0.1: FAILED
+GATE 0.2: FAILED

@@ -1,0 +1,36 @@
+V5 Phase 0.2: per-class out-of-sample 90% intervals (docs/V5_P0_PLAN.md Part 0.2). Run once.
+Gate 0.2: "Coverage of the 90% interval is between 80% and 97% in every basin-by-oiling-class group with 100 or more cells, AND the interval (Winkler) score is lower than that of the no-predictor baseline interval in each held-out basin."
+
+Refit check (max |refit - committed LOBO prediction|, M1 / clean): terrebonne 0.0001 / 0.0001; barataria 0.0001 / 0.0001; breton 0.0001 / 0.0001
+
+Fallbacks to all-class offsets (fewer than 100 calibration cells), M1: held-out barataria Heavy (n_cal=51)
+
+Coverage of the gated interval in basin x class groups with >= 100 cells (gate 0.80-0.97):
+   barataria      Heavy: n=  501 coverage 0.930 pass
+   barataria      Light: n=  427 coverage 0.953 pass
+   barataria   Moderate: n=  509 coverage 0.945 pass
+   barataria        NOO: n= 3610 coverage 0.885 pass
+   barataria Very_Light: n=  339 coverage 0.903 pass
+      breton      Light: n=  125 coverage 0.832 pass
+      breton        NOO: n= 2892 coverage 0.874 pass
+      breton Very_Light: n=  103 coverage 0.990 FAIL
+  terrebonne      Light: n=  132 coverage 0.795 FAIL
+  terrebonne   Moderate: n=  124 coverage 0.855 pass
+  terrebonne        NOO: n= 3660 coverage 0.933 pass
+  terrebonne Very_Light: n=  168 coverage 0.756 FAIL
+  not gated (< 100 cells): breton Heavy n=31 coverage 0.806; breton Moderate n=55 coverage 0.873; terrebonne Heavy n=20 coverage 0.950
+
+Winkler score per held-out basin (lower is better), gated interval vs M0 baseline:
+   barataria: n=5386 gated 12.101 vs M0 12.664 pass
+      breton: n=3206 gated 11.276 vs M0 11.205 FAIL
+  terrebonne: n=4104 gated 10.262 vs M0 10.292 pass
+
+All methods per basin (coverage / mean width / Winkler):
+  barataria: m1_class_oos 0.902/6.48/12.10; m0 0.877/5.96/12.66; m1_all_oos 0.901/6.25/11.89; m1_v1_deployed 0.897/6.04/11.90; composer_class_oos 0.903/6.54/12.13
+  breton: m1_class_oos 0.876/5.61/11.28; m0 0.897/6.38/11.20; m1_all_oos 0.876/5.65/11.30; m1_v1_deployed 0.891/6.04/11.13; composer_class_oos 0.877/5.58/11.32
+  terrebonne: m1_class_oos 0.919/6.69/10.26; m0 0.918/6.69/10.29; m1_all_oos 0.921/6.56/10.06; m1_v1_deployed 0.911/6.04/9.90; composer_class_oos 0.922/6.80/10.26
+  pooled: m1_class_oos 0.901/6.33/11.30; m0 0.895/6.30/11.53; m1_all_oos 0.901/6.20/11.15; m1_v1_deployed 0.900/6.04/11.06; composer_class_oos 0.902/6.38/11.32
+
+Method labels: m1_class_oos = GATED: M1 + per-class nested out-of-sample conformal offsets; m0 = BASELINE: training-basin mean + 5th/95th percentiles of training deviations; m1_all_oos = descriptive: M1 + all-class nested out-of-sample conformal offsets; m1_v1_deployed = descriptive: M1 + deployed v1 offsets (calibrated on the pooled residuals they are scored on); composer_class_oos = descriptive: clean baseline + out-of-sample class excess + per-class nested conformal offsets
+
+GATE 0.2: FAILED

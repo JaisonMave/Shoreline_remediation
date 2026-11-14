@@ -1,0 +1,13 @@
+basin,oiling_class,n_cells,m1_class_oos_coverage,passes
+barataria,Heavy,501,0.9301397205588823,True
+barataria,Light,427,0.9531615925058547,True
+barataria,Moderate,509,0.9449901768172888,True
+barataria,NOO,3610,0.8853185595567867,True
+barataria,Very_Light,339,0.9026548672566371,True
+breton,Light,125,0.832,True
+breton,NOO,2892,0.8741355463347165,True
+breton,Very_Light,103,0.9902912621359223,False
+terrebonne,Light,132,0.7954545454545454,False
+terrebonne,Moderate,124,0.8548387096774194,True
+terrebonne,NOO,3660,0.9325136612021858,True
+terrebonne,Very_Light,168,0.7559523809523809,False

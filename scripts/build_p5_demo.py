@@ -137,7 +137,20 @@ def build() -> dict:
         "measurement_note": "NAIP rates read about 1.2 m/yr below field erosion measurements (P3 analysis C); "
                             "differences between sites are more reliable than absolute values.",
         "validation": "P2 (docs/FINDINGS_2026-11-11.md section 8): held-out basins Barataria and western Breton, "
-                      "M1 beat the no-predictor baseline; 90% intervals covered 89% of held-out cells.",
+                      "M1 beat the no-predictor baseline; 90% intervals covered 89% of held-out cells."
+                      # V5 Phase 0 (docs/V5_P0_PLAN.md): correction kept with the original wording, so a rebuild
+                      # does not drop it.
+                      " [Correction 2026-11-14 (V5 Phase 0, docs/V5_P0_PLAN.md): the 89% figure is the coverage of "
+                      "P2 model M2's inner leave-one-basin-out interval (validation/p2_basin_holdout.py), not of this "
+                      "card's deployed interval. The original sentence above is kept for the record.]",
+        "interval_calibration_note": "Added 2026-11-14 (V5 Phase 0): the deployed interval_offsets are the 5th/95th "
+                                     "percentiles of the pooled leave-one-basin-out residuals of all three basins, and "
+                                     "they were then scored on those same residuals, so the pooled coverage of 0.900 is "
+                                     "true by construction (calibrated in sample). By basin and oiling class the "
+                                     "coverage of these offsets on held-out predictions runs from 0.76 to 0.99 "
+                                     "(results/v5_p0/interval_by_basin_class.csv, column m1_v1_deployed_coverage). "
+                                     "Out-of-sample, per-class intervals were tested in V5 Phase 0.2 "
+                                     "(models/p5_edge_loss_v2.json); that gate failed.",
         "training_files_sha256": {f"{b}/{n}": sha(P2 / b / n) for b in BASINS
                                   for n in ("cells_10A.csv", "cell_land_by_year.csv", "exposure.csv",
                                             "landsat_cell_fraction.csv")},

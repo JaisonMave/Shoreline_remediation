@@ -32,6 +32,13 @@ Inputs : site dict with the four edge-loss features (water_1km_2010, water_250m_
 Outputs: compose() -> (tidy DataFrame [option, year, outcome, median, lo90, hi90, ...], summary DataFrame).
          natural_recovery_summary() -> dict (R4 fix): the one absolute edge-loss number per site, decomposed into
          baseline, oil excess and mean rate years 1-5, used by both Site evidence and Compare options so they agree.
+
+Option (V5 Phase 0.1/0.2, docs/V5_P0_PLAN.md, decisions D37/D38 Proposed): compose(..., oil_excess_source="oos_v1")
+and natural_recovery_summary(..., oil_excess_source="oos_v1") replace the Zengel/D32 excess with the out-of-sample
+within-block excess of models/oil_excess_oos_v1.json (Heavy, Moderate and Light classes), and oos_class_residual_pool()
+gives the matching per-oiling-class residual pool. BOTH GATES FAILED (results/v5_p0/summary.txt): the out-of-sample
+excess removed the heavy-specific bias in Barataria but did not lower heavy-cell MAE below the no-excess baseline in
+either gated basin. The default ("default") is therefore unchanged.
 """
 from __future__ import annotations
 
@@ -50,6 +57,10 @@ ROOT = Path(__file__).resolve().parents[2]
 VEG_MODEL = ROOT / "models" / "veg_recovery_v1.json"
 P3_A = ROOT / "results" / "p3_treatment" / "A_prespill_adjusted.csv"
 OIL_EXCESS_D32_PATH = ROOT / "models" / "oil_excess_d32.json"
+OIL_EXCESS_OOS_PATH = ROOT / "models" / "oil_excess_oos_v1.json"        # V5 Phase 0.1 option; gate failed
+OOS_CELLS_PATH = ROOT / "results" / "v5_p0" / "oil_excess_cells.csv"    # V5 Phase 0.1 held-out residuals
+OIL_EXCESS_SOURCES = ("default", "oos_v1")
+OOS_MIN_CLASS_CELLS = 100
 # R3 fix (docs/R3_OIL_DOUBLE_COUNT_PLAN.md): the composer baseline is the clean-edge refit of M1 (max_oiling in
 # NOO, Very_Light only), not the deployed p5-edge-loss-v1 card (which was fitted on all cells, including Heavy,
 # and so partly absorbed the oil effect that the Zengel excess below then added a second time). site_evidence's
@@ -157,6 +168,41 @@ def _oil_excess_d32_adjustment() -> dict:
 
 
 @lru_cache(maxsize=1)
+def _oil_excess_oos_card() -> dict:
+    with open(OIL_EXCESS_OOS_PATH) as f:
+        return json.load(f)
+
+
+def oil_excess_oos(max_oiling: str | None) -> dict | None:
+    """V5 Phase 0.1 option (gate FAILED): {period: (effect, lo90, hi90)} for one SCAT class, or None if the class has
+    no out-of-sample excess (NOO, Very_Light, unknown). Level = the class excess estimated from all three basins
+    (block bootstrap 90% interval); time shape = Zengel untreated-minus-reference, scaled so its years 1-5 mean
+    equals the level (ASSUMED, as D32). The level's spread is read as a normal (ASSUMED)."""
+    card = _oil_excess_oos_card()
+    e = card["excess_by_class_deployable"].get(max_oiling)
+    if e is None:
+        return None
+    z = card["composer_time_profile"]["zengel_untreated_minus_reference_m_per_yr"]
+    half = (e["hi90"] - e["lo90"]) / 2
+    out = {}
+    for p in ("2010-2012", "2012-2018"):
+        f = z[p] / z["mean_years_1_5"]
+        out[p] = (e["excess_m_per_yr"] * f, (e["excess_m_per_yr"] - half) * f, (e["excess_m_per_yr"] + half) * f)
+    return out
+
+
+@lru_cache(maxsize=None)
+def oos_class_residual_pool(max_oiling: str | None, min_cells: int = OOS_MIN_CLASS_CELLS) -> np.ndarray:
+    """V5 Phase 0.2 option (gate FAILED): held-out residuals (observed - clean baseline - out-of-sample excess, each
+    basin predicted without itself) of cells of this oiling class, all three basins
+    (results/v5_p0/oil_excess_cells.csv). Classes with fewer than `min_cells` cells (or unknown) fall back to all
+    classes. Pass it to compose(..., residual_pool=...) together with oil_excess_source="oos_v1"."""
+    d = pd.read_csv(OOS_CELLS_PATH, usecols=["max_oiling", "residual_oos"])
+    r = d.loc[d.max_oiling == max_oiling, "residual_oos"].to_numpy()
+    return r if len(r) >= min_cells else d.residual_oos.to_numpy()
+
+
+@lru_cache(maxsize=1)
 def _reference_cover_year2() -> float:
     df = te.load()
     m = df[(df.study == "main") & (df.metric == "Total Vegetation Cover (%)") & (df.treatment == "Reference") & (df.year == 2012)]
@@ -187,8 +233,12 @@ def _rng(seed: int, *keys) -> np.random.Generator:
 
 
 def compose(site: dict, options: list[str], horizon_years: int = 8, n_draws: int = 5000, seed: int = 20261112,
-            elicited: dict | None = None, residual_pool: np.ndarray | None = None) -> tuple[pd.DataFrame, pd.DataFrame]:
+            elicited: dict | None = None, residual_pool: np.ndarray | None = None,
+            oil_excess_source: str = "default") -> tuple[pd.DataFrame, pd.DataFrame]:
     """Simulate yearly outcomes for `options` at `site`. See the module docstring. Returns (tidy, summary).
+
+    oil_excess_source: "default" (Zengel excess with the D32 scaling, Heavy only; unchanged) or "oos_v1" (V5 Phase 0.1
+    out-of-sample excess for Heavy, Moderate and Light; its gate FAILED, experimental). Treatment shifts stay Heavy only.
 
     tidy columns: option, year, outcome, median, lo90, hi90, evidence. Natural recovery is always included.
     summary: one row per option, with cumulative edge loss at years 2, 5, 8 (median, lo90, hi90), probability that
@@ -198,6 +248,8 @@ def compose(site: dict, options: list[str], horizon_years: int = 8, n_draws: int
     (paired_diff_cum_edge_loss_y{y}_*) and, where a shift or elicited range exists, vegetation ratio (paired_diff_veg_ratio_y{y}_*),
     with edge_distinguished_y{y} / veg_distinguished_y{y} true when the 90% interval of the paired difference excludes zero.
     """
+    if oil_excess_source not in OIL_EXCESS_SOURCES:
+        raise ValueError(f"oil_excess_source must be one of {OIL_EXCESS_SOURCES}")
     elicited = elicited or {}
     options = list(dict.fromkeys([NATURAL] + list(options)))
     years = np.arange(1, horizon_years + 1)
@@ -211,8 +263,17 @@ def compose(site: dict, options: list[str], horizon_years: int = 8, n_draws: int
     else:
         base_rate = se.predict_edge_loss({k: site[k] for k in se.FEATURES}, model=_baseline_model())["rate"]
     baseline = base_rate + shared.choice(pool, n_draws)
-    oil = _oil_excess()
-    oil_by_period = {p: _normal_from_interval(shared, oil[p][1], oil[p][2], n_draws, effect=oil[p][0]) for p in ("2010-2012", "2012-2018")}
+    if oil_excess_source == "default":
+        oil_applies = heavy
+        oil = _oil_excess()
+        oil_by_period = {p: _normal_from_interval(shared, oil[p][1], oil[p][2], n_draws, effect=oil[p][0]) for p in ("2010-2012", "2012-2018")}
+    else:                              # V5 option: one level draw per draw, fixed (ASSUMED) Zengel time shape
+        oos = oil_excess_oos(site.get("max_oiling", HEAVY))
+        oil_applies = oos is not None
+        oil_by_period = {p: np.zeros(n_draws) for p in ("2010-2012", "2012-2018")}
+        if oil_applies:
+            z = shared.standard_normal(n_draws)
+            oil_by_period = {p: oos[p][0] + z * (oos[p][2] - oos[p][1]) / (2 * Z90) for p in ("2010-2012", "2012-2018")}
     veg = _veg_model()
     veg_ok = veg["verdict"] in USABLE_VEG
     if veg_ok:
@@ -225,7 +286,7 @@ def compose(site: dict, options: list[str], horizon_years: int = 8, n_draws: int
         cols = []
         for y in years:
             p = "2010-2012" if y <= 2 else "2012-2018"
-            cols.append(baseline + (oil_by_period[p] if heavy else 0.0) + (shift[p] if shift else 0.0))
+            cols.append(baseline + (oil_by_period[p] if oil_applies else 0.0) + (shift[p] if shift else 0.0))
         return np.column_stack(cols)
 
     def veg_ratio(tau_mult, shift_y2):   # (n_draws, years)
@@ -333,7 +394,8 @@ def compose(site: dict, options: list[str], horizon_years: int = 8, n_draws: int
     return tidy, pd.DataFrame(srows)
 
 
-def natural_recovery_summary(site: dict, n_draws: int = 5000, seed: int = 20261112, residual_pool: np.ndarray | None = None) -> dict:
+def natural_recovery_summary(site: dict, n_draws: int = 5000, seed: int = 20261112, residual_pool: np.ndarray | None = None,
+                             oil_excess_source: str = "default") -> dict:
     """One absolute edge-loss number per site (R4 fix, docs/V4_PROGRAMME_PLAN.md R4), decomposed rather than hidden.
 
     Both "Site evidence" (the per-site headline) and "Compare options" (the natural-recovery row) must call this
@@ -349,6 +411,8 @@ def natural_recovery_summary(site: dict, n_draws: int = 5000, seed: int = 202611
                      cumulative edge loss at year 5, divided by 5; dividing by a positive constant preserves quantiles).
       heavy          bool, whether the oil-excess term applies here.
       bias_note      str: held-out evidence that the oil-excess component over-predicts heavy-cell loss (R3/R4).
+    oil_excess_source "default" (unchanged) or "oos_v1" (V5 Phase 0.1 option, gate FAILED); with "oos_v1" the dict
+                   also has "oil_excess_source" and oil_excess covers Heavy, Moderate and Light.
     """
     heavy = site.get("max_oiling", HEAVY) == HEAVY
     if site.get("pred_rate") is not None:
@@ -357,19 +421,27 @@ def natural_recovery_summary(site: dict, n_draws: int = 5000, seed: int = 202611
         pred = se.predict_edge_loss({k: site[k] for k in se.FEATURES}, model=_baseline_model())
         base_rate, base_lo, base_hi = pred["rate"], pred["lo"], pred["hi"]
     oil_excess = None
-    if heavy:
+    if oil_excess_source == "oos_v1":
+        oil = oil_excess_oos(site.get("max_oiling", HEAVY))
+        heavy = oil is not None
+    elif heavy:
         oil = _oil_excess()
+    if heavy:
         oil_excess = {p: {"effect": oil[p][0], "lo90": oil[p][1], "hi90": oil[p][2]} for p in ("2010-2012", "2012-2018")}
-    tidy, _ = compose(site, [], horizon_years=5, n_draws=n_draws, seed=seed, residual_pool=residual_pool)
+    tidy, _ = compose(site, [], horizon_years=5, n_draws=n_draws, seed=seed, residual_pool=residual_pool,
+                      oil_excess_source=oil_excess_source)
     cum5 = tidy[(tidy.option == NATURAL) & (tidy.outcome == "cumulative_edge_loss_m") & (tidy.year == 5)].iloc[0]
     mean_rate_y1_5 = {"median": cum5["median"] / 5, "lo90": cum5.lo90 / 5, "hi90": cum5.hi90 / 5}
-    return {
+    out = {
         "baseline": {"rate": base_rate, "lo90": base_lo, "hi90": base_hi},
         "oil_excess": oil_excess,
         "mean_rate_y1_5": mean_rate_y1_5,
         "heavy": heavy,
         "bias_note": NATURAL_RECOVERY_BIAS_NOTE,
     }
+    if oil_excess_source != "default":
+        out["oil_excess_source"] = oil_excess_source
+    return out
 
 
 # ---------------------------------------------------------------------------------------------------------------------

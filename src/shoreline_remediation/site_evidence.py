@@ -7,6 +7,11 @@ Inputs:
     models/p5_edge_loss_v1.json   deployed edge-loss model (P2's M1 refitted on all valid cells)
     data/demo/p5_sites.csv        Louisiana SCAT edge cells with inputs, scope status and observed rates
 Outputs (functions): predict_edge_loss, site_flags, treatment_evidence, site_scenario.
+
+Option (V5 Phase 0.2, docs/V5_P0_PLAN.md, decision D38 Proposed): load_model_v2() reads models/p5_edge_loss_v2.json
+(same point model, out-of-sample conformal offsets per SCAT oiling class) and predict_edge_loss(..., oiling=<class>)
+then uses that class's offsets. THE GATE FOR THESE INTERVALS FAILED (results/v5_p0/interval_summary.txt), so the
+default stays p5-edge-loss-v1 with its pooled offsets; nothing changes unless a caller asks for the option.
 """
 from __future__ import annotations
 
@@ -20,6 +25,7 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[2]
 MODEL_PATH = ROOT / "models" / "p5_edge_loss_v1.json"
+MODEL_V2_PATH = ROOT / "models" / "p5_edge_loss_v2.json"   # V5 Phase 0.2 option; gate failed; not the default
 SITES_PATH = ROOT / "data" / "demo" / "p5_sites.csv"
 FEATURES = ["water_1km_2010", "water_250m_2010", "fetch_mean_m", "pre_rate"]
 FEATURE_LABELS = {
@@ -61,6 +67,16 @@ def load_model(path: str = str(MODEL_PATH)) -> dict:
 
 
 @lru_cache(maxsize=1)
+def load_model_v2(path: str = str(MODEL_V2_PATH)) -> dict:
+    """Option only (V5 Phase 0.2, D38 Proposed): p5-edge-loss-v2, the v1 point model with per-oiling-class
+    out-of-sample conformal interval offsets (`interval_offsets_by_class`). Its gate FAILED (coverage outside 80-97% in
+    3 of 12 basin x class groups; Winkler score not below the no-predictor interval in Breton), so it is experimental
+    and not used by default anywhere."""
+    with open(path) as f:
+        return json.load(f)
+
+
+@lru_cache(maxsize=1)
 def load_sites(path: str = str(SITES_PATH)) -> pd.DataFrame:
     return pd.read_csv(path, dtype={"cell": str, "segment": str, "cell_2km": str})
 
@@ -75,16 +91,25 @@ def _design(values: dict, model: dict) -> np.ndarray:
     return np.array(x)
 
 
-def predict_edge_loss(values: dict, model: dict | None = None) -> dict:
+def predict_edge_loss(values: dict, model: dict | None = None, oiling: str | None = None) -> dict:
     """Expected NAIP edge-loss rate 2010-2015 (m/yr) with a 90% interval, for one set of inputs.
 
     values needs the four FEATURES. Raises ValueError if any is missing; callers check scope first.
+    oiling (optional, V5 Phase 0.2): a SCAT max_oiling class. Used only if the model card has
+    `interval_offsets_by_class` (load_model_v2()); then the interval uses that class's out-of-sample offsets and the
+    result gains "offsets_class". With the default model, or oiling=None, the output is exactly as before. The
+    per-class intervals FAILED their gate (docs/V5_P0_PLAN.md, results/v5_p0/interval_summary.txt).
     """
     model = model or load_model()
     missing = [f for f in FEATURES if values.get(f) is None or pd.isna(values.get(f))]
     if missing:
         raise ValueError(f"missing inputs: {missing}")
     point = float(_design(values, model) @ np.array(model["coefficients"]))
+    by_class = model.get("interval_offsets_by_class") if oiling is not None else None
+    if by_class and oiling in by_class:
+        lo, hi = by_class[oiling]
+        return {"rate": point, "lo": point + lo, "hi": point + hi, "level": model["interval_level"],
+                "offsets_class": oiling}
     lo, hi = model["interval_offsets"]
     return {"rate": point, "lo": point + lo, "hi": point + hi, "level": model["interval_level"]}
 

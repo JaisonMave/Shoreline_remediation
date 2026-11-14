@@ -1,0 +1,390 @@
+{
+  "name": "p5-edge-loss-v2",
+  "built": "2026-11-14",
+  "state": "experimental (gate failed)",
+  "decision": "D38 (Proposed)",
+  "plan": "docs/V5_P0_PLAN.md Part 0.2 (written before the run)",
+  "algorithm": "ordinary least squares (P2 model M1: exposure + pre-spill trend, no oiling term); point model identical to p5-edge-loss-v1 (same coefficients); only the interval changes",
+  "target": "NAIP marsh-edge loss rate 2010-2015, m/yr (positive = land lost), per 100 m edge cell",
+  "terms": [
+    "const",
+    "water_1km_2010",
+    "water_250m_2010",
+    "log_fetch",
+    "pre_rate"
+  ],
+  "fetch_offset_m": 16.0,
+  "coefficients": [
+    -3.810348769810982,
+    -0.012141485279262641,
+    -0.05460382806352679,
+    0.6281858721412377,
+    0.22228373829030265
+  ],
+  "standard_errors_unclustered": [
+    0.12547575593512203,
+    0.16044317258947377,
+    0.1442555279366353,
+    0.022484755050701667,
+    0.014245512882957702
+  ],
+  "training_cells": 12696,
+  "training_cells_by_basin": {
+    "terrebonne": 4104,
+    "barataria": 5386,
+    "breton": 3206
+  },
+  "training_range": {
+    "water_1km_2010": {
+      "p01": 0.23545725893375344,
+      "p99": 0.9815106541746124,
+      "min": 0.0015753254290688,
+      "max": 0.998922145759058
+    },
+    "water_250m_2010": {
+      "p01": 0.14379407616361067,
+      "p99": 0.9661495063469676,
+      "min": 0.001410437235543,
+      "max": 0.998589562764457
+    },
+    "fetch_mean_m": {
+      "p01": 57.0,
+      "p99": 4901.0999999999985,
+      "min": 23.0,
+      "max": 8219.0
+    },
+    "pre_rate": {
+      "p01": -2.3633384373452926,
+      "p99": 5.547362491488441,
+      "min": -8.613304297129313,
+      "max": 9.20135693417655
+    }
+  },
+  "training_box": {
+    "lat_min": 29.04757,
+    "lat_max": 30.32032,
+    "lon_min": -91.14198,
+    "lon_max": -89.37836
+  },
+  "measurement_note": "NAIP rates read about 1.2 m/yr below field erosion measurements (P3 analysis C); differences between sites are more reliable than absolute values.",
+  "training_files_sha256": {
+    "terrebonne/cells_10A.csv": "8d22b57a8b6d92afa32debceaa9e3936a84ce57a726fd4f6913cce3f388f9487",
+    "terrebonne/cell_land_by_year.csv": "2791c09576e8caaf5df06079116b366947915cf5e86cb884cf8958bfde7e32f8",
+    "terrebonne/exposure.csv": "f1f21d215b626b407c69d37d22ebf3646afb0cf3affeb81844430322eaff98a6",
+    "terrebonne/landsat_cell_fraction.csv": "5376eeb6bef9f41b269372064c2cec7da1544507d614dee6e235940ed840e3de",
+    "barataria/cells_10A.csv": "b448a650d99de44d58e2acbfe670554c5ae813e9e7a8922220dbf166945d63e8",
+    "barataria/cell_land_by_year.csv": "7dba1e70a28031169bcf7f271fa21ab72a53c2b51247a821c018b66a7889d936",
+    "barataria/exposure.csv": "de4a16cb2ce57782763e0c6e72724498c91af4c7d42f3aeb488e429fd011dfa0",
+    "barataria/landsat_cell_fraction.csv": "ee06e80e2379a5ad82adfc5006e38656aac3db6550dbbfa72d3f5c692bedc993",
+    "breton/cells_10A.csv": "962dbb126e537f6f902bf30bb93738ad0f4d07535b2cacf70ceef2a57c8da3df",
+    "breton/cell_land_by_year.csv": "fa1018138b4acb3d8af0ffd97812d775a4121cfb9b5cda49afcc2636f2e3daef",
+    "breton/exposure.csv": "d9a64bbd0f43b1d3c806eb50f4e9813a7bad327f3ba3db37a8a3909003d848f4",
+    "breton/landsat_cell_fraction.csv": "1436b73590cd3eaa5f8714df6aa3e6b36d1e131314881129e003f80bffc5efaf"
+  },
+  "interval_level": 0.9,
+  "interval_offsets": [
+    -3.1609,
+    2.8872
+  ],
+  "interval_offsets_by_class": {
+    "NOO": [
+      -3.2753,
+      2.7802
+    ],
+    "Very_Light": [
+      -3.1771,
+      2.9612
+    ],
+    "Light": [
+      -3.7637,
+      2.7936
+    ],
+    "Moderate": [
+      -2.4395,
+      4.2015
+    ],
+    "Heavy": [
+      -1.2474,
+      3.5758
+    ]
+  },
+  "interval_calibration_cells_by_class": {
+    "NOO": 10162,
+    "Very_Light": 610,
+    "Light": 684,
+    "Moderate": 688,
+    "Heavy": 552
+  },
+  "interval_fallback_by_class": {
+    "NOO": false,
+    "Very_Light": false,
+    "Light": false,
+    "Moderate": false,
+    "Heavy": false
+  },
+  "interval_method": "Split-conformal offsets with the finite-sample rank correction (k_lo = floor(0.05(n+1)), k_hi = ceil(0.95(n+1))) of leave-one-basin-out residuals of all three basins, computed separately per SCAT oiling class (classes with < 100 cells fall back to all classes), added to the full-data prediction. Tested one level down: for each held-out basin the offsets came from nested residuals of the other two basins only.",
+  "baseline": "M0: training-basin mean plus 5th/95th percentiles of training deviations (no predictor)",
+  "held_out_by_basin": [
+    {
+      "basin": "barataria",
+      "n_cells": 5386,
+      "coverage": 0.901597,
+      "mean_width": 6.483403,
+      "winkler": 12.100695,
+      "m0_coverage": 0.877274,
+      "m0_mean_width": 5.95743,
+      "m0_winkler": 12.663974,
+      "all_class_oos_winkler": 11.891093,
+      "v1_deployed_winkler": 11.89667,
+      "mae": 1.306539,
+      "m0_mae": 1.499344,
+      "bias_pred_minus_obs": 0.013788
+    },
+    {
+      "basin": "breton",
+      "n_cells": 3206,
+      "coverage": 0.875546,
+      "mean_width": 5.605534,
+      "winkler": 11.27578,
+      "m0_coverage": 0.897068,
+      "m0_mean_width": 6.377535,
+      "m0_winkler": 11.204861,
+      "all_class_oos_winkler": 11.300007,
+      "v1_deployed_winkler": 11.126412,
+      "mae": 1.368727,
+      "m0_mae": 1.424733,
+      "bias_pred_minus_obs": 0.563051
+    },
+    {
+      "basin": "terrebonne",
+      "n_cells": 4104,
+      "coverage": 0.918616,
+      "mean_width": 6.692588,
+      "winkler": 10.262139,
+      "m0_coverage": 0.917641,
+      "m0_mean_width": 6.687665,
+      "m0_winkler": 10.292476,
+      "all_class_oos_winkler": 10.062959,
+      "v1_deployed_winkler": 9.901169,
+      "mae": 1.224057,
+      "m0_mae": 1.301311,
+      "bias_pred_minus_obs": -0.428771
+    },
+    {
+      "basin": "pooled",
+      "n_cells": 12696,
+      "coverage": 0.90052,
+      "mean_width": 6.329342,
+      "winkler": 11.298071,
+      "m0_coverage": 0.895321,
+      "m0_mean_width": 6.299565,
+      "m0_winkler": 11.528928,
+      "all_class_oos_winkler": 11.150885,
+      "v1_deployed_winkler": 11.057115,
+      "mae": 1.29558,
+      "m0_mae": 1.416489,
+      "bias_pred_minus_obs": 0.00943
+    }
+  ],
+  "held_out_by_basin_class": [
+    {
+      "basin": "barataria",
+      "oiling_class": "Heavy",
+      "n_cells": 501,
+      "gated_group": true,
+      "coverage": 0.93014,
+      "mean_width": 6.249396,
+      "winkler": 8.877151,
+      "v1_deployed_coverage": 0.924152,
+      "bias_pred_minus_obs": -0.404538
+    },
+    {
+      "basin": "barataria",
+      "oiling_class": "Light",
+      "n_cells": 427,
+      "gated_group": true,
+      "coverage": 0.953162,
+      "mean_width": 8.428168,
+      "winkler": 11.486671,
+      "v1_deployed_coverage": 0.920375,
+      "bias_pred_minus_obs": 0.361648
+    },
+    {
+      "basin": "barataria",
+      "oiling_class": "Moderate",
+      "n_cells": 509,
+      "gated_group": true,
+      "coverage": 0.94499,
+      "mean_width": 8.295107,
+      "winkler": 11.190456,
+      "v1_deployed_coverage": 0.905697,
+      "bias_pred_minus_obs": -0.198363
+    },
+    {
+      "basin": "barataria",
+      "oiling_class": "NOO",
+      "n_cells": 3610,
+      "gated_group": true,
+      "coverage": 0.885319,
+      "mean_width": 6.01426,
+      "winkler": 12.795272,
+      "v1_deployed_coverage": 0.886704,
+      "bias_pred_minus_obs": 0.031422
+    },
+    {
+      "basin": "barataria",
+      "oiling_class": "Very_Light",
+      "n_cells": 339,
+      "gated_group": true,
+      "coverage": 0.902655,
+      "mean_width": 6.655303,
+      "winkler": 11.608289,
+      "v1_deployed_coverage": 0.917404,
+      "bias_pred_minus_obs": 0.324614
+    },
+    {
+      "basin": "breton",
+      "oiling_class": "Heavy",
+      "n_cells": 31,
+      "gated_group": false,
+      "coverage": 0.806452,
+      "mean_width": 4.590843,
+      "winkler": 16.770744,
+      "v1_deployed_coverage": 0.806452,
+      "bias_pred_minus_obs": -0.898671
+    },
+    {
+      "basin": "breton",
+      "oiling_class": "Light",
+      "n_cells": 125,
+      "gated_group": true,
+      "coverage": 0.832,
+      "mean_width": 5.951238,
+      "winkler": 13.738666,
+      "v1_deployed_coverage": 0.832,
+      "bias_pred_minus_obs": 0.357758
+    },
+    {
+      "basin": "breton",
+      "oiling_class": "Moderate",
+      "n_cells": 55,
+      "gated_group": false,
+      "coverage": 0.872727,
+      "mean_width": 6.560297,
+      "winkler": 10.818458,
+      "v1_deployed_coverage": 0.854545,
+      "bias_pred_minus_obs": 0.141775
+    },
+    {
+      "basin": "breton",
+      "oiling_class": "NOO",
+      "n_cells": 2892,
+      "gated_group": true,
+      "coverage": 0.874136,
+      "mean_width": 5.545564,
+      "winkler": 11.277402,
+      "v1_deployed_coverage": 0.892116,
+      "bias_pred_minus_obs": 0.608975
+    },
+    {
+      "basin": "breton",
+      "oiling_class": "Very_Light",
+      "n_cells": 103,
+      "gated_group": true,
+      "coverage": 0.990291,
+      "mean_width": 6.665363,
+      "winkler": 6.831672,
+      "v1_deployed_coverage": 0.990291,
+      "bias_pred_minus_obs": 0.187623
+    },
+    {
+      "basin": "terrebonne",
+      "oiling_class": "Heavy",
+      "n_cells": 20,
+      "gated_group": false,
+      "coverage": 0.95,
+      "mean_width": 5.371623,
+      "winkler": 7.072265,
+      "v1_deployed_coverage": 0.95,
+      "bias_pred_minus_obs": -0.779605
+    },
+    {
+      "basin": "terrebonne",
+      "oiling_class": "Light",
+      "n_cells": 132,
+      "gated_group": true,
+      "coverage": 0.795455,
+      "mean_width": 6.045792,
+      "winkler": 15.882466,
+      "v1_deployed_coverage": 0.825758,
+      "bias_pred_minus_obs": -0.289234
+    },
+    {
+      "basin": "terrebonne",
+      "oiling_class": "Moderate",
+      "n_cells": 124,
+      "gated_group": true,
+      "coverage": 0.854839,
+      "mean_width": 6.417158,
+      "winkler": 13.122977,
+      "v1_deployed_coverage": 0.758065,
+      "bias_pred_minus_obs": -0.953757
+    },
+    {
+      "basin": "terrebonne",
+      "oiling_class": "NOO",
+      "n_cells": 3660,
+      "gated_group": true,
+      "coverage": 0.932514,
+      "mean_width": 6.802018,
+      "winkler": 9.746749,
+      "v1_deployed_coverage": 0.923497,
+      "bias_pred_minus_obs": -0.396909
+    },
+    {
+      "basin": "terrebonne",
+      "oiling_class": "Very_Light",
+      "n_cells": 168,
+      "gated_group": true,
+      "coverage": 0.755952,
+      "mean_width": 5.177318,
+      "winkler": 15.342476,
+      "v1_deployed_coverage": 0.815476,
+      "bias_pred_minus_obs": -0.803292
+    }
+  ],
+  "held_out_fallbacks": [
+    "held-out barataria Heavy: 51 calibration cells, all-class offsets used"
+  ],
+  "gate": {
+    "text": "Coverage of the 90% interval is between 80% and 97% in every basin-by-oiling-class group with 100 or more cells, AND the interval (Winkler) score is lower than that of the no-predictor baseline interval in each held-out basin.",
+    "coverage_failures": [
+      "breton Very_Light 0.990",
+      "terrebonne Light 0.795",
+      "terrebonne Very_Light 0.756"
+    ],
+    "winkler_failures": [
+      "breton"
+    ],
+    "verdict": "FAILED"
+  },
+  "results_files": [
+    "results/v5_p0/interval_summary.txt",
+    "results/v5_p0/interval_by_basin.csv",
+    "results/v5_p0/interval_by_basin_class.csv",
+    "results/v5_p0/interval_coverage_gate.csv",
+    "results/v5_p0/interval_offsets.csv",
+    "results/v5_p0/deployable_offsets.csv",
+    "results/v5_p0/interval_cells.csv"
+  ],
+  "run": "python -m validation.v5_p0_oil_excess && python -m validation.v5_p0_intervals && python -m validation.v5_p0_cards",
+  "disclosure": "Gates were set on 14 Nov 2026 after the reviewer had already seen the no-excess baseline's error and bias on these same cells, so the test is not blind; only three basins have data (Terrebonne, Barataria, Breton), so the training set for held-out Barataria has few heavy cells (51); all cells are one spill (Deepwater Horizon).",
+  "limits": [
+    "Gate failed: coverage outside 80-97% in breton Very_Light (0.990), terrebonne Light (0.795), terrebonne Very_Light (0.756); Winkler not below the no-predictor interval in breton.",
+    "The point model has no oiling term; class offsets shift the interval for heavy cells but the point prediction still under-predicts them.",
+    "Compare winkler with all_class_oos_winkler in held_out_by_basin to see whether conditioning on class helped (it is not part of the gate).",
+    "Intervals are about 6 m/yr wide against a signal of about 1 m/yr.",
+    "One spill, three basins; conformal guarantees assume exchangeable cells, which basins are not."
+  ],
+  "validation": "Not validated. V5 Phase 0.2 (docs/V5_P0_PLAN.md): per-class out-of-sample intervals, gate failed; see held_out_by_basin and held_out_by_basin_class."
+}
