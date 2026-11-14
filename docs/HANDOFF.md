@@ -45,11 +45,13 @@ but is new to ML.
 | R1 ranking tier defect | Completed (FINDINGS_V4 25) |
 | R2 synthetic layer out; literature route | Done; Jaison runs LeapSpace searches with `docs/R2_LITERATURE_EVIDENCE_GUIDE.md` and fills `data/knowledge/literature_effects_template.csv` |
 | R3 oil double count | Done; bias gate failed; D32 proposed (FINDINGS_V4 26) |
-| R4-R8 | Done (FINDINGS_V4 27-30); PAH replicate check needs DIVER files |
+| R4-R8 | Done (FINDINGS_V4 27-30, 33) |
+| D32 oil excess scaling | Done; heavy bias +0.33/+0.39 (FINDINGS_V4 32) |
+| Literature collection | Done: `data/knowledge/literature_effects.csv` (144 rows), PDFs in `docs/reference/` (restricted ones git-ignored, local only) |
 | F1-F12 | Not started |
 
-176 tests pass (Python 3.11). All V4 commits are local on `process-model-audit`; not pushed (Jaison, D29).
-Next steps: Jaison's dashboard test of R4; decision on D32; literature extraction; then F1 (parked reviews and decisions).
+177 tests pass (Python 3.11). DIVER files are in `data/external/diver_dwh/` and SCAT layers in `data/raw/scat/` on this machine (git-ignored). All V4 commits are local on `process-model-audit`; not pushed (Jaison, D29).
+Next steps: Jaison's sample check of literature rows; dashboard test; then Track F starting with F1.
 
 ## Latest (13 Nov 2026, wrap-up)
 

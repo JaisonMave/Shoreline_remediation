@@ -112,3 +112,41 @@ public: only public datasets are used (Jaison, D29). Changes committed locally; 
 - R7b (D28): heavy sites carry the flag "worse than no-trend baseline for heavy oiling (FINDINGS 14); shown for
   transparency only" next to every vegetation output.
 - R7c: the worked example leads with the held-out prediction (1.31 m/yr), then the full-data one (1.42).
+
+## 31. Literature collection for treatment coefficients (14 Nov 2026)
+
+Five AI agents on different models (GPT-5.6-sol high: marsh removal; Gemini-4-argon medium: washing; Grok-4.7 medium:
+bio/chemical/burning; GPT-5.6-terra medium: beaches and natural recovery; Grok-4.6 high: oiling effect on marsh erosion)
+followed `docs/R2_LITERATURE_EVIDENCE_GUIDE.md`. Merged table `data/knowledge/literature_effects.csv`: **144 rows from 90
+sources** (grade A 30, B 31, C 41, D 18, E 24; 19 abstract-only). By technology: hot-water washing 25, bioremediation 28,
+surface washing agents 17, oiling effect 17, natural attenuation 16, in-situ burning 10, low-pressure flushing 6, cutting 5,
+planting 5, heated flushing 4, high-pressure washing 3, mechanical, vacuum, sorbents, solidifiers 2 each.
+PDFs: 31 committed (open licence or US government; `docs/reference/REFERENCE_INDEX.csv`), 11 all-rights-reserved kept in
+the git-ignored `docs/reference/restricted/` (incl. Challenger 2021, Deis 2019, Michel 2022 marsh guide).
+
+Examples (as extracted; not yet checked by a person): Exxon Valdez hot-water washing cut Fucus cover to 6.9% vs 87.5% on
+unwashed oiled rock 15 days after (Houghton et al. 1993) and delayed clam recovery to about 11 years; Delaware Bay nutrient
+addition raised the hopane-normalised alkane loss rate from 0.026 to 0.056 per day (Venosa et al. 1996); vegetation cutting
+favoured recovery in 21% of 19 comparisons (Michel et al. 2022); marsh burning is safe for roots only with standing water
+(Lin et al. 2002). Gaps: no controlled evidence for vacuum, sorbents or solidifiers; sediment relocation and mixing have
+no numeric treated-vs-control values; nearly all marsh evidence is Deepwater Horizon.
+
+Reading: enough rows exist to pool washing (rocky shore, biological recovery), bioremediation (degradation rate ratio) and
+the marsh oiling effect; most other technologies stay "single-study" or "no evidence". Every row is AI-extracted and
+Proposed; Jaison's check of a sample against the PDFs is the next gate (guide section 5, step 1).
+
+## 32. D32: oil excess scaled by field-size-weighted literature (14 Nov 2026)
+
+Plan `docs/D32_OIL_EXCESS_PLAN.md` (committed before extraction). Five eligible DWH studies (McClenachan 2013 +0.33 m/yr,
+30 sites; Turner 2016 +1.54, 46 islands; Zengel 2015/2022 +0.88, 14 plots; Challenger 2021 -0.13, 59 sites; Deis 2019 +1.64,
+14 stations): **E = 0.665 m/yr (90% -0.69 to 2.02)**, leave-one-out 0.32 to 1.12; scale s = 0.756 of the Zengel excess.
+C1c heavy bias +0.55 to **+0.33** (coverage 93.8%); B1c +0.59 to **+0.39** (92.4%); NOO unchanged. The +/-0.25 gate still
+fails; adopted by the plan's rule (bias smaller than C1b and B1b). `models/oil_excess_d32.json`.
+Deviation: Challenger entered with years 2-5 only; with year 1 included E would be about 0.73 (s 0.83), heavy bias about
+0.05 m/yr higher. All five studies are one spill; two are remote sensing (flagged).
+
+## 33. R7 completed: PAH replicate rule (14 Nov 2026)
+
+DIVER downloaded (14 files, 629 MB, git-ignored) and SCAT layers fetched. `results/v4_r7/pah_replicate_sensitivity.csv`:
+plain means instead of the nearer-to-median rule leave the result unchanged (PAH-sum half-life heavy 1.61 vs 1.61 years,
+moderate 1.83 vs 1.83; PAH/hopane no decline in either; both validated). The primary run reproduces `results/pah_decline`.

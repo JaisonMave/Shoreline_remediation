@@ -64,8 +64,9 @@ M2-M10 onto the architecture (D14-D20) and a fixed decision logic (D31).
 | R4 | One absolute edge-loss number per site | Under validation (FINDINGS_V4 30; awaiting Jaison's dashboard test) |
 | R5 | "Distinguished" wording | Completed (FINDINGS_V4 30) |
 | R6 | AI-written review relabelled AI-PROPOSED | Completed (FINDINGS_V4 27) |
-| R7 | Statistical and modelling details | Under validation: covariance, vegetation, headline, reports done (FINDINGS_V4 28, 30); PAH replicate check awaiting DIVER files |
+| R7 | Statistical and modelling details | Under validation: covariance, vegetation, headline, reports done (FINDINGS_V4 28, 30); PAH replicate check done, no change (FINDINGS_V4 33) |
 | R8 | Repository hygiene and visibility (D29) | Completed (FINDINGS_V4 29) |
+| LIT | Literature collection for coefficients (R2 route) | Under validation: 144 rows, 90 sources, AI-extracted (FINDINGS_V4 31); awaiting Jaison's sample check |
 | F1-F12 | Final system (see plan) | Not started |
 
 ## Full programme milestones (after the proof of concept)
@@ -118,5 +119,5 @@ M2-M10 onto the architecture (D14-D20) and a fixed decision logic (D31).
 | D28 | 2026-11-14 | 4, 6 | Vegetation recovery curve flagged or withheld for heavily oiled cells, where it is worse than the no-trend baseline. | Implemented as a flag (V4 R7b) |
 | D29 | 2026-11-14 | 7 | Repository stays public (public datasets only); commits stay local until Jaison asks for a push. | Approved by Jaison 2026-11-14 |
 | D30 | 2026-11-14 | All | Final-system scope set by evidence: validated, experimental, rules only, out of scope. | Proposed (V4 F0) |
-| D32 | 2026-11-14 | 4, 6 | Composer oil excess: scale or replace the Zengel untreated-plot excess with a NAIP-based estimate (own plan), or keep it and show the bias. | Proposed (FINDINGS_V4 26) |
+| D32 | 2026-11-14 | 4, 6 | Composer oil excess scaled by a field-size-weighted literature estimate (E 0.665 m/yr, s 0.756). | Approved by Jaison 2026-11-14; implemented (FINDINGS_V4 32); bias gate still fails |
 | D31 | 2026-11-14 | 6 | Decision logic: hard constraints, do-no-harm, benefit against natural recovery with intervals, trade-offs shown not scored; "no option distinguishable, monitor" is a valid output. | Proposed (V4 F9) |

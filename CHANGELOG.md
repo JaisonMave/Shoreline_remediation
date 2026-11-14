@@ -11,6 +11,16 @@ Computer (no account needed).
 
 ---
 
+## 2026-11-14: literature collection, D32, DIVER
+- **Literature:** five AI agents (GPT, Gemini, Grok) collected 144 effect rows from 90 sources into
+  `data/knowledge/literature_effects.csv` and `literature_sources.csv`; 31 open or US-government PDFs committed under
+  `docs/reference/`, 11 all-rights-reserved PDFs kept locally in git-ignored `docs/reference/restricted/`; index
+  `docs/reference/REFERENCE_INDEX.csv`. FINDINGS_V4 31.
+- **D32:** oil excess scaled to a field-size-weighted literature estimate; checks C1c, B1c; heavy bias reduced, gate still
+  fails. `validation/d32_oil_excess.py`, `models/oil_excess_d32.json`. FINDINGS_V4 32.
+- **DIVER and SCAT** downloaded locally (git-ignored); PAH replicate sensitivity run, no change. FINDINGS_V4 33.
+- **Status:** Under validation (literature rows AI-extracted, unchecked).
+
 ## 2026-11-14: V4 Track R (review fixes R1-R8)
 - **R1** ranking tiers (D25); **R2** synthetic suitability out of the decision path (D26), literature guide and
   extraction template; **R3** clean-edge composer baseline (D27), checks C1b, C2b, B1b; **R4** one edge-loss number

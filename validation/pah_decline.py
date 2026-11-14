@@ -246,7 +246,7 @@ def plot_medians(sc: pd.DataFrame, col: str, label: str, path: Path) -> None:
 def main() -> None:
     from src.shoreline_remediation import diver_soil as ds
     RESULTS.mkdir(parents=True, exist_ok=True)
-    csv_dir = Path("/home/claude/work/stage2/coastal_wetland_veg/extracted_csv")
+    csv_dir = ROOT / "data" / "external" / "diver_dwh" / "extracted_csv"
     shp = ROOT / "data/raw/scat/18611/SCAT_Max_OilZones_Louisiana_2014_09_30Sorted.shp"
     log = ds.Log()
     prep = ds.prepare(csv_dir, shp, log)

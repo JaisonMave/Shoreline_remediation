@@ -28,7 +28,7 @@ for p in (ROOT, ROOT / "src"):
         sys.path.insert(0, str(p))
 
 RESULTS = ROOT / "results" / "v4_r7"
-DIVER_DIR = ROOT / "data" / "external" / "diver_dwh"
+DIVER_DIR = ROOT / "data" / "external" / "diver_dwh" / "extracted_csv"
 SCAT_SHP = ROOT / "data" / "raw" / "scat" / "18611" / "SCAT_Max_OilZones_Louisiana_2014_09_30Sorted.shp"
 NOT_RUN_MSG = "not run: DIVER files absent; fetch with scripts/download_diver.sh"
 
@@ -37,7 +37,7 @@ def mean_rule_pick_value(values, ref_median: float, limit: float = 50.0) -> tupl
     """Alternative replicate rule: plain mean of replicates, regardless of RPD. Detects-vs-non-detects
     are already resolved before pick_value() is called, so that part of the rule is unaffected."""
     v = np.asarray(values, float)
-    return float(v.mean()), "mean_rule"
+    return float(v.mean()), "mean"
 
 
 def find_diver_files() -> Path | None:
