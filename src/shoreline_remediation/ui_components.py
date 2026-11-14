@@ -1,0 +1,366 @@
+"""Streamlit building blocks for the dashboard (decision D40): chips, legend, scope panel, answer card, option cards,
+interval chart, reference numbers, "Sources and decisions", beach placeholder.
+
+Everything reads display objects from ui_evidence (built from the decision pipeline's report) and wording from ui_theme.
+Colours never carry meaning alone: every chip has words, and the classes also carry a letter and a symbol.
+"""
+from __future__ import annotations
+
+import re
+from html import escape
+
+import altair as alt
+import matplotlib.pyplot as plt
+import pandas as pd
+import streamlit as st
+
+from . import ui_evidence as E
+from . import ui_theme as T
+
+
+# ---------------------------------------------------------------------------------------------------------------
+# Theme helpers
+
+def is_dark() -> bool:
+    try:
+        return st.context.theme.type == "dark"
+    except Exception:  # not in a browser session (tests), or an older Streamlit
+        return False
+
+
+def inject_css() -> None:
+    st.markdown(T.CSS, unsafe_allow_html=True)
+
+
+def text_colour() -> str:
+    return "#E8EEEC" if is_dark() else "#1B2A30"
+
+
+def themed_fig(figsize=(9, 4.2)):
+    """Matplotlib figure with a transparent background and theme-aware text, readable in light and dark mode."""
+    fig, ax = plt.subplots(figsize=figsize)
+    style_axes(fig, ax)
+    return fig, ax
+
+
+def style_axes(fig, *axes) -> None:
+    colour = text_colour()
+    fig.patch.set_alpha(0)
+    for ax in axes or fig.axes:
+        ax.set_facecolor("none")
+        ax.tick_params(colors=colour, labelsize=9)
+        ax.xaxis.label.set_color(colour)
+        ax.yaxis.label.set_color(colour)
+        ax.title.set_color(colour)
+        for spine in ax.spines.values():
+            spine.set_color(T.NEUTRAL)
+        leg = ax.get_legend()
+        if leg:
+            for t in leg.get_texts():
+                t.set_color(colour)
+            leg.get_frame().set_alpha(0)
+
+
+def show_fig(fig, **kwargs) -> None:
+    """Render a matplotlib figure and close it (figures are not kept in memory between reruns)."""
+    style_axes(fig)
+    st.pyplot(fig, width="stretch", transparent=True, **kwargs)
+    plt.close(fig)
+
+
+def ai_style_dataframe(df: pd.DataFrame):
+    """Desaturated look for tables of AI-proposed numbers (grid cells accept only colour, not hatching)."""
+    return df.style.set_properties(**{"color": "#8A7F99", "font-style": "italic"})
+
+
+# ---------------------------------------------------------------------------------------------------------------
+# Header, legend, scope
+
+def hero(subtitle: str, chips: list[tuple[str, str]]) -> None:
+    st.markdown(f'<div class="sr-hero"><h1>Shoreline Remediation Decision Support</h1><p>{escape(subtitle)}</p></div>',
+                unsafe_allow_html=True)
+    if chips:
+        st.markdown(" ".join(f":{color}-badge[{text}]" for text, color in chips))
+
+
+def evidence_legend() -> None:
+    """Permanent legend of the five evidence grades (used by every chip in the dashboard)."""
+    with st.expander("Evidence grades: what the chips mean", expanded=False):
+        for key in T.GRADE_ORDER:
+            info = T.GRADES[key]
+            st.markdown(f'<div class="sr-legend-row">{T.grade_html(key)} {escape(info["legend"])}</div>', unsafe_allow_html=True)
+        st.markdown('<div class="sr-legend-row sr-muted">Recommendation classes: '
+                    + " ".join(T.class_html(c, with_name=False) for c in T.CLASS_ORDER)
+                    + " (A benefit, B unclear, C natural recovery, D harm under conditions, E excluded)</div>", unsafe_allow_html=True)
+
+
+def scope_panel(habitat: str, extra: list[str] | None = None) -> None:
+    """One-line scope bar plus ONE 'Scope and limits' panel (replaces many same-weight caveat boxes)."""
+    line = T.SCOPE_ONE_LINE.get(habitat, T.SCOPE_ONE_LINE["marsh"])
+    c1, c2 = st.columns([5, 1.2], vertical_alignment="center")
+    c1.markdown(f'<div class="sr-scope">{escape(line)}</div>', unsafe_allow_html=True)
+    with c2.popover("Scope and limits", icon=":material/rule:", width="stretch"):
+        st.markdown("**What this tool can and cannot tell you**")
+        for x in T.SCOPE_LIMITS.get(habitat, []) + list(extra or []):
+            st.markdown(f"- {x}")
+        st.caption(T.LABELS["interval_note"])
+
+
+# ---------------------------------------------------------------------------------------------------------------
+# Answer card
+
+def humanise(text: str, options: list) -> str:
+    """Replace option codes such as manual_removal by plain names in the pipeline's headline."""
+    for o in sorted(options, key=lambda o: -len(o.option)):
+        text = re.sub(rf"(?<![A-Za-z_]){re.escape(o.option)}(?![A-Za-z_])", o.name[:1].lower() + o.name[1:], text)
+    return text
+
+
+def answer_card(view, where: str, metrics: list[dict] | None = None) -> None:
+    """Answer first: where, headline recommendation with its evidence chip, then the key numbers."""
+    with st.container(border=True):
+        st.markdown(f"**{where}**")
+        if view is None:
+            st.warning("The decision pipeline could not produce a recommendation for these inputs.")
+        else:
+            st.markdown(f'<div class="sr-answer">{escape(humanise(view.headline, view.options))}</div>', unsafe_allow_html=True)
+            info = T.grade_info(view.headline_grade)
+            st.markdown("Evidence behind this recommendation: " + T.grade_html(view.headline_grade, view.headline_grade_text)
+                        + "&nbsp; Scope of the tool for this input: " + T.grade_html(view.tier_grade, view.tier_text),
+                        unsafe_allow_html=True)
+            st.caption(info["legend"])
+        if metrics:
+            cols = st.columns(len(metrics))
+            for col, m in zip(cols, metrics):
+                col.metric(m["label"], m["value"], delta=m.get("range"), delta_color="off", delta_arrow="off",
+                           help=m.get("help"), border=True)
+                if m.get("grade"):
+                    col.markdown(T.grade_html(m["grade"], m.get("grade_text")), unsafe_allow_html=True)
+
+
+# ---------------------------------------------------------------------------------------------------------------
+# Option comparison: interval chart + cards
+
+_OUTCOME_OPTIONS = {"edge_loss_avoided_m": "Marsh edge saved (m)", "veg_cover_ratio_gain": "Vegetation cover gained"}
+
+
+def interval_chart(rows: list, title: str, x_title: str) -> alt.Chart:
+    """Median dot and 90% range bar for each option, on a shared, visible zero line."""
+    df = pd.DataFrame(rows)
+    order = list(df["option"])
+    opacity = {"validated": 1.0, "experimental": 0.75, "rules_literature": 0.55, "ai_proposed": 0.45, "illustrative": 0.4}
+    df["opacity"] = df["grade"].map(opacity).fillna(0.5)
+    df["Class"] = df["cls"]
+    df["Range"] = [f"{r.median:+.2f} (90% range {r.lo:+.2f} to {r.hi:+.2f})" for r in df.itertuples()]
+    df["Evidence"] = df["grade"].map(lambda g: T.grade_info(g)["label"])
+    colour = alt.Color("Class:N", scale=alt.Scale(domain=T.CLASS_ORDER, range=[T.class_style(c)["colour"] for c in T.CLASS_ORDER]),
+                       legend=alt.Legend(title="Class", orient="bottom"))
+    y = alt.Y("option:N", sort=order, title=None, axis=alt.Axis(labelLimit=260))
+    tip = ["option", "Range", "Evidence", "Class"]
+    base = alt.Chart(df)
+    bars = base.mark_rule(size=5).encode(x=alt.X("lo:Q", title=x_title), x2="hi:Q", y=y, color=colour,
+                                         opacity=alt.Opacity("opacity:Q", legend=None), tooltip=tip)
+    dots = base.mark_point(filled=True, size=110, stroke="white", strokeWidth=1).encode(
+        x="median:Q", y=y, color=colour, opacity=alt.Opacity("opacity:Q", legend=None), tooltip=tip)
+    zero = alt.Chart(pd.DataFrame({"x": [0.0], "t": ["0 = same as natural recovery"]}))
+    zero_rule = zero.mark_rule(strokeDash=[5, 4], strokeWidth=2, color=T.NEUTRAL).encode(x="x:Q")
+    zero_text = zero.mark_text(align="left", dx=4, dy=-4, baseline="bottom", fontSize=11, color=T.NEUTRAL).encode(
+        x="x:Q", y=alt.value(0), text="t:N")
+    return (zero_rule + bars + dots + zero_text).properties(height=max(90, 34 * len(df) + 70), title=title)
+
+
+def render_interval_comparison(view, key: str) -> None:
+    """Interval bars for the options that have numbers, for one chosen outcome and year."""
+    outcomes = E.available_outcomes(view.options)
+    if not outcomes:
+        st.caption("No option has a numerical forecast for this input, so there is nothing to put on an interval chart. "
+                   "The cards below give the screening verdict and the source for each option.")
+        return
+    keys = list(outcomes)
+    sig = "_".join(f"{k}{''.join(map(str, v))}" for k, v in outcomes.items())
+    c1, c2 = st.columns([2, 1])
+    outcome = c1.segmented_control("Outcome", keys, default=keys[0], required=True, key=f"{key}_outcome_{sig}",
+                                   format_func=lambda k: _OUTCOME_OPTIONS.get(k, E.plain_name(k)))
+    years = outcomes[outcome]
+    year = c2.segmented_control("Year after cleanup", years, default=years[-1], required=True, key=f"{key}_year_{sig}_{outcome}",
+                                format_func=lambda y: f"year {y}")
+    rows = E.interval_rows(view.options, outcome, year)
+    if not rows:
+        st.caption("No option has numbers for that outcome and year.")
+        return
+    label, unit = E.OUTCOME_LABELS.get(outcome, (E.plain_name(outcome), ""))
+    x_title = (T.LABELS["edge_saved"] if outcome == "edge_loss_avoided_m" else T.LABELS["veg_gain"]) + ": right of zero is better"
+    st.altair_chart(interval_chart(rows, f"{label}, year {year}", x_title), theme="streamlit", width="stretch")
+    crossing = [r["option"] for r in rows if r["crosses_zero"]]
+    notes = []
+    if crossing:
+        notes.append("Range crosses zero (cannot be told apart from natural recovery): " + ", ".join(crossing) + ".")
+    if E.any_overlap(rows):
+        notes.append(T.LABELS["overlap_note"])
+    notes.append("Fainter marks mean weaker evidence than a validated model. All of these come from one site's field plots.")
+    st.caption(" ".join(notes))
+
+
+def _option_card(o) -> None:
+    with st.container(border=True):
+        st.markdown(f'<div class="sr-opt-title">{escape(o.name)}</div>'
+                    f'{T.class_html(o.cls, with_name=False)} {T.grade_html(o.grade)}', unsafe_allow_html=True)
+        st.write(o.verdict_text)
+        st.caption(f"Source: {o.source_text}.", help="; ".join(o.source_ids) or None)
+        with st.expander("Details and caveats"):
+            st.markdown(f"**Evidence grade:** {T.grade_info(o.grade)['label']}. {o.grade_note}.")
+            if o.rule_verdict:
+                st.markdown(f"**Screening rule:** {o.rule_verdict}. {o.rule_reason}")
+            for x in o.outcomes:
+                if x.decision_point or x.year is None:
+                    continue
+                st.markdown(f"- {x.label}, year {x.year}: {E.fmt_interval(x.median, x.lo, x.hi, 2)}")
+            if o.conditions:
+                st.markdown("**Conditions to check** (AI-proposed, not human-reviewed):")
+                for c in o.conditions:
+                    st.markdown(f"- {c}")
+            if o.caveats:
+                st.markdown("**Caveats:**")
+                for c in o.caveats:
+                    st.markdown(f"- {c}")
+            if o.ecological_score is not None:
+                st.caption(f"Assumed ecological score {o.ecological_score:.1f} of 10 (higher means less disturbance). "
+                           "It orders options inside a class; it is not evidence.")
+
+
+def render_option_cards(view, key: str) -> None:
+    """Cards for classes A to D and a compact table for the excluded options (class E)."""
+    groups = view.by_class()
+    st.caption("Within a class the options are listed in the pipeline's order. That order is not a ranking of how well they work.")
+    for cls in ("A", "B", "C", "D"):
+        members = groups.get(cls, [])
+        if not members:
+            continue
+        s = T.class_style(cls)
+        st.markdown(f'{T.class_html(cls)} <span class="sr-muted">{escape(s["plain"])}</span>', unsafe_allow_html=True)
+        for i in range(0, len(members), 2):
+            cols = st.columns(2)
+            for col, o in zip(cols, members[i:i + 2]):
+                with col:
+                    _option_card(o)
+    for cls in sorted(c for c in groups if c not in ("A", "B", "C", "D", "E")):  # classes the pipeline may add later
+        for o in groups[cls]:
+            _option_card(o)
+    excluded = groups.get("E", [])
+    if excluded:
+        s = T.class_style("E")
+        st.markdown(f'{T.class_html("E")} <span class="sr-muted">{escape(s["plain"])}</span>', unsafe_allow_html=True)
+        st.dataframe(pd.DataFrame([{"Option": o.name, "Why it is excluded": o.verdict_text.removeprefix("Excluded: "),
+                                    "Evidence": T.grade_info(o.grade)["label"], "Source": o.source_text} for o in excluded]),
+                     hide_index=True, width="stretch")
+
+
+def render_reference_numbers(view) -> None:
+    """Reference numbers that belong to no single option (decline rates, recovery times), each with its grade."""
+    rows = []
+    for r in view.reference:
+        quantity = str(E.field(r, "quantity", ""))
+        value, lo, hi = E.field(r, "value"), E.field(r, "lo90"), E.field(r, "hi90")
+        unit = str(E.field(r, "unit", ""))
+        if E.field(r, "status") == "no model" or not E.finite(value):
+            rng = E.field(r, "reason", "") or ("no decline detected" if E.field(r, "status") else "no value")
+            rows.append({"Quantity": quantity, "Value": "no model" if E.field(r, "status") == "no model" else "none", "90% range": rng,
+                         "Evidence": "-", "Note": ""})
+            continue
+        grade = E.reference_grade(r)
+        rows.append({"Quantity": quantity, "Value": f"{value:.2f} {unit}".strip(),
+                     "90% range": f"{lo:.2f} to {hi:.2f}" if E.finite(lo) and E.finite(hi) else "not available",
+                     "Evidence": T.grade_info(grade)["label"], "Note": str(E.field(r, "note", ""))})
+    if rows:
+        st.dataframe(pd.DataFrame(rows), hide_index=True, width="stretch")
+    else:
+        st.caption("No reference numbers for this input.")
+
+
+def render_sources_and_decisions(view, extra_text: str | None = None) -> None:
+    """Internal references live here, not in the main text."""
+    with st.expander("Sources and decisions"):
+        version = E.field(view.extra, "version", {}) or {}
+        st.markdown("**How this report was made.** A fixed eight-step pipeline: characterise the site, apply hard constraints, "
+                    "check for harm, compare with natural recovery, estimate time to endpoint, list trade-offs, assign a "
+                    "recommendation class, and write the report. There is no weighted score and no language model.")
+        if version:
+            models = E.field(version, "models", {}) or {}
+            st.markdown("**Version block:** pipeline " + str(E.field(version, "pipeline_version", "?"))
+                        + (f", code commit {str(version['git_commit'])[:9]}" if E.field(version, "git_commit") else "")
+                        + (f", random seed {version['seed']}, {version['n_draws']} Monte Carlo draws" if "seed" in version else "") + ".")
+            if models:
+                st.dataframe(pd.DataFrame([{"Model": k, "State": E.field(v, "state", ""), "Version": E.field(v, "version", "")}
+                                           for k, v in models.items()]), hide_index=True, width="stretch")
+        trace = E.field(view.extra, "trace", []) or []
+        if trace:
+            st.dataframe(pd.DataFrame([{"Step": E.field(t, "step"), "Name": str(E.field(t, "name", "")).replace("_", " "),
+                                        "Sources": "; ".join(map(str, E.field(t, "sources", []) or []))} for t in trace]),
+                         hide_index=True, width="stretch")
+        st.caption("Decision references: D13 (treatment mapping), D17 and D31 (outcomes stay separate, no weighted score), "
+                   "D26 (rule-trained suitability model out of the decision path), D30 (scope tiers), D32 (oil excess), "
+                   "D40 (dashboard re-based on the decision pipeline; evidence grades). " + (extra_text or ""))
+
+
+def render_pipeline_section(view, key: str, show_chart: bool = True) -> None:
+    """The recommendation section used by the site view (all habitats) and the legacy scenario view."""
+    if view is None:
+        return
+    if view.out_of_scope:
+        st.info(view.scope_message, icon=":material/block:")
+        return
+    if show_chart:
+        render_interval_comparison(view, key)
+    render_option_cards(view, key)
+    with st.expander("Reference numbers that are not tied to one option"):
+        render_reference_numbers(view)
+    plots = E.field(view.extra, "plots", {}) or {}
+    matrix = E.field(plots, "evidence_matrix", []) or []
+    if matrix:
+        with st.expander("Evidence matrix (every verdict that was used)"):
+            st.dataframe(pd.DataFrame([{"Option": E.plain_name(E.field(m, "option", "")), "Outcome": str(E.field(m, "outcome_family", "")).replace("_", " "),
+                                        "Verdict": E.field(m, "verdict", ""), "Source": E.field(m, "source", ""),
+                                        "Basis": E.field(m, "basis", "")} for m in matrix]), hide_index=True, width="stretch")
+
+
+# ---------------------------------------------------------------------------------------------------------------
+# AI-proposed ranges (never shown as evidence)
+
+def render_ai_ranges(rows: list[dict], key: str = "ai") -> None:
+    """Table of AI-proposed ranges in a hatched, desaturated block. Never uses 'distinguished' or support wording."""
+    if not rows:
+        return
+    head = "".join(f"<th>{escape(c)}</th>" for c in rows[0])
+    body = "".join("<tr>" + "".join(f"<td>{escape(str(v))}</td>" for v in r.values()) + "</tr>" for r in rows)
+    st.markdown(f'<div class="sr-ai-block"><div>{T.grade_html("ai_proposed", T.LABELS["ai_range"])}</div>'
+                f'<table><thead><tr>{head}</tr></thead><tbody>{body}</tbody></table></div>', unsafe_allow_html=True)
+    st.caption("These ranges were written by an AI assistant from the literature. They are not field evidence, have not been "
+               "reviewed by a person, and are not used to recommend or rule out an option.")
+
+
+# ---------------------------------------------------------------------------------------------------------------
+# Beach persistence placeholder (integration point for the sand-beach model)
+
+def render_beach_persistence(site: dict | None) -> None:
+    """Panel for the sand-beach oil persistence model. Returns without error if beach_model.py does not exist yet.
+
+    Integration step (a follow-up): replace the body of `_beach_model_output` with a call into the new module and render its
+    prediction, interval and evidence grade here. The placeholder below stays for habitats the model does not cover.
+    """
+    module = None
+    try:
+        from src.shoreline_remediation import beach_model as module  # noqa: F401
+    except Exception:  # file not there yet, or not importable yet: show the placeholder
+        module = None
+    with st.container(border=True):
+        st.markdown("#### Sand-beach oil persistence model: being integrated")
+        st.markdown(T.grade_html("illustrative", "Placeholder, no numbers yet"), unsafe_allow_html=True)
+        st.caption("This panel will show how long oil is expected to persist on this kind of beach, with a 90% range and its "
+                   "evidence grade. Until the model is connected, no persistence number is shown for beaches.")
+        if module is not None and not _beach_model_output(module, site):
+            st.caption("A beach model file was found but its output is not wired into the dashboard yet.")
+
+
+def _beach_model_output(module, site: dict | None) -> bool:
+    """Hook for the follow-up integration. Return True when the model's output has been rendered."""
+    return False

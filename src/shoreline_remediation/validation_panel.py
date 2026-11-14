@@ -24,6 +24,7 @@ LITERATURE = [
 ]
 
 
+@st.cache_data
 def _read(path: Path) -> pd.DataFrame | None:
     return pd.read_csv(path) if path.exists() else None
 
@@ -34,23 +35,36 @@ def _metric_value(metrics: pd.DataFrame | None, key: str, default=np.nan):
     return metrics.loc[metrics.iloc[:, 0] == key, metrics.columns[1]].iloc[0]
 
 
+def _dark() -> bool:
+    try:
+        return st.context.theme.type == "dark"
+    except Exception:
+        return False
+
+
 def make_transect_figure(scenario, treatment: str):
     from src.shoreline_remediation.shoreline_transport import simulate_transect
 
     days = [0, 7, 30, 90, 365]
     _, x_axis, profiles = simulate_transect(scenario, treatment, days, return_profiles=True)
     fig, ax = plt.subplots(figsize=(9, 4.4))
+    colour = "#E8EEEC" if _dark() else "#1B2A30"
     palette = plt.cm.viridis(np.linspace(0.05, 0.9, len(days)))
     for color, day, profile in zip(palette, days, profiles):
         ax.plot(x_axis, profile, color=color, lw=2.2, label=f"day {day}")
-    ax.axhline(10.0, color="#a84c4c", ls="--", lw=1.2, label="10 mm thick-oil endpoint")
+    ax.axhline(10.0, color="#D55E00", ls="--", lw=1.2, label="10 mm thick-oil endpoint")
     ax.set_xlabel("Cross-shore distance from waterline (m)")
     ax.set_ylabel("Oil thickness equivalent (mm)")
     ax.set_title("Oil movement across the shore (cross-shore transport model)")
     ax.grid(alpha=0.25)
     ax.legend(frameon=False, fontsize=9)
-    fig.patch.set_facecolor("white")
-    ax.set_facecolor("white")
+    fig.patch.set_alpha(0)
+    ax.set_facecolor("none")
+    ax.tick_params(colors=colour)
+    for obj in (ax.xaxis.label, ax.yaxis.label, ax.title):
+        obj.set_color(colour)
+    for t in ax.get_legend().get_texts():
+        t.set_color(colour)
     fig.tight_layout()
     return fig
 
@@ -110,6 +124,7 @@ def _render_plausibility() -> None:
 
 def render_validation_tab() -> None:
     st.subheader("Validation: what was tested, what held up, and what did not")
+    st.caption("The process-model parts of this panel are illustrative: that model did not beat a simple empirical curve on held-out stations.")
     st.warning(
         "Read this before relying on any recommendation. The model is a screening prototype. The checks below test it against the "
         "published paper's dataset and against a small set of cited historical decisions; they do not establish operational validity.",

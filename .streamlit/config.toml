@@ -1,0 +1,18 @@
+# Dashboard theme (decision D40). Works in light and dark; the app follows the operating system setting.
+[theme]
+baseRadius = "0.6rem"
+font = "sans-serif"
+
+[theme.light]
+primaryColor = "#0F5C5C"
+backgroundColor = "#FAFAF7"
+secondaryBackgroundColor = "#EEF1EC"
+textColor = "#1B2A30"
+chartCategoricalColors = ["#0072B2", "#E69F00", "#009E73", "#CC79A7", "#56B4E9", "#D55E00"]
+
+[theme.dark]
+primaryColor = "#4FB3B3"
+backgroundColor = "#0F1B1E"
+secondaryBackgroundColor = "#17262A"
+textColor = "#E8EEEC"
+chartCategoricalColors = ["#56B4E9", "#E69F00", "#009E73", "#CC79A7", "#0072B2", "#D55E00"]

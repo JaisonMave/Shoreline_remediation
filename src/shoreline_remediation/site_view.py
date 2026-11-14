@@ -1,25 +1,30 @@
-"""Streamlit view for P5 'Site evidence (real data)' (plan: docs/P5_DEMO_PLAN.md).
+"""Site evidence view (real data) with a habitat switcher (decision D40).
 
-Logic lives in site_evidence.py; this module only lays it out. Reads committed files, needs no network except
-for the map's base tiles.
+Layout: answer first (site, headline recommendation, key number with its 90% range, evidence chips), then the option
+comparison, the forecast, the map and the detailed tables. Logic lives in site_evidence.py, scenario_composer.py and
+decision_pipeline.py; this module lays it out. Reads committed files only and needs no network except for the map's tiles.
 """
 from __future__ import annotations
 
 import math
+from dataclasses import dataclass
 from pathlib import Path
+from typing import Callable
 
-import matplotlib.pyplot as plt
+import altair as alt
+import numpy as np
 import pandas as pd
 import streamlit as st
 
+from src.shoreline_remediation import ui_components as C
+from src.shoreline_remediation import ui_compare, ui_evidence as E, ui_pipeline as P, ui_report, ui_theme as T
 from src.shoreline_remediation.site_evidence import (FEATURE_LABELS, FEATURES, STATUS_TEXT, load_model, load_sites,
-                                                     predict_edge_loss, site_flags, site_scenario,
-                                                     site_scenario_inputs, treatment_evidence)
+                                                     site_flags, site_scenario, site_scenario_inputs, treatment_evidence)
 
-OIL_COLOURS = {"Heavy": "#a32a2a", "Moderate": "#db8b3e", "Light": "#e8c547", "Very_Light": "#9bb8a8", "NOO": "#5b8fb0"}
 CLASSES = ["Heavy", "Moderate", "Light", "Very_Light", "NOO"]
 BASINS = ["barataria", "breton", "terrebonne", "birdfoot"]
-EXAMPLE_CELL = "8018_32612"  # docs/P5_WORKED_EXAMPLE.md (rule in docs/P5_DEMO_PLAN.md section 5)
+EXAMPLE_CELL = "8018_32612"  # docs/P5_WORKED_EXAMPLE.md
+_KNOWLEDGE = Path(__file__).resolve().parents[2] / "data" / "knowledge"
 
 
 @st.cache_data
@@ -30,14 +35,16 @@ def _sites() -> pd.DataFrame:
 @st.cache_data(show_spinner="Running the rule screening...")
 def _screen(inputs: tuple, oil_category: str) -> list[dict]:
     from src.shoreline_remediation.decision_framework import HybridDecisionModel
-    site = dict(inputs)
-    ranked = HybridDecisionModel().rank_treatments(site_scenario(site, oil_category))
-    return [{"treatment": r.treatment, "feasibility": r.feasibility, "utility": r.utility, "reason": r.reason} for r in ranked]
+    ranked = HybridDecisionModel().rank_treatments(site_scenario(dict(inputs), oil_category))
+    return [{"treatment": r.treatment, "feasibility": r.feasibility, "utility": r.utility} for r in ranked]
 
 
 def _label(x: str) -> str:
     return x.replace("_", " ")
 
+
+# ---------------------------------------------------------------------------------------------------------------
+# Site choice
 
 def _pick_site(sites: pd.DataFrame) -> dict | None:
     mode = st.radio("Site", ["Worked example (Bay Jimmy, Barataria Bay)", "Pick a Louisiana edge cell", "New site (enter values)"],
@@ -47,13 +54,13 @@ def _pick_site(sites: pd.DataFrame) -> dict | None:
         if row.empty:
             st.error("Worked-example cell not found; rebuild with scripts/build_p5_demo.py.")
             return None
-        st.caption("Chosen by a fixed rule: the heavily oiled Barataria cell nearest the Zengel et al. (2022) field plots, "
-                   "so site and treatment evidence come from the same marsh. Written up in docs/P5_WORKED_EXAMPLE.md.")
+        st.caption("Chosen by a fixed rule: the heavily oiled Barataria cell nearest the Zengel et al. (2022) field plots, so site "
+                   "and treatment evidence come from the same marsh.")
         return {**row.iloc[0].to_dict(), "source": "edge cell"}
     if mode.startswith("Pick"):
         c1, c2, c3 = st.columns(3)
         basin = c1.selectbox("Basin", BASINS, format_func=str.title, key="pick_basin")
-        oiling = c2.selectbox("SCAT maximum oiling", ["any"] + CLASSES, format_func=_label, key="pick_oil")
+        oiling = c2.selectbox("SCAT maximum oiling", ["any"] + CLASSES, format_func=lambda x: T.OILING_LABELS.get(x, x), key="pick_oil")
         in_scope_only = c3.checkbox("In-scope cells only", value=True, key="pick_scope")
         d = sites[(sites.basin == basin) & (sites.esi_main == "10A")]
         if oiling != "any":
@@ -71,8 +78,7 @@ def _pick_site(sites: pd.DataFrame) -> dict | None:
         return {**cells[cells.cell == cell].iloc[0].to_dict(), "source": "edge cell"}
     st.caption("Type values measured the same way as the training data (2010 aerial land/water map; Landsat pre-spill trend). "
                "Values outside the training range are flagged as extrapolation.")
-    m = load_model()
-    r = m["training_range"]
+    r = load_model()["training_range"]
     c1, c2, c3, c4 = st.columns(4)
     v = {
         "water_1km_2010": c1.number_input(FEATURE_LABELS["water_1km_2010"], 0.0, 1.0, round((r["water_1km_2010"]["p01"] + r["water_1km_2010"]["p99"]) / 2, 2), 0.01, key="new_w1"),
@@ -84,208 +90,208 @@ def _pick_site(sites: pd.DataFrame) -> dict | None:
     lat = c5.number_input("Latitude", -90.0, 90.0, 29.40, 0.01, key="new_lat")
     lon = c6.number_input("Longitude", -180.0, 180.0, -89.90, 0.01, key="new_lon")
     habitat = c7.selectbox("Shoreline (ESI)", ["10A", "other"], format_func=lambda x: "10A salt marsh" if x == "10A" else "other", key="new_esi")
-    oiling = c8.selectbox("Oiling class", CLASSES, format_func=_label, key="new_oil")
+    oiling = c8.selectbox("Oiling class", CLASSES, format_func=lambda x: T.OILING_LABELS.get(x, x), key="new_oil")
     return {**v, "lat": lat, "lon": lon, "esi_main": habitat, "max_oiling": oiling, "status": "in_scope",
             "basin": "new site", "cell": "new site", "segment": "-", "source": "new site"}
 
 
+def _assumptions() -> tuple[str, str | None]:
+    st.markdown("**Assumptions for the rule screening**")
+    c1, c2 = st.columns(2)
+    oil = c1.selectbox("Oil category", ["light", "medium", "heavy", "solid"], key="site_oil",
+                       help="Deepwater Horizon oil was a light crude that arrived weathered and emulsified.")
+    season = c2.selectbox("Season of cleanup", ["site default (summer)", "spring", "summer", "autumn", "winter"], key="site_season",
+                          help="Used to check season-dependent conditions in the literature.")
+    return oil, (None if season.startswith("site") else season)
+
+
+# ---------------------------------------------------------------------------------------------------------------
+# Map and forecast chart
+
 def _map(sites: pd.DataFrame, site: dict) -> None:
+    dark = C.is_dark()
+    sel = T.SELECTED_SITE_COLOUR["dark" if dark else "light"]
     if site["source"] == "new site":
-        pts = pd.DataFrame([{"lat": site["lat"], "lon": site["lon"], "color": "#111111", "size": 120.0}])
+        pts = pd.DataFrame([{"lat": site["lat"], "lon": site["lon"], "color": sel, "size": 120.0}])
     else:
         d = sites[(sites.basin == site["basin"]) & (sites.esi_main == "10A")][["lat", "lon", "max_oiling"]]
-        pts = d.assign(color=d.max_oiling.map(OIL_COLOURS).fillna("#888888"), size=40.0)[["lat", "lon", "color", "size"]]
-        pts = pd.concat([pts, pd.DataFrame([{"lat": site["lat"], "lon": site["lon"], "color": "#111111", "size": 160.0}])])
-    st.map(pts, latitude="lat", longitude="lon", color="color", size="size", zoom=9 if site["source"] != "new site" else 7,
-           width="stretch")
-    st.caption("Salt-marsh edge cells in this basin, coloured by SCAT maximum oiling: dark red Heavy, orange Moderate, "
-               "yellow Light, green Very light, blue no oil observed. Black = selected site.")
+        pts = d.assign(color=d.max_oiling.map(lambda o: T.oiling_colour(o, dark)), size=40.0)[["lat", "lon", "color", "size"]]
+        pts = pd.concat([pts, pd.DataFrame([{"lat": site["lat"], "lon": site["lon"], "color": sel, "size": 160.0}])])
+    st.map(pts, latitude="lat", longitude="lon", color="color", size="size", zoom=9 if site["source"] != "new site" else 7, width="stretch")
+    st.caption("Salt-marsh edge cells in this basin, shaded by SCAT maximum oiling: darkest orange-brown Heavy, then Moderate, Light, "
+               "pale Very light; blue is no oil observed. A black dot (white in dark mode) is the selected site.")
 
 
-def _interval_chart(pred: dict, observed: float | None, sites: pd.DataFrame) -> plt.Figure:
-    train = sites.loc[sites.status == "in_scope", "observed_rate"].dropna()
-    fig, ax = plt.subplots(figsize=(9, 3.2))
-    ax.hist(train.clip(-8, 10), bins=80, color="#c9d6cf", label="Observed rates, all training cells (NAIP 2010-2015)")
-    ax.axvspan(pred["lo"], pred["hi"], color="#2d7d6d", alpha=.18, label="90% prediction interval")
-    ax.axvline(pred["rate"], color="#2d7d6d", lw=2.5, label="Expected rate at this site")
+def _edge_chart(pred: dict, observed, sites: pd.DataFrame) -> alt.Chart:
+    train = sites.loc[sites.status == "in_scope", "observed_rate"].dropna().clip(-8, 10)
+    counts, edges = np.histogram(train, bins=60)
+    hist = pd.DataFrame({"x0": edges[:-1], "x1": edges[1:], "n": counts})
+    bars = alt.Chart(hist).mark_bar(opacity=0.35, color=T.NEUTRAL).encode(
+        x=alt.X("x0:Q", title="Marsh-edge loss, metres per year (positive = land lost)"), x2="x1:Q", y=alt.Y("n:Q", axis=None))
+    band = alt.Chart(pd.DataFrame({"lo": [pred["lo"]], "hi": [pred["hi"]]})).mark_rect(opacity=0.2, color=T.OKABE_ITO["blue"]).encode(
+        x="lo:Q", x2="hi:Q")
+    marks = [("Expected at this site", pred["rate"]), ("Zero (no net loss)", 0.0)]
     if observed is not None and not math.isnan(observed):
-        ax.axvline(observed, color="#a32a2a", lw=1.8, ls="--", label="Observed at this cell")
-    ax.set_xlabel("Marsh-edge loss, m/yr (positive = land lost)")
-    ax.set_yticks([])
-    for s in ("top", "right", "left"):
-        ax.spines[s].set_visible(False)
-    ax.legend(frameon=False, fontsize=8, loc="upper right")
-    fig.tight_layout()
-    return fig
+        marks.append(("Observed at this cell", float(observed)))
+    domain = ["Expected at this site", "Observed at this cell", "Zero (no net loss)"]
+    rng = [T.OKABE_ITO["blue"], T.OKABE_ITO["vermillion"], T.NEUTRAL]
+    dash = [[1, 0], [6, 4], [2, 3]]
+    rules = alt.Chart(pd.DataFrame(marks, columns=["mark", "x"])).mark_rule(size=2.5).encode(
+        x="x:Q", color=alt.Color("mark:N", scale=alt.Scale(domain=domain, range=rng), legend=alt.Legend(title=None, orient="bottom")),
+        strokeDash=alt.StrokeDash("mark:N", scale=alt.Scale(domain=domain, range=dash), legend=None))
+    return (bars + band + rules).properties(height=200, title="All training cells (grey), with this site's 90% range shaded")
 
 
-# ---- Compare options (plan A4.3/A4.4). The rule engine's verdicts are not touched; this section only adds paired evidence. ----
-_KNOWLEDGE = Path(__file__).resolve().parents[2] / "data" / "knowledge"
-COMPARE_DRAWS = 2000                      # <= 2000 so the app stays fast
-MEASURED_OPTIONS = ["natural_attenuation", "manual_removal", "mechanical_removal", "planting (after mechanical cleanup)"]
-YEARS = (2, 5, 8)
-A41_NOTE = ("R5 fix (docs/V4_PROGRAMME_PLAN.md R5): where the table marks a difference supported by field evidence, the 90% interval "
-            "of the paired difference from natural recovery (same simulated baseline in each draw) excludes zero; otherwise it shows "
-            "no difference supported by field evidence. That difference does not depend on this site: paired differences use the same "
-            "simulated baseline for every option, so the site's own shared uncertainty (the baseline draw and, for heavy sites, the "
-            "oil-excess draw) cancels out of the comparison, and what is left reflects one site's field evidence (Zengel et al. 2015, "
-            "2022, Bay Jimmy; the same difference at every heavily oiled site), not a measurement at this site. AI-proposed ranges "
-            "(not human-reviewed) have no edge-loss difference; their range acts on vegetation recovery time only and is ASSUMED from "
-            "the literature table, not measured.")
+# ---------------------------------------------------------------------------------------------------------------
+# Marsh
+
+def _ref_grade(view, text: str, default: str = "experimental") -> str:
+    if view is None:
+        return default
+    for r in view.reference:
+        if text in str(E.field(r, "quantity", "")):
+            return E.reference_grade(r)
+    return default
 
 
-@st.cache_data
-def _elicited() -> dict:
-    d = pd.read_csv(_KNOWLEDGE / "elicited_priors.csv")
-    return {r.option: (float(r.tau_multiplier_lo), float(r.tau_multiplier_hi)) for r in d.itertuples()}
-
-
-@st.cache_data
-def _conditions() -> pd.DataFrame:
-    return pd.read_csv(_KNOWLEDGE / "treatment_conditions.csv")
-
-
-@st.cache_data(show_spinner="Composing option outcomes (cell)...")
-def _compare_cell(inputs: tuple) -> pd.DataFrame:
-    from src.shoreline_remediation import scenario_composer as sc
-    site = dict(inputs)
-    el = _elicited()
-    _, summ = sc.compose(site, MEASURED_OPTIONS + list(el), n_draws=COMPARE_DRAWS, elicited=el)
-    return summ
-
-
-@st.cache_data(show_spinner="Composing option outcomes (2 km block)...")
-def _compare_block(block: str) -> tuple[pd.DataFrame, int]:
-    from src.shoreline_remediation import scenario_composer as sc
-    cells = _sites()
-    cells = cells[(cells.cell_2km == block) & (cells.status == "in_scope")]
-    if cells.empty:
-        return pd.DataFrame(), 0
-    el = _elicited()
-    _, summ = sc.compose_block(cells, MEASURED_OPTIONS + list(el), n_draws=COMPARE_DRAWS, elicited=el)
-    return summ, len(cells)
-
-
-def _rng_text(r, prefix: str, y: int, unit_fmt: str = "{:+.2f}") -> str:
-    med, lo, hi = (r.get(f"{prefix}_y{y}_{k}") for k in ("median", "lo90", "hi90"))
-    if med is None or pd.isna(med):
-        return "-"
-    f = unit_fmt.format
-    return f"{f(med)} ({f(lo)} to {f(hi)})"
-
-
-def _flags_text(r, col: str) -> str:
-    out = []
-    for y in YEARS:
-        v = r.get(f"{col}_y{y}")
-        out.append("-" if v is None or pd.isna(v) else ("yes" if bool(v) else "no"))
-    return " / ".join(out)
-
-
-def _evidence_short(label: str) -> str:
-    return ("AI-proposed range (not human-reviewed)" if label.startswith(("ELICITED", "AI-proposed"))
-            else ("MEASURED" if label.startswith("MEASURED") else "NO EVIDENCE"))
-
-
-def _compare_table(summ: pd.DataFrame, kind: str) -> pd.DataFrame:
-    rows = []
-    for _, r in summ.iterrows():
-        if kind == "cell":
-            row = {"Option": _label(r.option), "Evidence": _evidence_short(r.evidence)}
-            for y in YEARS:
-                row[f"Edge loss diff, yr {y} (m)"] = "baseline" if r.option == "natural_attenuation" else _rng_text(r, "paired_diff_cum_edge_loss", y)
-            row["Edge loss distinguished yr 2 / 5 / 8"] = _flags_text(r, "edge_distinguished")
-            for y in YEARS:
-                row[f"Vegetation diff, yr {y} (fraction of reference cover)"] = "baseline" if r.option == "natural_attenuation" else _rng_text(r, "paired_diff_veg_ratio", y)
-            row["Vegetation distinguished yr 2 / 5 / 8"] = _flags_text(r, "veg_distinguished")
-        else:
-            row = {"Option": _label(r.option), "Evidence": _evidence_short(r.evidence)}
-            for y in YEARS:
-                row[f"Marsh area lost diff, yr {y} (ha)"] = "baseline" if r.option == "natural_attenuation" else _rng_text(r, "paired_diff_area_ha", y, "{:+.2f}")
-            row["Distinguished yr 2 / 5 / 8"] = _flags_text(r, "area_distinguished")
-        rows.append(row)
-    return pd.DataFrame(rows)
-
-
-def _conditions_table(options: list[str]) -> pd.DataFrame:
-    c = _conditions()
-    rows = []
-    for opt in options:
-        d = c[c.treatment == _label(opt)]
-        for r in d.itertuples():
-            askable = str(r.site_data_can_check).lower().startswith("no")
-            text = (f"Is this true: {r.condition.rstrip('.')}? If so, the literature reports it {r.effect_when_met}." if askable
-                    else f"{r.condition} ({r.effect_when_met}; the site data can only partly check this: {r.site_data_can_check})")
-            rows.append({"Option": _label(opt), "Condition to check": text, "Evidence class": r.evidence_class, "Source": r.source,
-                         "Provenance": r.provenance})
-    return pd.DataFrame(rows)
-
-
-def _compare_options(site: dict, flags) -> None:
-    st.subheader("Compare options")
-    if not flags.in_scope:
-        st.info("No prediction for this site: option comparison needs the edge-loss model, and this site is outside what it was fitted "
-                "and tested on (see the reason above). No numbers are shown rather than a guess.", icon=":material/block:")
+def render_marsh() -> None:
+    m = load_model()
+    sites = _sites()
+    C.scope_panel("marsh")
+    answer = st.container()
+    with st.expander("Site and assumptions: change the site, the oil type or the season"):
+        site = _pick_site(sites)
+        st.divider()
+        oil, season = _assumptions()
+    if site is None:
         return
-    st.caption("Each option is compared with natural recovery draw by draw (the same simulated baseline in each draw), so the shared site "
-               "noise cancels. Ranges are 90% intervals from 2,000 Monte Carlo draws; cumulative differences are in metres of marsh edge "
-               "(negative = less land lost than natural recovery). No arbitrary threshold is applied to these differences.")
-    # R4 fix: the same scenario_composer.natural_recovery_summary() call as the Site evidence headline, so this
-    # cell's absolute natural-recovery forecast is never shown as two different numbers in the two views.
-    from src.shoreline_remediation import scenario_composer as sc
-    nrs = sc.natural_recovery_summary(site)
-    mr = nrs["mean_rate_y1_5"]
-    st.caption(f"Natural recovery here (same function as the Site evidence headline): {mr['median']:.2f} m/yr mean, years 1-5 "
-               f"(90% {mr['lo90']:.2f} to {mr['hi90']:.2f}). Every option below is compared against this.")
-    inputs = tuple((k, site.get(k)) for k in (*FEATURES, "max_oiling"))
-    summ = _compare_cell(inputs)
-    st.markdown("**This cell**")
-    st.dataframe(_compare_table(summ, "cell"), hide_index=True, width="stretch")
-    verdict = str(summ.veg_curve_verdict.iloc[0])
-    veg_scope = summ.veg_curve_scope.iloc[0] if "veg_curve_scope" in summ.columns and pd.notna(summ.veg_curve_scope.iloc[0]) else None
-    st.caption(f"Vegetation curve status: {verdict.split(' (')[0].upper()} (leave-one-study-out test of the A1 recovery curve; "
-               "'suggestive' means not validated). Vegetation differences exist only where a field shift (held from year 2 onward, "
-               "decaying) or an AI-proposed range exists, and AI-proposed ranges (not human-reviewed) are ASSUMED and wide."
-               + (f" For this heavily oiled site: the vegetation curve is {veg_scope}." if veg_scope else ""))
-    block = site.get("cell_2km")
-    if site.get("source") == "edge cell" and block is not None and not pd.isna(block):
-        bsumm, n = _compare_block(str(block))
-        if n:
-            st.markdown(f"**Its 2 km block ({block}, {n} in-scope cells; one cell ASSUMED to hold 100 m of edge, a known underestimate)**")
-            st.dataframe(_compare_table(bsumm, "block"), hide_index=True, width="stretch")
-            st.caption("Block totals sum the cumulative retreat of every in-scope cell, with one block-level residual shared by all cells "
-                       "plus independent within-block residuals (plan A4.2). Block ranges are narrower than single-cell ranges only "
-                       "modestly, because the shared block error and the oil excess do not average out.")
+    values = {f: site.get(f) for f in FEATURES}
+    flags = site_flags(values, site["status"], site["esi_main"], site["max_oiling"], site.get("lat"), site.get("lon"), m)
+    report, err = P.decision_for_site(P.site_items(site), oil, season)
+    view = E.report_view(report) if report is not None else None
+    nrs = None
+    if flags.in_scope:
+        from src.shoreline_remediation import scenario_composer as sc
+        nrs = sc.natural_recovery_summary(site)
+    obs = site.get("observed_rate")
+    where = (f"{'Worked example: ' if site.get('cell') == EXAMPLE_CELL else ''}Cell {site['cell']} | {str(site['basin']).title()} | "
+             f"Salt marsh | SCAT oiling: {T.OILING_LABELS.get(site['max_oiling'], site['max_oiling'])}")
+    metrics = None
+    if nrs is not None:
+        mr = nrs["mean_rate_y1_5"]
+        up = m["heavy_uplift_range_m_per_yr"]
+        metrics = [
+            {"label": T.LABELS["edge_loss"] + ", years 1 to 5", "value": f"{mr['median']:.2f} m/yr",
+             "range": f"90% range: {mr['lo90']:.1f} to {mr['hi90']:.1f}", "grade": _ref_grade(view, "natural recovery cumulative"),
+             "help": "Natural recovery means no active cleanup. Same number as in the option comparison."},
+            {"label": "Observed at this cell, 2010 to 2015 (aerial images)", "value": "not available" if obs is None or pd.isna(obs) else f"{obs:.2f} m/yr",
+             "help": "Aerial-image measurements read about 1.2 m/yr lower than field erosion measurements, so compare sites rather than absolute values."},
+            {"label": "Extra loss where oiling was heavy (m/yr)", "value": f"+{up[0]:.1f} to {up[1]:.1f}",
+             "help": "Image-based comparison of heavily oiled with other cells. It was unstable between basins and is an average over 2010 to 2015."},
+            {"label": "Typical error, basin held out (m/yr)", "value": f"{m['lobo_mae']:.2f}",
+             "range": f"predicting the average everywhere: {m['lobo_mae_no_predictor']:.2f}",
+             "grade": _ref_grade(view, "edge-loss rate", "validated"),
+             "help": "Single 100 m cells are noisy, so the model beats the plain average only slightly."},
+        ]
+    with answer:
+        for x in flags.out_of_scope:
+            st.error(x, icon=":material/block:")
+        if flags.extrapolation:
+            st.warning("Extrapolation: " + " ".join(flags.extrapolation), icon=":material/warning:")
+        if err:
+            st.error(f"The decision pipeline could not run for this site ({err}).")
+        C.answer_card(view, where, metrics)
+
+    st.subheader("How each option compares with natural recovery")
+    C.render_pipeline_section(view, "marsh")
+
+    st.subheader("Expected marsh-edge loss at this site")
+    if nrs is not None:
+        mr = nrs["mean_rate_y1_5"]
+        st.altair_chart(_edge_chart({"rate": mr["median"], "lo": mr["lo90"], "hi": mr["hi90"]}, obs, sites), theme="streamlit", width="stretch")
+        with st.expander("How this number was built"):
+            bl = nrs["baseline"]
+            text = (f"Starting point: a baseline model that uses only open water nearby, wind exposure and the pre-spill trend, with no "
+                    f"oiling term of its own: {bl['rate']:.2f} m/yr (90% range {bl['lo90']:.1f} to {bl['hi90']:.1f}). ")
+            if nrs["heavy"]:
+                oe = nrs["oil_excess"]
+                text += (f"For heavily oiled marsh it adds the extra loss measured on untreated oiled plots (Zengel et al. 2022): "
+                         f"+{oe['2010-2012']['effect']:.2f} m/yr in years 1 to 2 (90% range {oe['2010-2012']['lo90']:.2f} to {oe['2010-2012']['hi90']:.2f}) and "
+                         f"+{oe['2012-2018']['effect']:.2f} m/yr in years 3 to 8 (90% range {oe['2012-2018']['lo90']:.2f} to {oe['2012-2018']['hi90']:.2f}). "
+                         + nrs["bias_note"] + " ")
+            else:
+                text += "This site is not heavily oiled, so no oil excess is added (the field evidence covers heavy oiling only). "
+            held = site.get("p2_heldout_M1")
+            if held is not None and not pd.isna(held):
+                text += f"With this basin left out entirely, the edge-loss model predicted {held:.2f} m/yr. "
+            text += (f"The range is wide because single 100 m cells are noisy: the held-out error is {m['lobo_mae']:.2f} m/yr against "
+                     f"{m['lobo_mae_no_predictor']:.2f} m/yr for predicting the average. " + m["measurement_note"])
+            st.write(text)
     else:
-        st.caption("No 2 km block for a typed-in site: only the single-cell comparison is shown.")
-    cond = _conditions_table(list(summ.option))
-    st.markdown("**Conditions to check**")
-    if cond.empty:
-        st.caption("No conditions listed.")
-    else:
-        st.dataframe(cond, hide_index=True, width="stretch")
-        st.caption("Conditions under which the literature reports benefit or harm, extracted by an AI agent (AI-proposed, not human-reviewed; "
-                   "data/knowledge/treatment_conditions.csv). They are shown "
-                   "as questions because the site data cannot verify them (season, water over the soil, days since oiling). They do not change the "
-                   "rule screening verdicts above. Options without rows have no conditions recorded.")
-    st.info(A41_NOTE, icon=":material/info:")
+        st.write("No prediction: the site is outside what the model was fitted and tested on (see the reason above).")
+
+    st.subheader("Where the site is")
+    left, right = st.columns([1.25, 1])
+    with left:
+        _map(sites, site)
+    with right:
+        info = [("Cell", site["cell"]), ("Basin", str(site["basin"]).title()), ("SCAT segment", site.get("segment", "-")),
+                ("Shoreline (ESI)", site["esi_main"]), ("SCAT maximum oiling", T.OILING_LABELS.get(site["max_oiling"], site["max_oiling"]))]
+        info += [(FEATURE_LABELS[f], "missing" if pd.isna(site.get(f)) else (f"{float(site[f]):,.0f}" if f == "fetch_mean_m" else f"{float(site[f]):.2f}"))
+                 for f in FEATURES]
+        st.dataframe(pd.DataFrame(info, columns=["Input", "Value"]), hide_index=True, width="stretch")
+
+    with st.expander("Detailed tables: rule screening, field plots, AI-proposed ranges"):
+        if site["esi_main"] == "10A":
+            _rule_table(site, oil)
+        ui_compare.render_detailed_comparison(site, flags, sites)
+    C.render_sources_and_decisions(view, "Edge-loss model p5-edge-loss-v1, composer baseline p5-edge-loss-clean-v1.")
+    _download(view, report, where, "marsh")
 
 
-# ---- Mangrove mode (plan Phase C2). No marsh edge-loss or vegetation model is applied here. ----
+def _rule_table(site: dict, oil: str) -> None:
+    ranked = _screen(tuple((k, site.get(k)) for k in ("max_oiling", "fetch_mean_m")), oil)
+    ev = treatment_evidence([r["treatment"] for r in ranked], site["max_oiling"]).set_index("treatment")
+    rows = []
+    for i, r in enumerate(ranked, 1):
+        e = ev.loc[r["treatment"]]
+        rows.append({"Rule-screening order": i, "Option": _label(r["treatment"]), "Rule screening": r["feasibility"],
+                     T.LABELS["assumed_score"]: round(r["utility"], 2),
+                     "Extra erosion vs natural recovery, years 0 to 2": e.erosion_0_2, "Same, years 2 to 8": e.erosion_2_8,
+                     "Vegetation cover vs natural recovery, year 2": e.veg_cover_yr2})
+    for name in ev.index[~ev.index.isin([r["treatment"] for r in ranked])]:
+        e = ev.loc[name]
+        rows.append({"Rule-screening order": None, "Option": name, "Rule screening": "restoration add-on", T.LABELS["assumed_score"]: None,
+                     "Extra erosion vs natural recovery, years 0 to 2": e.erosion_0_2, "Same, years 2 to 8": e.erosion_2_8,
+                     "Vegetation cover vs natural recovery, year 2": e.veg_cover_yr2})
+    st.markdown("**Rule screening and field plots (heavily oiled marsh at Bay Jimmy)**")
+    st.dataframe(pd.DataFrame(rows), hide_index=True, width="stretch")
+    st.caption(T.LABELS["rule_screen_text"] + " Field columns are differences against untreated plots with 90% ranges: erosion in "
+               "m/yr (positive = more edge lost), vegetation cover in percentage points. One site, 5 to 9 plots per group; "
+               "observational except planting, which was randomised. Where rules and evidence disagree (for example mechanical "
+               "removal) both are shown and neither overrides the other.")
+    with st.expander("Rule-screening inputs implied by this site"):
+        st.dataframe(pd.DataFrame(site_scenario_inputs(site, oil), columns=["Input", "Value", "Basis"]), hide_index=True, width="stretch")
+    st.caption("Scope codes for every cell: " + "; ".join(f"`{k}` {v.split(':')[0].lower()}" for k, v in STATUS_TEXT.items()) + ".")
+
+
+def _download(view, report, where: str, key: str) -> None:
+    if view is None or report is None:
+        return
+    st.download_button("Download this report (HTML)", data=ui_report.build_html(view, title=where, habitat=key),
+                       file_name=f"shoreline_report_{key}.html", mime="text/html", key=f"dl_{key}", icon=":material/download:")
+
+
+# ---------------------------------------------------------------------------------------------------------------
+# Mangrove
+
 _MANGROVE_RESULTS = Path(__file__).resolve().parents[2] / "results" / "mangrove"
-MANGROVE_SCOPE_FLAGS = [
-    "One spill only: Bahia Las Minas, Panama, April 1986 (Galeta). Nothing here has been tested on another spill or oil.",
-    "Caribbean coast only. Other regions and climates were not tested.",
-    "Red mangrove (Rhizophora mangle) fringe only. Other mangrove types and species were not tested.",
-    "Years 1 to 5 after the spill only (1987 to 1991; leaves per shoot years 3 to 5 only). Nothing is said about later years.",
-    "No treatment or cleanup data. The model estimates the oiling effect (oiled minus unoiled sites), not the effect of any cleanup.",
-    "Licence of the source data (NCEI accession 9400033) is unclear; only site-level summaries are used here.",
-]
 _OUTCOME_TITLES = {"root_documented_dead_share": "Share of prop roots recorded dead (primary)",
                    "leaves_per_shoot": "Leaves per shoot (primary)", "root_oil_cover": "Root oil cover, % (secondary)"}
-_VERDICT_TEXT = {"validated": "validated: oiling information predicts held-out sites better than ignoring it",
-                 "suggestive": "suggestive: better than ignoring oiling, but the interval includes zero",
-                 "not usable": "not usable: no better than ignoring oiling; show site-year means only"}
+_VERDICT_TEXT = {"validated": "oiling information predicts held-out sites better than ignoring it",
+                 "suggestive": "better than ignoring oiling, but the range includes zero",
+                 "not usable": "no better than ignoring oiling; show site-year means only"}
+_VERDICT_GRADE = {"validated": "validated", "suggestive": "experimental", "not usable": "illustrative"}
 
 
 @st.cache_data
@@ -298,158 +304,118 @@ def _mangrove_screening() -> pd.DataFrame:
     return pd.read_csv(_KNOWLEDGE / "mangrove_screening.csv")
 
 
-def render_mangrove_view() -> None:
+def _effect_chart(e: pd.DataFrame, ytitle: str) -> alt.Chart:
+    d = pd.DataFrame({"year": e.year_since_spill, "effect": e.effect, "lo": e.lo90, "hi": e.hi90})
+    base = alt.Chart(d).encode(x=alt.X("year:O", title="Year since spill (1 = 1987)"))
+    bars = base.mark_rule(size=3, color=T.OKABE_ITO["vermillion"]).encode(y=alt.Y("lo:Q", title=ytitle), y2="hi:Q")
+    dots = base.mark_point(filled=True, size=90, color=T.OKABE_ITO["vermillion"]).encode(y="effect:Q")
+    zero = alt.Chart(pd.DataFrame({"y": [0.0]})).mark_rule(strokeDash=[5, 4], strokeWidth=2, color=T.NEUTRAL).encode(y="y:Q")
+    return (zero + bars + dots).properties(height=200)
+
+
+def render_mangrove() -> None:
     eff, summ = _mangrove_results()
-    st.markdown("Mangrove mode shows what one field study found: how much worse oiled red mangrove fringe sites were than "
-                "unoiled sites in the first five years after a spill. It is not a cleanup recommendation and it applies no "
-                "marsh edge-loss or vegetation model.")
-    for x in MANGROVE_SCOPE_FLAGS:
-        st.warning(x, icon=":material/warning:")
+    C.scope_panel("mangrove")
+    report, err = P.decision_for_scenario(P.scenario_items(_scenario("mangrove")), None, None, None, "mangrove")
+    view = E.report_view(report) if report is not None else None
+    st.markdown("Mangrove mode shows what one field study found: how much worse oiled red mangrove fringe sites were than unoiled "
+                "sites in the first five years after a spill. It is not a cleanup recommendation and applies no marsh model.")
+    metrics = []
+    for outcome in ("root_documented_dead_share", "leaves_per_shoot"):
+        e = eff[eff.outcome == outcome].sort_values("year_since_spill").iloc[-1]
+        s = summ[summ.outcome == outcome].set_index("row")
+        verdict = next(k[len("verdict_"):].replace("_", " ") for k in s.index if k.startswith("verdict_"))
+        metrics.append({"label": _OUTCOME_TITLES[outcome] + f", year {int(e.year_since_spill)}: oiled minus unoiled", "value": f"{e.effect:+.2f}",
+                        "range": f"90% range: {e.lo90:+.2f} to {e.hi90:+.2f}", "grade": _VERDICT_GRADE.get(verdict, "illustrative"),
+                        "grade_text": f"Model test: {verdict}"})
+    C.answer_card(view, "Mangrove (Rhizophora fringe) | Bahia Las Minas, Panama, 1986", metrics)
+    if err:
+        st.error(f"The decision pipeline could not run ({err}).")
     st.subheader("Oiling effect by year since the spill")
     for outcome, title in _OUTCOME_TITLES.items():
         e = eff[eff.outcome == outcome]
         s = summ[summ.outcome == outcome].set_index("row")
         verdict = next(k[len("verdict_"):].replace("_", " ") for k in s.index if k.startswith("verdict_"))
         d = s.loc["MAE_M1_minus_M0"]
-        st.markdown(f"**{title}**: {e.n_oiled_sites.iloc[0]} oiled and {e.n_unoiled_sites.iloc[0]} unoiled sites. "
-                    f"Verdict **{verdict}** ({_VERDICT_TEXT[verdict]}). Held-out error (leave one site out) with oiling effect "
-                    f"minus without: {d.estimate:+.3f} (90% interval {d.lo90:+.3f} to {d.hi90:+.3f}).")
-        fig, ax = plt.subplots(figsize=(6, 2.4))
-        ax.errorbar(e.year_since_spill, e.effect, yerr=[e.effect - e.lo90, e.hi90 - e.effect], fmt="o-", capsize=4, color="#a32a2a")
-        ax.axhline(0, color="#555", lw=0.8)
-        ax.set_xticks(e.year_since_spill)
-        ax.set_xlabel("Year since spill (1 = 1987)")
-        ax.set_ylabel("Oiled minus unoiled")
-        for spine in ["top", "right"]:
-            ax.spines[spine].set_visible(False)
-        fig.tight_layout()
-        st.pyplot(fig, width="stretch")
-        plt.close(fig)
-        st.dataframe(pd.DataFrame({"Year since spill": e.year_since_spill, "Oiled minus unoiled": e.effect.round(3),
-                                   "90% low": e.lo90.round(3), "90% high": e.hi90.round(3)}), hide_index=True, width="stretch")
-    st.caption("Intervals are 90% Wald intervals from a mixed model with a random intercept per site; the site is the unit of "
-               "analysis. Oiled and unoiled sites were chosen by the investigators, so differences are associations. "
-               "Year since spill = calendar year minus 1986 (ASSUMED convention).")
-    st.subheader("Cleanup options in mangroves (AI-proposed screening table, not human-reviewed)")
-    t = _mangrove_screening()
-    st.dataframe(t.rename(columns={"treatment": "Treatment", "verdict": "Verdict", "reason": "Reason", "conditions": "Conditions",
-                                   "source": "Source", "evidence_class": "Evidence class", "provenance": "Provenance"})
-                 [["Treatment", "Verdict", "Reason", "Conditions", "Source", "Evidence class", "Provenance"]], hide_index=True, width="stretch")
-    st.caption("Verdicts are AI-proposed (not reviewed by a human expert), based on rules and literature, and were not tested with the Galeta data (no treatment variable). "
-               "Entries marked 'to verify' are judgements that still need checking against the sources.")
+        st.markdown(f"**{title}**: {e.n_oiled_sites.iloc[0]} oiled and {e.n_unoiled_sites.iloc[0]} unoiled sites. Model test: **{verdict}** "
+                    f"({_VERDICT_TEXT[verdict]}). Held-out error with the oiling effect minus without: {d.estimate:+.3f} "
+                    f"(90% range {d.lo90:+.3f} to {d.hi90:+.3f}).")
+        st.altair_chart(_effect_chart(e, "Oiled minus unoiled"), theme="streamlit", width="stretch")
+        with st.expander("Numbers"):
+            st.dataframe(pd.DataFrame({"Year since spill": e.year_since_spill, "Oiled minus unoiled": e.effect.round(3),
+                                       "90% low": e.lo90.round(3), "90% high": e.hi90.round(3)}), hide_index=True, width="stretch")
+    st.caption("Ranges are 90% intervals from a mixed model with a random intercept per site. Oiled and unoiled sites were chosen by the "
+               "investigators, so differences are associations. A dashed line marks zero (no difference).")
+    st.subheader("Cleanup options in mangroves")
+    C.render_pipeline_section(view, "mangrove", show_chart=False)
+    with st.expander("AI-proposed screening table (not human-reviewed)"):
+        t = _mangrove_screening()
+        st.dataframe(C.ai_style_dataframe(t.rename(columns={"treatment": "Treatment", "verdict": "Verdict", "reason": "Reason",
+                                                            "conditions": "Conditions", "source": "Source", "evidence_class": "Evidence class",
+                                                            "provenance": "Provenance"})
+                                          [["Treatment", "Verdict", "Reason", "Conditions", "Source", "Evidence class", "Provenance"]]),
+                     hide_index=True, width="stretch")
+        st.caption("Verdicts are AI-proposed from the literature and were not tested with the Galeta data (no treatment variable).")
+    C.render_sources_and_decisions(view)
+    _download(view, report, "Mangrove (Rhizophora fringe)", "mangrove")
+
+
+# ---------------------------------------------------------------------------------------------------------------
+# Beaches (rules and literature only; the persistence model plugs in through render_beach_persistence)
+
+def _scenario(shoreline_type: str, **kw):
+    from src.shoreline_remediation.data_model import Scenario
+    return Scenario(shoreline_type=shoreline_type, **kw)
+
+
+def _beach_renderer(h: "HabitatView") -> Callable[[], None]:
+    def render() -> None:
+        C.scope_panel("beach")
+        st.caption(h.note)
+        c1, c2, c3 = st.columns(3)
+        oiling = c1.selectbox("Oiling (SCAT maximum oiling)", CLASSES, index=1, format_func=lambda x: T.OILING_LABELS[x], key=f"beach_{h.key}_oiling")
+        oil = c2.selectbox("Oil category", ["light", "medium", "heavy", "solid"], index=1, key=f"beach_{h.key}_oil")
+        exposure = c3.selectbox("Wave exposure", ["low", "moderate", "high", "very_high"], index=1,
+                                format_func=_label, key=f"beach_{h.key}_exposure")
+        scen = _scenario(h.shoreline_type, wave_exposure=exposure, oil_category=oil)
+        report, err = P.decision_for_scenario(P.scenario_items(scen), oiling, oil, None)
+        view = E.report_view(report) if report is not None else None
+        C.answer_card(view, f"{h.label} | oiling: {T.OILING_LABELS[oiling]} | {oil} oil | {_label(exposure)} wave exposure")
+        if err:
+            st.error(f"The decision pipeline could not run ({err}).")
+        C.render_beach_persistence({"habitat": h.key, "label": h.label, "oiling_class": oiling, "oil_category": oil, "exposure": exposure})
+        st.subheader("Options and what the evidence says")
+        C.render_pipeline_section(view, f"beach_{h.key}")
+        C.render_sources_and_decisions(view)
+        _download(view, report, h.label, h.key)
+    return render
+
+
+@dataclass(frozen=True)
+class HabitatView:
+    key: str
+    label: str
+    render: Callable[[], None]
+    shoreline_type: str = ""
+    note: str = ""
+
+
+_BEACH_NOTE = ("The rule screening has one sand-beach type and one mixed-sediment type, so it cannot tell grain sizes apart. "
+               "The grain size you picked sets which type is used: ")
+HABITATS = [
+    HabitatView("marsh", "Salt marsh", render_marsh),
+    HabitatView("mangrove", "Mangrove", render_mangrove),
+]
+for _k, _l, _t, _n in [("beach_fine", "Fine-to-medium sand beach", "sand_beach", "sand beach."),
+                       ("beach_coarse", "Coarse sand beach", "sand_beach", "sand beach (ASSUMED: coarse sand is treated like other sand)."),
+                       ("beach_mixed", "Mixed sand and gravel beach", "mixed_sediment", "mixed sediment."),
+                       ("beach_gravel", "Gravel beach", "mixed_sediment", "mixed sediment (ASSUMED: the rules have no separate gravel type).")]:
+    _h = HabitatView(_k, _l, lambda: None, _t, _BEACH_NOTE + _n)
+    HABITATS.append(HabitatView(_k, _l, _beach_renderer(_h), _t, _h.note))
+HABITAT_BY_KEY = {h.key: h for h in HABITATS}
 
 
 def render_site_evidence() -> None:
-    habitat = st.selectbox("Habitat", ["salt marsh (Louisiana)", "mangrove (Rhizophora fringe)"], key="site_habitat")
-    if habitat.startswith("mangrove"):
-        render_mangrove_view()
-        return
-    m = load_model()
-    sites = _sites()
-    st.markdown("Everything in this tab comes from real data: Deepwater Horizon shoreline surveys (SCAT), aerial and "
-                "Landsat imagery, and field plots from Zengel et al. (2015, 2022). Numbers come with 90% intervals.")
-    site = _pick_site(sites)
-    if site is None:
-        return
-    left, right = st.columns([1.25, 1])
-    with left:
-        _map(sites, site)
-    with right:
-        st.markdown("#### Site")
-        info = [("Cell", site["cell"]), ("Basin", str(site["basin"]).title()), ("SCAT segment", site.get("segment", "-")),
-                ("Shoreline (ESI)", site["esi_main"]), ("SCAT maximum oiling", _label(str(site["max_oiling"])))]
-        info += [(FEATURE_LABELS[f], "missing" if pd.isna(site.get(f)) else
-                  (f"{float(site[f]):,.0f}" if f == "fetch_mean_m" else f"{float(site[f]):.2f}")) for f in FEATURES]
-        st.dataframe(pd.DataFrame(info, columns=["Input", "Value"]), hide_index=True, width="stretch")
-
-    values = {f: site.get(f) for f in FEATURES}
-    flags = site_flags(values, site["status"], site["esi_main"], site["max_oiling"], site.get("lat"), site.get("lon"), m)
-    for x in flags.out_of_scope:
-        st.error(x, icon=":material/block:")
-    for x in flags.extrapolation:
-        st.warning(x, icon=":material/warning:")
-
-    st.subheader("Expected marsh-edge loss")
-    if flags.in_scope:
-        from src.shoreline_remediation import scenario_composer as sc
-        nrs = sc.natural_recovery_summary(site)
-        bl, mr = nrs["baseline"], nrs["mean_rate_y1_5"]
-        up = m["heavy_uplift_range_m_per_yr"]
-        chart_pred = {"rate": mr["median"], "lo": mr["lo90"], "hi": mr["hi90"], "level": 0.90}
-        cols = st.columns(4)
-        # R4 fix: one absolute number, from scenario_composer.natural_recovery_summary, the same function Compare
-        # options uses for its natural-recovery row, so the two views never disagree (docs/V4_PROGRAMME_PLAN.md R4).
-        cols[0].metric("Expected rate", f"{mr['median']:.2f} m/yr")
-        cols[1].metric("90% interval", f"{mr['lo90']:.1f} to {mr['hi90']:.1f}")
-        cols[2].metric("Heavy-oil uplift, m/yr", f"+{up[0]:.1f} to {up[1]:.1f}")
-        obs = site.get("observed_rate")
-        cols[3].metric("Observed at this cell", "-" if obs is None or pd.isna(obs) else f"{obs:.2f} m/yr")
-        st.pyplot(_interval_chart(chart_pred, obs if obs is not None else None, sites), width="stretch")
-        v1 = predict_edge_loss(values, m)
-        held = site.get("p2_heldout_M1")
-        # R7c fix: lead with the held-out (leave-one-basin-out) prediction, full-data prediction second.
-        heldout_full_text = (
-            (f"Held-out prediction (this basin left out entirely in P2): {held:.2f} m/yr; " if held is not None and not pd.isna(held) else "")
-            + f"full-data prediction from model p5-edge-loss-v1: {v1['rate']:.2f} m/yr. ")
-        oil_text = ""
-        if nrs["heavy"]:
-            oe = nrs["oil_excess"]
-            oil_text = (f"plus the Zengel et al. (2022) oiled-untreated excess for heavily oiled marsh: "
-                        f"+{oe['2010-2012']['effect']:.2f} m/yr years 1-2 (90% {oe['2010-2012']['lo90']:.2f} to {oe['2010-2012']['hi90']:.2f}), "
-                        f"+{oe['2012-2018']['effect']:.2f} m/yr years 3-8 (90% {oe['2012-2018']['lo90']:.2f} to {oe['2012-2018']['hi90']:.2f}). "
-                        + nrs["bias_note"] + " ")
-        else:
-            oil_text = "This site is not heavily oiled, so no oil excess is added (the Zengel evidence covers heavy oiling only). "
-        st.caption(
-            f"Expected rate: mean marsh-edge loss over years 1-5 from the composer (plan A2), built from a baseline "
-            f"(model p5-edge-loss-clean-v1, exposure and pre-spill trend only, refitted on unoiled/very-lightly-oiled cells "
-            f"so it carries no oiling term of its own: {bl['rate']:.2f} m/yr, 90% {bl['lo90']:.1f} to {bl['hi90']:.1f}) " + oil_text
-            + "Heavy-oiling uplift: a separate, labelled comparison (NAIP-based uplift, P2 training folds), not part of the number "
-            f"above, because it was unstable between basins (P1 headline 0.85, 0.49 to 1.22) and is an average over 2010-2015, not "
-            "a continuing annual rate: field studies place most of the extra loss in the first 1 to 2.5 years after oiling. "
-            + heldout_full_text
-            + f"The interval is wide because single 100 m cells are noisy: the model's held-out error is {m['lobo_mae']:.2f} m/yr against "
-            f"{m['lobo_mae_no_predictor']:.2f} m/yr for predicting the average everywhere (leave-one-basin-out). " + m["measurement_note"])
-    else:
-        st.write("No prediction: the site is outside what the model was fitted and tested on (see the reason above).")
-
-    st.subheader("Cleanup options for this site")
-    oil = st.selectbox("Oil category for the rule screening", ["light", "medium", "heavy", "solid"], key="site_oil",
-                       help="Deepwater Horizon oil was a light crude that arrived weathered and emulsified.")
-    if site["esi_main"] != "10A":
-        st.info("Rule screening here is set up for salt marsh only; use the Scenario screening tab for other shorelines.")
-        _compare_options(site, flags)
-        return
-    inputs = tuple((k, site.get(k)) for k in ("max_oiling", "fetch_mean_m"))
-    ranked = _screen(inputs, oil)
-    ev = treatment_evidence([r["treatment"] for r in ranked], site["max_oiling"]).set_index("treatment")
-    rows = []
-    for i, r in enumerate(ranked, 1):
-        e = ev.loc[r["treatment"]]
-        rows.append({"Rank": i, "Treatment": _label(r["treatment"]), "Rule screening": r["feasibility"], "Utility": round(r["utility"], 2),
-                     "Extra erosion vs natural recovery, yr 0-2": e.erosion_0_2, "Same, yr 2-8": e.erosion_2_8,
-                     "Vegetation cover vs natural recovery, yr 2": e.veg_cover_yr2})
-    for name in ev.index[~ev.index.isin([r["treatment"] for r in ranked])]:
-        e = ev.loc[name]
-        rows.append({"Rank": None, "Treatment": name, "Rule screening": "restoration add-on", "Utility": None,
-                     "Extra erosion vs natural recovery, yr 0-2": e.erosion_0_2, "Same, yr 2-8": e.erosion_2_8,
-                     "Vegetation cover vs natural recovery, yr 2": e.veg_cover_yr2})
-    st.dataframe(pd.DataFrame(rows), hide_index=True, width="stretch")
-    for x in flags.evidence_scope:
-        st.info(x, icon=":material/info:")
-    st.caption("Rule screening: existing FAST-like rules (eligible, conditional, ineligible) with the inputs listed below. "
-               "Evidence columns: differences against untreated (natural recovery) plots with 90% intervals, heavily oiled marsh at Bay Jimmy; "
-               "erosion in m/yr (positive = more edge lost), vegetation cover in percentage points. One site, 5-9 plots per group; "
-               "observational except planting, which was randomized. Where rules and evidence disagree (e.g. mechanical removal), "
-               "both are shown and neither overrides the other. Treatment mapping (manual, mechanical, natural recovery) follows decision D13 (approved).")
-    with st.expander("Rule-screening inputs implied by this site"):
-        st.dataframe(pd.DataFrame(site_scenario_inputs(site, oil), columns=["Input", "Value", "Basis"]),
-                     hide_index=True, width="stretch")
-    with st.expander("Limits of this evidence"):
-        st.markdown(
-            "- One spill (Deepwater Horizon 2010), one oil, Louisiana salt marsh only. Transfer was tested between Louisiana basins (P2), not to other spills.\n"
-            "- Associations, not proven causes; heavy oiling and the cleanup that followed are mixed together in the edge-loss data.\n"
-            "- Physical (edge loss) and biological (vegetation) recovery only: no soil or sediment chemistry, so no chemical recovery prediction.\n"
-            "- Out of scope: active river delta, water-dominated or plume areas where land/water mapping fails, and any non-salt-marsh shoreline.\n"
-            "- Scope codes for every cell: " + "; ".join(f"`{k}` {v.split(':')[0].lower()}" for k, v in STATUS_TEXT.items()) + ".")
-    _compare_options(site, flags)
+    key = st.segmented_control("Habitat", [h.key for h in HABITATS], default="marsh", required=True, key="site_habitat",
+                               format_func=lambda k: HABITAT_BY_KEY[k].label)
+    HABITAT_BY_KEY[key].render()
