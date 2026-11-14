@@ -16,17 +16,22 @@ For a site and a list of options it simulates yearly outcomes to `horizon_years`
   Cumulative edge loss = sum of the yearly rates.
   Vegetation cover relative to reference = exp(lnRR) from the A1 curve (models/veg_recovery_v1.json: bootstrap (A, tau)
     pairs plus leave-one-study-out residuals), used only if its verdict is "validated" or "suggestive". Treatment shift
-    at year 2 only, from Zengel et al. 2015 (treatment_prior, percentage points divided by the reference mean cover);
-    no shift is applied at other years (no evidence).
+    from Zengel et al. 2015 (treatment_prior, percentage points divided by the reference mean cover), held from year 2
+    onward and decaying with each draw's own tau (R7a fix, ASSUMED: a one-year spike at year 2 only is implausible);
+    no shift before year 2 (no evidence). For Heavy sites the curve itself is flagged `veg_curve_scope` (R7b / D28:
+    worse than a no-trend baseline there, FINDINGS 14) and still shown, not dropped.
 
-Options are labelled by evidence: MEASURED (Zengel evidence for edge loss and/or vegetation), ELICITED (A3 hook: a dict
-{option: (lo, hi)} of multipliers on tau; no edge-loss effect; 90% range read as a log-normal, ASSUMED) or NO EVIDENCE
-(no shift of any kind). No prior value is invented here: the A3 ranges are supplied by the caller.
+Options are labelled by evidence: MEASURED (Zengel evidence for edge loss and/or vegetation), AI-proposed range, not
+human-reviewed (R6 fix: A3 hook, a dict {option: (lo, hi)} of multipliers on tau; no edge-loss effect; 90% range read
+as a log-normal, ASSUMED) or NO EVIDENCE (no shift of any kind). No prior value is invented here: the A3 ranges are
+supplied by the caller.
 
 Inputs : site dict with the four edge-loss features (water_1km_2010, water_250m_2010, fetch_mean_m, pre_rate), optional
          max_oiling ("Heavy" gets evidence-based shifts; any other value gets none), optional pred_rate (m/yr) overriding the
          deployed prediction (used by the C1 check to supply held-out predictions).
 Outputs: compose() -> (tidy DataFrame [option, year, outcome, median, lo90, hi90, ...], summary DataFrame).
+         natural_recovery_summary() -> dict (R4 fix): the one absolute edge-loss number per site, decomposed into
+         baseline, oil excess and mean rate years 1-5, used by both Site evidence and Compare options so they agree.
 """
 from __future__ import annotations
 
@@ -56,11 +61,19 @@ USABLE_VEG = ("validated", "suggestive")
 NATURAL = "natural_attenuation"
 OUTCOMES = ("edge_loss_rate_m_per_yr", "cumulative_edge_loss_m", "veg_cover_ratio_to_reference")
 SUMMARY_YEARS = (2, 5, 8)
-EVIDENCE_MEASURED, EVIDENCE_ELICITED, EVIDENCE_NONE = "MEASURED", "ELICITED, not measured", "NO EVIDENCE: no shift applied"
+# R6 fix (docs/V4_PROGRAMME_PLAN.md R6): these ranges were written by the AI orchestrator acting as an expert, not
+# elicited from a human, so the label says so rather than implying a human elicitation process.
+EVIDENCE_MEASURED, EVIDENCE_ELICITED, EVIDENCE_NONE = "MEASURED", "AI-proposed range (not human-reviewed)", "NO EVIDENCE: no shift applied"
 PLANTING = "planting (after mechanical cleanup)"
 # option name -> evidence group (site_evidence mapping; the planting add-on is also accepted as "planting")
 GROUPS = {**se.TREATMENT_EVIDENCE, PLANTING: "mechanical+planting", "planting": "mechanical+planting"}
 HEAVY = "Heavy"
+# R7b / D28 (docs/V4_PROGRAMME_PLAN.md, FINDINGS 14): the A1 vegetation curve is worse than a no-trend baseline for
+# heavily oiled sites. It is not dropped (still shown for transparency), but flagged wherever it is used for Heavy sites.
+VEG_CURVE_SCOPE_HEAVY = "worse than no-trend baseline for heavy oiling (FINDINGS 14); shown for transparency only"
+# R4 fix (docs/V4_PROGRAMME_PLAN.md R4): held-out check of the oil-excess component against NAIP heavy-cell observations.
+NATURAL_RECOVERY_BIAS_NOTE = ("In held-out checks the oil-excess component over-predicted NAIP heavy-cell loss by about "
+                              "0.5 m/yr (B1b +0.59, C1b +0.55; results/scenario_composer/summary_v4_r3.txt).")
 
 
 @lru_cache(maxsize=1)
@@ -179,8 +192,15 @@ def compose(site: dict, options: list[str], horizon_years: int = 8, n_draws: int
         t = years[None, :] + 0.5      # A1 convention t = Year - 2010 + 0.5; year y after oiling (2010) is t = y + 0.5
         ln = -A[:, None] * np.exp(-t / (tau[:, None] * tau_mult[:, None])) + resid[:, None]
         r = np.exp(ln)
-        if shift_y2 is not None and horizon_years >= 2:
-            r[:, 1] = r[:, 1] + shift_y2
+        if shift_y2 is not None:
+            # R7a fix (ASSUMED, docs/V4_PROGRAMME_PLAN.md R7a): the year-2 Zengel treatment shift used to be added at
+            # year 2 only, so the trajectory jumped up and back down at year 3. It now holds from year 2 onward,
+            # decaying as shift * exp(-(t - t2) / tau) with each draw's own tau (t2 = 2.5 in the A1 time convention),
+            # so the treatment effect fades as the untreated curve itself recovers. Year-2 values are unchanged
+            # (decay = 1 at t = t2); later years change.
+            t2 = 2.5
+            decay = np.where(t >= t2, np.exp(-(t - t2) / tau[:, None]), 0.0)
+            r = r + shift_y2[:, None] * decay
         return r
 
     results, labels, mats = {}, {}, {}
@@ -265,10 +285,51 @@ def compose(site: dict, options: list[str], horizon_years: int = 8, n_draws: int
                 row["p_more_vegetation_than_natural_y2"] = np.nan
             row["veg_cannot_be_distinguished_y2"] = np.nan if opt == NATURAL else bool(vlo <= nvhi and vhi >= nvlo)
             row["veg_curve_verdict"] = veg["verdict"]
+            if heavy:                 # R7b / D28: flag the curve as out of scope for heavy oiling, not dropped
+                row["veg_curve_scope"] = VEG_CURVE_SCOPE_HEAVY
         else:
             row["veg_curve_verdict"] = veg["verdict"] + " (curve not used)"
         srows.append(row)
     return tidy, pd.DataFrame(srows)
+
+
+def natural_recovery_summary(site: dict, n_draws: int = 5000, seed: int = 20261112, residual_pool: np.ndarray | None = None) -> dict:
+    """One absolute edge-loss number per site (R4 fix, docs/V4_PROGRAMME_PLAN.md R4), decomposed rather than hidden.
+
+    Both "Site evidence" (the per-site headline) and "Compare options" (the natural-recovery row) must call this
+    function so the same cell never shows two different absolute forecasts. It is built entirely from compose(),
+    so it always agrees with the option comparison by construction.
+
+    Returns a dict:
+      baseline       clean-edge model point prediction with its 90% interval (model p5-edge-loss-clean-v1; no oil
+                     term). None for lo90/hi90 if the caller supplied `pred_rate` directly (no model interval).
+      oil_excess     {period: {effect, lo90, hi90}} for "2010-2012" and "2012-2018" (Zengel et al. 2022 untreated-plot
+                     excess over reference), or None if the site is not heavily oiled (evidence covers Heavy only).
+      mean_rate_y1_5 {median, lo90, hi90}: natural recovery's own composed mean edge-loss rate over years 1-5 (the
+                     cumulative edge loss at year 5, divided by 5; dividing by a positive constant preserves quantiles).
+      heavy          bool, whether the oil-excess term applies here.
+      bias_note      str: held-out evidence that the oil-excess component over-predicts heavy-cell loss (R3/R4).
+    """
+    heavy = site.get("max_oiling", HEAVY) == HEAVY
+    if site.get("pred_rate") is not None:
+        base_rate, base_lo, base_hi = float(site["pred_rate"]), None, None
+    else:
+        pred = se.predict_edge_loss({k: site[k] for k in se.FEATURES}, model=_baseline_model())
+        base_rate, base_lo, base_hi = pred["rate"], pred["lo"], pred["hi"]
+    oil_excess = None
+    if heavy:
+        oil = _oil_excess()
+        oil_excess = {p: {"effect": oil[p][0], "lo90": oil[p][1], "hi90": oil[p][2]} for p in ("2010-2012", "2012-2018")}
+    tidy, _ = compose(site, [], horizon_years=5, n_draws=n_draws, seed=seed, residual_pool=residual_pool)
+    cum5 = tidy[(tidy.option == NATURAL) & (tidy.outcome == "cumulative_edge_loss_m") & (tidy.year == 5)].iloc[0]
+    mean_rate_y1_5 = {"median": cum5["median"] / 5, "lo90": cum5.lo90 / 5, "hi90": cum5.hi90 / 5}
+    return {
+        "baseline": {"rate": base_rate, "lo90": base_lo, "hi90": base_hi},
+        "oil_excess": oil_excess,
+        "mean_rate_y1_5": mean_rate_y1_5,
+        "heavy": heavy,
+        "bias_note": NATURAL_RECOVERY_BIAS_NOTE,
+    }
 
 
 # ---------------------------------------------------------------------------------------------------------------------

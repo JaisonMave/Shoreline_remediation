@@ -11,6 +11,19 @@ Computer (no account needed).
 
 ---
 
+## 2026-11-14: V4 Track R (review fixes R1-R8)
+- **R1** ranking tiers (D25); **R2** synthetic suitability out of the decision path (D26), literature guide and
+  extraction template; **R3** clean-edge composer baseline (D27), checks C1b, C2b, B1b; **R4** one edge-loss number
+  per site; **R5** wording; **R6** AI-PROPOSED provenance; **R7** covariance sensitivity, vegetation decay and
+  heavy-oiling flag (D28), held-out headline, reports regenerated; **R8** repository hygiene, stays public (D29).
+- **Files:** see commits 24a620f..HEAD; findings in `docs/FINDINGS_V4.md` sections 25-30.
+- **Result:** decision-path ranking passes 3 of 5 SCAT checks and matches the documented method in 1 of 5
+  historical cases (v3 3 of 5 came from the synthetic labels); composer coverage holds but heavy cells stay
+  over-predicted by about 0.5 m/yr (D32 proposed); edge-loss headlines unchanged.
+- **Rerun:** `python -m pytest tests` (176 pass); `python -m validation.historical_validation`;
+  `python -m validation.scenario_composer_check_b`, `scenario_block_check_b`, `forecast_horizon_check_b`.
+- **Status:** Under validation (awaiting Jaison's dashboard test and D32).
+
 ## 2026-11-14: v3 review and V4 programme plan
 - **Why:** critical review of the branch found two output-changing defects (ranking order, oil double count)
   and several overstatements; Jaison asked for a plan to fix them and reach a final decision support system.

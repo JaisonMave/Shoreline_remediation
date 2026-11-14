@@ -162,6 +162,26 @@ def test_compare_options_renders_for_worked_example():
     assert "Expected rate" in {m.label for m in at.metric}       # existing content is still there
 
 
+# ---- R4: one absolute edge-loss number, from the same function, in both views for the worked example -------------
+def test_site_evidence_headline_and_compare_options_agree_for_worked_example():
+    import re
+
+    from streamlit.testing.v1 import AppTest
+
+    from src.shoreline_remediation import scenario_composer as sc
+
+    at = AppTest.from_file(str(ROOT / "src" / "shoreline_remediation" / "dashboard.py"), default_timeout=300)
+    at.run()
+    assert not at.exception, at.exception
+    headline = next(m.value for m in at.metric if m.label == "Expected rate")
+    m = re.search(r"Natural recovery here \(same function as the Site evidence headline\): ([\-0-9.]+) m/yr", _md_text(at))
+    assert m, "Compare options natural-recovery line not found"
+    assert headline == f"{float(m.group(1)):.2f} m/yr"
+    site = SITES[SITES.cell == EXAMPLE_CELL].iloc[0].to_dict()
+    nrs = sc.natural_recovery_summary(site)
+    assert headline == f"{nrs['mean_rate_y1_5']['median']:.2f} m/yr"
+
+
 def test_compare_options_out_of_scope_site_says_no_prediction_not_error():
     from streamlit.testing.v1 import AppTest
     at = AppTest.from_file(str(ROOT / "src" / "shoreline_remediation" / "dashboard.py"), default_timeout=300)

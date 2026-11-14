@@ -64,10 +64,56 @@ def test_measured_option_is_shifted_and_labelled_measured():
     assert 0.5 < s.loc["manual_removal", "p_less_edge_loss_than_natural_y2"] <= 1.0
 
 
+# ---- R7a: year-2 treatment shift now held and decaying, not a one-year spike --------------------------------------
+def test_vegetation_year2_shift_held_and_decaying_not_a_spike():
+    t, _ = sc.compose(SITE, ["manual_removal"], n_draws=4000, seed=15)
+    man = t[(t.option == "manual_removal") & (t.outcome == "veg_cover_ratio_to_reference")].set_index("year")["median"]
+    nat = t[(t.option == "natural_attenuation") & (t.outcome == "veg_cover_ratio_to_reference")].set_index("year")["median"]
+    # year 1 (before the shift) is identical to natural recovery
+    assert man[1] == pytest.approx(nat[1], abs=1e-9)
+    # year 2 is unchanged by the fix (decay = 1 exactly at t2): still the old spike size
+    assert man[2] - nat[2] > 0.1
+    # later years keep a positive, decaying effect rather than snapping back to zero at year 3
+    assert man[3] - nat[3] > 0.0
+    assert man[8] - nat[8] > 0.0
+    assert (man[3] - nat[3]) < (man[2] - nat[2])     # the gap shrinks after year 2 instead of vanishing
+    assert (man[8] - nat[8]) < (man[3] - nat[3])     # and keeps shrinking
+
+
+# ---- R7b / D28: heavy-oiling scope flag on the vegetation curve, shown not dropped ----------------------------------
+def test_veg_curve_scope_flag_on_heavy_sites_only():
+    _, s_heavy = sc.compose(SITE, ["manual_removal"], n_draws=500, seed=16)          # SITE is Heavy
+    assert (s_heavy.veg_curve_scope == sc.VEG_CURVE_SCOPE_HEAVY).all()
+    _, s_light = sc.compose({**SITE, "max_oiling": "Light"}, ["manual_removal"], n_draws=500, seed=16)
+    assert "veg_curve_scope" not in s_light.columns or s_light.veg_curve_scope.isna().all()
+    # not dropped: the vegetation outcome is still produced for heavy sites
+    t, _ = sc.compose(SITE, ["manual_removal"], n_draws=500, seed=16)
+    assert "veg_cover_ratio_to_reference" in set(t.outcome)
+
+
+# ---- R4: one absolute edge-loss number per site, decomposed -------------------------------------------------------
+def test_natural_recovery_summary_decomposes_and_matches_compose():
+    nrs = sc.natural_recovery_summary(SITE, n_draws=5000, seed=20261112)
+    assert nrs["heavy"] is True
+    assert nrs["oil_excess"]["2010-2012"]["effect"] == pytest.approx(sc._oil_excess()["2010-2012"][0])
+    assert "over-predicted NAIP heavy-cell loss" in nrs["bias_note"]
+    base = se.predict_edge_loss({k: SITE[k] for k in se.FEATURES}, model=sc._baseline_model())
+    assert nrs["baseline"]["rate"] == pytest.approx(base["rate"])
+    assert nrs["baseline"]["lo90"] == pytest.approx(base["lo"]) and nrs["baseline"]["hi90"] == pytest.approx(base["hi"])
+    # mean_rate_y1_5 must come from the same compose() output used everywhere else (R4: one number, one function)
+    tidy, _ = sc.compose(SITE, [], horizon_years=5, n_draws=5000, seed=20261112)
+    cum5 = tidy[(tidy.option == sc.NATURAL) & (tidy.outcome == "cumulative_edge_loss_m") & (tidy.year == 5)].iloc[0]
+    assert nrs["mean_rate_y1_5"]["median"] == pytest.approx(cum5["median"] / 5)
+    assert nrs["mean_rate_y1_5"]["lo90"] == pytest.approx(cum5.lo90 / 5)
+    # a non-heavy site gets no oil-excess component
+    light = sc.natural_recovery_summary({**SITE, "max_oiling": "Light"}, n_draws=500, seed=1)
+    assert light["heavy"] is False and light["oil_excess"] is None
+
+
 def test_elicited_option_acts_on_tau_only_and_is_labelled():
     t, s = sc.compose(SITE, ["natural_attenuation", "bioremediation"], n_draws=2000, seed=7, elicited={"bioremediation": (0.6, 1.0)})
     r = s.set_index("option").loc["bioremediation"]
-    assert r.evidence == sc.EVIDENCE_ELICITED and "not measured" in r.evidence
+    assert r.evidence == sc.EVIDENCE_ELICITED and "not human-reviewed" in r.evidence   # R6 fix: AI-proposed, not elicited from a human
     assert r.paired_diff_cum_edge_loss_median == 0.0 and np.isnan(r.p_less_edge_loss_than_natural_y8)   # no edge-loss effect
     v = t[(t.option == "bioremediation") & (t.outcome == "veg_cover_ratio_to_reference")].set_index("year")["median"]
     vn = t[(t.option == "natural_attenuation") & (t.outcome == "veg_cover_ratio_to_reference")].set_index("year")["median"]

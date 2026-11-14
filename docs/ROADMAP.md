@@ -58,14 +58,14 @@ M2-M10 onto the architecture (D14-D20) and a fixed decision logic (D31).
 
 | # | Item | Status |
 | --- | --- | --- |
-| R1 | Ranking: ineligible treatments above eligible ones | Not started |
-| R2 | Ranking: sorbent bias; non-independent checks; D26 | Not started (awaiting D26) |
-| R3 | Composer: oil effect counted twice; checks C1b, C2b, B1b | Not started |
-| R4 | One absolute edge-loss number per site | Not started |
-| R5 | "Distinguished" wording | Not started |
-| R6 | AI-written review relabelled AI-PROPOSED | Not started |
-| R7 | Statistical and modelling details | Not started |
-| R8 | Repository hygiene and visibility (D29) | Not started |
+| R1 | Ranking: ineligible treatments above eligible ones | Completed (FINDINGS_V4 25) |
+| R2 | Ranking: synthetic layer out of decision path (D26); literature route | Under validation: done (FINDINGS_V4 25); E3, E4 fail on the decision path; literature extraction by Jaison (`docs/R2_LITERATURE_EVIDENCE_GUIDE.md`) |
+| R3 | Composer: oil effect counted twice; checks C1b, C2b, B1b | Under validation: clean-edge baseline in place; coverage passes, heavy-bias gate fails; double count minor, bias from Zengel excess size (FINDINGS_V4 26); D32 proposed |
+| R4 | One absolute edge-loss number per site | Under validation (FINDINGS_V4 30; awaiting Jaison's dashboard test) |
+| R5 | "Distinguished" wording | Completed (FINDINGS_V4 30) |
+| R6 | AI-written review relabelled AI-PROPOSED | Completed (FINDINGS_V4 27) |
+| R7 | Statistical and modelling details | Under validation: covariance, vegetation, headline, reports done (FINDINGS_V4 28, 30); PAH replicate check awaiting DIVER files |
+| R8 | Repository hygiene and visibility (D29) | Completed (FINDINGS_V4 29) |
 | F1-F12 | Final system (see plan) | Not started |
 
 ## Full programme milestones (after the proof of concept)
@@ -111,11 +111,12 @@ M2-M10 onto the architecture (D14-D20) and a fixed decision logic (D31).
 | D21 | 2026-11-12 | 1, 2 | Do not use SSURGO or SoilGrids values as soil predictors in marsh; measured data only. Evidence: FINDINGS section 13. | Proposed |
 | D22 | 2026-11-13 | 2, 4 | Soil PAH: sum of individual compounds and hopane ratio; replicates averaged with a 50% RPD rule; non-detects estimated below a proxy limit by censored regression; all surface depths with depth as covariate. Chemical recovery is judged on the hopane ratio, not the sum. | Approved by Jaison (choices 1-5) and orchestrator (6); implemented |
 | D23 | 2026-11-13 | 3 | Expert-revised ranges and verdicts for untested treatments; conditions advisory only. | Approved by orchestrator under Jaison's delegation; implemented |
-| D24 | 2026-11-13 | 3, 4, 6 | Mangrove mode: Galeta damage model plus mangrove screening (work from water or fringe only); no marsh model applied to mangroves. | Approved by orchestrator under Jaison's delegation; implemented (experimental). V4 R6 proposes reverting D23 and D24 to Proposed until a human expert reviews them. |
-| D25 | 2026-11-14 | 3, 6 | Ranking sorted by feasibility tier, then evidence, then utility; utility 0 for every ineligible treatment. | Proposed (V4 R1) |
-| D26 | 2026-11-14 | 3, 6 | Rule-trained GPR suitability layer leaves the decision path (kept as "Method test") until human expert scores or field labels exist. | Proposed (V4 R2; Jaison) |
-| D27 | 2026-11-14 | 4, 6 | Composer baseline corrected for the oil double count; option fixed in the R3 plan before checks C1b, C2b, B1b. | Proposed (V4 R3) |
-| D28 | 2026-11-14 | 4, 6 | Vegetation recovery curve flagged or withheld for heavily oiled cells, where it is worse than the no-trend baseline. | Proposed (V4 R7) |
-| D29 | 2026-11-14 | 7 | Repository visibility and data governance settled before any further push (remote is public). | Proposed (V4 R8; Jaison) |
+| D24 | 2026-11-13 | 3, 4, 6 | Mangrove mode: Galeta damage model plus mangrove screening (work from water or fringe only); no marsh model applied to mangroves. | Approved by orchestrator under Jaison's delegation; implemented (experimental). Reverted to Proposed (AI-PROPOSED, V4 R6) until a human expert reviews them. |
+| D25 | 2026-11-14 | 3, 6 | Ranking sorted by feasibility tier, then evidence, then utility; utility 0 for every ineligible treatment. | Implemented (V4 R1); Jaison approved Track R 14 Nov |
+| D26 | 2026-11-14 | 3, 6 | Rule-trained GPR suitability layer leaves the decision path (kept as "Method test"); literature-derived coefficients replace expert scores as the route to effectiveness. | Approved by Jaison 2026-11-14; implemented |
+| D27 | 2026-11-14 | 4, 6 | Composer baseline corrected for the oil double count; option fixed in the R3 plan before checks C1b, C2b, B1b. | Approved by Jaison 2026-11-14; implemented (clean-edge baseline); bias gate failed |
+| D28 | 2026-11-14 | 4, 6 | Vegetation recovery curve flagged or withheld for heavily oiled cells, where it is worse than the no-trend baseline. | Implemented as a flag (V4 R7b) |
+| D29 | 2026-11-14 | 7 | Repository stays public (public datasets only); commits stay local until Jaison asks for a push. | Approved by Jaison 2026-11-14 |
 | D30 | 2026-11-14 | All | Final-system scope set by evidence: validated, experimental, rules only, out of scope. | Proposed (V4 F0) |
+| D32 | 2026-11-14 | 4, 6 | Composer oil excess: scale or replace the Zengel untreated-plot excess with a NAIP-based estimate (own plan), or keep it and show the bias. | Proposed (FINDINGS_V4 26) |
 | D31 | 2026-11-14 | 6 | Decision logic: hard constraints, do-no-harm, benefit against natural recovery with intervals, trade-offs shown not scored; "no option distinguishable, monitor" is a valid output. | Proposed (V4 F9) |

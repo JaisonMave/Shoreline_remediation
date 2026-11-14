@@ -124,11 +124,14 @@ _KNOWLEDGE = Path(__file__).resolve().parents[2] / "data" / "knowledge"
 COMPARE_DRAWS = 2000                      # <= 2000 so the app stays fast
 MEASURED_OPTIONS = ["natural_attenuation", "manual_removal", "mechanical_removal", "planting (after mechanical cleanup)"]
 YEARS = (2, 5, 8)
-A41_NOTE = ("Where an option is marked distinguished, the 90% interval of its paired difference from natural recovery (same simulated "
-            "baseline in each draw) excludes zero. That difference does not depend on this site: it comes from one site's field evidence "
-            "(Bay Jimmy, Zengel et al. 2015, 2022) accumulated over time, so 'distinguished' means the evidence distinguishes the options, "
-            "not that this site was measured. AI-proposed ranges (not human-reviewed) have no edge-loss difference; their range acts on vegetation "
-            "recovery time only and is ASSUMED from the literature table, not measured.")
+A41_NOTE = ("R5 fix (docs/V4_PROGRAMME_PLAN.md R5): where the table marks a difference supported by field evidence, the 90% interval "
+            "of the paired difference from natural recovery (same simulated baseline in each draw) excludes zero; otherwise it shows "
+            "no difference supported by field evidence. That difference does not depend on this site: paired differences use the same "
+            "simulated baseline for every option, so the site's own shared uncertainty (the baseline draw and, for heavy sites, the "
+            "oil-excess draw) cancels out of the comparison, and what is left reflects one site's field evidence (Zengel et al. 2015, "
+            "2022, Bay Jimmy; the same difference at every heavily oiled site), not a measurement at this site. AI-proposed ranges "
+            "(not human-reviewed) have no edge-loss difference; their range acts on vegetation recovery time only and is ASSUMED from "
+            "the literature table, not measured.")
 
 
 @st.cache_data
@@ -227,14 +230,23 @@ def _compare_options(site: dict, flags) -> None:
     st.caption("Each option is compared with natural recovery draw by draw (the same simulated baseline in each draw), so the shared site "
                "noise cancels. Ranges are 90% intervals from 2,000 Monte Carlo draws; cumulative differences are in metres of marsh edge "
                "(negative = less land lost than natural recovery). No arbitrary threshold is applied to these differences.")
+    # R4 fix: the same scenario_composer.natural_recovery_summary() call as the Site evidence headline, so this
+    # cell's absolute natural-recovery forecast is never shown as two different numbers in the two views.
+    from src.shoreline_remediation import scenario_composer as sc
+    nrs = sc.natural_recovery_summary(site)
+    mr = nrs["mean_rate_y1_5"]
+    st.caption(f"Natural recovery here (same function as the Site evidence headline): {mr['median']:.2f} m/yr mean, years 1-5 "
+               f"(90% {mr['lo90']:.2f} to {mr['hi90']:.2f}). Every option below is compared against this.")
     inputs = tuple((k, site.get(k)) for k in (*FEATURES, "max_oiling"))
     summ = _compare_cell(inputs)
     st.markdown("**This cell**")
     st.dataframe(_compare_table(summ, "cell"), hide_index=True, width="stretch")
     verdict = str(summ.veg_curve_verdict.iloc[0])
+    veg_scope = summ.veg_curve_scope.iloc[0] if "veg_curve_scope" in summ.columns and pd.notna(summ.veg_curve_scope.iloc[0]) else None
     st.caption(f"Vegetation curve status: {verdict.split(' (')[0].upper()} (leave-one-study-out test of the A1 recovery curve; "
-               "'suggestive' means not validated). Vegetation differences exist only where a field shift (year 2 only) or an elicited range exists, "
-               "and AI-proposed ranges (not human-reviewed) are ASSUMED and wide.")
+               "'suggestive' means not validated). Vegetation differences exist only where a field shift (held from year 2 onward, "
+               "decaying) or an AI-proposed range exists, and AI-proposed ranges (not human-reviewed) are ASSUMED and wide."
+               + (f" For this heavily oiled site: the vegetation curve is {veg_scope}." if veg_scope else ""))
     block = site.get("cell_2km")
     if site.get("source") == "edge cell" and block is not None and not pd.isna(block):
         bsumm, n = _compare_block(str(block))
@@ -359,22 +371,43 @@ def render_site_evidence() -> None:
 
     st.subheader("Expected marsh-edge loss")
     if flags.in_scope:
-        pred = predict_edge_loss(values, m)
+        from src.shoreline_remediation import scenario_composer as sc
+        nrs = sc.natural_recovery_summary(site)
+        bl, mr = nrs["baseline"], nrs["mean_rate_y1_5"]
         up = m["heavy_uplift_range_m_per_yr"]
+        chart_pred = {"rate": mr["median"], "lo": mr["lo90"], "hi": mr["hi90"], "level": 0.90}
         cols = st.columns(4)
-        cols[0].metric("Expected rate", f"{pred['rate']:.2f} m/yr")
-        cols[1].metric("90% interval", f"{pred['lo']:.1f} to {pred['hi']:.1f}")
+        # R4 fix: one absolute number, from scenario_composer.natural_recovery_summary, the same function Compare
+        # options uses for its natural-recovery row, so the two views never disagree (docs/V4_PROGRAMME_PLAN.md R4).
+        cols[0].metric("Expected rate", f"{mr['median']:.2f} m/yr")
+        cols[1].metric("90% interval", f"{mr['lo90']:.1f} to {mr['hi90']:.1f}")
         cols[2].metric("Heavy-oil uplift, m/yr", f"+{up[0]:.1f} to {up[1]:.1f}")
         obs = site.get("observed_rate")
         cols[3].metric("Observed at this cell", "-" if obs is None or pd.isna(obs) else f"{obs:.2f} m/yr")
-        st.pyplot(_interval_chart(pred, obs if obs is not None else None, sites), width="stretch")
+        st.pyplot(_interval_chart(chart_pred, obs if obs is not None else None, sites), width="stretch")
+        v1 = predict_edge_loss(values, m)
         held = site.get("p2_heldout_M1")
+        # R7c fix: lead with the held-out (leave-one-basin-out) prediction, full-data prediction second.
+        heldout_full_text = (
+            (f"Held-out prediction (this basin left out entirely in P2): {held:.2f} m/yr; " if held is not None and not pd.isna(held) else "")
+            + f"full-data prediction from model p5-edge-loss-v1: {v1['rate']:.2f} m/yr. ")
+        oil_text = ""
+        if nrs["heavy"]:
+            oe = nrs["oil_excess"]
+            oil_text = (f"plus the Zengel et al. (2022) oiled-untreated excess for heavily oiled marsh: "
+                        f"+{oe['2010-2012']['effect']:.2f} m/yr years 1-2 (90% {oe['2010-2012']['lo90']:.2f} to {oe['2010-2012']['hi90']:.2f}), "
+                        f"+{oe['2012-2018']['effect']:.2f} m/yr years 3-8 (90% {oe['2012-2018']['lo90']:.2f} to {oe['2012-2018']['hi90']:.2f}). "
+                        + nrs["bias_note"] + " ")
+        else:
+            oil_text = "This site is not heavily oiled, so no oil excess is added (the Zengel evidence covers heavy oiling only). "
         st.caption(
-            "Expected rate: marsh edge with this exposure and pre-spill trend, from model p5-edge-loss-v1 (exposure only, no oiling term). "
-            f"Heavy-oiling uplift: extra loss associated with heavy oiling in P2's training folds, shown separately because it was unstable "
-            f"between basins (P1 headline 0.85, 0.49 to 1.22). It is an average over 2010-2015, not a continuing annual rate: "
-            "field studies place most of the extra loss in the first 1 to 2.5 years after oiling. "
-            + (f"When this basin was held out entirely in P2, the model predicted {held:.2f} m/yr here. " if held is not None and not pd.isna(held) else "")
+            f"Expected rate: mean marsh-edge loss over years 1-5 from the composer (plan A2), built from a baseline "
+            f"(model p5-edge-loss-clean-v1, exposure and pre-spill trend only, refitted on unoiled/very-lightly-oiled cells "
+            f"so it carries no oiling term of its own: {bl['rate']:.2f} m/yr, 90% {bl['lo90']:.1f} to {bl['hi90']:.1f}) " + oil_text
+            + "Heavy-oiling uplift: a separate, labelled comparison (NAIP-based uplift, P2 training folds), not part of the number "
+            f"above, because it was unstable between basins (P1 headline 0.85, 0.49 to 1.22) and is an average over 2010-2015, not "
+            "a continuing annual rate: field studies place most of the extra loss in the first 1 to 2.5 years after oiling. "
+            + heldout_full_text
             + f"The interval is wide because single 100 m cells are noisy: the model's held-out error is {m['lobo_mae']:.2f} m/yr against "
             f"{m['lobo_mae_no_predictor']:.2f} m/yr for predicting the average everywhere (leave-one-basin-out). " + m["measurement_note"])
     else:

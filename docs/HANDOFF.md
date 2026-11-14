@@ -42,13 +42,14 @@ but is new to ML.
 
 | Job | State |
 | --- | --- |
-| R1 ranking tier defect | Not started |
-| R2 sorbent bias / D26 | Awaiting Jaison's decision D26 |
-| R3 oil double count (diagnostic, then C1b/C2b/B1b) | Not started |
-| R4-R8 | Not started |
+| R1 ranking tier defect | Completed (FINDINGS_V4 25) |
+| R2 synthetic layer out; literature route | Done; Jaison runs LeapSpace searches with `docs/R2_LITERATURE_EVIDENCE_GUIDE.md` and fills `data/knowledge/literature_effects_template.csv` |
+| R3 oil double count | Done; bias gate failed; D32 proposed (FINDINGS_V4 26) |
+| R4-R8 | Done (FINDINGS_V4 27-30); PAH replicate check needs DIVER files |
 | F1-F12 | Not started |
 
-Next step: R1 (tests first), then the R3 diagnostic.
+176 tests pass (Python 3.11). All V4 commits are local on `process-model-audit`; not pushed (Jaison, D29).
+Next steps: Jaison's dashboard test of R4; decision on D32; literature extraction; then F1 (parked reviews and decisions).
 
 ## Latest (13 Nov 2026, wrap-up)
 

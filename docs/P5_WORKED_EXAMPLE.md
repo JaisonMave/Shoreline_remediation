@@ -23,9 +23,9 @@ cell nearest the centroid of the Zengel et al. (2022) field plots (29.44376 N, 8
 
 ## Expected marsh-edge loss (model p5-edge-loss-v1)
 
-- Expected edge loss for marsh with this exposure and pre-spill trend: **1.42 m/yr**, 90% interval -1.74 to 4.30 m/yr.
+- Held-out prediction (this basin left out entirely in P2, model M1): **1.31 m/yr**.
+- Full-data prediction: expected edge loss for marsh with this exposure and pre-spill trend, **1.42 m/yr**, 90% interval -1.74 to 4.30 m/yr.
 - Heavy oiling was associated with an extra 0.34 to 0.83 m/yr across P2 training folds (P1 headline 0.85, 0.49 to 1.22). Not added to the number above: the effect was unstable between basins.
-- Prediction for this cell from P2, when Barataria was held out entirely (M1): 1.31 m/yr.
 - Observed NAIP rate 2010-2015 for this cell: 1.54 m/yr. One cell is noisy; the interval is wide because single-cell rates are.
 - NAIP rates read about 1.2 m/yr below field erosion measurements (P3 analysis C); differences between sites are more reliable than absolute values.
 
