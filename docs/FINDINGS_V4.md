@@ -150,3 +150,94 @@ Deviation: Challenger entered with years 2-5 only; with year 1 included E would 
 DIVER downloaded (14 files, 629 MB, git-ignored) and SCAT layers fetched. `results/v4_r7/pah_replicate_sensitivity.csv`:
 plain means instead of the nearer-to-median rule leave the result unchanged (PAH-sum half-life heavy 1.61 vs 1.61 years,
 moderate 1.83 vs 1.83; PAH/hopane no decline in either; both validated). The primary run reproduces `results/pah_decline`.
+
+## 34. Track F decisions and scope (F0, F1; 14 Nov 2026)
+
+`docs/F0_F1_SCOPE_AND_DECISIONS.md`: scope tiers (validated: heavily oiled northern Gulf salt-marsh edge loss and
+DWH soil PAH-sum decline; experimental: composer with oil excess, vegetation curve, mangrove damage, process model,
+literature effects; rules and literature only: beaches, rocky shores, other habitats; out of scope: other
+contaminants, cost optimisation, offshore). D14-D21, D30, D31 approved by the orchestrator under Jaison's delegation,
+for his review. D23, D24 stay Proposed (AI-PROPOSED).
+
+## 35. F2, F3: knowledge tables, model interface and registry (14 Nov 2026)
+
+Plan `docs/F2_F3_PLAN.md`. Screening rules (32), ecological scores (13), technologies and the Zengel priors now live in
+`data/knowledge/tables/` with source and status per row, read by `knowledge.py`. Equivalence test frozen before the
+move: 0 differences over about 432,000 verdicts plus the 30 blind scenarios. `model_interface.py` (Prediction with
+interval, scope, explanation, state) and `registry.py` / `models/registry.json` register five adapters; the D20
+promotion check reads the model cards. Validated: edge loss v1, PAH decline v1. Experimental: composer (bias gate
+failed), vegetation curve (suggestive), mangrove damage (one spill).
+
+## 36. F4: common data schema (14 Nov 2026)
+
+Plan `docs/F4_SCHEMA_PLAN.md`; `schema.py`; five tables in `data/schema/` (Zengel 2015/2022, edge cells) and
+`data/schema_local/` (DIVER, git-ignored). Reconciliation 38 of 38 checks pass (`results/f4_schema/reconciliation.csv`):
+Zengel 2015 86 values (3 non-detects carried as censored), Zengel 2022 33 plots, 45,404 edge cells (12,696 in scope),
+DIVER 14,926 samples / 1,697 PAH sums / 24,705 below-detection values never stored as zero. Galeta not loaded (raw
+data kept local; licence unclear). For Jaison: canonical soil units and four Zengel 2022 plot-ID aliases.
+
+## 37. F5: process model priors, sensitivity and calibration (14 Nov 2026)
+
+Plan `docs/F5_PROCESS_MODEL_PLAN.md`. Priors for every parameter (`data/knowledge/process_parameter_priors.csv`;
+two missing ODE coefficients added); optional thickness, penetration and season inputs (defaults unchanged).
+Monte Carlo, heavy-oil marsh, no cleanup: surface oil fraction year 1 0.38 (0.16 to 0.60), year 2 0.30 (0.12 to 0.51).
+Sobol total-order: labile fraction 0.32, subsurface return 0.25, edge export 0.15, heavy-oil evaporation 0.11.
+Calibration on DIVER PAH, 61 held-out stations: error prior 0.795, empirical first-order curve 0.750, calibrated
+0.775. **Gate failed** (does not beat the empirical curve), so the process model stays illustrative and outside the
+decision path (`models/process_model_v2.json`). Reason: no erosion or burial term, while PAH loss is mostly physical
+(section 22 of the earlier findings).
+
+## 38. F6, F7: treatment records and a second spill (14 Nov 2026)
+
+`docs/F6_TREATMENT_RECORDS.md`, `docs/F7_SECOND_SPILL_INVENTORY.md`. No public segment-level DWH treatment records:
+NOAA TM NOS OR&R 42 (Zengel and Michel 2013) has treated stretches only as maps (figures 35, 36, 39); the PDF returned
+403 to scripts, so `scripts/download_orr42.ps1` and a digitisation protocol are left for Jaison. No spill with
+oiling, treatment and outcome per segment was found for a whole-spill hold-out; partial sources (Galeta, TROPICS,
+Bouchard 120, Exxon Valdez) are documented. Transfer between spills remains unclaimed.
+
+## 39. F8: literature pooled into evidence verdicts (14 Nov 2026)
+
+Plan `docs/F8_LITERATURE_POOLING_PLAN.md` (with amendment F8b, a defect fix after the run). No group reached three
+studies with complete variances, so nothing was pooled; single-study rules apply. Verdicts
+(`data/knowledge/evidence_verdicts.csv`): **evidence of harm** for hot-water washing on rocky and on gravel/sand shores
+(Exxon Valdez, grade B; e.g. lnRR -0.94, 95% CI -1.58 to -0.30); all other groups "no clear difference" or "no
+evidence". F8b fixed two defects: the single-study rule was not applied to two-study groups, and a bioremediation rate
+row had been mapped to erosion. Venosa et al. 1996 rate ratio (about 2.2) is reported in notes without variance.
+Reading: the literature supports excluding hot-water washing on biologically sensitive hard shores; it does not yet
+show any option beating natural recovery outside the Zengel marsh evidence.
+
+## 40. F9: decision pipeline (14 Nov 2026)
+
+Plan `docs/F9_PIPELINE_PLAN.md`; `decision_pipeline.py`. Eight logged steps (characterise, hard constraints, do no
+harm, benefit vs natural recovery, endpoint and time, trade-offs, recommendation classes A-E, report). Worked Bay Jimmy
+cell: planting class A (8.7 m less edge loss by year 8, 90% 2.5 to 15.1, experimental composer); manual removal class
+A through year-2 vegetation (+0.36 ratio, 0.20 to 0.52; edge-loss interval includes zero; trampling flag);
+mechanical removal excluded by rule. Rocky shore, sand beach and mangrove examples: "No option is shown by evidence
+to beat natural recovery; monitor"; hot-water washing removed on rocky shore by do-no-harm. Out-of-scope requests
+refused. For Jaison: planting evidence comes from mechanically cleaned plots while the rules exclude mechanical
+removal; mangrove options without a screening row are excluded as "not screened"; trade-offs mostly "not sourced".
+
+## 41. F10: adaptive monitoring (14 Nov 2026)
+
+Plan `docs/F10_ADAPTIVE_PLAN.md`; `adaptive.py`. Observing 25% of cells in a 2 km block and updating the shared block
+residual: error of the median for the other cells 1.34 to 1.25 m/yr, 90% interval width 7.1 to 5.2 m/yr, coverage 88%
+(**passes**). Time update (2010-2015 observations to forecast 2010-2017 in Barataria): interval narrows (7.0 to 5.1)
+with coverage 91%, but error does not improve (1.00 to 1.00): **fails**. Monitoring helps within a period; it does not
+yet carry forward in time.
+
+## 42. F11: integrated validation (14 Nov 2026)
+
+Plan `docs/F11_INTEGRATED_VALIDATION_PLAN.md`; `validation/f11_integrated_validation.py`; `results/f11_validation/`.
+Blinded historical replay (6 sourced cases, 40 draws each): active vs natural-recovery agreement **2 of 6** (Wilson 95%
+10% to 70%), below the always-active baseline (5 of 6) and below v3 and V4-R2 (5 of 6). The pipeline recommends
+"monitor" wherever no option has evidence of benefit, while responders acted in five of six cases. Documented methods
+were allowed (class A or B, not excluded) in 264 of 400 draw-method checks. Disagreements to review: DWH-04 mechanical
+removal (excluded by rule) and EVOS-01 hot-water washing (excluded by do-no-harm; the harm evidence comes from Exxon
+Valdez itself, so this is hindsight, not an independent test). Cell replay: all 532 heavy held-out cells get planting
+in class A, because the paired difference is the same Zengel evidence at every heavy site (R5); coverage cited from
+C1c (93.8%) and B1c (92.4%). Expert review pack with 10 reports and a form: `docs/F11_EXPERT_REVIEW_PACK.md` (no
+responses collected).
+
+Reading: the pipeline is deliberately conservative. It does not reproduce what responders did, and it should not be
+judged by that alone: documented actions are not outcomes. Agreement with outcomes needs outcome data per treated
+segment (F6) and a second spill (F7), neither of which exists in open form.

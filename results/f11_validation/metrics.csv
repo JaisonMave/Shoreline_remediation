@@ -1,0 +1,21 @@
+metric,successes,n,rate,wilson95_low,wilson95_high,basis
+active_vs_natural_modal_case_agreement,2,6,0.3333333333333333,0.09676933255921683,0.7000116786584712,modal class across 40 blinded LHS draws; n=6 cases
+always_active_baseline,5,6,0.8333333333333334,0.43649056343635395,0.9699474141282697,all cases predicted active
+majority_class_baseline,5,6,0.8333333333333334,0.43649056343635395,0.9699474141282697,majority documented class
+documented_active_method_allowed_not_excluded_draw_rate,264,400,0.66,0.6122507874202215,0.7047051675878807,documented active methods only; classes A/B and not E per draw
+case_modal_class_agreement:DWH-01,0,1,0.0,0.0,0.7934567085261071,modal across 40 draws
+case_draw_class_agreement:DWH-01,0,40,0.0,0.0,0.08762453925039232,individual blinded LHS draws; non-independent sensitivity
+case_documented_method_allowed:DWH-01,80,80,1.0,0.954180263735425,1.0,documented active methods only; classes A/B and not E per draw
+case_modal_class_agreement:DWH-02,0,1,0.0,0.0,0.7934567085261071,modal across 40 draws
+case_draw_class_agreement:DWH-02,0,40,0.0,0.0,0.08762453925039232,individual blinded LHS draws; non-independent sensitivity
+case_modal_class_agreement:DWH-03,1,1,1.0,0.20654329147389294,1.0,modal across 40 draws
+case_draw_class_agreement:DWH-03,35,40,0.875,0.7388757932976187,0.9454058022645873,individual blinded LHS draws; non-independent sensitivity
+case_modal_class_agreement:DWH-04,1,1,1.0,0.20654329147389294,1.0,modal across 40 draws
+case_draw_class_agreement:DWH-04,24,40,0.6,0.445956198273935,0.7365188938759863,individual blinded LHS draws; non-independent sensitivity
+case_documented_method_allowed:DWH-04,64,160,0.4,0.32729281207468736,0.47739659525531913,documented active methods only; classes A/B and not E per draw
+case_modal_class_agreement:DWH-05,0,1,0.0,0.0,0.7934567085261071,modal across 40 draws
+case_draw_class_agreement:DWH-05,0,40,0.0,0.0,0.08762453925039232,individual blinded LHS draws; non-independent sensitivity
+case_documented_method_allowed:DWH-05,80,80,1.0,0.954180263735425,1.0,documented active methods only; classes A/B and not E per draw
+case_modal_class_agreement:EVOS-01,0,1,0.0,0.0,0.7934567085261071,modal across 40 draws
+case_draw_class_agreement:EVOS-01,0,40,0.0,0.0,0.08762453925039232,individual blinded LHS draws; non-independent sensitivity
+case_documented_method_allowed:EVOS-01,40,80,0.5,0.392972274311075,0.607027725688925,documented active methods only; classes A/B and not E per draw

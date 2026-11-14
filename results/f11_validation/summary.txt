@@ -1,0 +1,14 @@
+F11 integrated validation: single pre-specified run.
+
+Historical modal active/natural agreement: 2/6 (Wilson 95% 0.097–0.700).
+Always-active and majority baselines: 5/6.
+Documented active-method draw rate allowed (A/B) and not excluded (E): 264/400.
+Six sourced cases are too few for a general performance claim; intervals are descriptive.
+
+Methods excluded by the pipeline (review disagreements):
+DWH-04: mechanical_removal (excluded in 40/40 draws; modal E)
+EVOS-01: high_pressure_heated_washing (excluded in 40/40 draws; modal E)
+
+Archived comparison: V4-R2 historical method top-choice agreement 1/5; v3 3/5. Archived active/natural agreement is 5/6 for V4-R2 and 5/6 for v3.
+Cell replay covers C1c heavy held-out cells. C1c coverage is cited rather than recomputed: pooled 93.8% (532 cells); B1c 92.4%. See cell_replay_summary.csv.
+Expert panel pack contains 10 reports. No reviewer responses were created.

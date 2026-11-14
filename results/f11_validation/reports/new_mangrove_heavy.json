@@ -1,0 +1,1464 @@
+{
+  "headline": "No option is shown by evidence to beat natural recovery; monitor. Best allowed options with no clear evidence either way (class B): passive_sorbents, bioremediation, vacuum_removal.",
+  "scope_tier": "experimental",
+  "scope_message": "Experimental: numbers are shown with an experimental badge and the reason; they are not validated forecasts for this input. Reasons: mangrove damage model: one spill (Bahia Las Minas, Panama), oiling effect only, no treatment effects",
+  "options": [
+    {
+      "option": "passive_sorbents",
+      "recommendation_class": "B",
+      "class_label": "allowed, no clear evidence either way",
+      "rank_in_class": 1,
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "rule_verdict": "eligible",
+      "rule_id": "mangrove_screening:passive_sorbents_from_boats_or_the_fringe",
+      "rule_reason": "Removes floating and pooled oil without entering the forest; used at TROPICS after the release",
+      "rule_source": "mangrove_screening.csv (Renegar et al. 2021 (TROPICS)); AI-PROPOSED (not reviewed by a human expert)",
+      "do_no_harm": "passed",
+      "harm_flags": [],
+      "exclusion_reasons": [],
+      "evidence_source": "none",
+      "evidence_verdict": "no evidence",
+      "evidence_basis": "no evidence_verdicts row for this technology and habitat class",
+      "evidence_label": null,
+      "benefit_outcomes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "model_id": null,
+      "model_state": null,
+      "ecological_score_assumed": 6.5,
+      "ecological_basis": "Low-contact recovery option with limited substrate disturbance.",
+      "conditions": [
+        "mangrove screening: Deploy from water or the seaward fringe only; collect and replace, do not leave saturated sorbent in the roots"
+      ],
+      "production_rate": "not sourced",
+      "waste": "not sourced",
+      "cost_class": "not sourced",
+      "secondary_impacts": "Sorbent waste generation; limited to mobile oil",
+      "caveats": [],
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:mangrove_screening:passive_sorbents_from_boats_or_the_fringe"
+      ]
+    },
+    {
+      "option": "bioremediation",
+      "recommendation_class": "B",
+      "class_label": "allowed, no clear evidence either way",
+      "rank_in_class": 2,
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "rule_verdict": "conditional",
+      "rule_id": "mangrove_screening:nutrient_addition_biostimulation",
+      "rule_reason": "Evidence is reviews and microcosms; anoxic mangrove sediment limits aerobic degradation, so field benefit is unproven",
+      "rule_source": "mangrove_screening.csv (Santos et al. 2011 (abstract)); AI-PROPOSED (not reviewed by a human expert)",
+      "do_no_harm": "passed",
+      "harm_flags": [],
+      "exclusion_reasons": [],
+      "evidence_source": "none",
+      "evidence_verdict": "no evidence",
+      "evidence_basis": "no evidence_verdicts row for this technology and habitat class",
+      "evidence_label": null,
+      "benefit_outcomes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "model_id": null,
+      "model_state": null,
+      "ecological_score_assumed": 6.0,
+      "ecological_basis": "Potentially low physical disturbance, but effectiveness depends on nutrient, oxygen, access, and monitoring evidence; NOAA notes limited evidence for bioaugmentation.",
+      "conditions": [
+        "mangrove screening: Only as a monitored trial; surface oil; avoid nutrient export to adjacent waters"
+      ],
+      "production_rate": "not sourced",
+      "waste": "not sourced",
+      "cost_class": "not sourced",
+      "secondary_impacts": "Effectiveness depends on nutrients, oxygen and access; limited bioaugmentation evidence (NOAA)",
+      "caveats": [],
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:mangrove_screening:nutrient_addition_biostimulation"
+      ]
+    },
+    {
+      "option": "vacuum_removal",
+      "recommendation_class": "B",
+      "class_label": "allowed, no clear evidence either way",
+      "rank_in_class": 3,
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "rule_verdict": "conditional",
+      "rule_id": "mangrove_screening:vacuum_of_pooled_oil_from_boats",
+      "rule_reason": "Removes pooled oil early; hard nozzles damaged marsh surfaces at Deepwater Horizon",
+      "rule_source": "mangrove_screening.csv (NOAA marsh guidance 2022 update (by analogy)); AI-PROPOSED (not reviewed by a human expert)",
+      "do_no_harm": "passed",
+      "harm_flags": [],
+      "exclusion_reasons": [],
+      "evidence_source": "none",
+      "evidence_verdict": "no evidence",
+      "evidence_basis": "no evidence_verdicts row for this technology and habitat class",
+      "evidence_label": null,
+      "benefit_outcomes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "model_id": null,
+      "model_state": null,
+      "ecological_score_assumed": 6.0,
+      "ecological_basis": "Physical removal is more compatible with firm or accessible shorelines.",
+      "conditions": [
+        "mangrove screening: Only from water or the fringe; soft or guarded nozzles; no access tracks into the forest"
+      ],
+      "production_rate": "not sourced",
+      "waste": "not sourced",
+      "cost_class": "not sourced",
+      "secondary_impacts": "Access and equipment disturbance; removes free oil only",
+      "caveats": [],
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:mangrove_screening:vacuum_of_pooled_oil_from_boats"
+      ]
+    },
+    {
+      "option": "planting (after mechanical cleanup)",
+      "recommendation_class": "B",
+      "class_label": "allowed, no clear evidence either way",
+      "rank_in_class": 4,
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "rule_verdict": "conditional",
+      "rule_id": "mangrove_screening:replanting_after_an_oil_spill",
+      "rule_reason": "Planted juveniles at the untreated-oil TROPICS site did not survive while oil persisted; natural recruitment was plentiful in Panama oil gaps",
+      "rule_source": "mangrove_screening.csv (Renegar et al. 2021; Duke 1996 (abstract)); AI-PROPOSED (not reviewed by a human expert)",
+      "do_no_harm": "passed",
+      "harm_flags": [],
+      "exclusion_reasons": [],
+      "evidence_source": "none",
+      "evidence_verdict": "no evidence",
+      "evidence_basis": "biological recovery: no evidence (no eligible rows)",
+      "evidence_label": null,
+      "benefit_outcomes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "model_id": null,
+      "model_state": null,
+      "ecological_score_assumed": 5.0,
+      "ecological_basis": "Neutral ecological baseline because no treatment-specific rule was triggered.",
+      "conditions": [
+        "mangrove screening: Only after residual oil in sediment has declined, and only where natural recruitment has failed after several years"
+      ],
+      "production_rate": "not sourced",
+      "waste": "not sourced",
+      "cost_class": "not sourced",
+      "secondary_impacts": "not sourced",
+      "caveats": [],
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:mangrove_screening:replanting_after_an_oil_spill"
+      ]
+    },
+    {
+      "option": "low_pressure_flushing",
+      "recommendation_class": "B",
+      "class_label": "allowed, no clear evidence either way",
+      "rank_in_class": 5,
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "rule_verdict": "conditional",
+      "rule_id": "mangrove_screening:low_pressure_ambient_flushing_from_boats",
+      "rule_reason": "Can mobilise fresh liquid oil out of the prop-root zone; no mangrove field trial found, so effect on tree survival is unmeasured",
+      "rule_source": "mangrove_screening.csv (NOAA marsh guidance 2022 update (by analogy); no mangrove study opened); AI-PROPOSED (not reviewed by a human expert)",
+      "do_no_harm": "passed",
+      "harm_flags": [],
+      "exclusion_reasons": [],
+      "evidence_source": "none",
+      "evidence_verdict": "no evidence",
+      "evidence_basis": "no evidence_verdicts row for this technology and habitat class",
+      "evidence_label": null,
+      "benefit_outcomes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "model_id": null,
+      "model_state": null,
+      "ecological_score_assumed": 4.5,
+      "ecological_basis": "Moderate disturbance and potential residue or mobilization concerns.",
+      "conditions": [
+        "mangrove screening: Fresh liquid oil; from boats at rising-to-high tide; never inside the forest; do not drive oil into sediment or deeper into the stand"
+      ],
+      "production_rate": "not sourced",
+      "waste": "not sourced",
+      "cost_class": "not sourced",
+      "secondary_impacts": "Can drive oil into sediment if misapplied; mobilised oil must be recovered",
+      "caveats": [],
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:mangrove_screening:low_pressure_ambient_flushing_from_boats"
+      ]
+    },
+    {
+      "option": "surface_washing_agents",
+      "recommendation_class": "B",
+      "class_label": "allowed, no clear evidence either way",
+      "rank_in_class": 6,
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "rule_verdict": "conditional",
+      "rule_id": "mangrove_screening:shoreline_cleaners_surface_washing_agents",
+      "rule_reason": "Teas et al. 1993 reported better red-mangrove survival when cleaning was applied within a short time of oiling (primary paper not opened)",
+      "rule_source": "mangrove_screening.csv (Pezeshki et al. 2000; Michel et al. 2022 and Hoff and Michel guidance citing Teas et al. 1993); AI-PROPOSED (not reviewed by a human expert)",
+      "do_no_harm": "passed",
+      "harm_flags": [],
+      "exclusion_reasons": [],
+      "evidence_source": "none",
+      "evidence_verdict": "no evidence",
+      "evidence_basis": "biological recovery: no evidence (no eligible rows)",
+      "evidence_label": null,
+      "benefit_outcomes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "model_id": null,
+      "model_state": null,
+      "ecological_score_assumed": 4.5,
+      "ecological_basis": "Moderate disturbance and potential residue or mobilization concerns.",
+      "conditions": [
+        "mangrove screening: Within days of oiling and only with approval; collect the released oil; no benefit expected for weathered oil"
+      ],
+      "production_rate": "not sourced",
+      "waste": "not sourced",
+      "cost_class": "not sourced",
+      "secondary_impacts": "Chemical residue and mobilised-oil recovery concerns",
+      "caveats": [],
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:mangrove_screening:shoreline_cleaners_surface_washing_agents"
+      ]
+    },
+    {
+      "option": "natural_attenuation",
+      "recommendation_class": "C",
+      "class_label": "natural recovery with monitoring",
+      "rank_in_class": 1,
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "rule_verdict": "eligible",
+      "rule_id": "mangrove_screening:natural_recovery_monitored",
+      "rule_reason": "Baseline option. Untreated crude at TROPICS caused significant tree mortality, so 'acceptable' means 'the reference to beat', not 'harmless'. Natural recruitment refilled most oil gaps in Panama.",
+      "rule_source": "mangrove_screening.csv (Renegar et al. 2021 IOSC (TROPICS 32-year synopsis); Duke 1996 (abstract); Galeta data (FINDINGS 20)); AI-PROPOSED (not reviewed by a human expert)",
+      "do_no_harm": "passed",
+      "harm_flags": [],
+      "exclusion_reasons": [],
+      "evidence_source": "none",
+      "evidence_verdict": "no evidence",
+      "evidence_basis": "no evidence_verdicts row for this technology and habitat class",
+      "evidence_label": null,
+      "benefit_outcomes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "model_id": null,
+      "model_state": null,
+      "ecological_score_assumed": 7.0,
+      "ecological_basis": "Generally low-disturbance treatment with good ecological compatibility.",
+      "conditions": [
+        "mangrove screening: Monitor canopy and recruitment for at least 5 years; damage at Galeta was still rising in year 4"
+      ],
+      "production_rate": "not sourced",
+      "waste": "not sourced",
+      "cost_class": "not sourced",
+      "secondary_impacts": "Oil persists longer where energy is low; monitoring effort only",
+      "caveats": [],
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:mangrove_screening:natural_recovery_monitored"
+      ]
+    },
+    {
+      "option": "manual_removal",
+      "recommendation_class": "E",
+      "class_label": "excluded",
+      "rank_in_class": 1,
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "rule_verdict": "ineligible",
+      "rule_id": "mangrove_screening:manual_removal_inside_the_forest_foot_traffic",
+      "rule_reason": "Trampling breaks pneumatophores and prop roots and pushes oil into anoxic sediment, where it persists for decades",
+      "rule_source": "mangrove_screening.csv (Hoff 1993 and Challenger 2008 as cited for marsh (by analogy)); AI-PROPOSED (not reviewed by a human expert)",
+      "do_no_harm": "passed",
+      "harm_flags": [],
+      "exclusion_reasons": [
+        {
+          "source": "rule",
+          "rule_id": "mangrove_screening:manual_removal_inside_the_forest_foot_traffic",
+          "detail": "Trampling breaks pneumatophores and prop roots and pushes oil into anoxic sediment, where it persists for decades"
+        }
+      ],
+      "evidence_source": "none",
+      "evidence_verdict": "no evidence",
+      "evidence_basis": "no evidence_verdicts row for this technology and habitat class",
+      "evidence_label": null,
+      "benefit_outcomes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "model_id": null,
+      "model_state": null,
+      "ecological_score_assumed": 6.0,
+      "ecological_basis": "Physical removal is more compatible with firm or accessible shorelines.",
+      "conditions": [
+        "mangrove screening: Only to remove gross oil at the accessible fringe on boards"
+      ],
+      "production_rate": "not sourced",
+      "waste": "not sourced",
+      "cost_class": "not sourced",
+      "secondary_impacts": "Trampling and foot traffic can damage soft sediment and vegetation",
+      "caveats": [],
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:mangrove_screening:manual_removal_inside_the_forest_foot_traffic"
+      ]
+    },
+    {
+      "option": "mechanical_removal",
+      "recommendation_class": "E",
+      "class_label": "excluded",
+      "rank_in_class": 2,
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "rule_verdict": "ineligible",
+      "rule_id": "mangrove_screening:sediment_removal_or_excavation",
+      "rule_reason": "Destroys the root zone and lowers elevation; marsh cases show slow or failed recovery",
+      "rule_source": "mangrove_screening.csv (Amoco Cadiz Ile Grande; Miguasha (as cited)); AI-PROPOSED (not reviewed by a human expert)",
+      "do_no_harm": "passed",
+      "harm_flags": [],
+      "exclusion_reasons": [
+        {
+          "source": "rule",
+          "rule_id": "mangrove_screening:sediment_removal_or_excavation",
+          "detail": "Destroys the root zone and lowers elevation; marsh cases show slow or failed recovery"
+        }
+      ],
+      "evidence_source": "none",
+      "evidence_verdict": "no evidence",
+      "evidence_basis": "no evidence_verdicts row for this technology and habitat class",
+      "evidence_label": null,
+      "benefit_outcomes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "model_id": null,
+      "model_state": null,
+      "ecological_score_assumed": 6.0,
+      "ecological_basis": "Physical removal is more compatible with firm or accessible shorelines.",
+      "conditions": [
+        "mangrove screening: -"
+      ],
+      "production_rate": "not sourced",
+      "waste": "not sourced",
+      "cost_class": "not sourced",
+      "secondary_impacts": "Sediment loss and habitat damage; excluded on marsh and mudflat",
+      "caveats": [],
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:mangrove_screening:sediment_removal_or_excavation"
+      ]
+    },
+    {
+      "option": "solidifiers",
+      "recommendation_class": "E",
+      "class_label": "excluded",
+      "rank_in_class": 3,
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "rule_verdict": "ineligible",
+      "rule_id": "mangrove_screening:unscreened",
+      "rule_reason": "no mangrove screening row for this option; excluded until screened",
+      "rule_source": "mangrove_screening.csv",
+      "do_no_harm": "passed",
+      "harm_flags": [],
+      "exclusion_reasons": [
+        {
+          "source": "rule",
+          "rule_id": "mangrove_screening:unscreened",
+          "detail": "no mangrove screening row for this option; excluded until screened"
+        }
+      ],
+      "evidence_source": "none",
+      "evidence_verdict": "no evidence",
+      "evidence_basis": "no evidence_verdicts row for this technology and habitat class",
+      "evidence_label": null,
+      "benefit_outcomes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "model_id": null,
+      "model_state": null,
+      "ecological_score_assumed": 5.0,
+      "ecological_basis": "Neutral ecological baseline because no treatment-specific rule was triggered.",
+      "conditions": [],
+      "production_rate": "not sourced",
+      "waste": "not sourced",
+      "cost_class": "not sourced",
+      "secondary_impacts": "Added material and waste; limited field evidence",
+      "caveats": [],
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:mangrove_screening:unscreened"
+      ]
+    },
+    {
+      "option": "low_pressure_heated_flushing",
+      "recommendation_class": "E",
+      "class_label": "excluded",
+      "rank_in_class": 4,
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "rule_verdict": "ineligible",
+      "rule_id": "mangrove_screening:unscreened",
+      "rule_reason": "no mangrove screening row for this option; excluded until screened",
+      "rule_source": "mangrove_screening.csv",
+      "do_no_harm": "passed",
+      "harm_flags": [],
+      "exclusion_reasons": [
+        {
+          "source": "rule",
+          "rule_id": "mangrove_screening:unscreened",
+          "detail": "no mangrove screening row for this option; excluded until screened"
+        }
+      ],
+      "evidence_source": "none",
+      "evidence_verdict": "no evidence",
+      "evidence_basis": "no evidence_verdicts row for this technology and habitat class",
+      "evidence_label": null,
+      "benefit_outcomes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "model_id": null,
+      "model_state": null,
+      "ecological_score_assumed": 4.5,
+      "ecological_basis": "Moderate disturbance and potential residue or mobilization concerns.",
+      "conditions": [],
+      "production_rate": "not sourced",
+      "waste": "not sourced",
+      "cost_class": "not sourced",
+      "secondary_impacts": "Heat harms sensitive biota; excluded on wetlands",
+      "caveats": [],
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:mangrove_screening:unscreened"
+      ]
+    },
+    {
+      "option": "sediment_relocation",
+      "recommendation_class": "E",
+      "class_label": "excluded",
+      "rank_in_class": 5,
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "rule_verdict": "ineligible",
+      "rule_id": "mangrove_screening:unscreened",
+      "rule_reason": "no mangrove screening row for this option; excluded until screened",
+      "rule_source": "mangrove_screening.csv",
+      "do_no_harm": "passed",
+      "harm_flags": [],
+      "exclusion_reasons": [
+        {
+          "source": "rule",
+          "rule_id": "mangrove_screening:unscreened",
+          "detail": "no mangrove screening row for this option; excluded until screened"
+        }
+      ],
+      "evidence_source": "none",
+      "evidence_verdict": "no evidence",
+      "evidence_basis": "no evidence_verdicts row for this technology and habitat class",
+      "evidence_label": null,
+      "benefit_outcomes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "model_id": null,
+      "model_state": null,
+      "ecological_score_assumed": 4.0,
+      "ecological_basis": "Moderate habitat and sediment disturbance risk.",
+      "conditions": [],
+      "production_rate": "not sourced",
+      "waste": "not sourced",
+      "cost_class": "not sourced",
+      "secondary_impacts": "Redistributes oil; only on exposed beaches",
+      "caveats": [],
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:mangrove_screening:unscreened"
+      ]
+    },
+    {
+      "option": "vegetation_cutting",
+      "recommendation_class": "E",
+      "class_label": "excluded",
+      "rank_in_class": 6,
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "rule_verdict": "ineligible",
+      "rule_id": "mangrove_screening:vegetation_cutting_or_removal_of_oiled_trees",
+      "rule_reason": "No study supports it; removes the structure that traps sediment and shelters recruitment",
+      "rule_source": "mangrove_screening.csv (Literature search 12 Nov 2026); AI-PROPOSED (not reviewed by a human expert)",
+      "do_no_harm": "passed",
+      "harm_flags": [],
+      "exclusion_reasons": [
+        {
+          "source": "rule",
+          "rule_id": "mangrove_screening:vegetation_cutting_or_removal_of_oiled_trees",
+          "detail": "No study supports it; removes the structure that traps sediment and shelters recruitment"
+        }
+      ],
+      "evidence_source": "none",
+      "evidence_verdict": "no evidence",
+      "evidence_basis": "no evidence_verdicts row for this technology and habitat class",
+      "evidence_label": null,
+      "benefit_outcomes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "model_id": null,
+      "model_state": null,
+      "ecological_score_assumed": 4.0,
+      "ecological_basis": "Moderate habitat and sediment disturbance risk.",
+      "conditions": [
+        "mangrove screening: -"
+      ],
+      "production_rate": "not sourced",
+      "waste": "not sourced",
+      "cost_class": "not sourced",
+      "secondary_impacts": "Removes biomass and can increase erosion; only where sensitivity is high",
+      "caveats": [],
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:mangrove_screening:vegetation_cutting_or_removal_of_oiled_trees"
+      ]
+    },
+    {
+      "option": "high_pressure_heated_washing",
+      "recommendation_class": "E",
+      "class_label": "excluded",
+      "rank_in_class": 7,
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "rule_verdict": "ineligible",
+      "rule_id": "mangrove_screening:high_pressure_or_hot_water_washing",
+      "rule_reason": "Strips bark and lenticels and drives oil into sediment",
+      "rule_source": "mangrove_screening.csv (General guidance; no mangrove study opened); AI-PROPOSED (not reviewed by a human expert)",
+      "do_no_harm": "passed",
+      "harm_flags": [],
+      "exclusion_reasons": [
+        {
+          "source": "rule",
+          "rule_id": "mangrove_screening:high_pressure_or_hot_water_washing",
+          "detail": "Strips bark and lenticels and drives oil into sediment"
+        }
+      ],
+      "evidence_source": "none",
+      "evidence_verdict": "no evidence",
+      "evidence_basis": "no evidence_verdicts row for this technology and habitat class",
+      "evidence_label": null,
+      "benefit_outcomes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "model_id": null,
+      "model_state": null,
+      "ecological_score_assumed": 2.0,
+      "ecological_basis": "High disturbance or redistribution risk for sediment and residual oil.",
+      "conditions": [
+        "mangrove screening: -"
+      ],
+      "production_rate": "not sourced",
+      "waste": "not sourced",
+      "cost_class": "not sourced",
+      "secondary_impacts": "Hot-water washing initially worsened recovery at Exxon Valdez sites (NOAA OR&R)",
+      "caveats": [],
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:mangrove_screening:high_pressure_or_hot_water_washing"
+      ]
+    },
+    {
+      "option": "high_pressure_washing",
+      "recommendation_class": "E",
+      "class_label": "excluded",
+      "rank_in_class": 8,
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "rule_verdict": "ineligible",
+      "rule_id": "mangrove_screening:high_pressure_or_hot_water_washing",
+      "rule_reason": "Strips bark and lenticels and drives oil into sediment",
+      "rule_source": "mangrove_screening.csv (General guidance; no mangrove study opened); AI-PROPOSED (not reviewed by a human expert)",
+      "do_no_harm": "passed",
+      "harm_flags": [],
+      "exclusion_reasons": [
+        {
+          "source": "rule",
+          "rule_id": "mangrove_screening:high_pressure_or_hot_water_washing",
+          "detail": "Strips bark and lenticels and drives oil into sediment"
+        }
+      ],
+      "evidence_source": "none",
+      "evidence_verdict": "no evidence",
+      "evidence_basis": "no evidence_verdicts row for this technology and habitat class",
+      "evidence_label": null,
+      "benefit_outcomes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "model_id": null,
+      "model_state": null,
+      "ecological_score_assumed": 2.0,
+      "ecological_basis": "High disturbance or redistribution risk for sediment and residual oil.",
+      "conditions": [
+        "mangrove screening: -"
+      ],
+      "production_rate": "not sourced",
+      "waste": "not sourced",
+      "cost_class": "not sourced",
+      "secondary_impacts": "High disturbance; drives oil down if used on soft substrate",
+      "caveats": [],
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:mangrove_screening:high_pressure_or_hot_water_washing"
+      ]
+    },
+    {
+      "option": "sediment_mixing",
+      "recommendation_class": "E",
+      "class_label": "excluded",
+      "rank_in_class": 9,
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "rule_verdict": "ineligible",
+      "rule_id": "mangrove_screening:unscreened",
+      "rule_reason": "no mangrove screening row for this option; excluded until screened",
+      "rule_source": "mangrove_screening.csv",
+      "do_no_harm": "passed",
+      "harm_flags": [],
+      "exclusion_reasons": [
+        {
+          "source": "rule",
+          "rule_id": "mangrove_screening:unscreened",
+          "detail": "no mangrove screening row for this option; excluded until screened"
+        }
+      ],
+      "evidence_source": "none",
+      "evidence_verdict": "no evidence",
+      "evidence_basis": "no evidence_verdicts row for this technology and habitat class",
+      "evidence_label": null,
+      "benefit_outcomes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "model_id": null,
+      "model_state": null,
+      "ecological_score_assumed": 2.0,
+      "ecological_basis": "High disturbance or redistribution risk for sediment and residual oil.",
+      "conditions": [],
+      "production_rate": "not sourced",
+      "waste": "not sourced",
+      "cost_class": "not sourced",
+      "secondary_impacts": "Can bury or spread oil; not for soft or sensitive habitat",
+      "caveats": [],
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:mangrove_screening:unscreened"
+      ]
+    }
+  ],
+  "natural_recovery": {
+    "option": "natural_attenuation",
+    "recommendation_class": "C",
+    "label": "natural recovery with monitoring",
+    "reference": [
+      {
+        "quantity": "oiling effect on share of prop roots recorded dead, year 1 after the spill",
+        "value": -1.9551439105736696e-16,
+        "lo90": -0.04621427201826148,
+        "hi90": 0.046214272018261095,
+        "unit": "oiling effect (share of prop roots recorded dead (primary))",
+        "model_id": "mangrove_damage_v1",
+        "state": "experimental",
+        "scope": "in range",
+        "scope_reasons": [
+          "One spill (Bahia Las Minas, Panama); Caribbean; red mangrove; years 1-5 only; oiling effect (oiled minus unoiled), not a treatment effect."
+        ],
+        "note": "oiled minus unoiled; damage was still rising in year 4-5, so no recovery time can be given"
+      },
+      {
+        "quantity": "oiling effect on share of prop roots recorded dead, year 2 after the spill",
+        "value": 0.07094561688311632,
+        "lo90": 0.02473134486485501,
+        "hi90": 0.11715988890137763,
+        "unit": "oiling effect (share of prop roots recorded dead (primary))",
+        "model_id": "mangrove_damage_v1",
+        "state": "experimental",
+        "scope": "in range",
+        "scope_reasons": [
+          "One spill (Bahia Las Minas, Panama); Caribbean; red mangrove; years 1-5 only; oiling effect (oiled minus unoiled), not a treatment effect."
+        ],
+        "note": "oiled minus unoiled; damage was still rising in year 4-5, so no recovery time can be given"
+      },
+      {
+        "quantity": "oiling effect on share of prop roots recorded dead, year 3 after the spill",
+        "value": 0.12394052128427088,
+        "lo90": 0.07673178038625289,
+        "hi90": 0.17114926218228887,
+        "unit": "oiling effect (share of prop roots recorded dead (primary))",
+        "model_id": "mangrove_damage_v1",
+        "state": "experimental",
+        "scope": "in range",
+        "scope_reasons": [
+          "One spill (Bahia Las Minas, Panama); Caribbean; red mangrove; years 1-5 only; oiling effect (oiled minus unoiled), not a treatment effect."
+        ],
+        "note": "oiled minus unoiled; damage was still rising in year 4-5, so no recovery time can be given"
+      },
+      {
+        "quantity": "oiling effect on share of prop roots recorded dead, year 4 after the spill",
+        "value": 0.17256065115440047,
+        "lo90": 0.12535191025638248,
+        "hi90": 0.21976939205241847,
+        "unit": "oiling effect (share of prop roots recorded dead (primary))",
+        "model_id": "mangrove_damage_v1",
+        "state": "experimental",
+        "scope": "in range",
+        "scope_reasons": [
+          "One spill (Bahia Las Minas, Panama); Caribbean; red mangrove; years 1-5 only; oiling effect (oiled minus unoiled), not a treatment effect."
+        ],
+        "note": "oiled minus unoiled; damage was still rising in year 4-5, so no recovery time can be given"
+      },
+      {
+        "quantity": "oiling effect on share of prop roots recorded dead, year 5 after the spill",
+        "value": 0.1806144029581527,
+        "lo90": 0.1334056620601347,
+        "hi90": 0.2278231438561707,
+        "unit": "oiling effect (share of prop roots recorded dead (primary))",
+        "model_id": "mangrove_damage_v1",
+        "state": "experimental",
+        "scope": "in range",
+        "scope_reasons": [
+          "One spill (Bahia Las Minas, Panama); Caribbean; red mangrove; years 1-5 only; oiling effect (oiled minus unoiled), not a treatment effect."
+        ],
+        "note": "oiled minus unoiled; damage was still rising in year 4-5, so no recovery time can be given"
+      },
+      {
+        "quantity": "PAH-sum half-life",
+        "status": "no model",
+        "value": null,
+        "lo90": null,
+        "hi90": null,
+        "reason": "marsh soil model; not used for mangrove"
+      },
+      {
+        "quantity": "vegetation time to 80% of reference",
+        "status": "no model",
+        "value": null,
+        "lo90": null,
+        "hi90": null,
+        "reason": "marsh curve; not used for mangrove"
+      },
+      {
+        "quantity": "natural edge loss to year 5 and 8",
+        "status": "no model",
+        "value": null,
+        "lo90": null,
+        "hi90": null,
+        "reason": "marsh-edge model; not used for mangrove"
+      }
+    ],
+    "rule_verdict": "eligible",
+    "evidence_verdict": "no evidence",
+    "evidence_basis": "no evidence_verdicts row for this technology and habitat class",
+    "monitoring": "monitor canopy, recruitment and soil oil for at least 5 years"
+  },
+  "plots": {
+    "paired_differences": [],
+    "cumulative_edge_loss": {
+      "series": [],
+      "unit": "m",
+      "note": "natural recovery vs top options; empty without an in-scope marsh edge cell"
+    },
+    "evidence_matrix": [
+      {
+        "option": "natural_attenuation",
+        "outcome_family": "any",
+        "verdict": "no evidence",
+        "source": "evidence_verdicts.csv",
+        "basis": "no row for this technology and habitat class"
+      },
+      {
+        "option": "manual_removal",
+        "outcome_family": "any",
+        "verdict": "no evidence",
+        "source": "evidence_verdicts.csv",
+        "basis": "no row for this technology and habitat class"
+      },
+      {
+        "option": "passive_sorbents",
+        "outcome_family": "any",
+        "verdict": "no evidence",
+        "source": "evidence_verdicts.csv",
+        "basis": "no row for this technology and habitat class"
+      },
+      {
+        "option": "vacuum_removal",
+        "outcome_family": "any",
+        "verdict": "no evidence",
+        "source": "evidence_verdicts.csv",
+        "basis": "no row for this technology and habitat class"
+      },
+      {
+        "option": "low_pressure_flushing",
+        "outcome_family": "any",
+        "verdict": "no evidence",
+        "source": "evidence_verdicts.csv",
+        "basis": "no row for this technology and habitat class"
+      },
+      {
+        "option": "low_pressure_heated_flushing",
+        "outcome_family": "any",
+        "verdict": "no evidence",
+        "source": "evidence_verdicts.csv",
+        "basis": "no row for this technology and habitat class"
+      },
+      {
+        "option": "high_pressure_washing",
+        "outcome_family": "any",
+        "verdict": "no evidence",
+        "source": "evidence_verdicts.csv",
+        "basis": "no row for this technology and habitat class"
+      },
+      {
+        "option": "high_pressure_heated_washing",
+        "outcome_family": "any",
+        "verdict": "no evidence",
+        "source": "evidence_verdicts.csv",
+        "basis": "no row for this technology and habitat class"
+      },
+      {
+        "option": "surface_washing_agents",
+        "outcome_family": "biological recovery",
+        "verdict": "no evidence",
+        "source": "evidence_verdicts.csv",
+        "basis": "no eligible rows"
+      },
+      {
+        "option": "solidifiers",
+        "outcome_family": "any",
+        "verdict": "no evidence",
+        "source": "evidence_verdicts.csv",
+        "basis": "no row for this technology and habitat class"
+      },
+      {
+        "option": "mechanical_removal",
+        "outcome_family": "any",
+        "verdict": "no evidence",
+        "source": "evidence_verdicts.csv",
+        "basis": "no row for this technology and habitat class"
+      },
+      {
+        "option": "sediment_relocation",
+        "outcome_family": "any",
+        "verdict": "no evidence",
+        "source": "evidence_verdicts.csv",
+        "basis": "no row for this technology and habitat class"
+      },
+      {
+        "option": "sediment_mixing",
+        "outcome_family": "any",
+        "verdict": "no evidence",
+        "source": "evidence_verdicts.csv",
+        "basis": "no row for this technology and habitat class"
+      },
+      {
+        "option": "bioremediation",
+        "outcome_family": "any",
+        "verdict": "no evidence",
+        "source": "evidence_verdicts.csv",
+        "basis": "no row for this technology and habitat class"
+      },
+      {
+        "option": "vegetation_cutting",
+        "outcome_family": "any",
+        "verdict": "no evidence",
+        "source": "evidence_verdicts.csv",
+        "basis": "no row for this technology and habitat class"
+      },
+      {
+        "option": "planting (after mechanical cleanup)",
+        "outcome_family": "biological recovery",
+        "verdict": "no evidence",
+        "source": "evidence_verdicts.csv",
+        "basis": "no eligible rows"
+      }
+    ]
+  },
+  "trace": [
+    {
+      "step": 1,
+      "name": "characterise",
+      "inputs": {
+        "habitat": null,
+        "oiling_class": null,
+        "oil": null,
+        "season": null,
+        "input_kind": "scenario",
+        "cell": null
+      },
+      "outputs": {
+        "label": "F11 panel new_mangrove_heavy.json",
+        "habitat": "mangrove",
+        "habitat_class": "mangrove",
+        "oil_category": "heavy",
+        "oil_source": "input",
+        "oiling_class": "Heavy",
+        "oiling_basis": "derived from oil_coverage with ASSUMED breaks (>=70 Heavy, >=40 Moderate, >=20 Light, >0 Very_Light)",
+        "exposure": "moderate",
+        "access": "good",
+        "season": "summer",
+        "sensitivity": "moderate",
+        "shoreline_type_for_rules": "mangrove",
+        "input_kind": "scenario",
+        "cell": null,
+        "assumptions": [],
+        "site_scope_flags": null,
+        "scope_tier": "experimental",
+        "scope_reasons": [
+          "mangrove damage model: one spill (Bahia Las Minas, Panama), oiling effect only, no treatment effects"
+        ]
+      },
+      "sources": [
+        "inputs",
+        "oil_library (ADIOS)",
+        "site_evidence.site_flags",
+        "docs/F0_F1_SCOPE_AND_DECISIONS.md D30"
+      ]
+    },
+    {
+      "step": 2,
+      "name": "hard_constraints",
+      "inputs": {
+        "options": [
+          "natural_attenuation",
+          "manual_removal",
+          "passive_sorbents",
+          "vacuum_removal",
+          "low_pressure_flushing",
+          "low_pressure_heated_flushing",
+          "high_pressure_washing",
+          "high_pressure_heated_washing",
+          "surface_washing_agents",
+          "solidifiers",
+          "mechanical_removal",
+          "sediment_relocation",
+          "sediment_mixing",
+          "bioremediation",
+          "vegetation_cutting",
+          "planting (after mechanical cleanup)"
+        ],
+        "rule_source": "mangrove_screening.csv"
+      },
+      "outputs": {
+        "natural_attenuation": {
+          "verdict": "eligible",
+          "rule_id": "mangrove_screening:natural_recovery_monitored",
+          "reason": "Baseline option. Untreated crude at TROPICS caused significant tree mortality, so 'acceptable' means 'the reference to beat', not 'harmless'. Natural recruitment refilled most oil gaps in Panama."
+        },
+        "manual_removal": {
+          "verdict": "ineligible",
+          "rule_id": "mangrove_screening:manual_removal_inside_the_forest_foot_traffic",
+          "reason": "Trampling breaks pneumatophores and prop roots and pushes oil into anoxic sediment, where it persists for decades"
+        },
+        "passive_sorbents": {
+          "verdict": "eligible",
+          "rule_id": "mangrove_screening:passive_sorbents_from_boats_or_the_fringe",
+          "reason": "Removes floating and pooled oil without entering the forest; used at TROPICS after the release"
+        },
+        "vacuum_removal": {
+          "verdict": "conditional",
+          "rule_id": "mangrove_screening:vacuum_of_pooled_oil_from_boats",
+          "reason": "Removes pooled oil early; hard nozzles damaged marsh surfaces at Deepwater Horizon"
+        },
+        "low_pressure_flushing": {
+          "verdict": "conditional",
+          "rule_id": "mangrove_screening:low_pressure_ambient_flushing_from_boats",
+          "reason": "Can mobilise fresh liquid oil out of the prop-root zone; no mangrove field trial found, so effect on tree survival is unmeasured"
+        },
+        "low_pressure_heated_flushing": {
+          "verdict": "ineligible",
+          "rule_id": "mangrove_screening:unscreened",
+          "reason": "no mangrove screening row for this option; excluded until screened"
+        },
+        "high_pressure_washing": {
+          "verdict": "ineligible",
+          "rule_id": "mangrove_screening:high_pressure_or_hot_water_washing",
+          "reason": "Strips bark and lenticels and drives oil into sediment"
+        },
+        "high_pressure_heated_washing": {
+          "verdict": "ineligible",
+          "rule_id": "mangrove_screening:high_pressure_or_hot_water_washing",
+          "reason": "Strips bark and lenticels and drives oil into sediment"
+        },
+        "surface_washing_agents": {
+          "verdict": "conditional",
+          "rule_id": "mangrove_screening:shoreline_cleaners_surface_washing_agents",
+          "reason": "Teas et al. 1993 reported better red-mangrove survival when cleaning was applied within a short time of oiling (primary paper not opened)"
+        },
+        "solidifiers": {
+          "verdict": "ineligible",
+          "rule_id": "mangrove_screening:unscreened",
+          "reason": "no mangrove screening row for this option; excluded until screened"
+        },
+        "mechanical_removal": {
+          "verdict": "ineligible",
+          "rule_id": "mangrove_screening:sediment_removal_or_excavation",
+          "reason": "Destroys the root zone and lowers elevation; marsh cases show slow or failed recovery"
+        },
+        "sediment_relocation": {
+          "verdict": "ineligible",
+          "rule_id": "mangrove_screening:unscreened",
+          "reason": "no mangrove screening row for this option; excluded until screened"
+        },
+        "sediment_mixing": {
+          "verdict": "ineligible",
+          "rule_id": "mangrove_screening:unscreened",
+          "reason": "no mangrove screening row for this option; excluded until screened"
+        },
+        "bioremediation": {
+          "verdict": "conditional",
+          "rule_id": "mangrove_screening:nutrient_addition_biostimulation",
+          "reason": "Evidence is reviews and microcosms; anoxic mangrove sediment limits aerobic degradation, so field benefit is unproven"
+        },
+        "vegetation_cutting": {
+          "verdict": "ineligible",
+          "rule_id": "mangrove_screening:vegetation_cutting_or_removal_of_oiled_trees",
+          "reason": "No study supports it; removes the structure that traps sediment and shelters recruitment"
+        },
+        "planting (after mechanical cleanup)": {
+          "verdict": "conditional",
+          "rule_id": "mangrove_screening:replanting_after_an_oil_spill",
+          "reason": "Planted juveniles at the untreated-oil TROPICS site did not survive while oil persisted; natural recruitment was plentiful in Panama oil gaps"
+        }
+      },
+      "sources": [
+        "data/knowledge/mangrove_screening.csv"
+      ]
+    },
+    {
+      "step": 3,
+      "name": "do_no_harm",
+      "inputs": {
+        "habitat_class": "mangrove",
+        "sources": [
+          "evidence_verdicts.csv",
+          "treatment_conditions.csv (marsh)",
+          "mangrove_screening.csv (mangrove)"
+        ]
+      },
+      "outputs": {
+        "removed": {},
+        "flagged": {}
+      },
+      "sources": [
+        "data/knowledge/evidence_verdicts.csv",
+        "data/knowledge/treatment_conditions.csv"
+      ]
+    },
+    {
+      "step": 4,
+      "name": "benefit_vs_natural_recovery",
+      "inputs": {
+        "composer_used": false,
+        "options_composed": [],
+        "seed": 20261114,
+        "n_draws": 200,
+        "decision_points": "edge loss avoided at year 8; vegetation cover ratio at year 2",
+        "model": {
+          "id": "composer_natural_recovery_v1",
+          "state": "experimental"
+        }
+      },
+      "outputs": {
+        "natural_attenuation": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        },
+        "manual_removal": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        },
+        "passive_sorbents": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        },
+        "vacuum_removal": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        },
+        "low_pressure_flushing": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        },
+        "low_pressure_heated_flushing": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        },
+        "high_pressure_washing": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        },
+        "high_pressure_heated_washing": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        },
+        "surface_washing_agents": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        },
+        "solidifiers": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        },
+        "mechanical_removal": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        },
+        "sediment_relocation": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        },
+        "sediment_mixing": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        },
+        "bioremediation": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        },
+        "vegetation_cutting": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        },
+        "planting (after mechanical cleanup)": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        }
+      },
+      "sources": [
+        "src/shoreline_remediation/scenario_composer.py",
+        "data/knowledge/evidence_verdicts.csv",
+        "models/registry.json"
+      ]
+    },
+    {
+      "step": 5,
+      "name": "endpoint_and_time",
+      "inputs": {
+        "oiling_class": "Heavy",
+        "habitat_class": "mangrove"
+      },
+      "outputs": {
+        "reference": [
+          {
+            "quantity": "oiling effect on share of prop roots recorded dead, year 1 after the spill",
+            "value": -1.9551439105736696e-16,
+            "lo90": -0.04621427201826148,
+            "hi90": 0.046214272018261095,
+            "unit": "oiling effect (share of prop roots recorded dead (primary))",
+            "model_id": "mangrove_damage_v1",
+            "state": "experimental",
+            "scope": "in range",
+            "scope_reasons": [
+              "One spill (Bahia Las Minas, Panama); Caribbean; red mangrove; years 1-5 only; oiling effect (oiled minus unoiled), not a treatment effect."
+            ],
+            "note": "oiled minus unoiled; damage was still rising in year 4-5, so no recovery time can be given"
+          },
+          {
+            "quantity": "oiling effect on share of prop roots recorded dead, year 2 after the spill",
+            "value": 0.07094561688311632,
+            "lo90": 0.02473134486485501,
+            "hi90": 0.11715988890137763,
+            "unit": "oiling effect (share of prop roots recorded dead (primary))",
+            "model_id": "mangrove_damage_v1",
+            "state": "experimental",
+            "scope": "in range",
+            "scope_reasons": [
+              "One spill (Bahia Las Minas, Panama); Caribbean; red mangrove; years 1-5 only; oiling effect (oiled minus unoiled), not a treatment effect."
+            ],
+            "note": "oiled minus unoiled; damage was still rising in year 4-5, so no recovery time can be given"
+          },
+          {
+            "quantity": "oiling effect on share of prop roots recorded dead, year 3 after the spill",
+            "value": 0.12394052128427088,
+            "lo90": 0.07673178038625289,
+            "hi90": 0.17114926218228887,
+            "unit": "oiling effect (share of prop roots recorded dead (primary))",
+            "model_id": "mangrove_damage_v1",
+            "state": "experimental",
+            "scope": "in range",
+            "scope_reasons": [
+              "One spill (Bahia Las Minas, Panama); Caribbean; red mangrove; years 1-5 only; oiling effect (oiled minus unoiled), not a treatment effect."
+            ],
+            "note": "oiled minus unoiled; damage was still rising in year 4-5, so no recovery time can be given"
+          },
+          {
+            "quantity": "oiling effect on share of prop roots recorded dead, year 4 after the spill",
+            "value": 0.17256065115440047,
+            "lo90": 0.12535191025638248,
+            "hi90": 0.21976939205241847,
+            "unit": "oiling effect (share of prop roots recorded dead (primary))",
+            "model_id": "mangrove_damage_v1",
+            "state": "experimental",
+            "scope": "in range",
+            "scope_reasons": [
+              "One spill (Bahia Las Minas, Panama); Caribbean; red mangrove; years 1-5 only; oiling effect (oiled minus unoiled), not a treatment effect."
+            ],
+            "note": "oiled minus unoiled; damage was still rising in year 4-5, so no recovery time can be given"
+          },
+          {
+            "quantity": "oiling effect on share of prop roots recorded dead, year 5 after the spill",
+            "value": 0.1806144029581527,
+            "lo90": 0.1334056620601347,
+            "hi90": 0.2278231438561707,
+            "unit": "oiling effect (share of prop roots recorded dead (primary))",
+            "model_id": "mangrove_damage_v1",
+            "state": "experimental",
+            "scope": "in range",
+            "scope_reasons": [
+              "One spill (Bahia Las Minas, Panama); Caribbean; red mangrove; years 1-5 only; oiling effect (oiled minus unoiled), not a treatment effect."
+            ],
+            "note": "oiled minus unoiled; damage was still rising in year 4-5, so no recovery time can be given"
+          },
+          {
+            "quantity": "PAH-sum half-life",
+            "status": "no model",
+            "value": null,
+            "lo90": null,
+            "hi90": null,
+            "reason": "marsh soil model; not used for mangrove"
+          },
+          {
+            "quantity": "vegetation time to 80% of reference",
+            "status": "no model",
+            "value": null,
+            "lo90": null,
+            "hi90": null,
+            "reason": "marsh curve; not used for mangrove"
+          },
+          {
+            "quantity": "natural edge loss to year 5 and 8",
+            "status": "no model",
+            "value": null,
+            "lo90": null,
+            "hi90": null,
+            "reason": "marsh-edge model; not used for mangrove"
+          }
+        ]
+      },
+      "sources": [
+        "models/registry.json",
+        "results/pah_decline/by_oiling_class.csv",
+        "models/veg_recovery_v1.json",
+        "models/p5_edge_loss_v1.json",
+        "models/mangrove_damage_v1.json"
+      ]
+    },
+    {
+      "step": 6,
+      "name": "trade_offs",
+      "inputs": {
+        "habitat_class": "mangrove"
+      },
+      "outputs": {
+        "natural_attenuation": {
+          "production_rate": "not sourced",
+          "waste": "not sourced",
+          "cost_class": "not sourced",
+          "secondary_impacts": "Oil persists longer where energy is low; monitoring effort only"
+        },
+        "manual_removal": {
+          "production_rate": "not sourced",
+          "waste": "not sourced",
+          "cost_class": "not sourced",
+          "secondary_impacts": "Trampling and foot traffic can damage soft sediment and vegetation"
+        },
+        "passive_sorbents": {
+          "production_rate": "not sourced",
+          "waste": "not sourced",
+          "cost_class": "not sourced",
+          "secondary_impacts": "Sorbent waste generation; limited to mobile oil"
+        },
+        "vacuum_removal": {
+          "production_rate": "not sourced",
+          "waste": "not sourced",
+          "cost_class": "not sourced",
+          "secondary_impacts": "Access and equipment disturbance; removes free oil only"
+        },
+        "low_pressure_flushing": {
+          "production_rate": "not sourced",
+          "waste": "not sourced",
+          "cost_class": "not sourced",
+          "secondary_impacts": "Can drive oil into sediment if misapplied; mobilised oil must be recovered"
+        },
+        "low_pressure_heated_flushing": {
+          "production_rate": "not sourced",
+          "waste": "not sourced",
+          "cost_class": "not sourced",
+          "secondary_impacts": "Heat harms sensitive biota; excluded on wetlands"
+        },
+        "high_pressure_washing": {
+          "production_rate": "not sourced",
+          "waste": "not sourced",
+          "cost_class": "not sourced",
+          "secondary_impacts": "High disturbance; drives oil down if used on soft substrate"
+        },
+        "high_pressure_heated_washing": {
+          "production_rate": "not sourced",
+          "waste": "not sourced",
+          "cost_class": "not sourced",
+          "secondary_impacts": "Hot-water washing initially worsened recovery at Exxon Valdez sites (NOAA OR&R)"
+        },
+        "surface_washing_agents": {
+          "production_rate": "not sourced",
+          "waste": "not sourced",
+          "cost_class": "not sourced",
+          "secondary_impacts": "Chemical residue and mobilised-oil recovery concerns"
+        },
+        "solidifiers": {
+          "production_rate": "not sourced",
+          "waste": "not sourced",
+          "cost_class": "not sourced",
+          "secondary_impacts": "Added material and waste; limited field evidence"
+        },
+        "mechanical_removal": {
+          "production_rate": "not sourced",
+          "waste": "not sourced",
+          "cost_class": "not sourced",
+          "secondary_impacts": "Sediment loss and habitat damage; excluded on marsh and mudflat"
+        },
+        "sediment_relocation": {
+          "production_rate": "not sourced",
+          "waste": "not sourced",
+          "cost_class": "not sourced",
+          "secondary_impacts": "Redistributes oil; only on exposed beaches"
+        },
+        "sediment_mixing": {
+          "production_rate": "not sourced",
+          "waste": "not sourced",
+          "cost_class": "not sourced",
+          "secondary_impacts": "Can bury or spread oil; not for soft or sensitive habitat"
+        },
+        "bioremediation": {
+          "production_rate": "not sourced",
+          "waste": "not sourced",
+          "cost_class": "not sourced",
+          "secondary_impacts": "Effectiveness depends on nutrients, oxygen and access; limited bioaugmentation evidence (NOAA)"
+        },
+        "vegetation_cutting": {
+          "production_rate": "not sourced",
+          "waste": "not sourced",
+          "cost_class": "not sourced",
+          "secondary_impacts": "Removes biomass and can increase erosion; only where sensitivity is high"
+        },
+        "planting (after mechanical cleanup)": {
+          "production_rate": "not sourced",
+          "waste": "not sourced",
+          "cost_class": "not sourced",
+          "secondary_impacts": "not sourced"
+        }
+      },
+      "sources": [
+        "data/knowledge/literature_effects.csv",
+        "data/knowledge/tables/technology.csv"
+      ]
+    },
+    {
+      "step": 7,
+      "name": "recommendation",
+      "inputs": {
+        "class_rules": "E excluded > A benefit > D harm under conditions > B no clear evidence; C natural recovery",
+        "ordering": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name"
+      },
+      "outputs": {
+        "classes": {
+          "A": [],
+          "B": [
+            "passive_sorbents",
+            "bioremediation",
+            "vacuum_removal",
+            "planting (after mechanical cleanup)",
+            "low_pressure_flushing",
+            "surface_washing_agents"
+          ],
+          "C": [
+            "natural_attenuation"
+          ],
+          "D": [],
+          "E": [
+            "manual_removal",
+            "mechanical_removal",
+            "solidifiers",
+            "low_pressure_heated_flushing",
+            "sediment_relocation",
+            "vegetation_cutting",
+            "high_pressure_heated_washing",
+            "high_pressure_washing",
+            "sediment_mixing"
+          ]
+        },
+        "headline": "No option is shown by evidence to beat natural recovery; monitor. Best allowed options with no clear evidence either way (class B): passive_sorbents, bioremediation, vacuum_removal."
+      },
+      "sources": [
+        "steps 2-6"
+      ]
+    },
+    {
+      "step": 8,
+      "name": "report",
+      "inputs": {
+        "n_options": 16
+      },
+      "outputs": {
+        "headline": "No option is shown by evidence to beat natural recovery; monitor. Best allowed options with no clear evidence either way (class B): passive_sorbents, bioremediation, vacuum_removal.",
+        "scope_tier": "experimental",
+        "models_used": [
+          "mangrove_damage_v1"
+        ],
+        "plot_keys": [
+          "cumulative_edge_loss",
+          "evidence_matrix",
+          "paired_differences"
+        ]
+      },
+      "sources": [
+        "steps 1-7"
+      ]
+    }
+  ],
+  "version": {
+    "pipeline_version": "f9-v1",
+    "git_commit": "9e0b5fe06be08f79ba3f6739b4cdca195dc42446",
+    "python": "3.11.17",
+    "numpy": "2.4.2",
+    "pandas": "3.0.1",
+    "seed": 20261114,
+    "n_draws": 200,
+    "models_used": [
+      "mangrove_damage_v1"
+    ],
+    "models": {
+      "mangrove_damage_v1": {
+        "state": "experimental",
+        "version": "mangrove-damage-v1"
+      }
+    },
+    "knowledge_checksums": {
+      "evidence_verdicts.csv": "7eda8fd01b47",
+      "treatment_conditions.csv": "9b4a454fd520",
+      "mangrove_screening.csv": "8290319884e9",
+      "literature_effects.csv": "a13f3e868f53",
+      "screening_rule.csv": "d24c4078bba9",
+      "ecological_score.csv": "0f05d1c1e6e4",
+      "technology.csv": "be72adedec13",
+      "evidence_effect.csv": "6900d9bf5a95"
+    }
+  },
+  "characterisation": {
+    "label": "F11 panel new_mangrove_heavy.json",
+    "habitat": "mangrove",
+    "habitat_class": "mangrove",
+    "oil_category": "heavy",
+    "oil_source": "input",
+    "oiling_class": "Heavy",
+    "oiling_basis": "derived from oil_coverage with ASSUMED breaks (>=70 Heavy, >=40 Moderate, >=20 Light, >0 Very_Light)",
+    "exposure": "moderate",
+    "access": "good",
+    "season": "summer",
+    "sensitivity": "moderate",
+    "shoreline_type_for_rules": "mangrove",
+    "input_kind": "scenario",
+    "cell": null,
+    "assumptions": [],
+    "site_scope_flags": null,
+    "scope_tier": "experimental",
+    "scope_reasons": [
+      "mangrove damage model: one spill (Bahia Las Minas, Panama), oiling effect only, no treatment effects"
+    ]
+  }
+}

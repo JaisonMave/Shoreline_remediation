@@ -1,0 +1,1901 @@
+{
+  "headline": "Field evidence of benefit over natural recovery: planting (after mechanical cleanup) (edge loss avoided by year 8 8.7 m (90% 2.5 to 15.1)); manual_removal (vegetation cover ratio gain at year 2 0.36 (90% 0.20 to 0.52)). Differences are experimental composer output from one site's field evidence.",
+  "scope_tier": "validated",
+  "scope_message": "Heavily oiled salt marsh in the northern Gulf of Mexico: the marsh-edge loss model and the soil PAH-sum decline are validated (held-out, one spill). Treatment differences (composer) and the vegetation curve are experimental and carry that badge.",
+  "options": [
+    {
+      "option": "planting (after mechanical cleanup)",
+      "recommendation_class": "A",
+      "class_label": "allowed, field evidence of benefit",
+      "rank_in_class": 1,
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "rule_verdict": "conditional",
+      "rule_id": "default_cond",
+      "rule_reason": "Default when no treatment-specific rule applies",
+      "rule_source": "docs/NOAA_ASSUMPTION_AUDIT.md",
+      "do_no_harm": "passed",
+      "harm_flags": [],
+      "exclusion_reasons": [],
+      "evidence_source": "scenario_composer",
+      "evidence_verdict": "evidence of benefit (field, composer)",
+      "evidence_basis": "biological recovery: no evidence (no eligible rows)",
+      "evidence_label": "MEASURED",
+      "benefit_outcomes": [
+        {
+          "outcome": "edge_loss_avoided_m",
+          "year": 2,
+          "median": 2.9187373572334736,
+          "lo90": 1.7464306453986362,
+          "hi90": 4.094217573361279,
+          "unit": "m of cumulative marsh-edge loss avoided vs natural recovery (positive = less loss)",
+          "direction": "benefit",
+          "decision_point": false
+        },
+        {
+          "outcome": "edge_loss_avoided_m",
+          "year": 5,
+          "median": 5.838240879025941,
+          "lo90": 2.5435269794838207,
+          "hi90": 9.184446812544962,
+          "unit": "m of cumulative marsh-edge loss avoided vs natural recovery (positive = less loss)",
+          "direction": "benefit",
+          "decision_point": false
+        },
+        {
+          "outcome": "edge_loss_avoided_m",
+          "year": 8,
+          "median": 8.70052218726248,
+          "lo90": 2.4823355754857497,
+          "hi90": 15.126115964040387,
+          "unit": "m of cumulative marsh-edge loss avoided vs natural recovery (positive = less loss)",
+          "direction": "benefit",
+          "decision_point": true
+        }
+      ],
+      "benefit_lower_bound": 2.4823355754857497,
+      "benefit_lower_bound_unit": "edge loss avoided by year 8 (m)",
+      "model_id": "composer_natural_recovery_v1",
+      "model_state": "experimental",
+      "ecological_score_assumed": 5.0,
+      "ecological_basis": "Neutral ecological baseline because no treatment-specific rule was triggered.",
+      "conditions": [],
+      "production_rate": "not sourced",
+      "waste": "not sourced",
+      "cost_class": "not sourced",
+      "secondary_impacts": "not sourced",
+      "caveats": [
+        "Evidence is planted vs oil-untreated plots inside mechanically treated areas (planting randomised, Zengel 2022); mechanical removal itself is excluded on marsh by rule, so the two rules are in tension.",
+        "Paired difference from one site's field evidence (Bay Jimmy, Zengel et al.), the same at any heavily oiled marsh site; the composer is experimental (R3 bias gate failed, FINDINGS_V4 26)."
+      ],
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:default_cond"
+      ]
+    },
+    {
+      "option": "manual_removal",
+      "recommendation_class": "A",
+      "class_label": "allowed, field evidence of benefit",
+      "rank_in_class": 2,
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "rule_verdict": "eligible",
+      "rule_id": "marsh_manual_passive_elig",
+      "rule_reason": "Low-disturbance recovery methods are acceptable on soft sensitive wetland",
+      "rule_source": "docs/NOAA_ASSUMPTION_AUDIT.md",
+      "do_no_harm": "flagged",
+      "harm_flags": [
+        {
+          "source": "treatment_conditions.csv",
+          "detail": "harm reported under condition: Crews walk on the marsh surface without boards (trampling) [unknown (ask user)] (Hoff 1993; Mendelssohn 1990; Challenger 2008 as cited)"
+        }
+      ],
+      "exclusion_reasons": [],
+      "evidence_source": "scenario_composer",
+      "evidence_verdict": "evidence of benefit (field, composer)",
+      "evidence_basis": "no evidence_verdicts row for this technology and habitat class",
+      "evidence_label": "MEASURED",
+      "benefit_outcomes": [
+        {
+          "outcome": "edge_loss_avoided_m",
+          "year": 2,
+          "median": 1.2725270167124525,
+          "lo90": 0.05836199346284937,
+          "hi90": 2.5112840725322956,
+          "unit": "m of cumulative marsh-edge loss avoided vs natural recovery (positive = less loss)",
+          "direction": "benefit",
+          "decision_point": false
+        },
+        {
+          "outcome": "veg_cover_ratio_gain",
+          "year": 2,
+          "median": 0.3602965075676055,
+          "lo90": 0.19607966986216477,
+          "hi90": 0.5164575160059741,
+          "unit": "vegetation cover ratio to reference, option minus natural recovery (positive = more cover)",
+          "direction": "benefit",
+          "decision_point": true
+        },
+        {
+          "outcome": "edge_loss_avoided_m",
+          "year": 5,
+          "median": 1.6682493900264506,
+          "lo90": -0.254839770177431,
+          "hi90": 3.6124973693873463,
+          "unit": "m of cumulative marsh-edge loss avoided vs natural recovery (positive = less loss)",
+          "direction": "no clear difference",
+          "decision_point": false
+        },
+        {
+          "outcome": "veg_cover_ratio_gain",
+          "year": 5,
+          "median": 0.06597494081304578,
+          "lo90": 0.0012359420802777856,
+          "hi90": 0.20547342731420082,
+          "unit": "vegetation cover ratio to reference, option minus natural recovery (positive = more cover)",
+          "direction": "benefit",
+          "decision_point": false
+        },
+        {
+          "outcome": "edge_loss_avoided_m",
+          "year": 8,
+          "median": 2.048575895350985,
+          "lo90": -1.1570092083655994,
+          "hi90": 5.282162665565798,
+          "unit": "m of cumulative marsh-edge loss avoided vs natural recovery (positive = less loss)",
+          "direction": "no clear difference",
+          "decision_point": true
+        },
+        {
+          "outcome": "veg_cover_ratio_gain",
+          "year": 8,
+          "median": 0.013275503468309635,
+          "lo90": 4.7652947074927634e-06,
+          "hi90": 0.10125306435162479,
+          "unit": "vegetation cover ratio to reference, option minus natural recovery (positive = more cover)",
+          "direction": "benefit",
+          "decision_point": false
+        }
+      ],
+      "benefit_lower_bound": 0.19607966986216477,
+      "benefit_lower_bound_unit": "vegetation cover ratio gain at year 2",
+      "model_id": "composer_natural_recovery_v1",
+      "model_state": "experimental",
+      "ecological_score_assumed": 3.0,
+      "ecological_basis": "Physical removal can disturb soft sediment, vegetation, or sensitive habitat.",
+      "conditions": [
+        "Crews walk on the marsh surface without boards (trampling) -> harms [unknown (ask user)]"
+      ],
+      "production_rate": "not sourced",
+      "waste": "not sourced",
+      "cost_class": "not sourced",
+      "secondary_impacts": "Trampling and foot traffic can damage soft sediment and vegetation",
+      "caveats": [
+        "Observational: treatment classes were not randomly assigned.",
+        "Paired difference from one site's field evidence (Bay Jimmy, Zengel et al.), the same at any heavily oiled marsh site; the composer is experimental (R3 bias gate failed, FINDINGS_V4 26)."
+      ],
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:marsh_manual_passive_elig"
+      ]
+    },
+    {
+      "option": "passive_sorbents",
+      "recommendation_class": "B",
+      "class_label": "allowed, no clear evidence either way",
+      "rank_in_class": 1,
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "rule_verdict": "eligible",
+      "rule_id": "marsh_manual_passive_elig",
+      "rule_reason": "Low-disturbance recovery methods are acceptable on soft sensitive wetland",
+      "rule_source": "docs/NOAA_ASSUMPTION_AUDIT.md",
+      "do_no_harm": "passed",
+      "harm_flags": [],
+      "exclusion_reasons": [],
+      "evidence_source": "none",
+      "evidence_verdict": "no evidence",
+      "evidence_basis": "biological recovery: no evidence (no eligible rows)",
+      "evidence_label": null,
+      "benefit_outcomes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "model_id": null,
+      "model_state": null,
+      "ecological_score_assumed": 6.5,
+      "ecological_basis": "Low-contact recovery option with limited substrate disturbance.",
+      "conditions": [],
+      "production_rate": "not sourced",
+      "waste": "not sourced",
+      "cost_class": "not sourced",
+      "secondary_impacts": "Sorbent waste generation; limited to mobile oil",
+      "caveats": [],
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:marsh_manual_passive_elig"
+      ]
+    },
+    {
+      "option": "bioremediation",
+      "recommendation_class": "B",
+      "class_label": "allowed, no clear evidence either way",
+      "rank_in_class": 2,
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "rule_verdict": "conditional",
+      "rule_id": "bio_default_cond",
+      "rule_reason": "Bioremediation otherwise conditional",
+      "rule_source": "docs/NOAA_ASSUMPTION_AUDIT.md",
+      "do_no_harm": "passed",
+      "harm_flags": [],
+      "exclusion_reasons": [],
+      "evidence_source": "none",
+      "evidence_verdict": "no evidence",
+      "evidence_basis": "biological recovery: no evidence (no eligible rows); residual oil: no evidence (no eligible rows)",
+      "evidence_label": null,
+      "benefit_outcomes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "model_id": null,
+      "model_state": null,
+      "ecological_score_assumed": 6.0,
+      "ecological_basis": "Potentially low physical disturbance, but effectiveness depends on nutrient, oxygen, access, and monitoring evidence; NOAA notes limited evidence for bioaugmentation.",
+      "conditions": [
+        "Oil at the surface, plants present, soil not waterlogged (oxygen available) -> may help [unknown (ask user)]"
+      ],
+      "production_rate": "not sourced",
+      "waste": "not sourced",
+      "cost_class": "not sourced",
+      "secondary_impacts": "Effectiveness depends on nutrients, oxygen and access; limited bioaugmentation evidence (NOAA)",
+      "caveats": [],
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:bio_default_cond"
+      ]
+    },
+    {
+      "option": "low_pressure_flushing",
+      "recommendation_class": "B",
+      "class_label": "allowed, no clear evidence either way",
+      "rank_in_class": 3,
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "rule_verdict": "conditional",
+      "rule_id": "marsh_cond",
+      "rule_reason": "Lower-energy flushing and recovery methods need expert review on wetland",
+      "rule_source": "docs/NOAA_ASSUMPTION_AUDIT.md",
+      "do_no_harm": "passed",
+      "harm_flags": [],
+      "exclusion_reasons": [],
+      "evidence_source": "evidence_verdicts",
+      "evidence_verdict": "no clear difference",
+      "evidence_basis": "biological recovery: no clear difference (single studies (k=1, citations=Hoff RZ (1995))); residual oil: no clear difference (single studies (k=1, citations=Michel J (1998)))",
+      "evidence_label": null,
+      "benefit_outcomes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "model_id": null,
+      "model_state": null,
+      "ecological_score_assumed": 4.5,
+      "ecological_basis": "Moderate disturbance and potential residue or mobilization concerns.",
+      "conditions": [
+        "Fresh liquid oil, low pressure, falling tide -> helps [unknown (ask user)]",
+        "Thick or emulsified oil -> no benefit [unknown (ask user)]"
+      ],
+      "production_rate": "not sourced",
+      "waste": "not sourced",
+      "cost_class": "not sourced",
+      "secondary_impacts": "Can drive oil into sediment if misapplied; mobilised oil must be recovered",
+      "caveats": [],
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:marsh_cond"
+      ]
+    },
+    {
+      "option": "surface_washing_agents",
+      "recommendation_class": "B",
+      "class_label": "allowed, no clear evidence either way",
+      "rank_in_class": 4,
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "rule_verdict": "conditional",
+      "rule_id": "marsh_cond",
+      "rule_reason": "Lower-energy flushing and recovery methods need expert review on wetland",
+      "rule_source": "docs/NOAA_ASSUMPTION_AUDIT.md",
+      "do_no_harm": "passed",
+      "harm_flags": [],
+      "exclusion_reasons": [],
+      "evidence_source": "evidence_verdicts",
+      "evidence_verdict": "no clear difference",
+      "evidence_basis": "biological recovery: no clear difference (single studies (k=1, citations=Pezeshki SR (2001))); residual oil: no evidence (no eligible rows)",
+      "evidence_label": null,
+      "benefit_outcomes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "model_id": null,
+      "model_state": null,
+      "ecological_score_assumed": 4.5,
+      "ecological_basis": "Moderate disturbance and potential residue or mobilization concerns.",
+      "conditions": [
+        "Applied within 1-2 days of oiling -> helps [unknown (ask user)]",
+        "Applied later than about a week -> no benefit [unknown (ask user)]"
+      ],
+      "production_rate": "not sourced",
+      "waste": "not sourced",
+      "cost_class": "not sourced",
+      "secondary_impacts": "Chemical residue and mobilised-oil recovery concerns",
+      "caveats": [],
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:marsh_cond"
+      ]
+    },
+    {
+      "option": "natural_attenuation",
+      "recommendation_class": "C",
+      "class_label": "natural recovery with monitoring",
+      "rank_in_class": 1,
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "rule_verdict": "eligible",
+      "rule_id": "natatt_exposed_elig",
+      "rule_reason": "High-energy shores weather light oil quickly, so natural attenuation is favoured",
+      "rule_source": "docs/NOAA_ASSUMPTION_AUDIT.md",
+      "do_no_harm": "passed",
+      "harm_flags": [],
+      "exclusion_reasons": [],
+      "evidence_source": "evidence_verdicts",
+      "evidence_verdict": "no clear difference",
+      "evidence_basis": "erosion: no clear difference (single studies (k=1, citations=Zengel (2022)))",
+      "evidence_label": null,
+      "benefit_outcomes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "model_id": null,
+      "model_state": null,
+      "ecological_score_assumed": 8.5,
+      "ecological_basis": "Low-disturbance treatment aligned with sensitive wetland recovery.",
+      "conditions": [],
+      "production_rate": "not sourced",
+      "waste": "not sourced",
+      "cost_class": "not sourced",
+      "secondary_impacts": "Oil persists longer where energy is low; monitoring effort only",
+      "caveats": [],
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:natatt_exposed_elig"
+      ]
+    },
+    {
+      "option": "vacuum_removal",
+      "recommendation_class": "D",
+      "class_label": "allowed but harm reported under some conditions",
+      "rank_in_class": 1,
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "rule_verdict": "conditional",
+      "rule_id": "marsh_cond",
+      "rule_reason": "Lower-energy flushing and recovery methods need expert review on wetland",
+      "rule_source": "docs/NOAA_ASSUMPTION_AUDIT.md",
+      "do_no_harm": "flagged",
+      "harm_flags": [
+        {
+          "source": "treatment_conditions.csv",
+          "detail": "harm reported under condition: Hard nozzles contact the marsh surface [unknown (ask user)] (Deepwater Horizon experience as cited in guidance)"
+        }
+      ],
+      "exclusion_reasons": [],
+      "evidence_source": "none",
+      "evidence_verdict": "no evidence",
+      "evidence_basis": "biological recovery: no evidence (no eligible rows)",
+      "evidence_label": null,
+      "benefit_outcomes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "model_id": null,
+      "model_state": null,
+      "ecological_score_assumed": 3.0,
+      "ecological_basis": "Physical removal can disturb soft sediment, vegetation, or sensitive habitat.",
+      "conditions": [
+        "Hard nozzles contact the marsh surface -> harms [unknown (ask user)]"
+      ],
+      "production_rate": "not sourced",
+      "waste": "not sourced",
+      "cost_class": "not sourced",
+      "secondary_impacts": "Access and equipment disturbance; removes free oil only",
+      "caveats": [],
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:marsh_cond"
+      ]
+    },
+    {
+      "option": "vegetation_cutting",
+      "recommendation_class": "D",
+      "class_label": "allowed but harm reported under some conditions",
+      "rank_in_class": 2,
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "rule_verdict": "conditional",
+      "rule_id": "vegcut_sensitive_cond",
+      "rule_reason": "Vegetation cutting conditional on sensitive marsh and tundra",
+      "rule_source": "docs/NOAA_ASSUMPTION_AUDIT.md",
+      "do_no_harm": "flagged",
+      "harm_flags": [
+        {
+          "source": "treatment_conditions.csv",
+          "detail": "harm reported under condition: Growing season [met by input season] (NOAA marsh guidance 2022 update; Hoff 1995)"
+        }
+      ],
+      "exclusion_reasons": [],
+      "evidence_source": "evidence_verdicts",
+      "evidence_verdict": "no clear difference",
+      "evidence_basis": "biological recovery: no clear difference (single studies (k=1, citations=Hoff RZ (1995)))",
+      "evidence_label": null,
+      "benefit_outcomes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "model_id": null,
+      "model_state": null,
+      "ecological_score_assumed": 2.5,
+      "ecological_basis": "Vegetation or sediment disturbance is poorly suited to sensitive habitats.",
+      "conditions": [
+        "Autumn or winter (plants dormant) -> less harm [not met by input season]",
+        "Growing season -> harms [met by input season]"
+      ],
+      "production_rate": "not sourced",
+      "waste": "not sourced",
+      "cost_class": "not sourced",
+      "secondary_impacts": "Removes biomass and can increase erosion; only where sensitivity is high",
+      "caveats": [],
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:vegcut_sensitive_cond"
+      ]
+    },
+    {
+      "option": "solidifiers",
+      "recommendation_class": "E",
+      "class_label": "excluded",
+      "rank_in_class": 1,
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "rule_verdict": "ineligible",
+      "rule_id": "swa_sol_default_inelig",
+      "rule_reason": "Surface-washing agents and solidifiers otherwise ineligible",
+      "rule_source": "docs/NOAA_ASSUMPTION_AUDIT.md",
+      "do_no_harm": "passed",
+      "harm_flags": [],
+      "exclusion_reasons": [
+        {
+          "source": "rule",
+          "rule_id": "swa_sol_default_inelig",
+          "detail": "Surface-washing agents and solidifiers otherwise ineligible"
+        }
+      ],
+      "evidence_source": "none",
+      "evidence_verdict": "no evidence",
+      "evidence_basis": "no evidence_verdicts row for this technology and habitat class",
+      "evidence_label": null,
+      "benefit_outcomes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "model_id": null,
+      "model_state": null,
+      "ecological_score_assumed": 5.0,
+      "ecological_basis": "Neutral ecological baseline because no treatment-specific rule was triggered.",
+      "conditions": [],
+      "production_rate": "not sourced",
+      "waste": "not sourced",
+      "cost_class": "not sourced",
+      "secondary_impacts": "Added material and waste; limited field evidence",
+      "caveats": [],
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:swa_sol_default_inelig"
+      ]
+    },
+    {
+      "option": "low_pressure_heated_flushing",
+      "recommendation_class": "E",
+      "class_label": "excluded",
+      "rank_in_class": 2,
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "rule_verdict": "ineligible",
+      "rule_id": "marsh_aggressive_inelig",
+      "rule_reason": "Hot-water and heavy mechanical methods damage sensitive wetland habitat",
+      "rule_source": "docs/NOAA_ASSUMPTION_AUDIT.md",
+      "do_no_harm": "passed",
+      "harm_flags": [],
+      "exclusion_reasons": [
+        {
+          "source": "rule",
+          "rule_id": "marsh_aggressive_inelig",
+          "detail": "Hot-water and heavy mechanical methods damage sensitive wetland habitat"
+        }
+      ],
+      "evidence_source": "none",
+      "evidence_verdict": "no evidence",
+      "evidence_basis": "no evidence_verdicts row for this technology and habitat class",
+      "evidence_label": null,
+      "benefit_outcomes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "model_id": null,
+      "model_state": null,
+      "ecological_score_assumed": 4.5,
+      "ecological_basis": "Moderate disturbance and potential residue or mobilization concerns.",
+      "conditions": [],
+      "production_rate": "not sourced",
+      "waste": "not sourced",
+      "cost_class": "not sourced",
+      "secondary_impacts": "Heat harms sensitive biota; excluded on wetlands",
+      "caveats": [],
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:marsh_aggressive_inelig"
+      ]
+    },
+    {
+      "option": "mechanical_removal",
+      "recommendation_class": "E",
+      "class_label": "excluded",
+      "rank_in_class": 3,
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "rule_verdict": "ineligible",
+      "rule_id": "marsh_aggressive_inelig",
+      "rule_reason": "Hot-water and heavy mechanical methods damage sensitive wetland habitat",
+      "rule_source": "docs/NOAA_ASSUMPTION_AUDIT.md",
+      "do_no_harm": "flagged",
+      "harm_flags": [
+        {
+          "source": "treatment_conditions.csv",
+          "detail": "harm reported under condition: Elevation lowered and not restored [unknown (ask user)] (Amoco Cadiz Ile Grande; Miguasha; Challenger 2008 as cited)"
+        }
+      ],
+      "exclusion_reasons": [
+        {
+          "source": "rule",
+          "rule_id": "marsh_aggressive_inelig",
+          "detail": "Hot-water and heavy mechanical methods damage sensitive wetland habitat"
+        }
+      ],
+      "evidence_source": "none",
+      "evidence_verdict": "no evidence",
+      "evidence_basis": "biological recovery: no evidence (no eligible rows)",
+      "evidence_label": null,
+      "benefit_outcomes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "model_id": null,
+      "model_state": null,
+      "ecological_score_assumed": 3.0,
+      "ecological_basis": "Physical removal can disturb soft sediment, vegetation, or sensitive habitat.",
+      "conditions": [
+        "Marsh elevation restored and replanted afterwards -> less harm [unknown (ask user)]",
+        "Elevation lowered and not restored -> harms [unknown (ask user)]"
+      ],
+      "production_rate": "not sourced",
+      "waste": "not sourced",
+      "cost_class": "not sourced",
+      "secondary_impacts": "Sediment loss and habitat damage; excluded on marsh and mudflat",
+      "caveats": [],
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:marsh_aggressive_inelig"
+      ]
+    },
+    {
+      "option": "sediment_relocation",
+      "recommendation_class": "E",
+      "class_label": "excluded",
+      "rank_in_class": 4,
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "rule_verdict": "ineligible",
+      "rule_id": "sedreloc_default_inelig",
+      "rule_reason": "Sediment relocation otherwise ineligible",
+      "rule_source": "docs/NOAA_ASSUMPTION_AUDIT.md",
+      "do_no_harm": "passed",
+      "harm_flags": [],
+      "exclusion_reasons": [
+        {
+          "source": "rule",
+          "rule_id": "sedreloc_default_inelig",
+          "detail": "Sediment relocation otherwise ineligible"
+        }
+      ],
+      "evidence_source": "none",
+      "evidence_verdict": "no evidence",
+      "evidence_basis": "no evidence_verdicts row for this technology and habitat class",
+      "evidence_label": null,
+      "benefit_outcomes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "model_id": null,
+      "model_state": null,
+      "ecological_score_assumed": 2.5,
+      "ecological_basis": "Vegetation or sediment disturbance is poorly suited to sensitive habitats.",
+      "conditions": [],
+      "production_rate": "not sourced",
+      "waste": "not sourced",
+      "cost_class": "not sourced",
+      "secondary_impacts": "Redistributes oil; only on exposed beaches",
+      "caveats": [],
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:sedreloc_default_inelig"
+      ]
+    },
+    {
+      "option": "high_pressure_heated_washing",
+      "recommendation_class": "E",
+      "class_label": "excluded",
+      "rank_in_class": 5,
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "rule_verdict": "ineligible",
+      "rule_id": "marsh_aggressive_inelig",
+      "rule_reason": "Hot-water and heavy mechanical methods damage sensitive wetland habitat",
+      "rule_source": "docs/NOAA_ASSUMPTION_AUDIT.md",
+      "do_no_harm": "passed",
+      "harm_flags": [],
+      "exclusion_reasons": [
+        {
+          "source": "rule",
+          "rule_id": "marsh_aggressive_inelig",
+          "detail": "Hot-water and heavy mechanical methods damage sensitive wetland habitat"
+        }
+      ],
+      "evidence_source": "none",
+      "evidence_verdict": "no evidence",
+      "evidence_basis": "no evidence_verdicts row for this technology and habitat class",
+      "evidence_label": null,
+      "benefit_outcomes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "model_id": null,
+      "model_state": null,
+      "ecological_score_assumed": 2.0,
+      "ecological_basis": "High disturbance or redistribution risk for sediment and residual oil.",
+      "conditions": [],
+      "production_rate": "not sourced",
+      "waste": "not sourced",
+      "cost_class": "not sourced",
+      "secondary_impacts": "Hot-water washing initially worsened recovery at Exxon Valdez sites (NOAA OR&R)",
+      "caveats": [],
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:marsh_aggressive_inelig"
+      ]
+    },
+    {
+      "option": "high_pressure_washing",
+      "recommendation_class": "E",
+      "class_label": "excluded",
+      "rank_in_class": 6,
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "rule_verdict": "ineligible",
+      "rule_id": "marsh_aggressive_inelig",
+      "rule_reason": "Hot-water and heavy mechanical methods damage sensitive wetland habitat",
+      "rule_source": "docs/NOAA_ASSUMPTION_AUDIT.md",
+      "do_no_harm": "passed",
+      "harm_flags": [],
+      "exclusion_reasons": [
+        {
+          "source": "rule",
+          "rule_id": "marsh_aggressive_inelig",
+          "detail": "Hot-water and heavy mechanical methods damage sensitive wetland habitat"
+        }
+      ],
+      "evidence_source": "none",
+      "evidence_verdict": "no evidence",
+      "evidence_basis": "no evidence_verdicts row for this technology and habitat class",
+      "evidence_label": null,
+      "benefit_outcomes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "model_id": null,
+      "model_state": null,
+      "ecological_score_assumed": 2.0,
+      "ecological_basis": "High disturbance or redistribution risk for sediment and residual oil.",
+      "conditions": [],
+      "production_rate": "not sourced",
+      "waste": "not sourced",
+      "cost_class": "not sourced",
+      "secondary_impacts": "High disturbance; drives oil down if used on soft substrate",
+      "caveats": [],
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:marsh_aggressive_inelig"
+      ]
+    },
+    {
+      "option": "sediment_mixing",
+      "recommendation_class": "E",
+      "class_label": "excluded",
+      "rank_in_class": 7,
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "rule_verdict": "ineligible",
+      "rule_id": "marsh_aggressive_inelig",
+      "rule_reason": "Hot-water and heavy mechanical methods damage sensitive wetland habitat",
+      "rule_source": "docs/NOAA_ASSUMPTION_AUDIT.md",
+      "do_no_harm": "passed",
+      "harm_flags": [],
+      "exclusion_reasons": [
+        {
+          "source": "rule",
+          "rule_id": "marsh_aggressive_inelig",
+          "detail": "Hot-water and heavy mechanical methods damage sensitive wetland habitat"
+        }
+      ],
+      "evidence_source": "none",
+      "evidence_verdict": "no evidence",
+      "evidence_basis": "no evidence_verdicts row for this technology and habitat class",
+      "evidence_label": null,
+      "benefit_outcomes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "model_id": null,
+      "model_state": null,
+      "ecological_score_assumed": 2.0,
+      "ecological_basis": "High disturbance or redistribution risk for sediment and residual oil.",
+      "conditions": [],
+      "production_rate": "not sourced",
+      "waste": "not sourced",
+      "cost_class": "not sourced",
+      "secondary_impacts": "Can bury or spread oil; not for soft or sensitive habitat",
+      "caveats": [],
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:marsh_aggressive_inelig"
+      ]
+    }
+  ],
+  "natural_recovery": {
+    "option": "natural_attenuation",
+    "recommendation_class": "C",
+    "label": "natural recovery with monitoring",
+    "reference": [
+      {
+        "quantity": "PAH-sum half-life (heavy)",
+        "value": 1.61,
+        "lo90": 1.25,
+        "hi90": 2.38,
+        "unit": "years",
+        "model_id": "pah_decline_v1",
+        "state": "validated",
+        "scope": "in range",
+        "scope_reasons": [
+          "Validated within Deepwater Horizon only (one spill); FINDINGS 22."
+        ],
+        "note": "sum of PAH in soil (physical loss plus degradation); validated within Deepwater Horizon only"
+      },
+      {
+        "quantity": "vegetation time to 80% of reference cover",
+        "value": 3.000747667341676,
+        "lo90": 1.229183616831243,
+        "hi90": 5.18880631694516,
+        "unit": "years",
+        "model_id": "veg_recovery_v1",
+        "state": "experimental",
+        "scope": "in range",
+        "scope_reasons": [],
+        "evidence_grade": "suggestive",
+        "note": "ten studies, one spill, cleanup unrecorded; curve is oiled marsh as managed, not a treatment effect; worse than no-trend baseline for heavy oiling (FINDINGS 14); shown for transparency only"
+      },
+      {
+        "quantity": "edge-loss rate 2010-2015 (deployed model, all-cell fit)",
+        "value": 1.4180746233063197,
+        "lo90": -1.740831851043625,
+        "hi90": 4.299612649462656,
+        "unit": "m/yr edge loss (positive = land lost)",
+        "model_id": "edge_loss_v1",
+        "state": "validated",
+        "scope": "in range",
+        "scope_reasons": [],
+        "note": "held out by basin; the interval is for one cell"
+      },
+      {
+        "quantity": "natural recovery cumulative edge loss to year 5",
+        "value": 10.417219732138179,
+        "lo90": -5.820505129843225,
+        "hi90": 26.13401181930968,
+        "unit": "m",
+        "model_id": "composer_natural_recovery_v1",
+        "state": "experimental",
+        "scope": "in range",
+        "scope_reasons": [],
+        "note": "In held-out checks the oil-excess component over-predicted NAIP heavy-cell loss by about 0.5 m/yr (B1b +0.59, C1b +0.55; results/scenario_composer/summary_v4_r3.txt)."
+      },
+      {
+        "quantity": "natural recovery cumulative edge loss to year 8",
+        "value": 15.140934795666816,
+        "lo90": -11.09242897882552,
+        "hi90": 40.700870421289245,
+        "unit": "m",
+        "model_id": "composer_natural_recovery_v1",
+        "state": "experimental",
+        "scope": "in range",
+        "scope_reasons": [],
+        "note": "In held-out checks the oil-excess component over-predicted NAIP heavy-cell loss by about 0.5 m/yr (B1b +0.59, C1b +0.55; results/scenario_composer/summary_v4_r3.txt)."
+      }
+    ],
+    "rule_verdict": "eligible",
+    "evidence_verdict": "no clear difference",
+    "evidence_basis": "erosion: no clear difference (single studies (k=1, citations=Zengel (2022)))",
+    "monitoring": "monitor and compare with the reference numbers above"
+  },
+  "plots": {
+    "paired_differences": [
+      {
+        "option": "manual_removal",
+        "outcome": "edge_loss_avoided_m",
+        "year": 2,
+        "median": 1.2725270167124525,
+        "lo90": 0.05836199346284937,
+        "hi90": 2.5112840725322956,
+        "unit": "m of cumulative marsh-edge loss avoided vs natural recovery (positive = less loss)",
+        "direction": "benefit",
+        "decision_point": false
+      },
+      {
+        "option": "manual_removal",
+        "outcome": "veg_cover_ratio_gain",
+        "year": 2,
+        "median": 0.3602965075676055,
+        "lo90": 0.19607966986216477,
+        "hi90": 0.5164575160059741,
+        "unit": "vegetation cover ratio to reference, option minus natural recovery (positive = more cover)",
+        "direction": "benefit",
+        "decision_point": true
+      },
+      {
+        "option": "manual_removal",
+        "outcome": "edge_loss_avoided_m",
+        "year": 5,
+        "median": 1.6682493900264506,
+        "lo90": -0.254839770177431,
+        "hi90": 3.6124973693873463,
+        "unit": "m of cumulative marsh-edge loss avoided vs natural recovery (positive = less loss)",
+        "direction": "no clear difference",
+        "decision_point": false
+      },
+      {
+        "option": "manual_removal",
+        "outcome": "veg_cover_ratio_gain",
+        "year": 5,
+        "median": 0.06597494081304578,
+        "lo90": 0.0012359420802777856,
+        "hi90": 0.20547342731420082,
+        "unit": "vegetation cover ratio to reference, option minus natural recovery (positive = more cover)",
+        "direction": "benefit",
+        "decision_point": false
+      },
+      {
+        "option": "manual_removal",
+        "outcome": "edge_loss_avoided_m",
+        "year": 8,
+        "median": 2.048575895350985,
+        "lo90": -1.1570092083655994,
+        "hi90": 5.282162665565798,
+        "unit": "m of cumulative marsh-edge loss avoided vs natural recovery (positive = less loss)",
+        "direction": "no clear difference",
+        "decision_point": true
+      },
+      {
+        "option": "manual_removal",
+        "outcome": "veg_cover_ratio_gain",
+        "year": 8,
+        "median": 0.013275503468309635,
+        "lo90": 4.7652947074927634e-06,
+        "hi90": 0.10125306435162479,
+        "unit": "vegetation cover ratio to reference, option minus natural recovery (positive = more cover)",
+        "direction": "benefit",
+        "decision_point": false
+      },
+      {
+        "option": "planting (after mechanical cleanup)",
+        "outcome": "edge_loss_avoided_m",
+        "year": 2,
+        "median": 2.9187373572334736,
+        "lo90": 1.7464306453986362,
+        "hi90": 4.094217573361279,
+        "unit": "m of cumulative marsh-edge loss avoided vs natural recovery (positive = less loss)",
+        "direction": "benefit",
+        "decision_point": false
+      },
+      {
+        "option": "planting (after mechanical cleanup)",
+        "outcome": "edge_loss_avoided_m",
+        "year": 5,
+        "median": 5.838240879025941,
+        "lo90": 2.5435269794838207,
+        "hi90": 9.184446812544962,
+        "unit": "m of cumulative marsh-edge loss avoided vs natural recovery (positive = less loss)",
+        "direction": "benefit",
+        "decision_point": false
+      },
+      {
+        "option": "planting (after mechanical cleanup)",
+        "outcome": "edge_loss_avoided_m",
+        "year": 8,
+        "median": 8.70052218726248,
+        "lo90": 2.4823355754857497,
+        "hi90": 15.126115964040387,
+        "unit": "m of cumulative marsh-edge loss avoided vs natural recovery (positive = less loss)",
+        "direction": "benefit",
+        "decision_point": true
+      }
+    ],
+    "cumulative_edge_loss": {
+      "series": [
+        {
+          "option": "natural_attenuation",
+          "year": 1,
+          "median": 2.85743971448827,
+          "lo90": -0.5299456273171064,
+          "hi90": 6.045379617276354
+        },
+        {
+          "option": "natural_attenuation",
+          "year": 2,
+          "median": 5.71487942897654,
+          "lo90": -1.0598912546342127,
+          "hi90": 12.090759234552708
+        },
+        {
+          "option": "natural_attenuation",
+          "year": 3,
+          "median": 7.3445717294085995,
+          "lo90": -2.223937541490953,
+          "hi90": 16.627492263504553
+        },
+        {
+          "option": "natural_attenuation",
+          "year": 4,
+          "median": 8.898947438500615,
+          "lo90": -3.819886728615862,
+          "hi90": 21.186453236104583
+        },
+        {
+          "option": "natural_attenuation",
+          "year": 5,
+          "median": 10.417219732138179,
+          "lo90": -5.820505129843225,
+          "hi90": 26.13401181930968
+        },
+        {
+          "option": "natural_attenuation",
+          "year": 6,
+          "median": 12.008379628840611,
+          "lo90": -7.872927441216185,
+          "hi90": 30.938685136935515
+        },
+        {
+          "option": "natural_attenuation",
+          "year": 7,
+          "median": 13.530737428561808,
+          "lo90": -9.501707113447118,
+          "hi90": 35.748206964880865
+        },
+        {
+          "option": "natural_attenuation",
+          "year": 8,
+          "median": 15.140934795666816,
+          "lo90": -11.09242897882552,
+          "hi90": 40.700870421289245
+        },
+        {
+          "option": "manual_removal",
+          "year": 1,
+          "median": 2.196486155349994,
+          "lo90": -1.201574466184345,
+          "hi90": 5.484631632408097
+        },
+        {
+          "option": "manual_removal",
+          "year": 2,
+          "median": 4.392972310699988,
+          "lo90": -2.40314893236869,
+          "hi90": 10.969263264816194
+        },
+        {
+          "option": "manual_removal",
+          "year": 3,
+          "median": 5.914646845922661,
+          "lo90": -3.6924417407706422,
+          "hi90": 15.424844054215102
+        },
+        {
+          "option": "manual_removal",
+          "year": 4,
+          "median": 7.378871942596429,
+          "lo90": -5.530907289404025,
+          "hi90": 20.02801816345346
+        },
+        {
+          "option": "manual_removal",
+          "year": 5,
+          "median": 8.754271568562299,
+          "lo90": -7.480944388129762,
+          "hi90": 24.58364816594107
+        },
+        {
+          "option": "manual_removal",
+          "year": 6,
+          "median": 10.23574482886555,
+          "lo90": -9.319458946478772,
+          "hi90": 29.2450735706663
+        },
+        {
+          "option": "manual_removal",
+          "year": 7,
+          "median": 11.678980871864415,
+          "lo90": -11.232603585982057,
+          "hi90": 34.109224885974704
+        },
+        {
+          "option": "manual_removal",
+          "year": 8,
+          "median": 13.08264726424049,
+          "lo90": -13.150468938643524,
+          "hi90": 38.971085465354605
+        },
+        {
+          "option": "planting (after mechanical cleanup)",
+          "year": 1,
+          "median": 1.4018881643271428,
+          "lo90": -2.007069579605658,
+          "hi90": 4.6907308339254845
+        },
+        {
+          "option": "planting (after mechanical cleanup)",
+          "year": 2,
+          "median": 2.8037763286542856,
+          "lo90": -4.014139159211316,
+          "hi90": 9.381461667850969
+        },
+        {
+          "option": "planting (after mechanical cleanup)",
+          "year": 3,
+          "median": 3.461353678509477,
+          "lo90": -6.257041990684586,
+          "hi90": 12.77911755667064
+        },
+        {
+          "option": "planting (after mechanical cleanup)",
+          "year": 4,
+          "median": 4.1363056271724385,
+          "lo90": -8.876631464850119,
+          "hi90": 16.63078966903348
+        },
+        {
+          "option": "planting (after mechanical cleanup)",
+          "year": 5,
+          "median": 4.6572727739377795,
+          "lo90": -11.95328259883592,
+          "hi90": 20.736722991089813
+        },
+        {
+          "option": "planting (after mechanical cleanup)",
+          "year": 6,
+          "median": 5.270637625863689,
+          "lo90": -14.798392875033079,
+          "hi90": 24.66120842208993
+        },
+        {
+          "option": "planting (after mechanical cleanup)",
+          "year": 7,
+          "median": 5.794842456950933,
+          "lo90": -17.386146710106733,
+          "hi90": 28.971124712928408
+        },
+        {
+          "option": "planting (after mechanical cleanup)",
+          "year": 8,
+          "median": 6.319472686844259,
+          "lo90": -20.36164487670383,
+          "hi90": 33.15169911114847
+        }
+      ],
+      "unit": "m",
+      "note": "natural recovery vs top options; empty without an in-scope marsh edge cell"
+    },
+    "evidence_matrix": [
+      {
+        "option": "natural_attenuation",
+        "outcome_family": "erosion",
+        "verdict": "no clear difference",
+        "source": "evidence_verdicts.csv",
+        "basis": "single studies (k=1, citations=Zengel (2022))"
+      },
+      {
+        "option": "manual_removal",
+        "outcome_family": "any",
+        "verdict": "no evidence",
+        "source": "evidence_verdicts.csv",
+        "basis": "no row for this technology and habitat class"
+      },
+      {
+        "option": "manual_removal",
+        "outcome_family": "veg_cover_ratio_gain",
+        "verdict": "evidence of benefit",
+        "source": "scenario_composer",
+        "basis": "paired difference at year 2: 0.36 (0.20 to 0.52)"
+      },
+      {
+        "option": "manual_removal",
+        "outcome_family": "edge_loss_avoided_m",
+        "verdict": "no clear difference",
+        "source": "scenario_composer",
+        "basis": "paired difference at year 8: 2.05 (-1.16 to 5.28)"
+      },
+      {
+        "option": "passive_sorbents",
+        "outcome_family": "biological recovery",
+        "verdict": "no evidence",
+        "source": "evidence_verdicts.csv",
+        "basis": "no eligible rows"
+      },
+      {
+        "option": "vacuum_removal",
+        "outcome_family": "biological recovery",
+        "verdict": "no evidence",
+        "source": "evidence_verdicts.csv",
+        "basis": "no eligible rows"
+      },
+      {
+        "option": "low_pressure_flushing",
+        "outcome_family": "biological recovery",
+        "verdict": "no clear difference",
+        "source": "evidence_verdicts.csv",
+        "basis": "single studies (k=1, citations=Hoff RZ (1995))"
+      },
+      {
+        "option": "low_pressure_flushing",
+        "outcome_family": "residual oil",
+        "verdict": "no clear difference",
+        "source": "evidence_verdicts.csv",
+        "basis": "single studies (k=1, citations=Michel J (1998))"
+      },
+      {
+        "option": "low_pressure_heated_flushing",
+        "outcome_family": "any",
+        "verdict": "no evidence",
+        "source": "evidence_verdicts.csv",
+        "basis": "no row for this technology and habitat class"
+      },
+      {
+        "option": "high_pressure_washing",
+        "outcome_family": "any",
+        "verdict": "no evidence",
+        "source": "evidence_verdicts.csv",
+        "basis": "no row for this technology and habitat class"
+      },
+      {
+        "option": "high_pressure_heated_washing",
+        "outcome_family": "any",
+        "verdict": "no evidence",
+        "source": "evidence_verdicts.csv",
+        "basis": "no row for this technology and habitat class"
+      },
+      {
+        "option": "surface_washing_agents",
+        "outcome_family": "biological recovery",
+        "verdict": "no clear difference",
+        "source": "evidence_verdicts.csv",
+        "basis": "single studies (k=1, citations=Pezeshki SR (2001))"
+      },
+      {
+        "option": "surface_washing_agents",
+        "outcome_family": "residual oil",
+        "verdict": "no evidence",
+        "source": "evidence_verdicts.csv",
+        "basis": "no eligible rows"
+      },
+      {
+        "option": "solidifiers",
+        "outcome_family": "any",
+        "verdict": "no evidence",
+        "source": "evidence_verdicts.csv",
+        "basis": "no row for this technology and habitat class"
+      },
+      {
+        "option": "mechanical_removal",
+        "outcome_family": "biological recovery",
+        "verdict": "no evidence",
+        "source": "evidence_verdicts.csv",
+        "basis": "no eligible rows"
+      },
+      {
+        "option": "sediment_relocation",
+        "outcome_family": "any",
+        "verdict": "no evidence",
+        "source": "evidence_verdicts.csv",
+        "basis": "no row for this technology and habitat class"
+      },
+      {
+        "option": "sediment_mixing",
+        "outcome_family": "any",
+        "verdict": "no evidence",
+        "source": "evidence_verdicts.csv",
+        "basis": "no row for this technology and habitat class"
+      },
+      {
+        "option": "bioremediation",
+        "outcome_family": "biological recovery",
+        "verdict": "no evidence",
+        "source": "evidence_verdicts.csv",
+        "basis": "no eligible rows"
+      },
+      {
+        "option": "bioremediation",
+        "outcome_family": "residual oil",
+        "verdict": "no evidence",
+        "source": "evidence_verdicts.csv",
+        "basis": "no eligible rows"
+      },
+      {
+        "option": "vegetation_cutting",
+        "outcome_family": "biological recovery",
+        "verdict": "no clear difference",
+        "source": "evidence_verdicts.csv",
+        "basis": "single studies (k=1, citations=Hoff RZ (1995))"
+      },
+      {
+        "option": "planting (after mechanical cleanup)",
+        "outcome_family": "biological recovery",
+        "verdict": "no evidence",
+        "source": "evidence_verdicts.csv",
+        "basis": "no eligible rows"
+      },
+      {
+        "option": "planting (after mechanical cleanup)",
+        "outcome_family": "edge_loss_avoided_m",
+        "verdict": "evidence of benefit",
+        "source": "scenario_composer",
+        "basis": "paired difference at year 8: 8.70 (2.48 to 15.13)"
+      }
+    ]
+  },
+  "trace": [
+    {
+      "step": 1,
+      "name": "characterise",
+      "inputs": {
+        "habitat": null,
+        "oiling_class": null,
+        "oil": null,
+        "season": null,
+        "input_kind": "site_dict",
+        "cell": "8018_32612"
+      },
+      "outputs": {
+        "label": null,
+        "habitat": "salt_marsh",
+        "habitat_class": "marsh",
+        "oil_category": "light",
+        "oil_source": "input",
+        "oiling_class": "Heavy",
+        "oiling_basis": "site max_oiling (SCAT)",
+        "exposure": "high",
+        "access": "restricted",
+        "season": "summer",
+        "sensitivity": "very_high",
+        "shoreline_type_for_rules": "marsh",
+        "input_kind": "site_dict",
+        "cell": "8018_32612",
+        "assumptions": [],
+        "site_scope_flags": {
+          "in_scope": true,
+          "out_of_scope": [],
+          "extrapolation": [],
+          "evidence_scope": []
+        },
+        "scope_tier": "validated",
+        "scope_reasons": []
+      },
+      "sources": [
+        "inputs",
+        "oil_library (ADIOS)",
+        "site_evidence.site_flags",
+        "docs/F0_F1_SCOPE_AND_DECISIONS.md D30"
+      ]
+    },
+    {
+      "step": 2,
+      "name": "hard_constraints",
+      "inputs": {
+        "options": [
+          "natural_attenuation",
+          "manual_removal",
+          "passive_sorbents",
+          "vacuum_removal",
+          "low_pressure_flushing",
+          "low_pressure_heated_flushing",
+          "high_pressure_washing",
+          "high_pressure_heated_washing",
+          "surface_washing_agents",
+          "solidifiers",
+          "mechanical_removal",
+          "sediment_relocation",
+          "sediment_mixing",
+          "bioremediation",
+          "vegetation_cutting",
+          "planting (after mechanical cleanup)"
+        ],
+        "rule_source": "screening_rule.csv"
+      },
+      "outputs": {
+        "natural_attenuation": {
+          "verdict": "eligible",
+          "rule_id": "natatt_exposed_elig",
+          "reason": "High-energy shores weather light oil quickly, so natural attenuation is favoured"
+        },
+        "manual_removal": {
+          "verdict": "eligible",
+          "rule_id": "marsh_manual_passive_elig",
+          "reason": "Low-disturbance recovery methods are acceptable on soft sensitive wetland"
+        },
+        "passive_sorbents": {
+          "verdict": "eligible",
+          "rule_id": "marsh_manual_passive_elig",
+          "reason": "Low-disturbance recovery methods are acceptable on soft sensitive wetland"
+        },
+        "vacuum_removal": {
+          "verdict": "conditional",
+          "rule_id": "marsh_cond",
+          "reason": "Lower-energy flushing and recovery methods need expert review on wetland"
+        },
+        "low_pressure_flushing": {
+          "verdict": "conditional",
+          "rule_id": "marsh_cond",
+          "reason": "Lower-energy flushing and recovery methods need expert review on wetland"
+        },
+        "low_pressure_heated_flushing": {
+          "verdict": "ineligible",
+          "rule_id": "marsh_aggressive_inelig",
+          "reason": "Hot-water and heavy mechanical methods damage sensitive wetland habitat"
+        },
+        "high_pressure_washing": {
+          "verdict": "ineligible",
+          "rule_id": "marsh_aggressive_inelig",
+          "reason": "Hot-water and heavy mechanical methods damage sensitive wetland habitat"
+        },
+        "high_pressure_heated_washing": {
+          "verdict": "ineligible",
+          "rule_id": "marsh_aggressive_inelig",
+          "reason": "Hot-water and heavy mechanical methods damage sensitive wetland habitat"
+        },
+        "surface_washing_agents": {
+          "verdict": "conditional",
+          "rule_id": "marsh_cond",
+          "reason": "Lower-energy flushing and recovery methods need expert review on wetland"
+        },
+        "solidifiers": {
+          "verdict": "ineligible",
+          "rule_id": "swa_sol_default_inelig",
+          "reason": "Surface-washing agents and solidifiers otherwise ineligible"
+        },
+        "mechanical_removal": {
+          "verdict": "ineligible",
+          "rule_id": "marsh_aggressive_inelig",
+          "reason": "Hot-water and heavy mechanical methods damage sensitive wetland habitat"
+        },
+        "sediment_relocation": {
+          "verdict": "ineligible",
+          "rule_id": "sedreloc_default_inelig",
+          "reason": "Sediment relocation otherwise ineligible"
+        },
+        "sediment_mixing": {
+          "verdict": "ineligible",
+          "rule_id": "marsh_aggressive_inelig",
+          "reason": "Hot-water and heavy mechanical methods damage sensitive wetland habitat"
+        },
+        "bioremediation": {
+          "verdict": "conditional",
+          "rule_id": "bio_default_cond",
+          "reason": "Bioremediation otherwise conditional"
+        },
+        "vegetation_cutting": {
+          "verdict": "conditional",
+          "rule_id": "vegcut_sensitive_cond",
+          "reason": "Vegetation cutting conditional on sensitive marsh and tundra"
+        },
+        "planting (after mechanical cleanup)": {
+          "verdict": "conditional",
+          "rule_id": "default_cond",
+          "reason": "Default when no treatment-specific rule applies"
+        }
+      },
+      "sources": [
+        "data/knowledge/tables/screening_rule.csv"
+      ]
+    },
+    {
+      "step": 3,
+      "name": "do_no_harm",
+      "inputs": {
+        "habitat_class": "marsh",
+        "sources": [
+          "evidence_verdicts.csv",
+          "treatment_conditions.csv (marsh)",
+          "mangrove_screening.csv (mangrove)"
+        ]
+      },
+      "outputs": {
+        "removed": {},
+        "flagged": {
+          "manual_removal": [
+            {
+              "source": "treatment_conditions.csv",
+              "detail": "harm reported under condition: Crews walk on the marsh surface without boards (trampling) [unknown (ask user)] (Hoff 1993; Mendelssohn 1990; Challenger 2008 as cited)"
+            }
+          ],
+          "vacuum_removal": [
+            {
+              "source": "treatment_conditions.csv",
+              "detail": "harm reported under condition: Hard nozzles contact the marsh surface [unknown (ask user)] (Deepwater Horizon experience as cited in guidance)"
+            }
+          ],
+          "mechanical_removal": [
+            {
+              "source": "treatment_conditions.csv",
+              "detail": "harm reported under condition: Elevation lowered and not restored [unknown (ask user)] (Amoco Cadiz Ile Grande; Miguasha; Challenger 2008 as cited)"
+            }
+          ],
+          "vegetation_cutting": [
+            {
+              "source": "treatment_conditions.csv",
+              "detail": "harm reported under condition: Growing season [met by input season] (NOAA marsh guidance 2022 update; Hoff 1995)"
+            }
+          ]
+        }
+      },
+      "sources": [
+        "data/knowledge/evidence_verdicts.csv",
+        "data/knowledge/treatment_conditions.csv"
+      ]
+    },
+    {
+      "step": 4,
+      "name": "benefit_vs_natural_recovery",
+      "inputs": {
+        "composer_used": true,
+        "options_composed": [
+          "manual_removal",
+          "planting (after mechanical cleanup)"
+        ],
+        "seed": 20261112,
+        "n_draws": 5000,
+        "decision_points": "edge loss avoided at year 8; vegetation cover ratio at year 2",
+        "model": {
+          "id": "composer_natural_recovery_v1",
+          "state": "experimental"
+        }
+      },
+      "outputs": {
+        "natural_attenuation": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no clear difference"
+        },
+        "manual_removal": {
+          "source": "scenario_composer.compose",
+          "verdict": "no evidence",
+          "decision_outcomes": [
+            {
+              "outcome": "veg_cover_ratio_gain",
+              "year": 2,
+              "median": 0.3602965075676055,
+              "lo90": 0.19607966986216477,
+              "hi90": 0.5164575160059741,
+              "unit": "vegetation cover ratio to reference, option minus natural recovery (positive = more cover)",
+              "direction": "benefit",
+              "decision_point": true
+            },
+            {
+              "outcome": "edge_loss_avoided_m",
+              "year": 8,
+              "median": 2.048575895350985,
+              "lo90": -1.1570092083655994,
+              "hi90": 5.282162665565798,
+              "unit": "m of cumulative marsh-edge loss avoided vs natural recovery (positive = less loss)",
+              "direction": "no clear difference",
+              "decision_point": true
+            }
+          ]
+        },
+        "passive_sorbents": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        },
+        "vacuum_removal": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        },
+        "low_pressure_flushing": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no clear difference"
+        },
+        "low_pressure_heated_flushing": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        },
+        "high_pressure_washing": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        },
+        "high_pressure_heated_washing": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        },
+        "surface_washing_agents": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no clear difference"
+        },
+        "solidifiers": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        },
+        "mechanical_removal": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        },
+        "sediment_relocation": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        },
+        "sediment_mixing": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        },
+        "bioremediation": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        },
+        "vegetation_cutting": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no clear difference"
+        },
+        "planting (after mechanical cleanup)": {
+          "source": "scenario_composer.compose",
+          "verdict": "no evidence",
+          "decision_outcomes": [
+            {
+              "outcome": "edge_loss_avoided_m",
+              "year": 8,
+              "median": 8.70052218726248,
+              "lo90": 2.4823355754857497,
+              "hi90": 15.126115964040387,
+              "unit": "m of cumulative marsh-edge loss avoided vs natural recovery (positive = less loss)",
+              "direction": "benefit",
+              "decision_point": true
+            }
+          ]
+        }
+      },
+      "sources": [
+        "src/shoreline_remediation/scenario_composer.py",
+        "data/knowledge/evidence_verdicts.csv",
+        "models/registry.json"
+      ]
+    },
+    {
+      "step": 5,
+      "name": "endpoint_and_time",
+      "inputs": {
+        "oiling_class": "Heavy",
+        "habitat_class": "marsh"
+      },
+      "outputs": {
+        "reference": [
+          {
+            "quantity": "PAH-sum half-life (heavy)",
+            "value": 1.61,
+            "lo90": 1.25,
+            "hi90": 2.38,
+            "unit": "years",
+            "model_id": "pah_decline_v1",
+            "state": "validated",
+            "scope": "in range",
+            "scope_reasons": [
+              "Validated within Deepwater Horizon only (one spill); FINDINGS 22."
+            ],
+            "note": "sum of PAH in soil (physical loss plus degradation); validated within Deepwater Horizon only"
+          },
+          {
+            "quantity": "vegetation time to 80% of reference cover",
+            "value": 3.000747667341676,
+            "lo90": 1.229183616831243,
+            "hi90": 5.18880631694516,
+            "unit": "years",
+            "model_id": "veg_recovery_v1",
+            "state": "experimental",
+            "scope": "in range",
+            "scope_reasons": [],
+            "evidence_grade": "suggestive",
+            "note": "ten studies, one spill, cleanup unrecorded; curve is oiled marsh as managed, not a treatment effect; worse than no-trend baseline for heavy oiling (FINDINGS 14); shown for transparency only"
+          },
+          {
+            "quantity": "edge-loss rate 2010-2015 (deployed model, all-cell fit)",
+            "value": 1.4180746233063197,
+            "lo90": -1.740831851043625,
+            "hi90": 4.299612649462656,
+            "unit": "m/yr edge loss (positive = land lost)",
+            "model_id": "edge_loss_v1",
+            "state": "validated",
+            "scope": "in range",
+            "scope_reasons": [],
+            "note": "held out by basin; the interval is for one cell"
+          },
+          {
+            "quantity": "natural recovery cumulative edge loss to year 5",
+            "value": 10.417219732138179,
+            "lo90": -5.820505129843225,
+            "hi90": 26.13401181930968,
+            "unit": "m",
+            "model_id": "composer_natural_recovery_v1",
+            "state": "experimental",
+            "scope": "in range",
+            "scope_reasons": [],
+            "note": "In held-out checks the oil-excess component over-predicted NAIP heavy-cell loss by about 0.5 m/yr (B1b +0.59, C1b +0.55; results/scenario_composer/summary_v4_r3.txt)."
+          },
+          {
+            "quantity": "natural recovery cumulative edge loss to year 8",
+            "value": 15.140934795666816,
+            "lo90": -11.09242897882552,
+            "hi90": 40.700870421289245,
+            "unit": "m",
+            "model_id": "composer_natural_recovery_v1",
+            "state": "experimental",
+            "scope": "in range",
+            "scope_reasons": [],
+            "note": "In held-out checks the oil-excess component over-predicted NAIP heavy-cell loss by about 0.5 m/yr (B1b +0.59, C1b +0.55; results/scenario_composer/summary_v4_r3.txt)."
+          }
+        ]
+      },
+      "sources": [
+        "models/registry.json",
+        "results/pah_decline/by_oiling_class.csv",
+        "models/veg_recovery_v1.json",
+        "models/p5_edge_loss_v1.json",
+        "models/mangrove_damage_v1.json"
+      ]
+    },
+    {
+      "step": 6,
+      "name": "trade_offs",
+      "inputs": {
+        "habitat_class": "marsh"
+      },
+      "outputs": {
+        "natural_attenuation": {
+          "production_rate": "not sourced",
+          "waste": "not sourced",
+          "cost_class": "not sourced",
+          "secondary_impacts": "Oil persists longer where energy is low; monitoring effort only"
+        },
+        "manual_removal": {
+          "production_rate": "not sourced",
+          "waste": "not sourced",
+          "cost_class": "not sourced",
+          "secondary_impacts": "Trampling and foot traffic can damage soft sediment and vegetation"
+        },
+        "passive_sorbents": {
+          "production_rate": "not sourced",
+          "waste": "not sourced",
+          "cost_class": "not sourced",
+          "secondary_impacts": "Sorbent waste generation; limited to mobile oil"
+        },
+        "vacuum_removal": {
+          "production_rate": "not sourced",
+          "waste": "not sourced",
+          "cost_class": "not sourced",
+          "secondary_impacts": "Access and equipment disturbance; removes free oil only"
+        },
+        "low_pressure_flushing": {
+          "production_rate": "not sourced",
+          "waste": "not sourced",
+          "cost_class": "not sourced",
+          "secondary_impacts": "Can drive oil into sediment if misapplied; mobilised oil must be recovered"
+        },
+        "low_pressure_heated_flushing": {
+          "production_rate": "not sourced",
+          "waste": "not sourced",
+          "cost_class": "not sourced",
+          "secondary_impacts": "Heat harms sensitive biota; excluded on wetlands"
+        },
+        "high_pressure_washing": {
+          "production_rate": "not sourced",
+          "waste": "not sourced",
+          "cost_class": "not sourced",
+          "secondary_impacts": "High disturbance; drives oil down if used on soft substrate"
+        },
+        "high_pressure_heated_washing": {
+          "production_rate": "not sourced",
+          "waste": "not sourced",
+          "cost_class": "not sourced",
+          "secondary_impacts": "Hot-water washing initially worsened recovery at Exxon Valdez sites (NOAA OR&R)"
+        },
+        "surface_washing_agents": {
+          "production_rate": "not sourced",
+          "waste": "not sourced",
+          "cost_class": "not sourced",
+          "secondary_impacts": "Chemical residue and mobilised-oil recovery concerns"
+        },
+        "solidifiers": {
+          "production_rate": "not sourced",
+          "waste": "not sourced",
+          "cost_class": "not sourced",
+          "secondary_impacts": "Added material and waste; limited field evidence"
+        },
+        "mechanical_removal": {
+          "production_rate": "not sourced",
+          "waste": "not sourced",
+          "cost_class": "not sourced",
+          "secondary_impacts": "Sediment loss and habitat damage; excluded on marsh and mudflat"
+        },
+        "sediment_relocation": {
+          "production_rate": "not sourced",
+          "waste": "not sourced",
+          "cost_class": "not sourced",
+          "secondary_impacts": "Redistributes oil; only on exposed beaches"
+        },
+        "sediment_mixing": {
+          "production_rate": "not sourced",
+          "waste": "not sourced",
+          "cost_class": "not sourced",
+          "secondary_impacts": "Can bury or spread oil; not for soft or sensitive habitat"
+        },
+        "bioremediation": {
+          "production_rate": "not sourced",
+          "waste": "not sourced",
+          "cost_class": "not sourced",
+          "secondary_impacts": "Effectiveness depends on nutrients, oxygen and access; limited bioaugmentation evidence (NOAA)"
+        },
+        "vegetation_cutting": {
+          "production_rate": "not sourced",
+          "waste": "not sourced",
+          "cost_class": "not sourced",
+          "secondary_impacts": "Removes biomass and can increase erosion; only where sensitivity is high"
+        },
+        "planting (after mechanical cleanup)": {
+          "production_rate": "not sourced",
+          "waste": "not sourced",
+          "cost_class": "not sourced",
+          "secondary_impacts": "not sourced"
+        }
+      },
+      "sources": [
+        "data/knowledge/literature_effects.csv",
+        "data/knowledge/tables/technology.csv"
+      ]
+    },
+    {
+      "step": 7,
+      "name": "recommendation",
+      "inputs": {
+        "class_rules": "E excluded > A benefit > D harm under conditions > B no clear evidence; C natural recovery",
+        "ordering": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name"
+      },
+      "outputs": {
+        "classes": {
+          "A": [
+            "planting (after mechanical cleanup)",
+            "manual_removal"
+          ],
+          "B": [
+            "passive_sorbents",
+            "bioremediation",
+            "low_pressure_flushing",
+            "surface_washing_agents"
+          ],
+          "C": [
+            "natural_attenuation"
+          ],
+          "D": [
+            "vacuum_removal",
+            "vegetation_cutting"
+          ],
+          "E": [
+            "solidifiers",
+            "low_pressure_heated_flushing",
+            "mechanical_removal",
+            "sediment_relocation",
+            "high_pressure_heated_washing",
+            "high_pressure_washing",
+            "sediment_mixing"
+          ]
+        },
+        "headline": "Field evidence of benefit over natural recovery: planting (after mechanical cleanup) (edge loss avoided by year 8 8.7 m (90% 2.5 to 15.1)); manual_removal (vegetation cover ratio gain at year 2 0.36 (90% 0.20 to 0.52)). Differences are experimental composer output from one site's field evidence."
+      },
+      "sources": [
+        "steps 2-6"
+      ]
+    },
+    {
+      "step": 8,
+      "name": "report",
+      "inputs": {
+        "n_options": 16
+      },
+      "outputs": {
+        "headline": "Field evidence of benefit over natural recovery: planting (after mechanical cleanup) (edge loss avoided by year 8 8.7 m (90% 2.5 to 15.1)); manual_removal (vegetation cover ratio gain at year 2 0.36 (90% 0.20 to 0.52)). Differences are experimental composer output from one site's field evidence.",
+        "scope_tier": "validated",
+        "models_used": [
+          "composer_natural_recovery_v1",
+          "edge_loss_v1",
+          "pah_decline_v1",
+          "veg_recovery_v1"
+        ],
+        "plot_keys": [
+          "cumulative_edge_loss",
+          "evidence_matrix",
+          "paired_differences"
+        ]
+      },
+      "sources": [
+        "steps 1-7"
+      ]
+    }
+  ],
+  "version": {
+    "pipeline_version": "f9-v1",
+    "git_commit": "33b89c95bbbd300eb0a30d5279ffbcb13350d397",
+    "python": "3.11.17",
+    "numpy": "2.4.2",
+    "pandas": "3.0.1",
+    "seed": 20261112,
+    "n_draws": 5000,
+    "models_used": [
+      "composer_natural_recovery_v1",
+      "edge_loss_v1",
+      "pah_decline_v1",
+      "veg_recovery_v1"
+    ],
+    "models": {
+      "composer_natural_recovery_v1": {
+        "state": "experimental",
+        "version": "p5-edge-loss-clean-v1"
+      },
+      "edge_loss_v1": {
+        "state": "validated",
+        "version": "p5-edge-loss-v1"
+      },
+      "pah_decline_v1": {
+        "state": "validated",
+        "version": "pah-decline-v1"
+      },
+      "veg_recovery_v1": {
+        "state": "experimental",
+        "version": "veg-recovery-v1"
+      }
+    },
+    "knowledge_checksums": {
+      "evidence_verdicts.csv": "7eda8fd01b47",
+      "treatment_conditions.csv": "9b4a454fd520",
+      "mangrove_screening.csv": "8290319884e9",
+      "literature_effects.csv": "a13f3e868f53",
+      "screening_rule.csv": "d24c4078bba9",
+      "ecological_score.csv": "0f05d1c1e6e4",
+      "technology.csv": "be72adedec13",
+      "evidence_effect.csv": "6900d9bf5a95"
+    }
+  },
+  "characterisation": {
+    "label": null,
+    "habitat": "salt_marsh",
+    "habitat_class": "marsh",
+    "oil_category": "light",
+    "oil_source": "input",
+    "oiling_class": "Heavy",
+    "oiling_basis": "site max_oiling (SCAT)",
+    "exposure": "high",
+    "access": "restricted",
+    "season": "summer",
+    "sensitivity": "very_high",
+    "shoreline_type_for_rules": "marsh",
+    "input_kind": "site_dict",
+    "cell": "8018_32612",
+    "assumptions": [],
+    "site_scope_flags": {
+      "in_scope": true,
+      "out_of_scope": [],
+      "extrapolation": [],
+      "evidence_scope": []
+    },
+    "scope_tier": "validated",
+    "scope_reasons": []
+  }
+}
