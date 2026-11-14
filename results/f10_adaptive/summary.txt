@@ -1,0 +1,37 @@
+F10 adaptive monitoring (run once).
+Gate at 25% monitoring: updated MAE < prior MAE, updated median 90% width < prior, updated coverage in [0.80, 0.97].
+
+Scenario: primary_2010_2015
+  barataria Heavy n= 384 MAE 1.096->1.081 width 7.465->5.666 coverage 0.932 gate=True
+  barataria NOO   n=2663 MAE 1.382->1.277 width 6.928->5.077 coverage 0.876 gate=True
+  barataria all   n=3969 MAE 1.316->1.237 width 6.951->5.088 coverage 0.883 gate=True
+  breton    Heavy n=  24 MAE 1.886->1.841 width 8.305->6.037 coverage 0.792 gate=False
+  breton    NOO   n=2123 MAE 1.383->1.249 width 7.993->5.310 coverage 0.882 gate=True
+  breton    all   n=2358 MAE 1.382->1.257 width 7.997->5.314 coverage 0.881 gate=True
+  pooled    Heavy n= 408 MAE 1.142->1.126 width 7.483->5.675 coverage 0.924 gate=True
+  pooled    NOO   n=4786 MAE 1.382->1.265 width 7.088->5.179 coverage 0.879 gate=True
+  pooled    all   n=6327 MAE 1.340->1.245 width 7.082->5.167 coverage 0.882 gate=True
+
+Scenario: time_update_2010_2017
+  barataria Heavy n= 374 MAE 0.913->0.912 width 7.579->5.817 coverage 0.939 gate=True
+  barataria NOO   n=1594 MAE 1.024->1.015 width 6.928->5.066 coverage 0.902 gate=True
+  barataria all   n=2787 MAE 0.999->1.001 width 6.964->5.088 coverage 0.909 gate=False
+  pooled    Heavy n= 374 MAE 0.913->0.912 width 7.579->5.817 coverage 0.939 gate=True
+  pooled    NOO   n=1594 MAE 1.024->1.015 width 6.928->5.066 coverage 0.902 gate=True
+  pooled    all   n=2787 MAE 0.999->1.001 width 6.964->5.088 coverage 0.909 gate=False
+
+All fractions (pooled, Heavy and NOO):
+  primary_2010_2015
+    f=0.10 Heavy n= 476 MAEΔ=-0.009 widthΔ=+1.560 updated_cov=0.935
+    f=0.25 Heavy n= 408 MAEΔ=+0.016 widthΔ=+1.808 updated_cov=0.924
+    f=0.50 Heavy n= 278 MAEΔ=+0.104 widthΔ=+1.896 updated_cov=0.932
+    f=0.10 NOO   n=5720 MAEΔ=+0.077 widthΔ=+1.559 updated_cov=0.890
+    f=0.25 NOO   n=4786 MAEΔ=+0.118 widthΔ=+1.910 updated_cov=0.879
+    f=0.50 NOO   n=3173 MAEΔ=+0.139 widthΔ=+2.052 updated_cov=0.880
+  time_update_2010_2017
+    f=0.10 Heavy n= 440 MAEΔ=-0.076 widthΔ=+1.562 updated_cov=0.936
+    f=0.25 Heavy n= 374 MAEΔ=+0.001 widthΔ=+1.762 updated_cov=0.939
+    f=0.50 Heavy n= 252 MAEΔ=-0.019 widthΔ=+1.861 updated_cov=0.929
+    f=0.10 NOO   n=1920 MAEΔ=+0.001 widthΔ=+1.585 updated_cov=0.920
+    f=0.25 NOO   n=1594 MAEΔ=+0.009 widthΔ=+1.862 updated_cov=0.902
+    f=0.50 NOO   n=1048 MAEΔ=+0.093 widthΔ=+1.993 updated_cov=0.911
