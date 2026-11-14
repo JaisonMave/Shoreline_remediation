@@ -1,0 +1,14 @@
+{
+ "currentVersion": 11.5,
+ "folders": [],
+ "services": [
+  {
+   "name": "DWH/DWHAtlas_CTDs",
+   "type": "MapServer"
+  },
+  {
+   "name": "DWH/ERMA_GLIDERs",
+   "type": "MapServer"
+  }
+ ]
+}

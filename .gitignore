@@ -8,3 +8,4 @@ __pycache__/
 *.py[cod]
 docs/reference/restricted/
 data/schema_local/
+data/external/bahia_las_minas/

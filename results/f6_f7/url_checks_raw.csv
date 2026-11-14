@@ -1,0 +1,51 @@
+﻿milestone,source_id,url,http_status,final_url,bytes,content_type,error,checked_utc
+F6,noaa_lib_orr42_landing,https://repository.library.noaa.gov/view/noaa/380,403,https://repository.library.noaa.gov/view/noaa/380,406,text/html,,2026-11-14T08:04:37Z
+F6,noaa_lib_orr42_pdf,https://repository.library.noaa.gov/view/noaa/380/noaa_380_DS1.pdf,403,https://repository.library.noaa.gov/view/noaa/380/noaa_380_DS1.pdf,439,text/html,,2026-11-14T08:04:38Z
+F6,noaa_orr_dwh_page,https://response.restoration.noaa.gov/oil-and-chemical-spills/significant-incidents/deepwater-horizon-oil-spill,200,https://response.restoration.noaa.gov/oil-and-chemical-spills/significant-incidents/deepwater-horizon-oil-spill,59307,text/html; charset=utf-8,,2026-11-14T08:04:41Z
+F6,erma_gulfofamerica,https://erma.noaa.gov/gulfofamerica/erma.html,200,https://erma.noaa.gov/gulfofamerica,8024,text/html; charset=utf-8,,2026-11-14T08:04:44Z
+F6,erma_gulfofmexico,https://erma.noaa.gov/gulfofmexico/erma.html,200,https://erma.noaa.gov/gulfofmexico,8024,text/html; charset=utf-8,,2026-11-14T08:04:45Z
+F6,erma_root,https://erma.noaa.gov/,200,https://erma.noaa.gov/,8024,text/html; charset=utf-8,,2026-11-14T08:04:47Z
+F6,diver_dwh,https://www.diver.orr.noaa.gov/deepwater-horizon-nrda-data/,200,https://www.diver.orr.noaa.gov/deepwater-horizon-nrda-data/,103791,text/html;charset=UTF-8,,2026-11-14T08:04:50Z
+F6,diver_home,https://www.diver.orr.noaa.gov/,200,https://www.diver.orr.noaa.gov/,70041,text/html;charset=UTF-8,,2026-11-14T08:04:52Z
+F6,diver_archive,https://www.ncei.noaa.gov/data/deepwater-horizon-diver-system/archive/,200,https://www.ncei.noaa.gov/data/deepwater-horizon-diver-system/archive/,2972,text/html; charset=UTF-8,,2026-11-14T08:04:54Z
+F6,ncei_0163818,https://www.ncei.noaa.gov/access/metadata/landing-page/bin/iso?id=gov.noaa.nodc:0163818,200,https://www.ncei.noaa.gov/access/metadata/landing-page/bin/iso?id=gov.noaa.nodc:0163818,50246,text/html,,2026-11-14T08:05:03Z
+F6,doi_0163818,https://doi.org/10.7289/v53t9ffx,200,https://www.ncei.noaa.gov/access/metadata/landing-page/bin/iso?id=gov.noaa.nodc:0163818,50246,text/html,,2026-11-14T08:05:35Z
+F6,ncei_0163814,https://www.ncei.noaa.gov/access/metadata/landing-page/bin/iso?id=gov.noaa.nodc:0163814,000,https://www.ncei.noaa.gov/access/metadata/landing-page/bin/iso?id=gov.noaa.nodc:0163814,0,,,2026-11-14T08:06:21Z
+F6,doi_0163814,https://doi.org/10.7289/v5mw2fcq,301,https://www.ncei.noaa.gov/access/metadata/landing-page/bin/iso?id=gov.noaa.nodc:0163814,0,text/html; charset=iso-8859-1,,2026-11-14T08:07:06Z
+F6,erma_gis_collection,https://accession.nodc.noaa.gov/ORR-DWH-ERMA-GIS,200,https://www.ncei.noaa.gov/access/metadata/landing-page/bin/iso?id=gov.noaa.nodc:ORR-DWH-ERMA-GIS,257445,text/html,,2026-11-14T08:07:44Z
+F6,griidc_home,https://data.griidc.org/,200,https://www.griidc.org/,34868,text/html; charset=UTF-8,,2026-11-14T08:07:48Z
+F6,griidc_zengel2022,https://data.griidc.org/data/R6.x813.000:0007,200,https://data.griidc.org/data/R6.x813.000:0007,73068,text/html; charset=UTF-8,,2026-11-14T08:07:49Z
+F6,griidc_zengel2022_doi,https://doi.org/10.7266/VF524143,200,https://data.griidc.org/data/R6.x813.000:0007,73068,text/html; charset=UTF-8,,2026-11-14T08:07:52Z
+F6,cpra_cims,https://cims.coastal.louisiana.gov/,200,https://cims.coastal.louisiana.gov/,19362,text/html; charset=utf-8,,2026-11-14T08:07:54Z
+F6,cpra_home,https://www.coastal.louisiana.gov/,000,https://www.coastal.louisiana.gov/,0,,,2026-11-14T08:08:39Z
+F6,arcgis_noaa_cusp,https://services.arcgis.com/rD2ylXRs80UroD90/ArcGIS/rest/services/NOAA_Coastal_Shoreline/FeatureServer,200,https://services.arcgis.com/rD2ylXRs80UroD90/ArcGIS/rest/services/NOAA_Coastal_Shoreline/FeatureServer,5299,text/html; charset=utf-8,,2026-11-14T08:08:40Z
+F6,ngdc_arcgis_rest,https://gis.ngdc.noaa.gov/arcgis/rest/services,200,https://gis.ngdc.noaa.gov/arcgis/rest/services,4830,text/html;charset=utf-8,,2026-11-14T08:08:43Z
+F6,coast_arcgis_rest,https://coast.noaa.gov/arcgis/rest/services,200,https://coast.noaa.gov/arcgis/rest/services,881,text/html; charset=utf-8,,2026-11-14T08:08:46Z
+F6,nowcoast_arcgis,https://nowcoast.noaa.gov/arcgis/rest/services,403,https://nowcoast.noaa.gov/arcgis/rest/services,1087,text/html,,2026-11-14T08:08:46Z
+F6,github_scat_standard,https://github.com/researchplanninginc/NOAA-SCAT-Standard,200,https://github.com/researchplanninginc/NOAA-SCAT-Standard,217504,text/html; charset=utf-8,,2026-11-14T08:08:48Z
+F6,iosc_2011_shoreline_treatment,https://iosc.kglmeridian.com/view/journals/iosc/2011/1/article-p271.xml,200,https://iosc.kglmeridian.com/view/journals/iosc/2011/1/article-p271.xml,1444,text/html,,2026-11-14T08:08:49Z
+F6,gulfspillrestoration,https://www.gulfspillrestoration.noaa.gov/,200,https://www.gulfspillrestoration.noaa.gov/,47711,text/html; charset=UTF-8,,2026-11-14T08:08:52Z
+F6,dwh_admin_record_fws,https://www.fws.gov/doh/dwh-ar,403,https://www.fws.gov/doh/dwh-ar,383,text/html,,2026-11-14T08:08:53Z
+F6,inport_search_dwh,https://www.fisheries.noaa.gov/inport,200,https://www.fisheries.noaa.gov/inport/,17589,text/html;charset=UTF-8,,2026-11-14T08:08:54Z
+F7,evostc,https://evostc.state.ak.us/,200,https://evostc.state.ak.us/,58407,text/html; charset=utf-8,,2026-11-14T08:08:57Z
+F7,gulfwatchalaska,https://gulfwatchalaska.org/,200,https://gulfwatchalaska.org/,247061,text/html; charset=UTF-8,,2026-11-14T08:09:00Z
+F7,goa_dataone,https://search.dataone.org/portals/GOA,200,https://search.dataone.org/portals/GOA,10363,text/html,,2026-11-14T08:09:02Z
+F7,aoos_gulf_alaska,https://portal.aoos.org/gulf-of-alaska.php,200,https://gulf-of-alaska.portal.aoos.org/,9692,text/html; charset=UTF-8,,2026-11-14T08:09:05Z
+F7,inport_evthd,https://www.fisheries.noaa.gov/inport/item/17283,200,https://www.fisheries.noaa.gov/inport/item/17283,67572,text/html;charset=UTF-8,,2026-11-14T08:09:06Z
+F7,nccos_lingering_oil_2015,https://coastalscience.noaa.gov/data_reports/lingering-oil-measurements-site-sample-and-photographic-data-from-prince-william-sound-2015-gulf-watch-alaska-lingering-oil-component/,200,https://coastalscience.noaa.gov/data_reports/lingering-oil-measurements-site-sample-and-photographic-data-from-prince-william-sound-2015-gulf-watch-alaska-lingering-oil-component/,184249,text/html; charset=UTF-8,,2026-11-14T08:09:09Z
+F7,noaa_evos_incident,https://response.restoration.noaa.gov/oil-and-chemical-spills/significant-incidents/exxon-valdez-oil-spill,200,https://response.restoration.noaa.gov/oil-and-chemical-spills/significant-incidents/exxon-valdez-oil-spill,42374,text/html; charset=utf-8,,2026-11-14T08:09:11Z
+F7,inport_cosco_busan,https://www.fisheries.noaa.gov/inport/item/57310,200,https://www.fisheries.noaa.gov/inport/item/57310,63679,text/html;charset=UTF-8,,2026-11-14T08:09:12Z
+F7,erma_southwest,https://erma.noaa.gov/southwest/erma.html,200,https://erma.noaa.gov/southwest,8024,text/html; charset=utf-8,,2026-11-14T08:09:14Z
+F7,erma_alaska,https://erma.noaa.gov/alaska/erma.html,200,https://erma.noaa.gov/alaska,8024,text/html; charset=utf-8,,2026-11-14T08:09:16Z
+F7,erma_northwest,https://erma.noaa.gov/northwest/erma.html,200,https://erma.noaa.gov/northwest,8024,text/html; charset=utf-8,,2026-11-14T08:09:18Z
+F7,erma_atlantic,https://erma.noaa.gov/atlantic/erma.html,200,https://erma.noaa.gov/atlantic,8024,text/html; charset=utf-8,,2026-11-14T08:09:20Z
+F7,inport_refugio,https://www.fisheries.noaa.gov/inport/item/57720,200,https://www.fisheries.noaa.gov/inport/item/57720,61145,text/html;charset=UTF-8,,2026-11-14T08:09:21Z
+F7,bouchard_shoreline_pdf,https://pub-data.diver.orr.noaa.gov/admin-record/6406/shoreline_injury_assessment.pdf,200,https://pub-data.diver.orr.noaa.gov/admin-record/6406/shoreline_injury_assessment.pdf,1303719,application/pdf,,2026-11-14T08:09:26Z
+F7,selendang_fws_pdf,https://www.fws.gov/rivers/sites/default/files/documents/2024-06/iv.a_selendangassessplanfinal_508.pdf,403,https://www.fws.gov/rivers/sites/default/files/documents/2024-06/iv.a_selendangassessplanfinal_508.pdf,491,text/html,,2026-11-14T08:09:27Z
+F7,hebei_sciencedirect,https://www.sciencedirect.com/science/article/pii/S0160412019332945,403,https://www.sciencedirect.com/science/article/pii/S0160412019332945,1209836,text/html; charset=UTF-8,,2026-11-14T08:09:28Z
+F7,ncei_galeta,https://www.ncei.noaa.gov/archive/accession/9400033,301,https://www.ncei.noaa.gov/access/metadata/landing-page/bin/iso?id=gov.noaa.nodc:9400033,0,text/html; charset=iso-8859-1,,2026-11-14T08:10:13Z
+F7,ncei_galeta_data,https://www.ncei.noaa.gov/data/oceans/archive/arc0001/9400033/1.1/data/0-data,200,https://www.ncei.noaa.gov/data/oceans/archive/arc0001/9400033/1.1/data/0-data/,16028,text/html;charset=UTF-8,,2026-11-14T08:10:16Z
+F7,si_galeta,https://repository.si.edu/items/5c889c7f-92f8-43f7-8fb8-c68c318f502b,200,https://repository.si.edu/items/5c889c7f-92f8-43f7-8fb8-c68c318f502b,501330,text/html; charset=utf-8,,2026-11-14T08:10:25Z
+F7,tropics_doi,https://doi.org/10.70149/000000328578,200,https://www.bsee.gov/research-records/osrr-1169-tropical-oil-pollution-investigations-in-coastal-systems-tropics,55156,text/html; charset=utf-8,,2026-11-14T08:10:28Z
+F7,cedre_home,https://wwz.cedre.fr/en,200,https://cedre.fr/en,284663,text/html; charset=utf-8,,2026-11-14T08:10:33Z
+F7,noaa_cosco_busan,https://response.restoration.noaa.gov/oil-and-chemical-spills/significant-incidents/cosco-busan-oil-spill,200,https://response.restoration.noaa.gov/oil-and-chemical-spills/significant-incidents/cosco-busan-oil-spill,40472,text/html; charset=utf-8,,2026-11-14T08:10:44Z
