@@ -20,41 +20,22 @@ The launcher checks Python and dependencies, installs missing packages, and star
 ## Project structure
 
 ```text
-model/
-|-- data/
-|   |-- expert_scoring_template.csv
-|   |-- lhs_scat_process_dataset.csv
-|   `-- scenario_training_dataset.csv
-|-- docs/
-|   |-- NOAA_ASSUMPTION_AUDIT.md
-|   |-- PROCESS_MODEL_METHOD.md
-|   |-- workflow.md
-|   `-- reference/
-|       |-- DHI_OilSpill_Model.pdf
-|       `-- manual_shore_assess_aug2013.pdf
-|-- reports/
-|   |-- comparison_report.csv
-|   |-- scenario_summary.csv
-|   |-- scenario_comparison_report.pdf
-|   |-- scenario_comparison_report.png
-|   `-- scenario_dashboard.html
-|-- src/shoreline_remediation/
-|   |-- dashboard.py
-|   |-- scenario_runner.py
-|   |-- process_model.py
-|   |-- noaa_crosswalk.py
-|   |-- data_model.py
-|   |-- fast_engine.py
-|   |-- decision_framework.py
-|   |-- ml_models.py
-|   |-- training_pipeline.py
-|   |-- data_dictionary.py
-|   |-- train_models.py
-|   `-- run_benchmark.py
-|-- requirements.txt
-|-- run_shoreline_dashboard.bat
-`-- README.md
+Model_v3/
+|-- data/            inputs; data/external (real datasets with SOURCE.md), data/knowledge (evidence tables),
+|                    data/meta (catalogue, variable dictionary), data/demo (site table for the dashboard)
+|-- docs/            plans (written before each analysis), FINDINGS, ROADMAP (milestones, decisions),
+|                    REVIEW_NOTES, HANDOFF, V4_PROGRAMME_PLAN, DATA_CATALOGUE, VARIABLE_DICTIONARY
+|-- models/          model cards (JSON) for deployed and experimental models
+|-- results/         one folder per analysis; earlier results are kept beside reruns
+|-- reports/         synthetic-data benchmark outputs (method test only)
+|-- scripts/         data download and build scripts
+|-- src/shoreline_remediation/   package: rules, ranking, process model, site evidence, composer, dashboard
+|-- tests/           pytest suite (python -m pytest tests)
+|-- validation/      one module per pre-specified check (python -m validation.<name>)
+|-- requirements.txt, requirements-analysis.txt, CHANGELOG.md
 ```
+
+Tested with Python 3.11 (dashboard and full test suite, 14 Nov 2026); several analyses were first run with 3.13.
 
 ## Decision workflow
 
@@ -65,13 +46,10 @@ SCAT/Scenario inputs
 FAST feasibility gate
         |
         v
-ML suitability and benchmark evidence
+Ecological (do-no-harm) order within each feasibility tier, ASSUMED
         |
         v
-Ecological suitability rules
-        |
-        v
-Treatment utility ranking
+Field evidence beside each option (site evidence view; D13)
         |
         v
 DHI-informed process trajectory
@@ -80,7 +58,7 @@ DHI-informed process trajectory
 Monitoring-oriented endpoint state
 ```
 
-FAST remains a safety and applicability gate. The dashboard currently uses the live Gaussian Process suitability path for supported treatments, while the ML model evidence tab compares Linear Regression, SVM/SVR, ANN/MLP, Random Forest, XGBoost, Gaussian Process Regression, and the fuzzy baseline. The benchmark is based on synthetic labels and is not production validation.
+FAST remains a safety and applicability gate. Since V4 (D26) the ranking uses no ML suitability score: the only labels available are rule-generated, so the Gaussian Process layer is used only in the method test. The ML model evidence tab compares Linear Regression, SVM/SVR, ANN/MLP, Random Forest, XGBoost, Gaussian Process Regression, and the fuzzy baseline. The benchmark is based on synthetic labels and is not production validation.
 
 ## Command-line workflows
 

@@ -4,3 +4,5 @@ data/raw/
 .pytest_cache/
 *.cpython-313*.pyc
 data/external/diver_dwh/
+__pycache__/
+*.py[cod]
