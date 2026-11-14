@@ -1,10 +1,18 @@
 # Documentation wrap-up (14 November 2026)
 
-This commit closes the documentation gap after F11 without changing model code, data, or scientific results.
+This documentation-only close-out follows F11; it does not change model code, data, or scientific results. Documentation entry points are now aligned for both a human owner and a future AI agent.
 
-- Refreshed `docs/HANDOFF.md` as the entry point for the current branch state, evidence boundaries, blockers, commands, and owner actions.
-- Added `docs/ROADMAP_STATUS.md` as the up-to-date Track F snapshot. The longer `docs/ROADMAP.md` is retained as the historical milestone and decision-register record; its older summary rows are superseded by the new snapshot, not erased.
-- F11 is the latest recorded integrated validation. Its 2/6 historical active/natural agreement versus a 5/6 always-active baseline, unresolved disagreements, and absence of expert responses are explicit.
-- F12 remains unreleased. The prior handoff records 177 tests passing, but this documentation-only close-out did not rerun tests.
+## Updated in this close-out
 
-No external expert review, Jaison sign-off, new validation, release, or cross-spill generalisation is claimed. Follow `docs/ROADMAP_STATUS.md` for the remaining close-out sequence.
+- `README.md` now starts with the handoff/status/agent-brief reading order, accurate evidence scope, current blockers, launch and test commands, and repository map.
+- `docs/HANDOFF.md` is the current state and owner-action guide.
+- `docs/ROADMAP_STATUS.md` is the current Track F snapshot; the longer `docs/ROADMAP.md` remains the historical milestone and decision-register record.
+- `docs/TRACK_F_BRIEF.md` now serves as the concise AI retrieval/continuation brief, with current checkpoint, next actions, scientific guardrails, documentation protocol and environment-neutral commands.
+- `docs/workflow.md` no longer presents the old synthetic ML scoring flow as the current decision workflow.
+- `scripts/walkthrough_deck/README.md` clarifies the current deck pointer and scratch-path limitations.
+
+## Evidence and status safeguards
+
+F11 historical active/natural agreement is 2/6 versus 5/6 for an always-active baseline; disagreements remain open. No expert responses have been collected. F12 remains unreleased. The process model failed its held-out gate, and the composer heavy-cell bias gate remains failed. The prior handoff records 177 tests passing, but this documentation update did not rerun tests.
+
+No expert review, Jaison sign-off, new validation, release, or cross-spill generalisation is claimed. Continue from `docs/TRACK_F_BRIEF.md`; check `docs/ROADMAP_STATUS.md` and `docs/HANDOFF.md` before selecting work.
