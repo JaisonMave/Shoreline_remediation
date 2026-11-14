@@ -1,0 +1,26 @@
+site_id,treatment,start,end,intensity,assigned,source_id
+zengel2015_main_Manual_Treatment,manual_removal,2011-02,2011-06,study=main; group=Manual Treatment,chosen,EXT-ZENGEL2015
+zengel2015_main_Mechanical_Treatment,mechanical_removal,2011-05,2011-06,study=main; group=Mechanical Treatment,chosen,EXT-ZENGEL2015
+zengel2015_planting_Mechanical_Control,mechanical_removal,2011-05,2011-06,study=planting; group=Mechanical (Control),chosen,EXT-ZENGEL2015
+zengel2015_planting_Mechanical_Planted,mechanical_plus_planting,2011-06,2011-07,study=planting; group=Mechanical (Planted),randomized,EXT-ZENGEL2015
+zengel2015_pre_treatment_Manual_Treatment,manual_removal,2011-02,2011-06,study=pre_treatment; group=Manual Treatment,chosen,EXT-ZENGEL2015
+zengel2015_pre_treatment_Mechanical_Treatment,mechanical_removal,2011-05,2011-06,study=pre_treatment; group=Mechanical Treatment,chosen,EXT-ZENGEL2015
+zengel2022_plot_11,manual_removal,2011-02,2011-06,PLOT_TYPE=TREATED - MANUAL; OILED=Oiled,chosen,EXT-ZENGEL2022
+zengel2022_plot_17,manual_removal,2011-02,2011-06,PLOT_TYPE=TREATED - MANUAL; OILED=Oiled,chosen,EXT-ZENGEL2022
+zengel2022_plot_20,manual_removal,2011-02,2011-06,PLOT_TYPE=TREATED - MANUAL; OILED=Oiled,chosen,EXT-ZENGEL2022
+zengel2022_plot_21,manual_removal,2011-02,2011-06,PLOT_TYPE=TREATED - MANUAL; OILED=Oiled,chosen,EXT-ZENGEL2022
+zengel2022_plot_22,manual_removal,2011-02,2011-06,PLOT_TYPE=TREATED - MANUAL; OILED=Oiled,chosen,EXT-ZENGEL2022
+zengel2022_plot_1-2,mechanical_removal,2011-05,2011-06,PLOT_TYPE=TREATED - MECHANICAL; OILED=Oiled,chosen,EXT-ZENGEL2022
+zengel2022_plot_7-8,mechanical_removal,2011-05,2011-06,PLOT_TYPE=TREATED - MECHANICAL; OILED=Oiled,chosen,EXT-ZENGEL2022
+zengel2022_plot_8-9,mechanical_removal,2011-05,2011-06,PLOT_TYPE=TREATED - MECHANICAL; OILED=Oiled,chosen,EXT-ZENGEL2022
+zengel2022_plot_9-10,mechanical_removal,2011-05,2011-06,PLOT_TYPE=TREATED - MECHANICAL; OILED=Oiled,chosen,EXT-ZENGEL2022
+zengel2022_plot_16-17,mechanical_removal,2011-05,2011-06,PLOT_TYPE=TREATED - MECHANICAL; OILED=Oiled,chosen,EXT-ZENGEL2022
+zengel2022_plot_17-18,mechanical_removal,2011-05,2011-06,PLOT_TYPE=TREATED - MECHANICAL; OILED=Oiled,chosen,EXT-ZENGEL2022
+zengel2022_plot_19-20,mechanical_removal,2011-05,2011-06,PLOT_TYPE=TREATED - MECHANICAL; OILED=Oiled,chosen,EXT-ZENGEL2022
+zengel2022_plot_20-21,mechanical_removal,2011-05,2011-06,PLOT_TYPE=TREATED - MECHANICAL; OILED=Oiled,chosen,EXT-ZENGEL2022
+zengel2022_plot_22-23,mechanical_removal,2011-05,2011-06,PLOT_TYPE=TREATED - MECHANICAL; OILED=Oiled,chosen,EXT-ZENGEL2022
+zengel2022_plot_6A,mechanical_plus_planting,2011-06,2011-07,PLOT_TYPE=TREATED - PLANTED; OILED=Oiled,randomized,EXT-ZENGEL2022
+zengel2022_plot_6B,mechanical_plus_planting,2011-06,2011-07,PLOT_TYPE=TREATED - PLANTED; OILED=Oiled,randomized,EXT-ZENGEL2022
+zengel2022_plot_6C,mechanical_plus_planting,2011-06,2011-07,PLOT_TYPE=TREATED - PLANTED; OILED=Oiled,randomized,EXT-ZENGEL2022
+zengel2022_plot_6D,mechanical_plus_planting,2011-06,2011-07,PLOT_TYPE=TREATED - PLANTED; OILED=Oiled,randomized,EXT-ZENGEL2022
+zengel2022_plot_6E,mechanical_plus_planting,2011-06,2011-07,PLOT_TYPE=TREATED - PLANTED; OILED=Oiled,randomized,EXT-ZENGEL2022

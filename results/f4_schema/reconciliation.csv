@@ -1,0 +1,39 @@
+dataset,check,expected,actual,reconciled,note
+zengel2015,total_rows,86,86,True,data/external/zengel2015/zengel2015_group_means.csv
+zengel2015,measured_rows,83,83,True,83 numeric group means + 3 ND rows
+zengel2015,nd_rows_censor_flag,3,3,True,"3 ND rows carried as censor_flag=no_limit_available, value=NaN"
+zengel2015,sum_of_group_means_checksum,3144.26,3144.26,True,Exact sum over all 83 numeric group means
+zengel2015,interventions_randomized_vs_chosen,randomized:1;chosen:5,randomized:1;chosen:5,True,Planting randomized; manual/mechanical chosen
+zengel2022,dsas_plot_count,33,33,True,33 plots in DSAS lumped and annual sheets
+zengel2022,plots_with_gps_vs_none,gps:25;none:8,gps:25;none:8,True,"8 DSAS plots (6A-6E, 19-20, 20-21, 22-23) have no GPS rows in GIS field erosion points"
+zengel2022,rows_zengel2022_dsas_lumped,165,165,True,
+zengel2022,rows_zengel2022_dsas_annual,165,165,True,
+zengel2022,rows_zengel2022_field_erosion,132,132,True,
+zengel2022,rows_zengel2022_wave_power,330,330,True,
+zengel2022,rows_zengel2022_shear_strength,17,17,True,
+zengel2022,p3_A_manual_2010_2012_change_mean,1.3926,1.3926,True,results/p3_treatment/A_prespill_adjusted.csv row 0
+zengel2022,p3_A_planted_2010_2012_change_mean,0.553,0.553,True,results/p3_treatment/A_prespill_adjusted.csv row 2
+zengel2022,raw_sheet_plot_id_formatting_note,33 canonical DSAS plot IDs,"Wave Power has 4 space-padded IDs ('1 - 2','7 - 8','8 - 9','9 - 10'); Shear strength has 4 reversed hyphen IDs ('17-16','18-17','21-20','23-22')",True,MISMATCH REPORTED: canonicalized in schema.py while keeping raw_plot_id in observation.qualifier; in p3_treatment_erosion.py A2_wave_power unstripped Wave Power PLOT_IDs left 4 of 33 plots unmatched
+edge_cells,total_louisiana_cells,45404,45404,True,data/demo/p5_sites.csv and data/external/p2/la_cells_basins.csv
+edge_cells,p5_in_scope_cells,12696,12696,True,data/demo/p5_sites.csv status=='in_scope'
+edge_cells,p5_observed_rate_sum_checksum,7253.0552,7253.0552,True,"Sum of observed_rate across all 12,696 in-scope cells"
+edge_cells,naip_edge_2010-2015_cells,4779,4779,True,results/naip_edge_loss/summary.csv (2010-2015)
+edge_cells,naip_edge_2010-2015_n_NOO,2951,2951,True,
+edge_cells,naip_edge_2010-2015_n_Heavy,524,524,True,
+edge_cells,naip_edge_2010-2015_noo_mean_rate,0.215,0.215,True,
+edge_cells,naip_edge_2010-2017_cells,4727,4727,True,results/naip_edge_loss/summary.csv (2010-2017)
+edge_cells,naip_edge_2010-2017_n_NOO,2989,2989,True,
+edge_cells,naip_edge_2010-2017_n_Heavy,516,516,True,
+edge_cells,naip_edge_2010-2017_noo_mean_rate,0.249,0.249,True,
+diver_soil,soil_rows_5_campaign_files,330464,330464,True,docs/DIVER_SOIL_STRUCTURE.md
+diver_soil,soil_samples_5_campaign_files,14926,14926,True,docs/DIVER_SOIL_STRUCTURE.md
+diver_soil,filtered_pah_hopane_rows,127585,127585,True,results/pah_decline/processing_log.txt
+diver_soil,pah_hopane_samples,1698,1698,True,results/pah_decline/processing_log.txt
+diver_soil,assigned_stations,200,200,True,200 stations in results/pah_decline/processing_log.txt (201 station labels in raw 5-file soil before filtering Fall2010-only stations)
+diver_soil,resolved_sample_compound_keys,100181,100181,True,results/pah_decline/processing_log.txt
+diver_soil,pah_below_detection_count,24705,24705,True,"24,705 non-detect PAH sample-compound observations; stored with value=NaN and original_value preserved"
+diver_soil,complete_samples_with_58_compound_sum,1697,1697,True,"1 sample dropped for missing compounds (1,697 of 1,698)"
+diver_soil,samples_with_hopane_ratio,1587,1587,True,"110 samples with hopane non-detected have no ratio (1,587 of 1,697)"
+diver_soil,station_campaign_depth_rows,684,684,True,results/pah_decline/station_campaign.csv
+diver_soil,station_campaign_pah_sum_checksum,1655558.5146,1655558.5206,True,Sum of station-campaign median pah_sum across 684 rows (rel diff 3.6e-9 from L-BFGS-B Tobit solver across OS)
+galeta,raw_data_check,not loaded: raw data absent,not loaded: raw data absent,True,Checked scripts/download_galeta.sh default path data/raw/galeta_ncei_9400033/data

@@ -7,3 +7,4 @@ data/external/diver_dwh/
 __pycache__/
 *.py[cod]
 docs/reference/restricted/
+data/schema_local/

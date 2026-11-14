@@ -1,0 +1,85 @@
+variable,unit,matrix,dtype,valid_min,valid_max,definition,source_dataset
+oiled_veg_mat_cover,%,vegetation,float,0,100,Oiled vegetation mat cover percentage on marsh plots,EXT-ZENGEL2015
+surface_oil_cover,%,shoreline,float,0,100,Surface oil cover percentage on marsh plots,EXT-ZENGEL2015
+tpah_soil,mg/kg,soil,float,0,,Total polycyclic aromatic hydrocarbons in marsh surface soil,EXT-ZENGEL2015
+total_veg_cover,%,vegetation,float,0,100,Total live vegetation cover percentage on marsh plots,EXT-ZENGEL2015
+spartina_cover,%,vegetation,float,0,100,Spartina alterniflora cover percentage on marsh plots,EXT-ZENGEL2015
+periwinkle_density_total,m-2,tissue,float,0,,Total marsh periwinkle (Littoraria irrorata) density per square metre,EXT-ZENGEL2015
+periwinkle_density_juvenile,m-2,tissue,float,0,,Juvenile marsh periwinkle density per square metre,EXT-ZENGEL2015
+periwinkle_density_subadult,m-2,tissue,float,0,,Sub-adult marsh periwinkle density per square metre,EXT-ZENGEL2015
+periwinkle_density_adult,m-2,tissue,float,0,,Adult marsh periwinkle density per square metre,EXT-ZENGEL2015
+crab_burrow_density,m-2,sediment,float,0,,Fiddler crab (Uca spp.) burrow density per square metre,EXT-ZENGEL2015
+shoreline_retreat_rate,m/yr,shoreline,float,-20,20,Marsh shoreline retreat rate per year (positive = retreat),EXT-ZENGEL2015
+EROSION_RATE,m/yr,shoreline,float,-20,20,Marsh-edge erosion rate per plot (positive = erosion; DSAS or field transect mean),EXT-ZENGEL2022
+SHST_KPA,kPa,soil,float,0,100,Marsh root-zone soil shear strength per plot,EXT-ZENGEL2022
+WE_WM,W/m,shoreline,float,0,,Weighted mean wave power density at plot over period,EXT-ZENGEL2022
+WE_MAX,W/m,shoreline,float,0,,Maximum wave power density at plot over period,EXT-ZENGEL2022
+land_fraction,fraction,shoreline,float,0,1,Share of 100 m edge cell classified as vegetated land in NAIP or Landsat imagery,DER-NAIP-EDGE;DER-P2
+rate,m/yr,shoreline,float,-50,50,Observed NAIP marsh-edge loss rate over multi-year flight interval,DER-NAIP-EDGE;DER-P2
+observed_rate,m/yr,shoreline,float,-50,50,Observed NAIP 2010-2015 marsh-edge loss rate for in-scope P5 cells,DER-P5
+pre_rate,m/yr,shoreline,float,-50,50,Pre-spill Landsat marsh-edge loss rate (1998-2000 to 2007-2009),DER-P2;DER-P5
+water_1km_2010,fraction,shoreline,float,0,1,Open-water share within 1 km of cell centre in 2010 NAIP mosaic,DER-NAIP-EDGE;DER-P2
+water_250m_2010,fraction,shoreline,float,0,1,Open-water share within 250 m of cell centre in 2010 NAIP mosaic,DER-P2
+fetch_mean_m,m,shoreline,float,0,10000,Mean open-water fetch across 16 compass directions in 2010 NAIP mosaic,DER-P2
+"Organic carbon, total",%,soil,float,0,100,Total organic carbon in wetland soil (dry weight percent),EXT-DIVER-WETLAND
+"17a(H),21b(H)-Hopane (Hopane)",ug/kg,soil,float,0,,C30 17a(H)21b(H)-hopane concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+pah_sum_58,ug/kg,soil,float,0,,Sum of 58 consistently reported parent and alkylated PAH analytes in wetland soil (dry weight),EXT-DIVER-WETLAND
+pah_hopane_ratio,ratio,soil,float,0,,Ratio of 58-compound PAH sum to C30 hopane in wetland soil (unitless mass ratio),EXT-DIVER-WETLAND
+Acenaphthene,ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+Acenaphthylene,ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+Anthracene,ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+Benzo(a)anthracene,ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+Benzo(a)fluoranthene,ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+Benzo(a)pyrene,ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+Benzo(b)fluoranthene,ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+Benzo(b)fluorene,ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+Benzo(b)thiophene,ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+Benzo(e)pyrene,ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+"Benzo(g,h,i)perylene",ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+Benzo(j+k)fluoranthene,ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+Biphenyl,ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+C1-Benzo(b)thiophenes,ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+C1-Chrysenes,ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+C1-Dibenzothiophenes,ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+C1-Fluoranthenes/pyrenes,ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+C1-Fluorenes,ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+C1-Naphthalenes,ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+C1-Naphthobenzothiophenes,ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+C1-Phenanthrenes/anthracenes,ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+C2-Benzo(b)thiophenes,ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+C2-Chrysenes,ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+C2-Dibenzothiophenes,ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+C2-Fluoranthenes/pyrenes,ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+C2-Fluorenes,ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+C2-Naphthalenes,ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+C2-Naphthobenzothiophenes,ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+C2-Phenanthrenes/anthracenes,ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+C3-Benzo(b)thiophenes,ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+C3-Chrysenes,ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+C3-Dibenzothiophenes,ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+C3-Fluoranthenes/pyrenes,ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+C3-Fluorenes,ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+C3-Naphthalenes,ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+C3-Naphthobenzothiophenes,ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+C3-Phenanthrenes/anthracenes,ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+C4-Benzo(b)thiophenes,ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+C4-Chrysenes,ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+C4-Dibenzothiophenes,ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+C4-Fluoranthenes/pyrenes,ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+C4-Naphthalenes,ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+C4-Naphthobenzothiophenes,ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+C4-Phenanthrenes/anthracenes,ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+Carbazole,ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+Chrysene + Triphenylene,ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+"Dibenzo(a,h+a,c)anthracene",ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+Dibenzofuran,ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+Dibenzothiophene,ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+Fluoranthene,ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+Fluorene,ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+"Indeno(1,2,3-c,d)pyrene",ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+Naphthalene,ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+Naphthobenzothiophene,ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+Perylene,ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+Phenanthrene,ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+Pyrene,ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
+Retene,ug/kg,soil,float,0,,PAH analyte concentration in wetland soil (dry weight),EXT-DIVER-WETLAND
