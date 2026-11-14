@@ -11,6 +11,15 @@ Computer (no account needed).
 
 ---
 
+## 2026-11-14: v3 review and V4 programme plan
+- **Why:** critical review of the branch found two output-changing defects (ranking order, oil double count)
+  and several overstatements; Jaison asked for a plan to fix them and reach a final decision support system.
+- **What:** `docs/V4_PROGRAMME_PLAN.md` (Track R: R1-R8 fixes; Track F: F0-F12 final system);
+  review findings in `docs/REVIEW_NOTES.md` section R; V4 table and decisions D25-D31 (Proposed) in
+  `docs/ROADMAP.md`; HANDOFF updated. Branch pushed to `origin/model_v3` (f2986f6) before this change.
+- **Checked:** 167 tests pass on Python 3.11 (pytest and requirements-analysis installed).
+- **Status:** Not started (plan only; awaiting Jaison's decisions D26, D27 choice, D29).
+
 ## 2026-11-12 (session 3): literature reconciliation and data inventory
 
 ### Scenario programme (Phase A1, A2; Phase C step 1)

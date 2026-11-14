@@ -4,7 +4,25 @@ Running list of scientific and technical concerns raised during development, so 
 sessions. Each note says where it bites and what would resolve it. Add new notes at the top of a section;
 mark resolved notes rather than deleting them. Decisions referred to are in `docs/ROADMAP.md`.
 
-Last updated 12 November 2026 (after Stage 3).
+Last updated 14 November 2026 (v3 review; fixes planned in `docs/V4_PROGRAMME_PLAN.md`).
+
+## R. Findings of the v3 review (14 Nov 2026; open until the V4 item named is done)
+
+1. **Ineligible treatments outrank eligible ones** (V4 R1). Scored-but-ineligible options keep utility
+   0.4*E and are sorted before unscored options.
+2. **Passive sorbents rank first for thick heavy oil on marsh and sand** (V4 R2). Skewed label noise and a
+   fixed ecology score; checks E3 and E5 pass because rules were edited to pass them.
+3. **Oil effect probably counted twice in the composer** (V4 R3). Baseline M1 was fitted on data including
+   heavy cells; the Zengel excess is added on top. Heavy cells over-predicted by +0.53 (B1) and about +0.6
+   m/yr (C1); clean cells +0.06.
+4. **Two views give different absolute numbers for the same cell** (V4 R4): 1.42 m/yr vs about 3.4 m/yr.
+5. **"Distinguished" restates the Zengel interval** and is the same at every heavy site (V4 R5).
+6. **AI-written expert review shown as expert** (V4 R6): D23, D24 approved by the orchestrator.
+7. **Smaller:** singular cluster covariance in the edge-loss model (181 parameters, 176 clusters);
+   vegetation year-2 spike; vegetation curve used where it is worse than baseline; PAH replicate rule biased
+   towards the median; worked-example headline in-sample; stale benchmark reports (V4 R7).
+8. **Repository:** tracked `.pyc` files; public remote with DWH-derived tables and AI-written reviews
+   (V4 R8, D29).
 
 ## A. Claims we can and cannot make to leads
 

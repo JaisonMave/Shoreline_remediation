@@ -33,6 +33,23 @@ but is new to ML.
 - The earlier seven-commit history was not in the previous zip, so it was restored as one commit.
   Network egress now works for NOAA, PLOS, Planetary Computer, Earth Search and PyPI (FTP is blocked).
 
+## Latest (14 Nov 2026, v3 review and V4 plan): read this first
+
+- Branch `process-model-audit` pushed to `origin/model_v3` (f2986f6). The git on PATH fails to start on
+  this machine; use `%LOCALAPPDATA%\GitHubDesktop\app-3.5.12\resources\app\git\cmd\git.exe`.
+- Review findings: `docs/REVIEW_NOTES.md` section R. Plan: `docs/V4_PROGRAMME_PLAN.md` (Proposed, nothing run).
+- 167 tests pass on Python 3.11.
+
+| Job | State |
+| --- | --- |
+| R1 ranking tier defect | Not started |
+| R2 sorbent bias / D26 | Awaiting Jaison's decision D26 |
+| R3 oil double count (diagnostic, then C1b/C2b/B1b) | Not started |
+| R4-R8 | Not started |
+| F1-F12 | Not started |
+
+Next step: R1 (tests first), then the R3 diagnostic.
+
 ## Latest (13 Nov 2026, wrap-up)
 
 - **Full walkthrough deck (92 slides):** https://claude.ai/artifact/MeLp9tsyde7PwAHsnVCd8S. Covers the tool in

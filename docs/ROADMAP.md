@@ -1,4 +1,4 @@
-# Roadmap and milestones (status on 12 November 2026)
+# Roadmap and milestones (status on 14 November 2026)
 
 Status words: Not started, In progress, Awaiting data, Under validation, Completed, On hold.
 A milestone is Completed only when it is validated and documented, not when code exists.
@@ -51,6 +51,23 @@ test of the dashboard. P1-P5 stay "Under validation" until he does them; P6 proc
 Deferred to after the PoC, as the "what we need next" ask: expert scoring (M6), more spills (M4), other
 contaminants and ecosystems (M7), the full platform (M8-M10).
 
+## V4 programme (14 Nov 2026): review fixes and final decision support system
+
+Plan: `docs/V4_PROGRAMME_PLAN.md` (Proposed; nothing run). Track R fixes the v3 review findings; Track F maps
+M2-M10 onto the architecture (D14-D20) and a fixed decision logic (D31).
+
+| # | Item | Status |
+| --- | --- | --- |
+| R1 | Ranking: ineligible treatments above eligible ones | Not started |
+| R2 | Ranking: sorbent bias; non-independent checks; D26 | Not started (awaiting D26) |
+| R3 | Composer: oil effect counted twice; checks C1b, C2b, B1b | Not started |
+| R4 | One absolute edge-loss number per site | Not started |
+| R5 | "Distinguished" wording | Not started |
+| R6 | AI-written review relabelled AI-PROPOSED | Not started |
+| R7 | Statistical and modelling details | Not started |
+| R8 | Repository hygiene and visibility (D29) | Not started |
+| F1-F12 | Final system (see plan) | Not started |
+
 ## Full programme milestones (after the proof of concept)
 
 | # | Milestone | Completion criteria | Depends on | Status |
@@ -94,4 +111,11 @@ contaminants and ecosystems (M7), the full platform (M8-M10).
 | D21 | 2026-11-12 | 1, 2 | Do not use SSURGO or SoilGrids values as soil predictors in marsh; measured data only. Evidence: FINDINGS section 13. | Proposed |
 | D22 | 2026-11-13 | 2, 4 | Soil PAH: sum of individual compounds and hopane ratio; replicates averaged with a 50% RPD rule; non-detects estimated below a proxy limit by censored regression; all surface depths with depth as covariate. Chemical recovery is judged on the hopane ratio, not the sum. | Approved by Jaison (choices 1-5) and orchestrator (6); implemented |
 | D23 | 2026-11-13 | 3 | Expert-revised ranges and verdicts for untested treatments; conditions advisory only. | Approved by orchestrator under Jaison's delegation; implemented |
-| D24 | 2026-11-13 | 3, 4, 6 | Mangrove mode: Galeta damage model plus mangrove screening (work from water or fringe only); no marsh model applied to mangroves. | Approved by orchestrator under Jaison's delegation; implemented (experimental) |
+| D24 | 2026-11-13 | 3, 4, 6 | Mangrove mode: Galeta damage model plus mangrove screening (work from water or fringe only); no marsh model applied to mangroves. | Approved by orchestrator under Jaison's delegation; implemented (experimental). V4 R6 proposes reverting D23 and D24 to Proposed until a human expert reviews them. |
+| D25 | 2026-11-14 | 3, 6 | Ranking sorted by feasibility tier, then evidence, then utility; utility 0 for every ineligible treatment. | Proposed (V4 R1) |
+| D26 | 2026-11-14 | 3, 6 | Rule-trained GPR suitability layer leaves the decision path (kept as "Method test") until human expert scores or field labels exist. | Proposed (V4 R2; Jaison) |
+| D27 | 2026-11-14 | 4, 6 | Composer baseline corrected for the oil double count; option fixed in the R3 plan before checks C1b, C2b, B1b. | Proposed (V4 R3) |
+| D28 | 2026-11-14 | 4, 6 | Vegetation recovery curve flagged or withheld for heavily oiled cells, where it is worse than the no-trend baseline. | Proposed (V4 R7) |
+| D29 | 2026-11-14 | 7 | Repository visibility and data governance settled before any further push (remote is public). | Proposed (V4 R8; Jaison) |
+| D30 | 2026-11-14 | All | Final-system scope set by evidence: validated, experimental, rules only, out of scope. | Proposed (V4 F0) |
+| D31 | 2026-11-14 | 6 | Decision logic: hard constraints, do-no-harm, benefit against natural recovery with intervals, trade-offs shown not scored; "no option distinguishable, monitor" is a valid output. | Proposed (V4 F9) |
