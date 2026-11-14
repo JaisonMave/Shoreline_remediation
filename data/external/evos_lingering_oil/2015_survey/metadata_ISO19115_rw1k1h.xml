@@ -1,0 +1,1216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<gmi:MI_Metadata xmlns:gmi="http://www.isotc211.org/2005/gmi" xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:gfc="http://www.isotc211.org/2005/gfc" xmlns:gmx="http://www.isotc211.org/2005/gmx" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:gts="http://www.isotc211.org/2005/gts" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.isotc211.org/2005/gmi http://files.axds.co/isobio/gmi/gmi.xsd http://www.isotc211.org/2005/gmd http://files.axds.co/isobio/gmd/gmd.xsd">
+  <gmd:fileIdentifier gco:nilReason="missing"/>
+  <gmd:language>
+    <gco:CharacterString>eng;USA</gco:CharacterString>
+  </gmd:language>
+  <gmd:characterSet>
+    <gmd:MD_CharacterSetCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#MD_CharacterSetCode" codeListValue="UTF-8">UTF-8</gmd:MD_CharacterSetCode>
+  </gmd:characterSet>
+  <gmd:contact>
+    <gmd:CI_ResponsibleParty>
+      <gmd:organisationName>
+        <gco:CharacterString>Axiom Data Science</gco:CharacterString>
+      </gmd:organisationName>
+      <gmd:positionName>
+        <gco:CharacterString>Metadata Specialist</gco:CharacterString>
+      </gmd:positionName>
+      <gmd:contactInfo>
+        <gmd:CI_Contact>
+          <gmd:address>
+            <gmd:CI_Address>
+              <gmd:deliveryPoint>
+                <gco:CharacterString>1016 W 6th Avenue</gco:CharacterString>
+              </gmd:deliveryPoint>
+              <gmd:deliveryPoint>
+                <gco:CharacterString>Suite 105</gco:CharacterString>
+              </gmd:deliveryPoint>
+              <gmd:city>
+                <gco:CharacterString>Anchorage</gco:CharacterString>
+              </gmd:city>
+              <gmd:administrativeArea>
+                <gco:CharacterString>AK</gco:CharacterString>
+              </gmd:administrativeArea>
+              <gmd:postalCode>
+                <gco:CharacterString>99501</gco:CharacterString>
+              </gmd:postalCode>
+              <gmd:country>
+                <gco:CharacterString>USA</gco:CharacterString>
+              </gmd:country>
+              <gmd:electronicMailAddress>
+                <gco:CharacterString>metadata@axiomdatascience.com</gco:CharacterString>
+              </gmd:electronicMailAddress>
+            </gmd:CI_Address>
+          </gmd:address>
+        </gmd:CI_Contact>
+      </gmd:contactInfo>
+      <gmd:role>
+        <gmd:CI_RoleCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="pointOfContact">pointOfContact</gmd:CI_RoleCode>
+      </gmd:role>
+    </gmd:CI_ResponsibleParty>
+  </gmd:contact>
+  <gmd:dateStamp gco:nilReason="unknown">
+    <gco:Date xsi:nil="true"/>
+  </gmd:dateStamp>
+  <gmd:dataSetURI gco:nilReason="unknown"/>
+  <gmd:identificationInfo>
+    <gmd:MD_DataIdentification>
+      <gmd:citation>
+        <gmd:CI_Citation>
+          <gmd:title>
+            <gco:CharacterString>Lingering Oil Measurements, Site, Sample, and Photographic Data from Prince William Sound, 2015, Gulf Watch Alaska Lingering Oil Component</gco:CharacterString>
+          </gmd:title>
+          <gmd:date gco:nilReason="missing"/>
+          <gmd:identifier>
+            <gmd:RS_Identifier>
+              <gmd:authority>
+                <gmd:CI_Citation>
+                  <gmd:title>
+                    <gco:CharacterString>International DOI Foundation (IDF)</gco:CharacterString>
+                  </gmd:title>
+                  <gmd:date gco:nilReason="missing"/>
+                </gmd:CI_Citation>
+              </gmd:authority>
+              <gmd:code>
+                <gco:CharacterString>https://doi.org/10.24431/rw1k1h</gco:CharacterString>
+              </gmd:code>
+            </gmd:RS_Identifier>
+          </gmd:identifier>
+          <gmd:citedResponsibleParty>
+            <gmd:CI_ResponsibleParty>
+              <gmd:individualName gco:nilReason="template"/>
+              <gmd:contactInfo>
+                <gmd:CI_Contact>
+                  <gmd:onlineResource>
+                    <gmd:CI_OnlineResource>
+                      <gmd:linkage>
+                        <gmd:URL>http://www.gulfwatchalaska.org/</gmd:URL>
+                      </gmd:linkage>
+                      <gmd:name>
+                        <gco:CharacterString>Gulf Watch Alaska</gco:CharacterString>
+                      </gmd:name>
+                      <gmd:description>
+                        <gco:CharacterString>Gulf Watch Alaska is the long-term ecosystem monitoring program of the Exxon Valdez Oil Spill Trustee Council for the marine ecosystem affected by the 1989 oil spill.</gco:CharacterString>
+                      </gmd:description>
+                    </gmd:CI_OnlineResource>
+                  </gmd:onlineResource>
+                </gmd:CI_Contact>
+              </gmd:contactInfo>
+              <gmd:role gco:nilReason="template"/>
+            </gmd:CI_ResponsibleParty>
+          </gmd:citedResponsibleParty>
+          <gmd:citedResponsibleParty>
+            <gmd:CI_ResponsibleParty>
+              <gmd:individualName gco:nilReason="template"/>
+              <gmd:contactInfo>
+                <gmd:CI_Contact>
+                  <gmd:onlineResource>
+                    <gmd:CI_OnlineResource>
+                      <gmd:linkage>
+                        <gmd:URL>http://www.evostc.state.ak.us/index.cfm?FA=projects.home</gmd:URL>
+                      </gmd:linkage>
+                      <gmd:name>
+                        <gco:CharacterString>Exxon Valdez Oil Spill Trustee Council</gco:CharacterString>
+                      </gmd:name>
+                      <gmd:description>
+                        <gco:CharacterString>The webpage for the Exxon Valdez Oil Spill Trustee Council, which was formed to oversee restoration of the injured ecosystem through the use of the $900 million civil settlement, a part which funds Research, Monitoring, and Restoration programs in Prince William Sound and the Gulf of Alaska.</gco:CharacterString>
+                      </gmd:description>
+                    </gmd:CI_OnlineResource>
+                  </gmd:onlineResource>
+                </gmd:CI_Contact>
+              </gmd:contactInfo>
+              <gmd:role gco:nilReason="template"/>
+            </gmd:CI_ResponsibleParty>
+          </gmd:citedResponsibleParty>
+          <gmd:citedResponsibleParty>
+            <gmd:CI_ResponsibleParty>
+              <gmd:individualName>
+                <gco:CharacterString>Mandy Lindeberg</gco:CharacterString>
+              </gmd:individualName>
+              <gmd:organisationName>
+                <gco:CharacterString>NOAA Alaska Fisheries Science Center</gco:CharacterString>
+              </gmd:organisationName>
+              <gmd:positionName>
+                <gco:CharacterString>Fisheries Research Biologist</gco:CharacterString>
+              </gmd:positionName>
+              <gmd:contactInfo>
+                <gmd:CI_Contact>
+                  <gmd:phone>
+                    <gmd:CI_Telephone>
+                      <gmd:voice>
+                        <gco:CharacterString>(907) 789-6616</gco:CharacterString>
+                      </gmd:voice>
+                    </gmd:CI_Telephone>
+                  </gmd:phone>
+                  <gmd:address>
+                    <gmd:CI_Address>
+                      <gmd:deliveryPoint>
+                        <gco:CharacterString>Auke Bay Laboratories</gco:CharacterString>
+                      </gmd:deliveryPoint>
+                      <gmd:deliveryPoint>
+                        <gco:CharacterString>17109 Pt. Lena Loop Rd.</gco:CharacterString>
+                      </gmd:deliveryPoint>
+                      <gmd:city>
+                        <gco:CharacterString>Juneau</gco:CharacterString>
+                      </gmd:city>
+                      <gmd:administrativeArea>
+                        <gco:CharacterString>Alaska</gco:CharacterString>
+                      </gmd:administrativeArea>
+                      <gmd:postalCode>
+                        <gco:CharacterString>99801</gco:CharacterString>
+                      </gmd:postalCode>
+                      <gmd:country>
+                        <gco:CharacterString>USA</gco:CharacterString>
+                      </gmd:country>
+                      <gmd:electronicMailAddress>
+                        <gco:CharacterString>mandy.lindeberg@noaa.gov</gco:CharacterString>
+                      </gmd:electronicMailAddress>
+                    </gmd:CI_Address>
+                  </gmd:address>
+                </gmd:CI_Contact>
+              </gmd:contactInfo>
+              <gmd:role>
+                <gmd:CI_RoleCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="principalInvestigator">principalInvestigator</gmd:CI_RoleCode>
+              </gmd:role>
+            </gmd:CI_ResponsibleParty>
+          </gmd:citedResponsibleParty>
+          <gmd:citedResponsibleParty>
+            <gmd:CI_ResponsibleParty>
+              <gmd:individualName>
+                <gco:CharacterString>Mark Carls</gco:CharacterString>
+              </gmd:individualName>
+              <gmd:organisationName>
+                <gco:CharacterString>NOAA Alaska Fisheries Science Center</gco:CharacterString>
+              </gmd:organisationName>
+              <gmd:positionName>
+                <gco:CharacterString>Fisheries Research Biologist</gco:CharacterString>
+              </gmd:positionName>
+              <gmd:contactInfo>
+                <gmd:CI_Contact>
+                  <gmd:address>
+                    <gmd:CI_Address>
+                      <gmd:deliveryPoint>
+                        <gco:CharacterString>Auke Bay Laboratories</gco:CharacterString>
+                      </gmd:deliveryPoint>
+                      <gmd:deliveryPoint>
+                        <gco:CharacterString>17109 Pt. Lena Loop Rd.</gco:CharacterString>
+                      </gmd:deliveryPoint>
+                      <gmd:city>
+                        <gco:CharacterString>Juneau</gco:CharacterString>
+                      </gmd:city>
+                      <gmd:administrativeArea>
+                        <gco:CharacterString>Alaska</gco:CharacterString>
+                      </gmd:administrativeArea>
+                      <gmd:postalCode>
+                        <gco:CharacterString>99801</gco:CharacterString>
+                      </gmd:postalCode>
+                      <gmd:country>
+                        <gco:CharacterString>USA</gco:CharacterString>
+                      </gmd:country>
+                      <gmd:electronicMailAddress>
+                        <gco:CharacterString>mark.carls@noaa.gov</gco:CharacterString>
+                      </gmd:electronicMailAddress>
+                    </gmd:CI_Address>
+                  </gmd:address>
+                </gmd:CI_Contact>
+              </gmd:contactInfo>
+              <gmd:role>
+                <gmd:CI_RoleCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="originator">originator</gmd:CI_RoleCode>
+              </gmd:role>
+            </gmd:CI_ResponsibleParty>
+          </gmd:citedResponsibleParty>
+          <gmd:presentationForm>
+            <gmd:CI_PresentationFormCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_PresentationFormCode" codeListValue="tableDigital">tableDigital</gmd:CI_PresentationFormCode>
+          </gmd:presentationForm>
+          <gmd:otherCitationDetails>
+            <gco:CharacterString>Zip files containing jpeg images and associated metadata are publicly available through the Gulf of Alaska data portal (http://portal.aoos.org/gulf-of-alaska.php#metadata/91b73240-b68d-43d8-bd64-aea4ea14e976/project/files) , or by contacting the Principal Investigator.</gco:CharacterString>
+          </gmd:otherCitationDetails>
+        </gmd:CI_Citation>
+      </gmd:citation>
+      <gmd:abstract>
+        <gco:CharacterString>These data are part of the Gulf Watch Alaska (GWA), Lingering Oil component of the Exxon Valdez Oil Spill Trustee Council, project numbers 12120114-S, 13120114-S, 14120114-S, 15120114-S and, 16120114-S. Gulf Watch Alaska is the long-term integrated monitoring program of the Exxon Valdez Oil Spill Trustee Council (EVOSTC) for the marine ecosystem affected by the 1989 oil spill. The Lingering Oil Surveys dataset was designed to provide the EVOSTC with an assessment of persistent Exxon Valdez oil in Prince William Sound. This dataset is comprised of two related data types: survey and sample data in distinct data tables, which are provided in CSV format; and survey photographs from each sample site. The data tables describe survey locations, sampling sites, chain of custody for samples, gravimetric analysis of oiling at sampling sites, and the method detection limited analyte composition of samples. Surveys were conducted in June of 2015 at nine locations within Prince William Sound. Detailed standard operating procedures of the lingering oil monitoring surveys and petroleum hydrocarbon analysis are included as a pdf files. Survey photos are organized into shore-segment-based collections provided as PDFs files containing all photos from each shore segment. Each collection contains embedded images documenting the survey performed at the shore segment named in the file name (e.g. '2015_SM006B_photos.pdf'). Each page displays one image and provides the file name for the image.</gco:CharacterString>
+      </gmd:abstract>
+      <gmd:purpose>
+        <gco:CharacterString>The Gulf Watch Alaska program aims to provide information about Exxon Valdez lingering oil and the recovery of species and resources injured by the spill, as well as other factors that may be affecting recovery, such as changing climate, oceanographic and ecosystem conditions. In particular, the goals for this Lingering Oil project were to provide the EVOSTC with an assessment of persistent Exxon Valdez oil in Prince William Sound, describe its chemical characteristics, and initiate a routine, long-term monitoring project that will be re-visited every 5 to 10 years. Objectives were to 1) fingerprint oil, 2) determine oil sources, 3) report oil persistence and weathering over decades, 4) determine biological availability, and 5) archive hydrocarbon data in the Trustee-sponsored hydrocarbon database.</gco:CharacterString>
+      </gmd:purpose>
+      <gmd:status>
+        <gmd:MD_ProgressCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#MD_ProgressCode" codeListValue="completed">completed</gmd:MD_ProgressCode>
+      </gmd:status>
+      <gmd:pointOfContact>
+        <gmd:CI_ResponsibleParty>
+          <gmd:individualName>
+            <gco:CharacterString>Mandy Lindeberg</gco:CharacterString>
+          </gmd:individualName>
+          <gmd:organisationName>
+            <gco:CharacterString>NOAA Alaska Fisheries Science Center</gco:CharacterString>
+          </gmd:organisationName>
+          <gmd:positionName>
+            <gco:CharacterString>Fisheries Research Biologist</gco:CharacterString>
+          </gmd:positionName>
+          <gmd:contactInfo>
+            <gmd:CI_Contact>
+              <gmd:phone>
+                <gmd:CI_Telephone>
+                  <gmd:voice>
+                    <gco:CharacterString>(907) 789-6616</gco:CharacterString>
+                  </gmd:voice>
+                </gmd:CI_Telephone>
+              </gmd:phone>
+              <gmd:address>
+                <gmd:CI_Address>
+                  <gmd:deliveryPoint>
+                    <gco:CharacterString>Auke Bay Laboratories</gco:CharacterString>
+                  </gmd:deliveryPoint>
+                  <gmd:deliveryPoint>
+                    <gco:CharacterString>17109 Pt. Lena Loop Rd.</gco:CharacterString>
+                  </gmd:deliveryPoint>
+                  <gmd:city>
+                    <gco:CharacterString>Juneau</gco:CharacterString>
+                  </gmd:city>
+                  <gmd:administrativeArea>
+                    <gco:CharacterString>Alaska</gco:CharacterString>
+                  </gmd:administrativeArea>
+                  <gmd:postalCode>
+                    <gco:CharacterString>99801</gco:CharacterString>
+                  </gmd:postalCode>
+                  <gmd:country>
+                    <gco:CharacterString>USA</gco:CharacterString>
+                  </gmd:country>
+                  <gmd:electronicMailAddress>
+                    <gco:CharacterString>mandy.lindeberg@noaa.gov</gco:CharacterString>
+                  </gmd:electronicMailAddress>
+                </gmd:CI_Address>
+              </gmd:address>
+            </gmd:CI_Contact>
+          </gmd:contactInfo>
+          <gmd:role>
+            <gmd:CI_RoleCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="pointOfContact">pointOfContact</gmd:CI_RoleCode>
+          </gmd:role>
+        </gmd:CI_ResponsibleParty>
+      </gmd:pointOfContact>
+      <gmd:pointOfContact>
+        <gmd:CI_ResponsibleParty>
+          <gmd:organisationName>
+            <gco:CharacterString>Exxon Valdez Oil Spill Trustee Council</gco:CharacterString>
+          </gmd:organisationName>
+          <gmd:contactInfo>
+            <gmd:CI_Contact>
+              <gmd:phone>
+                <gmd:CI_Telephone>
+                  <gmd:voice>
+                    <gco:CharacterString>907 278 8012</gco:CharacterString>
+                  </gmd:voice>
+                </gmd:CI_Telephone>
+              </gmd:phone>
+              <gmd:address>
+                <gmd:CI_Address>
+                  <gmd:deliveryPoint>
+                    <gco:CharacterString>4230 University Dr., Suite 220</gco:CharacterString>
+                  </gmd:deliveryPoint>
+                  <gmd:city>
+                    <gco:CharacterString>Anchorage</gco:CharacterString>
+                  </gmd:city>
+                  <gmd:administrativeArea>
+                    <gco:CharacterString>AK</gco:CharacterString>
+                  </gmd:administrativeArea>
+                  <gmd:postalCode>
+                    <gco:CharacterString>99508</gco:CharacterString>
+                  </gmd:postalCode>
+                  <gmd:country>
+                    <gco:CharacterString>USA</gco:CharacterString>
+                  </gmd:country>
+                  <gmd:electronicMailAddress>
+                    <gco:CharacterString>dfg.evos.restoration@alaska.gov</gco:CharacterString>
+                  </gmd:electronicMailAddress>
+                </gmd:CI_Address>
+              </gmd:address>
+            </gmd:CI_Contact>
+          </gmd:contactInfo>
+          <gmd:role>
+            <gmd:CI_RoleCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="funder">funder</gmd:CI_RoleCode>
+          </gmd:role>
+        </gmd:CI_ResponsibleParty>
+      </gmd:pointOfContact>
+      <gmd:resourceMaintenance>
+        <gmd:MD_MaintenanceInformation>
+          <gmd:maintenanceAndUpdateFrequency>
+            <gmd:MD_MaintenanceFrequencyCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#MD_MaintenanceFrequencyCode" codeListValue="asNeeded">asNeeded</gmd:MD_MaintenanceFrequencyCode>
+          </gmd:maintenanceAndUpdateFrequency>
+          <gmd:contact>
+            <gmd:CI_ResponsibleParty>
+              <gmd:individualName>
+                <gco:CharacterString>Mandy Lindeberg</gco:CharacterString>
+              </gmd:individualName>
+              <gmd:organisationName>
+                <gco:CharacterString>NOAA Alaska Fisheries Science Center</gco:CharacterString>
+              </gmd:organisationName>
+              <gmd:positionName>
+                <gco:CharacterString>Fisheries Research Biologist</gco:CharacterString>
+              </gmd:positionName>
+              <gmd:contactInfo>
+                <gmd:CI_Contact>
+                  <gmd:phone>
+                    <gmd:CI_Telephone>
+                      <gmd:voice>
+                        <gco:CharacterString>(907) 789-6616</gco:CharacterString>
+                      </gmd:voice>
+                    </gmd:CI_Telephone>
+                  </gmd:phone>
+                  <gmd:address>
+                    <gmd:CI_Address>
+                      <gmd:deliveryPoint>
+                        <gco:CharacterString>Auke Bay Laboratories</gco:CharacterString>
+                      </gmd:deliveryPoint>
+                      <gmd:deliveryPoint>
+                        <gco:CharacterString>17109 Pt. Lena Loop Rd.</gco:CharacterString>
+                      </gmd:deliveryPoint>
+                      <gmd:city>
+                        <gco:CharacterString>Juneau</gco:CharacterString>
+                      </gmd:city>
+                      <gmd:administrativeArea>
+                        <gco:CharacterString>Alaska</gco:CharacterString>
+                      </gmd:administrativeArea>
+                      <gmd:postalCode>
+                        <gco:CharacterString>99801</gco:CharacterString>
+                      </gmd:postalCode>
+                      <gmd:country>
+                        <gco:CharacterString>USA</gco:CharacterString>
+                      </gmd:country>
+                      <gmd:electronicMailAddress>
+                        <gco:CharacterString>mandy.lindeberg@noaa.gov</gco:CharacterString>
+                      </gmd:electronicMailAddress>
+                    </gmd:CI_Address>
+                  </gmd:address>
+                </gmd:CI_Contact>
+              </gmd:contactInfo>
+              <gmd:role>
+                <gmd:CI_RoleCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="custodian">custodian</gmd:CI_RoleCode>
+              </gmd:role>
+            </gmd:CI_ResponsibleParty>
+          </gmd:contact>
+        </gmd:MD_MaintenanceInformation>
+      </gmd:resourceMaintenance>
+      <gmd:descriptiveKeywords>
+        <gmd:MD_Keywords>
+          <gmd:keyword gco:nilReason="missing"/>
+          <gmd:thesaurusName>
+            <gmd:CI_Citation>
+              <gmd:title>
+                <gco:CharacterString>ITIS</gco:CharacterString>
+              </gmd:title>
+              <gmd:date gco:nilReason="template"/>
+            </gmd:CI_Citation>
+          </gmd:thesaurusName>
+        </gmd:MD_Keywords>
+      </gmd:descriptiveKeywords>
+      <gmd:descriptiveKeywords>
+        <gmd:MD_Keywords>
+          <gmd:keyword>
+            <gco:CharacterString>Knight Island</gco:CharacterString>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gco:CharacterString>Evans Island</gco:CharacterString>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gco:CharacterString>Green Island</gco:CharacterString>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gco:CharacterString>Latouche Island</gco:CharacterString>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gco:CharacterString>Eleanor Island</gco:CharacterString>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gco:CharacterString>Smith Island</gco:CharacterString>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gco:CharacterString>Prince William Sound</gco:CharacterString>
+          </gmd:keyword>
+          <gmd:type>
+            <gmd:MD_KeywordTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#MD_KeywordTypeCode" codeListValue="place">place</gmd:MD_KeywordTypeCode>
+          </gmd:type>
+        </gmd:MD_Keywords>
+      </gmd:descriptiveKeywords>
+      <gmd:descriptiveKeywords>
+        <gmd:MD_Keywords>
+          <gmd:keyword>
+            <gco:CharacterString>Exxon Valdez oil spill</gco:CharacterString>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gco:CharacterString>EVOS Gulf Watch Alaska</gco:CharacterString>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gco:CharacterString>Exxon Valdez</gco:CharacterString>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gco:CharacterString>Exxon Valdez Oil Spill Trustee Council</gco:CharacterString>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gco:CharacterString>EVOSTC</gco:CharacterString>
+          </gmd:keyword>
+          <gmd:type>
+            <gmd:MD_KeywordTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#MD_KeywordTypeCode" codeListValue="theme">theme</gmd:MD_KeywordTypeCode>
+          </gmd:type>
+        </gmd:MD_Keywords>
+      </gmd:descriptiveKeywords>
+      <gmd:descriptiveKeywords>
+        <gmd:MD_Keywords>
+          <gmd:keyword>
+            <gco:CharacterString>EARTH SCIENCE &gt; OCEANS &gt; OCEAN CHEMISTRY &gt; HYDROCARBONS</gco:CharacterString>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gco:CharacterString>EARTH SCIENCE &gt; SOLID EARTH &gt; EARTH GASES/LIQUIDS &gt; PETROLEUM</gco:CharacterString>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gco:CharacterString>EARTH SCIENCE &gt; OCEANS &gt; WATER QUALITY &gt; OCEAN CONTAMINANTS</gco:CharacterString>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gco:CharacterString>EARTH SCIENCE &gt; HUMAN DIMENSIONS &gt; ENVIRONMENTAL IMPACTS &gt; OIL SPILLS</gco:CharacterString>
+          </gmd:keyword>
+          <gmd:type>
+            <gmd:MD_KeywordTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#MD_KeywordTypeCode" codeListValue="theme">theme</gmd:MD_KeywordTypeCode>
+          </gmd:type>
+          <gmd:thesaurusName>
+            <gmd:CI_Citation>
+              <gmd:title>
+                <gco:CharacterString>GCMD Science Keywords version 8.4.1</gco:CharacterString>
+              </gmd:title>
+              <gmd:date gco:nilReason="unknown"/>
+            </gmd:CI_Citation>
+          </gmd:thesaurusName>
+        </gmd:MD_Keywords>
+      </gmd:descriptiveKeywords>
+      <gmd:descriptiveKeywords>
+        <gmd:MD_Keywords>
+          <gmd:keyword>
+            <gco:CharacterString>OCEAN &gt; PACIFIC OCEAN &gt; NORTH PACIFIC OCEAN &gt; GULF OF ALASKA</gco:CharacterString>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gco:CharacterString>CONTINENT &gt; NORTH AMERICA &gt; UNITED STATES OF AMERICA &gt; ALASKA</gco:CharacterString>
+          </gmd:keyword>
+          <gmd:type>
+            <gmd:MD_KeywordTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#MD_KeywordTypeCode" codeListValue="place">place</gmd:MD_KeywordTypeCode>
+          </gmd:type>
+          <gmd:thesaurusName>
+            <gmd:CI_Citation>
+              <gmd:title>
+                <gco:CharacterString>GCMD Locations Keywords version 8.4.1</gco:CharacterString>
+              </gmd:title>
+              <gmd:date gco:nilReason="unknown"/>
+            </gmd:CI_Citation>
+          </gmd:thesaurusName>
+        </gmd:MD_Keywords>
+      </gmd:descriptiveKeywords>
+      <gmd:descriptiveKeywords>
+        <gmd:MD_Keywords>
+          <gmd:keyword gco:nilReason="missing"/>
+        </gmd:MD_Keywords>
+      </gmd:descriptiveKeywords>
+      <gmd:resourceConstraints>
+        <gmd:MD_Constraints>
+          <gmd:useLimitation>
+            <gco:CharacterString>Data should not be used beyond the limits of the source scale. Acknowledgement of NOAA, as the source from which these data were obtained,in any publications and/or other representations of these data is suggested.</gco:CharacterString>
+          </gmd:useLimitation>
+          <gmd:useLimitation>
+            <gco:CharacterString>This material is based upon work funded by multiple entities, including the Exxon Valdez Oil Spill Trustee Council. Any opinions, findings, conclusions, or recommendations expressed herein are those of the author(s) and do not necessarily reflect the views or positions of funding entities. Standard scientific norms for attribution, credit, and potential co-authorship should be followed when using these data including to the Owners, Exxon Valdez Oil Spill Trustee Council and other sources of funding. Please let the Owner know when these data are used.</gco:CharacterString>
+          </gmd:useLimitation>
+        </gmd:MD_Constraints>
+      </gmd:resourceConstraints>
+      <gmd:aggregationInfo>
+        <gmd:MD_AggregateInformation>
+          <gmd:aggregateDataSetName>
+            <gmd:CI_Citation>
+              <gmd:title>
+                <gco:CharacterString>Gulf Watch Alaska: Long-term Monitoring of Marine Conditions and Injured Resources in the Gulf of Alaska Exxon Valdez Oil Spill Affected Area</gco:CharacterString>
+              </gmd:title>
+              <gmd:date>
+                <gmd:CI_Date>
+                  <gmd:date>
+                    <gco:Date>20170101</gco:Date>
+                  </gmd:date>
+                  <gmd:dateType>
+                    <gmd:CI_DateTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_DateTypeCode" codeListValue="publication">publication</gmd:CI_DateTypeCode>
+                  </gmd:dateType>
+                </gmd:CI_Date>
+              </gmd:date>
+              <gmd:citedResponsibleParty>
+                <gmd:CI_ResponsibleParty>
+                  <gmd:individualName gco:nilReason="template"/>
+                  <gmd:contactInfo>
+                    <gmd:CI_Contact>
+                      <gmd:onlineResource>
+                        <gmd:CI_OnlineResource>
+                          <gmd:linkage>
+                            <gmd:URL>http://www.gulfwatchalaska.org/</gmd:URL>
+                          </gmd:linkage>
+                        </gmd:CI_OnlineResource>
+                      </gmd:onlineResource>
+                    </gmd:CI_Contact>
+                  </gmd:contactInfo>
+                  <gmd:role gco:nilReason="template"/>
+                </gmd:CI_ResponsibleParty>
+              </gmd:citedResponsibleParty>
+              <gmd:citedResponsibleParty>
+                <gmd:CI_ResponsibleParty>
+                  <gmd:individualName>
+                    <gco:CharacterString>Kris Holderied</gco:CharacterString>
+                  </gmd:individualName>
+                  <gmd:organisationName>
+                    <gco:CharacterString>NOAA Kasitsna Bay Laboratory</gco:CharacterString>
+                  </gmd:organisationName>
+                  <gmd:positionName>
+                    <gco:CharacterString>Director</gco:CharacterString>
+                  </gmd:positionName>
+                  <gmd:contactInfo>
+                    <gmd:CI_Contact>
+                      <gmd:phone>
+                        <gmd:CI_Telephone>
+                          <gmd:voice>
+                            <gco:CharacterString>(907) 399-4412</gco:CharacterString>
+                          </gmd:voice>
+                        </gmd:CI_Telephone>
+                      </gmd:phone>
+                      <gmd:address>
+                        <gmd:CI_Address>
+                          <gmd:deliveryPoint>
+                            <gco:CharacterString>95 Sterling Highway</gco:CharacterString>
+                          </gmd:deliveryPoint>
+                          <gmd:city>
+                            <gco:CharacterString>Homer</gco:CharacterString>
+                          </gmd:city>
+                          <gmd:administrativeArea>
+                            <gco:CharacterString>AK</gco:CharacterString>
+                          </gmd:administrativeArea>
+                          <gmd:postalCode>
+                            <gco:CharacterString>99603</gco:CharacterString>
+                          </gmd:postalCode>
+                          <gmd:country>
+                            <gco:CharacterString>USA</gco:CharacterString>
+                          </gmd:country>
+                          <gmd:electronicMailAddress>
+                            <gco:CharacterString>kris.holderied@noaa.gov</gco:CharacterString>
+                          </gmd:electronicMailAddress>
+                        </gmd:CI_Address>
+                      </gmd:address>
+                    </gmd:CI_Contact>
+                  </gmd:contactInfo>
+                  <gmd:role>
+                    <gmd:CI_RoleCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="principalInvestigator">principalInvestigator</gmd:CI_RoleCode>
+                  </gmd:role>
+                </gmd:CI_ResponsibleParty>
+              </gmd:citedResponsibleParty>
+              <gmd:citedResponsibleParty>
+                <gmd:CI_ResponsibleParty>
+                  <gmd:individualName>
+                    <gco:CharacterString>Molly McCammon</gco:CharacterString>
+                  </gmd:individualName>
+                  <gmd:organisationName>
+                    <gco:CharacterString>Alaska Ocean Observing System</gco:CharacterString>
+                  </gmd:organisationName>
+                  <gmd:positionName>
+                    <gco:CharacterString>Executive Director</gco:CharacterString>
+                  </gmd:positionName>
+                  <gmd:contactInfo>
+                    <gmd:CI_Contact>
+                      <gmd:phone>
+                        <gmd:CI_Telephone>
+                          <gmd:voice>
+                            <gco:CharacterString>907-644-6703</gco:CharacterString>
+                          </gmd:voice>
+                        </gmd:CI_Telephone>
+                      </gmd:phone>
+                      <gmd:address>
+                        <gmd:CI_Address>
+                          <gmd:deliveryPoint>
+                            <gco:CharacterString>1007 West 3rd Avenue</gco:CharacterString>
+                          </gmd:deliveryPoint>
+                          <gmd:city>
+                            <gco:CharacterString>Anchorage</gco:CharacterString>
+                          </gmd:city>
+                          <gmd:administrativeArea>
+                            <gco:CharacterString>AK</gco:CharacterString>
+                          </gmd:administrativeArea>
+                          <gmd:postalCode>
+                            <gco:CharacterString>99501</gco:CharacterString>
+                          </gmd:postalCode>
+                          <gmd:country>
+                            <gco:CharacterString>USA</gco:CharacterString>
+                          </gmd:country>
+                          <gmd:electronicMailAddress>
+                            <gco:CharacterString>mccammon@aoos.org</gco:CharacterString>
+                          </gmd:electronicMailAddress>
+                        </gmd:CI_Address>
+                      </gmd:address>
+                    </gmd:CI_Contact>
+                  </gmd:contactInfo>
+                  <gmd:role>
+                    <gmd:CI_RoleCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="principalInvestigator">principalInvestigator</gmd:CI_RoleCode>
+                  </gmd:role>
+                </gmd:CI_ResponsibleParty>
+              </gmd:citedResponsibleParty>
+              <gmd:citedResponsibleParty>
+                <gmd:CI_ResponsibleParty>
+                  <gmd:individualName>
+                    <gco:CharacterString>Katrina Hoffman</gco:CharacterString>
+                  </gmd:individualName>
+                  <gmd:organisationName>
+                    <gco:CharacterString>Prince William Sound Science Center</gco:CharacterString>
+                  </gmd:organisationName>
+                  <gmd:positionName>
+                    <gco:CharacterString>President</gco:CharacterString>
+                  </gmd:positionName>
+                  <gmd:contactInfo>
+                    <gmd:CI_Contact>
+                      <gmd:phone>
+                        <gmd:CI_Telephone>
+                          <gmd:voice>
+                            <gco:CharacterString>(907) 424-5800 x225</gco:CharacterString>
+                          </gmd:voice>
+                        </gmd:CI_Telephone>
+                      </gmd:phone>
+                      <gmd:address>
+                        <gmd:CI_Address>
+                          <gmd:deliveryPoint>
+                            <gco:CharacterString>PO Box 705</gco:CharacterString>
+                          </gmd:deliveryPoint>
+                          <gmd:city>
+                            <gco:CharacterString>Cordova</gco:CharacterString>
+                          </gmd:city>
+                          <gmd:administrativeArea>
+                            <gco:CharacterString>AK</gco:CharacterString>
+                          </gmd:administrativeArea>
+                          <gmd:postalCode>
+                            <gco:CharacterString>99574</gco:CharacterString>
+                          </gmd:postalCode>
+                          <gmd:country>
+                            <gco:CharacterString>US</gco:CharacterString>
+                          </gmd:country>
+                          <gmd:electronicMailAddress>
+                            <gco:CharacterString>khoffman@pwssc.org</gco:CharacterString>
+                          </gmd:electronicMailAddress>
+                        </gmd:CI_Address>
+                      </gmd:address>
+                    </gmd:CI_Contact>
+                  </gmd:contactInfo>
+                  <gmd:role>
+                    <gmd:CI_RoleCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="principalInvestigator">principalInvestigator</gmd:CI_RoleCode>
+                  </gmd:role>
+                </gmd:CI_ResponsibleParty>
+              </gmd:citedResponsibleParty>
+              <gmd:citedResponsibleParty>
+                <gmd:CI_ResponsibleParty>
+                  <gmd:organisationName>
+                    <gco:CharacterString>Exxon Valdez Oil Spill Trustee Council</gco:CharacterString>
+                  </gmd:organisationName>
+                  <gmd:contactInfo>
+                    <gmd:CI_Contact>
+                      <gmd:phone>
+                        <gmd:CI_Telephone>
+                          <gmd:voice>
+                            <gco:CharacterString>907 278 8012</gco:CharacterString>
+                          </gmd:voice>
+                        </gmd:CI_Telephone>
+                      </gmd:phone>
+                      <gmd:address>
+                        <gmd:CI_Address>
+                          <gmd:deliveryPoint>
+                            <gco:CharacterString>4210 University Drive</gco:CharacterString>
+                          </gmd:deliveryPoint>
+                          <gmd:city>
+                            <gco:CharacterString>Anchorage</gco:CharacterString>
+                          </gmd:city>
+                          <gmd:administrativeArea>
+                            <gco:CharacterString>AK</gco:CharacterString>
+                          </gmd:administrativeArea>
+                          <gmd:postalCode>
+                            <gco:CharacterString>99508</gco:CharacterString>
+                          </gmd:postalCode>
+                          <gmd:country>
+                            <gco:CharacterString>USA</gco:CharacterString>
+                          </gmd:country>
+                          <gmd:electronicMailAddress>
+                            <gco:CharacterString>dfg.evos.restoration@alaska.gov</gco:CharacterString>
+                          </gmd:electronicMailAddress>
+                        </gmd:CI_Address>
+                      </gmd:address>
+                    </gmd:CI_Contact>
+                  </gmd:contactInfo>
+                  <gmd:role>
+                    <gmd:CI_RoleCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="funder">funder</gmd:CI_RoleCode>
+                  </gmd:role>
+                </gmd:CI_ResponsibleParty>
+              </gmd:citedResponsibleParty>
+              <gmd:otherCitationDetails>
+                <gco:CharacterString>The Exxon Valdez Oil Spill (EVOS) Trustee Council (EVOSTC) initiated funding for the Gulf Watch Alaska (GWA) long-term monitoring (LTM) program in 2012. The GWA program is administrated by the EVOSTC under five-year contracts with the current anticipated duration to be twenty-years in length, concluding in 2032. The program is a consortium of 15 projects, ten of which started before 2012 and several with data sets extending prior to the EVOS. The overarching goal of the GWA program is to provide sound scientific data and products that inform management agencies and the public of changes in the environment and the impacts of these changes on injured resources such as marine birds and mammals. The organization of GWA includes three ecosystem monitoring components: Environmental Drivers, Pelagic, and Nearshore. A fourth component, Lingering Oil, was later incorporated in 2013. This monitoring has produced long-term datasets for oceanographic conditions, plankton, intertidal invertebrates and algae, fish, marine mammals, and birds in the Gulf of Alaska, including Prince William Sound, Resurrection Bay, the Gulf of Alaska Shelf, lower Cook Inlet, and Kachemak Bay.</gco:CharacterString>
+              </gmd:otherCitationDetails>
+            </gmd:CI_Citation>
+          </gmd:aggregateDataSetName>
+          <gmd:aggregateDataSetIdentifier>
+            <gmd:RS_Identifier>
+              <gmd:code>
+                <gco:CharacterString>https://doi.org/10.24431/axds/83479591-af7c-4f64-974f-febb843035b8</gco:CharacterString>
+              </gmd:code>
+            </gmd:RS_Identifier>
+          </gmd:aggregateDataSetIdentifier>
+          <gmd:associationType>
+            <gmd:DS_AssociationTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#DS_AssociationTypeCode" codeListValue="largerWorkCitation">largerWorkCitation</gmd:DS_AssociationTypeCode>
+          </gmd:associationType>
+          <gmd:initiativeType>
+            <gmd:DS_InitiativeTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#DS_InitiativeTypeCode" codeListValue="campaign">campaign</gmd:DS_InitiativeTypeCode>
+          </gmd:initiativeType>
+        </gmd:MD_AggregateInformation>
+      </gmd:aggregationInfo>
+      <gmd:aggregationInfo>
+        <gmd:MD_AggregateInformation>
+          <gmd:aggregateDataSetName>
+            <gmd:CI_Citation>
+              <gmd:title>
+                <gco:CharacterString>Malin Babcock, Patricia Harris, Mark Carls, Christine Broderson, and Stanley Rice. 2013. Recovery monitoring and restoration of intertidal oiled mussel beds in Prince William Sound, Alaska: 1989 - 2000.</gco:CharacterString>
+              </gmd:title>
+              <gmd:date>
+                <gmd:CI_Date>
+                  <gmd:date>
+                    <gco:Date>20130101</gco:Date>
+                  </gmd:date>
+                  <gmd:dateType>
+                    <gmd:CI_DateTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_DateTypeCode" codeListValue="publication">publication</gmd:CI_DateTypeCode>
+                  </gmd:dateType>
+                </gmd:CI_Date>
+              </gmd:date>
+              <gmd:citedResponsibleParty>
+                <gmd:CI_ResponsibleParty>
+                  <gmd:individualName gco:nilReason="template"/>
+                  <gmd:contactInfo>
+                    <gmd:CI_Contact>
+                      <gmd:onlineResource>
+                        <gmd:CI_OnlineResource>
+                          <gmd:linkage>
+                            <gmd:URL>https://search.dataone.org/#view/doi:10.5063/F19884XS</gmd:URL>
+                          </gmd:linkage>
+                        </gmd:CI_OnlineResource>
+                      </gmd:onlineResource>
+                    </gmd:CI_Contact>
+                  </gmd:contactInfo>
+                  <gmd:role gco:nilReason="template"/>
+                </gmd:CI_ResponsibleParty>
+              </gmd:citedResponsibleParty>
+              <gmd:citedResponsibleParty>
+                <gmd:CI_ResponsibleParty>
+                  <gmd:individualName>
+                    <gco:CharacterString>Mandy Lindeberg</gco:CharacterString>
+                  </gmd:individualName>
+                  <gmd:organisationName>
+                    <gco:CharacterString>NOAA Alaska Fisheries Science Center</gco:CharacterString>
+                  </gmd:organisationName>
+                  <gmd:positionName>
+                    <gco:CharacterString>Fisheries Research Biologist</gco:CharacterString>
+                  </gmd:positionName>
+                  <gmd:contactInfo>
+                    <gmd:CI_Contact>
+                      <gmd:phone>
+                        <gmd:CI_Telephone>
+                          <gmd:voice>
+                            <gco:CharacterString>(907) 789-6616</gco:CharacterString>
+                          </gmd:voice>
+                        </gmd:CI_Telephone>
+                      </gmd:phone>
+                      <gmd:address>
+                        <gmd:CI_Address>
+                          <gmd:deliveryPoint>
+                            <gco:CharacterString>Auke Bay Laboratories</gco:CharacterString>
+                          </gmd:deliveryPoint>
+                          <gmd:deliveryPoint>
+                            <gco:CharacterString>17109 Pt. Lena Loop Rd.</gco:CharacterString>
+                          </gmd:deliveryPoint>
+                          <gmd:city>
+                            <gco:CharacterString>Juneau</gco:CharacterString>
+                          </gmd:city>
+                          <gmd:administrativeArea>
+                            <gco:CharacterString>Alaska</gco:CharacterString>
+                          </gmd:administrativeArea>
+                          <gmd:postalCode>
+                            <gco:CharacterString>99801</gco:CharacterString>
+                          </gmd:postalCode>
+                          <gmd:country>
+                            <gco:CharacterString>USA</gco:CharacterString>
+                          </gmd:country>
+                          <gmd:electronicMailAddress>
+                            <gco:CharacterString>mandy.lindeberg@noaa.gov</gco:CharacterString>
+                          </gmd:electronicMailAddress>
+                        </gmd:CI_Address>
+                      </gmd:address>
+                    </gmd:CI_Contact>
+                  </gmd:contactInfo>
+                  <gmd:role>
+                    <gmd:CI_RoleCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="pointOfContact">pointOfContact</gmd:CI_RoleCode>
+                  </gmd:role>
+                </gmd:CI_ResponsibleParty>
+              </gmd:citedResponsibleParty>
+              <gmd:otherCitationDetails>
+                <gco:CharacterString>After the 1989 Exxon Valdez oil spill, many researchers began measuring hydrocarbon concentrations in mussels, sediment, and other matrices in Prince William Sound to assess resource damage. The specific focus of this project was dense aggregations of intertidal mussels (Mytilus trossulus) within the slick trajectory. Oil accumulated in these filter-feeders; total polynuclear aromatic hydrocarbon concentrations were high in 1989 and remained relatively high for several years in mussel beds on unconsolidated sediment. The persistence of oil in these beds in Prince William Sound and along the Gulf of Alaska caused concern, and beginning in 1992 heavily oiled beds were systematically surveyed for oil content in mussel tissue and underlying sediment. Projections from earlier data (through 1995) were that oil would persist for up to three decades, thus funding for study was extended through 1999. This report synthesizes all available natural resource damage assessment data (17 independent studies) to develop a coherent picture of spatial and temporal oil distributions in mussels and sediment. Abstract: Exxon Valdez oil trapped in intertidal sediment in Prince William Sound degraded slowly, was biologically available for at least a decade, and was toxic for at least 9 years. Habitat condition controlled the biological availability of oil. Exposure duration was short where mussels were only exposed to oil in water (months) and long (6 to 10 years) at locations where oil remained in sediment. Limited evidence suggests some oiling extended outside previously reported slick boundaries; polynuclear aromatic hydrocarbon (PAH) sources were verified with three independent petrogenic composition models. After an initial peak, oil concentrations typically declined in sediment and mussels, although distribution was non-uniform and variability was often high. Oil may persist in some intertidal sediment for &gt;50 years, but declines in mussel tissue suggest it became less available to surface organisms and this community is recovering. Attempts to manually accelerate hydrocarbon loss from mussel beds were equivocal, demonstrating that removal of oil from intertidal sediment is difficult. Exposure to residual oil may explain why some vertebrate populations (pigeon guillemots, Cepphus columba, and sea otters, Enhydra lutris) that forage in the most heavily impacted areas have not yet fully recovered from the spill.</gco:CharacterString>
+              </gmd:otherCitationDetails>
+            </gmd:CI_Citation>
+          </gmd:aggregateDataSetName>
+          <gmd:aggregateDataSetIdentifier>
+            <gmd:RS_Identifier>
+              <gmd:authority>
+                <gmd:CI_Citation>
+                  <gmd:title>
+                    <gco:CharacterString>DataONE</gco:CharacterString>
+                  </gmd:title>
+                  <gmd:date gco:nilReason="missing"/>
+                </gmd:CI_Citation>
+              </gmd:authority>
+              <gmd:code>
+                <gco:CharacterString>doi:10.5063/F19884XS</gco:CharacterString>
+              </gmd:code>
+            </gmd:RS_Identifier>
+          </gmd:aggregateDataSetIdentifier>
+          <gmd:associationType>
+            <gmd:DS_AssociationTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#DS_AssociationTypeCode" codeListValue="crossReference">crossReference</gmd:DS_AssociationTypeCode>
+          </gmd:associationType>
+          <gmd:initiativeType>
+            <gmd:DS_InitiativeTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#DS_InitiativeTypeCode" codeListValue="project">project</gmd:DS_InitiativeTypeCode>
+          </gmd:initiativeType>
+        </gmd:MD_AggregateInformation>
+      </gmd:aggregationInfo>
+      <gmd:aggregationInfo>
+        <gmd:MD_AggregateInformation>
+          <gmd:aggregateDataSetName>
+            <gmd:CI_Citation>
+              <gmd:title gco:nilReason="missing"/>
+              <gmd:date>
+                <gmd:CI_Date>
+                  <gmd:date>
+                    <gco:Date>20170101</gco:Date>
+                  </gmd:date>
+                  <gmd:dateType>
+                    <gmd:CI_DateTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_DateTypeCode" codeListValue="publication">publication</gmd:CI_DateTypeCode>
+                  </gmd:dateType>
+                </gmd:CI_Date>
+              </gmd:date>
+              <gmd:citedResponsibleParty>
+                <gmd:CI_ResponsibleParty>
+                  <gmd:individualName gco:nilReason="template"/>
+                  <gmd:contactInfo>
+                    <gmd:CI_Contact>
+                      <gmd:onlineResource>
+                        <gmd:CI_OnlineResource>
+                          <gmd:linkage>
+                            <gmd:URL>https://goa.nceas.ucsb.edu/?#view/urn:uuid:3249ada0-afe3-4dd6-875e-0f7928a4c171</gmd:URL>
+                          </gmd:linkage>
+                          <gmd:name>
+                            <gco:CharacterString>Hydrocarbon Database</gco:CharacterString>
+                          </gmd:name>
+                          <gmd:description>
+                            <gco:CharacterString>Hydrocarbon Database in the DataONE Gulf of Alaska Data Portal</gco:CharacterString>
+                          </gmd:description>
+                        </gmd:CI_OnlineResource>
+                      </gmd:onlineResource>
+                    </gmd:CI_Contact>
+                  </gmd:contactInfo>
+                  <gmd:role gco:nilReason="template"/>
+                </gmd:CI_ResponsibleParty>
+              </gmd:citedResponsibleParty>
+              <gmd:citedResponsibleParty>
+                <gmd:CI_ResponsibleParty>
+                  <gmd:individualName>
+                    <gco:CharacterString>Mandy Lindeberg</gco:CharacterString>
+                  </gmd:individualName>
+                  <gmd:organisationName>
+                    <gco:CharacterString>NOAA Alaska Fisheries Science Center</gco:CharacterString>
+                  </gmd:organisationName>
+                  <gmd:positionName>
+                    <gco:CharacterString>Fisheries Research Biologist</gco:CharacterString>
+                  </gmd:positionName>
+                  <gmd:contactInfo>
+                    <gmd:CI_Contact>
+                      <gmd:phone>
+                        <gmd:CI_Telephone>
+                          <gmd:voice>
+                            <gco:CharacterString>(907) 789-6616</gco:CharacterString>
+                          </gmd:voice>
+                        </gmd:CI_Telephone>
+                      </gmd:phone>
+                      <gmd:address>
+                        <gmd:CI_Address>
+                          <gmd:deliveryPoint>
+                            <gco:CharacterString>Auke Bay Laboratories</gco:CharacterString>
+                          </gmd:deliveryPoint>
+                          <gmd:deliveryPoint>
+                            <gco:CharacterString>17109 Pt. Lena Loop Rd.</gco:CharacterString>
+                          </gmd:deliveryPoint>
+                          <gmd:city>
+                            <gco:CharacterString>Juneau</gco:CharacterString>
+                          </gmd:city>
+                          <gmd:administrativeArea>
+                            <gco:CharacterString>Alaska</gco:CharacterString>
+                          </gmd:administrativeArea>
+                          <gmd:postalCode>
+                            <gco:CharacterString>99801</gco:CharacterString>
+                          </gmd:postalCode>
+                          <gmd:country>
+                            <gco:CharacterString>USA</gco:CharacterString>
+                          </gmd:country>
+                          <gmd:electronicMailAddress>
+                            <gco:CharacterString>mandy.lindeberg@noaa.gov</gco:CharacterString>
+                          </gmd:electronicMailAddress>
+                        </gmd:CI_Address>
+                      </gmd:address>
+                    </gmd:CI_Contact>
+                  </gmd:contactInfo>
+                  <gmd:role>
+                    <gmd:CI_RoleCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="principalInvestigator">principalInvestigator</gmd:CI_RoleCode>
+                  </gmd:role>
+                </gmd:CI_ResponsibleParty>
+              </gmd:citedResponsibleParty>
+            </gmd:CI_Citation>
+          </gmd:aggregateDataSetName>
+          <gmd:aggregateDataSetIdentifier>
+            <gmd:RS_Identifier>
+              <gmd:authority>
+                <gmd:CI_Citation>
+                  <gmd:title>
+                    <gco:CharacterString>DataONE</gco:CharacterString>
+                  </gmd:title>
+                  <gmd:date gco:nilReason="missing"/>
+                </gmd:CI_Citation>
+              </gmd:authority>
+              <gmd:code>
+                <gco:CharacterString>df35b.248.3</gco:CharacterString>
+              </gmd:code>
+            </gmd:RS_Identifier>
+          </gmd:aggregateDataSetIdentifier>
+          <gmd:associationType>
+            <gmd:DS_AssociationTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#DS_AssociationTypeCode" codeListValue="crossReference">crossReference</gmd:DS_AssociationTypeCode>
+          </gmd:associationType>
+          <gmd:initiativeType>
+            <gmd:DS_InitiativeTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#DS_InitiativeTypeCode" codeListValue="project">project</gmd:DS_InitiativeTypeCode>
+          </gmd:initiativeType>
+        </gmd:MD_AggregateInformation>
+      </gmd:aggregationInfo>
+      <gmd:language>
+        <gco:CharacterString>eng;USA</gco:CharacterString>
+      </gmd:language>
+      <gmd:topicCategory>
+        <gmd:MD_TopicCategoryCode>oceans</gmd:MD_TopicCategoryCode>
+      </gmd:topicCategory>
+      <gmd:topicCategory>
+        <gmd:MD_TopicCategoryCode>environment</gmd:MD_TopicCategoryCode>
+      </gmd:topicCategory>
+      <gmd:topicCategory>
+        <gmd:MD_TopicCategoryCode>biota</gmd:MD_TopicCategoryCode>
+      </gmd:topicCategory>
+      <gmd:environmentDescription>
+        <gco:CharacterString>The survey dataset was originally constructed in Microsoft Excel and converted to csv format for archive.</gco:CharacterString>
+      </gmd:environmentDescription>
+      <gmd:extent>
+        <gmd:EX_Extent>
+          <gmd:description>
+            <gco:CharacterString>Prince William Sound, Kenai Peninsula, Kachemak Bay, lower Cook Inlet, Katmai coast, and Kodiak archipelago, Alaska</gco:CharacterString>
+          </gmd:description>
+          <gmd:geographicElement>
+            <gmd:EX_GeographicBoundingBox>
+              <gmd:westBoundLongitude>
+                <gco:Decimal>-148.516027</gco:Decimal>
+              </gmd:westBoundLongitude>
+              <gmd:eastBoundLongitude>
+                <gco:Decimal>-145.945612</gco:Decimal>
+              </gmd:eastBoundLongitude>
+              <gmd:southBoundLatitude>
+                <gco:Decimal>59.975405</gco:Decimal>
+              </gmd:southBoundLatitude>
+              <gmd:northBoundLatitude>
+                <gco:Decimal>61.261070</gco:Decimal>
+              </gmd:northBoundLatitude>
+            </gmd:EX_GeographicBoundingBox>
+          </gmd:geographicElement>
+          <gmd:geographicElement>
+            <gmd:EX_BoundingPolygon>
+              <gmd:polygon>
+                <gml:Polygon gml:id="gmlid_1">
+                  <gml:exterior>
+                    <gml:LinearRing>
+                      <gml:coordinates decimal="-154.76440429687497,58.08949277309781 -154.13818359375,58.58543569119917 -153.643798828125,58.722598828043374 -153.731689453125,58.99531118795094 -154.46777343749997,58.944341176136966 -154.31396484375,59.377988012638895 -153.511962890625,59.82273188377389 -151.30371093749997,59.866883195210214 -150.809326171875,59.87239799228177 -150.831298828125,59.772991625706695 -151.00708007812497,59.59553575879331 -151.688232421875,59.40036514079251 -151.666259765625,59.226555635719215 -149.886474609375,59.99898612060444 -149.17236328125,60.09224104108026 -148.524169921875,60.05935761134086 -148.82080078125,60.43554230669233 -148.458251953125,61.13262899079795 -147.755126953125,61.33353967329144 -146.217041015625,61.15383794909113 -144.91566002368927,60.437512802002246 -141.5478515625,60.009970961180386 -151.59534752368927,56.39179420645046 -154.76440429687497,58.08949277309781"/>
+                    </gml:LinearRing>
+                  </gml:exterior>
+                </gml:Polygon>
+              </gmd:polygon>
+            </gmd:EX_BoundingPolygon>
+          </gmd:geographicElement>
+          <gmd:temporalElement>
+            <gmd:EX_TemporalExtent>
+              <gmd:extent>
+                <gml:TimePeriod gml:id="gmlid_2">
+                  <gml:description>range of dates when surveys were conducted at nine locations within Prince William Sound</gml:description>
+                  <gml:beginPosition>2015-06-13T00:00:00+00:00</gml:beginPosition>
+                  <gml:endPosition>2015-06-21T00:00:00+00:00</gml:endPosition>
+                </gml:TimePeriod>
+              </gmd:extent>
+            </gmd:EX_TemporalExtent>
+          </gmd:temporalElement>
+        </gmd:EX_Extent>
+      </gmd:extent>
+    </gmd:MD_DataIdentification>
+  </gmd:identificationInfo>
+  <gmd:distributionInfo>
+    <gmd:MD_Distribution>
+      <gmd:distributor>
+        <gmd:MD_Distributor>
+          <gmd:distributorContact>
+            <gmd:CI_ResponsibleParty>
+              <gmd:individualName>
+                <gco:CharacterString>Carol Janzen</gco:CharacterString>
+              </gmd:individualName>
+              <gmd:organisationName>
+                <gco:CharacterString>Alaska Ocean Observing System</gco:CharacterString>
+              </gmd:organisationName>
+              <gmd:contactInfo>
+                <gmd:CI_Contact>
+                  <gmd:phone>
+                    <gmd:CI_Telephone>
+                      <gmd:voice>
+                        <gco:CharacterString>(907) 644-6703</gco:CharacterString>
+                      </gmd:voice>
+                    </gmd:CI_Telephone>
+                  </gmd:phone>
+                  <gmd:address>
+                    <gmd:CI_Address>
+                      <gmd:deliveryPoint>
+                        <gco:CharacterString>1007 W. 3rd Avenue</gco:CharacterString>
+                      </gmd:deliveryPoint>
+                      <gmd:city>
+                        <gco:CharacterString>Anchorage</gco:CharacterString>
+                      </gmd:city>
+                      <gmd:administrativeArea>
+                        <gco:CharacterString>AK</gco:CharacterString>
+                      </gmd:administrativeArea>
+                      <gmd:postalCode>
+                        <gco:CharacterString>99501</gco:CharacterString>
+                      </gmd:postalCode>
+                      <gmd:country>
+                        <gco:CharacterString>USA</gco:CharacterString>
+                      </gmd:country>
+                      <gmd:electronicMailAddress>
+                        <gco:CharacterString>janzen@aoos.org</gco:CharacterString>
+                      </gmd:electronicMailAddress>
+                    </gmd:CI_Address>
+                  </gmd:address>
+                </gmd:CI_Contact>
+              </gmd:contactInfo>
+              <gmd:role>
+                <gmd:CI_RoleCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="distributor">distributor</gmd:CI_RoleCode>
+              </gmd:role>
+            </gmd:CI_ResponsibleParty>
+          </gmd:distributorContact>
+          <gmd:distributorFormat>
+            <gmd:MD_Format>
+              <gmd:name>
+                <gco:CharacterString>Data available in CSV formatted tables for download in the Alaska Ocean Observing System (AOOS) Gulf of Alaska data portal.</gco:CharacterString>
+              </gmd:name>
+              <gmd:version gco:nilReason="missing"/>
+            </gmd:MD_Format>
+          </gmd:distributorFormat>
+          <gmd:distributorTransferOptions>
+            <gmd:MD_DigitalTransferOptions>
+              <gmd:onLine>
+                <gmd:CI_OnlineResource>
+                  <gmd:linkage>
+                    <gmd:URL>http://portal.aoos.org/gulf-of-alaska.php</gmd:URL>
+                  </gmd:linkage>
+                </gmd:CI_OnlineResource>
+              </gmd:onLine>
+            </gmd:MD_DigitalTransferOptions>
+          </gmd:distributorTransferOptions>
+        </gmd:MD_Distributor>
+      </gmd:distributor>
+    </gmd:MD_Distribution>
+  </gmd:distributionInfo>
+  <gmd:dataQualityInfo>
+    <gmd:DQ_DataQuality>
+      <gmd:scope>
+        <gmd:DQ_Scope>
+          <gmd:level>
+            <gmd:MD_ScopeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#MD_ScopeCode" codeListValue="dataset">dataset</gmd:MD_ScopeCode>
+          </gmd:level>
+        </gmd:DQ_Scope>
+      </gmd:scope>
+      <gmd:report>
+        <gmd:DQ_ConceptualConsistency>
+          <gmd:nameOfMeasure>
+            <gco:CharacterString>Analytical Quality Assurance</gco:CharacterString>
+          </gmd:nameOfMeasure>
+          <gmd:evaluationMethodDescription>
+            <gco:CharacterString>Samples were processed by Auke Bay Laboratories according to standard operating procedures found in the file named Analysis of Petroleum Hydrocarbons SOP_May 2016 (Lindeberg, et al. 2017). Lindeberg, M. R., M. G. Carls, J. Maselko. 2017. Lingering Oil: Extending the Tracking of Oil Levels and Weathering (PAH Composition) in PWS through Time. Restoration Project Final Report (Restoration Project 12120014-S), NOAA/NMFS Auke Bay Laboratories, Juneau, Alaska. Quality assurance samples were processed with every 13 environmental samples and used to determine the acceptability of the data from each sample string. The quality assurance samples consisted of 2 reference material samples, 1 method blank, and 1 spiked blank and evaluate precision, method cleanliness and accuracy, respectively. See section 4 of Analysis of Petroleum Hydrocarbons SOP_May 2016.pdf for the composition of the QA samples. A mid range calibration standard (calibration standard #3) was run near the middle and at the end of each string and used to evaluate calibration stability. The standards were analyzed as a sample and the results were reviewed for accuracy.</gco:CharacterString>
+          </gmd:evaluationMethodDescription>
+          <gmd:result gco:nilReason="missing"/>
+        </gmd:DQ_ConceptualConsistency>
+      </gmd:report>
+      <gmd:lineage>
+        <gmd:LI_Lineage>
+          <gmd:statement>
+            <gco:CharacterString>Methods for surveying beach segments, discovering oil, and estimating oiled area matched those used by the NMFS ABL 2003 lingering oil survey (Short et al. 2006). These methods were proven to estimate subsurface oil for the entire intertidal zone (mean high water to zero tide height) and they ensured comparison over time for a given site. Below is a summary of the sampling methods used to construct each file in this dataset. Detailed SOPs containing the lingering oil survey methods are presented in the file named Lingering oil survey SOP_January 2017.pdf. Site Info: Nine beaches in Prince William Sound that were determined to have the highest probability of encountering lingering oil were selected for stratified random sampling in June 2015. Factors considered in selecting beach for sampling were based on several factors: initial oiling, shore types prone to oil retention, past oil surveys, most recently observed oil in heaviest categories, and a high probability of oil persistence. Survey Data: Lingering oil surveys were conducted at the above sites during research cruises that coincided with spring/summer low tidal windows (zero tide height or lower; usually May, June, or July) and followed standard operating procedures outlined in Lingering oil survey SOP_January 2017 (Lindeberg, et al. 2017). At the onset of a survey, 10 low-density polyethylene membrane devices (PEMDs) were deployed at a heavily-oiled beach to be collected at the end of the cruise as the last survey site. The following details of PEMD deployment were recorded in a field notebook: site, date deployed and retrieved, survey grid address, substrate and anchoring system, GPS waypoints, and sample identification numbers (SINs). For subsequent sites, a survey grid was established on the morning low tide by a crew of three. Test pits measuring 0.5m by 0.5m were selected randomly within the survey grid for excavation. Oil chemistry sampling and gravimetric sampling were conducted within oiled pits. Oil Composition Sampling: Oil chemistry samples were collected in 2-ounce HC-free jars using an HC-free stainless steel spoon. Excess water was removed from the jar, which was labeled with a SIN. Latitude and longitude were recorded as a GPS waypoint. A Chain of Custody form was filled out on-site, and the sample was frozen as soon as possible after collection and kept frozen until shipping. Gravimetric Sampling: For gravimetric sampling, 0.25m by 0.25m quadrats were excavated and all oiled materials were placed in 5-gallon buckets. Rocks larger than 2.5in or 64mm in diameter were excluded after oiled material had been scraped from their surface using a spatula or putty knife. Buckets were weighed and described on the gravimetric data sheet. Buckets were combined in a large tote for homogenization. A subsample no greater than 10kg or 4.5lbs was placed in a 1gal plastic bucket. Its weight was recorded on the gravimetric data sheet and labeled with a sample identification number (SIN). All tools and equipment were thoroughly cleaned with Joy soap before reuse. Chain of Custody for Samples: All samples were shipped to Auke Bay Laboratories in Juneau, Alaska with complete chain of custody forms that include SIN, collector's sample code, date sample collected, matrix and species, location code, latitude and longitude, collection method, comments, and chain of custody signatures. Site Photo Documentation: Site photo documentation was taken to document monitoring surveys and discovery of oil. The following is a prioritized list of still photo that were taken while at a site: general offshore shot of site, start of site and column A, all oiled pits (if no oiled pits then representative pits showing substrates), all columns (A-E; start at top), along shore shot from column A across site (from column E looking back across site), methods examples (surveying, digging pits, taking chemistry samples, gravimetric samples, etc.), and all MVD block starts (upper left hand corner where stake is placed). Photos were transferred form the camera to a computer and stored in zip file collections by site which contain jpegs documenting the survey performed at the shore segment named in the zip file name (e.g. 'SM006B.zip'). Image files are named with standardized nomenclature that describes content of image (e.g. shore segment_year_location_survey number). Each collection contains a spreadsheet describing the filename, the program and agency responsible for the image, a point of contact for the image, and the latitude and longitude of the location of where the photo was taken (when known). Each image in the zip collections contains embedded exif metadata describing the make, model, and settings of the camera used to capture the image, and documenting the GPS location and time at which the image was captured. In the PDF collections of images, each page displays one image and provides the file name for the image. Zip files containing jpeg images and associated metadata are publicly available through the Gulf of Alaska data portal (http://portal.aoos.org/gulf-of-alaska.php#metadata/91b73240-b68d-43d8-bd64-aea4ea14e976/project/files) , or by contacting the Principal Investigator. Literature cited: Lindeberg, M. R., M. G. Carls, J. Maselko. 2017. Lingering Oil: Extending the Tracking of Oil Levels and Weathering (PAH Composition) in PWS through Time. Restoration Project Final Report (Restoration Project 12120014-S), NOAA/NMFS Auke Bay Laboratories, Juneau, Alaska. Short, J. W., J. M. Maselko, M. R. Lindeberg, P. M. Harris, and S. D. Rice. 2006. Vertical distribution and probability of encountering intertidal “Exxon Valdez” oil on shorelines of three embayments within Prince William Sound, Alaska. Environmental science &amp; technology 40:3723–9.</gco:CharacterString>
+          </gmd:statement>
+          <gmd:processStep>
+            <gmd:LI_ProcessStep>
+              <gmd:description>
+                <gco:CharacterString>Samples were processed by Auke Bay Laboratories according to standard operating procedures found in the file named Analysis of Petroleum Hydrocarbons SOP_May 2016 (Lindeberg, et al. 2017). Lindeberg, M. R., M. G. Carls, J. Maselko. 2017. Lingering Oil: Extending the Tracking of Oil Levels and Weathering (PAH Composition) in PWS through Time. Restoration Project Final Report (Restoration Project 12120014-S), NOAA/NMFS Auke Bay Laboratories, Juneau, Alaska.</gco:CharacterString>
+              </gmd:description>
+            </gmd:LI_ProcessStep>
+          </gmd:processStep>
+        </gmd:LI_Lineage>
+      </gmd:lineage>
+    </gmd:DQ_DataQuality>
+  </gmd:dataQualityInfo>
+  <gmd:metadataMaintenance>
+    <gmd:MD_MaintenanceInformation>
+      <gmd:maintenanceAndUpdateFrequency>
+        <gmd:MD_MaintenanceFrequencyCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#MD_MaintenanceFrequencyCode" codeListValue="asNeeded">asNeeded</gmd:MD_MaintenanceFrequencyCode>
+      </gmd:maintenanceAndUpdateFrequency>
+      <gmd:maintenanceNote>
+        <gco:CharacterString>The GWA program is administrated by the EVOSTC under five-year contracts. This dataset will be updated when the newer data are available under the subsequent 2017-2021 contract.</gco:CharacterString>
+      </gmd:maintenanceNote>
+      <gmd:contact>
+        <gmd:CI_ResponsibleParty>
+          <gmd:organisationName>
+            <gco:CharacterString>Axiom Data Science</gco:CharacterString>
+          </gmd:organisationName>
+          <gmd:positionName>
+            <gco:CharacterString>Metadata Specialist</gco:CharacterString>
+          </gmd:positionName>
+          <gmd:contactInfo>
+            <gmd:CI_Contact>
+              <gmd:address>
+                <gmd:CI_Address>
+                  <gmd:deliveryPoint>
+                    <gco:CharacterString>1016 W 6th Avenue</gco:CharacterString>
+                  </gmd:deliveryPoint>
+                  <gmd:deliveryPoint>
+                    <gco:CharacterString>Suite 105</gco:CharacterString>
+                  </gmd:deliveryPoint>
+                  <gmd:city>
+                    <gco:CharacterString>Anchorage</gco:CharacterString>
+                  </gmd:city>
+                  <gmd:administrativeArea>
+                    <gco:CharacterString>AK</gco:CharacterString>
+                  </gmd:administrativeArea>
+                  <gmd:postalCode>
+                    <gco:CharacterString>99501</gco:CharacterString>
+                  </gmd:postalCode>
+                  <gmd:electronicMailAddress>
+                    <gco:CharacterString>metadata@axiomdatascience.com</gco:CharacterString>
+                  </gmd:electronicMailAddress>
+                </gmd:CI_Address>
+              </gmd:address>
+            </gmd:CI_Contact>
+          </gmd:contactInfo>
+          <gmd:role>
+            <gmd:CI_RoleCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="custodian">custodian</gmd:CI_RoleCode>
+          </gmd:role>
+        </gmd:CI_ResponsibleParty>
+      </gmd:contact>
+    </gmd:MD_MaintenanceInformation>
+  </gmd:metadataMaintenance>
+</gmi:MI_Metadata>
+<!--REMOVED VALUE: Removed gmx code value <gmd:MD_TopicCategoryCode xmlns:gmd="http://www.isotc211.org/2005/gmd">disaster</gmd:MD_TopicCategoryCode> because it is not valid for export format 19115-2-->

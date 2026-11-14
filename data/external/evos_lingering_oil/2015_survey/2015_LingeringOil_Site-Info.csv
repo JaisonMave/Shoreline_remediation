@@ -1,0 +1,15 @@
+Priority,Location Name,Shore Segment,2015 Latitude,2015 Longitude,Initial Oiling,Oil Surveys        Excavation History,Most Recent Oil Class,Shore type prone to persistent oil,2015 Length  (m),2015 Estimated area (m2),2015 Total # of pits sampled,2015 # of pits LOR,2015 # of pits MOR,2015 # of pits HOR
+1,Smith Is.,SM006B,60.52782917,-147.3854875,Heavy 1990-93,"1989-92, 2001, 2008",HOR,armored,100,5488,50,1,5,3
+2,Eleanor Is.,EL056C,60.55066667,-147.5794958,Medium 1990-93,"2001, 2007",MOR,rubble accumulation,90,2593.8,50,4,3,10
+3,Eleanor Is.,EL058B,60.562125,-147.5734333,Heavy 1989,"2001, 2005",MOR,breakwater,51,1892.1,30,1,4,2
+4,Latouche Is.,LA018A-1,60.06530833,-147.8352625,Heavy 1990-93,"1989-92, 2001, 2005",HOR,"rubble, slope",100,3132,50,-,1,-
+5,Green Is.,GR103B,60.30057083,-147.3649042,Heavy 1990-93,"2001, 2005, 2007",HOR,"armored, slope",100,4398,50,1,1,2
+6,Evans Is.,EV039A,60.11330833,-147.8910583,Heavy 1990-93,"1993, 2005",MOR,edge effect,109,4809.2,50,-,-,-
+7,Knight Is.,KN0114A,60.48497083,-147.7235833,Heavy 1990-93,2003,HOR,breakwater,68,2675.8,40,1,6,-
+8,Knight Is.,KN0300A-2,60.483125,-147.7770292,Medium 1990-93,"1993, 2005",MOR,breakwater,52,2076.1,40,-,-,1
+9,Knight Is.,KN0506A,60.443025,-147.8214875,Heavy 1990-93,"2001, 2005",LOR,edge effect,50,1960,40,-,-,1
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,

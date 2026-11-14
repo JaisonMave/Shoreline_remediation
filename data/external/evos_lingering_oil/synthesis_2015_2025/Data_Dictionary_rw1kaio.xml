@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<gfc:FC_FeatureCatalogue xmlns:gfc="http://www.isotc211.org/2005/gfc" xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:gmx="http://www.isotc211.org/2005/gmx" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:gmi="http://www.isotc211.org/2005/gmi" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:gts="http://www.isotc211.org/2005/gts" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.isotc211.org/2005/gfc http://www.isotc211.org/2005/gfc/gfc.xsd">
+  <gmx:name>
+    <gco:CharacterString>EVOS_GIS_Package_Description</gco:CharacterString>
+  </gmx:name>
+  <gmx:scope>
+    <gco:CharacterString>The document lists statistics, key fields, and data choices in each tier’s assessment unit (AU) feature class (GIS dataset). It also provides the final combined AU feature class (EVOS_AUs_Lingering_Oil_Status_All_Tiers) developed by applying the tiered data approach in the Lingering Oil Listing Methodology to define each AU as Attaining, Impaired, or Unknown (not enough information).</gco:CharacterString>
+  </gmx:scope>
+  <gmx:versionNumber gco:nilReason="missing"/>
+  <gmx:versionDate gco:nilReason="missing">
+    <gco:Date xsi:nil="true"/>
+  </gmx:versionDate>
+  <gmx:language>
+    <gco:CharacterString>eng; USA</gco:CharacterString>
+  </gmx:language>
+  <gmx:characterSet>
+    <gmd:MD_CharacterSetCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#MD_CharacterSetCode" codeListValue="utf8"/>
+  </gmx:characterSet>
+  <gfc:producer gco:nilReason="missing"/>
+  <gfc:featureType>
+    <gfc:FC_FeatureType>
+      <gfc:typeName>
+        <gco:LocalName>EVOS_AUs_Lingering_Oil_Status_All_Tiers</gco:LocalName>
+      </gfc:typeName>
+      <gfc:definition>
+        <gco:CharacterString>This is the final combined assessment unit layer that integrates all tiers of data and assesses each AU using a tiered priority system in accordance with the listing methodology for lingering oil.</gco:CharacterString>
+      </gfc:definition>
+      <gfc:code>
+        <gco:CharacterString>EVOS_2026_Lingering_Oil_Status.csv</gco:CharacterString>
+      </gfc:code>
+      <gfc:isAbstract>
+        <gco:Boolean>false</gco:Boolean>
+      </gfc:isAbstract>
+      <gfc:featureCatalogue gco:nilReason="inapplicable"/>
+      <gfc:carrierOfCharacteristics>
+        <gfc:FC_FeatureAttribute>
+          <gfc:memberName gco:nilReason="missing"/>
+          <gfc:definition>
+            <gco:CharacterString>Area of AU polygon in square feet - calculated as the total area of the assessment unit polygon.</gco:CharacterString>
+          </gfc:definition>
+          <gfc:cardinality gco:nilReason="unknown"/>
+          <gfc:code>
+            <gco:CharacterString>SHAPE_Area</gco:CharacterString>
+          </gfc:code>
+          <gfc:valueMeasurementUnit>
+            <gml:BaseUnit gml:id="gmlid_1">
+              <gml:identifier codeSpace="missing">square feet</gml:identifier>
+              <gml:unitsSystem/>
+            </gml:BaseUnit>
+          </gfc:valueMeasurementUnit>
+        </gfc:FC_FeatureAttribute>
+      </gfc:carrierOfCharacteristics>
+      <gfc:carrierOfCharacteristics>
+        <gfc:FC_FeatureAttribute>
+          <gfc:memberName gco:nilReason="missing"/>
+          <gfc:definition>
+            <gco:CharacterString>Perimeter length of AU polygon in feet - calculated as the total perimeter distance of the assessment unit polygon.</gco:CharacterString>
+          </gfc:definition>
+          <gfc:cardinality gco:nilReason="unknown"/>
+          <gfc:code>
+            <gco:CharacterString>SHAPE_Length</gco:CharacterString>
+          </gfc:code>
+          <gfc:valueMeasurementUnit>
+            <gml:BaseUnit gml:id="gmlid_2">
+              <gml:identifier codeSpace="missing">feet</gml:identifier>
+              <gml:unitsSystem/>
+            </gml:BaseUnit>
+          </gfc:valueMeasurementUnit>
+          <gfc:valueType>
+            <gco:TypeName>
+              <gco:aName>
+                <gco:CharacterString>integer</gco:CharacterString>
+              </gco:aName>
+            </gco:TypeName>
+          </gfc:valueType>
+        </gfc:FC_FeatureAttribute>
+      </gfc:carrierOfCharacteristics>
+      <gfc:carrierOfCharacteristics>
+        <gfc:FC_FeatureAttribute>
+          <gfc:memberName gco:nilReason="missing"/>
+          <gfc:definition>
+            <gco:CharacterString>Reason from Tier 5 assessment</gco:CharacterString>
+          </gfc:definition>
+          <gfc:cardinality gco:nilReason="unknown"/>
+          <gfc:code>
+            <gco:CharacterString>Tier5_STATUS_Reason</gco:CharacterString>
+          </gfc:code>
+        </gfc:FC_FeatureAttribute>
+      </gfc:carrierOfCharacteristics>
+      <gfc:carrierOfCharacteristics>
+        <gfc:FC_FeatureAttribute>
+          <gfc:memberName gco:nilReason="missing"/>
+          <gfc:definition>
+            <gco:CharacterString>Status from Tier 5 assessment</gco:CharacterString>
+          </gfc:definition>
+          <gfc:cardinality gco:nilReason="unknown"/>
+          <gfc:code>
+            <gco:CharacterString>Tier5_STATUS</gco:CharacterString>
+          </gfc:code>
+        </gfc:FC_FeatureAttribute>
+      </gfc:carrierOfCharacteristics>
+      <gfc:carrierOfCharacteristics>
+        <gfc:FC_FeatureAttribute>
+          <gfc:memberName gco:nilReason="missing"/>
+          <gfc:definition>
+            <gco:CharacterString>Reason from Tier 3 assessment</gco:CharacterString>
+          </gfc:definition>
+          <gfc:cardinality gco:nilReason="unknown"/>
+          <gfc:code>
+            <gco:CharacterString>Tier3_STATUS_Reason</gco:CharacterString>
+          </gfc:code>
+        </gfc:FC_FeatureAttribute>
+      </gfc:carrierOfCharacteristics>
+      <gfc:carrierOfCharacteristics>
+        <gfc:FC_FeatureAttribute>
+          <gfc:memberName gco:nilReason="missing"/>
+          <gfc:definition>
+            <gco:CharacterString>Status from Tier 3 assessment</gco:CharacterString>
+          </gfc:definition>
+          <gfc:cardinality gco:nilReason="unknown"/>
+          <gfc:code>
+            <gco:CharacterString>Tier3_STATUS</gco:CharacterString>
+          </gfc:code>
+        </gfc:FC_FeatureAttribute>
+      </gfc:carrierOfCharacteristics>
+      <gfc:carrierOfCharacteristics>
+        <gfc:FC_FeatureAttribute>
+          <gfc:memberName gco:nilReason="missing"/>
+          <gfc:definition>
+            <gco:CharacterString>Reason from Tier 4b assessment</gco:CharacterString>
+          </gfc:definition>
+          <gfc:cardinality gco:nilReason="unknown"/>
+          <gfc:code>
+            <gco:CharacterString>Tier4_STATUS_Reason</gco:CharacterString>
+          </gfc:code>
+        </gfc:FC_FeatureAttribute>
+      </gfc:carrierOfCharacteristics>
+      <gfc:carrierOfCharacteristics>
+        <gfc:FC_FeatureAttribute>
+          <gfc:memberName gco:nilReason="missing"/>
+          <gfc:definition>
+            <gco:CharacterString>Status from Tier 4b assessment</gco:CharacterString>
+          </gfc:definition>
+          <gfc:cardinality gco:nilReason="unknown"/>
+          <gfc:code>
+            <gco:CharacterString>Tier4_STATUS</gco:CharacterString>
+          </gfc:code>
+        </gfc:FC_FeatureAttribute>
+      </gfc:carrierOfCharacteristics>
+      <gfc:carrierOfCharacteristics>
+        <gfc:FC_FeatureAttribute>
+          <gfc:memberName gco:nilReason="missing"/>
+          <gfc:definition>
+            <gco:CharacterString>Reason from Tier 2 assessment</gco:CharacterString>
+          </gfc:definition>
+          <gfc:cardinality gco:nilReason="unknown"/>
+          <gfc:code>
+            <gco:CharacterString>Tier2_STATUS_Reason</gco:CharacterString>
+          </gfc:code>
+        </gfc:FC_FeatureAttribute>
+      </gfc:carrierOfCharacteristics>
+      <gfc:carrierOfCharacteristics>
+        <gfc:FC_FeatureAttribute>
+          <gfc:memberName gco:nilReason="missing"/>
+          <gfc:definition>
+            <gco:CharacterString>Status from Tier 2 assessment</gco:CharacterString>
+          </gfc:definition>
+          <gfc:cardinality gco:nilReason="unknown"/>
+          <gfc:code>
+            <gco:CharacterString>Tier2_STATUS</gco:CharacterString>
+          </gfc:code>
+        </gfc:FC_FeatureAttribute>
+      </gfc:carrierOfCharacteristics>
+      <gfc:carrierOfCharacteristics>
+        <gfc:FC_FeatureAttribute>
+          <gfc:memberName gco:nilReason="missing"/>
+          <gfc:definition>
+            <gco:CharacterString>Reason from Tier 1 assessment</gco:CharacterString>
+          </gfc:definition>
+          <gfc:cardinality gco:nilReason="unknown"/>
+          <gfc:code>
+            <gco:CharacterString>Tier1_STATUS_Reason</gco:CharacterString>
+          </gfc:code>
+        </gfc:FC_FeatureAttribute>
+      </gfc:carrierOfCharacteristics>
+      <gfc:carrierOfCharacteristics>
+        <gfc:FC_FeatureAttribute>
+          <gfc:memberName gco:nilReason="missing"/>
+          <gfc:definition>
+            <gco:CharacterString>Status from Tier 1 assessment</gco:CharacterString>
+          </gfc:definition>
+          <gfc:cardinality gco:nilReason="unknown"/>
+          <gfc:code>
+            <gco:CharacterString>Tier1_STATUS</gco:CharacterString>
+          </gfc:code>
+        </gfc:FC_FeatureAttribute>
+      </gfc:carrierOfCharacteristics>
+      <gfc:carrierOfCharacteristics>
+        <gfc:FC_FeatureAttribute>
+          <gfc:memberName gco:nilReason="missing"/>
+          <gfc:definition>
+            <gco:CharacterString>Indicates which data tier was used for the final assessment</gco:CharacterString>
+          </gfc:definition>
+          <gfc:cardinality gco:nilReason="unknown"/>
+          <gfc:code>
+            <gco:CharacterString>STATUS_Source</gco:CharacterString>
+          </gfc:code>
+        </gfc:FC_FeatureAttribute>
+      </gfc:carrierOfCharacteristics>
+      <gfc:carrierOfCharacteristics>
+        <gfc:FC_FeatureAttribute>
+          <gfc:memberName gco:nilReason="missing"/>
+          <gfc:definition>
+            <gco:CharacterString>Additional notes field, if any</gco:CharacterString>
+          </gfc:definition>
+          <gfc:cardinality gco:nilReason="unknown"/>
+          <gfc:code>
+            <gco:CharacterString>Notes_</gco:CharacterString>
+          </gfc:code>
+          <gfc:valueType>
+            <gco:TypeName>
+              <gco:aName>
+                <gco:CharacterString>character</gco:CharacterString>
+              </gco:aName>
+            </gco:TypeName>
+          </gfc:valueType>
+        </gfc:FC_FeatureAttribute>
+      </gfc:carrierOfCharacteristics>
+      <gfc:carrierOfCharacteristics>
+        <gfc:FC_FeatureAttribute>
+          <gfc:memberName gco:nilReason="missing"/>
+          <gfc:definition>
+            <gco:CharacterString>Water body classification:</gco:CharacterString>
+          </gfc:definition>
+          <gfc:cardinality gco:nilReason="unknown"/>
+          <gfc:code>
+            <gco:CharacterString>Water_Type</gco:CharacterString>
+          </gfc:code>
+          <gfc:valueType>
+            <gco:TypeName>
+              <gco:aName>
+                <gco:CharacterString>character</gco:CharacterString>
+              </gco:aName>
+            </gco:TypeName>
+          </gfc:valueType>
+        </gfc:FC_FeatureAttribute>
+      </gfc:carrierOfCharacteristics>
+      <gfc:carrierOfCharacteristics>
+        <gfc:FC_FeatureAttribute>
+          <gfc:memberName gco:nilReason="missing"/>
+          <gfc:definition>
+            <gco:CharacterString>Length of AU in miles - calculated as the length of the line that runs through the center of the polygon.</gco:CharacterString>
+          </gfc:definition>
+          <gfc:cardinality gco:nilReason="unknown"/>
+          <gfc:code>
+            <gco:CharacterString>Assessment_Unit_Length_Miles</gco:CharacterString>
+          </gfc:code>
+          <gfc:valueMeasurementUnit>
+            <gml:BaseUnit gml:id="gmlid_3">
+              <gml:identifier codeSpace="missing">mile</gml:identifier>
+              <gml:unitsSystem/>
+            </gml:BaseUnit>
+          </gfc:valueMeasurementUnit>
+          <gfc:valueType>
+            <gco:TypeName>
+              <gco:aName>
+                <gco:CharacterString>integer</gco:CharacterString>
+              </gco:aName>
+            </gco:TypeName>
+          </gfc:valueType>
+        </gfc:FC_FeatureAttribute>
+      </gfc:carrierOfCharacteristics>
+      <gfc:carrierOfCharacteristics>
+        <gfc:FC_FeatureAttribute>
+          <gfc:memberName gco:nilReason="missing"/>
+          <gfc:definition>
+            <gco:CharacterString>Parameters for Category 4b (populated if Impaired):</gco:CharacterString>
+          </gfc:definition>
+          <gfc:cardinality gco:nilReason="unknown"/>
+          <gfc:code>
+            <gco:CharacterString>Category_4b_Parameters</gco:CharacterString>
+          </gfc:code>
+        </gfc:FC_FeatureAttribute>
+      </gfc:carrierOfCharacteristics>
+      <gfc:carrierOfCharacteristics>
+        <gfc:FC_FeatureAttribute>
+          <gfc:memberName gco:nilReason="missing"/>
+          <gfc:definition>
+            <gco:CharacterString>Parameters for Category 3 (populated if Unknown):</gco:CharacterString>
+          </gfc:definition>
+          <gfc:cardinality gco:nilReason="unknown"/>
+          <gfc:code>
+            <gco:CharacterString>Category_3_Parameters</gco:CharacterString>
+          </gfc:code>
+        </gfc:FC_FeatureAttribute>
+      </gfc:carrierOfCharacteristics>
+      <gfc:carrierOfCharacteristics>
+        <gfc:FC_FeatureAttribute>
+          <gfc:memberName gco:nilReason="missing"/>
+          <gfc:definition>
+            <gco:CharacterString>Parameters for Category 2 (populated if Attaining)</gco:CharacterString>
+          </gfc:definition>
+          <gfc:cardinality gco:nilReason="unknown"/>
+          <gfc:code>
+            <gco:CharacterString>Category_2_Parameters</gco:CharacterString>
+          </gfc:code>
+        </gfc:FC_FeatureAttribute>
+      </gfc:carrierOfCharacteristics>
+      <gfc:carrierOfCharacteristics>
+        <gfc:FC_FeatureAttribute>
+          <gfc:memberName gco:nilReason="missing"/>
+          <gfc:definition>
+            <gco:CharacterString>Text description of assessment category</gco:CharacterString>
+          </gfc:definition>
+          <gfc:cardinality gco:nilReason="unknown"/>
+          <gfc:code>
+            <gco:CharacterString>Category_Description</gco:CharacterString>
+          </gfc:code>
+          <gfc:valueType>
+            <gco:TypeName>
+              <gco:aName>
+                <gco:CharacterString>character</gco:CharacterString>
+              </gco:aName>
+            </gco:TypeName>
+          </gfc:valueType>
+        </gfc:FC_FeatureAttribute>
+      </gfc:carrierOfCharacteristics>
+      <gfc:carrierOfCharacteristics>
+        <gfc:FC_FeatureAttribute>
+          <gfc:memberName gco:nilReason="missing"/>
+          <gfc:definition>
+            <gco:CharacterString>Determining category for final assessment</gco:CharacterString>
+          </gfc:definition>
+          <gfc:cardinality gco:nilReason="unknown"/>
+          <gfc:code>
+            <gco:CharacterString>Assessment_Unit_Category</gco:CharacterString>
+          </gfc:code>
+          <gfc:valueType>
+            <gco:TypeName>
+              <gco:aName>
+                <gco:CharacterString>integer</gco:CharacterString>
+              </gco:aName>
+            </gco:TypeName>
+          </gfc:valueType>
+        </gfc:FC_FeatureAttribute>
+      </gfc:carrierOfCharacteristics>
+      <gfc:carrierOfCharacteristics>
+        <gfc:FC_FeatureAttribute>
+          <gfc:memberName gco:nilReason="missing"/>
+          <gfc:definition>
+            <gco:CharacterString>Hydrologic Unit Code (HUC14) number</gco:CharacterString>
+          </gfc:definition>
+          <gfc:cardinality gco:nilReason="unknown"/>
+          <gfc:code>
+            <gco:CharacterString>huc14_1</gco:CharacterString>
+          </gfc:code>
+          <gfc:valueType>
+            <gco:TypeName>
+              <gco:aName>
+                <gco:CharacterString>integer</gco:CharacterString>
+              </gco:aName>
+            </gco:TypeName>
+          </gfc:valueType>
+        </gfc:FC_FeatureAttribute>
+      </gfc:carrierOfCharacteristics>
+      <gfc:carrierOfCharacteristics>
+        <gfc:FC_FeatureAttribute>
+          <gfc:memberName gco:nilReason="missing"/>
+          <gfc:definition>
+            <gco:CharacterString>Assessment Unit Identifier</gco:CharacterString>
+          </gfc:definition>
+          <gfc:cardinality gco:nilReason="unknown"/>
+          <gfc:code>
+            <gco:CharacterString>AUID</gco:CharacterString>
+          </gfc:code>
+          <gfc:valueType>
+            <gco:TypeName>
+              <gco:aName>
+                <gco:CharacterString>integer</gco:CharacterString>
+              </gco:aName>
+            </gco:TypeName>
+          </gfc:valueType>
+        </gfc:FC_FeatureAttribute>
+      </gfc:carrierOfCharacteristics>
+      <gfc:carrierOfCharacteristics>
+        <gfc:FC_FeatureAttribute>
+          <gfc:memberName gco:nilReason="missing"/>
+          <gfc:definition>
+            <gco:CharacterString>Assessment Unit Name</gco:CharacterString>
+          </gfc:definition>
+          <gfc:cardinality gco:nilReason="unknown"/>
+          <gfc:code>
+            <gco:CharacterString>AU_Name</gco:CharacterString>
+          </gfc:code>
+          <gfc:valueType>
+            <gco:TypeName>
+              <gco:aName>
+                <gco:CharacterString>character</gco:CharacterString>
+              </gco:aName>
+            </gco:TypeName>
+          </gfc:valueType>
+        </gfc:FC_FeatureAttribute>
+      </gfc:carrierOfCharacteristics>
+    </gfc:FC_FeatureType>
+  </gfc:featureType>
+</gfc:FC_FeatureCatalogue>

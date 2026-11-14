@@ -1,0 +1,534 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<gmd:MD_Metadata xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:gmx="http://www.isotc211.org/2005/gmx" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:gmi="http://www.isotc211.org/2005/gmi" xmlns:gfc="http://www.isotc211.org/2005/gfc" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:gts="http://www.isotc211.org/2005/gts" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.isotc211.org/2005/gmd http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/gmd/gmd.xsd">
+  <gmd:fileIdentifier gco:nilReason="missing"/>
+  <gmd:language>
+    <gco:CharacterString>eng;USA</gco:CharacterString>
+  </gmd:language>
+  <gmd:characterSet>
+    <gmd:MD_CharacterSetCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#MD_CharacterSetCode" codeListValue="UTF-8">UTF-8</gmd:MD_CharacterSetCode>
+  </gmd:characterSet>
+  <gmd:hierarchyLevel>
+    <gmd:MD_ScopeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#MD_ScopeCode" codeListValue="dataset">dataset</gmd:MD_ScopeCode>
+  </gmd:hierarchyLevel>
+  <gmd:contact gco:nilReason="missing"/>
+  <gmd:dateStamp gco:nilReason="unknown">
+    <gco:Date xsi:nil="true"/>
+  </gmd:dateStamp>
+  <gmd:metadataStandardName>
+    <gco:CharacterString>ISO 19115</gco:CharacterString>
+  </gmd:metadataStandardName>
+  <gmd:dataSetURI gco:nilReason="unknown"/>
+  <gmd:identificationInfo>
+    <gmd:MD_DataIdentification>
+      <gmd:citation>
+        <gmd:CI_Citation>
+          <gmd:title>
+            <gco:CharacterString>Lingering Oil Assessment Methodology for Prince William Sound Beach Segments, 2015-2025</gco:CharacterString>
+          </gmd:title>
+          <gmd:date>
+            <gmd:CI_Date>
+              <gmd:date gco:nilReason="missing">
+                <gco:Date xsi:nil="true"/>
+              </gmd:date>
+              <gmd:dateType>
+                <gmd:CI_DateTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_DateTypeCode" codeListValue="lastUpdate">lastUpdate</gmd:CI_DateTypeCode>
+              </gmd:dateType>
+            </gmd:CI_Date>
+          </gmd:date>
+          <gmd:date>
+            <gmd:CI_Date>
+              <gmd:date>
+                <gco:Date>2024-01-01</gco:Date>
+              </gmd:date>
+              <gmd:dateType>
+                <gmd:CI_DateTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/  Codelist/gmxCodelists.xml#CI_DateTypeCode" codeListValue="publication">publication</gmd:CI_DateTypeCode>
+              </gmd:dateType>
+            </gmd:CI_Date>
+          </gmd:date>
+          <gmd:identifier>
+            <gmd:RS_Identifier>
+              <gmd:authority>
+                <gmd:CI_Citation>
+                  <gmd:title>
+                    <gco:CharacterString>International DOI Foundation (IDF)</gco:CharacterString>
+                  </gmd:title>
+                  <gmd:date gco:nilReason="missing"/>
+                </gmd:CI_Citation>
+              </gmd:authority>
+              <gmd:code>
+                <gco:CharacterString>https://doi.org/10.24431/rw1kaio</gco:CharacterString>
+              </gmd:code>
+            </gmd:RS_Identifier>
+          </gmd:identifier>
+          <gmd:citedResponsibleParty>
+            <gmd:CI_ResponsibleParty>
+              <gmd:individualName gco:nilReason="template"/>
+              <gmd:contactInfo>
+                <gmd:CI_Contact>
+                  <gmd:onlineResource>
+                    <gmd:CI_OnlineResource>
+                      <gmd:linkage>
+                        <gmd:URL>https://dec.alaska.gov/water/water-quality/evos-lingering-oil/</gmd:URL>
+                      </gmd:linkage>
+                      <gmd:description>
+                        <gco:CharacterString>State of Alaska Department of Environmental Conservation Lingering Oil website</gco:CharacterString>
+                      </gmd:description>
+                    </gmd:CI_OnlineResource>
+                  </gmd:onlineResource>
+                </gmd:CI_Contact>
+              </gmd:contactInfo>
+              <gmd:role gco:nilReason="template"/>
+            </gmd:CI_ResponsibleParty>
+          </gmd:citedResponsibleParty>
+          <gmd:citedResponsibleParty>
+            <gmd:CI_ResponsibleParty>
+              <gmd:individualName>
+                <gco:CharacterString>Terri Lomax</gco:CharacterString>
+              </gmd:individualName>
+              <gmd:organisationName>
+                <gco:CharacterString>State of Alaska, Dept of Environmental Conservation</gco:CharacterString>
+              </gmd:organisationName>
+              <gmd:positionName>
+                <gco:CharacterString>Environmental Program Manager</gco:CharacterString>
+              </gmd:positionName>
+              <gmd:contactInfo>
+                <gmd:CI_Contact>
+                  <gmd:phone>
+                    <gmd:CI_Telephone>
+                      <gmd:voice>
+                        <gco:CharacterString>907-269-7635</gco:CharacterString>
+                      </gmd:voice>
+                    </gmd:CI_Telephone>
+                  </gmd:phone>
+                  <gmd:address>
+                    <gmd:CI_Address>
+                      <gmd:deliveryPoint>
+                        <gco:CharacterString>555 Cordova St</gco:CharacterString>
+                      </gmd:deliveryPoint>
+                      <gmd:city>
+                        <gco:CharacterString>Anchorage</gco:CharacterString>
+                      </gmd:city>
+                      <gmd:administrativeArea>
+                        <gco:CharacterString>AK</gco:CharacterString>
+                      </gmd:administrativeArea>
+                      <gmd:postalCode>
+                        <gco:CharacterString>99501</gco:CharacterString>
+                      </gmd:postalCode>
+                      <gmd:country>
+                        <gco:CharacterString>USA</gco:CharacterString>
+                      </gmd:country>
+                      <gmd:electronicMailAddress>
+                        <gco:CharacterString>terri.lomax@alaska.gov</gco:CharacterString>
+                      </gmd:electronicMailAddress>
+                    </gmd:CI_Address>
+                  </gmd:address>
+                </gmd:CI_Contact>
+              </gmd:contactInfo>
+              <gmd:role>
+                <gmd:CI_RoleCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="principalInvestigator">principalInvestigator</gmd:CI_RoleCode>
+              </gmd:role>
+            </gmd:CI_ResponsibleParty>
+          </gmd:citedResponsibleParty>
+          <gmd:presentationForm>
+            <gmd:CI_PresentationFormCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_PresentationFormCode" codeListValue="documentHardcopy">documentHardcopy</gmd:CI_PresentationFormCode>
+          </gmd:presentationForm>
+          <gmd:presentationForm>
+            <gmd:CI_PresentationFormCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_PresentationFormCode" codeListValue="mapDigital">mapDigital</gmd:CI_PresentationFormCode>
+          </gmd:presentationForm>
+        </gmd:CI_Citation>
+      </gmd:citation>
+      <gmd:abstract>
+        <gco:CharacterString>Data was mined from published and agency research projects conducted between 2015-2025 on Prince William Sound beaches. This data was utilized to develop a listing methodology (LM). A LM is systematic method for evaluating attainment of Clean Water Act approved water quality standards. Five tiers of data analysis were developed. The tiers are 1) test pit data, 2) sediment chemistry data, 3) biological data, 4) modeled data, and 5) overwhelming evidence. For each tier thresholds of water quality standards attainment were developed. The Alaska Department of Environmental Conservation currently has 36 beach segments listed as water quality standards impaired. Utilizing the method created and redrawing beach segments to reflect geomorphic features results in 5 remaining proposed impairments. The archived documents consist of 1) Listing Methodology, 2) Technical Approach to the development of the LM, 3) geodatabase of data synthesized from existing research and draft attainment analysis (EVOS_2026_Lingering_Oil_Status.csv), 4) a narrative of the draft attainment analysis (Public-Notice-Version-26IR-cat-4b-EVOS.pdf), and 5) GIS package description of geodatabase. All material will undergo a public comment period in the spring of 2026.</gco:CharacterString>
+      </gmd:abstract>
+      <gmd:purpose>
+        <gco:CharacterString>This project utilizes existing data from research conducted since the original spill to create a methodology for assessing attainment of EVOS impacted beach against Alaska water quality standards. Accurately reflecting the areas of impairment is crucial for making informed management decisions, setting priorities, and ensures public transparency.</gco:CharacterString>
+      </gmd:purpose>
+      <gmd:credit/>
+      <gmd:status>
+        <gmd:MD_ProgressCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#MD_ProgressCode" codeListValue="proposed">proposed</gmd:MD_ProgressCode>
+      </gmd:status>
+      <gmd:pointOfContact>
+        <gmd:CI_ResponsibleParty>
+          <gmd:individualName>
+            <gco:CharacterString>Olga Stewart</gco:CharacterString>
+          </gmd:individualName>
+          <gmd:organisationName>
+            <gco:CharacterString>Geosyntec Consultants, Inc.</gco:CharacterString>
+          </gmd:organisationName>
+          <gmd:positionName>
+            <gco:CharacterString>Owner</gco:CharacterString>
+          </gmd:positionName>
+          <gmd:contactInfo>
+            <gmd:CI_Contact>
+              <gmd:phone>
+                <gmd:CI_Telephone>
+                  <gmd:voice>
+                    <gco:CharacterString>907-929-3326</gco:CharacterString>
+                  </gmd:voice>
+                </gmd:CI_Telephone>
+              </gmd:phone>
+              <gmd:address>
+                <gmd:CI_Address>
+                  <gmd:deliveryPoint>
+                    <gco:CharacterString>3003 Minnesota Dr, Suite 302</gco:CharacterString>
+                  </gmd:deliveryPoint>
+                  <gmd:city>
+                    <gco:CharacterString>Anchorage</gco:CharacterString>
+                  </gmd:city>
+                  <gmd:administrativeArea>
+                    <gco:CharacterString>AK</gco:CharacterString>
+                  </gmd:administrativeArea>
+                  <gmd:postalCode>
+                    <gco:CharacterString>99503</gco:CharacterString>
+                  </gmd:postalCode>
+                  <gmd:country>
+                    <gco:CharacterString>USA</gco:CharacterString>
+                  </gmd:country>
+                  <gmd:electronicMailAddress>
+                    <gco:CharacterString>ostewart@geosyntec.com</gco:CharacterString>
+                  </gmd:electronicMailAddress>
+                </gmd:CI_Address>
+              </gmd:address>
+            </gmd:CI_Contact>
+          </gmd:contactInfo>
+          <gmd:role>
+            <gmd:CI_RoleCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="collaborator">collaborator</gmd:CI_RoleCode>
+          </gmd:role>
+        </gmd:CI_ResponsibleParty>
+      </gmd:pointOfContact>
+      <gmd:resourceMaintenance>
+        <gmd:MD_MaintenanceInformation>
+          <gmd:maintenanceAndUpdateFrequency>
+            <gmd:MD_MaintenanceFrequencyCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#MD_MaintenanceFrequencyCode" codeListValue="notPlanned">notPlanned</gmd:MD_MaintenanceFrequencyCode>
+          </gmd:maintenanceAndUpdateFrequency>
+          <gmd:contact>
+            <gmd:CI_ResponsibleParty>
+              <gmd:individualName>
+                <gco:CharacterString>Terri Lomax</gco:CharacterString>
+              </gmd:individualName>
+              <gmd:organisationName>
+                <gco:CharacterString>State of Alaska, Dept of Environmental Conservation</gco:CharacterString>
+              </gmd:organisationName>
+              <gmd:positionName>
+                <gco:CharacterString>Environmental Program Manager</gco:CharacterString>
+              </gmd:positionName>
+              <gmd:contactInfo>
+                <gmd:CI_Contact>
+                  <gmd:phone>
+                    <gmd:CI_Telephone>
+                      <gmd:voice>
+                        <gco:CharacterString>907-269-7635</gco:CharacterString>
+                      </gmd:voice>
+                    </gmd:CI_Telephone>
+                  </gmd:phone>
+                  <gmd:address>
+                    <gmd:CI_Address>
+                      <gmd:deliveryPoint>
+                        <gco:CharacterString>555 Cordova St</gco:CharacterString>
+                      </gmd:deliveryPoint>
+                      <gmd:city>
+                        <gco:CharacterString>Anchorage</gco:CharacterString>
+                      </gmd:city>
+                      <gmd:administrativeArea>
+                        <gco:CharacterString>AK</gco:CharacterString>
+                      </gmd:administrativeArea>
+                      <gmd:postalCode>
+                        <gco:CharacterString>99501</gco:CharacterString>
+                      </gmd:postalCode>
+                      <gmd:country>
+                        <gco:CharacterString>USA</gco:CharacterString>
+                      </gmd:country>
+                      <gmd:electronicMailAddress>
+                        <gco:CharacterString>terri.lomax@alaska.gov</gco:CharacterString>
+                      </gmd:electronicMailAddress>
+                    </gmd:CI_Address>
+                  </gmd:address>
+                </gmd:CI_Contact>
+              </gmd:contactInfo>
+              <gmd:role>
+                <gmd:CI_RoleCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="pointOfContact">pointOfContact</gmd:CI_RoleCode>
+              </gmd:role>
+            </gmd:CI_ResponsibleParty>
+          </gmd:contact>
+        </gmd:MD_MaintenanceInformation>
+      </gmd:resourceMaintenance>
+      <gmd:descriptiveKeywords>
+        <gmd:MD_Keywords>
+          <gmd:keyword>
+            <gco:CharacterString>CONTINENT &gt; NORTH AMERICA &gt; UNITED STATES OF AMERICA &gt; ALASKA</gco:CharacterString>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gco:CharacterString>CONTINENT &gt; NORTH AMERICA &gt; UNITED STATES OF AMERICA</gco:CharacterString>
+          </gmd:keyword>
+          <gmd:type>
+            <gmd:MD_KeywordTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#MD_KeywordTypeCode" codeListValue="place">place</gmd:MD_KeywordTypeCode>
+          </gmd:type>
+          <gmd:thesaurusName>
+            <gmd:CI_Citation>
+              <gmd:title>
+                <gco:CharacterString>GCMD Locations Keywords version 8.4.1</gco:CharacterString>
+              </gmd:title>
+              <gmd:date gco:nilReason="unknown"/>
+            </gmd:CI_Citation>
+          </gmd:thesaurusName>
+        </gmd:MD_Keywords>
+      </gmd:descriptiveKeywords>
+      <gmd:descriptiveKeywords>
+        <gmd:MD_Keywords>
+          <gmd:keyword>
+            <gco:CharacterString>Models/Analyses &gt; Data Analysis</gco:CharacterString>
+          </gmd:keyword>
+          <gmd:type>
+            <gmd:MD_KeywordTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#MD_KeywordTypeCode" codeListValue="discipline">discipline</gmd:MD_KeywordTypeCode>
+          </gmd:type>
+          <gmd:thesaurusName>
+            <gmd:CI_Citation>
+              <gmd:title>
+                <gco:CharacterString>GCMD Platforms Keywords version 8.4.1</gco:CharacterString>
+              </gmd:title>
+              <gmd:date gco:nilReason="unknown"/>
+            </gmd:CI_Citation>
+          </gmd:thesaurusName>
+        </gmd:MD_Keywords>
+      </gmd:descriptiveKeywords>
+      <gmd:descriptiveKeywords>
+        <gmd:MD_Keywords>
+          <gmd:keyword>
+            <gco:CharacterString>EARTH SCIENCE SERVICES &gt; DATA MANAGEMENT/DATA HANDLING</gco:CharacterString>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gco:CharacterString>EARTH SCIENCE &gt; HUMAN DIMENSIONS &gt; ENVIRONMENTAL IMPACTS</gco:CharacterString>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gco:CharacterString>EARTH SCIENCE &gt; HUMAN DIMENSIONS &gt; ENVIRONMENTAL GOVERNANCE/MANAGEMENT &gt; ENVIRONMENTAL ASSESSMENTS</gco:CharacterString>
+          </gmd:keyword>
+          <gmd:type>
+            <gmd:MD_KeywordTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#MD_KeywordTypeCode" codeListValue="theme">theme</gmd:MD_KeywordTypeCode>
+          </gmd:type>
+          <gmd:thesaurusName>
+            <gmd:CI_Citation>
+              <gmd:title>
+                <gco:CharacterString>GCMD Science Keywords version 8.4.1</gco:CharacterString>
+              </gmd:title>
+              <gmd:date gco:nilReason="unknown"/>
+            </gmd:CI_Citation>
+          </gmd:thesaurusName>
+        </gmd:MD_Keywords>
+      </gmd:descriptiveKeywords>
+      <gmd:descriptiveKeywords>
+        <gmd:MD_Keywords>
+          <gmd:keyword>
+            <gco:CharacterString>Clean Water Act 303(d)</gco:CharacterString>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gco:CharacterString>Impaired Waters</gco:CharacterString>
+          </gmd:keyword>
+          <gmd:keyword>
+            <gco:CharacterString>Annotated Bibliography</gco:CharacterString>
+          </gmd:keyword>
+          <gmd:type>
+            <gmd:MD_KeywordTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#MD_KeywordTypeCode" codeListValue="product">product</gmd:MD_KeywordTypeCode>
+          </gmd:type>
+        </gmd:MD_Keywords>
+      </gmd:descriptiveKeywords>
+      <gmd:resourceConstraints>
+        <gmd:MD_Constraints>
+          <gmd:useLimitation>
+            <gco:CharacterString>This material is based upon work funded by multiple entities, including the Exxon Valdez Oil Spill Trustee Council. Any opinions, findings, conclusions, or recommendations expressed herein are those of the author(s) and do not necessarily reflect the views or positions of funding entities. Standard scientific norms for attribution, credit, and potential co-authorship should be followed when using these data including to the Owners, Exxon Valdez Oil Spill Trustee Council and other sources of funding. Please let the Owner know when these data are used.</gco:CharacterString>
+          </gmd:useLimitation>
+        </gmd:MD_Constraints>
+      </gmd:resourceConstraints>
+      <gmd:spatialRepresentationType>
+        <gmd:MD_SpatialRepresentationTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#MD_SpatialRepresentationTypeCode" codeListValue="vector">vector</gmd:MD_SpatialRepresentationTypeCode>
+      </gmd:spatialRepresentationType>
+      <gmd:spatialResolution>
+        <gmd:MD_Resolution>
+          <gmd:distance>
+            <gco:Distance uom="#meters">7.3</gco:Distance>
+          </gmd:distance>
+        </gmd:MD_Resolution>
+      </gmd:spatialResolution>
+      <gmd:language>
+        <gco:CharacterString>eng;USA</gco:CharacterString>
+      </gmd:language>
+      <gmd:topicCategory>
+        <gmd:MD_TopicCategoryCode>environment</gmd:MD_TopicCategoryCode>
+      </gmd:topicCategory>
+      <gmd:environmentDescription>
+        <gco:CharacterString>Original data was pulled from various sources, including: published reports, raw data tables (excel, csv), published maps, and online maps.</gco:CharacterString>
+      </gmd:environmentDescription>
+      <gmd:extent>
+        <gmd:EX_Extent>
+          <gmd:description>
+            <gco:CharacterString>Prince William Sound</gco:CharacterString>
+          </gmd:description>
+          <gmd:geographicElement>
+            <gmd:EX_GeographicBoundingBox>
+              <gmd:westBoundLongitude>
+                <gco:Decimal>-148.5993</gco:Decimal>
+              </gmd:westBoundLongitude>
+              <gmd:eastBoundLongitude>
+                <gco:Decimal>-145.5451</gco:Decimal>
+              </gmd:eastBoundLongitude>
+              <gmd:southBoundLatitude>
+                <gco:Decimal>59.7125</gco:Decimal>
+              </gmd:southBoundLatitude>
+              <gmd:northBoundLatitude>
+                <gco:Decimal>61.1436</gco:Decimal>
+              </gmd:northBoundLatitude>
+            </gmd:EX_GeographicBoundingBox>
+          </gmd:geographicElement>
+        </gmd:EX_Extent>
+      </gmd:extent>
+      <gmd:extent>
+        <gmd:EX_Extent>
+          <gmd:geographicElement>
+            <gmd:EX_BoundingPolygon>
+              <gmd:polygon>
+                <gml:Polygon gml:id="gmlid_1">
+                  <gml:exterior>
+                    <gml:LinearRing>
+                      <gml:coordinates decimal="-148.59935760498047,59.71253005358283 -148.59935760498047,61.143649485584405 -145.54515838623047,61.143649485584405 -145.54515838623047,59.71253005358283 -148.59935760498047,59.71253005358283"/>
+                    </gml:LinearRing>
+                  </gml:exterior>
+                </gml:Polygon>
+              </gmd:polygon>
+            </gmd:EX_BoundingPolygon>
+          </gmd:geographicElement>
+        </gmd:EX_Extent>
+      </gmd:extent>
+      <gmd:extent>
+        <gmd:EX_Extent>
+          <gmd:temporalElement>
+            <gmd:EX_TemporalExtent>
+              <gmd:extent>
+                <gml:TimePeriod gml:id="gmlid_2">
+                  <gml:description>Data mining range</gml:description>
+                  <gml:beginPosition>2015-01-01T00:00:00+00:00</gml:beginPosition>
+                  <gml:endPosition>2025-01-01T00:00:00+00:00</gml:endPosition>
+                </gml:TimePeriod>
+              </gmd:extent>
+            </gmd:EX_TemporalExtent>
+          </gmd:temporalElement>
+        </gmd:EX_Extent>
+      </gmd:extent>
+    </gmd:MD_DataIdentification>
+  </gmd:identificationInfo>
+  <gmd:contentInfo>
+    <gmd:MD_FeatureCatalogueDescription>
+      <gmd:language>
+        <gco:CharacterString>eng; USA</gco:CharacterString>
+      </gmd:language>
+      <gmd:includedWithDataset>
+        <gco:Boolean>true</gco:Boolean>
+      </gmd:includedWithDataset>
+      <gmd:featureCatalogueCitation>
+        <gmd:CI_Citation>
+          <gmd:title>
+            <gco:CharacterString>EVOS_GIS_Package_Description</gco:CharacterString>
+          </gmd:title>
+          <gmd:date gco:nilReason="missing"/>
+        </gmd:CI_Citation>
+      </gmd:featureCatalogueCitation>
+    </gmd:MD_FeatureCatalogueDescription>
+  </gmd:contentInfo>
+  <gmd:distributionInfo>
+    <gmd:MD_Distribution>
+      <gmd:distributor>
+        <gmd:MD_Distributor>
+          <gmd:distributorContact gco:nilReason="missing"/>
+          <gmd:distributorFormat>
+            <gmd:MD_Format>
+              <gmd:name>
+                <gco:CharacterString>pdf</gco:CharacterString>
+              </gmd:name>
+              <gmd:version gco:nilReason="missing"/>
+            </gmd:MD_Format>
+          </gmd:distributorFormat>
+        </gmd:MD_Distributor>
+      </gmd:distributor>
+    </gmd:MD_Distribution>
+  </gmd:distributionInfo>
+  <gmd:dataQualityInfo>
+    <gmd:DQ_DataQuality>
+      <gmd:scope>
+        <gmd:DQ_Scope>
+          <gmd:level>
+            <gmd:MD_ScopeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#MX_ScopeCode" codeListValue="dataset">dataset</gmd:MD_ScopeCode>
+          </gmd:level>
+        </gmd:DQ_Scope>
+      </gmd:scope>
+      <gmd:lineage>
+        <gmd:LI_Lineage>
+          <gmd:statement>
+            <gco:CharacterString>An annotated bibliography was completed to identify relevant research. Data was mined from selected research. A tiered approach for data assessment was developed: 1) test pit data, 2) sediment chemistry data, 3) biological data, 4) modeled data, and 5) overwhelming evidence. It begins with Tier 1. If sufficient data are available to complete an assessment, then no further assessment occurs. If sufficient data are not available, then proceed to Tier 2. This process repeats through Tier 5. This approach prioritizes empirical data less than 10 years old while allowing for other lines of evidence to still be considered in Tier 5. For example, if test pit data from 1989 to 1991 for an oiled beach were available as well as sediment chemistry data from 2021, the sediment chemistry data would take precedence because it is more recent (within the last 10 years) and thus more likely to reflect the current conditions of that area. Data from selected research was collected and compiled into a geodatabase. This data was then analyzed used python scripts. Assessments based on the results of the python scripts were added as a layer to the geodatabase.</gco:CharacterString>
+          </gmd:statement>
+          <gmd:processStep>
+            <gmd:LI_ProcessStep>
+              <gmd:description>
+                <gco:CharacterString>No original data was collected. Existing data was digitized and analyzed using python scripts.</gco:CharacterString>
+              </gmd:description>
+            </gmd:LI_ProcessStep>
+          </gmd:processStep>
+          <gmd:source>
+            <gmd:LI_Source>
+              <gmd:description>
+                <gco:CharacterString>Datasets were selected as an outcome of an Annotated Bibliography</gco:CharacterString>
+              </gmd:description>
+              <gmd:sourceCitation>
+                <gmd:CI_Citation>
+                  <gmd:title>
+                    <gco:CharacterString>Final Long-Term Effects and Location of Lingering Oil from the Exxon Valdez Oil Spill in Prince William Sound</gco:CharacterString>
+                  </gmd:title>
+                  <gmd:date>
+                    <gmd:CI_Date>
+                      <gmd:date>
+                        <gco:Date>2024-01-01</gco:Date>
+                      </gmd:date>
+                      <gmd:dateType>
+                        <gmd:CI_DateTypeCode codeList="http://www.ngdc.noaa.gov/metadata/published/xsd/schema/resources/Codelist/gmxCodelists.xml#CI_DateTypeCode" codeListValue="missing"/>
+                      </gmd:dateType>
+                    </gmd:CI_Date>
+                  </gmd:date>
+                  <gmd:identifier>
+                    <gmd:RS_Identifier>
+                      <gmd:code gco:nilReason="missing"/>
+                    </gmd:RS_Identifier>
+                  </gmd:identifier>
+                  <gmd:citedResponsibleParty>
+                    <gmd:CI_ResponsibleParty>
+                      <gmd:individualName gco:nilReason="template"/>
+                      <gmd:contactInfo>
+                        <gmd:CI_Contact>
+                          <gmd:onlineResource>
+                            <gmd:CI_OnlineResource>
+                              <gmd:linkage>
+                                <gmd:URL>https://dec.alaska.gov/water/water-quality/evos-lingering-oil/</gmd:URL>
+                              </gmd:linkage>
+                              <gmd:description>
+                                <gco:CharacterString>State of Alaska DEC EVOS</gco:CharacterString>
+                              </gmd:description>
+                            </gmd:CI_OnlineResource>
+                          </gmd:onlineResource>
+                        </gmd:CI_Contact>
+                      </gmd:contactInfo>
+                      <gmd:role gco:nilReason="template"/>
+                    </gmd:CI_ResponsibleParty>
+                  </gmd:citedResponsibleParty>
+                </gmd:CI_Citation>
+              </gmd:sourceCitation>
+              <gmd:sourceStep>
+                <gmd:LI_ProcessStep>
+                  <gmd:description>
+                    <gco:CharacterString>To conduct the literature review and develop this annotated bibliography, experts on lingering oil in Alaska were interviewed to identify key resources, reports, and studies to include in the literature review. Additionally, these interviews provided insights into how experts from different agencies and sectors studying the effects of lingering oil in PWS think about the subject. After interviews, available resources were initially screened to reduce the list to 50 relevant documents, which were further refined to the 25 most relevant documents included in the annotated bibliography. This section provides details on the interview and literature review methods</gco:CharacterString>
+                  </gmd:description>
+                </gmd:LI_ProcessStep>
+              </gmd:sourceStep>
+            </gmd:LI_Source>
+          </gmd:source>
+        </gmd:LI_Lineage>
+      </gmd:lineage>
+    </gmd:DQ_DataQuality>
+  </gmd:dataQualityInfo>
+</gmd:MD_Metadata>
