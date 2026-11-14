@@ -1,6 +1,6 @@
 # Changelog
 
-All changes on branch `process-model-audit` relative to `main` (commit 4b0c118). Newest first.
+All changes on branch `model_v4` (earlier entries were made on `process-model-audit`) relative to `main` (commit 4b0c118). Newest first.
 Each entry gives what changed, why, where it lives, the result, and its status. Statuses follow
 `docs/ROADMAP.md`: Completed means validated and documented, not just coded. Decisions are numbered as in
 the decision register in `docs/ROADMAP.md`.
@@ -8,6 +8,39 @@ the decision register in `docs/ROADMAP.md`.
 How to reproduce the analyses: `pip install -r requirements-analysis.txt`, then the commands listed per entry.
 Raw SCAT shapefiles come from `scripts/download_scat.sh`; imagery is read on demand from Microsoft Planetary
 Computer (no account needed).
+
+---
+
+## 2026-11-14 (V5): review response, four gated tests, beach screening, dashboard re-base
+- **Why:** the v4 review of branch `model_v4` found that the oil term was never tested against a no-excess baseline, the deployed
+  interval was calibrated in sample, F8b changed a rule after its run, AI-proposed numbers reached outputs, beaches had no habitat
+  table, and the dashboard showed a made-up band and constant "confidence". Jaison made decisions D33-D40 the same day.
+- **What:**
+  - D33: owner attestation recorded for all 144 literature rows (his statement, not an independent check).
+  - D34/D35: original F8 two-study rule restored (F8b Superseded); B023 direction defect fixed (no verdict changes); "insufficient
+    evidence" kept apart from "no clear difference".
+  - D36: ESI habitat table, NOAA 2017 response ratings transcribed, rule 160 fixed, beach scope tiers.
+  - D37/D38: out-of-sample oil excess and per-class intervals as non-default options.
+  - D39: sand-beach persistence model from DWH SCAT (baseline packaged).
+  - D40: dashboard re-based on the decision pipeline; fabricated band and constant confidence removed.
+  - Literature and data: Michel 2013 and 2017, Lindeberg 2018, Geng papers, sunken oil mat guide, Exxon Valdez lingering-oil and EVTHD data.
+- **Files:** `docs/FINDINGS_V5.md` (43-51); `docs/V5_P0_PLAN.md`, `docs/V5_BEACH_SAND_PLAN.md`; `validation/v5_p0_*.py`,
+  `validation/v5_beach_sand.py`; `results/v5_p0/`, `results/v5_beach/`, `results/f8_pooling/v3_original_rule/`,
+  `results/f11_validation_v5/`, `results/v5_literature/`; `src/shoreline_remediation/{habitat,beach_model,ui_*}.py` and edits to
+  `decision_pipeline`, `knowledge`, `noaa_crosswalk`, `scenario_composer`, `site_evidence`, `registry`, `site_view`, `dashboard`;
+  `models/{oil_excess_oos_v1,p5_edge_loss_v2,beach_sand_persistence_v1}.json`; `data/knowledge/tables/`;
+  `data/external/{scat_dwh_mobile,evos_lingering_oil,evthd_goa,evos_bioremediation_pilot}/`; docs and tests.
+- **Run:** `python -m validation.v5_p0_oil_excess`; `python -m validation.v5_p0_intervals`; `python -m validation.v5_p0_cards`;
+  `python -m validation.v5_beach_sand`; `python -m validation.literature_pooling`;
+  `python -m validation.f11_integrated_validation --out-dir results/f11_validation_v5`; `python -m pytest tests` (327 tests, all passing on 14 Nov 2026 with Python 3.13).
+- **Result:**
+  - Gate 0.1 FAILED (MAE not below no excess in Barataria 1.036 vs 1.011, or Breton 1.743 vs 1.570).
+  - Gate 0.2 FAILED (3 of 12 coverage groups outside 80-97%; Breton Winkler 11.28 vs 11.20).
+  - Beach gates B-1 and B-2 FAILED (pooled integrated Brier 0.284 vs 0.216 baseline); baseline curve packaged.
+  - F11 rerun: agreement 2 of 6 (v4: 2 of 6), always-active 5 of 6, method allowed 320 of 400 (v4: 264 of 400), allow-everything 400 of 400.
+  - F8 restored rule: 0 benefit, 0 harm, 9 no clear difference, 24 no evidence.
+- **Status:** Implemented; gated models Experimental (gates failed); dashboard Under validation (script-tested only, no browser check);
+  not validated, not released. Commits are local; nothing was pushed.
 
 ---
 

@@ -1,40 +1,64 @@
-# Roadmap status snapshot (14 November 2026)
+# Roadmap status snapshot (14 November 2026, V5)
 
-This is the current status view for the `process-model-audit` branch at the F11 checkpoint. It supersedes older summary rows in `docs/ROADMAP.md` that say Track F is not started. The detailed milestone history and decision register D1–D32 remain in `docs/ROADMAP.md`; evidence and numbers are in `docs/FINDINGS_V4.md` sections 34–42. “Implemented” does not mean “validated,” “human-reviewed,” or “released.”
+This is the current status view for branch `model_v4` after the V5 work. It supersedes older summary rows in `docs/ROADMAP.md` that say Track F is not started. The detailed milestone history and decision register (D1-D40) remain in `docs/ROADMAP.md`; evidence and numbers are in `docs/FINDINGS_V4.md` (sections 34-42) and `docs/FINDINGS_V5.md` (sections 43-51). "Implemented" does not mean "validated", "human-reviewed" or "released".
 
-## Track F
+## Track F (carried forward from the F11 checkpoint)
 
 | Item | Current status | Evidence / remaining gate |
 | --- | --- | --- |
-| F0 Scope (D30) | Documented | Validated, experimental, rules/literature-only and out-of-scope tiers in `docs/F0_F1_SCOPE_AND_DECISIONS.md`. Keep claims within those tiers. |
-| F1 Decisions (D14–D21, D30–D31) | Implemented/documented; owner review remains | Decisions and evidence are recorded; parked P1–P5, variable-definition and dashboard reviews remain Jaison’s. D23–D24 remain Proposed / AI-PROPOSED. |
-| F2 Knowledge tables | Implemented; equivalence check passed | 0 differences across approximately 432,000 verdicts and the blind scenarios; row provenance/status retained. |
-| F3 Interface and registry | Implemented; promotion limits apply | Five adapters registered. Edge-loss v1 and PAH decline v1 are validated in their stated scope; composer, vegetation, mangrove and process components remain experimental or gated. |
-| F4 Common schema | Implemented; reconciliation passed | 38/38 checks. Galeta raw data was not loaded; local DIVER schema data is not necessarily in a fresh clone. |
-| F5 Process model | Gate failed; illustrative only | Calibrated held-out error 0.775 versus empirical 0.750. It must not enter the decision path. |
-| F6 Treatment records | Awaiting usable data / owner action | No public machine-readable segment-level DWH treatment records found. OR&R 42 map digitisation is a possible, uncompleted next step. |
-| F7 Second spill | Awaiting data | No qualifying spill found for whole-spill hold-out; no cross-spill transfer claim. Partial candidates are inventoried. |
-| F8 Literature pooling | Completed with limited conclusions | No group met the pre-specified minimum for pooling; single-study verdicts only. Hot-water washing harm on rocky and gravel/sand shores is documented. Retain extraction provenance. |
-| F9 Decision pipeline | Implemented; conservative behavior documented | Fixed, logged pipeline and worked examples exist. Recommendation classes are not a claim of operational effectiveness; see F11 disagreements. |
-| F10 Adaptive monitoring | Within-period check passes; temporal update fails | 25% cell monitoring improves within-period error/interval width (coverage 88%); update to a later period narrows intervals but does not improve error. |
-| F11 Integrated validation | Run and documented; review/sign-off outstanding | Six sourced cases: active/natural agreement 2/6 versus 5/6 always-active; 264/400 draw-method checks allowed. Ten reports prepared, no reviewer responses collected. |
-| F12 Release v4.0 | Not released | Requires Jaison’s review/sign-off, independent review as feasible, final test run, release documentation, and explicit release decision. |
+| F0 Scope (D30) | Documented; beach rows updated by D36/D39 | Validated, experimental, rules/literature-only and out-of-scope tiers in `docs/F0_F1_SCOPE_AND_DECISIONS.md`. Keep claims within those tiers. |
+| F1 Decisions (D14-D21, D30-D31) | Implemented/documented; owner review remains | Parked P1-P5, variable-definition and dashboard reviews remain Jaison's. D23-D24 remain Proposed / AI-PROPOSED. |
+| F2 Knowledge tables | Implemented; equivalence check passed in V4 | V5 changed rule 160 on purpose (hot high-pressure washing on permeable mixed sediment: eligible to conditional); nothing else in the frozen oracle changed. |
+| F3 Interface and registry | Implemented; promotion limits apply | Edge-loss v1 and PAH decline v1 validated within stated scope; composer, vegetation, mangrove, process, oil-excess option, interval option and beach persistence are experimental or gated. The D20 promotion check is a presence check and is not a validation. |
+| F4 Common schema | Implemented; reconciliation passed | 38/38 checks. Raw Galeta data not loaded. |
+| F5 Process model | Gate failed; illustrative only | Calibrated held-out error 0.775 versus empirical 0.750. Outside the decision path. |
+| F6 Treatment records | Awaiting usable data / owner action | No public segment-level DWH treatment records. OR&R 42 digitisation is the only route and is not started. |
+| F7 Second spill | Awaiting data | No qualifying spill. Exxon Valdez lingering-oil data are downloaded, not analysed. |
+| F8 Literature pooling | Completed with limited conclusions | Original two-study rule restored (D34): 0 benefit, 0 harm, 9 no clear difference, 24 no evidence. Rows carry the owner's attestation (D33). |
+| F9 Decision pipeline | Implemented; conservative | Habitat-aware (ESI), NOAA ratings, `evidence_state` (D35). Not a claim of operational effectiveness. |
+| F10 Adaptive monitoring | Within-period check passes; temporal update fails | Unchanged in V5. |
+| F11 Integrated validation | Rerun in V5; review/sign-off outstanding | Agreement 2 of 6 (v4: 2 of 6) against 5 of 6 always-active; method allowed 320 of 400 (v4: 264) with allow-everything 400 of 400. No reviewer responses collected. |
+| F12 Release v4.0 | Not released | Requires Jaison's review and sign-off, final test run, release decision. |
 
-## Other open work and claim boundaries
+## V5 (14 Nov 2026)
 
-- P1–P5 and dashboard/variable reviews remain with Jaison; do not silently relabel them as accepted.
-- D23/D24 and AI-proposed knowledge-table entries are not human expert elicitation.
-- Heavy-cell composer bias remains outside its gate after D32. Coverage alone does not make the composer validated.
-- Only one spill supplies the main evidence base. Louisiana basin hold-out is within-spill generalisation, not independent-spill validation.
-- Soil-map layers are not suitable substitutes for marsh measurements in this analysis; see D21 and FINDINGS 13.
-- Costs, other contaminants, offshore response, and broad ecosystem generalisation are out of scope.
+| Item | Current status | Evidence / remaining gate |
+| --- | --- | --- |
+| Gate 0.1 out-of-sample oil excess (D37) | FAILED; non-default option, experimental | MAE not below no-excess baseline in Barataria (1.036 vs 1.011) or Breton (1.743 vs 1.570). FINDINGS_V5 44. |
+| Gate 0.2 per-class intervals (D38) | FAILED; non-default option, experimental | 3 of 12 coverage groups outside 80-97%; Breton Winkler 11.28 vs 11.20. FINDINGS_V5 45. |
+| F8 rule and B023 fix (D34) | Completed | No verdict changed by the B023 fix. FINDINGS_V5 46. |
+| Insufficient-evidence state (D35) | Completed | Field `evidence_state`; class letters unchanged. |
+| ESI habitat table and NOAA screening (D36) | Under validation | Scope approved; A-D mapping Proposed; transcription and beach notes need owner spot-check. FINDINGS_V5 47. |
+| Sand-beach persistence (D39) | Gates B-1 and B-2 FAILED; baseline packaged, experimental | Pooled integrated Brier 0.284 model vs 0.216 baseline. FINDINGS_V5 48. |
+| Literature and data obtained | Acquisition done; not analysed | OR&R 42, OSAT-2/3 and paywalled papers not obtained. FINDINGS_V5 49. |
+| Dashboard (D40) | Under validation | Script-tested; no browser check; pydeck map not built. FINDINGS_V5 50. |
+| Integration (registry, beach model, dashboard) | In progress | FINDINGS_V5 51. |
+| Owner attestation of literature rows (D33) | Recorded | His statement, not an independent check. |
+
+## Claim boundaries
+
+- **Validated scope is unchanged:** heavily oiled northern Gulf salt-marsh edge loss within Deepwater Horizon (held out by Louisiana basin) and DWH soil PAH-sum decline (held out by station). Both are within one spill.
+- **Beaches are rules and literature only**, with one experimental reference: the sand-beach persistence curve by starting oiling category (baseline; the model failed both gates). It describes persistence of visible oil under the response as carried out. It is not natural recovery and cannot rank treatments. Mixed sand and gravel, and gravel, have rules and literature only.
+- **Wording corrected in V5 because the v4 wording overstated:**
+  - The edge-loss card said held-out intervals "covered 89%". That figure belongs to P2 model M2's inner interval, not the deployed interval. The deployed interval's pooled 0.900 is true by construction (calibrated in sample); by basin and oiling class it covers 76-99%. Both are now stated on the card.
+  - The edge-loss "validated" model has no oiling term; the oil term in the composer is experimental and did not beat no excess (gate 0.1).
+  - The mangrove card's per-outcome "verdict: validated" is an outcome-level grade from one site, not a model state (model state: experimental).
+  - The PAH card's "validated" means the PAH sum falls in soil; the PAH/hopane ratio does not fall, so degradation is not shown.
+  - Planting is labelled observational, one site, not randomised.
+  - Hot-water washing "harm" verdicts came from a post-run rule change (F8b) and are withdrawn; the caution now rests on sourced NOAA habitat ratings.
+  - The literature table was described as accepted by Jaison with an empty `checked_by`; it now carries his attestation (D33).
+- AI-proposed rows are not expert elicitation. Heavy-cell composer bias is not fixed. F11 agreement with responders and the "method allowed" rate are not performance measures.
+- One spill supplies the evidence. Louisiana basin hold-out is within-spill generalisation, not independent-spill validation.
+- Costs, other contaminants, offshore response and broad ecosystem generalisation are out of scope.
+
+## Not done or open
+
+No browser check of the dashboard; OR&R 42, OSAT-2/3 and the paywalled papers not obtained; NOAA rating transcription and beach literature notes need the owner's spot-check; pydeck satellite map not built; no second spill; no treatment records per segment; no expert review. Exxon Valdez lingering-oil data are downloaded but not analysed.
 
 ## Close-out sequence
 
-1. Jaison reviews the parked work and the F11 disagreement cases.
-2. Obtain and preserve genuine expert feedback; if unavailable, state that explicitly.
-3. Resolve data and bias gates only through a pre-specified plan and new evidence—do not weaken gates post hoc.
-4. Run `python -m pytest tests` and required reproduction checks in the target environment; record outputs and limitations.
-5. Update the release notes/model cards and make a release only after explicit owner sign-off.
-
-No new scientific analysis or test run is asserted by this status snapshot. See `docs/HANDOFF.md` for the working handoff.
+1. Jaison reviews the dashboard, the spot-check list and the decisions awaiting him (`docs/HANDOFF.md`).
+2. Obtain genuine expert feedback; if unavailable, state that explicitly.
+3. Resolve gates only through a pre-specified plan and new evidence. Do not weaken gates after the fact.
+4. Run `python -m pytest tests` (327 tests, all passing on 14 Nov 2026 with Python 3.13) and the reproduction checks in the target environment; record outputs.
+5. Release only after explicit owner sign-off.

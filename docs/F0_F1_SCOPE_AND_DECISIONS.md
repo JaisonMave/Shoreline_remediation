@@ -39,3 +39,8 @@ option is distinguishable from natural recovery; monitor" is a valid answer.
 P1-P5 reviews, the variable-definition check and the dashboard test remain his; Track F does not change any
 validated number from P1-P5. Expert scoring (M6) is replaced for now by literature pooling (F8, D26); a human
 expert panel stays desirable for F11 and is listed as an open item.
+
+## Note added 14 November 2026 (V5; history above is unchanged)
+
+- **Literature table.** The statement above that Jaison "reviewed and accepted" the table now rests on his attestation of 14 Nov 2026 (D33) that he checked all 144 rows against the PDFs; `checked_by` records it. It is his statement recorded by the assistant, not an independent check, and the rows stay labelled AI-extracted.
+- **Beaches.** The scope table's "rules and literature only" row for beaches has moved as described in D36 and D39: sand beach (ESI 3A) has one experimental reference, a persistence curve by starting oiling category (the model failed both gates, so the baseline is packaged); mixed sand and gravel and gravel remain rules and literature only. See `docs/FINDINGS_V5.md` sections 47 and 48.

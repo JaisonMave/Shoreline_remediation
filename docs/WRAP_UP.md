@@ -13,6 +13,10 @@ This documentation-only close-out follows F11; it does not change model code, da
 
 ## Evidence and status safeguards
 
-F11 historical active/natural agreement is 2/6 versus 5/6 for an always-active baseline; disagreements remain open. No expert responses have been collected. F12 remains unreleased. The process model failed its held-out gate, and the composer heavy-cell bias gate remains failed. The prior handoff records 177 tests passing, but this documentation update did not rerun tests.
+F11 historical active/natural agreement is 2/6 versus 5/6 for an always-active baseline; disagreements remain open. No expert responses have been collected. F12 remains unreleased. The process model failed its held-out gate, and the composer heavy-cell bias gate remains failed. The test count is 327 tests, all passing on 14 Nov 2026 with Python 3.13; this documentation update did not rerun tests.
 
 No expert review, Jaison sign-off, new validation, release, or cross-spill generalisation is claimed. Continue from `docs/TRACK_F_BRIEF.md`; check `docs/ROADMAP_STATUS.md` and `docs/HANDOFF.md` before selecting work.
+
+## V5 update (14 November 2026)
+
+This close-out was written on branch `process-model-audit`; work continues on `model_v4`. Later work and its numbers are in `docs/FINDINGS_V5.md`; the current start-here guide is `docs/HANDOFF.md`.

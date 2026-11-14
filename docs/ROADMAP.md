@@ -69,6 +69,28 @@ M2-M10 onto the architecture (D14-D20) and a fixed decision logic (D31).
 | LIT | Literature collection for coefficients (R2 route) | Under validation: 144 rows, 90 sources, AI-extracted (FINDINGS_V4 31); awaiting Jaison's sample check |
 | F1-F12 | Final system (see plan) | Not started |
 
+## V5 work (14 Nov 2026)
+
+Response to the v4 review. Findings: `docs/FINDINGS_V5.md` sections 43-51. "Implemented" does not mean "validated".
+
+| # | Item | Status |
+| --- | --- | --- |
+| V5-1 | Owner attestation of the 144 literature rows (D33) | Completed as a record of the owner's statement; not an independent check (FINDINGS_V5 43) |
+| V5-2 | Oil excess out of sample against a no-excess baseline (D37) | Under validation: gate 0.1 FAILED; non-default option, experimental (FINDINGS_V5 44) |
+| V5-3 | Per-class out-of-sample edge-loss intervals (D38) | Under validation: gate 0.2 FAILED; non-default option, experimental (FINDINGS_V5 45) |
+| V5-4 | F8 original two-study rule restored; B023 direction fix (D34) | Completed (FINDINGS_V5 46) |
+| V5-5 | Insufficient-evidence state; honest labels for planting and AI-proposed rows (D35) | Completed (FINDINGS_V5 46) |
+| V5-6 | ESI habitat table, NOAA ratings, beach screening (D36) | Under validation: scope approved, NOAA mapping Proposed; transcription needs owner spot-check (FINDINGS_V5 47) |
+| V5-7 | F11 rerun with the new pipeline | Completed as a run: agreement 2 of 6 unchanged; no skill claim (FINDINGS_V5 46); expert responses still outstanding |
+| V5-8 | Sand-beach persistence model (D39) | Under validation: gates B-1 and B-2 FAILED; baseline curve packaged, experimental (FINDINGS_V5 48) |
+| V5-9 | Open-access literature and Exxon Valdez data obtained | Completed as acquisition; not analysed (FINDINGS_V5 49) |
+| V5-10 | Dashboard re-base on the decision pipeline (D40) | Under validation: script-tested, no browser check; owner visual check awaited (FINDINGS_V5 50) |
+| V5-11 | Integration of beach model, registry and dashboard | In progress (FINDINGS_V5 51) |
+| V5-12 | OR&R 42 digitisation (treatment effects) | Not started: needs the owner's browser access; document not obtained |
+| V5-13 | Beach outcome redefinition; Exxon Valdez gravel and mixed-beach persistence | Not started: needs its own pre-specified plan |
+| V5-14 | Second spill; treatment records per segment; expert review | Awaiting data |
+| V5-15 | Pydeck satellite map; fan chart | Not started |
+
 ## Full programme milestones (after the proof of concept)
 
 | # | Milestone | Completion criteria | Depends on | Status |
@@ -121,3 +143,11 @@ M2-M10 onto the architecture (D14-D20) and a fixed decision logic (D31).
 | D30 | 2026-11-14 | All | Final-system scope set by evidence: validated, experimental, rules only, out of scope. | Proposed (V4 F0) |
 | D32 | 2026-11-14 | 4, 6 | Composer oil excess scaled by a field-size-weighted literature estimate (E 0.665 m/yr, s 0.756). | Approved by Jaison 2026-11-14; implemented (FINDINGS_V4 32); bias gate still fails |
 | D31 | 2026-11-14 | 6 | Decision logic: hard constraints, do-no-harm, benefit against natural recovery with intervals, trade-offs shown not scored; "no option distinguishable, monitor" is a valid output. | Proposed (V4 F9) |
+| D33 | 2026-11-14 | 1, 3 | Owner states he checked all 144 literature rows against the PDFs; `checked_by` set to "Jaison (owner attestation 2026-11-14: checked against the PDFs)". This is his attestation recorded by the assistant, not an independent check. | Approved by owner |
+| D34 | 2026-11-14 | 3 | Restore the original F8 two-study rule; F8b Superseded (post-run rule change); hot-water and high-pressure harm carried as sourced screening rules; B023 direction defect fixed (no verdict changes). | Approved by owner; implemented |
+| D35 | 2026-11-14 | 3 | Report state "Insufficient evidence to compare with natural recovery" kept apart from "No clear difference (evidence exists)"; field `evidence_state`; class letters A-E unchanged. | Approved by owner as part of the plan; implemented |
+| D36 | 2026-11-14 | 3 | Habitat table keyed to ESI. Sand beach with data; mixed sand and gravel (and gravel) with rules and literature only (scope). NOAA A-D mapping: A or B eligible, C conditional, D and "-" excluded, I conditional. | Scope Approved by owner; rating mapping Proposed; implemented |
+| D37 | 2026-11-14 | 4, 5 | Oil excess estimated out of sample (within-2-km-block class minus NOO difference, other basins only) offered as a composer option and tested against the no-excess baseline. | Implemented as a non-default option; gate 0.1 failed; experimental (FINDINGS_V5 44) |
+| D38 | 2026-11-14 | 4, 5 | Edge-loss 90% intervals from nested out-of-sample conformal offsets per oiling class (p5-edge-loss-v2) offered as an option; v1 card notes its offsets were calibrated in sample. | Implemented as a non-default option; gate 0.2 failed; experimental (FINDINGS_V5 45) |
+| D39 | 2026-11-14 | 1, 4, 5 | Sand-beach (ESI 3A) persistence of visible oil from DWH SCAT layer 18613; unit = segment; leave-one-state-out; gates B-1 and B-2 fixed before the run. | Implemented; gates failed; baseline curve packaged; experimental (FINDINGS_V5 48) |
+| D40 | 2026-11-14 | 6, 7 | Legacy scenario views kept and re-based on the decision pipeline; fabricated band and constant confidence removed; theme and evidence-grade legend. | Approved by owner in principle; implemented; awaiting his visual check |

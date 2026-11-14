@@ -4,12 +4,14 @@ An evidence-led prototype for screening oil-spill shoreline response options. It
 
 ## Start here
 
+Latest (V5, 14 Nov 2026, branch `model_v4`): [`docs/FINDINGS_V5.md`](docs/FINDINGS_V5.md) (plain summary at the top; four gated tests, three failed or experimental) and [`docs/HANDOFF.md`](docs/HANDOFF.md) (how to restore the work and what to do next).
+
 For continuation or review, read these in order:
 
 1. [`docs/HANDOFF.md`](docs/HANDOFF.md) — current state, owner actions, blockers and commands.
 2. [`docs/ROADMAP_STATUS.md`](docs/ROADMAP_STATUS.md) — current milestone status; this supersedes older summary rows in the historical roadmap.
 3. [`docs/TRACK_F_BRIEF.md`](docs/TRACK_F_BRIEF.md) — concise AI-agent continuation instructions and guardrails.
-4. [`docs/FINDINGS_V4.md`](docs/FINDINGS_V4.md) — evidence and results (sections 34–42 are latest).
+4. [`docs/FINDINGS_V4.md`](docs/FINDINGS_V4.md) — evidence and results (sections 34–42; V5 continues in `docs/FINDINGS_V5.md`).
 5. [`docs/ROADMAP.md`](docs/ROADMAP.md) — historical roadmap and decision register; retain historical entries.
 6. [`CHANGELOG.md`](CHANGELOG.md) and [`docs/WRAP_UP.md`](docs/WRAP_UP.md) — change trail and documentation close-out.
 
@@ -45,7 +47,7 @@ python -m pip install -r requirements-analysis.txt
 python -m pytest tests
 ```
 
-The prior handoff records 177 tests passing on Python 3.11; the latest documentation-only work did not rerun them. Confirm locally before reporting a current pass. Some validation checks require local, git-ignored DIVER/SCAT data; consult `docs/DATA_ACQUISITION.md` and the relevant plan first.
+The test suite has 327 tests, all passing on 14 Nov 2026 with Python 3.13. Confirm locally before reporting a current pass. Some validation checks require local, git-ignored DIVER/SCAT data; consult `docs/DATA_ACQUISITION.md` and the relevant plan first.
 
 ## Repository map
 
