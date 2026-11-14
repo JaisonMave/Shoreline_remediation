@@ -1,0 +1,12 @@
+{
+  "source": "validation/d32_oil_excess.py",
+  "created_utc": "2026-11-14T06:50:00.986316+00:00",
+  "n_eligible_studies": 5,
+  "E_field_size_weighted": 0.6645521472392638,
+  "E90_lo": -0.6893594753854188,
+  "E90_hi": 2.0184637698639465,
+  "zengel_mean_years_1_5": 0.87942,
+  "scale": 0.7556709504437741,
+  "pooled_sd_total": 0.8231198207794247,
+  "interval_inflation_90": 1.3539116226246826
+}

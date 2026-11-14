@@ -49,6 +49,7 @@ from src.shoreline_remediation import treatment_effects as te
 ROOT = Path(__file__).resolve().parents[2]
 VEG_MODEL = ROOT / "models" / "veg_recovery_v1.json"
 P3_A = ROOT / "results" / "p3_treatment" / "A_prespill_adjusted.csv"
+OIL_EXCESS_D32_PATH = ROOT / "models" / "oil_excess_d32.json"
 # R3 fix (docs/R3_OIL_DOUBLE_COUNT_PLAN.md): the composer baseline is the clean-edge refit of M1 (max_oiling in
 # NOO, Very_Light only), not the deployed p5-edge-loss-v1 card (which was fitted on all cells, including Heavy,
 # and so partly absorbed the oil effect that the Zengel excess below then added a second time). site_evidence's
@@ -107,13 +108,52 @@ def _lobo_residuals() -> np.ndarray:
 @lru_cache(maxsize=1)
 def _oil_excess() -> dict:
     """period -> (effect, lo, hi) of oiled-untreated minus reference, from the P3 pre-spill-adjusted table."""
+    adj = _oil_excess_d32_adjustment()
+    scale = float(adj["scale"])
+    pooled_sd_total = float(adj["pooled_sd_total"])
     d = pd.read_csv(P3_A)
     d = d[d.contrast == "Oiled, untreated minus Reference (unoiled)"]
     out = {}
     for _, r in d.iterrows():
         period = "2010-2012" if r.analysis.startswith("A 2010-2012") else "2012-2018"
-        out[period] = (float(r["difference"]), float(r.lo90), float(r.hi90))
+        effect = float(r["difference"])
+        lo = float(r.lo90)
+        hi = float(r.hi90)
+        if scale == 1.0 and pooled_sd_total == 0.0:
+            out[period] = (effect, lo, hi)
+            continue
+        effect_scaled = scale * effect
+        scaled_sd = abs(scale) * ((hi - lo) / (2 * Z90))
+        sd_total = scaled_sd + pooled_sd_total
+        half90 = Z90 * sd_total
+        out[period] = (effect_scaled, effect_scaled - half90, effect_scaled + half90)
     return out
+
+
+@lru_cache(maxsize=1)
+def _oil_excess_d32_adjustment() -> dict:
+    """Optional D32 oil-excess scaling from models/oil_excess_d32.json. Missing/invalid file -> identity."""
+    out = {"scale": 1.0, "pooled_sd_total": 0.0, "interval_inflation_90": 0.0}
+    if not OIL_EXCESS_D32_PATH.exists():
+        return out
+    try:
+        with open(OIL_EXCESS_D32_PATH) as f:
+            data = json.load(f)
+        scale = float(data.get("scale", 1.0))
+        pooled_sd_total = float(data.get("pooled_sd_total", 0.0))
+        interval_inflation_90 = float(data.get("interval_inflation_90", 0.0))
+        if pooled_sd_total == 0.0 and interval_inflation_90 > 0:
+            pooled_sd_total = interval_inflation_90 / Z90
+        if not np.isfinite(scale):
+            scale = 1.0
+        if not np.isfinite(pooled_sd_total) or pooled_sd_total < 0:
+            pooled_sd_total = 0.0
+        if not np.isfinite(interval_inflation_90) or interval_inflation_90 < 0:
+            interval_inflation_90 = Z90 * pooled_sd_total
+        out.update({"scale": scale, "pooled_sd_total": pooled_sd_total, "interval_inflation_90": interval_inflation_90})
+        return out
+    except Exception:
+        return out
 
 
 @lru_cache(maxsize=1)

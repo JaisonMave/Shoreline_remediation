@@ -1,0 +1,35 @@
+D32 oil-excess scaling summary (run once).
+
+Eligibility table (study, included, excess, n):
+  Silliman et al. (2012): no, excess=nan, n=nan
+  McClenachan et al. (2013): yes, excess=0.33, n=30.0
+  Turner et al. (2016): yes, excess=1.54, n=46.0
+  Zengel et al. (2015 + 2022, one study): yes, excess=0.8779999999999999, n=14.0
+  Challenger et al. (2021): yes, excess=-0.13, n=59.0
+  Silliman et al. (2016): no, excess=nan, n=nan
+  Deis et al. (2019): yes, excess=1.64, n=14.0
+  Beland et al. (2017): no, excess=nan, n=nan
+
+Primary pooled E (field-size weighted): 0.665 m/yr, 90% range [-0.689, 2.018]
+Scale s = E / Zengel(yrs1-5): 0.756 (Zengel mean 0.879)
+DL sensitivity (if available): E=nan, 90% [nan, nan]
+LOSO range of E: [0.320, 1.115]
+
+C1 comparison (pooled heavy cells):
+  C1b coverage=0.932, heavy_bias=+0.549, NOO_bias=+0.428
+  C1c coverage=0.938, heavy_bias=+0.330, NOO_bias=+0.428, NOO_worse_by=+0.000
+
+B1 comparison (cells pooled + heavy/NOO bias):
+  B1b coverage=0.923, heavy_bias=+0.589, NOO_bias=+0.111
+  B1c coverage=0.924, heavy_bias=+0.389, NOO_bias=+0.111, NOO_worse_by=+0.000
+
+Decision: ADOPT scaled excess.
+Rule check: all_gates_pass=False, heavy_bias_improved_vs_C1b_and_B1b=True
+
+Orchestrator note (added after the run, 14 Nov 2026; no rerun). Deviation in study-period handling: Challenger et al. 2021
+entered with its Fall 2011-Summer 2015 value only (-0.13 m/yr, years 2-5), while Zengel's two periods were averaged over
+years 1-5. Treating Challenger the same way (year 1 +0.83, years 2-5 -0.13) gives (0.83 + 4 x -0.13) / 5 = +0.06 m/yr and
+E = (30x0.33 + 46x1.54 + 14x0.878 + 59x0.06 + 14x1.64) / 163 = 0.733 m/yr (s = 0.834 instead of 0.756). Expected effect:
+heavy bias about 0.05 m/yr higher than C1c/B1c; adoption decision unchanged (still below C1b and B1b). Turner 2016 and
+Deis 2019 are remote-sensing studies graded D by the extraction agent; the plan admits them with a flag. Neither is
+independent of Deepwater Horizon; all five eligible studies are DWH Louisiana marsh.

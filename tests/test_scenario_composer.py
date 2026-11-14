@@ -1,5 +1,7 @@
 """Checks of src/shoreline_remediation/scenario_composer.py (plan A2): determinism, natural recovery = baseline + oil
 excess, no-evidence options get no shift and say so, elicited options act on tau only, outputs are ranges."""
+import json
+
 import numpy as np
 import pytest
 
@@ -23,6 +25,44 @@ def test_option_order_does_not_change_results():
     b, _ = sc.compose(SITE, ["mechanical_removal", "manual_removal"], n_draws=400, seed=3)
     key = ["option", "year", "outcome"]
     assert a.sort_values(key).reset_index(drop=True).equals(b.sort_values(key).reset_index(drop=True))
+
+
+def test_oil_excess_scale_file_applies_and_scale_one_keeps_default(monkeypatch, tmp_path):
+    scale_file = tmp_path / "oil_excess_d32.json"
+    monkeypatch.setattr(sc, "OIL_EXCESS_D32_PATH", scale_file)
+
+    sc._oil_excess.cache_clear()
+    sc._oil_excess_d32_adjustment.cache_clear()
+    base = sc._oil_excess()
+
+    scale_file.write_text(json.dumps({"scale": 0.6, "pooled_sd_total": 0.0, "interval_inflation_90": 0.0}))
+    sc._oil_excess.cache_clear()
+    sc._oil_excess_d32_adjustment.cache_clear()
+    scaled = sc._oil_excess()
+    assert scaled["2010-2012"][0] == pytest.approx(0.6 * base["2010-2012"][0])
+    assert scaled["2012-2018"][0] == pytest.approx(0.6 * base["2012-2018"][0])
+
+    pool = np.zeros(1)
+    tidy_scaled, _ = sc.compose({"max_oiling": "Heavy", "pred_rate": 0.0}, ["natural_attenuation"], horizon_years=2,
+                                n_draws=20000, seed=41, residual_pool=pool)
+    rates_scaled = tidy_scaled[tidy_scaled.outcome == "edge_loss_rate_m_per_yr"].set_index("year")["median"]
+    assert rates_scaled[1] == pytest.approx(scaled["2010-2012"][0], abs=0.03)
+    assert rates_scaled[2] == pytest.approx(rates_scaled[1], abs=0.03)
+
+    scale_file.unlink()
+    sc._oil_excess.cache_clear()
+    sc._oil_excess_d32_adjustment.cache_clear()
+    tidy_default, _ = sc.compose({"max_oiling": "Heavy", "pred_rate": 0.0}, ["natural_attenuation"], horizon_years=5,
+                                 n_draws=1500, seed=42, residual_pool=pool)
+
+    scale_file.write_text(json.dumps({"scale": 1.0, "pooled_sd_total": 0.0, "interval_inflation_90": 0.0}))
+    sc._oil_excess.cache_clear()
+    sc._oil_excess_d32_adjustment.cache_clear()
+    tidy_scale1, _ = sc.compose({"max_oiling": "Heavy", "pred_rate": 0.0}, ["natural_attenuation"], horizon_years=5,
+                                n_draws=1500, seed=42, residual_pool=pool)
+    assert tidy_default[["option", "year", "outcome", "median", "lo90", "hi90"]].equals(
+        tidy_scale1[["option", "year", "outcome", "median", "lo90", "hi90"]]
+    )
 
 
 def test_natural_recovery_is_baseline_plus_oil_excess():

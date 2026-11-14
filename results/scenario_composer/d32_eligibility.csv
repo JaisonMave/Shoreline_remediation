@@ -1,0 +1,9 @@
+study,included,reason,excess_used_m_per_yr,n_used,unit,grade,read_level,remote_sensing_flag,period_arithmetic,se_used
+Silliman et al. (2012),no,Excluded: no numeric effect and/or no reported unit count.,,,,,full_text,no,,
+McClenachan et al. (2013),yes,Included: numeric effect with reported unit count.,0.33,30.0,sites,C,full_text,no,Selected E002.,
+Turner et al. (2016),yes,Included: numeric effect with reported unit count.,1.54,46.0,units,D,full_text,yes,Selected E003.,
+"Zengel et al. (2015 + 2022, one study)",yes,Included: Zengel 2015+2022 treated as one study; 2022 periods averaged for years 1-5.,0.8779999999999999,14.0,plots,B,full_text,yes,(2*1.88 + 3*0.21)/5 = 0.878,0.3556547466683849
+Challenger et al. (2021),yes,"Included: period covering years 1-5 (Heavy vs NOO, Fall 2011-Summer 2015).",-0.13,59.0,sites,C,full_text,no,Selected E012 as closest years 1-5 period.,
+Silliman et al. (2016),no,Excluded: no numeric effect and/or no reported unit count.,,,,,full_text,no,,
+Deis et al. (2019),yes,Included: heavy-oiled vs reference contrast with reported station counts.,1.64,14.0,stations,D,full_text,yes,Selected E017 (oiled vs reference).,
+Beland et al. (2017),no,Excluded: unit count for oiled group not reported (cannot define independent units).,,,,D,full_text,yes,,
