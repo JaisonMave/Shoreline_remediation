@@ -90,6 +90,17 @@ DATASETS = [
          checksums="see catalogue.csv",
          notes="Most primary papers were not opened; numbers came through text extraction of guidance PDFs and are not "
                "re-checked against originals. Prior ranges are ASSUMED, wide, and Proposed.", used_by="scenario_composer (elicited options)"),
+    dict(id="REF-LITERATURE-EFFECTS", role="reference (compiled from literature)",
+         patterns=["data/knowledge/literature_effects/*.csv"],
+         name="Per-group literature effect rows (A marsh removal, B washing, C bio/chemical/burning, D beaches and natural "
+              "recovery, E oiling effect on marsh erosion) and their source lists; merged into data/knowledge/literature_effects.csv",
+         source="Collected 2026-11-14 by five AI agents (GPT, Gemini, Grok); each row carries citation, DOI, source location, "
+                "value origin and grade", licence="facts compiled from cited sources", acquired="2026-11-14",
+         method="Web search; open-licence and US-government PDFs downloaded to docs/reference/literature, all-rights-reserved "
+                "ones kept in the git-ignored docs/reference/restricted; values read from text and tables only",
+         checksums="see catalogue.csv",
+         notes="AI-extracted, status Proposed or abstract_only; not checked by a person. D32 uses group E (docs/D32_OIL_EXCESS_PLAN.md).",
+         used_by="D32 oil excess; future pooling (docs/R2_LITERATURE_EVIDENCE_GUIDE.md section 5)"),
     dict(id="EXT-TURNER2016", role="external", patterns=["data/external/turner2016/*.xlsx"],
          name="Turner et al. island erosion rates, Barataria Bay, Breton Sound, Terrebonne Bay, 1988-2013",
          source="GRIIDC doi:10.7266/N72J68WS (UDI R4.x264.196:0008)", licence="CC0 (landing-page JSON-LD; visible wording not found)",

@@ -15,7 +15,8 @@ not evidence; reference = read or typed from a report; instrument = forms withou
 | EXT-CRMS-SOIL | external | CPRA CRMS soil properties (cores by station, date and depth slice), Louisiana, 2006-2023 | CPRA CIMS full-table export https://cims.coastal.la.gov/RequestedDownloads/ZippedFiles/CRMS_Soil_Properties.zip | not found; CRMS disclaimer page says public information, may be copied, byline requested (wording refers to USGS data; applicability ASSUMED) | 2026-11-12 | 1 |
 | EXT-ZENGEL2015 | external | Zengel et al. 2015 S1 Table: heavily oiled marsh, treatment groups 2010-2012 | PLoS ONE 10(7):e0132324, doi:10.1371/journal.pone.0132324, supplementary S1 Table | CC BY 4.0 | 2026-11-11 | 1 |
 | EXT-ZENGEL2022 | external | Zengel et al. 2022 marsh erosion by treatment, plot data 1956-2018 | GRIIDC doi:10.7266/VF524143 (UDI R6.x813.000:0007); paper Sci. Rep. 12:13802 | CC0 | 2026-11-11 | 1 |
-| REF-TREATMENT-EVIDENCE | reference (compiled from literature) | Literature evidence for cleanup treatments without project outcome data, and elicited prior ranges | Compiled 2026-11-12 by a reading agent from NOAA marsh guidance (2022 update), Hoff 1995, Pezeshki et al. 2000, Michel and Rutherford 2014 (abstract) and others; each row carries its citation and access level | facts compiled from cited sources | 2026-11-12 | 7 |
+| REF-TREATMENT-EVIDENCE | reference (compiled from literature) | Literature evidence for cleanup treatments without project outcome data, and elicited prior ranges | Compiled 2026-11-12 by a reading agent from NOAA marsh guidance (2022 update), Hoff 1995, Pezeshki et al. 2000, Michel and Rutherford 2014 (abstract) and others; each row carries its citation and access level | facts compiled from cited sources | 2026-11-12 | 9 |
+| REF-LITERATURE-EFFECTS | reference (compiled from literature) | Per-group literature effect rows (A marsh removal, B washing, C bio/chemical/burning, D beaches and natural recovery, E oiling effect on marsh erosion) and their source lists; merged into data/knowledge/literature_effects.csv | Collected 2026-11-14 by five AI agents (GPT, Gemini, Grok); each row carries citation, DOI, source location, value origin and grade | facts compiled from cited sources | 2026-11-14 | 10 |
 | EXT-TURNER2016 | external | Turner et al. island erosion rates, Barataria Bay, Breton Sound, Terrebonne Bay, 1988-2013 | GRIIDC doi:10.7266/N72J68WS (UDI R4.x264.196:0008) | CC0 (landing-page JSON-LD; visible wording not found) | 2026-11-12 | 1 |
 | EXT-ZENGEL2022-META | external | Zengel et al. synthesis of wetland vegetation response to oiling (compiled dataset, 1,158 rows) | GRIIDC doi:10.7266/n7-cn03-z792 (UDI R6.x813.000:0001); linked from the NOAA repository record of Ecol. Appl. 32(1):e02489 | CC0 (landing-page JSON-LD; visible wording not found) | 2026-11-12 | 1 |
 | EXT-CHANDELEUR-SHORELINE | external | Chandeleur Islands shoreline movement 2012-2017 (shapefiles and net shoreline movement table) | GRIIDC doi:10.7266/n7-0caw-d652 (UDI R4.x262.212:0004) | CC0 (landing-page JSON-LD; visible wording not found) | 2026-11-12 | 52 |
@@ -162,11 +163,37 @@ not evidence; reference = read or typed from a report; instrument = forms withou
 | --- | --- | --- |
 | `data/knowledge/elicited_priors.csv` | 10 | c67d8c2e747e |
 | `data/knowledge/EXPERT_REVIEW.md` |  | ef4c15c829d4 |
+| `data/knowledge/literature_effects.csv` | 144 | a13f3e868f53 |
 | `data/knowledge/literature_effects_template.csv` | 0 | 9acffdf2530a |
+| `data/knowledge/literature_sources.csv` | 90 | 79cdd02155ba |
 | `data/knowledge/mangrove_screening.csv` | 14 | 8290319884e9 |
 | `data/knowledge/treatment_conditions.csv` | 14 | 9b4a454fd520 |
 | `data/knowledge/TREATMENT_EVIDENCE_NOTES.md` |  | 1996c07cec67 |
 | `data/knowledge/treatment_evidence_untested.csv` | 54 | 1fb202f3aabc |
+
+## REF-LITERATURE-EFFECTS: Per-group literature effect rows (A marsh removal, B washing, C bio/chemical/burning, D beaches and natural recovery, E oiling effect on marsh erosion) and their source lists; merged into data/knowledge/literature_effects.csv
+
+- Role: reference (compiled from literature)
+- Source: Collected 2026-11-14 by five AI agents (GPT, Gemini, Grok); each row carries citation, DOI, source location, value origin and grade
+- Licence: facts compiled from cited sources
+- Obtained: 2026-11-14
+- How obtained and read: Web search; open-licence and US-government PDFs downloaded to docs/reference/literature, all-rights-reserved ones kept in the git-ignored docs/reference/restricted; values read from text and tables only
+- Checksums: see catalogue.csv
+- Used by: D32 oil excess; future pooling (docs/R2_LITERATURE_EVIDENCE_GUIDE.md section 5)
+- Notes: AI-extracted, status Proposed or abstract_only; not checked by a person. D32 uses group E (docs/D32_OIL_EXCESS_PLAN.md).
+
+| File | Rows | SHA-256 (first 12) |
+| --- | --- | --- |
+| `data/knowledge/literature_effects/part_A_marsh_removal.csv` | 16 | 7c88df6f08c5 |
+| `data/knowledge/literature_effects/part_B_washing.csv` | 55 | 54f7a952074b |
+| `data/knowledge/literature_effects/part_C_bio_chem.csv` | 40 | 12b28da5151c |
+| `data/knowledge/literature_effects/part_D_beach_natural.csv` | 13 | 230a1f88145e |
+| `data/knowledge/literature_effects/part_E_marsh_erosion.csv` | 20 | ab831b9ccd31 |
+| `data/knowledge/literature_effects/sources_A_marsh_removal.csv` | 17 | 57c65de91f88 |
+| `data/knowledge/literature_effects/sources_B_washing.csv` | 25 | 41da138eb4b9 |
+| `data/knowledge/literature_effects/sources_C_bio_chem.csv` | 19 | 73741e49fb07 |
+| `data/knowledge/literature_effects/sources_D_beach_natural.csv` | 15 | 11abd7ee67e8 |
+| `data/knowledge/literature_effects/sources_E_marsh_erosion.csv` | 14 | 2ca538acd648 |
 
 ## EXT-TURNER2016: Turner et al. island erosion rates, Barataria Bay, Breton Sound, Terrebonne Bay, 1988-2013
 
