@@ -11,10 +11,17 @@ from .ml_models import GaussianProcessSuitabilityModel, make_synthetic_dataset
 
 
 class HybridDecisionModel:
-    """Hybrid decision-support framework combining FAST feasibility and ML suitability."""
+    """Rule screening plus ecological ordering; the rule-trained ML suitability layer is opt-in only.
 
-    def __init__(self):
+    Default (decision path, D26): feasibility from the FAST-like rules, then an ASSUMED ecological (do-no-harm)
+    score orders options within a feasibility tier. No suitability score is used, because the only labels
+    available are generated from hand-written rules. `use_synthetic_suitability=True` restores the GPR layer
+    for the "Method test (synthetic data)" view only. Literature effect coefficients enter here later (V4 R2, F2).
+    """
+
+    def __init__(self, use_synthetic_suitability: bool = False):
         self.fast_engine = FASTRuleEngine()
+        self.use_synthetic_suitability = use_synthetic_suitability
         self.treatment_models = {}
         self._trained = False
 
@@ -46,6 +53,19 @@ class HybridDecisionModel:
 
     def score_treatment(self, scenario: Scenario, treatment: str) -> TreatmentScore:
         feasibility = self.fast_engine._classify_treatment(treatment, scenario)
+
+        if not self.use_synthetic_suitability:
+            ecological_suitability = self._ecological_score(treatment, scenario)
+            return TreatmentScore(
+                treatment=treatment, feasibility=feasibility, suitability=float("nan"),
+                ecological_suitability=ecological_suitability,
+                utility=0.0 if feasibility == "ineligible" else round(ecological_suitability, 2),
+                confidence={"eligible": 0.6, "conditional": 0.4, "ineligible": 0.2}[feasibility],
+                reason=f"{treatment}: rule screening; ordered within its tier by an ASSUMED ecological score "
+                       "(no outcome-based suitability yet); "
+                       + self._reason_for_treatment(treatment, scenario, feasibility).split(": ", 1)[1],
+                evidence="screening_only",
+            )
 
         if not self._trained:
             self.train_treatment_models()

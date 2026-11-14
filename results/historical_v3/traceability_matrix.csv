@@ -1,0 +1,25 @@
+Case_ID,Source,Extracted_Variable,Mapped_Model_Variable,Mapped_Value,Confidence
+DWH-01,S1,'mostly sand beach but includes shell and mixed sand and shell beaches',shoreline_type,sand_beach,High
+DWH-01,S1,'the oil penetrated up to a few centimeters into the sediments' (some sand beaches),penetration_depth_cm,0-5 (sampled),Medium
+DWH-01,S1,"'thick, viscous emulsion, containing up to 60% water'",oil_category,heavy,Medium
+DWH-01,S1,'extensive manual and mechanical cleanup operations were required',documented method,manual_removal | mechanical_removal,High
+DWH-01,-,Not stated in source,"oil_coverage, wave_exposure, shoreline_sensitivity",sampled over plausible range,Low
+DWH-02,S1,'less intensive cleanup was conducted to minimize ecological impacts',documented class,active (method unspecified),Medium
+DWH-02,S1,federally managed lands: national parks and wildlife refuges,shoreline_type,sand_beach,Medium
+DWH-02,-,Not stated in source,"oil_coverage, penetration_depth_cm, wave_exposure, shoreline_sensitivity",sampled over plausible range,Low
+DWH-03,S1,"'796 km of marshes that were oiled ... treatment was allowed along 71 km, or 8.9%'",documented class,natural (majority),High
+DWH-03,S1,'natural attenuation was often the recommended response action',documented method,natural_attenuation,High
+DWH-03,S1,'emulsified oil pooled on the surface with little penetration into the marsh soils',penetration_depth_cm,0-3 (sampled),Medium
+DWH-03,S1,marsh habitat (mostly coastal herbaceous marsh),shoreline_type,marsh,High
+DWH-03,S4,ESI 10A: aggressive cleanup only when other resources are at great risk,shoreline_sensitivity,high / very_high (sampled),Medium
+DWH-04,S1,'heavily oiled layer on marsh platforms averaged 2-3 cm in thickness',oil_thickness (mm),20-30 (sampled),High
+DWH-04,S1,'Over 11 km ... cleaned using intensive manual and mechanical raking and cutting ... limited application of loose organic sorbents',documented method,manual_removal | mechanical_removal | vegetation_cutting | passive_sorbents,Medium
+DWH-04,S1,'emulsified oil ... pooled on the surface'; 'Heavy' oiling in northern Barataria Bay,oil_category / oil_coverage,heavy / 50-100 (sampled),Medium
+DWH-04,S1,'small tidal range (~0.5 m)',wave_exposure,low / moderate (sampled),Low
+DWH-05,S1,'SRBs and SRPs became buried (>1 m in places)',penetration_depth_cm,30 (model cap; documented >100),High
+DWH-05,S1,'extensive mechanical and manual excavation and sieving',documented method,manual_removal | mechanical_removal,High
+DWH-05,-,Not stated for the specific beaches,"oil_coverage, shoreline_sensitivity, wave_exposure",sampled over plausible range,Low
+EVOS-01,S2,'washing oiled beaches with hot water and mechanical scrubbing of beach rocks',documented method,high_pressure_heated_washing | high_pressure_washing,Medium
+EVOS-01,S3,"'viable method for removing stranded oil from hard surfaces, like large rocks and seawalls'",shoreline_type,bedrock / boulder (sampled),Medium
+EVOS-01,S3,'oiled and hot-water washed sites initially suffered more severe declines ... than oiled and not-washed sites',outcome flag,documented adverse outcome,High
+EVOS-01,-,"Oil described only as crude oil; coverage, penetration, exposure not stated","oil_category, oil_coverage, penetration_depth_cm, wave_exposure",sampled over plausible range,Low

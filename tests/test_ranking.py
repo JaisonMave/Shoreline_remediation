@@ -22,7 +22,14 @@ from src.shoreline_remediation.fast_engine import FASTRuleEngine  # noqa: E402
 
 @pytest.fixture(scope="module")
 def model() -> HybridDecisionModel:
-    trained = HybridDecisionModel()
+    """Default decision path (D26): rule screening plus ecological ordering, no synthetic suitability."""
+    return HybridDecisionModel()
+
+
+@pytest.fixture(scope="module")
+def synthetic() -> HybridDecisionModel:
+    """Method test only: GPR suitability trained on rule-generated labels."""
+    trained = HybridDecisionModel(use_synthetic_suitability=True)
     trained.train_treatment_models()
     return trained
 
@@ -34,8 +41,15 @@ def rank_of(model, scenario, treatment) -> int:
     return [score.treatment for score in model.rank_treatments(scenario)].index(treatment) + 1
 
 
-def test_every_treatment_is_listed_and_unscored_ones_come_last_within_a_tier(model):
-    ranked = model.rank_treatments(Scenario("sand_beach", oil_category="heavy"))
+def test_decision_path_uses_no_synthetic_suitability(model):
+    ranked = model.rank_treatments(Scenario("marsh", oil_category="heavy", oil_coverage=80, oil_thickness=20))
+    assert sorted(score.treatment for score in ranked) == sorted(TREATMENT_LIBRARY)
+    assert all(math.isnan(score.suitability) and score.evidence == "screening_only" for score in ranked)
+    assert not model.treatment_models  # the GPR layer is never trained on the decision path
+
+
+def test_every_treatment_is_listed_and_unscored_ones_come_last_within_a_tier(synthetic):
+    ranked = synthetic.rank_treatments(Scenario("sand_beach", oil_category="heavy"))
     assert sorted(score.treatment for score in ranked) == sorted(TREATMENT_LIBRARY)
     keys = [(TIER[score.feasibility], score.evidence == "none") for score in ranked]
     assert keys == sorted(keys)  # within a feasibility tier, scored treatments first
@@ -43,9 +57,8 @@ def test_every_treatment_is_listed_and_unscored_ones_come_last_within_a_tier(mod
         assert math.isnan(score.suitability) == (score.evidence == "none")  # no placeholder scores
 
 
-
-
-def test_no_ineligible_treatment_ranks_above_an_allowed_one(model):
+@pytest.mark.parametrize("path", ["model", "synthetic"])
+def test_no_ineligible_treatment_ranks_above_an_allowed_one(path, request):
     """V4 R1: scored-but-ineligible options used to keep 0.4*E and sort above unscored eligible options."""
     from src.shoreline_remediation.expert_scoring import build_scoring_sheet
 
@@ -55,6 +68,7 @@ def test_no_ineligible_treatment_ranks_above_an_allowed_one(model):
     fields = set(Scenario.__dataclass_fields__)
     for _, row in build_scoring_sheet().iterrows():
         scenarios.append(Scenario(**{k: v for k, v in row.items() if k in fields}))
+    model = request.getfixturevalue(path)
     for scenario in scenarios:
         ranked = model.rank_treatments(scenario)
         tiers = [TIER[score.feasibility] for score in ranked]
@@ -62,18 +76,20 @@ def test_no_ineligible_treatment_ranks_above_an_allowed_one(model):
         assert all(score.utility == 0.0 for score in ranked if score.feasibility == "ineligible")
 
 
-def test_top_choice_depends_on_the_scenario(model):
-    """The ranking used to return passive sorbents first for every scenario."""
+def test_top_choice_depends_on_the_scenario(synthetic):
+    """Method test: the GPR ranking used to return passive sorbents first for every scenario."""
     scenarios = [
         Scenario("sand_beach", oil_category="heavy", oil_coverage=40, oil_thickness=10),
         Scenario("marsh", shoreline_sensitivity="very_high", oil_category="medium", oil_coverage=15, oil_thickness=2),
         Scenario("marsh", shoreline_sensitivity="very_high", oil_category="heavy", oil_coverage=80, oil_thickness=25),
     ]
-    assert len({model.rank_treatments(scenario)[0].treatment for scenario in scenarios}) >= 2
+    assert len({synthetic.rank_treatments(scenario)[0].treatment for scenario in scenarios}) >= 2
 
 
-def test_thick_oil_moves_the_ranking_away_from_natural_attenuation(model):
-    """Check E3: the Deepwater Horizon marsh endpoints required no thick (> 1 cm) oil."""
+def test_thick_oil_moves_the_ranking_away_from_natural_attenuation(synthetic):
+    """Check E3, method test only: met by the synthetic labels, which were edited to meet it. The decision path
+    has no thickness evidence until literature coefficients are added (V4 R2)."""
+    model = synthetic
     rng = np.random.default_rng(3)
     thin, thick = [], []
     for _ in range(20):

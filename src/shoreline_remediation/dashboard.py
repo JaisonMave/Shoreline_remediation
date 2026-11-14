@@ -591,6 +591,9 @@ def render_scenario_view() -> None:
             for index, result in enumerate(results, start=1)
         ])
         st.dataframe(ranking_frame, hide_index=True, width="stretch")
+        st.caption("Order: rule feasibility tier first (eligible, conditional, ineligible), then an ASSUMED ecological "
+                   "score (lower disturbance first). This is not an effectiveness ranking: the synthetic suitability "
+                   "score is out of the decision path (D26) until literature-based effect coefficients are added.")
 
     with process_tab:
         st.subheader("Cross-shore transport simulation")
@@ -689,7 +692,7 @@ def render_scenario_view() -> None:
             with st.expander(f"{index}. {result.treatment.replace('_', ' ').title()} | {result.feasibility.title()} | utility {result.utility:.2f}", expanded=index == 1):
                 ecological = ecological_explanation(load_model(), result.treatment, analyzed_scenario)
                 detail_columns = st.columns(4)
-                detail_columns[0].metric("Suitability", f"{result.suitability:.2f} / 10")
+                detail_columns[0].metric("Suitability", "not used (D26)" if np.isnan(result.suitability) else f"{result.suitability:.2f} / 10")
                 detail_columns[1].metric("Ecological fit", f"{result.ecological_suitability:.2f} / 10")
                 detail_columns[2].metric("Utility", f"{result.utility:.2f} / 10")
                 detail_columns[3].metric("Confidence", f"{result.confidence:.0%}")

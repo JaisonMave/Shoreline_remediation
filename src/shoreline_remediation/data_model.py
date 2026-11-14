@@ -36,6 +36,7 @@ class TreatmentScore:
     reason: str
     # "synthetic_rules": suitability comes from a model trained on rule-generated labels (not field data).
     # "none": no suitability labels exist for this treatment, so it is listed after the scored treatments.
+    # "screening_only": default decision path (D26); no suitability score is used.
     evidence: str = "synthetic_rules"
 
 
