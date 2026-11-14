@@ -1,0 +1,34 @@
+﻿technology,habitat,outcome_family,verdict,basis,effect,ci_lo,ci_hi,pi_lo,pi_hi,grade_mix,n_studies,notes
+bioremediation,marsh,biological recovery,no evidence,no eligible rows,,,,,,,0,
+bioremediation,marsh,residual oil,no evidence,no eligible rows,,,,,,,0,
+bioremediation,other,degradation rate,no evidence,no eligible rows,,,,,,,0,
+bioremediation,sand/gravel beach,degradation rate,no clear difference,"single studies (k=1, citations=Venosa AD (1996))",0.52687806,,,,,A:1,1,"1 selected study estimate(s) lack variance; study evidence: Venosa AD (1996): lnRR=0.527, ratio=1.694, CI unavailable; selected rows: C001 lnRR=0.767 ratio=2.154 CI unavailable; C002 lnRR=0.549 ratio=1.731 CI unavailable; C003 lnRR=0.389 ratio=1.476 CI unavailable; C004 lnRR=0.214 ratio=1.238 CI unavailable; C005 lnRR=0.833 ratio=2.300 CI unavailable; C006 lnRR=0.470 ratio=1.600 CI unavailable; C007 lnRR=0.588 ratio=1.800 CI unavailable; C008 lnRR=0.405 ratio=1.500 CI unavailable; fewer than 3 variance-complete independent studies; not pooled"
+bioremediation,sand/gravel beach,residual oil,no evidence,no eligible rows,,,,,,,0,
+high_pressure_heated_washing,rocky/hard,biological recovery,evidence of harm,"single studies (k=2, citations=Houghton JP (1993); Coats DA (1999))",,,,,,B:2,2,"1 selected study estimate(s) lack variance; study evidence: Houghton JP (1993): lnRR=-0.789, 95% CI [-1.227, -0.351]; Coats DA (1999): lnRR=1.299, CI unavailable; selected rows: B005 lnRR=-0.939 CI [-1.582, -0.297]; B006 lnRR=-0.658 CI [-1.258, -0.059]; B023 lnRR=1.299 CI unavailable; fewer than 3 variance-complete independent studies; not pooled"
+high_pressure_heated_washing,rocky/hard,residual oil,no evidence,no eligible rows,,,,,,,0,
+high_pressure_heated_washing,sand/gravel beach,biological recovery,evidence of harm,"single studies (k=2, citations=Houghton JP et al. (1996); Fukuyama AK (2014))",,,,,,B:2,2,"1 selected study estimate(s) lack variance; study evidence: Houghton JP et al. (1996): lnRR=-3.091, 95% CI [-5.183, -0.999]; Fukuyama AK (2014): lnRR=-1.299, CI unavailable; selected rows: B019 lnRR=-3.091 CI [-5.183, -0.999]; B024 lnRR=-1.299 CI unavailable; fewer than 3 variance-complete independent studies; not pooled"
+high_pressure_heated_washing,sand/gravel beach,residual oil,no evidence,no eligible rows,,,,,,,0,
+high_pressure_washing,rocky/hard,biological recovery,no evidence,no eligible rows,,,,,,,0,
+in_situ_burning,marsh,biological recovery,no evidence,no eligible rows,,,,,,,0,
+in_situ_burning,marsh,residual oil,no evidence,no eligible rows,,,,,,,0,
+low_pressure_flushing,marsh,biological recovery,no clear difference,"single studies (k=1, citations=Hoff RZ (1995))",0,,,,,A:1,1,"1 selected study estimate(s) lack variance; study evidence: Hoff RZ (1995): lnRR=0.000, CI unavailable; selected rows: B035 lnRR=-0.000 CI unavailable; fewer than 3 variance-complete independent studies; not pooled"
+low_pressure_flushing,marsh,residual oil,no clear difference,"single studies (k=1, citations=Michel J (1998))",0,,,,,B:1,1,"1 selected study estimate(s) lack variance; study evidence: Michel J (1998): lnRR=0.000, CI unavailable; selected rows: B036 lnRR=-0.000 CI unavailable; fewer than 3 variance-complete independent studies; not pooled"
+low_pressure_flushing,rocky/hard,residual oil,no evidence,no eligible rows,,,,,,,0,
+low_pressure_flushing,sand/gravel beach,erosion,no evidence,no eligible rows,,,,,,,0,
+low_pressure_flushing,sand/gravel beach,residual oil,no clear difference,"single studies (k=1, citations=Howard S (1987))",1.9310215,,,,,A:1,1,"1 selected study estimate(s) lack variance; study evidence: Howard S (1987): lnRR=1.931, CI unavailable; selected rows: B033 lnRR=1.931 CI unavailable; fewer than 3 variance-complete independent studies; not pooled"
+low_pressure_heated_flushing,rocky/hard,biological recovery,no evidence,no eligible rows,,,,,,,0,
+mechanical_removal,marsh,biological recovery,no evidence,no eligible rows,,,,,,,0,
+natural_attenuation,marsh,erosion,no clear difference,"single studies (k=1, citations=Zengel (2022))",-2.6584851,,,,,B:1,1,"1 selected study estimate(s) lack variance; study evidence: Zengel (2022): lnRR=-2.658, CI unavailable; selected rows: E005 lnRR=-2.658 CI unavailable; fewer than 3 variance-complete independent studies; not pooled"
+natural_attenuation,sand/gravel beach,degradation rate,no evidence,no eligible rows,,,,,,,0,
+natural_attenuation,sand/gravel beach,residual oil,no evidence,no eligible rows,,,,,,,0,
+oiling_effect,marsh,erosion,no evidence,no eligible rows,,,,,,,0,
+passive_sorbents,marsh,biological recovery,no evidence,no eligible rows,,,,,,,0,
+planting,mangrove,biological recovery,no evidence,no eligible rows,,,,,,,0,
+planting,marsh,biological recovery,no evidence,no eligible rows,,,,,,,0,
+surface_washing_agents,mangrove,biological recovery,no evidence,no eligible rows,,,,,,,0,
+surface_washing_agents,marsh,biological recovery,no clear difference,"single studies (k=1, citations=Pezeshki SR (2001))",0,,,,,A:1,1,"1 selected study estimate(s) lack variance; study evidence: Pezeshki SR (2001): lnRR=0.000, CI unavailable; selected rows: B051 lnRR=-0.000 CI unavailable; fewer than 3 variance-complete independent studies; not pooled"
+surface_washing_agents,marsh,residual oil,no evidence,no eligible rows,,,,,,,0,
+surface_washing_agents,rocky/hard,residual oil,no evidence,no eligible rows,,,,,,,0,
+surface_washing_agents,sand/gravel beach,biological recovery,no evidence,no eligible rows,,,,,,,0,
+vacuum_removal,marsh,biological recovery,no evidence,no eligible rows,,,,,,,0,
+vegetation_cutting,marsh,biological recovery,no clear difference,"single studies (k=1, citations=Hoff RZ (1995))",-2.3025851,,,,,A:1,1,"1 selected study estimate(s) lack variance; study evidence: Hoff RZ (1995): lnRR=-2.303, CI unavailable; selected rows: A001 lnRR=-2.303 CI unavailable; fewer than 3 variance-complete independent studies; not pooled"

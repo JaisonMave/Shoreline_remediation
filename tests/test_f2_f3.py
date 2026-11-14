@@ -75,7 +75,11 @@ def classify_oracle(treatment: str, scenario: Scenario) -> str:
     if treatment in {"high_pressure_washing", "high_pressure_heated_washing"}:
         hard_or_gravel = shoreline in {"bedrock", "boulder", "cobble"} or (
             shoreline == "mixed_sediment" and scenario.substrate_permeability == "high")
-        if hard_or_gravel and coverage > 40 and penetration < 5:
+        # D34/D36 (14 Nov 2026), the ONLY deliberate change to the frozen oracle: rule 160 no longer makes high-pressure
+        # washing ELIGIBLE on permeable mixed sediment (it is conditional; NOAA 2017 p.29 rates it C to D). Changed verdicts:
+        # high_pressure_washing and high_pressure_heated_washing, shoreline mixed_sediment, permeability high, coverage > 40,
+        # penetration < 5: eligible -> conditional (171 grid scenarios each).
+        if hard_or_gravel and coverage > 40 and penetration < 5 and shoreline != "mixed_sediment":
             return "eligible"
         return "ineligible" if not hard_or_gravel else "conditional"
     if treatment in {"surface_washing_agents", "solidifiers"}:

@@ -98,8 +98,8 @@ NOAA_TREATMENT_CROSSWALK = [
         "noaa_pages": "89",
         "applicability": "Bedrock, structures, and gravel substrates when low pressure is ineffective.",
         "constraints": "Restrict runoff across sensitive habitats; recover flushed oil.",
-        "model_audit": "Current generic eligibility for sand is inconsistent; restrict eligible status to hard/gravel substrates.",
-        "evidence_status": "Rule requires correction",
+        "model_audit": "Rule 160 corrected 14 Nov 2026 (D36); NOAA 2017 rates ambient high-pressure washing not applicable on sand (p.23), C-D on mixed (p.29), B on gravel (p.32).",
+        "evidence_status": "Sourced screening rule (NOAA 2017 habitat ratings; mapping Proposed)",
     },
     {
         "treatment": "high_pressure_heated_washing",
@@ -107,8 +107,8 @@ NOAA_TREATMENT_CROSSWALK = [
         "noaa_pages": "91",
         "applicability": "Gravel, bedrock, and structures with weathered/viscous adhered oil.",
         "constraints": "Prevent oil/water effluent from draining across sensitive habitat; immediate recovery controls required.",
-        "model_audit": "Current rule should be limited to hard/gravel substrates and strong containment capability.",
-        "evidence_status": "Rule requires correction",
+        "model_audit": "Rule 160 corrected 14 Nov 2026 (D36): no longer eligible on mixed sediment. Harm is carried as sourced NOAA habitat ratings (data/knowledge/tables/noaa_response_rating.csv).",
+        "evidence_status": "Sourced screening rule (NOAA 2017 habitat ratings; mapping Proposed)",
     },
     {
         "treatment": "surface_washing_agents",
@@ -138,3 +138,8 @@ NOAA_TREATMENT_CROSSWALK = [
         "evidence_status": "Evidence-limited",
     },
 ]
+
+
+# D36: per-habitat NOAA habitat-impact ratings (letters rate adverse habitat impact, not effectiveness) are in
+# data/knowledge/tables/noaa_response_rating.csv; printed pages of NOAA (2017) Characteristic Coastal Habitats.
+NOAA_HABITAT_TABLE_PAGES = {"3A": 23, "4": 23, "5": 29, "6A": 32, "1A": 14, "8A": 42}

@@ -1,5 +1,25 @@
+"""F8 literature pooling (plan: docs/F8_LITERATURE_POOLING_PLAN.md).
+
+Verdict rules (decision D34, Approved by the owner 14 Nov 2026):
+    RULE_ORIGINAL ("original", the DEFAULT) is the rule written in the plan before the run: three or more variance-complete
+        independent studies are pooled (95% prediction interval); a group with one grade A/B study uses that study's 95% CI;
+        a group with two studies, or with one study that fails the precision/grade rule, is "no clear difference".
+    RULE_F8B ("f8b") is amendment F8b, written AFTER the first run, which judged every group of fewer than three studies by
+        its individual grade A/B intervals. It turned two groups (hot-water washing, rocky/hard and sand/gravel beach)
+        into "evidence of harm". F8b is SUPERSEDED because a pre-specified rule must not change after the run. It stays
+        reachable (``--rule f8b``) only so that the F8b results can be reproduced.
+
+Defect fix (D34, 14 Nov 2026): a metric where a HIGHER treated/control ratio means a DEEPER initial depletion (harm) was read
+as a benefit. See ``HIGHER_IS_WORSE_TERMS`` and ``_effect_from_row``. The extracted rows are not edited.
+
+Run (default = restored original rule, writes results/f8_pooling/v3_original_rule/ and updates data/knowledge/):
+    python -m validation.literature_pooling
+Reproduce F8b (writes beside, does not touch data/knowledge/ unless --update-knowledge is given):
+    python -m validation.literature_pooling --rule f8b --out-dir results/f8_pooling/f8b_reproduced
+"""
 from __future__ import annotations
 
+import argparse
 import csv
 import math
 import re
@@ -24,6 +44,16 @@ RESULTS = ROOT / "results" / "f8_pooling"
 ROW_EFFECTS = RESULTS / "row_effects.csv"
 SUMMARY = RESULTS / "summary.txt"
 V1_VERDICTS = RESULTS / "v1" / "evidence_verdicts.csv"
+V3_DIR = RESULTS / "v3_original_rule"
+
+RULE_ORIGINAL = "original"
+RULE_F8B = "f8b"
+RULES = (RULE_ORIGINAL, RULE_F8B)
+
+# Metrics where a HIGHER treated/control ratio means a DEEPER initial depletion, i.e. harm. Row B023 ("repopulation
+# amplitude" = stabilised abundance / initial impacted abundance): a larger ratio means the community fell further first.
+# Matched on the lower-cased outcome + metric text; the extracted row itself is never edited.
+HIGHER_IS_WORSE_TERMS = ("repopulation amplitude", "initial impacted abundance")
 
 PRIMARY_GRADES = {"A", "B", "C"}
 SENSITIVITY_GRADES = PRIMARY_GRADES | {"D"}
@@ -87,7 +117,15 @@ def verdict_rule(
     pooled: bool = False,
     has_evidence: bool = True,
     study_intervals: list[tuple[float, float, float]] | None = None,
+    rule: str = RULE_ORIGINAL,
 ) -> str:
+    """Verdict for one technology x habitat x outcome group.
+
+    ``rule="original"`` (default) is the rule written in docs/F8_LITERATURE_POOLING_PLAN.md before the run (D34).
+    ``rule="f8b"`` is the superseded post-run amendment; only ``study_intervals`` differs in effect.
+    """
+    if rule not in RULES:
+        raise ValueError(f"unknown verdict rule {rule!r}; use one of {RULES}")
     if not has_evidence or n_studies < 1:
         return "no evidence"
     if pooled:
@@ -98,7 +136,7 @@ def verdict_rule(
         if pi_hi < 0:
             return "evidence of harm"
         return "no clear difference"
-    if study_intervals is not None:
+    if rule == RULE_F8B and study_intervals is not None:
         benefit = any(lo > 0 for _, lo, _ in study_intervals)
         harm = any(hi < 0 for _, _, hi in study_intervals)
         if benefit and not harm:
@@ -106,6 +144,8 @@ def verdict_rule(
         if harm and not benefit:
             return "evidence of harm"
         return "no clear difference"
+    # Original plan rule: only a single grade A/B study can give a direction without pooling.
+    # Two studies (or more than one study without three variance-complete ones) are "no clear difference".
     if n_studies == 1 and grade in {"A", "B"} and all(
         math.isfinite(x) for x in (effect, ci_lo, ci_hi)
     ):
@@ -114,6 +154,7 @@ def verdict_rule(
         if ci_hi < 0:
             return "evidence of harm"
     return "no clear difference"
+
 
 def _habitat_class(text: str) -> str:
     value = text.lower()
@@ -242,7 +283,7 @@ def _percent_removal(row: dict[str, str]) -> float:
     return value
 
 
-def _effect_from_row(row: dict[str, str], family: str) -> tuple[float, float, str, float, float]:
+def _effect_from_row(row: dict[str, str], family: str, fix_direction: bool = True) -> tuple[float, float, str, float, float]:
     treated, control = _num(row.get("treated_mean")), _num(row.get("control_mean"))
     nt, nc = _num(row.get("n_treated")), _num(row.get("n_control"))
     effect_type = row.get("effect_type", "").lower()
@@ -282,10 +323,16 @@ def _effect_from_row(row: dict[str, str], family: str) -> tuple[float, float, st
     )
     direction = 1.0
     detail = "ln(treated/control)"
-    recovery_time = "recovery time" in (row.get("outcome", "") + " " + metric).lower()
+    text = (row.get("outcome", "") + " " + metric).lower()
+    recovery_time = "recovery time" in text
+    higher_is_worse = fix_direction and any(term in text for term in HIGHER_IS_WORSE_TERMS)
     if family in {"residual oil", "erosion"} or recovery_time:
         direction = -1.0
         detail += "; sign reversed so benefit is positive"
+    elif higher_is_worse:
+        direction = -1.0
+        detail += ("; sign reversed so benefit is positive: a higher ratio of stabilised to initial impacted abundance means a "
+                   "deeper initial depletion (harm); defect fix D34, 14 Nov 2026")
     sd_t = _spread_sd(row.get("treated_spread"), row.get("treated_spread_type"), nt)
     sd_c = _spread_sd(row.get("control_spread"), row.get("control_spread_type"), nc)
     cv_t = sd_t / treated if math.isfinite(sd_t) and treated > 0 else math.nan
@@ -446,13 +493,13 @@ def _fmt(value: Any) -> str:
 def _write_csv(path: Path, rows: Iterable[dict[str, Any]], fields: list[str]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8-sig", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=fields, extrasaction="ignore")
+        writer = csv.DictWriter(handle, fieldnames=fields, extrasaction="ignore", lineterminator="\n")
         writer.writeheader()
         for row in rows:
             writer.writerow({field: _fmt(row.get(field, "")) for field in fields})
 
 
-def _forest_plot(group: tuple[str, str, str], estimates: list[dict[str, Any]], pooled: dict[str, float]) -> Path:
+def _forest_plot(group: tuple[str, str, str], estimates: list[dict[str, Any]], pooled: dict[str, float], out_dir: Path) -> Path:
     usable = [e for e in estimates if math.isfinite(e["variance"]) and e["variance"] > 0]
     labels = [e["citation_label"] for e in usable]
     effects = np.array([e["effect"] for e in usable])
@@ -468,7 +515,7 @@ def _forest_plot(group: tuple[str, str, str], estimates: list[dict[str, Any]], p
     ax.set_title(" | ".join(group))
     fig.tight_layout()
     name = re.sub(r"[^a-z0-9]+", "_", "_".join(group).lower()).strip("_") + ".png"
-    path = RESULTS / name
+    path = out_dir / name
     fig.savefig(path, dpi=160)
     plt.close(fig)
     return path
@@ -479,20 +526,17 @@ def _grade_mix(estimates: list[dict[str, Any]]) -> str:
     return ";".join(f"{grade}:{counts[grade]}" for grade in sorted(counts))
 
 
-def main() -> None:
-    RESULTS.mkdir(parents=True, exist_ok=True)
-    previous_mappings: dict[str, str] = {}
-    if ROW_EFFECTS.exists():
-        with ROW_EFFECTS.open(encoding="utf-8-sig", newline="") as handle:
-            previous_mappings = {
-                row["effect_id"]: row.get("outcome_family", "")
-                for row in csv.DictReader(handle)
-            }
-    with EFFECTS.open(encoding="utf-8-sig", newline="") as handle:
-        source_rows = list(csv.DictReader(handle))
-    with SOURCES.open(encoding="utf-8-sig", newline="") as handle:
-        source_index_rows = list(csv.DictReader(handle))
+def _esi_tokens(rows: list[dict[str, Any]]) -> str:
+    """ESI codes of the rows that gave the primary study estimates (e.g. '5|6A'); empty when the source rows give none."""
+    tokens = set()
+    for row in rows:
+        if row.get("selected_primary") == "yes":
+            tokens.update(t.strip() for t in re.split(r"[/;,|]", str(row.get("esi_code", ""))) if t.strip())
+    return "|".join(sorted(tokens))
 
+
+def _analyse(source_rows: list[dict[str, str]], rule: str, b023_fix: bool, plot_dir: Path | None) -> dict[str, Any]:
+    """Whole F8 analysis for one verdict rule and one setting of the B023 direction fix. Pure: reads only ``source_rows``."""
     computed: list[dict[str, Any]] = []
     for original in source_rows:
         row: dict[str, Any] = dict(original)
@@ -503,7 +547,7 @@ def main() -> None:
         row["grade"] = row.get("grade", "").strip().upper()
         row["selected_primary"] = "no"
         row["selected_longest"] = "no"
-        effect, variance, method, cv_t, cv_c = _effect_from_row(row, row["outcome_family"])
+        effect, variance, method, cv_t, cv_c = _effect_from_row(row, row["outcome_family"], fix_direction=b023_fix)
         row.update({"effect": effect, "variance": variance, "effect_method": method, "cv_treated": cv_t, "cv_control": cv_c})
 
         reasons = []
@@ -586,10 +630,13 @@ def main() -> None:
             pi_lo=pi_lo, pi_hi=pi_hi, pooled=pooled_ok,
             has_evidence=has_evidence,
             study_intervals=None if pooled_ok else study_intervals,
+            grade=primary_est[0]["grade"] if len(primary_est) == 1 else "",
+            rule=rule,
         )
         if pooled_ok:
             basis = f"pooled k={primary_model['k']}"
-            plot_paths.append(_forest_plot(group, primary_est, primary_model))
+            if plot_dir is not None:
+                plot_paths.append(_forest_plot(group, primary_est, primary_model, plot_dir))
         elif primary_est:
             citations = "; ".join(dict.fromkeys(e["citation_label"] for e in primary_est))
             basis = f"single studies (k={len(primary_est)}, citations={citations})"
@@ -610,6 +657,9 @@ def main() -> None:
             notes.append("sensitivity includes grade D and/or ASSUMED variance where available")
         if not pooled_ok and len(primary_est) >= 1:
             notes.append("fewer than 3 variance-complete independent studies; not pooled")
+        if rule == RULE_ORIGINAL and not pooled_ok and len(primary_est) == 2:
+            notes.append("two studies: the pre-specified F8 rule gives 'no clear difference' whatever their direction (D34); "
+                         "the individual study intervals above are information only")
 
         pooled_rows.append(
             {
@@ -637,7 +687,7 @@ def main() -> None:
                 "verdict": verdict, "basis": basis, "effect": effect, "ci_lo": ci_lo,
                 "ci_hi": ci_hi, "pi_lo": pi_lo, "pi_hi": pi_hi,
                 "grade_mix": _grade_mix(primary_est), "n_studies": len(primary_est),
-                "notes": "; ".join(notes),
+                "notes": "; ".join(notes), "esi_codes": _esi_tokens(group_rows),
             }
         )
         if habitat == "marsh" and family == "biological recovery":
@@ -657,29 +707,96 @@ def main() -> None:
                             "basis": f"ASSUMED mapping exp(single-study 95% CI), {primary_est[0]['citation_label']}; positive biological lnRR -> larger vegetation recovery multiplier",
                         }
                     )
+    return {"computed": computed, "pooled_rows": pooled_rows, "verdict_rows": verdict_rows, "tau_rows": tau_rows,
+            "plot_paths": plot_paths}
 
-    row_fields = list(source_rows[0].keys()) + [
-        "habitat_class", "outcome_family", "study_id", "time_days", "effect",
-        "variance", "effect_method", "cv_treated", "cv_control", "eligible_effect",
-        "analysis_tier", "variance_status", "sensitivity_variance", "selected_primary",
-        "selected_longest", "inclusion_reason",
-    ]
-    pooled_fields = [
-        "technology", "habitat", "outcome_family", "effect_scale", "n_studies", "k",
-        "pooled_effect", "ci_lo", "ci_hi", "pi_lo", "pi_hi", "tau2", "i2", "grade_mix",
-        "longest_n_studies", "longest_k", "longest_effect", "longest_ci_lo", "longest_ci_hi",
-        "longest_pi_lo", "longest_pi_hi", "longest_tau2", "longest_i2", "sensitivity_k",
-        "sensitivity_effect", "sensitivity_ci_lo", "sensitivity_ci_hi", "sensitivity_pi_lo",
-        "sensitivity_pi_hi", "sensitivity_tau2", "sensitivity_i2", "notes",
-    ]
-    verdict_fields = [
-        "technology", "habitat", "outcome_family", "verdict", "basis", "effect", "ci_lo",
-        "ci_hi", "pi_lo", "pi_hi", "grade_mix", "n_studies", "notes",
-    ]
-    _write_csv(ROW_EFFECTS, computed, row_fields)
-    _write_csv(POOLED, pooled_rows, pooled_fields)
-    _write_csv(VERDICTS, verdict_rows, verdict_fields)
-    _write_csv(TAU_RANGES, tau_rows, ["option", "lo", "hi", "basis"])
+
+ROW_FIELDS_EXTRA = [
+    "habitat_class", "outcome_family", "study_id", "time_days", "effect",
+    "variance", "effect_method", "cv_treated", "cv_control", "eligible_effect",
+    "analysis_tier", "variance_status", "sensitivity_variance", "selected_primary",
+    "selected_longest", "inclusion_reason",
+]
+POOLED_FIELDS = [
+    "technology", "habitat", "outcome_family", "effect_scale", "n_studies", "k",
+    "pooled_effect", "ci_lo", "ci_hi", "pi_lo", "pi_hi", "tau2", "i2", "grade_mix",
+    "longest_n_studies", "longest_k", "longest_effect", "longest_ci_lo", "longest_ci_hi",
+    "longest_pi_lo", "longest_pi_hi", "longest_tau2", "longest_i2", "sensitivity_k",
+    "sensitivity_effect", "sensitivity_ci_lo", "sensitivity_ci_hi", "sensitivity_pi_lo",
+    "sensitivity_pi_hi", "sensitivity_tau2", "sensitivity_i2", "notes",
+]
+VERDICT_FIELDS = [
+    "technology", "habitat", "outcome_family", "verdict", "basis", "effect", "ci_lo",
+    "ci_hi", "pi_lo", "pi_hi", "grade_mix", "n_studies", "notes", "esi_codes",
+]
+
+
+def _read_verdicts(path: Path) -> dict[tuple[str, str, str], dict[str, str]]:
+    if not path.exists():
+        return {}
+    with path.open(encoding="utf-8-sig", newline="") as handle:
+        return {(r["technology"], r["habitat"], r["outcome_family"]): r for r in csv.DictReader(handle)}
+
+
+def main(rule: str = RULE_ORIGINAL, out_dir: str | Path | None = None, update_knowledge: bool | None = None,
+         b023_fix: bool = True) -> dict[str, Any]:
+    """Run the F8 analysis once and write its outputs.
+
+    rule              verdict rule: "original" (default, D34) or "f8b" (superseded, reproduction only)
+    out_dir           results folder; default results/f8_pooling/v3_original_rule (original) or .../f8b_reproduced (f8b)
+    update_knowledge  also write data/knowledge/{evidence_verdicts,pooled_effects,literature_tau_ranges}.csv;
+                      default True for the original rule and False for f8b (so F8b cannot overwrite the restored tables)
+    b023_fix          apply the B023 direction fix (default True; False only to demonstrate that it changes no verdict)
+    """
+    if rule not in RULES:
+        raise ValueError(f"unknown verdict rule {rule!r}; use one of {RULES}")
+    out = Path(out_dir) if out_dir else (V3_DIR if rule == RULE_ORIGINAL else RESULTS / "f8b_reproduced")
+    update = (rule == RULE_ORIGINAL) if update_knowledge is None else update_knowledge
+    out.mkdir(parents=True, exist_ok=True)
+    # Earlier F8b outputs (kept as they are) are only READ, to report outcome-mapping changes.
+    previous_mappings: dict[str, str] = {}
+    if ROW_EFFECTS.exists():
+        with ROW_EFFECTS.open(encoding="utf-8-sig", newline="") as handle:
+            previous_mappings = {row["effect_id"]: row.get("outcome_family", "") for row in csv.DictReader(handle)}
+    with EFFECTS.open(encoding="utf-8-sig", newline="") as handle:
+        source_rows = list(csv.DictReader(handle))
+    with SOURCES.open(encoding="utf-8-sig", newline="") as handle:
+        source_index_rows = list(csv.DictReader(handle))
+
+    main_run = _analyse(source_rows, rule, b023_fix, out)
+    computed, pooled_rows = main_run["computed"], main_run["pooled_rows"]
+    verdict_rows, tau_rows, plot_paths = main_run["verdict_rows"], main_run["tau_rows"], main_run["plot_paths"]
+
+    # Same data, other settings, for the comparison table (no plots, nothing written to data/knowledge).
+    variants = {
+        "original_rule_with_B023_fix": _analyse(source_rows, RULE_ORIGINAL, True, None),
+        "original_rule_without_B023_fix": _analyse(source_rows, RULE_ORIGINAL, False, None),
+        "f8b_rule_with_B023_fix": _analyse(source_rows, RULE_F8B, True, None),
+        "f8b_rule_without_B023_fix": _analyse(source_rows, RULE_F8B, False, None),
+    }
+    key_fields = ("technology", "habitat", "outcome_family")
+    by_key = {name: {tuple(r[k] for k in key_fields): r["verdict"] for r in v["verdict_rows"]} for name, v in variants.items()}
+    v1_by_group = {k: r["verdict"] for k, r in _read_verdicts(V1_VERDICTS).items()}
+    f8b_committed = {k: r["verdict"] for k, r in _read_verdicts(V3_DIR / "f8b_verdicts_before_restore.csv").items()}
+    all_keys = sorted(set(v1_by_group) | set(f8b_committed) | set().union(*[set(d) for d in by_key.values()]))
+    comparison = [{"technology": k[0], "habitat": k[1], "outcome_family": k[2],
+                   "F8_first_run_v1": v1_by_group.get(k, "group absent"),
+                   "F8b_as_committed": f8b_committed.get(k, "group absent"),
+                   **{name: d.get(k, "group absent") for name, d in by_key.items()}} for k in all_keys]
+    _write_csv(out / "verdict_comparison.csv", comparison,
+               ["technology", "habitat", "outcome_family", "F8_first_run_v1", "F8b_as_committed", *by_key])
+    b023_changes = [c for c in comparison if c["original_rule_with_B023_fix"] != c["original_rule_without_B023_fix"]]
+    b023_changes_f8b = [c for c in comparison if c["f8b_rule_with_B023_fix"] != c["f8b_rule_without_B023_fix"]]
+
+    row_fields = list(source_rows[0].keys()) + ROW_FIELDS_EXTRA
+    _write_csv(out / "row_effects.csv", computed, row_fields)
+    _write_csv(out / "pooled_effects.csv", pooled_rows, POOLED_FIELDS)
+    _write_csv(out / "evidence_verdicts.csv", verdict_rows, VERDICT_FIELDS)
+    _write_csv(out / "literature_tau_ranges.csv", tau_rows, ["option", "lo", "hi", "basis"])
+    if update:
+        _write_csv(POOLED, pooled_rows, POOLED_FIELDS)
+        _write_csv(VERDICTS, verdict_rows, VERDICT_FIELDS)
+        _write_csv(TAU_RANGES, tau_rows, ["option", "lo", "hi", "basis"])
 
     reason_counts = Counter(row["analysis_tier"] for row in computed)
     verdict_counts = Counter(row["verdict"] for row in verdict_rows)
@@ -692,30 +809,27 @@ def main() -> None:
         if row["effect_id"] in previous_mappings
         and previous_mappings[row["effect_id"]] != row["outcome_family"]
     ]
-
-    with V1_VERDICTS.open(encoding="utf-8-sig", newline="") as handle:
-        v1_rows = list(csv.DictReader(handle))
-    key_fields = ("technology", "habitat", "outcome_family")
-    v1_by_group = {tuple(row[field] for field in key_fields): row for row in v1_rows}
-    f8b_by_group = {tuple(row[field] for field in key_fields): row for row in verdict_rows}
-    before_counts = Counter(row["verdict"] for row in v1_rows)
+    columns = [("F8_first_run_v1", "F8 (first run, v1)"), ("F8b_as_committed", "F8b (committed)"),
+               ("original_rule_with_B023_fix", "restored rule (this run)")]
+    counts = {name: Counter(c[name] for c in comparison) for name, _ in columns}
     verdict_order = ("evidence of benefit", "evidence of harm", "no clear difference", "no evidence")
-    before_after_lines = ["| Verdict | F8 | F8b |", "|---|---:|---:|"]
+    before_after_lines = ["| Verdict | " + " | ".join(label for _, label in columns) + " |", "|---|" + "---:|" * len(columns)]
     before_after_lines.extend(
-        f"| {label} | {before_counts[label]} | {verdict_counts[label]} |"
-        for label in verdict_order
-    )
-    changed_groups = []
-    for key in sorted(set(v1_by_group) | set(f8b_by_group)):
-        before = v1_by_group.get(key, {}).get("verdict", "group absent")
-        after = f8b_by_group.get(key, {}).get("verdict", "group removed")
-        if before != after:
-            changed_groups.append((key, before, after))
-    changed_lines = ["| Technology | Habitat | Outcome | F8 | F8b |", "|---|---|---|---|---|"]
-    changed_lines.extend(
-        f"| {key[0]} | {key[1]} | {key[2]} | {before} | {after} |"
-        for key, before, after in changed_groups
-    )
+        f"| {label} | " + " | ".join(str(counts[name][label]) for name, _ in columns) + " |" for label in verdict_order)
+    changed_lines = ["| Technology | Habitat | Outcome | " + " | ".join(label for _, label in columns) + " |",
+                     "|---|---|---|" + "---|" * len(columns)]
+    for c in comparison:
+        if len({c[name] for name, _ in columns}) > 1:
+            changed_lines.append(f"| {c['technology']} | {c['habitat']} | {c['outcome_family']} | " +
+                                 " | ".join(c[name] for name, _ in columns) + " |")
+    b023_lines = (["- Under the restored rule: NONE. Every group has the same verdict with and without the B023 direction fix "
+                   f"(compared on {len(comparison)} groups)."] if not b023_changes else
+                  ["- Under the restored rule the fix CHANGES these groups (report to the owner; this part is stopped):"] +
+                  [f"  - {c['technology']} | {c['habitat']} | {c['outcome_family']}: "
+                   f"{c['original_rule_without_B023_fix']} -> {c['original_rule_with_B023_fix']}" for c in b023_changes])
+    b023_lines.append("- Under the superseded F8b rule: " + ("none either." if not b023_changes_f8b else
+                      "; ".join(f"{c['technology']} | {c['habitat']} | {c['outcome_family']}: "
+                                f"{c['f8b_rule_without_B023_fix']} -> {c['f8b_rule_with_B023_fix']}" for c in b023_changes_f8b)))
 
     crosscheck_groups = [
         row for row in pooled_rows
@@ -729,10 +843,13 @@ def main() -> None:
     else:
         crosscheck = "No pooled marsh manual_removal, mechanical_removal, or planting biological-recovery/erosion coefficient exists. The requested Zengel/held-data agreement cross-check is therefore not testable without refitting; no agreement was claimed."
 
+    title = ("F8 LITERATURE POOLING SUMMARY (v3: ORIGINAL TWO-STUDY RULE RESTORED, D34)" if rule == RULE_ORIGINAL else
+             "F8b LITERATURE POOLING SUMMARY (REPRODUCTION OF THE SUPERSEDED AMENDMENT F8b)")
     summary_lines = [
-        "F8b LITERATURE POOLING SUMMARY (DEFECT-FIX RERUN)",
-        "Evidence: LITERATURE (AI-extracted; Jaison accepted 14 Nov 2026).",
-        "F8 verdict and pooled tables are preserved in results/f8_pooling/v1/.",
+        title,
+        "Evidence: LITERATURE (AI-extracted; owner attestation 14 Nov 2026 that rows were checked against the PDFs).",
+        f"Verdict rule: {rule}. B023 direction fix applied: {b023_fix}. data/knowledge updated: {update}.",
+        "F8 first-run tables are in results/f8_pooling/v1/; the F8b tables as committed are in f8b_verdicts_before_restore.csv.",
         "Effect scale: benefit-oriented lnRR; positive = benefit, zero = no effect, negative = harm.",
         "",
         f"Input rows processed: {len(computed)} (source-index rows read for provenance: {len(source_index_rows)}).",
@@ -747,16 +864,22 @@ def main() -> None:
         "BEFORE/AFTER VERDICT COUNTS",
         *before_after_lines,
         "",
-        "CHANGED GROUP VERDICTS",
+        "GROUPS WHOSE VERDICT DIFFERS BETWEEN F8 (v1), F8b (committed) and this run",
         *changed_lines,
         "",
-        "OUTCOME-MAPPING CHANGES",
+        "B023 DIRECTION FIX (defect fix D34): does it change any verdict?",
+        *b023_lines,
+        "",
+        "OUTCOME-MAPPING CHANGES (against the earlier F8b results/f8_pooling/row_effects.csv)",
         *([f"- {effect_id}: {before} -> {after}" for effect_id, before, after in mapping_changes]
           or ["- None."]),
         "",
-        "Verdict gate: pooled groups use the 95% prediction interval. Unpooled groups evaluate each grade A/B independent study CI; one unopposed direction gives benefit/harm and conflicting directions give no clear difference. Sensitivity cannot upgrade verdicts.",
+        "Verdict gate (original plan rule, D34): pooled groups (>=3 independent variance-complete studies) use the 95% prediction "
+        "interval. A group with one grade A/B study uses that study's 95% CI. A group with two studies, or with one study that fails "
+        "the precision/grade rule, is 'no clear difference'. Sensitivity cannot upgrade verdicts.",
         "Multiple rows from one study/group were collapsed after selecting the latest time <=730 days; longest-time estimates are supplementary columns.",
         "Rate-constant effects without variance remain listings; their exp(lnRR) ratios are reported in evidence_verdicts.csv notes.",
+        "The F8b outcome-family keyword precedence and the C011 exclusion are kept (the restore covers the verdict rule only).",
         "",
         "ZENGEL / HELD-DATA CROSS-CHECK (NO REFITTING)",
         crosscheck,
@@ -765,9 +888,19 @@ def main() -> None:
         "- Missing variance is excluded from primary pooling; median group-CV imputation is ASSUMED and sensitivity-only.",
         "- C011 is excluded as a Fowler Beach physical-balance covariate, not treated as shoreline erosion or an oil-response coefficient.",
         "- Vegetation tau mapping is ASSUMED as exp(pooled PI) or exp(a single grade A/B study CI); missing CI yields no range.",
-        "- No checked_by or source extraction field was modified.",
+        "- evidence_verdicts.csv gains an esi_codes column (ESI codes of the rows behind each verdict) so the pipeline can stop applying "
+        "mixed/gravel evidence to fine sand. No checked_by or source extraction field was modified.",
     ]
-    SUMMARY.write_text("\n".join(summary_lines) + "\n", encoding="utf-8")
+    (out / "summary.txt").write_text("\n".join(summary_lines) + "\n", encoding="utf-8")
+    return {"verdict_rows": verdict_rows, "comparison": comparison, "b023_changes": b023_changes, "out": out}
+
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
+    parser.add_argument("--rule", choices=RULES, default=RULE_ORIGINAL, help="verdict rule; default is the restored original (D34)")
+    parser.add_argument("--out-dir", default=None, help="results folder")
+    parser.add_argument("--update-knowledge", action="store_true", default=None,
+                        help="also overwrite data/knowledge tables (default: only for the original rule)")
+    parser.add_argument("--no-b023-fix", action="store_true", help="demonstration only: do not apply the B023 direction fix")
+    args = parser.parse_args()
+    main(rule=args.rule, out_dir=args.out_dir, update_knowledge=args.update_knowledge, b023_fix=not args.no_b023_fix)

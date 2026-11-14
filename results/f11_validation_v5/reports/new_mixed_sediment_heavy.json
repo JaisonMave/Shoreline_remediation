@@ -1,0 +1,1652 @@
+{
+  "headline": "Insufficient evidence to compare with natural recovery: no allowed option has any eligible evidence rows for this habitat, so no comparison is possible. Natural recovery with monitoring is the default; this is not a finding that treatment gives no benefit. Best allowed options (class B): passive_sorbents, bioremediation, manual_removal.",
+  "scope_tier": "rules_and_literature",
+  "scope_message": "Rules and literature only: screening verdicts and literature evidence verdicts; there is no site-specific forecast for this shoreline type. Mixed sand and gravel and gravel beaches are rules and literature only by owner decision (14 Nov 2026): the literature notes below are not a prediction for this site.",
+  "options": [
+    {
+      "option": "passive_sorbents",
+      "recommendation_class": "B",
+      "class_label": "allowed, no clear evidence either way",
+      "rank_in_class": 1,
+      "evidence_state": "insufficient_evidence",
+      "evidence_state_label": "Insufficient evidence to compare with natural recovery",
+      "evidence_design": null,
+      "habitat_rating": {
+        "rating": "B",
+        "noaa_oil_category": "IV",
+        "verdict": "eligible",
+        "text": "NOAA Characteristic Coastal Habitats (2017) p.29, Sand and Gravel Beaches: 'Sorbents' is rated B for oil category IV (Some adverse habitat impact); letters rate adverse habitat impact, not effectiveness",
+        "source": "NOAA Characteristic Coastal Habitats (2017) p.29 (data/knowledge/tables/noaa_response_rating.csv noaa_5_047); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)"
+      },
+      "advisory_notes": [],
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "rule_verdict": "eligible",
+      "rule_id": "sand_elig",
+      "rule_reason": "Manual, vacuum and low-pressure recovery suit accessible sediment beaches",
+      "rule_source": "docs/NOAA_ASSUMPTION_AUDIT.md",
+      "do_no_harm": "passed",
+      "harm_flags": [],
+      "exclusion_reasons": [],
+      "evidence_source": "none",
+      "evidence_verdict": "no evidence",
+      "evidence_basis": "no evidence_verdicts row for this technology and habitat class",
+      "evidence_label": null,
+      "benefit_outcomes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "model_id": null,
+      "model_state": null,
+      "ecological_score_assumed": 6.5,
+      "ecological_basis": "Low-contact recovery option with limited substrate disturbance.",
+      "conditions": [],
+      "production_rate": "not sourced",
+      "waste": "not sourced",
+      "cost_class": "not sourced",
+      "secondary_impacts": "Sorbent waste generation; limited to mobile oil",
+      "caveats": [],
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:sand_elig"
+      ]
+    },
+    {
+      "option": "bioremediation",
+      "recommendation_class": "B",
+      "class_label": "allowed, no clear evidence either way",
+      "rank_in_class": 2,
+      "evidence_state": "insufficient_evidence",
+      "evidence_state_label": "Insufficient evidence to compare with natural recovery",
+      "evidence_design": null,
+      "habitat_rating": {
+        "rating": "B",
+        "noaa_oil_category": "IV",
+        "verdict": "eligible",
+        "text": "NOAA Characteristic Coastal Habitats (2017) p.29, Sand and Gravel Beaches: 'Nutrient Enrichment' is rated B for oil category IV (Some adverse habitat impact); letters rate adverse habitat impact, not effectiveness",
+        "source": "NOAA Characteristic Coastal Habitats (2017) p.29 (data/knowledge/tables/noaa_response_rating.csv noaa_5_061); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)"
+      },
+      "advisory_notes": [],
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "rule_verdict": "conditional",
+      "rule_id": "bio_access_cond",
+      "rule_reason": "Bioremediation conditional where access and oil load suit it",
+      "rule_source": "docs/NOAA_ASSUMPTION_AUDIT.md",
+      "do_no_harm": "passed",
+      "harm_flags": [],
+      "exclusion_reasons": [],
+      "evidence_source": "none",
+      "evidence_verdict": "no evidence",
+      "evidence_basis": "residual oil: no evidence (no eligible rows)",
+      "evidence_label": null,
+      "benefit_outcomes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "model_id": null,
+      "model_state": null,
+      "ecological_score_assumed": 6.0,
+      "ecological_basis": "Potentially low physical disturbance, but effectiveness depends on nutrient, oxygen, access, and monitoring evidence; NOAA notes limited evidence for bioaugmentation.",
+      "conditions": [],
+      "production_rate": "not sourced",
+      "waste": "not sourced",
+      "cost_class": "not sourced",
+      "secondary_impacts": "Effectiveness depends on nutrients, oxygen and access; limited bioaugmentation evidence (NOAA)",
+      "caveats": [],
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:bio_access_cond"
+      ]
+    },
+    {
+      "option": "manual_removal",
+      "recommendation_class": "B",
+      "class_label": "allowed, no clear evidence either way",
+      "rank_in_class": 3,
+      "evidence_state": "insufficient_evidence",
+      "evidence_state_label": "Insufficient evidence to compare with natural recovery",
+      "evidence_design": null,
+      "habitat_rating": {
+        "rating": "B",
+        "noaa_oil_category": "IV",
+        "verdict": "eligible",
+        "text": "NOAA Characteristic Coastal Habitats (2017) p.29, Sand and Gravel Beaches: 'Manual Oil Removal/Cleaning' is rated B for oil category IV (Some adverse habitat impact); letters rate adverse habitat impact, not effectiveness",
+        "source": "NOAA Characteristic Coastal Habitats (2017) p.29 (data/knowledge/tables/noaa_response_rating.csv noaa_5_045); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)"
+      },
+      "advisory_notes": [],
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "rule_verdict": "eligible",
+      "rule_id": "sand_elig",
+      "rule_reason": "Manual, vacuum and low-pressure recovery suit accessible sediment beaches",
+      "rule_source": "docs/NOAA_ASSUMPTION_AUDIT.md",
+      "do_no_harm": "passed",
+      "harm_flags": [],
+      "exclusion_reasons": [],
+      "evidence_source": "none",
+      "evidence_verdict": "no evidence",
+      "evidence_basis": "no evidence_verdicts row for this technology and habitat class",
+      "evidence_label": null,
+      "benefit_outcomes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "model_id": null,
+      "model_state": null,
+      "ecological_score_assumed": 6.0,
+      "ecological_basis": "Physical removal is more compatible with firm or accessible shorelines.",
+      "conditions": [],
+      "production_rate": "not sourced",
+      "waste": "not sourced",
+      "cost_class": "not sourced",
+      "secondary_impacts": "Trampling and foot traffic can damage soft sediment and vegetation",
+      "caveats": [],
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:sand_elig"
+      ]
+    },
+    {
+      "option": "mechanical_removal",
+      "recommendation_class": "B",
+      "class_label": "allowed, no clear evidence either way",
+      "rank_in_class": 4,
+      "evidence_state": "insufficient_evidence",
+      "evidence_state_label": "Insufficient evidence to compare with natural recovery",
+      "evidence_design": null,
+      "habitat_rating": {
+        "rating": "B",
+        "noaa_oil_category": "IV",
+        "verdict": "eligible",
+        "text": "NOAA Characteristic Coastal Habitats (2017) p.29, Sand and Gravel Beaches: 'Mechanical Oil Removal' is rated B for oil category IV (Some adverse habitat impact); letters rate adverse habitat impact, not effectiveness",
+        "source": "NOAA Characteristic Coastal Habitats (2017) p.29 (data/knowledge/tables/noaa_response_rating.csv noaa_5_046); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)"
+      },
+      "advisory_notes": [],
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "rule_verdict": "conditional",
+      "rule_id": "sand_mech_cond",
+      "rule_reason": "Mechanical and sediment-moving methods conditional on sediment beaches",
+      "rule_source": "docs/NOAA_ASSUMPTION_AUDIT.md",
+      "do_no_harm": "passed",
+      "harm_flags": [],
+      "exclusion_reasons": [],
+      "evidence_source": "none",
+      "evidence_verdict": "no evidence",
+      "evidence_basis": "no evidence_verdicts row for this technology and habitat class",
+      "evidence_label": null,
+      "benefit_outcomes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "model_id": null,
+      "model_state": null,
+      "ecological_score_assumed": 6.0,
+      "ecological_basis": "Physical removal is more compatible with firm or accessible shorelines.",
+      "conditions": [],
+      "production_rate": "not sourced",
+      "waste": "not sourced",
+      "cost_class": "not sourced",
+      "secondary_impacts": "Sediment loss and habitat damage; excluded on marsh and mudflat",
+      "caveats": [],
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:sand_mech_cond"
+      ]
+    },
+    {
+      "option": "vacuum_removal",
+      "recommendation_class": "B",
+      "class_label": "allowed, no clear evidence either way",
+      "rank_in_class": 5,
+      "evidence_state": "insufficient_evidence",
+      "evidence_state_label": "Insufficient evidence to compare with natural recovery",
+      "evidence_design": null,
+      "habitat_rating": {
+        "rating": "B",
+        "noaa_oil_category": "IV",
+        "verdict": "eligible",
+        "text": "NOAA Characteristic Coastal Habitats (2017) p.29, Sand and Gravel Beaches: 'Vacuum' is rated B for oil category IV (Some adverse habitat impact); letters rate adverse habitat impact, not effectiveness",
+        "source": "NOAA Characteristic Coastal Habitats (2017) p.29 (data/knowledge/tables/noaa_response_rating.csv noaa_5_048); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)"
+      },
+      "advisory_notes": [],
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "rule_verdict": "eligible",
+      "rule_id": "sand_elig",
+      "rule_reason": "Manual, vacuum and low-pressure recovery suit accessible sediment beaches",
+      "rule_source": "docs/NOAA_ASSUMPTION_AUDIT.md",
+      "do_no_harm": "passed",
+      "harm_flags": [],
+      "exclusion_reasons": [],
+      "evidence_source": "none",
+      "evidence_verdict": "no evidence",
+      "evidence_basis": "no evidence_verdicts row for this technology and habitat class",
+      "evidence_label": null,
+      "benefit_outcomes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "model_id": null,
+      "model_state": null,
+      "ecological_score_assumed": 6.0,
+      "ecological_basis": "Physical removal is more compatible with firm or accessible shorelines.",
+      "conditions": [],
+      "production_rate": "not sourced",
+      "waste": "not sourced",
+      "cost_class": "not sourced",
+      "secondary_impacts": "Access and equipment disturbance; removes free oil only",
+      "caveats": [],
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:sand_elig"
+      ]
+    },
+    {
+      "option": "low_pressure_flushing",
+      "recommendation_class": "B",
+      "class_label": "allowed, no clear evidence either way",
+      "rank_in_class": 6,
+      "evidence_state": "insufficient_evidence",
+      "evidence_state_label": "Insufficient evidence to compare with natural recovery",
+      "evidence_design": null,
+      "habitat_rating": {
+        "rating": "B",
+        "noaa_oil_category": "IV",
+        "verdict": "eligible",
+        "text": "NOAA Characteristic Coastal Habitats (2017) p.29, Sand and Gravel Beaches: 'Low-pressure, Ambient Water Flushing' is rated B for oil category IV (Some adverse habitat impact); letters rate adverse habitat impact, not effectiveness",
+        "source": "NOAA Characteristic Coastal Habitats (2017) p.29 (data/knowledge/tables/noaa_response_rating.csv noaa_5_053); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)"
+      },
+      "advisory_notes": [],
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "rule_verdict": "eligible",
+      "rule_id": "sand_elig",
+      "rule_reason": "Manual, vacuum and low-pressure recovery suit accessible sediment beaches",
+      "rule_source": "docs/NOAA_ASSUMPTION_AUDIT.md",
+      "do_no_harm": "passed",
+      "harm_flags": [],
+      "exclusion_reasons": [],
+      "evidence_source": "none",
+      "evidence_verdict": "no evidence",
+      "evidence_basis": "erosion: no evidence (no eligible rows)",
+      "evidence_label": null,
+      "benefit_outcomes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "model_id": null,
+      "model_state": null,
+      "ecological_score_assumed": 4.5,
+      "ecological_basis": "Moderate disturbance and potential residue or mobilization concerns.",
+      "conditions": [],
+      "production_rate": "not sourced",
+      "waste": "not sourced",
+      "cost_class": "not sourced",
+      "secondary_impacts": "Can drive oil into sediment if misapplied; mobilised oil must be recovered",
+      "caveats": [],
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:sand_elig"
+      ]
+    },
+    {
+      "option": "sediment_relocation",
+      "recommendation_class": "B",
+      "class_label": "allowed, no clear evidence either way",
+      "rank_in_class": 7,
+      "evidence_state": "insufficient_evidence",
+      "evidence_state_label": "Insufficient evidence to compare with natural recovery",
+      "evidence_design": null,
+      "habitat_rating": {
+        "rating": "B",
+        "noaa_oil_category": "IV",
+        "verdict": "eligible",
+        "text": "NOAA Characteristic Coastal Habitats (2017) p.29, Sand and Gravel Beaches: 'Sediment Reworking/Tilling' is rated B for oil category IV (Some adverse habitat impact); letters rate adverse habitat impact, not effectiveness",
+        "source": "NOAA Characteristic Coastal Habitats (2017) p.29 (data/knowledge/tables/noaa_response_rating.csv noaa_5_050); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)"
+      },
+      "advisory_notes": [],
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "rule_verdict": "conditional",
+      "rule_id": "sand_mech_cond",
+      "rule_reason": "Mechanical and sediment-moving methods conditional on sediment beaches",
+      "rule_source": "docs/NOAA_ASSUMPTION_AUDIT.md",
+      "do_no_harm": "passed",
+      "harm_flags": [],
+      "exclusion_reasons": [],
+      "evidence_source": "none",
+      "evidence_verdict": "no evidence",
+      "evidence_basis": "no evidence_verdicts row for this technology and habitat class",
+      "evidence_label": null,
+      "benefit_outcomes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "model_id": null,
+      "model_state": null,
+      "ecological_score_assumed": 4.0,
+      "ecological_basis": "Moderate habitat and sediment disturbance risk.",
+      "conditions": [],
+      "production_rate": "not sourced",
+      "waste": "not sourced",
+      "cost_class": "not sourced",
+      "secondary_impacts": "Redistributes oil; only on exposed beaches",
+      "caveats": [],
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:sand_mech_cond"
+      ]
+    },
+    {
+      "option": "sediment_mixing",
+      "recommendation_class": "B",
+      "class_label": "allowed, no clear evidence either way",
+      "rank_in_class": 8,
+      "evidence_state": "insufficient_evidence",
+      "evidence_state_label": "Insufficient evidence to compare with natural recovery",
+      "evidence_design": null,
+      "habitat_rating": {
+        "rating": "B",
+        "noaa_oil_category": "IV",
+        "verdict": "eligible",
+        "text": "NOAA Characteristic Coastal Habitats (2017) p.29, Sand and Gravel Beaches: 'Sediment Reworking/Tilling' is rated B for oil category IV (Some adverse habitat impact); letters rate adverse habitat impact, not effectiveness",
+        "source": "NOAA Characteristic Coastal Habitats (2017) p.29 (data/knowledge/tables/noaa_response_rating.csv noaa_5_050); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)"
+      },
+      "advisory_notes": [],
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "rule_verdict": "conditional",
+      "rule_id": "sand_mech_cond",
+      "rule_reason": "Mechanical and sediment-moving methods conditional on sediment beaches",
+      "rule_source": "docs/NOAA_ASSUMPTION_AUDIT.md",
+      "do_no_harm": "passed",
+      "harm_flags": [],
+      "exclusion_reasons": [],
+      "evidence_source": "none",
+      "evidence_verdict": "no evidence",
+      "evidence_basis": "no evidence_verdicts row for this technology and habitat class",
+      "evidence_label": null,
+      "benefit_outcomes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "model_id": null,
+      "model_state": null,
+      "ecological_score_assumed": 2.0,
+      "ecological_basis": "High disturbance or redistribution risk for sediment and residual oil.",
+      "conditions": [],
+      "production_rate": "not sourced",
+      "waste": "not sourced",
+      "cost_class": "not sourced",
+      "secondary_impacts": "Can bury or spread oil; not for soft or sensitive habitat",
+      "caveats": [],
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:sand_mech_cond"
+      ]
+    },
+    {
+      "option": "natural_attenuation",
+      "recommendation_class": "C",
+      "class_label": "natural recovery with monitoring",
+      "rank_in_class": 1,
+      "evidence_state": "baseline",
+      "evidence_state_label": "Natural recovery (the baseline)",
+      "evidence_design": null,
+      "habitat_rating": {
+        "rating": "C",
+        "noaa_oil_category": "IV",
+        "verdict": "conditional",
+        "text": "NOAA Characteristic Coastal Habitats (2017) p.29, Sand and Gravel Beaches: 'Natural Recovery' is rated C for oil category IV (Significant adverse habitat impact); letters rate adverse habitat impact, not effectiveness",
+        "source": "NOAA Characteristic Coastal Habitats (2017) p.29 (data/knowledge/tables/noaa_response_rating.csv noaa_5_043); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)"
+      },
+      "advisory_notes": [],
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "rule_verdict": "conditional",
+      "rule_id": "natatt_default_cond",
+      "rule_reason": "Natural attenuation otherwise needs monitoring and review",
+      "rule_source": "docs/NOAA_ASSUMPTION_AUDIT.md",
+      "do_no_harm": "passed",
+      "harm_flags": [],
+      "exclusion_reasons": [],
+      "evidence_source": "none",
+      "evidence_verdict": "no evidence",
+      "evidence_basis": "degradation rate: no evidence (no eligible rows); residual oil: no evidence (no eligible rows)",
+      "evidence_label": null,
+      "benefit_outcomes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "model_id": null,
+      "model_state": null,
+      "ecological_score_assumed": 7.0,
+      "ecological_basis": "Generally low-disturbance treatment with good ecological compatibility.",
+      "conditions": [],
+      "production_rate": "not sourced",
+      "waste": "not sourced",
+      "cost_class": "not sourced",
+      "secondary_impacts": "Oil persists longer where energy is low; monitoring effort only",
+      "caveats": [],
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:natatt_default_cond"
+      ]
+    },
+    {
+      "option": "low_pressure_heated_flushing",
+      "recommendation_class": "D",
+      "class_label": "allowed but harm reported under some conditions",
+      "rank_in_class": 1,
+      "evidence_state": "insufficient_evidence",
+      "evidence_state_label": "Insufficient evidence to compare with natural recovery",
+      "evidence_design": null,
+      "habitat_rating": {
+        "rating": "C",
+        "noaa_oil_category": "IV",
+        "verdict": "conditional",
+        "text": "NOAA Characteristic Coastal Habitats (2017) p.29, Sand and Gravel Beaches: 'Low-pressure, Hot Water Flushing' is rated C for oil category IV (Significant adverse habitat impact); letters rate adverse habitat impact, not effectiveness",
+        "source": "NOAA Characteristic Coastal Habitats (2017) p.29 (data/knowledge/tables/noaa_response_rating.csv noaa_5_055); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)"
+      },
+      "advisory_notes": [],
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "rule_verdict": "conditional",
+      "rule_id": "noaa:5:low_pressure_heated_flushing:IV",
+      "rule_reason": "NOAA Characteristic Coastal Habitats (2017) p.29, Sand and Gravel Beaches: 'Low-pressure, Hot Water Flushing' is rated C for oil category IV (Significant adverse habitat impact); letters rate adverse habitat impact, not effectiveness",
+      "rule_source": "NOAA Characteristic Coastal Habitats (2017) p.29 (data/knowledge/tables/noaa_response_rating.csv noaa_5_055); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)",
+      "do_no_harm": "flagged",
+      "harm_flags": [
+        {
+          "source": "NOAA Characteristic Coastal Habitats (2017) p.29 (data/knowledge/tables/noaa_response_rating.csv noaa_5_055); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)",
+          "detail": "NOAA Characteristic Coastal Habitats (2017) p.29, Sand and Gravel Beaches: 'Low-pressure, Hot Water Flushing' is rated C for oil category IV (Significant adverse habitat impact); letters rate adverse habitat impact, not effectiveness (significant or unknown habitat impact: flag shown, option stays)"
+        }
+      ],
+      "exclusion_reasons": [],
+      "evidence_source": "none",
+      "evidence_verdict": "no evidence",
+      "evidence_basis": "no evidence_verdicts row for this technology and habitat class",
+      "evidence_label": null,
+      "benefit_outcomes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "model_id": null,
+      "model_state": null,
+      "ecological_score_assumed": 4.5,
+      "ecological_basis": "Moderate disturbance and potential residue or mobilization concerns.",
+      "conditions": [],
+      "production_rate": "not sourced",
+      "waste": "not sourced",
+      "cost_class": "not sourced",
+      "secondary_impacts": "Heat harms sensitive biota; excluded on wetlands",
+      "caveats": [],
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:noaa:5:low_pressure_heated_flushing:IV"
+      ]
+    },
+    {
+      "option": "vegetation_cutting",
+      "recommendation_class": "D",
+      "class_label": "allowed but harm reported under some conditions",
+      "rank_in_class": 2,
+      "evidence_state": "insufficient_evidence",
+      "evidence_state_label": "Insufficient evidence to compare with natural recovery",
+      "evidence_design": null,
+      "habitat_rating": {
+        "rating": "C",
+        "noaa_oil_category": "IV",
+        "verdict": "conditional",
+        "text": "NOAA Characteristic Coastal Habitats (2017) p.29, Sand and Gravel Beaches: 'Vegetation Cutting/Removal' is rated C for oil category IV (Significant adverse habitat impact); letters rate adverse habitat impact, not effectiveness",
+        "source": "NOAA Characteristic Coastal Habitats (2017) p.29 (data/knowledge/tables/noaa_response_rating.csv noaa_5_051); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)"
+      },
+      "advisory_notes": [],
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "rule_verdict": "conditional",
+      "rule_id": "sand_vegcut_cond",
+      "rule_reason": "Vegetation cutting conditional on sediment beaches",
+      "rule_source": "docs/NOAA_ASSUMPTION_AUDIT.md",
+      "do_no_harm": "flagged",
+      "harm_flags": [
+        {
+          "source": "NOAA Characteristic Coastal Habitats (2017) p.29 (data/knowledge/tables/noaa_response_rating.csv noaa_5_051); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)",
+          "detail": "NOAA Characteristic Coastal Habitats (2017) p.29, Sand and Gravel Beaches: 'Vegetation Cutting/Removal' is rated C for oil category IV (Significant adverse habitat impact); letters rate adverse habitat impact, not effectiveness (significant or unknown habitat impact: flag shown, option stays)"
+        }
+      ],
+      "exclusion_reasons": [],
+      "evidence_source": "none",
+      "evidence_verdict": "no evidence",
+      "evidence_basis": "no evidence_verdicts row for this technology and habitat class",
+      "evidence_label": null,
+      "benefit_outcomes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "model_id": null,
+      "model_state": null,
+      "ecological_score_assumed": 4.0,
+      "ecological_basis": "Moderate habitat and sediment disturbance risk.",
+      "conditions": [],
+      "production_rate": "not sourced",
+      "waste": "not sourced",
+      "cost_class": "not sourced",
+      "secondary_impacts": "Removes biomass and can increase erosion; only where sensitivity is high",
+      "caveats": [],
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:sand_vegcut_cond"
+      ]
+    },
+    {
+      "option": "planting (after mechanical cleanup)",
+      "recommendation_class": "E",
+      "class_label": "excluded",
+      "rank_in_class": 1,
+      "evidence_state": "insufficient_evidence",
+      "evidence_state_label": "Insufficient evidence to compare with natural recovery",
+      "evidence_design": null,
+      "habitat_rating": null,
+      "advisory_notes": [],
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "rule_verdict": "ineligible",
+      "rule_id": "f9:planting_applicability",
+      "rule_reason": "planting add-on applies to vegetated wetlands only (pipeline applicability rule, not a table row)",
+      "rule_source": "docs/F9_PIPELINE_PLAN.md",
+      "do_no_harm": "passed",
+      "harm_flags": [],
+      "exclusion_reasons": [
+        {
+          "source": "rule",
+          "rule_id": "f9:planting_applicability",
+          "detail": "planting add-on applies to vegetated wetlands only (pipeline applicability rule, not a table row)"
+        }
+      ],
+      "evidence_source": "none",
+      "evidence_verdict": "no evidence",
+      "evidence_basis": "no evidence_verdicts row for this technology and habitat class",
+      "evidence_label": null,
+      "benefit_outcomes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "model_id": null,
+      "model_state": null,
+      "ecological_score_assumed": 5.0,
+      "ecological_basis": "Neutral ecological baseline because no treatment-specific rule was triggered.",
+      "conditions": [],
+      "production_rate": "not sourced",
+      "waste": "not sourced",
+      "cost_class": "not sourced",
+      "secondary_impacts": "not sourced",
+      "caveats": [],
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:f9:planting_applicability"
+      ]
+    },
+    {
+      "option": "solidifiers",
+      "recommendation_class": "E",
+      "class_label": "excluded",
+      "rank_in_class": 2,
+      "evidence_state": "insufficient_evidence",
+      "evidence_state_label": "Insufficient evidence to compare with natural recovery",
+      "evidence_design": null,
+      "habitat_rating": {
+        "rating": "-",
+        "noaa_oil_category": "IV",
+        "verdict": "ineligible",
+        "text": "NOAA Characteristic Coastal Habitats (2017) p.29, Sand and Gravel Beaches: 'Solidifiers' is rated - for oil category IV (Not applicable); letters rate adverse habitat impact, not effectiveness",
+        "source": "NOAA Characteristic Coastal Habitats (2017) p.29 (data/knowledge/tables/noaa_response_rating.csv noaa_5_059); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)"
+      },
+      "advisory_notes": [],
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "rule_verdict": "ineligible",
+      "rule_id": "swa_sol_default_inelig",
+      "rule_reason": "Surface-washing agents and solidifiers otherwise ineligible",
+      "rule_source": "docs/NOAA_ASSUMPTION_AUDIT.md",
+      "do_no_harm": "passed",
+      "harm_flags": [],
+      "exclusion_reasons": [
+        {
+          "source": "rule",
+          "rule_id": "swa_sol_default_inelig",
+          "detail": "Surface-washing agents and solidifiers otherwise ineligible"
+        },
+        {
+          "source": "NOAA Characteristic Coastal Habitats (2017) p.29 (data/knowledge/tables/noaa_response_rating.csv noaa_5_059); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)",
+          "rule_id": "noaa:5:solidifiers:IV",
+          "detail": "NOAA Characteristic Coastal Habitats (2017) p.29, Sand and Gravel Beaches: 'Solidifiers' is rated - for oil category IV (Not applicable); letters rate adverse habitat impact, not effectiveness (not advised or not applicable; D36 mapping, Proposed)"
+        }
+      ],
+      "evidence_source": "none",
+      "evidence_verdict": "no evidence",
+      "evidence_basis": "no evidence_verdicts row for this technology and habitat class",
+      "evidence_label": null,
+      "benefit_outcomes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "model_id": null,
+      "model_state": null,
+      "ecological_score_assumed": 5.0,
+      "ecological_basis": "Neutral ecological baseline because no treatment-specific rule was triggered.",
+      "conditions": [],
+      "production_rate": "not sourced",
+      "waste": "not sourced",
+      "cost_class": "not sourced",
+      "secondary_impacts": "Added material and waste; limited field evidence",
+      "caveats": [],
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:swa_sol_default_inelig"
+      ]
+    },
+    {
+      "option": "surface_washing_agents",
+      "recommendation_class": "E",
+      "class_label": "excluded",
+      "rank_in_class": 3,
+      "evidence_state": "insufficient_evidence",
+      "evidence_state_label": "Insufficient evidence to compare with natural recovery",
+      "evidence_design": null,
+      "habitat_rating": {
+        "rating": "C",
+        "noaa_oil_category": "IV",
+        "verdict": "conditional",
+        "text": "NOAA Characteristic Coastal Habitats (2017) p.29, Sand and Gravel Beaches: 'Shoreline Cleaning Agents' is rated C for oil category IV (Significant adverse habitat impact); letters rate adverse habitat impact, not effectiveness",
+        "source": "NOAA Characteristic Coastal Habitats (2017) p.29 (data/knowledge/tables/noaa_response_rating.csv noaa_5_060); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)"
+      },
+      "advisory_notes": [],
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "rule_verdict": "ineligible",
+      "rule_id": "swa_sol_default_inelig",
+      "rule_reason": "Surface-washing agents and solidifiers otherwise ineligible",
+      "rule_source": "docs/NOAA_ASSUMPTION_AUDIT.md",
+      "do_no_harm": "flagged",
+      "harm_flags": [
+        {
+          "source": "NOAA Characteristic Coastal Habitats (2017) p.29 (data/knowledge/tables/noaa_response_rating.csv noaa_5_060); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)",
+          "detail": "NOAA Characteristic Coastal Habitats (2017) p.29, Sand and Gravel Beaches: 'Shoreline Cleaning Agents' is rated C for oil category IV (Significant adverse habitat impact); letters rate adverse habitat impact, not effectiveness (significant or unknown habitat impact: flag shown, option stays)"
+        }
+      ],
+      "exclusion_reasons": [
+        {
+          "source": "rule",
+          "rule_id": "swa_sol_default_inelig",
+          "detail": "Surface-washing agents and solidifiers otherwise ineligible"
+        }
+      ],
+      "evidence_source": "none",
+      "evidence_verdict": "no evidence",
+      "evidence_basis": "biological recovery: no evidence (no eligible rows)",
+      "evidence_label": null,
+      "benefit_outcomes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "model_id": null,
+      "model_state": null,
+      "ecological_score_assumed": 4.5,
+      "ecological_basis": "Moderate disturbance and potential residue or mobilization concerns.",
+      "conditions": [],
+      "production_rate": "not sourced",
+      "waste": "0.956 kg oiled sorbent/m2 (2.11 lb/m2) (B048)",
+      "cost_class": "not sourced",
+      "secondary_impacts": "Chemical residue and mobilised-oil recovery concerns",
+      "caveats": [],
+      "source_ids": [
+        "B048",
+        "ecological_score.csv",
+        "screening_rule.csv:swa_sol_default_inelig"
+      ]
+    },
+    {
+      "option": "high_pressure_heated_washing",
+      "recommendation_class": "E",
+      "class_label": "excluded",
+      "rank_in_class": 4,
+      "evidence_state": "no_clear_difference",
+      "evidence_state_label": "No clear difference from natural recovery (evidence exists)",
+      "evidence_design": null,
+      "habitat_rating": {
+        "rating": "D",
+        "noaa_oil_category": "IV",
+        "verdict": "ineligible",
+        "text": "NOAA Characteristic Coastal Habitats (2017) p.29, Sand and Gravel Beaches: 'High-pressure, Hot Water Flushing' is rated D for oil category IV (The most adverse habitat impact); letters rate adverse habitat impact, not effectiveness",
+        "source": "NOAA Characteristic Coastal Habitats (2017) p.29 (data/knowledge/tables/noaa_response_rating.csv noaa_5_056); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)"
+      },
+      "advisory_notes": [],
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "rule_verdict": "ineligible",
+      "rule_id": "hpw_default_inelig",
+      "rule_reason": "High-pressure washing is not suited to soft or impermeable substrate",
+      "rule_source": "docs/NOAA_ASSUMPTION_AUDIT.md",
+      "do_no_harm": "passed",
+      "harm_flags": [],
+      "exclusion_reasons": [
+        {
+          "source": "rule",
+          "rule_id": "hpw_default_inelig",
+          "detail": "High-pressure washing is not suited to soft or impermeable substrate"
+        },
+        {
+          "source": "NOAA Characteristic Coastal Habitats (2017) p.29 (data/knowledge/tables/noaa_response_rating.csv noaa_5_056); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)",
+          "rule_id": "noaa:5:high_pressure_heated_washing:IV",
+          "detail": "NOAA Characteristic Coastal Habitats (2017) p.29, Sand and Gravel Beaches: 'High-pressure, Hot Water Flushing' is rated D for oil category IV (The most adverse habitat impact); letters rate adverse habitat impact, not effectiveness (not advised or not applicable; D36 mapping, Proposed)"
+        }
+      ],
+      "evidence_source": "evidence_verdicts",
+      "evidence_verdict": "no clear difference",
+      "evidence_basis": "biological recovery: no clear difference (single studies (k=2, citations=Houghton JP et al. (1996); Fukuyama AK (2014))); residual oil: no evidence (no eligible rows)",
+      "evidence_label": null,
+      "benefit_outcomes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "model_id": null,
+      "model_state": null,
+      "ecological_score_assumed": 2.0,
+      "ecological_basis": "High disturbance or redistribution risk for sediment and residual oil.",
+      "conditions": [],
+      "production_rate": "not sourced",
+      "waste": "not sourced",
+      "cost_class": "not sourced",
+      "secondary_impacts": "Hot-water washing initially worsened recovery at Exxon Valdez sites (NOAA OR&R)",
+      "caveats": [],
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:hpw_default_inelig"
+      ]
+    },
+    {
+      "option": "high_pressure_washing",
+      "recommendation_class": "E",
+      "class_label": "excluded",
+      "rank_in_class": 5,
+      "evidence_state": "insufficient_evidence",
+      "evidence_state_label": "Insufficient evidence to compare with natural recovery",
+      "evidence_design": null,
+      "habitat_rating": {
+        "rating": "D",
+        "noaa_oil_category": "IV",
+        "verdict": "ineligible",
+        "text": "NOAA Characteristic Coastal Habitats (2017) p.29, Sand and Gravel Beaches: 'High-pressure, Ambient Water Flushing' is rated D for oil category IV (The most adverse habitat impact); letters rate adverse habitat impact, not effectiveness",
+        "source": "NOAA Characteristic Coastal Habitats (2017) p.29 (data/knowledge/tables/noaa_response_rating.csv noaa_5_054); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)"
+      },
+      "advisory_notes": [],
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "rule_verdict": "ineligible",
+      "rule_id": "hpw_default_inelig",
+      "rule_reason": "High-pressure washing is not suited to soft or impermeable substrate",
+      "rule_source": "docs/NOAA_ASSUMPTION_AUDIT.md",
+      "do_no_harm": "passed",
+      "harm_flags": [],
+      "exclusion_reasons": [
+        {
+          "source": "rule",
+          "rule_id": "hpw_default_inelig",
+          "detail": "High-pressure washing is not suited to soft or impermeable substrate"
+        },
+        {
+          "source": "NOAA Characteristic Coastal Habitats (2017) p.29 (data/knowledge/tables/noaa_response_rating.csv noaa_5_054); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)",
+          "rule_id": "noaa:5:high_pressure_washing:IV",
+          "detail": "NOAA Characteristic Coastal Habitats (2017) p.29, Sand and Gravel Beaches: 'High-pressure, Ambient Water Flushing' is rated D for oil category IV (The most adverse habitat impact); letters rate adverse habitat impact, not effectiveness (not advised or not applicable; D36 mapping, Proposed)"
+        }
+      ],
+      "evidence_source": "none",
+      "evidence_verdict": "no evidence",
+      "evidence_basis": "no evidence_verdicts row for this technology and habitat class",
+      "evidence_label": null,
+      "benefit_outcomes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "model_id": null,
+      "model_state": null,
+      "ecological_score_assumed": 2.0,
+      "ecological_basis": "High disturbance or redistribution risk for sediment and residual oil.",
+      "conditions": [],
+      "production_rate": "not sourced",
+      "waste": "not sourced",
+      "cost_class": "not sourced",
+      "secondary_impacts": "High disturbance; drives oil down if used on soft substrate",
+      "caveats": [],
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:hpw_default_inelig"
+      ]
+    }
+  ],
+  "natural_recovery": {
+    "option": "natural_attenuation",
+    "recommendation_class": "C",
+    "label": "natural recovery with monitoring",
+    "reference": [
+      {
+        "quantity": "persistence forecast on a mixed sand and gravel or gravel beach",
+        "status": "no model",
+        "value": null,
+        "lo90": null,
+        "hi90": null,
+        "reason": "rules and literature only by owner decision (14 Nov 2026); see literature_notes, which are not a prediction"
+      },
+      {
+        "quantity": "PAH-sum half-life",
+        "status": "no model",
+        "value": null,
+        "lo90": null,
+        "hi90": null,
+        "reason": "no registered model covers mixed_sediment shorelines"
+      },
+      {
+        "quantity": "vegetation time to 80% of reference",
+        "status": "no model",
+        "value": null,
+        "lo90": null,
+        "hi90": null,
+        "reason": "no registered model covers mixed_sediment shorelines"
+      },
+      {
+        "quantity": "natural edge loss to year 5 and 8",
+        "status": "no model",
+        "value": null,
+        "lo90": null,
+        "hi90": null,
+        "reason": "no registered model covers mixed_sediment shorelines"
+      }
+    ],
+    "habitat_rating": {
+      "rating": "C",
+      "text": "NOAA Characteristic Coastal Habitats (2017) p.29, Sand and Gravel Beaches: 'Natural Recovery' is rated C for oil category IV (Significant adverse habitat impact); letters rate adverse habitat impact, not effectiveness",
+      "source": "NOAA Characteristic Coastal Habitats (2017) p.29 (data/knowledge/tables/noaa_response_rating.csv noaa_5_043); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)"
+    },
+    "rule_verdict": "conditional",
+    "evidence_verdict": "no evidence",
+    "evidence_basis": "degradation rate: no evidence (no eligible rows); residual oil: no evidence (no eligible rows)",
+    "monitoring": "monitor and compare with the reference numbers above"
+  },
+  "plots": {
+    "paired_differences": [],
+    "cumulative_edge_loss": {
+      "series": [],
+      "unit": "m",
+      "note": "natural recovery vs top options; empty without an in-scope marsh edge cell"
+    },
+    "evidence_matrix": [
+      {
+        "option": "natural_attenuation",
+        "outcome_family": "degradation rate",
+        "verdict": "no evidence",
+        "source": "evidence_verdicts.csv",
+        "basis": "no eligible rows"
+      },
+      {
+        "option": "natural_attenuation",
+        "outcome_family": "residual oil",
+        "verdict": "no evidence",
+        "source": "evidence_verdicts.csv",
+        "basis": "no eligible rows"
+      },
+      {
+        "option": "manual_removal",
+        "outcome_family": "any",
+        "verdict": "no evidence",
+        "source": "evidence_verdicts.csv",
+        "basis": "no row for this technology and habitat class"
+      },
+      {
+        "option": "passive_sorbents",
+        "outcome_family": "any",
+        "verdict": "no evidence",
+        "source": "evidence_verdicts.csv",
+        "basis": "no row for this technology and habitat class"
+      },
+      {
+        "option": "vacuum_removal",
+        "outcome_family": "any",
+        "verdict": "no evidence",
+        "source": "evidence_verdicts.csv",
+        "basis": "no row for this technology and habitat class"
+      },
+      {
+        "option": "low_pressure_flushing",
+        "outcome_family": "erosion",
+        "verdict": "no evidence",
+        "source": "evidence_verdicts.csv",
+        "basis": "no eligible rows"
+      },
+      {
+        "option": "low_pressure_heated_flushing",
+        "outcome_family": "any",
+        "verdict": "no evidence",
+        "source": "evidence_verdicts.csv",
+        "basis": "no row for this technology and habitat class"
+      },
+      {
+        "option": "high_pressure_washing",
+        "outcome_family": "any",
+        "verdict": "no evidence",
+        "source": "evidence_verdicts.csv",
+        "basis": "no row for this technology and habitat class"
+      },
+      {
+        "option": "high_pressure_heated_washing",
+        "outcome_family": "biological recovery",
+        "verdict": "no clear difference",
+        "source": "evidence_verdicts.csv",
+        "basis": "single studies (k=2, citations=Houghton JP et al. (1996); Fukuyama AK (2014))"
+      },
+      {
+        "option": "high_pressure_heated_washing",
+        "outcome_family": "residual oil",
+        "verdict": "no evidence",
+        "source": "evidence_verdicts.csv",
+        "basis": "no eligible rows"
+      },
+      {
+        "option": "surface_washing_agents",
+        "outcome_family": "biological recovery",
+        "verdict": "no evidence",
+        "source": "evidence_verdicts.csv",
+        "basis": "no eligible rows"
+      },
+      {
+        "option": "solidifiers",
+        "outcome_family": "any",
+        "verdict": "no evidence",
+        "source": "evidence_verdicts.csv",
+        "basis": "no row for this technology and habitat class"
+      },
+      {
+        "option": "mechanical_removal",
+        "outcome_family": "any",
+        "verdict": "no evidence",
+        "source": "evidence_verdicts.csv",
+        "basis": "no row for this technology and habitat class"
+      },
+      {
+        "option": "sediment_relocation",
+        "outcome_family": "any",
+        "verdict": "no evidence",
+        "source": "evidence_verdicts.csv",
+        "basis": "no row for this technology and habitat class"
+      },
+      {
+        "option": "sediment_mixing",
+        "outcome_family": "any",
+        "verdict": "no evidence",
+        "source": "evidence_verdicts.csv",
+        "basis": "no row for this technology and habitat class"
+      },
+      {
+        "option": "bioremediation",
+        "outcome_family": "residual oil",
+        "verdict": "no evidence",
+        "source": "evidence_verdicts.csv",
+        "basis": "no eligible rows"
+      },
+      {
+        "option": "vegetation_cutting",
+        "outcome_family": "any",
+        "verdict": "no evidence",
+        "source": "evidence_verdicts.csv",
+        "basis": "no row for this technology and habitat class"
+      },
+      {
+        "option": "planting (after mechanical cleanup)",
+        "outcome_family": "any",
+        "verdict": "no evidence",
+        "source": "evidence_verdicts.csv",
+        "basis": "no row for this technology and habitat class"
+      }
+    ]
+  },
+  "trace": [
+    {
+      "step": 1,
+      "name": "characterise",
+      "inputs": {
+        "habitat": null,
+        "oiling_class": null,
+        "oil": null,
+        "season": null,
+        "input_kind": "scenario",
+        "cell": null
+      },
+      "outputs": {
+        "label": "F11 panel new_mixed_sediment_heavy.json",
+        "habitat": "mixed_sediment",
+        "habitat_class": "sand/gravel beach",
+        "oil_category": "heavy",
+        "oil_source": "input",
+        "oiling_class": "Heavy",
+        "oiling_basis": "derived from oil_coverage with ASSUMED breaks (>=70 Heavy, >=40 Moderate, >=20 Light, >0 Very_Light)",
+        "exposure": "moderate",
+        "access": "good",
+        "season": "summer",
+        "sensitivity": "moderate",
+        "shoreline_type_for_rules": "mixed_sediment",
+        "input_kind": "scenario",
+        "cell": null,
+        "assumptions": [],
+        "site_scope_flags": null,
+        "scope_tier": "rules_and_literature",
+        "scope_reasons": [],
+        "esi_code": "5",
+        "noaa_oil_category": "IV",
+        "noaa_oil_category_basis": "ASSUMED mapping from the tool's oil category (data/knowledge/tables/noaa_oil_category.csv)",
+        "habitat_descriptors": {
+          "name": "mixed sand and gravel beach",
+          "oil_penetration_depth": "up to about 50 cm; behaves much like a sand beach if the sand fraction exceeds about 40 percent",
+          "burial_risk": "may be deep at and above the high-tide line",
+          "persistence_driver": "oil tends to persist at and above the high-tide line, particularly where the beach is only intermittently exposed to waves",
+          "asphalt_pavement_risk": "yes: pavements of asphalted sediment can form in sheltered pockets if heavy oil accumulations are not removed",
+          "source": "NOAA Characteristic Coastal Habitats (2017) p.28"
+        }
+      },
+      "sources": [
+        "inputs",
+        "oil_library (ADIOS)",
+        "site_evidence.site_flags",
+        "docs/F0_F1_SCOPE_AND_DECISIONS.md D30"
+      ]
+    },
+    {
+      "step": 2,
+      "name": "hard_constraints",
+      "inputs": {
+        "options": [
+          "natural_attenuation",
+          "manual_removal",
+          "passive_sorbents",
+          "vacuum_removal",
+          "low_pressure_flushing",
+          "low_pressure_heated_flushing",
+          "high_pressure_washing",
+          "high_pressure_heated_washing",
+          "surface_washing_agents",
+          "solidifiers",
+          "mechanical_removal",
+          "sediment_relocation",
+          "sediment_mixing",
+          "bioremediation",
+          "vegetation_cutting",
+          "planting (after mechanical cleanup)"
+        ],
+        "rule_source": "screening_rule.csv"
+      },
+      "outputs": {
+        "natural_attenuation": {
+          "verdict": "conditional",
+          "rule_id": "natatt_default_cond",
+          "reason": "Natural attenuation otherwise needs monitoring and review"
+        },
+        "manual_removal": {
+          "verdict": "eligible",
+          "rule_id": "sand_elig",
+          "reason": "Manual, vacuum and low-pressure recovery suit accessible sediment beaches"
+        },
+        "passive_sorbents": {
+          "verdict": "eligible",
+          "rule_id": "sand_elig",
+          "reason": "Manual, vacuum and low-pressure recovery suit accessible sediment beaches"
+        },
+        "vacuum_removal": {
+          "verdict": "eligible",
+          "rule_id": "sand_elig",
+          "reason": "Manual, vacuum and low-pressure recovery suit accessible sediment beaches"
+        },
+        "low_pressure_flushing": {
+          "verdict": "eligible",
+          "rule_id": "sand_elig",
+          "reason": "Manual, vacuum and low-pressure recovery suit accessible sediment beaches"
+        },
+        "low_pressure_heated_flushing": {
+          "verdict": "conditional",
+          "rule_id": "noaa:5:low_pressure_heated_flushing:IV",
+          "reason": "NOAA Characteristic Coastal Habitats (2017) p.29, Sand and Gravel Beaches: 'Low-pressure, Hot Water Flushing' is rated C for oil category IV (Significant adverse habitat impact); letters rate adverse habitat impact, not effectiveness"
+        },
+        "high_pressure_washing": {
+          "verdict": "ineligible",
+          "rule_id": "hpw_default_inelig",
+          "reason": "High-pressure washing is not suited to soft or impermeable substrate"
+        },
+        "high_pressure_heated_washing": {
+          "verdict": "ineligible",
+          "rule_id": "hpw_default_inelig",
+          "reason": "High-pressure washing is not suited to soft or impermeable substrate"
+        },
+        "surface_washing_agents": {
+          "verdict": "ineligible",
+          "rule_id": "swa_sol_default_inelig",
+          "reason": "Surface-washing agents and solidifiers otherwise ineligible"
+        },
+        "solidifiers": {
+          "verdict": "ineligible",
+          "rule_id": "swa_sol_default_inelig",
+          "reason": "Surface-washing agents and solidifiers otherwise ineligible"
+        },
+        "mechanical_removal": {
+          "verdict": "conditional",
+          "rule_id": "sand_mech_cond",
+          "reason": "Mechanical and sediment-moving methods conditional on sediment beaches"
+        },
+        "sediment_relocation": {
+          "verdict": "conditional",
+          "rule_id": "sand_mech_cond",
+          "reason": "Mechanical and sediment-moving methods conditional on sediment beaches"
+        },
+        "sediment_mixing": {
+          "verdict": "conditional",
+          "rule_id": "sand_mech_cond",
+          "reason": "Mechanical and sediment-moving methods conditional on sediment beaches"
+        },
+        "bioremediation": {
+          "verdict": "conditional",
+          "rule_id": "bio_access_cond",
+          "reason": "Bioremediation conditional where access and oil load suit it"
+        },
+        "vegetation_cutting": {
+          "verdict": "conditional",
+          "rule_id": "sand_vegcut_cond",
+          "reason": "Vegetation cutting conditional on sediment beaches"
+        },
+        "planting (after mechanical cleanup)": {
+          "verdict": "ineligible",
+          "rule_id": "f9:planting_applicability",
+          "reason": "planting add-on applies to vegetated wetlands only (pipeline applicability rule, not a table row)"
+        }
+      },
+      "sources": [
+        "data/knowledge/tables/screening_rule.csv"
+      ]
+    },
+    {
+      "step": 3,
+      "name": "do_no_harm",
+      "inputs": {
+        "habitat_class": "sand/gravel beach",
+        "sources": [
+          "evidence_verdicts.csv",
+          "treatment_conditions.csv (marsh, advisory only)",
+          "mangrove_screening.csv (mangrove)",
+          "noaa_response_rating.csv (beach and rocky)"
+        ]
+      },
+      "outputs": {
+        "removed": {},
+        "flagged": {
+          "low_pressure_heated_flushing": [
+            {
+              "source": "NOAA Characteristic Coastal Habitats (2017) p.29 (data/knowledge/tables/noaa_response_rating.csv noaa_5_055); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)",
+              "detail": "NOAA Characteristic Coastal Habitats (2017) p.29, Sand and Gravel Beaches: 'Low-pressure, Hot Water Flushing' is rated C for oil category IV (Significant adverse habitat impact); letters rate adverse habitat impact, not effectiveness (significant or unknown habitat impact: flag shown, option stays)"
+            }
+          ],
+          "surface_washing_agents": [
+            {
+              "source": "NOAA Characteristic Coastal Habitats (2017) p.29 (data/knowledge/tables/noaa_response_rating.csv noaa_5_060); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)",
+              "detail": "NOAA Characteristic Coastal Habitats (2017) p.29, Sand and Gravel Beaches: 'Shoreline Cleaning Agents' is rated C for oil category IV (Significant adverse habitat impact); letters rate adverse habitat impact, not effectiveness (significant or unknown habitat impact: flag shown, option stays)"
+            }
+          ],
+          "vegetation_cutting": [
+            {
+              "source": "NOAA Characteristic Coastal Habitats (2017) p.29 (data/knowledge/tables/noaa_response_rating.csv noaa_5_051); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)",
+              "detail": "NOAA Characteristic Coastal Habitats (2017) p.29, Sand and Gravel Beaches: 'Vegetation Cutting/Removal' is rated C for oil category IV (Significant adverse habitat impact); letters rate adverse habitat impact, not effectiveness (significant or unknown habitat impact: flag shown, option stays)"
+            }
+          ]
+        },
+        "advisory": {}
+      },
+      "sources": [
+        "data/knowledge/evidence_verdicts.csv",
+        "data/knowledge/treatment_conditions.csv",
+        "data/knowledge/tables/noaa_response_rating.csv"
+      ]
+    },
+    {
+      "step": 4,
+      "name": "benefit_vs_natural_recovery",
+      "inputs": {
+        "composer_used": false,
+        "options_composed": [],
+        "seed": 20261114,
+        "n_draws": 200,
+        "decision_points": "edge loss avoided at year 8; vegetation cover ratio at year 2",
+        "model": {
+          "id": "composer_natural_recovery_v1",
+          "state": "experimental"
+        }
+      },
+      "outputs": {
+        "natural_attenuation": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        },
+        "manual_removal": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        },
+        "passive_sorbents": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        },
+        "vacuum_removal": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        },
+        "low_pressure_flushing": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        },
+        "low_pressure_heated_flushing": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        },
+        "high_pressure_washing": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        },
+        "high_pressure_heated_washing": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no clear difference"
+        },
+        "surface_washing_agents": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        },
+        "solidifiers": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        },
+        "mechanical_removal": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        },
+        "sediment_relocation": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        },
+        "sediment_mixing": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        },
+        "bioremediation": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        },
+        "vegetation_cutting": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        },
+        "planting (after mechanical cleanup)": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        }
+      },
+      "sources": [
+        "src/shoreline_remediation/scenario_composer.py",
+        "data/knowledge/evidence_verdicts.csv",
+        "models/registry.json"
+      ]
+    },
+    {
+      "step": 5,
+      "name": "endpoint_and_time",
+      "inputs": {
+        "oiling_class": "Heavy",
+        "habitat_class": "sand/gravel beach"
+      },
+      "outputs": {
+        "reference": [
+          {
+            "quantity": "persistence forecast on a mixed sand and gravel or gravel beach",
+            "status": "no model",
+            "value": null,
+            "lo90": null,
+            "hi90": null,
+            "reason": "rules and literature only by owner decision (14 Nov 2026); see literature_notes, which are not a prediction"
+          },
+          {
+            "quantity": "PAH-sum half-life",
+            "status": "no model",
+            "value": null,
+            "lo90": null,
+            "hi90": null,
+            "reason": "no registered model covers mixed_sediment shorelines"
+          },
+          {
+            "quantity": "vegetation time to 80% of reference",
+            "status": "no model",
+            "value": null,
+            "lo90": null,
+            "hi90": null,
+            "reason": "no registered model covers mixed_sediment shorelines"
+          },
+          {
+            "quantity": "natural edge loss to year 5 and 8",
+            "status": "no model",
+            "value": null,
+            "lo90": null,
+            "hi90": null,
+            "reason": "no registered model covers mixed_sediment shorelines"
+          }
+        ]
+      },
+      "sources": [
+        "models/registry.json",
+        "results/pah_decline/by_oiling_class.csv",
+        "models/veg_recovery_v1.json",
+        "models/p5_edge_loss_v1.json",
+        "models/mangrove_damage_v1.json"
+      ]
+    },
+    {
+      "step": 6,
+      "name": "trade_offs",
+      "inputs": {
+        "habitat_class": "sand/gravel beach"
+      },
+      "outputs": {
+        "natural_attenuation": {
+          "production_rate": "not sourced",
+          "waste": "not sourced",
+          "cost_class": "not sourced",
+          "secondary_impacts": "Oil persists longer where energy is low; monitoring effort only"
+        },
+        "manual_removal": {
+          "production_rate": "not sourced",
+          "waste": "not sourced",
+          "cost_class": "not sourced",
+          "secondary_impacts": "Trampling and foot traffic can damage soft sediment and vegetation"
+        },
+        "passive_sorbents": {
+          "production_rate": "not sourced",
+          "waste": "not sourced",
+          "cost_class": "not sourced",
+          "secondary_impacts": "Sorbent waste generation; limited to mobile oil"
+        },
+        "vacuum_removal": {
+          "production_rate": "not sourced",
+          "waste": "not sourced",
+          "cost_class": "not sourced",
+          "secondary_impacts": "Access and equipment disturbance; removes free oil only"
+        },
+        "low_pressure_flushing": {
+          "production_rate": "not sourced",
+          "waste": "not sourced",
+          "cost_class": "not sourced",
+          "secondary_impacts": "Can drive oil into sediment if misapplied; mobilised oil must be recovered"
+        },
+        "low_pressure_heated_flushing": {
+          "production_rate": "not sourced",
+          "waste": "not sourced",
+          "cost_class": "not sourced",
+          "secondary_impacts": "Heat harms sensitive biota; excluded on wetlands"
+        },
+        "high_pressure_washing": {
+          "production_rate": "not sourced",
+          "waste": "not sourced",
+          "cost_class": "not sourced",
+          "secondary_impacts": "High disturbance; drives oil down if used on soft substrate"
+        },
+        "high_pressure_heated_washing": {
+          "production_rate": "not sourced",
+          "waste": "not sourced",
+          "cost_class": "not sourced",
+          "secondary_impacts": "Hot-water washing initially worsened recovery at Exxon Valdez sites (NOAA OR&R)"
+        },
+        "surface_washing_agents": {
+          "production_rate": "not sourced",
+          "waste": "0.956 kg oiled sorbent/m2 (2.11 lb/m2) (B048)",
+          "cost_class": "not sourced",
+          "secondary_impacts": "Chemical residue and mobilised-oil recovery concerns"
+        },
+        "solidifiers": {
+          "production_rate": "not sourced",
+          "waste": "not sourced",
+          "cost_class": "not sourced",
+          "secondary_impacts": "Added material and waste; limited field evidence"
+        },
+        "mechanical_removal": {
+          "production_rate": "not sourced",
+          "waste": "not sourced",
+          "cost_class": "not sourced",
+          "secondary_impacts": "Sediment loss and habitat damage; excluded on marsh and mudflat"
+        },
+        "sediment_relocation": {
+          "production_rate": "not sourced",
+          "waste": "not sourced",
+          "cost_class": "not sourced",
+          "secondary_impacts": "Redistributes oil; only on exposed beaches"
+        },
+        "sediment_mixing": {
+          "production_rate": "not sourced",
+          "waste": "not sourced",
+          "cost_class": "not sourced",
+          "secondary_impacts": "Can bury or spread oil; not for soft or sensitive habitat"
+        },
+        "bioremediation": {
+          "production_rate": "not sourced",
+          "waste": "not sourced",
+          "cost_class": "not sourced",
+          "secondary_impacts": "Effectiveness depends on nutrients, oxygen and access; limited bioaugmentation evidence (NOAA)"
+        },
+        "vegetation_cutting": {
+          "production_rate": "not sourced",
+          "waste": "not sourced",
+          "cost_class": "not sourced",
+          "secondary_impacts": "Removes biomass and can increase erosion; only where sensitivity is high"
+        },
+        "planting (after mechanical cleanup)": {
+          "production_rate": "not sourced",
+          "waste": "not sourced",
+          "cost_class": "not sourced",
+          "secondary_impacts": "not sourced"
+        }
+      },
+      "sources": [
+        "data/knowledge/literature_effects.csv",
+        "data/knowledge/tables/technology.csv"
+      ]
+    },
+    {
+      "step": 7,
+      "name": "recommendation",
+      "inputs": {
+        "class_rules": "E excluded > A benefit > D harm under conditions > B no clear evidence; C natural recovery",
+        "ordering": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name"
+      },
+      "outputs": {
+        "classes": {
+          "A": [],
+          "B": [
+            "passive_sorbents",
+            "bioremediation",
+            "manual_removal",
+            "mechanical_removal",
+            "vacuum_removal",
+            "low_pressure_flushing",
+            "sediment_relocation",
+            "sediment_mixing"
+          ],
+          "C": [
+            "natural_attenuation"
+          ],
+          "D": [
+            "low_pressure_heated_flushing",
+            "vegetation_cutting"
+          ],
+          "E": [
+            "planting (after mechanical cleanup)",
+            "solidifiers",
+            "surface_washing_agents",
+            "high_pressure_heated_washing",
+            "high_pressure_washing"
+          ]
+        },
+        "headline": "Insufficient evidence to compare with natural recovery: no allowed option has any eligible evidence rows for this habitat, so no comparison is possible. Natural recovery with monitoring is the default; this is not a finding that treatment gives no benefit. Best allowed options (class B): passive_sorbents, bioremediation, manual_removal.",
+        "evidence_state": "insufficient_evidence"
+      },
+      "sources": [
+        "steps 2-6"
+      ]
+    },
+    {
+      "step": 8,
+      "name": "report",
+      "inputs": {
+        "n_options": 16
+      },
+      "outputs": {
+        "headline": "Insufficient evidence to compare with natural recovery: no allowed option has any eligible evidence rows for this habitat, so no comparison is possible. Natural recovery with monitoring is the default; this is not a finding that treatment gives no benefit. Best allowed options (class B): passive_sorbents, bioremediation, manual_removal.",
+        "scope_tier": "rules_and_literature",
+        "models_used": [],
+        "plot_keys": [
+          "cumulative_edge_loss",
+          "evidence_matrix",
+          "paired_differences"
+        ],
+        "evidence_state": "insufficient_evidence"
+      },
+      "sources": [
+        "steps 1-7"
+      ]
+    }
+  ],
+  "version": {
+    "pipeline_version": "f9-v2",
+    "git_commit": "aaf2353f13c3e285e4c86b072c7a4939642f6019",
+    "python": "3.13.18",
+    "numpy": "2.5.3",
+    "pandas": "3.0.5",
+    "seed": 20261114,
+    "n_draws": 200,
+    "models_used": [],
+    "models": {},
+    "knowledge_checksums": {
+      "evidence_verdicts.csv": "adf21e050eae",
+      "treatment_conditions.csv": "9b4a454fd520",
+      "mangrove_screening.csv": "8290319884e9",
+      "literature_effects.csv": "5ef934705130",
+      "screening_rule.csv": "818fc54cee69",
+      "ecological_score.csv": "79be3e58fed0",
+      "technology.csv": "0b1a5475f430",
+      "evidence_effect.csv": "ab758b538b70",
+      "habitat.csv": "19f2824d7672",
+      "noaa_response_rating.csv": "1f9e59650657",
+      "noaa_rating_mapping.csv": "121ab948d398",
+      "noaa_oil_category.csv": "cf0cbf007661",
+      "beach_literature_notes.csv": "0a4139256603"
+    }
+  },
+  "characterisation": {
+    "label": "F11 panel new_mixed_sediment_heavy.json",
+    "habitat": "mixed_sediment",
+    "habitat_class": "sand/gravel beach",
+    "oil_category": "heavy",
+    "oil_source": "input",
+    "oiling_class": "Heavy",
+    "oiling_basis": "derived from oil_coverage with ASSUMED breaks (>=70 Heavy, >=40 Moderate, >=20 Light, >0 Very_Light)",
+    "exposure": "moderate",
+    "access": "good",
+    "season": "summer",
+    "sensitivity": "moderate",
+    "shoreline_type_for_rules": "mixed_sediment",
+    "input_kind": "scenario",
+    "cell": null,
+    "assumptions": [],
+    "site_scope_flags": null,
+    "scope_tier": "rules_and_literature",
+    "scope_reasons": [],
+    "esi_code": "5",
+    "noaa_oil_category": "IV",
+    "noaa_oil_category_basis": "ASSUMED mapping from the tool's oil category (data/knowledge/tables/noaa_oil_category.csv)",
+    "habitat_descriptors": {
+      "name": "mixed sand and gravel beach",
+      "oil_penetration_depth": "up to about 50 cm; behaves much like a sand beach if the sand fraction exceeds about 40 percent",
+      "burial_risk": "may be deep at and above the high-tide line",
+      "persistence_driver": "oil tends to persist at and above the high-tide line, particularly where the beach is only intermittently exposed to waves",
+      "asphalt_pavement_risk": "yes: pavements of asphalted sediment can form in sheltered pockets if heavy oil accumulations are not removed",
+      "source": "NOAA Characteristic Coastal Habitats (2017) p.28"
+    }
+  },
+  "evidence_state": "insufficient_evidence",
+  "evidence_state_label": "Insufficient evidence to compare with natural recovery",
+  "literature_notes": [
+    {
+      "note_id": "LN01",
+      "topic": "treatment harm",
+      "statement": "High-pressure hot-water washing (Exxon Valdez, Prince William Sound): hardshell clam (littleneck) abundance at washed sites was 92-97% below oiled, unwashed sites at 1, 2, 3 and 5 years after treatment (rows B018-B021, grade B, observational, treatment chosen by responders; B019 n = 3 vs 4 stations). Macroinfauna abundance and richness were also lower (B014-B016).",
+      "label": "literature, not a prediction",
+      "evidence_class": "FIELD, observational",
+      "source": "literature_effects.csv B014-B022; Houghton JP et al. (1996) NOAA Tech. Memo. NOS ORCA 91 (docs/reference/literature/Houghton_1996_PWS_Biology_ORCA91.pdf, opened this session); tables 4-6 to 4-9 exist in the report",
+      "effect_ids": [
+        "B014",
+        "B015",
+        "B016",
+        "B017",
+        "B018",
+        "B019",
+        "B020",
+        "B021",
+        "B022"
+      ],
+      "source_checked": "repo PDF opened",
+      "status": "Proposed (AI-drafted summary; owner to spot-check)"
+    },
+    {
+      "note_id": "LN02",
+      "topic": "treatment harm",
+      "statement": "Littleneck clams at hot-water-washed sites needed until 2000 (11 years after the spill) to converge with unoiled sites, because washing winnowed fine sediment (row B024; abstract-only extraction, recovery-time ratio 3.67, no variance).",
+      "label": "literature, not a prediction",
+      "evidence_class": "FIELD, long-term monitoring",
+      "source": "literature_effects.csv B024; Fukuyama AK, Shigenaka G, Coats DA (2014) Mar. Pollut. Bull. 84:56-69, doi:10.1016/j.marpolbul.2014.05.043 (publisher page did not open here; value taken from the owner-checked row)",
+      "effect_ids": [
+        "B024"
+      ],
+      "source_checked": "from owner-checked literature_effects row; publisher page not opened",
+      "status": "Proposed (AI-drafted summary; owner to spot-check)"
+    },
+    {
+      "note_id": "LN03",
+      "topic": "treatment harm",
+      "statement": "The two hot-water studies above (Houghton 1996; Fukuyama 2014) both point to harm, but two studies are fewer than the pre-specified F8 minimum: the pooled verdict is 'no clear difference' (D34). The harm is carried by the NOAA habitat ratings (screening rules), not by this verdict.",
+      "label": "literature, not a prediction",
+      "evidence_class": "FIELD synthesis",
+      "source": "results/f8_pooling/v3_original_rule/verdict_comparison.csv; NOAA 2017 p.29 (mixed D for high-pressure hot water, categories III-V), p.32 (gravel C)",
+      "effect_ids": [
+        "B019",
+        "B024"
+      ],
+      "source_checked": "from owner-checked literature_effects row; publisher page not opened",
+      "status": "Proposed (AI-drafted summary; owner to spot-check)"
+    },
+    {
+      "note_id": "LN04",
+      "topic": "persistence",
+      "statement": "Exxon Valdez oil persists in the subsurface of Prince William Sound gravel beaches: field data and modelling indicate some oil was trapped in the anoxic lower layers of a two-layer beach when the water table was low; remediation was stopped in 1992 on the assumption of fast natural loss.",
+      "label": "literature, not a prediction",
+      "evidence_class": "FIELD + MODEL",
+      "source": "Li H, Boufadel MC (2010) Nature Geoscience, doi:10.1038/ngeo749 (abstract opened this session)",
+      "effect_ids": [],
+      "source_checked": "abstract or page opened",
+      "status": "Proposed (AI-drafted summary; owner to spot-check)"
+    },
+    {
+      "note_id": "LN05",
+      "topic": "persistence; natural recovery vs sediment relocation",
+      "statement": "Svalbard field trials on mixed pebble-sand beaches: at a low-wave-energy site both natural attenuation and sediment relocation (surf washing) reduced residual oil and sediment toxicity in under five days; at a higher-energy site oil stranded above normal wave action behaved differently (the rest of the abstract was not opened).",
+      "label": "literature, not a prediction",
+      "evidence_class": "FIELD trial (experimental oil)",
+      "source": "Owens EH et al. (2003) USGS publication 70025441, https://pubs.usgs.gov/publication/70025441 (abstract opened this session, truncated)",
+      "effect_ids": [
+        "C026"
+      ],
+      "source_checked": "abstract or page opened",
+      "status": "Proposed (AI-drafted summary; owner to spot-check)"
+    },
+    {
+      "note_id": "LN06",
+      "topic": "persistence",
+      "statement": "NOAA guidance: oil penetration up to about 50 cm; oil tends to persist at and above the high-tide line where waves only occasionally reach; behaves like a sand beach if the sand fraction exceeds about 40 percent; asphalt pavements can form in sheltered pockets.",
+      "label": "literature, not a prediction",
+      "evidence_class": "guidance",
+      "source": "NOAA OR&R (2017) Characteristic Coastal Habitats p.28 (opened)",
+      "effect_ids": [],
+      "source_checked": "abstract or page opened",
+      "status": "Proposed (AI-drafted summary; owner to spot-check)"
+    },
+    {
+      "note_id": "LN08",
+      "topic": "treatment harm",
+      "statement": "Surface washing agent applied to an Exxon Valdez gravel beach: hardshell clam density fell 75% overnight (row B054, grade C, before-after, one study, no variance).",
+      "label": "literature, not a prediction",
+      "evidence_class": "FIELD, before-after",
+      "source": "literature_effects.csv B054; Lees DC, Houghton JP, Driskell WB (1993)",
+      "effect_ids": [
+        "B054"
+      ],
+      "source_checked": "from owner-checked literature_effects row; publisher page not opened",
+      "status": "Proposed (AI-drafted summary; owner to spot-check)"
+    }
+  ],
+  "advisories": []
+}

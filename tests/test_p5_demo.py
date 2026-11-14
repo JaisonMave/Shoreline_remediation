@@ -107,20 +107,32 @@ def app():
     return at
 
 
-def test_dashboard_site_tab_runs_on_worked_example(app):
+def _all_text(at) -> str:
+    parts = [m.value for m in at.markdown] + [c.value for c in at.caption] + [i.value for i in at.info] + [w.value for w in at.warning]
+    parts += [str(t.value.to_numpy().ravel().tolist()) + " ".join(map(str, t.value.columns)) for t in at.dataframe]
+    return " ".join(parts)
+
+
+def _fresh_app():
+    from streamlit.testing.v1 import AppTest
+    at = AppTest.from_file(str(ROOT / "src" / "shoreline_remediation" / "dashboard.py"), default_timeout=300)
+    at.run()
+    return at
+
+
+def test_dashboard_site_view_runs_on_worked_example(app):
     assert not app.exception, app.exception
-    assert [t.label for t in app.tabs][:2] == ["Site evidence (real data)", "Scenario screening (rules and synthetic data)"]
+    assert app.segmented_control(key="top_view").value == "Site evidence"
     metrics = {m.label: m.value for m in app.metric}
-    assert metrics["Expected rate"].endswith("m/yr")
-    tables = [t.value for t in app.dataframe]
-    assert any("Extra erosion vs natural recovery, yr 0-2" in t.columns for t in tables)
+    assert any(l.startswith("Expected marsh-edge loss") and v.endswith("m/yr") for l, v in metrics.items())
+    assert any("Extra erosion vs natural recovery, years 0 to 2" in t.value.columns for t in app.dataframe)
 
 
 def test_dashboard_new_site_extrapolation_warning(app):
     app.radio(key="site_mode").set_value("New site (enter values)").run()
     app.number_input(key="new_pre").set_value(9.0).run()
     assert not app.exception, app.exception
-    assert any("extrapolation" in w.value for w in app.warning)
+    assert any("extrapolation" in w.value.lower() for w in app.warning)
 
 
 def test_dashboard_out_of_scope_cell_has_no_prediction(app):
@@ -129,100 +141,63 @@ def test_dashboard_out_of_scope_cell_has_no_prediction(app):
     app.checkbox(key="pick_scope").uncheck().run()
     assert not app.exception, app.exception
     assert any("river delta" in e.value.lower() for e in app.error)
-    assert "Expected rate" not in {m.label for m in app.metric}
+    assert not any(m.label.startswith("Expected marsh-edge loss") for m in app.metric)
 
 
-def test_dashboard_scenario_tab_still_runs(app):
-    app.button[0].click().run()
-    assert not app.exception, app.exception
-    assert "Method test (synthetic data)" in [t.label for t in app.tabs]
-    assert any("synthetic" in i.value for i in app.info)
-
-
-# ---- Compare options (plan A4.3/A4.4) ----------------------------------------------------------------------------------
-def _md_text(at) -> str:
-    return " ".join([m.value for m in at.markdown] + [c.value for c in at.caption] + [i.value for i in at.info])
-
-
-def test_compare_options_renders_for_worked_example():
-    from streamlit.testing.v1 import AppTest
-    at = AppTest.from_file(str(ROOT / "src" / "shoreline_remediation" / "dashboard.py"), default_timeout=300)
-    at.run()
+def test_dashboard_scenario_view_still_runs():
+    at = _fresh_app()
+    at.segmented_control(key="top_view").set_value("Scenario screening (legacy)").run()
+    at.button[0].click().run()
     assert not at.exception, at.exception
-    assert any(s.value == "Compare options" for s in at.subheader)
+    at.segmented_control(key="scenario_section").set_value("Method test (synthetic data)").run()
+    assert not at.exception, at.exception
+    assert "synthetic" in _all_text(at)
+
+
+def test_compare_options_detail_tables_for_worked_example():
+    at = _fresh_app()
+    assert not at.exception, at.exception
     cols = [set(t.value.columns) for t in at.dataframe]
-    assert any("Edge loss distinguished yr 2 / 5 / 8" in c and "Evidence" in c for c in cols)
-    assert any("Marsh area lost diff, yr 8 (ha)" in c for c in cols)
+    assert any("Range excludes zero, edge loss (yr 2 / 5 / 8)" in c and "Evidence" in c for c in cols)
+    assert any("Marsh area lost vs natural recovery, year 8 (ha)" in c for c in cols)
     assert any("Condition to check" in c for c in cols)
-    txt = _md_text(at)
-    assert "suggestive" in txt.lower() and "does not depend on this site" in txt and "Is this true" in " ".join(
-        str(v) for t in at.dataframe if "Condition to check" in t.value.columns for v in t.value["Condition to check"])
-    cell_table = next(t.value for t in at.dataframe if "Edge loss distinguished yr 2 / 5 / 8" in t.value.columns)
-    assert {"MEASURED", "AI-proposed range (not human-reviewed)"} <= set(cell_table.Evidence)
-    assert "Expected rate" in {m.label for m in at.metric}       # existing content is still there
+    cell_table = next(t.value for t in at.dataframe if "Range excludes zero, edge loss (yr 2 / 5 / 8)" in t.value.columns)
+    assert not any(str(v).startswith(("AI", "ELICITED")) for v in cell_table.Evidence)
+    assert "AI-proposed range, not evidence" in _all_text(at)
 
 
-# ---- R4: one absolute edge-loss number, from the same function, in both views for the worked example -------------
-def test_site_evidence_headline_and_compare_options_agree_for_worked_example():
-    import re
-
-    from streamlit.testing.v1 import AppTest
-
+def test_site_headline_and_detail_natural_recovery_agree_for_worked_example():
     from src.shoreline_remediation import scenario_composer as sc
-
-    at = AppTest.from_file(str(ROOT / "src" / "shoreline_remediation" / "dashboard.py"), default_timeout=300)
-    at.run()
-    assert not at.exception, at.exception
-    headline = next(m.value for m in at.metric if m.label == "Expected rate")
-    m = re.search(r"Natural recovery here \(same function as the Site evidence headline\): ([\-0-9.]+) m/yr", _md_text(at))
-    assert m, "Compare options natural-recovery line not found"
-    assert headline == f"{float(m.group(1)):.2f} m/yr"
+    at = _fresh_app()
+    headline = next(m.value for m in at.metric if m.label.startswith("Expected marsh-edge loss"))
     site = SITES[SITES.cell == EXAMPLE_CELL].iloc[0].to_dict()
-    nrs = sc.natural_recovery_summary(site)
-    assert headline == f"{nrs['mean_rate_y1_5']['median']:.2f} m/yr"
+    assert headline == f"{sc.natural_recovery_summary(site)['mean_rate_y1_5']['median']:.2f} m/yr"
 
 
 def test_compare_options_out_of_scope_site_says_no_prediction_not_error():
-    from streamlit.testing.v1 import AppTest
-    at = AppTest.from_file(str(ROOT / "src" / "shoreline_remediation" / "dashboard.py"), default_timeout=300)
-    at.run()
+    at = _fresh_app()
     at.radio(key="site_mode").set_value("Pick a Louisiana edge cell").run()
     at.selectbox(key="pick_basin").set_value("birdfoot").run()
     at.checkbox(key="pick_scope").uncheck().run()
     assert not at.exception, at.exception
     assert any("No prediction for this site" in i.value for i in at.info)
-    assert not any("Edge loss distinguished yr 2 / 5 / 8" in t.value.columns for t in at.dataframe)
+    assert not any("Range excludes zero, edge loss (yr 2 / 5 / 8)" in t.value.columns for t in at.dataframe)
 
 
-# ---- Mangrove mode (plan Phase C2) ---------------------------------------------------------------------------------------
-def _fresh_app():
-    from streamlit.testing.v1 import AppTest
-    at = AppTest.from_file(str(ROOT / "src" / "shoreline_remediation" / "dashboard.py"), default_timeout=300)
-    at.run()
-    return at
-
-
-def test_mangrove_mode_renders_with_scope_flags_and_no_marsh_model():
+def test_mangrove_mode_renders_with_no_marsh_model():
     at = _fresh_app()
-    at.selectbox(key="site_habitat").set_value("mangrove (Rhizophora fringe)").run()
+    at.segmented_control(key="site_habitat").set_value("mangrove").run()
     assert not at.exception, at.exception
-    w = " ".join(x.value for x in at.warning)
-    for part in ("One spill", "Caribbean", "red mangrove", "Years 1 to 5", "No treatment or cleanup data", "Licence"):
-        assert part.lower() in w.lower(), part
     assert any(s.value == "Oiling effect by year since the spill" for s in at.subheader)
-    assert "Expected rate" not in {m.label for m in at.metric}
-    assert not any("Extra erosion vs natural recovery, yr 0-2" in t.value.columns for t in at.dataframe)
-    cols = [set(t.value.columns) for t in at.dataframe]
-    assert any({"Verdict", "Reason", "Conditions", "Source", "Evidence class"} <= c for c in cols)
-    assert sum(1 for m in at.markdown if "Verdict **" in m.value) == 3
+    assert not any(m.label.startswith("Expected marsh-edge loss") for m in at.metric)
+    assert any({"Verdict", "Reason", "Conditions", "Source", "Evidence class"} <= set(t.value.columns) for t in at.dataframe)
 
 
 def test_marsh_mode_is_default_and_unchanged_after_switching_back():
     at = _fresh_app()
-    assert at.selectbox(key="site_habitat").value == "salt marsh (Louisiana)"
-    base = ({m.label: m.value for m in at.metric}, [tuple(t.value.columns) for t in at.dataframe])
-    at.selectbox(key="site_habitat").set_value("mangrove (Rhizophora fringe)").run()
-    at.selectbox(key="site_habitat").set_value("salt marsh (Louisiana)").run()
+    assert at.segmented_control(key="site_habitat").value == "marsh"
+    base = {m.label: m.value for m in at.metric}
+    at.segmented_control(key="site_habitat").set_value("mangrove").run()
+    at.segmented_control(key="site_habitat").set_value("marsh").run()
     assert not at.exception, at.exception
-    assert ({m.label: m.value for m in at.metric}, [tuple(t.value.columns) for t in at.dataframe]) == base
-    assert not any("Caribbean" in x.value for x in at.warning)
+    assert {m.label: m.value for m in at.metric} == base

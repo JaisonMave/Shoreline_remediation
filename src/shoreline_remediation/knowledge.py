@@ -34,6 +34,11 @@ SCREENING_RULE_CSV = TABLES / "screening_rule.csv"
 ECOLOGICAL_SCORE_CSV = TABLES / "ecological_score.csv"
 TECHNOLOGY_CSV = TABLES / "technology.csv"
 EVIDENCE_EFFECT_CSV = TABLES / "evidence_effect.csv"
+HABITAT_CSV = TABLES / "habitat.csv"                            # D36: one row per habitat, keyed to the ESI code (see habitat.py)
+NOAA_RATING_CSV = TABLES / "noaa_response_rating.csv"           # D36: NOAA 2017 habitat ratings tables, transcribed (Proposed)
+NOAA_MAPPING_CSV = TABLES / "noaa_rating_mapping.csv"           # D36: letter -> pipeline verdict (Proposed)
+NOAA_OIL_CSV = TABLES / "noaa_oil_category.csv"                 # ASSUMED tool oil category -> NOAA oil category
+BEACH_NOTES_CSV = TABLES / "beach_literature_notes.csv"         # literature notes for ESI 5 and 6A, "literature, not a prediction"
 
 REQUIRED_PROVENANCE = ("source", "status")
 
@@ -194,5 +199,50 @@ def load_evidence_effects(path: str = str(EVIDENCE_EFFECT_CSV)) -> pd.DataFrame:
     return df
 
 
+@lru_cache(maxsize=1)
+def load_noaa_ratings() -> pd.DataFrame:
+    df = pd.read_csv(NOAA_RATING_CSV, dtype=str, keep_default_na=False)
+    _check_provenance(df, NOAA_RATING_CSV)
+    return df
+
+
+@lru_cache(maxsize=1)
+def load_noaa_mapping() -> dict:
+    df = pd.read_csv(NOAA_MAPPING_CSV, dtype=str, keep_default_na=False)
+    _check_provenance(df, NOAA_MAPPING_CSV)
+    return {r.rating: {"verdict": r.pipeline_verdict, "flag": r.show_flag == "yes", "meaning": r.meaning, "status": r.status}
+            for r in df.itertuples()}
+
+
+@lru_cache(maxsize=1)
+def load_noaa_oil_categories() -> dict:
+    df = pd.read_csv(NOAA_OIL_CSV, dtype=str, keep_default_na=False)
+    _check_provenance(df, NOAA_OIL_CSV)
+    return {r.pipeline_category: r.noaa_category for r in df.itertuples()}
+
+
+@lru_cache(maxsize=1)
+def load_beach_notes() -> pd.DataFrame:
+    df = pd.read_csv(BEACH_NOTES_CSV, dtype=str, keep_default_na=False)
+    _check_provenance(df, BEACH_NOTES_CSV)
+    return df
+
+
+def noaa_rating(esi_code: str, option: str, oil_category: str) -> dict | None:
+    """NOAA habitat-impact rating of a pipeline option: {rating, noaa_category, noaa_method, page, source, ...} or None when
+    the table has no row for this habitat or option. `oil_category` is the tool's (light/medium/heavy/solid)."""
+    noaa_cat = load_noaa_oil_categories().get(str(oil_category).lower())
+    if noaa_cat is None:
+        return None
+    df = load_noaa_ratings()
+    rows = df[(df.esi_code == esi_code) & df.pipeline_option.map(lambda v: option in v.split("|"))]
+    if rows.empty:
+        return None
+    r = rows.iloc[0]
+    return {"rating": r["cat_" + noaa_cat], "noaa_category": noaa_cat, "noaa_method": r.noaa_method, "noaa_table": r.noaa_table,
+            "page": r.page, "source": r.source, "rating_id": r.rating_id, "status": r.status}
+
+
 def all_table_paths() -> tuple[Path, ...]:
-    return (SCREENING_RULE_CSV, ECOLOGICAL_SCORE_CSV, TECHNOLOGY_CSV, EVIDENCE_EFFECT_CSV)
+    return (SCREENING_RULE_CSV, ECOLOGICAL_SCORE_CSV, TECHNOLOGY_CSV, EVIDENCE_EFFECT_CSV, HABITAT_CSV, NOAA_RATING_CSV,
+            NOAA_MAPPING_CSV, NOAA_OIL_CSV, BEACH_NOTES_CSV)

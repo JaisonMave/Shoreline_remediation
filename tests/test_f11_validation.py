@@ -25,3 +25,11 @@ def test_report_class_uses_f11_active_and_monitor_definitions():
             self.options, self.headline = options, headline
     assert report_class(Report([{"recommendation_class": "A"}], "anything")) == "active"
     assert report_class(Report([{"recommendation_class": "B"}], "No option is shown; monitor.")) == "natural"
+
+
+def test_report_class_counts_both_d35_headlines_as_natural():
+    class Report:
+        def __init__(self, headline):
+            self.options, self.headline = [{"recommendation_class": "B"}], headline
+    assert report_class(Report("No clear difference from natural recovery (evidence exists): ...")) == "natural"
+    assert report_class(Report("Insufficient evidence to compare with natural recovery: ...")) == "natural"

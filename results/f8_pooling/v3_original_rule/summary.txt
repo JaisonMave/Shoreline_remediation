@@ -1,0 +1,50 @@
+F8 LITERATURE POOLING SUMMARY (v3: ORIGINAL TWO-STUDY RULE RESTORED, D34)
+Evidence: LITERATURE (AI-extracted; owner attestation 14 Nov 2026 that rows were checked against the PDFs).
+Verdict rule: original. B023 direction fix applied: True. data/knowledge updated: True.
+F8 first-run tables are in results/f8_pooling/v1/; the F8b tables as committed are in f8b_verdicts_before_restore.csv.
+Effect scale: benefit-oriented lnRR; positive = benefit, zero = no effect, negative = harm.
+
+Input rows processed: 144 (source-index rows read for provenance: 90).
+Row tiers: {'excluded': 106, 'listing/sensitivity': 21, 'primary': 12, 'sensitivity': 5}.
+Observed technology-habitat-outcome groups: 33.
+Primary pooled groups (>=3 independent variance-complete studies): 0.
+Forest plots written: 0.
+ASSUMED median-CV variance imputations (sensitivity only): 6.
+Verdicts: {'no clear difference': 9, 'no evidence': 24}.
+Marsh vegetation tau-multiplier ranges: 0.
+
+BEFORE/AFTER VERDICT COUNTS
+| Verdict | F8 (first run, v1) | F8b (committed) | restored rule (this run) |
+|---|---:|---:|---:|
+| evidence of benefit | 0 | 0 | 0 |
+| evidence of harm | 0 | 2 | 0 |
+| no clear difference | 10 | 7 | 9 |
+| no evidence | 24 | 24 | 24 |
+
+GROUPS WHOSE VERDICT DIFFERS BETWEEN F8 (v1), F8b (committed) and this run
+| Technology | Habitat | Outcome | F8 (first run, v1) | F8b (committed) | restored rule (this run) |
+|---|---|---|---|---|---|
+| bioremediation | sand/gravel beach | erosion | no clear difference | group absent | group absent |
+| high_pressure_heated_washing | rocky/hard | biological recovery | no clear difference | evidence of harm | no clear difference |
+| high_pressure_heated_washing | sand/gravel beach | biological recovery | no clear difference | evidence of harm | no clear difference |
+
+B023 DIRECTION FIX (defect fix D34): does it change any verdict?
+- Under the restored rule: NONE. Every group has the same verdict with and without the B023 direction fix (compared on 34 groups).
+- Under the superseded F8b rule: none either.
+
+OUTCOME-MAPPING CHANGES (against the earlier F8b results/f8_pooling/row_effects.csv)
+- None.
+
+Verdict gate (original plan rule, D34): pooled groups (>=3 independent variance-complete studies) use the 95% prediction interval. A group with one grade A/B study uses that study's 95% CI. A group with two studies, or with one study that fails the precision/grade rule, is 'no clear difference'. Sensitivity cannot upgrade verdicts.
+Multiple rows from one study/group were collapsed after selecting the latest time <=730 days; longest-time estimates are supplementary columns.
+Rate-constant effects without variance remain listings; their exp(lnRR) ratios are reported in evidence_verdicts.csv notes.
+The F8b outcome-family keyword precedence and the C011 exclusion are kept (the restore covers the verdict rule only).
+
+ZENGEL / HELD-DATA CROSS-CHECK (NO REFITTING)
+No pooled marsh manual_removal, mechanical_removal, or planting biological-recovery/erosion coefficient exists. The requested Zengel/held-data agreement cross-check is therefore not testable without refitting; no agreement was claimed.
+
+ASSUMPTIONS AND LIMITATIONS
+- Missing variance is excluded from primary pooling; median group-CV imputation is ASSUMED and sensitivity-only.
+- C011 is excluded as a Fowler Beach physical-balance covariate, not treated as shoreline erosion or an oil-response coefficient.
+- Vegetation tau mapping is ASSUMED as exp(pooled PI) or exp(a single grade A/B study CI); missing CI yields no range.
+- evidence_verdicts.csv gains an esi_codes column (ESI codes of the rows behind each verdict) so the pipeline can stop applying mixed/gravel evidence to fine sand. No checked_by or source extraction field was modified.

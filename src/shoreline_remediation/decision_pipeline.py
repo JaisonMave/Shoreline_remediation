@@ -25,6 +25,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
+from . import habitat as hab
 from . import knowledge, registry
 from . import scenario_composer as sc
 from . import site_evidence as se
@@ -33,7 +34,7 @@ from .model_interface import ScenarioRequest, SiteRecord
 
 ROOT = Path(__file__).resolve().parents[2]
 KNOW = ROOT / "data" / "knowledge"
-PIPELINE_VERSION = "f9-v1"
+PIPELINE_VERSION = "f9-v2"
 PLANTING = sc.PLANTING
 DEFAULT_OPTIONS = list(TREATMENT_LIBRARY) + [PLANTING]
 NATURAL = sc.NATURAL
@@ -51,6 +52,17 @@ ORDER_BASIS = ("within a class: lower bound of the 90% benefit interval where it
                "ASSUMED ecological score (higher = lower disturbance first), then name")
 OUT_OF_SCOPE_TEXT = ("this tool covers oil on shorelines; other contaminants, cost optimisation and offshore response are "
                      "outside its scope (D30)")
+# Evidence states (D35). Class letters A-E are unchanged; the state is an explicit extra field and part of the headline.
+STATE_INSUFFICIENT = "insufficient_evidence"
+STATE_NO_DIFFERENCE = "no_clear_difference"
+EVIDENCE_STATE_LABELS = {
+    STATE_INSUFFICIENT: "Insufficient evidence to compare with natural recovery",
+    STATE_NO_DIFFERENCE: "No clear difference from natural recovery (evidence exists)",
+    "benefit": "Evidence of benefit over natural recovery",
+    "harm": "Evidence of harm compared with natural recovery",
+    "mixed": "Mixed evidence compared with natural recovery",
+    "baseline": "Natural recovery (the baseline)",
+}
 TIER_MESSAGES = {
     "validated": ("Heavily oiled salt marsh in the northern Gulf of Mexico: the marsh-edge loss model and the soil PAH-sum "
                   "decline are validated (held-out, one spill). Treatment differences (composer) and the vegetation curve "
@@ -60,11 +72,12 @@ TIER_MESSAGES = {
     "rules_and_literature": ("Rules and literature only: screening verdicts and literature evidence verdicts; there is no "
                              "site-specific forecast for this shoreline type."),
 }
+TIER_SAND_NOTE = (" Sand beaches: the sand-beach data model is not integrated yet (D36), so no persistence forecast is shown; "
+                  "the tier becomes experimental when it is.")
+TIER_MIXED_GRAVEL_NOTE = (" Mixed sand and gravel and gravel beaches are rules and literature only by owner decision (14 Nov 2026): "
+                          "the literature notes below are not a prediction for this site.")
 
-# Mapping of Scenario.shoreline_type / habitat to the habitat classes of evidence_verdicts.csv.
-_MARSH_TYPES = {"salt_marsh", "marsh", "mudflat", "peat", "tundra"}
-_ROCKY_TYPES = {"bedrock", "boulder", "cobble"}
-_BEACH_TYPES = {"sand_beach", "mixed_sediment"}
+# Habitat strings are resolved by habitat.normalise() (data/knowledge/tables/habitat.csv, keyed to the ESI code, D36).
 # ASSUMED breaks reading site_evidence.OIL_COVERAGE_BY_CLASS backwards, used only for a Scenario without an oiling class.
 _COVERAGE_BREAKS = ((70.0, "Heavy"), (40.0, "Moderate"), (20.0, "Light"))
 _PAH_KEY = {"Heavy": "heavy", "Moderate": "moderate", "Light": "light", "Very_Light": "very_light", "NOO": "none"}
@@ -81,13 +94,22 @@ _MANGROVE_VERDICT = {"acceptable": "eligible", "conditional": "conditional", "no
 _SEASON_CONDITIONS = {"growing season": lambda s: s in {"spring", "summer"},
                       "autumn or winter": lambda s: s in {"autumn", "fall", "winter"}}
 
+# Design of the evidence behind each option's composer numbers, shown beside the class (honest label, 14 Nov 2026).
+_OPTION_DESIGN = {
+    "manual_removal": "observational, one site (Zengel et al. 2022, Bay Jimmy)",
+    "mechanical_removal": "observational, one site (Zengel et al. 2022, Bay Jimmy)",
+    PLANTING: ("observational, one site: mechanically cleaned and planted plots versus untreated plots, 5 versus 9 plots "
+               "(not a randomised comparison)"),
+}
+ADVISORY_PREFIX = "advisory (AI-proposed, not reviewed by an expert)"
 _COMPOSER_CAVEAT = ("Paired difference from one site's field evidence (Bay Jimmy, Zengel et al.), the same at any heavily "
                     "oiled marsh site; the composer is experimental (R3 bias gate failed, FINDINGS_V4 26).")
 _OPTION_CAVEAT = {
     "manual_removal": "Observational: treatment classes were not randomly assigned.",
     "mechanical_removal": "Observational; mechanical plots were the most heavily oiled, so oiling and method are confounded.",
-    PLANTING: ("Evidence is planted vs oil-untreated plots inside mechanically treated areas (planting randomised, Zengel 2022); "
-               "mechanical removal itself is excluded on marsh by rule, so the two rules are in tension."),
+    PLANTING: ("Evidence is an observational contrast, mechanically cleaned and planted plots versus untreated plots (5 versus 9 plots, "
+               "one site; Zengel et al. 2022), not a randomised comparison. It presupposes mechanical removal, which the screening "
+               "rules exclude on marsh, so the two rules are in tension."),
 }
 
 
@@ -105,6 +127,10 @@ class DecisionReport:
     trace: list
     version: dict
     characterisation: dict = field(default_factory=dict)
+    evidence_state: str = ""            # D35: "benefit", "no_clear_difference" or "insufficient_evidence" (see EVIDENCE_STATE_LABELS)
+    evidence_state_label: str = ""
+    literature_notes: list = field(default_factory=list)   # ESI 5 and 6A: "literature, not a prediction"
+    advisories: list = field(default_factory=list)         # AI-proposed condition notes, not used for classes
 
     def classes(self) -> dict:
         out = {c: [] for c in CLASS_LABELS}
@@ -206,18 +232,29 @@ def _compose_cached(features: tuple, oiling: str, pred_rate: float | None, optio
     return sc.compose(site, list(options), horizon_years=8, n_draws=n_draws, seed=seed)
 
 
-def habitat_class(habitat: str) -> str:
-    """Habitat class used by evidence_verdicts.csv."""
-    h = habitat.lower()
-    if h == "mangrove":
-        return "mangrove"
-    if h in _MARSH_TYPES:
-        return "marsh"
-    if h in _ROCKY_TYPES:
-        return "rocky/hard"
-    if h in _BEACH_TYPES:
-        return "sand/gravel beach"
-    return "other"
+def habitat_class(habitat: str, wave_exposure: str | None = None) -> str:
+    """Habitat class used by evidence_verdicts.csv (resolved through the ESI-keyed habitat table, D36)."""
+    return hab.habitat_class(habitat, wave_exposure)
+
+
+def _esi_family(esi_codes: str) -> set:
+    """Evidence families ('sand', 'mixed_gravel', 'rocky', ...) of a '|' or '/' separated list of ESI codes."""
+    table = hab.table()
+    out = set()
+    for token in re.split(r"[|/;,\s]+", str(esi_codes)):
+        if token in table:
+            out.add(table[token].evidence_family)
+    return out
+
+
+def _applies_to_esi(esi_codes: str, esi: str | None) -> bool:
+    """Do evidence rows whose source rows carry `esi_codes` apply to habitat `esi`? Hot-water harm seen on mixed sand and gravel and
+    gravel beaches (ESI 5/6A) must not be applied to fine sand (D36). Rows without ESI codes are kept (unknown, shown as such)."""
+    table = hab.table()
+    if not esi or esi not in table or table[esi].habitat_class != "sand/gravel beach":
+        return True
+    families = _esi_family(esi_codes)
+    return not families or table[esi].evidence_family in families
 
 
 def _literature_habitat(text: str) -> str:
@@ -229,6 +266,7 @@ def _literature_habitat(text: str) -> str:
         return "marsh"
     if any(w in value for w in ("rock", "bedrock", "hard substrate", "riprap", "seawall")):
         return "rocky/hard"
+    # cobble: a beach (ESI 6A), in line with habitat.normalise("cobble") (D36; the old screening code treated it as hard substrate)
     if any(w in value for w in ("sand", "gravel", "pebble", "cobble", "beach", "sediment")):
         return "sand/gravel beach"
     return "other"
@@ -300,23 +338,28 @@ def _characterise(inputs, habitat, oiling_class, oil, season, assumptions) -> di
         scenario = se.site_scenario(site, oil_category=oil_default)
     else:
         raise TypeError("inputs must be a Scenario or a site dict")
-    hclass = habitat_class(habitat)
+    exposure = scenario.wave_exposure
+    esi = hab.normalise(habitat, exposure)
+    hrow = hab.get(habitat, exposure)
+    hclass = hrow.habitat_class if hrow else "other"
     category, oil_source = _resolve_oil(oil, oil_default, scenario.temperature_c)
     over = {"oil_category": category}
     if season:
         over["season"] = str(season).lower()
-    if habitat.lower() == "salt_marsh" and scenario.shoreline_type.lower() not in _MARSH_TYPES:
-        over["shoreline_type"] = "marsh"
-    elif habitat.lower() == "mangrove":
-        over["shoreline_type"] = "mangrove"
+    # The screening rules read Scenario.shoreline_type. Resolve it through the habitat table so every alias (sandy_beach,
+    # mixed, cobble, salt_marsh, rock, ...) reaches the rule that was written for it (D36).
+    if hrow is not None and scenario.shoreline_type.lower() != hrow.rule_key:
+        over["shoreline_type"] = hrow.rule_key
     scenario = dataclasses.replace(scenario, **over)
-    salt_marsh = habitat.lower() in {"salt_marsh", "marsh"}
+    salt_marsh = esi == "10A"
+    noaa_cat = knowledge.load_noaa_oil_categories().get(category)
     flags = None
     if site is not None and salt_marsh:
         values = {f: site.get(f) for f in se.FEATURES}
         flags = se.site_flags(values, status=site.get("status", "in_scope"), habitat=str(site.get("esi_main") or "10A"),
                               oiling=oiling, lat=_num(site.get("lat")), lon=_num(site.get("lon")))
     return {"scenario": scenario, "site": site, "habitat": habitat.lower(), "habitat_class": hclass, "salt_marsh": salt_marsh,
+            "esi": esi, "habitat_row": hrow, "noaa_oil_category": noaa_cat,
             "oiling": oiling, "oiling_basis": oiling_basis, "oil_category": category, "oil_source": oil_source,
             "flags": flags, "assumptions": list(assumptions or [])}
 
@@ -337,13 +380,66 @@ def _scope_tier(ctx: dict) -> tuple[str, str, list]:
     if ctx["habitat_class"] == "mangrove":
         reasons = ["mangrove damage model: one spill (Bahia Las Minas, Panama), oiling effect only, no treatment effects"]
         return "experimental", TIER_MESSAGES["experimental"] + " Reasons: " + reasons[0], reasons
+    esi = ctx.get("esi")
+    if esi in ("3A", "4"):
+        ref = _beach_persistence_reference(ctx)
+        if ref is not None:   # filled by the integrating agent when the sand-beach data model exists
+            reasons = ["sand-beach data model: one spill (Deepwater Horizon), outcome is a response endpoint, not chemical or ecological recovery"]
+            return "experimental", TIER_MESSAGES["experimental"] + " Reasons: " + reasons[0], reasons
+        return "rules_and_literature", TIER_MESSAGES["rules_and_literature"] + TIER_SAND_NOTE, []
+    if esi in ("5", "6A"):
+        return "rules_and_literature", TIER_MESSAGES["rules_and_literature"] + TIER_MIXED_GRAVEL_NOTE, []
     return "rules_and_literature", TIER_MESSAGES["rules_and_literature"], []
+
+
+def _beach_persistence_reference(ctx: dict):
+    """HOOK (D36): the agent that integrates the sand-beach data model fills this in.
+
+    Return None while no sand-beach model is integrated (ESI 3A and 4). When it returns a dict (same keys as a row of
+    `_reference_rows`: quantity, value, lo90, hi90, unit, model_id, state, scope, note), the pipeline shows it as a reference
+    number and the scope tier becomes "experimental". Never called for ESI 5 and 6A (rules and literature only by owner decision).
+    """
+    return None
 
 
 # ---------------------------------------------------------------------------------------------------------------
 # Step 2
 
+_VERDICT_RANK = {"eligible": 0, "conditional": 1, "ineligible": 2}
+NOAA_SHORT = "NOAA Characteristic Coastal Habitats (2017)"
+
+
+def _noaa_screen(option: str, ctx: dict) -> dict | None:
+    """NOAA habitat-impact rating of the option for this habitat and oil category, mapped to a pipeline verdict (D36, Proposed).
+
+    The letters rate the adverse HABITAT IMPACT of the method (A least, D most), not how well it removes oil."""
+    row = ctx.get("habitat_row")
+    if row is None or not row.noaa_ratings_esi or option == PLANTING:
+        return None
+    r = knowledge.noaa_rating(row.noaa_ratings_esi, option, ctx["oil_category"])
+    if r is None:
+        return None
+    mapping = knowledge.load_noaa_mapping()[r["rating"]]
+    cat = r["noaa_category"]
+    text = (f"{NOAA_SHORT} p.{r['page']}, {r['noaa_table']}: '{r['noaa_method']}' is rated {r['rating']} for oil category {cat} "
+            f"({mapping['meaning'].split(':')[0]}); letters rate adverse habitat impact, not effectiveness")
+    return {"rating": r["rating"], "verdict": mapping["verdict"], "flag": mapping["flag"], "noaa_category": cat, "page": r["page"],
+            "rule_id": f"noaa:{row.noaa_ratings_esi}:{option}:{cat}", "reason": text, "rating_id": r["rating_id"],
+            "source": f"{NOAA_SHORT} p.{r['page']} (data/knowledge/tables/noaa_response_rating.csv {r['rating_id']}); {r['status']}; "
+                      f"mapping {mapping['status']}"}
+
+
 def _screen_option(option: str, ctx: dict) -> dict:
+    result = _screen_generic(option, ctx)
+    noaa = _noaa_screen(option, ctx)
+    result["noaa"] = noaa
+    result["generic"] = {k: result[k] for k in ("verdict", "rule_id", "reason", "source")}
+    if noaa is not None and option != NATURAL and _VERDICT_RANK[noaa["verdict"]] > _VERDICT_RANK[result["verdict"]]:
+        result.update({k: noaa[k] for k in ("verdict", "rule_id", "reason", "source")})
+    return result
+
+
+def _screen_generic(option: str, ctx: dict) -> dict:
     hc = ctx["habitat_class"]
     if option == PLANTING and hc not in {"marsh", "mangrove"}:
         return {"verdict": "ineligible", "rule_id": "f9:planting_applicability",
@@ -378,9 +474,12 @@ def _screen_mangrove(option: str) -> dict:
 # ---------------------------------------------------------------------------------------------------------------
 # Step 3 and the evidence verdicts
 
-def _verdict_rows(option: str, hclass: str) -> pd.DataFrame:
+def _verdict_rows(option: str, hclass: str, esi: str | None = None) -> pd.DataFrame:
     v = _verdicts()
-    return v[(v.technology == _code(option)) & (v.habitat == hclass)]
+    rows = v[(v.technology == _code(option)) & (v.habitat == hclass)]
+    if "esi_codes" in rows.columns and esi:
+        rows = rows[rows.esi_codes.map(lambda c: _applies_to_esi("" if pd.isna(c) else c, esi)).astype(bool)].copy()
+    return rows
 
 
 def _aggregate_verdicts(rows: pd.DataFrame) -> tuple[str, str, float | None]:
@@ -474,8 +573,17 @@ def _reference_rows(ctx: dict, natural_tidy, anchor: int) -> list:
         return rows
     if not ctx["salt_marsh"]:
         reason = f"no registered model covers {ctx['habitat']} shorelines"
-        return [_no_model(q, reason) for q in ("PAH-sum half-life", "vegetation time to 80% of reference",
-                                               "natural edge loss to year 5 and 8")]
+        out = [_no_model(q, reason) for q in ("PAH-sum half-life", "vegetation time to 80% of reference",
+                                              "natural edge loss to year 5 and 8")]
+        esi = ctx.get("esi")
+        if esi in ("3A", "4"):
+            ref = _beach_persistence_reference(ctx)
+            out.insert(0, ref if ref is not None else _no_model(
+                "time to SCAT endpoint on a sand beach", "sand-beach data model not integrated yet (D36); rules and literature only"))
+        elif esi in ("5", "6A"):
+            out.insert(0, _no_model("persistence forecast on a mixed sand and gravel or gravel beach",
+                                    "rules and literature only by owner decision (14 Nov 2026); see literature_notes, which are not a prediction"))
+        return out
     pah = registry.get("pah_decline_v1")
     key = _PAH_KEY.get(oiling, "pooled")
     pred = pah.predict(SiteRecord(site_id="pah", habitat=ctx["habitat"], oiling=key), ScenarioRequest())
@@ -523,9 +631,10 @@ def _reference_rows(ctx: dict, natural_tidy, anchor: int) -> list:
 # ---------------------------------------------------------------------------------------------------------------
 # Step 6
 
-def _tradeoffs(option: str, hclass: str) -> dict:
+def _tradeoffs(option: str, hclass: str, esi: str | None = None) -> dict:
     lit = _literature()
     rows = lit[(lit.technology == _code(option)) & (lit.habitat.map(_literature_habitat) == hclass)]
+    rows = rows[rows.esi_code.map(lambda c: _applies_to_esi(c, esi)).astype(bool)]
     prod = rows[rows.production_rate_m2_per_person_day != ""]
     waste = rows[rows.waste_per_m2 != ""]
     secondary = _technology().get(option)
@@ -574,6 +683,13 @@ def run_decision(inputs, habitat: str | None = None, oiling_class: str | None = 
         "assumptions": ctx["assumptions"],
         "site_scope_flags": (dataclasses.asdict(ctx["flags"]) if ctx["flags"] is not None else None),
         "scope_tier": tier, "scope_reasons": tier_reasons,
+        "esi_code": ctx["esi"], "noaa_oil_category": ctx["noaa_oil_category"],
+        "noaa_oil_category_basis": "ASSUMED mapping from the tool's oil category (data/knowledge/tables/noaa_oil_category.csv)",
+        "habitat_descriptors": ({"name": ctx["habitat_row"].name, "oil_penetration_depth": ctx["habitat_row"].oil_penetration_depth,
+                                 "burial_risk": ctx["habitat_row"].burial_risk, "persistence_driver": ctx["habitat_row"].persistence_driver,
+                                 "asphalt_pavement_risk": ctx["habitat_row"].asphalt_pavement_risk,
+                                 "source": f"NOAA Characteristic Coastal Habitats (2017) p.{ctx['habitat_row'].descriptor_pages}"}
+                                if ctx["habitat_row"] else None),
     }
     _log(trace, 1, {"habitat": habitat, "oiling_class": oiling_class, "oil": oil, "season": season,
                     "input_kind": characterisation["input_kind"], "cell": characterisation["cell"]},
@@ -587,9 +703,9 @@ def run_decision(inputs, habitat: str | None = None, oiling_class: str | None = 
 
     # Step 3
     hclass = ctx["habitat_class"]
-    removed, flagged, verdict_info, cond_info = {}, {}, {}, {}
+    removed, flagged, advisory, verdict_info, cond_info = {}, {}, {}, {}, {}
     for o in options:
-        rows = _verdict_rows(o, hclass)
+        rows = _verdict_rows(o, hclass, ctx["esi"])
         verdict_info[o] = _aggregate_verdicts(rows)
         conds = _condition_rows(o, ctx)
         cond_info[o] = conds
@@ -599,12 +715,19 @@ def run_decision(inputs, habitat: str | None = None, oiling_class: str | None = 
         if not harmful.empty:
             removed[o] = [{"source": "evidence_verdicts.csv", "outcome_family": r.outcome_family,
                            "detail": f"evidence of harm in {hclass}: {r.basis}"} for r in harmful.itertuples()]
+        # AI-proposed condition rows are ADVISORY: shown as notes, never a class D flag (14 Nov 2026).
         harms = [c for c in conds if c["effect_when_met"] == "harms" and c["status"] != "not met by input season"]
         if harms:
-            flagged[o] = [{"source": "treatment_conditions.csv",
-                           "detail": f"harm reported under condition: {c['condition']} [{c['status']}] ({c['source']})"} for c in harms]
-    _log(trace, 3, {"habitat_class": hclass, "sources": ["evidence_verdicts.csv", "treatment_conditions.csv (marsh)", "mangrove_screening.csv (mangrove)"]},
-         {"removed": removed, "flagged": flagged}, ["data/knowledge/evidence_verdicts.csv", "data/knowledge/treatment_conditions.csv"])
+            advisory[o] = [ADVISORY_PREFIX + f": harm reported under condition '{c['condition']}' [{c['status']}] ({c['source']})"
+                           for c in harms]
+        noaa = screen[o].get("noaa")
+        if noaa is not None and noaa["flag"] and noaa["verdict"] == "conditional":
+            flagged.setdefault(o, []).append({"source": noaa["source"], "detail": noaa["reason"] + " (significant or unknown habitat impact: "
+                                                                                  "flag shown, option stays)"})
+    _log(trace, 3, {"habitat_class": hclass, "sources": ["evidence_verdicts.csv", "treatment_conditions.csv (marsh, advisory only)",
+                                                         "mangrove_screening.csv (mangrove)", "noaa_response_rating.csv (beach and rocky)"]},
+         {"removed": removed, "flagged": flagged, "advisory": advisory},
+         ["data/knowledge/evidence_verdicts.csv", "data/knowledge/treatment_conditions.csv", "data/knowledge/tables/noaa_response_rating.csv"])
 
     def excluded(o):
         return o != NATURAL and (screen[o]["verdict"] == "ineligible" or o in removed)
@@ -639,22 +762,27 @@ def run_decision(inputs, habitat: str | None = None, oiling_class: str | None = 
                                     "models/p5_edge_loss_v1.json", "models/mangrove_damage_v1.json"])
 
     # Step 6
-    trade = {o: _tradeoffs(o, hclass) for o in options}
+    trade = {o: _tradeoffs(o, hclass, ctx["esi"]) for o in options}
     _log(trace, 6, {"habitat_class": hclass}, {o: {k: v for k, v in t.items() if k != "tradeoff_sources"} for o, t in trade.items()},
          ["data/knowledge/literature_effects.csv", "data/knowledge/tables/technology.csv"])
 
     # Step 7
     rows = [_option_row(o, ctx, screen[o], removed.get(o), flagged.get(o), verdict_info[o], cond_info[o], composer.get(o),
-                        trade[o], comp_model, excluded(o), anchor) for o in options]
+                        trade[o], comp_model, excluded(o), anchor, advisory.get(o)) for o in options]
     _assign_order(rows)
-    headline = _headline(rows, tier, anchor)
+    evidence_state = _report_evidence_state(rows)
+    headline = _headline(rows, tier, anchor, evidence_state)
     classes = {c: [r["option"] for r in rows if r["recommendation_class"] == c] for c in CLASS_LABELS}
     _log(trace, 7, {"class_rules": "E excluded > A benefit > D harm under conditions > B no clear evidence; C natural recovery",
-                    "ordering": ORDER_BASIS}, {"classes": classes, "headline": headline}, ["steps 2-6"])
+                    "ordering": ORDER_BASIS}, {"classes": classes, "headline": headline, "evidence_state": evidence_state},
+         ["steps 2-6"])
 
     # Step 8
-    plots = _plots(rows, composer, tidy, summ, cell_ok, hclass, options, verdict_info)
+    plots = _plots(rows, composer, tidy, summ, cell_ok, hclass, options, verdict_info, ctx["esi"])
+    noaa_nat = screen[NATURAL].get("noaa")
     natural = {"option": NATURAL, "recommendation_class": "C", "label": CLASS_LABELS["C"], "reference": reference,
+               "habitat_rating": ({"rating": noaa_nat["rating"], "text": noaa_nat["reason"], "source": noaa_nat["source"]}
+                                  if noaa_nat else None),
                "rule_verdict": screen[NATURAL]["verdict"], "evidence_verdict": verdict_info[NATURAL][0],
                "evidence_basis": verdict_info[NATURAL][1], "monitoring": "monitor canopy, recruitment and soil oil for at least 5 years"
                if ctx["habitat_class"] == "mangrove" else "monitor and compare with the reference numbers above"}
@@ -664,9 +792,11 @@ def run_decision(inputs, habitat: str | None = None, oiling_class: str | None = 
                "models": {m: {"state": registry.get(m).state, "version": registry.get(m).model_version} for m in models_used},
                "knowledge_checksums": _table_checksums()}
     report = DecisionReport(headline=headline, scope_tier=tier, scope_message=tier_message, options=rows, natural_recovery=natural,
-                            plots=plots, trace=trace, version=version, characterisation=characterisation)
+                            plots=plots, trace=trace, version=version, characterisation=characterisation,
+                            evidence_state=evidence_state, evidence_state_label=EVIDENCE_STATE_LABELS[evidence_state],
+                            literature_notes=_literature_notes(ctx), advisories=sorted({a for v in advisory.values() for a in v}))
     _log(trace, 8, {"n_options": len(rows)}, {"headline": headline, "scope_tier": tier, "models_used": models_used,
-                                              "plot_keys": sorted(plots)}, ["steps 1-7"])
+                                              "plot_keys": sorted(plots), "evidence_state": evidence_state}, ["steps 1-7"])
     report.trace = _jsonable(trace)
     return report
 
@@ -681,7 +811,7 @@ def _refuse(trace: list, message: str, inputs: dict, label) -> DecisionReport:
                           characterisation={"label": label, "scope_tier": "out_of_scope", "refusal": message})
 
 
-def _option_row(o, ctx, screen, removed, flagged, verdict, conds, composer, trade, comp_model, excluded, anchor) -> dict:
+def _option_row(o, ctx, screen, removed, flagged, verdict, conds, composer, trade, comp_model, excluded, anchor, advisory=None) -> dict:
     verdict_name, basis, lit_lb = verdict
     outcomes = composer["outcomes"] if composer else []
     decisions = [x for x in outcomes if x["decision_point"]]
@@ -702,9 +832,15 @@ def _option_row(o, ctx, screen, removed, flagged, verdict, conds, composer, trad
         cls = "B"
     reasons = []
     if cls == "E":
-        if screen["verdict"] == "ineligible":
+        gen, noaa = screen.get("generic"), screen.get("noaa")
+        if gen and gen["verdict"] == "ineligible":
+            reasons.append({"source": "rule", "rule_id": gen["rule_id"], "detail": gen["reason"]})
+        if noaa and noaa["verdict"] == "ineligible":
+            reasons.append({"source": noaa["source"], "rule_id": noaa["rule_id"], "detail": noaa["reason"] + " (not advised or not applicable; D36 mapping, Proposed)"})
+        if not reasons and screen["verdict"] == "ineligible":
             reasons.append({"source": "rule", "rule_id": screen["rule_id"], "detail": screen["reason"]})
         reasons += removed or []
+    state = _option_state(o, composer, verdict_name, favourable, unfavourable)
     edge = next((x for x in decisions if x["outcome"] == "edge_loss_avoided_m"), None)
     veg = next((x for x in decisions if x["outcome"] == "veg_cover_ratio_gain"), None)
     if edge is not None and (edge["direction"] != "no clear difference" or veg is None):
@@ -724,6 +860,12 @@ def _option_row(o, ctx, screen, removed, flagged, verdict, conds, composer, trad
         cond_text.append(f"mangrove screening: {screen['conditions']}")
     return {
         "option": o, "recommendation_class": cls, "class_label": CLASS_LABELS[cls], "rank_in_class": None,
+        "evidence_state": state, "evidence_state_label": EVIDENCE_STATE_LABELS[state],
+        "evidence_design": _OPTION_DESIGN.get(o) if composer else None,
+        "habitat_rating": ({"rating": screen["noaa"]["rating"], "noaa_oil_category": screen["noaa"]["noaa_category"],
+                            "verdict": screen["noaa"]["verdict"], "text": screen["noaa"]["reason"], "source": screen["noaa"]["source"]}
+                           if screen.get("noaa") else None),
+        "advisory_notes": list(advisory or []),
         "order_basis": ORDER_BASIS,
         "rule_verdict": screen["verdict"], "rule_id": screen["rule_id"], "rule_reason": screen["reason"], "rule_source": screen["source"],
         "do_no_harm": "removed" if removed else ("flagged" if flags else "passed"),
@@ -776,23 +918,75 @@ def _benefit_text(r: dict, anchor: int) -> str:
     return "; ".join(parts) if parts else r["evidence_verdict"]
 
 
-def _headline(rows: list, tier: str, anchor: int) -> str:
+def _option_state(o: str, composer, verdict_name: str, favourable: bool, unfavourable: bool) -> str:
+    """Evidence state of one option against natural recovery (D35). 'insufficient_evidence' = no eligible evidence rows at all."""
+    if o == NATURAL:
+        return "baseline"
+    if composer:
+        return "mixed" if favourable and unfavourable else "benefit" if favourable else "harm" if unfavourable else STATE_NO_DIFFERENCE
+    return {"evidence of benefit": "benefit", "evidence of harm": "harm", "mixed": "mixed",
+            "no clear difference": STATE_NO_DIFFERENCE}.get(verdict_name, STATE_INSUFFICIENT)
+
+
+def _report_evidence_state(rows: list) -> str:
+    """'benefit' if any option is class A; 'no_clear_difference' if evidence exists for at least one allowed option;
+    otherwise 'insufficient_evidence' (no allowed option has any evidence row)."""
+    if any(r["recommendation_class"] == "A" for r in rows):
+        return "benefit"
+    allowed = [r for r in rows if r["recommendation_class"] in ("B", "D")]
+    if any(r["evidence_state"] != STATE_INSUFFICIENT for r in allowed):
+        return STATE_NO_DIFFERENCE
+    return STATE_INSUFFICIENT
+
+
+def _headline(rows: list, tier: str, anchor: int, state: str | None = None) -> str:
     a = [r for r in rows if r["recommendation_class"] == "A"]
     if a:
         text = "Field evidence of benefit over natural recovery: " + "; ".join(f"{r['option']} ({_benefit_text(r, anchor)})" for r in a)
+        designs = [f"{r['option']}: {r['evidence_design']}" for r in a if r.get("evidence_design")]
+        if designs:
+            text += ". Design of the evidence: " + "; ".join(designs)
         if any(r["model_id"] for r in a):
             text += ". Differences are experimental composer output from one site's field evidence"
         return text + "."
+    state = state or _report_evidence_state(rows)
+    allowed = [r for r in rows if r["recommendation_class"] in ("B", "D")]
+    with_evidence = [r["option"] for r in allowed if r["evidence_state"] != STATE_INSUFFICIENT]
+    without = [r["option"] for r in allowed if r["evidence_state"] == STATE_INSUFFICIENT]
     b = [r["option"] for r in rows if r["recommendation_class"] == "B"][:3]
-    text = "No option is shown by evidence to beat natural recovery; monitor."
-    if b:
-        text += " Best allowed options with no clear evidence either way (class B): " + ", ".join(b) + "."
+    if state == STATE_NO_DIFFERENCE:
+        text = ("No clear difference from natural recovery (evidence exists): no option is shown by evidence to beat natural recovery; "
+                "continue with natural recovery and monitoring. Evidence exists but shows no clear difference for: "
+                + ", ".join(with_evidence) + ".")
+        if without:
+            text += " Insufficient evidence to compare with natural recovery for: " + ", ".join(without) + "."
     else:
+        text = ("Insufficient evidence to compare with natural recovery: no allowed option has any eligible evidence rows for this "
+                "habitat, so no comparison is possible. Natural recovery with monitoring is the default; this is not a finding that "
+                "treatment gives no benefit.")
+    if b:
+        text += " Best allowed options (class B): " + ", ".join(b) + "."
+    elif not allowed:
         text += " No allowed alternative has been identified."
     return text
 
 
-def _plots(rows, composer, tidy, summ, cell_ok, hclass, options, verdict_info) -> dict:
+def _literature_notes(ctx: dict) -> list:
+    """ESI 5 and 6A only: literature notes shown as 'literature, not a prediction'."""
+    esi = ctx.get("esi")
+    if esi not in ("5", "6A"):
+        return []
+    df = knowledge.load_beach_notes()
+    out = []
+    for r in df.itertuples():
+        if esi in r.esi_codes.split("|"):
+            out.append({"note_id": r.note_id, "topic": r.topic, "statement": r.statement, "label": r.display_label,
+                        "evidence_class": r.evidence_class, "source": r.source, "effect_ids": [x for x in r.effect_ids.split("|") if x],
+                        "source_checked": r.source_checked, "status": r.status})
+    return out
+
+
+def _plots(rows, composer, tidy, summ, cell_ok, hclass, options, verdict_info, esi=None) -> dict:
     paired = [{"option": o, "outcome": x["outcome"], "year": x["year"], "median": x["median"], "lo90": x["lo90"], "hi90": x["hi90"],
                "unit": x["unit"], "direction": x["direction"], "decision_point": x["decision_point"]}
               for o, c in composer.items() for x in c["outcomes"]]
@@ -804,7 +998,7 @@ def _plots(rows, composer, tidy, summ, cell_ok, hclass, options, verdict_info) -
                 for r in t.itertuples()]
     matrix = []
     for o in options:
-        rs = _verdict_rows(o, hclass)
+        rs = _verdict_rows(o, hclass, esi)
         if rs.empty:
             matrix.append({"option": o, "outcome_family": "any", "verdict": "no evidence", "source": "evidence_verdicts.csv",
                            "basis": "no row for this technology and habitat class"})

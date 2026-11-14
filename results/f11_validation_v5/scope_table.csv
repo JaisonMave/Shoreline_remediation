@@ -1,0 +1,6 @@
+habitat_or_request,scope,evidence,main_limits
+"Heavy salt marsh, northern Gulf of Mexico",validated,edge_loss_v1 held out by basin; pah_decline_v1 within DWH,one spill; treatment composer remains experimental; D32/C1c bias gate failed
+Other salt-marsh inputs,experimental,"composer, vegetation curve and literature effects; registry marks composer/vegetation experimental",generic scenarios lack cell validation; heavy-oil vegetation curve worse than no-trend baseline
+Mangrove,experimental,mangrove_damage_v1 and mangrove screening,one-spill damage evidence; screening AI-proposed pending human review
+"Sand beaches, rocky shores, gravel and other habitats",rules & literature,screening_rule and evidence_verdicts/literature; no site forecast,not outcome-validated; literature is not a local treatment-effect prediction
+"Other contaminants, cost optimisation, offshore response",out of scope,D30/F0 refusal rule,no supported forecasting or cost data

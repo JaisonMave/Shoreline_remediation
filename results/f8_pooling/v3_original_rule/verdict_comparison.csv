@@ -1,0 +1,35 @@
+﻿technology,habitat,outcome_family,F8_first_run_v1,F8b_as_committed,original_rule_with_B023_fix,original_rule_without_B023_fix,f8b_rule_with_B023_fix,f8b_rule_without_B023_fix
+bioremediation,marsh,biological recovery,no evidence,no evidence,no evidence,no evidence,no evidence,no evidence
+bioremediation,marsh,residual oil,no evidence,no evidence,no evidence,no evidence,no evidence,no evidence
+bioremediation,other,degradation rate,no evidence,no evidence,no evidence,no evidence,no evidence,no evidence
+bioremediation,sand/gravel beach,degradation rate,no clear difference,no clear difference,no clear difference,no clear difference,no clear difference,no clear difference
+bioremediation,sand/gravel beach,erosion,no clear difference,group absent,group absent,group absent,group absent,group absent
+bioremediation,sand/gravel beach,residual oil,no evidence,no evidence,no evidence,no evidence,no evidence,no evidence
+high_pressure_heated_washing,rocky/hard,biological recovery,no clear difference,evidence of harm,no clear difference,no clear difference,evidence of harm,evidence of harm
+high_pressure_heated_washing,rocky/hard,residual oil,no evidence,no evidence,no evidence,no evidence,no evidence,no evidence
+high_pressure_heated_washing,sand/gravel beach,biological recovery,no clear difference,evidence of harm,no clear difference,no clear difference,evidence of harm,evidence of harm
+high_pressure_heated_washing,sand/gravel beach,residual oil,no evidence,no evidence,no evidence,no evidence,no evidence,no evidence
+high_pressure_washing,rocky/hard,biological recovery,no evidence,no evidence,no evidence,no evidence,no evidence,no evidence
+in_situ_burning,marsh,biological recovery,no evidence,no evidence,no evidence,no evidence,no evidence,no evidence
+in_situ_burning,marsh,residual oil,no evidence,no evidence,no evidence,no evidence,no evidence,no evidence
+low_pressure_flushing,marsh,biological recovery,no clear difference,no clear difference,no clear difference,no clear difference,no clear difference,no clear difference
+low_pressure_flushing,marsh,residual oil,no clear difference,no clear difference,no clear difference,no clear difference,no clear difference,no clear difference
+low_pressure_flushing,rocky/hard,residual oil,no evidence,no evidence,no evidence,no evidence,no evidence,no evidence
+low_pressure_flushing,sand/gravel beach,erosion,no evidence,no evidence,no evidence,no evidence,no evidence,no evidence
+low_pressure_flushing,sand/gravel beach,residual oil,no clear difference,no clear difference,no clear difference,no clear difference,no clear difference,no clear difference
+low_pressure_heated_flushing,rocky/hard,biological recovery,no evidence,no evidence,no evidence,no evidence,no evidence,no evidence
+mechanical_removal,marsh,biological recovery,no evidence,no evidence,no evidence,no evidence,no evidence,no evidence
+natural_attenuation,marsh,erosion,no clear difference,no clear difference,no clear difference,no clear difference,no clear difference,no clear difference
+natural_attenuation,sand/gravel beach,degradation rate,no evidence,no evidence,no evidence,no evidence,no evidence,no evidence
+natural_attenuation,sand/gravel beach,residual oil,no evidence,no evidence,no evidence,no evidence,no evidence,no evidence
+oiling_effect,marsh,erosion,no evidence,no evidence,no evidence,no evidence,no evidence,no evidence
+passive_sorbents,marsh,biological recovery,no evidence,no evidence,no evidence,no evidence,no evidence,no evidence
+planting,mangrove,biological recovery,no evidence,no evidence,no evidence,no evidence,no evidence,no evidence
+planting,marsh,biological recovery,no evidence,no evidence,no evidence,no evidence,no evidence,no evidence
+surface_washing_agents,mangrove,biological recovery,no evidence,no evidence,no evidence,no evidence,no evidence,no evidence
+surface_washing_agents,marsh,biological recovery,no clear difference,no clear difference,no clear difference,no clear difference,no clear difference,no clear difference
+surface_washing_agents,marsh,residual oil,no evidence,no evidence,no evidence,no evidence,no evidence,no evidence
+surface_washing_agents,rocky/hard,residual oil,no evidence,no evidence,no evidence,no evidence,no evidence,no evidence
+surface_washing_agents,sand/gravel beach,biological recovery,no evidence,no evidence,no evidence,no evidence,no evidence,no evidence
+vacuum_removal,marsh,biological recovery,no evidence,no evidence,no evidence,no evidence,no evidence,no evidence
+vegetation_cutting,marsh,biological recovery,no clear difference,no clear difference,no clear difference,no clear difference,no clear difference,no clear difference

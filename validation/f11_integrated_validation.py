@@ -1,4 +1,12 @@
-"""F11 integrated validation runner; execute once after its pre-run plan is written."""
+"""F11 integrated validation runner; execute once after its pre-run plan is written.
+
+    python -m validation.f11_integrated_validation                       # original output folder results/f11_validation (v4 run; do not overwrite)
+    python -m validation.f11_integrated_validation --out-dir results/f11_validation_v5   # v5 run with the changed pipeline (D34-D36)
+
+Agreement with what responders did is NOT a performance measure: responders act by default, decisions on amenity beaches were driven
+by human use, and the pipeline's objective excludes those reasons. The "method allowed" rate is reported beside what an
+allow-everything pipeline would score (400/400).
+"""
 from __future__ import annotations
 
 import csv
@@ -21,6 +29,13 @@ from validation.historical_validation import CASES, INPUT_SPECS, sample_scenario
 
 OUT = ROOT / "results" / "f11_validation"
 REPORTS = OUT / "reports"
+
+
+def set_output(path) -> None:
+    """Point every writer in this module at another results folder."""
+    global OUT, REPORTS
+    OUT = Path(path) if Path(path).is_absolute() else ROOT / path
+    REPORTS = OUT / "reports"
 N_DRAWS = 40
 
 
@@ -36,12 +51,24 @@ def wilson_interval(successes: int, n: int, z: float = 1.96) -> tuple[float, flo
 
 
 def report_class(report) -> str:
-    """F11 definition: any A is active; otherwise the monitor headline is natural."""
+    """F11 definition: any A is active; otherwise a natural-recovery-with-monitoring headline is natural.
+
+    Since D35 that headline comes in two forms ("No clear difference from natural recovery (evidence exists)" and "Insufficient
+    evidence to compare with natural recovery"); both count as natural here so that v4 and v5 rates are comparable. The two are
+    reported separately in `report_evidence_state`."""
     if any(row["recommendation_class"] == "A" for row in report.options):
         return "active"
-    if "monitor" in report.headline.lower():
+    text = report.headline.lower()
+    if "monitor" in text or "natural recovery" in text:
         return "natural"
     return "unclassified"
+
+
+def report_evidence_state(report) -> str:
+    state = getattr(report, "evidence_state", "")
+    if state:
+        return state
+    return "benefit" if report_class(report) == "active" else "monitor (v4 headline: both states mixed)"
 
 
 def metric_row(metric: str, successes: int, n: int, basis: str) -> dict:
@@ -70,7 +97,7 @@ def historical_replay() -> tuple[pd.DataFrame, pd.DataFrame, list[str]]:
             rows.append({"record_type": "draw", "case_id": case["Case_ID"], "draw": draw,
                          "documented_class": case["response_class"], "pipeline_class": report_class(report),
                          "class_agrees": report_class(report) == case["response_class"],
-                         "headline": report.headline, "scope_tier": report.scope_tier,
+                         "headline": report.headline, "scope_tier": report.scope_tier, "evidence_state": report_evidence_state(report),
                          "documented_method": "", "method_class": "", "method_allowed_ab": "",
                          "method_excluded_e": "", "input_provenance": "SOURCED fixed values plus ASSUMED LHS draw"})
             for method in filter(None, case["method_set"].split("|")):
@@ -78,7 +105,7 @@ def historical_replay() -> tuple[pd.DataFrame, pd.DataFrame, list[str]]:
                 rows.append({"record_type": "method_draw", "case_id": case["Case_ID"], "draw": draw,
                              "documented_class": case["response_class"], "pipeline_class": report_class(report),
                              "class_agrees": report_class(report) == case["response_class"],
-                             "headline": report.headline, "scope_tier": report.scope_tier,
+                             "headline": report.headline, "scope_tier": report.scope_tier, "evidence_state": report_evidence_state(report),
                              "documented_method": method, "method_class": cls,
                              "method_allowed_ab": cls in {"A", "B"}, "method_excluded_e": cls == "E",
                              "input_provenance": "SOURCED fixed values plus ASSUMED LHS draw"})
@@ -154,10 +181,11 @@ def scope_table() -> pd.DataFrame:
 def make_reports() -> list[str]:
     REPORTS.mkdir(parents=True, exist_ok=True)
     made = []
-    for source in sorted((ROOT / "results" / "f9_pipeline").glob("*.json")):
-        target = REPORTS / f"f9_example_{source.name}"
+    from scripts.f9_examples import cases as f9_cases   # fresh reports from the current pipeline, not copies of the v4 files
+    for key, (title, run) in f9_cases().items():
+        target = REPORTS / f"f9_example_{key}.json"
         if not target.exists():
-            shutil.copyfile(source, target)
+            target.write_text(run().to_json() + "\n", encoding="utf-8")
         made.append(target.name)
     scenarios = [
         ("new_marsh_heavy.json", Scenario(shoreline_type="marsh", oil_coverage=80, oil_category="heavy", shoreline_sensitivity="high")),
@@ -166,6 +194,8 @@ def make_reports() -> list[str]:
         ("new_sand_moderate.json", Scenario(shoreline_type="sand_beach", oil_coverage=50, oil_category="medium")),
         ("new_bedrock_heavy.json", Scenario(shoreline_type="bedrock", oil_coverage=80, oil_category="heavy")),
         ("new_cobble_light.json", Scenario(shoreline_type="cobble", oil_coverage=15, oil_category="light")),
+        ("new_mixed_sediment_heavy.json", Scenario(shoreline_type="mixed_sediment", oil_coverage=70, oil_category="heavy")),
+        ("new_gravel_medium.json", Scenario(shoreline_type="gravel_beach", oil_coverage=50, oil_category="medium")),
     ]
     for name, scenario in scenarios:
         target = REPORTS / name
@@ -217,6 +247,14 @@ def main() -> None:
         if len(case_methods):
             case_allowed = case_methods.method_allowed_ab.astype(bool) & ~case_methods.method_excluded_e.astype(bool)
             metrics.append(metric_row(f"case_documented_method_allowed:{row.case_id}", int(case_allowed.sum()), len(case_methods), "documented active methods only; classes A/B and not E per draw"))
+    not_excluded = ~method_rows.method_excluded_e.astype(bool)
+    metrics.append(metric_row("documented_active_method_not_excluded_A_to_D_draw_rate", int(not_excluded.sum()), len(method_rows),
+                              "classes A-D (anything but E); v5 reports this beside the pre-specified A/B rate because C-rated NOAA methods are class D"))
+    metrics.append(metric_row("allow_everything_pipeline_method_allowed_rate", len(method_rows), len(method_rows),
+                              "a pipeline that allows every method scores this by construction; the method-allowed rate has no skill without it"))
+    if "evidence_state" in replay.columns:
+        for state, g in replay[replay.record_type == "draw"].groupby("evidence_state"):
+            metrics.append(metric_row(f"draw_evidence_state:{state}", len(g), int((replay.record_type == "draw").sum()), "share of blinded draws by report evidence state (D35)"))
     pd.DataFrame(metrics).to_csv(OUT / "metrics.csv", index=False)
     cell_path = OUT / "cell_replay_summary.csv"
     if not cell_path.exists():
@@ -232,6 +270,8 @@ def main() -> None:
              f"Historical modal active/natural agreement: {class_successes}/{len(cases)} (Wilson 95% {metric_df.loc['active_vs_natural_modal_case_agreement','wilson95_low']:.3f}–{metric_df.loc['active_vs_natural_modal_case_agreement','wilson95_high']:.3f}).",
              f"Always-active and majority baselines: {int((cases.documented_class == 'active').sum())}/{len(cases)}.",
              f"Documented active-method draw rate allowed (A/B) and not excluded (E): {int(allowed.sum())}/{len(method_rows)}.",
+             f"Allowed or flagged (A-D, not E): {int(not_excluded.sum())}/{len(method_rows)}. An allow-everything pipeline scores {len(method_rows)}/{len(method_rows)}.",
+             "Agreement with what responders did is NOT a performance measure (responders act by default; amenity-beach and buried-oil decisions were driven by use and re-oiling, which the objective excludes).",
              "Six sourced cases are too few for a general performance claim; intervals are descriptive.", "",
              "Methods excluded by the pipeline (review disagreements):", *(exclusions or ["none"]), "",
              f"Archived comparison: V4-R2 historical method top-choice agreement {archived.get('method_agreement')}/{archived.get('method_cases')}; v3 {v3.get('method_agreement')}/{v3.get('method_cases')}. Archived active/natural agreement is {archived.get('class_agreement')}/{archived.get('n_cases')} for V4-R2 and {v3.get('class_agreement')}/{v3.get('n_cases')} for v3.",
@@ -241,4 +281,10 @@ def main() -> None:
 
 
 if __name__ == "__main__":
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--out-dir", default=None, help="results folder (default: results/f11_validation, the v4 run)")
+    args = parser.parse_args()
+    if args.out_dir:
+        set_output(args.out_dir)
     main()

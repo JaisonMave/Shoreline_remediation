@@ -1,6 +1,7 @@
 {
  "name": "mangrove-damage-v1",
  "status": "experimental",
+ "wording_note_2026-11-14": "Wording correction (history kept): the per-outcome 'verdict': 'validated' entries below are the outcome-level evidence grade of the damage model (oiled minus unoiled, one spill, Bahia Las Minas) and are NOT a model state. The model state of this card is 'experimental' (see 'status' and models/registry.json); no mangrove outcome is validated across spills, and the registry's reading of 'verdict' as a validated grade should be changed to 'one-spill grade' by the registry owner.",
  "built": "2026-11-13",
  "plan": "docs/SCENARIO_PROGRAMME_PLAN.md Phase C2",
  "model": "M1: value ~ oiled * C(year since spill) + (1 | site); M0: unoiled-group mean per year",

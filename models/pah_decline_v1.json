@@ -1,6 +1,7 @@
 {
   "name": "pah-decline-v1",
   "state": "validated",
+  "wording_note_2026-11-14": "Wording correction (history kept): 'validated' in this card means the decline of the PAH SUM in soil, held out by station, within Deepwater Horizon only. It does not mean degradation has been shown. The PAH/hopane ratio does not decline, so the sum falls by physical loss (erosion, burial, removal), not shown degradation; the ratio is NOT a validated result. Source of the ratio finding: see the card's limits and the PAH decline results (results/pah_decline).",
   "built": "2026-11-13",
   "plan": "docs/PAH_DECLINE_PLAN.md (final choices by Jaison, committed before the run)",
   "model": "M1: Tobit decline of ln(PAH sum) vs time since spill with total organic carbon and campaign, per oiling class; M0: no-change baseline",

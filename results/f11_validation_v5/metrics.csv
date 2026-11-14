@@ -1,0 +1,25 @@
+metric,successes,n,rate,wilson95_low,wilson95_high,basis
+active_vs_natural_modal_case_agreement,2,6,0.3333333333333333,0.09676933255921683,0.7000116786584712,modal class across 40 blinded LHS draws; n=6 cases
+always_active_baseline,5,6,0.8333333333333334,0.43649056343635395,0.9699474141282697,all cases predicted active
+majority_class_baseline,5,6,0.8333333333333334,0.43649056343635395,0.9699474141282697,majority documented class
+documented_active_method_allowed_not_excluded_draw_rate,320,400,0.8,0.7580288635115286,0.836263552128663,documented active methods only; classes A/B and not E per draw
+case_modal_class_agreement:DWH-01,0,1,0.0,0.0,0.7934567085261071,modal across 40 draws
+case_draw_class_agreement:DWH-01,0,40,0.0,0.0,0.08762453925039232,individual blinded LHS draws; non-independent sensitivity
+case_documented_method_allowed:DWH-01,80,80,1.0,0.954180263735425,1.0,documented active methods only; classes A/B and not E per draw
+case_modal_class_agreement:DWH-02,0,1,0.0,0.0,0.7934567085261071,modal across 40 draws
+case_draw_class_agreement:DWH-02,0,40,0.0,0.0,0.08762453925039232,individual blinded LHS draws; non-independent sensitivity
+case_modal_class_agreement:DWH-03,1,1,1.0,0.20654329147389294,1.0,modal across 40 draws
+case_draw_class_agreement:DWH-03,35,40,0.875,0.7388757932976187,0.9454058022645873,individual blinded LHS draws; non-independent sensitivity
+case_modal_class_agreement:DWH-04,1,1,1.0,0.20654329147389294,1.0,modal across 40 draws
+case_draw_class_agreement:DWH-04,24,40,0.6,0.445956198273935,0.7365188938759863,individual blinded LHS draws; non-independent sensitivity
+case_documented_method_allowed:DWH-04,120,160,0.75,0.6775748906186185,0.8107015910563651,documented active methods only; classes A/B and not E per draw
+case_modal_class_agreement:DWH-05,0,1,0.0,0.0,0.7934567085261071,modal across 40 draws
+case_draw_class_agreement:DWH-05,0,40,0.0,0.0,0.08762453925039232,individual blinded LHS draws; non-independent sensitivity
+case_documented_method_allowed:DWH-05,80,80,1.0,0.954180263735425,1.0,documented active methods only; classes A/B and not E per draw
+case_modal_class_agreement:EVOS-01,0,1,0.0,0.0,0.7934567085261071,modal across 40 draws
+case_draw_class_agreement:EVOS-01,0,40,0.0,0.0,0.08762453925039232,individual blinded LHS draws; non-independent sensitivity
+case_documented_method_allowed:EVOS-01,40,80,0.5,0.392972274311075,0.607027725688925,documented active methods only; classes A/B and not E per draw
+documented_active_method_not_excluded_A_to_D_draw_rate,360,400,0.9,0.8666887392099005,0.925701148310355,classes A-D (anything but E); v5 reports this beside the pre-specified A/B rate because C-rated NOAA methods are class D
+allow_everything_pipeline_method_allowed_rate,400,400,1.0,0.9904873594003194,1.0,a pipeline that allows every method scores this by construction; the method-allowed rate has no skill without it
+draw_evidence_state:benefit,29,240,0.12083333333333333,0.08546293107499936,0.1681508903566185,share of blinded draws by report evidence state (D35)
+draw_evidence_state:no_clear_difference,211,240,0.8791666666666667,0.8318491096433814,0.9145370689250006,share of blinded draws by report evidence state (D35)
