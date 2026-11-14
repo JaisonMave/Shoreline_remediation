@@ -1,0 +1,7 @@
+scenario_id,shoreline_type,shoreline_sensitivity,oil_category,wave_exposure,top_treatment,utility,feasibility,uncertainty,key_decision_drivers
+1,marsh,very_high,heavy,low,passive_sorbents,5.6,eligible,0.81,high ecological sensitivity; heavy oil persistence; restricted operational access
+2,sand_beach,moderate,heavy,moderate,passive_sorbents,5.6,eligible,1.0,heavy oil persistence; penetration below surface
+3,mixed_sediment,high,heavy,moderate,passive_sorbents,5.6,eligible,1.0,high ecological sensitivity; heavy oil persistence; penetration below surface
+4,cobble,moderate,light,high,passive_sorbents,5.6,eligible,0.71,high wave exposure
+5,mudflat,high,medium,low,passive_sorbents,5.6,eligible,1.0,high ecological sensitivity; penetration below surface; restricted operational access
+6,bedrock,low,light,high,manual_removal,5.66,eligible,0.57,high wave exposure

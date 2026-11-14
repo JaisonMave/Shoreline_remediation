@@ -1,0 +1,79 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="utf-8" />
+      <title>Shoreline Remediation Dashboard</title>
+      <style>
+        body { font-family: Arial, sans-serif; background: #f3f4f6; margin: 0; padding: 24px; color: #1d1d1f; }
+        h1 { text-align: center; margin-bottom: 18px; }
+        .plot { text-align: center; margin: 24px auto 18px auto; }
+        .plot img { max-width: 100%; border: 1px solid #d0d0d0; background: white; }
+        .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+        .card { background: white; border: 1px solid #d7d7d7; border-radius: 10px; padding: 16px; box-shadow: 0 2px 6px rgba(0,0,0,0.04); }
+        .card h3 { margin-top: 0; color: #1f3b74; }
+        p { margin: 8px 0; line-height: 1.4; }
+      </style>
+    </head>
+    <body>
+      <h1>Shoreline Remediation Comparison Dashboard</h1>
+      <div class="plot">
+        <img src="scenario_comparison_report.png" alt="Shoreline remediation comparison plot" />
+      </div>
+      <div class="cards">
+        <div class="card">
+          <h3>Scenario 1: marsh</h3>
+          <p><strong>Top treatment:</strong> passive_sorbents</p>
+          <p><strong>Utility:</strong> 5.6</p>
+          <p><strong>Uncertainty:</strong> 0.81</p>
+          <p><strong>Key drivers:</strong> high ecological sensitivity; heavy oil persistence; restricted operational access</p>
+        </div>
+        
+
+        <div class="card">
+          <h3>Scenario 2: sand_beach</h3>
+          <p><strong>Top treatment:</strong> passive_sorbents</p>
+          <p><strong>Utility:</strong> 5.6</p>
+          <p><strong>Uncertainty:</strong> 1.0</p>
+          <p><strong>Key drivers:</strong> heavy oil persistence; penetration below surface</p>
+        </div>
+        
+
+        <div class="card">
+          <h3>Scenario 3: mixed_sediment</h3>
+          <p><strong>Top treatment:</strong> passive_sorbents</p>
+          <p><strong>Utility:</strong> 5.6</p>
+          <p><strong>Uncertainty:</strong> 1.0</p>
+          <p><strong>Key drivers:</strong> high ecological sensitivity; heavy oil persistence; penetration below surface</p>
+        </div>
+        
+
+        <div class="card">
+          <h3>Scenario 4: cobble</h3>
+          <p><strong>Top treatment:</strong> passive_sorbents</p>
+          <p><strong>Utility:</strong> 5.6</p>
+          <p><strong>Uncertainty:</strong> 0.71</p>
+          <p><strong>Key drivers:</strong> high wave exposure</p>
+        </div>
+        
+
+        <div class="card">
+          <h3>Scenario 5: mudflat</h3>
+          <p><strong>Top treatment:</strong> passive_sorbents</p>
+          <p><strong>Utility:</strong> 5.6</p>
+          <p><strong>Uncertainty:</strong> 1.0</p>
+          <p><strong>Key drivers:</strong> high ecological sensitivity; penetration below surface; restricted operational access</p>
+        </div>
+        
+
+        <div class="card">
+          <h3>Scenario 6: bedrock</h3>
+          <p><strong>Top treatment:</strong> manual_removal</p>
+          <p><strong>Utility:</strong> 5.66</p>
+          <p><strong>Uncertainty:</strong> 0.57</p>
+          <p><strong>Key drivers:</strong> high wave exposure</p>
+        </div>
+        </div>
+    </body>
+    </html>
+    
