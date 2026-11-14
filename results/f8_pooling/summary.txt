@@ -1,0 +1,44 @@
+F8b LITERATURE POOLING SUMMARY (DEFECT-FIX RERUN)
+Evidence: LITERATURE (AI-extracted; Jaison accepted 14 Nov 2026).
+F8 verdict and pooled tables are preserved in results/f8_pooling/v1/.
+Effect scale: benefit-oriented lnRR; positive = benefit, zero = no effect, negative = harm.
+
+Input rows processed: 144 (source-index rows read for provenance: 90).
+Row tiers: {'excluded': 106, 'listing/sensitivity': 21, 'primary': 12, 'sensitivity': 5}.
+Observed technology-habitat-outcome groups: 33.
+Primary pooled groups (>=3 independent variance-complete studies): 0.
+Forest plots written: 0.
+ASSUMED median-CV variance imputations (sensitivity only): 6.
+Verdicts: {'evidence of harm': 2, 'no clear difference': 7, 'no evidence': 24}.
+Marsh vegetation tau-multiplier ranges: 0.
+
+BEFORE/AFTER VERDICT COUNTS
+| Verdict | F8 | F8b |
+|---|---:|---:|
+| evidence of benefit | 0 | 0 |
+| evidence of harm | 0 | 2 |
+| no clear difference | 10 | 7 |
+| no evidence | 24 | 24 |
+
+CHANGED GROUP VERDICTS
+| Technology | Habitat | Outcome | F8 | F8b |
+|---|---|---|---|---|
+| bioremediation | sand/gravel beach | erosion | no clear difference | group removed |
+| high_pressure_heated_washing | rocky/hard | biological recovery | no clear difference | evidence of harm |
+| high_pressure_heated_washing | sand/gravel beach | biological recovery | no clear difference | evidence of harm |
+
+OUTCOME-MAPPING CHANGES
+- C011: erosion -> excluded/unclassified
+
+Verdict gate: pooled groups use the 95% prediction interval. Unpooled groups evaluate each grade A/B independent study CI; one unopposed direction gives benefit/harm and conflicting directions give no clear difference. Sensitivity cannot upgrade verdicts.
+Multiple rows from one study/group were collapsed after selecting the latest time <=730 days; longest-time estimates are supplementary columns.
+Rate-constant effects without variance remain listings; their exp(lnRR) ratios are reported in evidence_verdicts.csv notes.
+
+ZENGEL / HELD-DATA CROSS-CHECK (NO REFITTING)
+No pooled marsh manual_removal, mechanical_removal, or planting biological-recovery/erosion coefficient exists. The requested Zengel/held-data agreement cross-check is therefore not testable without refitting; no agreement was claimed.
+
+ASSUMPTIONS AND LIMITATIONS
+- Missing variance is excluded from primary pooling; median group-CV imputation is ASSUMED and sensitivity-only.
+- C011 is excluded as a Fowler Beach physical-balance covariate, not treated as shoreline erosion or an oil-response coefficient.
+- Vegetation tau mapping is ASSUMED as exp(pooled PI) or exp(a single grade A/B study CI); missing CI yields no range.
+- No checked_by or source extraction field was modified.

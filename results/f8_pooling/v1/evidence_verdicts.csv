@@ -1,0 +1,35 @@
+﻿technology,habitat,outcome_family,verdict,basis,effect,ci_lo,ci_hi,pi_lo,pi_hi,grade_mix,n_studies,notes
+bioremediation,marsh,biological recovery,no evidence,no eligible rows,,,,,,,0,
+bioremediation,marsh,residual oil,no evidence,no eligible rows,,,,,,,0,
+bioremediation,other,degradation rate,no evidence,no eligible rows,,,,,,,0,
+bioremediation,sand/gravel beach,degradation rate,no clear difference,single study (Venosa AD (1996)),0.52687806,,,,,A:1,1,1 selected study estimate(s) lack variance; fewer than 3 variance-complete independent studies; not pooled
+bioremediation,sand/gravel beach,erosion,no clear difference,single study (Venosa AD (1996)),1.0116009,-4.9340986,6.9573004,,,A:1,1,fewer than 3 variance-complete independent studies; not pooled
+bioremediation,sand/gravel beach,residual oil,no evidence,no eligible rows,,,,,,,0,
+high_pressure_heated_washing,rocky/hard,biological recovery,no clear difference,single-study listing (k=2; not pooled),,,,,,B:2,2,1 selected study estimate(s) lack variance; fewer than 3 variance-complete independent studies; not pooled
+high_pressure_heated_washing,rocky/hard,residual oil,no evidence,no eligible rows,,,,,,,0,
+high_pressure_heated_washing,sand/gravel beach,biological recovery,no clear difference,single-study listing (k=2; not pooled),,,,,,B:2,2,1 selected study estimate(s) lack variance; fewer than 3 variance-complete independent studies; not pooled
+high_pressure_heated_washing,sand/gravel beach,residual oil,no evidence,no eligible rows,,,,,,,0,
+high_pressure_washing,rocky/hard,biological recovery,no evidence,no eligible rows,,,,,,,0,
+in_situ_burning,marsh,biological recovery,no evidence,no eligible rows,,,,,,,0,
+in_situ_burning,marsh,residual oil,no evidence,no eligible rows,,,,,,,0,
+low_pressure_flushing,marsh,biological recovery,no clear difference,single study (Hoff RZ (1995)),0,,,,,A:1,1,1 selected study estimate(s) lack variance; fewer than 3 variance-complete independent studies; not pooled
+low_pressure_flushing,marsh,residual oil,no clear difference,single study (Michel J (1998)),0,,,,,B:1,1,1 selected study estimate(s) lack variance; fewer than 3 variance-complete independent studies; not pooled
+low_pressure_flushing,rocky/hard,residual oil,no evidence,no eligible rows,,,,,,,0,
+low_pressure_flushing,sand/gravel beach,erosion,no evidence,no eligible rows,,,,,,,0,
+low_pressure_flushing,sand/gravel beach,residual oil,no clear difference,single study (Howard S (1987)),1.9310215,,,,,A:1,1,1 selected study estimate(s) lack variance; fewer than 3 variance-complete independent studies; not pooled
+low_pressure_heated_flushing,rocky/hard,biological recovery,no evidence,no eligible rows,,,,,,,0,
+mechanical_removal,marsh,biological recovery,no evidence,no eligible rows,,,,,,,0,
+natural_attenuation,marsh,erosion,no clear difference,single study (Zengel (2022)),-2.6584851,,,,,B:1,1,1 selected study estimate(s) lack variance; fewer than 3 variance-complete independent studies; not pooled
+natural_attenuation,sand/gravel beach,degradation rate,no evidence,no eligible rows,,,,,,,0,
+natural_attenuation,sand/gravel beach,residual oil,no evidence,no eligible rows,,,,,,,0,
+oiling_effect,marsh,erosion,no evidence,no eligible rows,,,,,,,0,
+passive_sorbents,marsh,biological recovery,no evidence,no eligible rows,,,,,,,0,
+planting,mangrove,biological recovery,no evidence,no eligible rows,,,,,,,0,
+planting,marsh,biological recovery,no evidence,no eligible rows,,,,,,,0,
+surface_washing_agents,mangrove,biological recovery,no evidence,no eligible rows,,,,,,,0,
+surface_washing_agents,marsh,biological recovery,no clear difference,single study (Pezeshki SR (2001)),0,,,,,A:1,1,1 selected study estimate(s) lack variance; fewer than 3 variance-complete independent studies; not pooled
+surface_washing_agents,marsh,residual oil,no evidence,no eligible rows,,,,,,,0,
+surface_washing_agents,rocky/hard,residual oil,no evidence,no eligible rows,,,,,,,0,
+surface_washing_agents,sand/gravel beach,biological recovery,no evidence,no eligible rows,,,,,,,0,
+vacuum_removal,marsh,biological recovery,no evidence,no eligible rows,,,,,,,0,
+vegetation_cutting,marsh,biological recovery,no clear difference,single study (Hoff RZ (1995)),-2.3025851,,,,,A:1,1,1 selected study estimate(s) lack variance; fewer than 3 variance-complete independent studies; not pooled

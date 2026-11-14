@@ -1,0 +1,35 @@
+﻿technology,habitat,outcome_family,effect_scale,n_studies,k,pooled_effect,ci_lo,ci_hi,pi_lo,pi_hi,tau2,i2,grade_mix,longest_n_studies,longest_k,longest_effect,longest_ci_lo,longest_ci_hi,longest_pi_lo,longest_pi_hi,longest_tau2,longest_i2,sensitivity_k,sensitivity_effect,sensitivity_ci_lo,sensitivity_ci_hi,sensitivity_pi_lo,sensitivity_pi_hi,sensitivity_tau2,sensitivity_i2,notes
+bioremediation,marsh,biological recovery,benefit-oriented lnRR,0,0,,,,,,,,,0,0,,,,,,,,0,,,,,,,,
+bioremediation,marsh,residual oil,benefit-oriented lnRR,0,0,,,,,,,,,0,0,,,,,,,,0,,,,,,,,
+bioremediation,other,degradation rate,benefit-oriented lnRR,0,0,,,,,,,,,0,0,,,,,,,,0,,,,,,,,
+bioremediation,sand/gravel beach,degradation rate,benefit-oriented lnRR,1,0,,,,,,,,A:1,1,0,,,,,,,,0,,,,,,,,1 selected study estimate(s) lack variance; fewer than 3 variance-complete independent studies; not pooled
+bioremediation,sand/gravel beach,erosion,benefit-oriented lnRR,1,1,,,,,,,,A:1,1,1,,,,,,,,1,,,,,,,,fewer than 3 variance-complete independent studies; not pooled
+bioremediation,sand/gravel beach,residual oil,benefit-oriented lnRR,0,0,,,,,,,,,0,0,,,,,,,,0,,,,,,,,
+high_pressure_heated_washing,rocky/hard,biological recovery,benefit-oriented lnRR,2,1,,,,,,,,B:2,2,0,,,,,,,,2,,,,,,,,1 selected study estimate(s) lack variance; fewer than 3 variance-complete independent studies; not pooled
+high_pressure_heated_washing,rocky/hard,residual oil,benefit-oriented lnRR,0,0,,,,,,,,,0,0,,,,,,,,0,,,,,,,,
+high_pressure_heated_washing,sand/gravel beach,biological recovery,benefit-oriented lnRR,2,1,,,,,,,,B:2,2,1,,,,,,,,2,,,,,,,,1 selected study estimate(s) lack variance; fewer than 3 variance-complete independent studies; not pooled
+high_pressure_heated_washing,sand/gravel beach,residual oil,benefit-oriented lnRR,0,0,,,,,,,,,0,0,,,,,,,,0,,,,,,,,
+high_pressure_washing,rocky/hard,biological recovery,benefit-oriented lnRR,0,0,,,,,,,,,0,0,,,,,,,,0,,,,,,,,
+in_situ_burning,marsh,biological recovery,benefit-oriented lnRR,0,0,,,,,,,,,0,0,,,,,,,,0,,,,,,,,
+in_situ_burning,marsh,residual oil,benefit-oriented lnRR,0,0,,,,,,,,,0,0,,,,,,,,0,,,,,,,,
+low_pressure_flushing,marsh,biological recovery,benefit-oriented lnRR,1,0,,,,,,,,A:1,1,0,,,,,,,,0,,,,,,,,1 selected study estimate(s) lack variance; fewer than 3 variance-complete independent studies; not pooled
+low_pressure_flushing,marsh,residual oil,benefit-oriented lnRR,1,0,,,,,,,,B:1,1,0,,,,,,,,0,,,,,,,,1 selected study estimate(s) lack variance; fewer than 3 variance-complete independent studies; not pooled
+low_pressure_flushing,rocky/hard,residual oil,benefit-oriented lnRR,0,0,,,,,,,,,0,0,,,,,,,,0,,,,,,,,
+low_pressure_flushing,sand/gravel beach,erosion,benefit-oriented lnRR,0,0,,,,,,,,,0,0,,,,,,,,0,,,,,,,,
+low_pressure_flushing,sand/gravel beach,residual oil,benefit-oriented lnRR,1,0,,,,,,,,A:1,1,0,,,,,,,,0,,,,,,,,1 selected study estimate(s) lack variance; fewer than 3 variance-complete independent studies; not pooled
+low_pressure_heated_flushing,rocky/hard,biological recovery,benefit-oriented lnRR,0,0,,,,,,,,,0,0,,,,,,,,0,,,,,,,,
+mechanical_removal,marsh,biological recovery,benefit-oriented lnRR,0,0,,,,,,,,,0,0,,,,,,,,0,,,,,,,,
+natural_attenuation,marsh,erosion,benefit-oriented lnRR,1,0,,,,,,,,B:1,1,0,,,,,,,,0,,,,,,,,1 selected study estimate(s) lack variance; fewer than 3 variance-complete independent studies; not pooled
+natural_attenuation,sand/gravel beach,degradation rate,benefit-oriented lnRR,0,0,,,,,,,,,0,0,,,,,,,,0,,,,,,,,
+natural_attenuation,sand/gravel beach,residual oil,benefit-oriented lnRR,0,0,,,,,,,,,0,0,,,,,,,,0,,,,,,,,
+oiling_effect,marsh,erosion,benefit-oriented lnRR,0,0,,,,,,,,,0,0,,,,,,,,0,,,,,,,,
+passive_sorbents,marsh,biological recovery,benefit-oriented lnRR,0,0,,,,,,,,,0,0,,,,,,,,0,,,,,,,,
+planting,mangrove,biological recovery,benefit-oriented lnRR,0,0,,,,,,,,,0,0,,,,,,,,0,,,,,,,,
+planting,marsh,biological recovery,benefit-oriented lnRR,0,0,,,,,,,,,0,0,,,,,,,,0,,,,,,,,
+surface_washing_agents,mangrove,biological recovery,benefit-oriented lnRR,0,0,,,,,,,,,0,0,,,,,,,,0,,,,,,,,
+surface_washing_agents,marsh,biological recovery,benefit-oriented lnRR,1,0,,,,,,,,A:1,1,0,,,,,,,,0,,,,,,,,1 selected study estimate(s) lack variance; fewer than 3 variance-complete independent studies; not pooled
+surface_washing_agents,marsh,residual oil,benefit-oriented lnRR,0,0,,,,,,,,,0,0,,,,,,,,1,,,,,,,,
+surface_washing_agents,rocky/hard,residual oil,benefit-oriented lnRR,0,0,,,,,,,,,0,0,,,,,,,,0,,,,,,,,
+surface_washing_agents,sand/gravel beach,biological recovery,benefit-oriented lnRR,0,0,,,,,,,,,0,0,,,,,,,,0,,,,,,,,
+vacuum_removal,marsh,biological recovery,benefit-oriented lnRR,0,0,,,,,,,,,0,0,,,,,,,,0,,,,,,,,
+vegetation_cutting,marsh,biological recovery,benefit-oriented lnRR,1,0,,,,,,,,A:1,1,0,,,,,,,,0,,,,,,,,1 selected study estimate(s) lack variance; fewer than 3 variance-complete independent studies; not pooled
