@@ -85,7 +85,7 @@ Response to the v4 review. Findings: `docs/FINDINGS_V5.md` sections 43-51. "Impl
 | V5-8 | Sand-beach persistence model (D39) | Under validation: gates B-1 and B-2 FAILED; baseline curve packaged, experimental (FINDINGS_V5 48) |
 | V5-9 | Open-access literature and Exxon Valdez data obtained | Completed as acquisition; not analysed (FINDINGS_V5 49) |
 | V5-10 | Dashboard re-base on the decision pipeline (D40) | Under validation: script-tested, no browser check; owner visual check awaited (FINDINGS_V5 50) |
-| V5-11 | Integration of beach model, registry and dashboard | In progress (FINDINGS_V5 51) |
+| V5-11 | Integration of beach model, registry and dashboard | Under validation: implemented (FINDINGS_V5 section 51), 327 tests pass; no browser check |
 | V5-12 | OR&R 42 digitisation (treatment effects) | Not started: needs the owner's browser access; document not obtained |
 | V5-13 | Beach outcome redefinition; Exxon Valdez gravel and mixed-beach persistence | Not started: needs its own pre-specified plan |
 | V5-14 | Second spill; treatment records per segment; expert review | Awaiting data |
