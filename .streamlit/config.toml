@@ -1,18 +1,18 @@
-# Dashboard theme (decision D40). Works in light and dark; the app follows the operating system setting.
+# Dashboard theme (V5.1 design foundation; replaces the D40 light/dark pair). Dark only.
+# The colours are the CLAUDE.md palette and must match PALETTE in src/shoreline_remediation/ui_theme.py
+# (tests/test_ui_theme.py checks this). The printable HTML report keeps its own light styling.
 [theme]
-baseRadius = "0.6rem"
+base = "dark"
+primaryColor = "#28B8A5"
+backgroundColor = "#080D17"
+secondaryBackgroundColor = "#111A29"
+textColor = "#F4F7FA"
+linkColor = "#4E9BE8"
+borderColor = "#26344D"
+baseRadius = "0.75rem"
 font = "sans-serif"
-
-[theme.light]
-primaryColor = "#0F5C5C"
-backgroundColor = "#FAFAF7"
-secondaryBackgroundColor = "#EEF1EC"
-textColor = "#1B2A30"
-chartCategoricalColors = ["#0072B2", "#E69F00", "#009E73", "#CC79A7", "#56B4E9", "#D55E00"]
-
-[theme.dark]
-primaryColor = "#4FB3B3"
-backgroundColor = "#0F1B1E"
-secondaryBackgroundColor = "#17262A"
-textColor = "#E8EEEC"
 chartCategoricalColors = ["#56B4E9", "#E69F00", "#009E73", "#CC79A7", "#0072B2", "#D55E00"]
+
+[theme.sidebar]
+backgroundColor = "#111A29"
+secondaryBackgroundColor = "#182438"

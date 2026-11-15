@@ -10,7 +10,9 @@ Rules the palette follows
       only signal: every chip also carries a letter, a symbol and words.
     * Evidence grades: encoded by the fill style as well as the hue (solid, hatched, dashed outline, dotted), so the weak
       grades look visibly different from the validated one even in greyscale.
-    * Chips use a translucent tint and the theme's own text colour, so they read in light and in dark mode.
+    * Chips use a translucent tint and the inherited text colour, so they read on the dark dashboard and in the light report.
+    * PALETTE holds the eight V5.1 design colours. COMPONENT_CSS (chips, class labels) is shared with the HTML report;
+      CSS adds the dark dashboard shell on top of it. Evidence meaning is never changed by the theme, only contrast.
 """
 from __future__ import annotations
 
@@ -22,7 +24,27 @@ OKABE_ITO = {"orange": "#E69F00", "sky_blue": "#56B4E9", "bluish_green": "#009E7
              "blue": "#0072B2", "vermillion": "#D55E00", "reddish_purple": "#CC79A7"}
 SERIES_COLOURS = [OKABE_ITO["blue"], OKABE_ITO["orange"], OKABE_ITO["bluish_green"], OKABE_ITO["reddish_purple"],
                   OKABE_ITO["sky_blue"], OKABE_ITO["vermillion"]]
-BRAND = {"light": "#0F5C5C", "dark": "#4FB3B3"}
+BRAND = {"light": "#0F5C5C", "dark": "#28B8A5"}
+
+# ---------------------------------------------------------------------------------------------------------------
+# V5.1 design palette (CLAUDE.md section 6). The dashboard is dark only; the HTML report stays light for printing.
+# The same eight values are set in .streamlit/config.toml (a test keeps the two in step).
+PALETTE = {
+    "background": "#080D17",            # page
+    "secondary_background": "#111A29",  # sidebar, inputs, table headers
+    "card": "#182438",                  # cards, expanders, panels
+    "teal": "#28B8A5",                  # primary accent, primary actions
+    "blue": "#4E9BE8",                  # secondary accent, links
+    "highlight": "#B6D9CF",             # kickers, hover, emphasis
+    "text": "#F4F7FA",                  # primary text
+    "text_secondary": "#A6B2C2",        # captions, labels
+}
+# Derived from the palette (not new brand colours): hairline border and a raised-card tone.
+PALETTE_DERIVED = {"border": "#26344D", "card_raised": "#1F2E47"}
+# Evidence-grade chip colours on the dark dashboard. Same hue family as GRADES[...]["hex"] (which the light HTML
+# report keeps), lightened so the outline has at least 3:1 contrast against the card colour. Meanings are unchanged.
+GRADE_COLOURS_DARK = {"validated": "#28B8A5", "experimental": "#E0A83A", "rules": "#4E9BE8", "ai": "#B3A8C4",
+                      "illustrative": "#A6B2C2"}
 NEUTRAL = "#6B7280"       # mid grey that reads on both light and dark backgrounds (stroke, not text)
 
 # ---------------------------------------------------------------------------------------------------------------
@@ -195,32 +217,132 @@ SCOPE_LIMITS = {
 }
 
 # ---------------------------------------------------------------------------------------------------------------
-# CSS. Only what Streamlit's theme cannot do: chips, cards, hatched AI-proposed blocks. No fixed text or background colours.
-CSS = """
-<style>
-.sr-hero{padding:.2rem 0 .6rem 0;}
-.sr-hero h1{font-size:2rem;margin:0 0 .25rem 0;letter-spacing:0;}
-.sr-hero p{margin:0;opacity:.85;font-size:1.02rem;}
+# CSS, in two layers.
+#   _COMPONENT: chips, class labels, AI-proposed blocks. No fixed text or background colours; chip colours are CSS
+#               variables with light-safe fallbacks, so the printable HTML report can reuse it unchanged.
+#   _APP:       the dark dashboard shell built on PALETTE: page, hero, cards, buttons, expanders, tables, focus rings.
+# COMPONENT_CSS is what ui_report embeds; CSS is what the dashboard injects.
+_COMPONENT = """
 .sr-chip{display:inline-flex;align-items:center;gap:.3em;padding:.06rem .6rem;border-radius:999px;font-size:.78rem;font-weight:600;
   border:1.5px solid var(--c);white-space:nowrap;line-height:1.35;vertical-align:middle;}
-.sr-g-validated{--c:#0F766E;background:color-mix(in srgb,var(--c) 32%,transparent);}
-.sr-g-experimental{--c:#B7791F;background:repeating-linear-gradient(45deg,transparent 0 4px,color-mix(in srgb,var(--c) 34%,transparent) 4px 6px);}
-.sr-g-rules{--c:#2F6DB5;border-style:dashed;background:transparent;}
-.sr-g-ai{--c:#8A7F99;border-style:dotted;background:repeating-linear-gradient(135deg,transparent 0 3px,color-mix(in srgb,var(--c) 26%,transparent) 3px 4px);}
-.sr-g-illustrative{--c:#6B7280;border-style:dotted;font-style:italic;background:transparent;}
+.sr-g-validated{--c:var(--sr-g-validated,#0F766E);background:color-mix(in srgb,var(--c) 32%,transparent);}
+.sr-g-experimental{--c:var(--sr-g-experimental,#B7791F);background:repeating-linear-gradient(45deg,transparent 0 4px,color-mix(in srgb,var(--c) 34%,transparent) 4px 6px);}
+.sr-g-rules{--c:var(--sr-g-rules,#2F6DB5);border-style:dashed;background:transparent;}
+.sr-g-ai{--c:var(--sr-g-ai,#8A7F99);border-style:dotted;background:repeating-linear-gradient(135deg,transparent 0 3px,color-mix(in srgb,var(--c) 26%,transparent) 3px 4px);}
+.sr-g-illustrative{--c:var(--sr-g-illustrative,#6B7280);border-style:dotted;font-style:italic;background:transparent;}
 .sr-cls{display:inline-flex;align-items:center;gap:.35em;padding:.06rem .55rem;border-radius:6px;font-size:.85rem;
   border:1.5px solid var(--c);background:color-mix(in srgb,var(--c) 18%,transparent);white-space:nowrap;vertical-align:middle;}
 .sr-cls b{font-weight:700;}
 .sr-cls-E .sr-cls-name{text-decoration:line-through;opacity:.8;}
-.sr-ai-block{border:1.5px dotted #8A7F99;border-radius:8px;padding:.6rem .9rem;margin:.4rem 0;
-  background:repeating-linear-gradient(135deg,transparent 0 6px,color-mix(in srgb,#8A7F99 12%,transparent) 6px 8px);}
+.sr-ai-block{--c:var(--sr-g-ai,#8A7F99);border:1.5px dotted var(--c);border-radius:8px;padding:.6rem .9rem;margin:.4rem 0;
+  background:repeating-linear-gradient(135deg,transparent 0 6px,color-mix(in srgb,var(--c) 12%,transparent) 6px 8px);}
 .sr-ai-block table{border-collapse:collapse;width:100%;font-size:.9rem;opacity:.85;}
-.sr-ai-block th,.sr-ai-block td{text-align:left;padding:.2rem .5rem;border-bottom:1px solid color-mix(in srgb,#8A7F99 35%,transparent);}
+.sr-ai-block th,.sr-ai-block td{text-align:left;padding:.2rem .5rem;border-bottom:1px solid color-mix(in srgb,var(--c) 35%,transparent);}
 .sr-opt-title{font-weight:650;font-size:1.02rem;margin:.1rem 0 .25rem 0;}
 .sr-muted{opacity:.75;font-size:.88rem;}
-.sr-scope{border-left:4px solid var(--c,#0F5C5C);padding:.35rem .8rem;margin:.2rem 0 .6rem 0;
-  background:color-mix(in srgb,var(--c,#0F5C5C) 10%,transparent);border-radius:0 8px 8px 0;font-size:.92rem;}
+.sr-scope{border-left:4px solid var(--c,var(--sr-teal,#0F5C5C));padding:.35rem .8rem;margin:.2rem 0 .6rem 0;
+  background:color-mix(in srgb,var(--c,var(--sr-teal,#0F5C5C)) 10%,transparent);border-radius:0 8px 8px 0;font-size:.92rem;}
 .sr-answer{font-size:1.12rem;line-height:1.45;font-weight:560;margin:.2rem 0 .4rem 0;}
 .sr-legend-row{margin:.25rem 0;font-size:.88rem;}
-</style>
+.sr-hero{padding:.2rem 0 .6rem 0;}
+.sr-hero h1{font-size:2rem;margin:0 0 .25rem 0;letter-spacing:0;}
+.sr-hero p{margin:0;opacity:.85;font-size:1.02rem;}
 """
+
+_ROOT_VARS = (":root{"
+              + "".join(f"--sr-{k.replace('_', '-')}:{v};" for k, v in {**PALETTE, **PALETTE_DERIVED}.items())
+              + "".join(f"--sr-g-{k}:{v};" for k, v in GRADE_COLOURS_DARK.items())
+              + "--sr-radius:14px;--sr-radius-sm:8px;--sr-shadow:0 10px 30px rgba(0,0,0,.35);"
+                "--sr-space-1:.25rem;--sr-space-2:.5rem;--sr-space-3:1rem;--sr-space-4:1.5rem;--sr-space-5:2.5rem;}")
+
+_APP = _ROOT_VARS + """
+/* ---- Page shell ---- */
+.stApp{background:
+  radial-gradient(1100px 520px at 12% -8%,color-mix(in srgb,var(--sr-teal) 13%,transparent),transparent 62%),
+  radial-gradient(900px 480px at 96% 0%,color-mix(in srgb,var(--sr-blue) 11%,transparent),transparent 60%),
+  var(--sr-background);background-attachment:fixed;color:var(--sr-text);}
+[data-testid="stHeader"]{background:transparent;}
+[data-testid="stMainBlockContainer"]{max-width:1440px;padding-top:2.75rem;}
+[data-testid="stSidebar"]{background:var(--sr-secondary-background);border-right:1px solid var(--sr-border);}
+::selection{background:color-mix(in srgb,var(--sr-teal) 45%,transparent);}
+*{scrollbar-color:var(--sr-border) transparent;}
+
+/* ---- Typography ---- */
+.stApp h1,.stApp h2,.stApp h3,.stApp h4{color:var(--sr-text);letter-spacing:-.012em;line-height:1.2;}
+.stApp h2{font-size:1.55rem;font-weight:700;}
+.stApp h3{font-size:1.2rem;font-weight:650;}
+.stApp [data-testid="stCaptionContainer"],.stApp small{color:var(--sr-text-secondary);opacity:1;}  /* default .6 opacity fails AA on dark */
+.stApp a{color:var(--sr-blue);text-underline-offset:2px;}
+.stApp a:hover{color:var(--sr-highlight);}
+.stApp hr{border-color:var(--sr-border);}
+
+/* ---- Hero: featured banner (gradients only, no imagery) ---- */
+.sr-hero{position:relative;overflow:hidden;padding:clamp(1.4rem,3.2vw,2.6rem) clamp(1.2rem,3.4vw,2.8rem);margin:0 0 var(--sr-space-3) 0;
+  border:1px solid var(--sr-border);border-radius:calc(var(--sr-radius) + 4px);box-shadow:var(--sr-shadow);
+  background:
+    linear-gradient(100deg,var(--sr-background) 0%,color-mix(in srgb,var(--sr-background) 72%,transparent) 46%,transparent 100%),
+    radial-gradient(120% 150% at 100% 0%,color-mix(in srgb,var(--sr-teal) 42%,transparent),transparent 58%),
+    radial-gradient(90% 130% at 78% 115%,color-mix(in srgb,var(--sr-blue) 38%,transparent),transparent 62%),
+    var(--sr-secondary-background);}
+.sr-hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;
+  background:linear-gradient(90deg,var(--sr-teal),var(--sr-blue) 55%,transparent);}
+.sr-hero h1{font-size:clamp(1.7rem,3.4vw,2.75rem);font-weight:750;letter-spacing:-.022em;margin:0 0 .5rem 0;padding:0;max-width:22ch;}
+.sr-hero p{font-size:clamp(.98rem,1.25vw,1.12rem);line-height:1.55;color:var(--sr-text-secondary);opacity:1;max-width:68ch;}
+
+/* ---- Reusable layout pieces (used by the component layer) ---- */
+.sr-kicker{font-size:.74rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sr-highlight);margin:0 0 .3rem 0;}
+.sr-section{margin:var(--sr-space-5) 0 var(--sr-space-3) 0;}
+.sr-section h2{margin:0;padding:0;}
+.sr-card{background:var(--sr-card);border:1px solid var(--sr-border);border-radius:var(--sr-radius);padding:var(--sr-space-3) 1.15rem;
+  transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;}
+.sr-card:hover{border-color:color-mix(in srgb,var(--sr-teal) 55%,var(--sr-border));box-shadow:var(--sr-shadow);transform:translateY(-2px);}
+.sr-row{display:flex;gap:var(--sr-space-3);overflow-x:auto;padding:.3rem .1rem 1rem .1rem;scroll-snap-type:x proximity;}
+.sr-row>*{flex:0 0 clamp(230px,24vw,320px);scroll-snap-align:start;}
+.sr-muted{opacity:1;color:var(--sr-text-secondary);}
+.sr-answer{color:var(--sr-text);}
+.sr-scope{border-radius:0 var(--sr-radius-sm) var(--sr-radius-sm) 0;color:var(--sr-text);}
+
+/* ---- Streamlit surfaces ---- */
+[data-testid="stExpander"] details{background:var(--sr-card);border:1px solid var(--sr-border);border-radius:var(--sr-radius);overflow:hidden;}
+[data-testid="stExpander"] summary{font-weight:600;}
+[data-testid="stExpander"] summary:hover{color:var(--sr-highlight);}
+[data-testid="stSidebar"] [data-testid="stExpander"] details{background:var(--sr-card);}
+[data-testid="stVerticalBlockBorderWrapper"],[data-testid="stLayoutWrapper"]>[data-testid="stVerticalBlock"][class*="border"]{border-color:var(--sr-border);}
+[data-testid="stMetric"]{background:var(--sr-card);border:1px solid var(--sr-border);border-radius:var(--sr-radius);padding:.85rem 1rem;}
+[data-testid="stMetricLabel"]{color:var(--sr-text-secondary);}
+[data-testid="stMetricValue"]{color:var(--sr-text);font-weight:700;letter-spacing:-.01em;}
+[data-testid="stDataFrame"],[data-testid="stTable"]{border:1px solid var(--sr-border);border-radius:var(--sr-radius-sm);overflow:hidden;}
+[data-testid="stAlert"]{border-radius:var(--sr-radius-sm);}
+[data-testid="stWidgetLabel"] p{color:var(--sr-text-secondary);font-weight:600;}
+
+/* ---- Buttons: teal primary with dark text (7.6:1), quiet secondary ---- */
+.stApp button[kind="primary"],.stApp button[data-testid="stBaseButton-primary"]{background:var(--sr-teal);border-color:var(--sr-teal);
+  color:var(--sr-background);font-weight:700;}
+.stApp button[kind="primary"]:hover,.stApp button[data-testid="stBaseButton-primary"]:hover{background:var(--sr-highlight);
+  border-color:var(--sr-highlight);color:var(--sr-background);}
+.stApp button[kind="primary"] p,.stApp button[data-testid="stBaseButton-primary"] p{color:inherit;}
+.stApp button[kind="secondary"],.stApp button[data-testid="stBaseButton-secondary"]{background:var(--sr-card);border:1px solid var(--sr-border);
+  color:var(--sr-text);font-weight:600;}
+.stApp button[kind="secondary"]:hover,.stApp button[data-testid="stBaseButton-secondary"]:hover{border-color:var(--sr-teal);color:var(--sr-highlight);}
+.stApp button,.stApp [role="tab"],.stApp summary{transition:background-color .15s ease,border-color .15s ease,color .15s ease;}
+
+/* ---- Tabs ---- */
+.stApp [data-baseweb="tab-list"]{gap:.25rem;border-bottom:1px solid var(--sr-border);}
+.stApp [data-baseweb="tab"]{color:var(--sr-text-secondary);font-weight:600;}
+.stApp [data-baseweb="tab"][aria-selected="true"]{color:var(--sr-text);}
+
+/* ---- Accessibility: visible keyboard focus, reduced motion, small screens ---- */
+.stApp :is(button,a,summary,input,textarea,[role="tab"],[role="radio"],[role="checkbox"],[tabindex]):focus-visible{
+  outline:2px solid var(--sr-highlight);outline-offset:2px;border-radius:6px;}
+@media (prefers-reduced-motion:reduce){.stApp *,.sr-card{transition:none !important;animation:none !important;}
+  .sr-card:hover{transform:none;}}
+@media (max-width:640px){
+  [data-testid="stMainBlockContainer"]{padding-left:1rem;padding-right:1rem;padding-top:2.25rem;}
+  .sr-hero{border-radius:var(--sr-radius);}
+  .sr-row>*{flex-basis:78vw;}
+  .sr-chip,.sr-cls{white-space:normal;}
+}
+"""
+
+COMPONENT_CSS = "<style>" + _COMPONENT + "</style>"
+CSS = "<style>" + _COMPONENT + _APP + "</style>"

@@ -34,7 +34,7 @@ def inject_css() -> None:
 
 
 def text_colour() -> str:
-    return "#E8EEEC" if is_dark() else "#1B2A30"
+    return T.PALETTE["text"] if is_dark() else "#1B2A30"
 
 
 def themed_fig(figsize=(9, 4.2)):

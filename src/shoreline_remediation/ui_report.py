@@ -55,7 +55,7 @@ def build_html(view, title: str = "Shoreline Remediation Decision Support", habi
     ver = ", ".join(f"{k}: {version[k]}" for k in ("pipeline_version", "git_commit", "seed", "n_draws") if k in version)
     return f"""<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>{escape(title)}</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-{T.CSS}
+{T.COMPONENT_CSS}
 <style>body{{font-family:system-ui,sans-serif;max-width:1000px;margin:2rem auto;padding:0 1rem;color:#1B2A30}}
 table{{border-collapse:collapse;width:100%;font-size:.9rem}}th,td{{border-bottom:1px solid #ccc;padding:.35rem .5rem;text-align:left;vertical-align:top}}</style></head>
 <body><h1>{escape(title)}</h1><p class="sr-muted">Report date {date.today().isoformat()}. {escape(ver)}</p>

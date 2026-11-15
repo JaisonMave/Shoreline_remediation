@@ -1,7 +1,8 @@
 # V5.1 handoff
 
-Updated 15 November 2026, end of **Session 1** (architecture and scientific stabilisation). Read this first in the next
-session, then go straight to "Next session: exact starting point". Do not repeat the Session 1 audit.
+Updated 15 November 2026, end of **Session 2, Stage 1** (premium dashboard design foundation). Session 1 (architecture
+and scientific stabilisation) is complete and committed. Read this first in the next session, then go straight to
+"Next session: exact starting point". Do not repeat the Session 1 audit.
 
 ## 1. Branch and commit
 
@@ -10,6 +11,8 @@ session, then go straight to "Next session: exact starting point". Do not repeat
 - Session 1 was accepted by the owner and committed as one commit on this branch ("V5.1 Session 1: architecture and
   scientific stabilisation"), then pushed to `origin/claude/shoreline-v5-1-stabilisation-5qqym3`. Find its hash with
   `git log -1 --oneline`. It was authorised for this branch only: not pushed to `model_v4`, not merged, no pull request.
+- Session 2 works on branch `claude/shoreline-v5-1-dashboard-design-ot1i5s`, which starts at the Session 1 commit
+  `f2b3e51`. **Session 2 Stage 1 changes are uncommitted in the working tree**, awaiting the owner's authorisation.
 - Start every session with `git status`, `git branch --show-current` and `git log -1 --oneline`.
 
 ## 2. Completed objectives (Session 1)
@@ -23,6 +26,62 @@ session, then go straight to "Next session: exact starting point". Do not repeat
 | Registry governance record and stricter promotion | Implemented, tested |
 | Validation figures reconciled (5/6, 2/6, baseline) | Documented in `V5_1_VALIDATION.md` |
 | NOAA transcription check against the PDF | Software check done, 126/126; human review still open |
+
+## 2a. Session 2, Stage 1: design foundation (implemented, tested, seen running; not committed)
+
+Scope was the theme only. The decision engine, the registry, the models and all Session 1 governance are untouched.
+
+- `ui_theme.PALETTE`: the eight `CLAUDE.md` colours, the single source of dashboard colour. `PALETTE_DERIVED` adds a
+  hairline border (`#26344D`) and a raised-card tone. `GRADE_COLOURS_DARK` lightens the five evidence-grade chip
+  colours for contrast on dark cards; grade and class meanings, order, fill styles and symbols are unchanged.
+- CSS is now two layers. `COMPONENT_CSS` (chips, class labels, AI-proposed block) has no fixed text or background
+  colours and is what the HTML report embeds, so **the downloaded report stays light and printable**. `CSS`
+  (injected by `ui_components.inject_css`) adds the dark shell: page background with soft teal and blue glows, hero
+  banner (CSS gradients only, no images), cards, expanders, metrics, tables, teal primary button with dark label,
+  tabs, focus rings, reduced-motion and small-screen rules. All colours are CSS variables (`--sr-teal` and so on).
+- Ready for Stage 2 but **not yet used by any component**: `.sr-kicker`, `.sr-section`, `.sr-card`, `.sr-row`
+  (horizontal scroll row).
+- `.streamlit/config.toml`: one dark theme (`base = "dark"`) with the palette; the old light and dark pair is removed.
+  The dashboard is now dark only. `ui_components.is_dark()` returns true in the browser, so matplotlib and Altair
+  text uses `PALETTE["text"]`.
+- No new dependency, no image, no web font.
+
+Files: modified `src/shoreline_remediation/ui_theme.py`, `src/shoreline_remediation/ui_components.py` (one line,
+`text_colour`), `src/shoreline_remediation/ui_report.py` (one line, embeds `COMPONENT_CSS`), `.streamlit/config.toml`,
+`CHANGELOG.md`, this file. Created `tests/test_ui_theme.py`.
+
+Tests (Python 3.11.15, fresh virtual environment, Streamlit 1.67.0):
+
+| Command | Result |
+|---|---|
+| `python -m pytest tests/test_ui_theme.py -q` | 8 passed, 0 failed, 0 skipped |
+| `python -m pytest tests -q` | **379 passed, 0 failed, 0 skipped** (371 existing + 8 new), 257 warnings, about 2 minutes |
+| `python -m pytest tests/test_ui_theme.py tests/test_dashboard_v5.py tests/test_v5_1_governance.py -q` (after the last CSS edits) | 71 passed, 0 failed, 0 skipped |
+
+The new tests check: palette equals `CLAUDE.md`; config matches the palette; text contrast is at least 4.5:1 on all
+three surfaces; chip and class outlines at least 3:1 on cards; grade fill styles kept; report CSS contains no dark
+palette colour; focus, reduced-motion and small-screen rules exist.
+
+Browser check (real): the dashboard was launched and inspected in headless Chromium.
+- 1440 x 900, salt-marsh worked example, top and scrolled through the answer card, metrics, interval chart and
+  option cards: palette applied (computed page `#080D17`, sidebar `#111A29`, expanders and metrics `#182438`), no
+  Streamlit exception, chips and class labels readable, captions at full-opacity secondary text.
+- Mangrove tab and the legacy scenario view (before pressing Run): opened, no exception, theme applied; the primary
+  Run button computes to teal with dark text.
+- 390 x 844: no horizontal page scroll; hero, chips and controls wrap.
+
+**Not checked in a browser:** beach tabs, legacy scenario results after Run, the map section, the downloaded HTML
+report, keyboard-only navigation, a screen reader, real phones, light-mode operating systems beyond the config.
+
+Issues seen and left for later stages (outside the theme):
+- The interval chart's two y-axis option labels overlap at 1440 px ("Planting (after mechanical cleanup)" over
+  "Manual removal"). Not investigated; whether it predates the theme is unknown. Fix with the option-card redesign.
+- On a 390 px screen the sidebar opens expanded and covers the page until closed (`initial_sidebar_state` in
+  `dashboard.py`). Address with the navigation work in step 3.
+- `ui_components.ai_style_dataframe` uses `#8A7F99` text, about 4:1 on dark cards (below 4.5:1).
+- Hard-coded hex values remain in matplotlib and Altair chart code (Okabe-Ito series, `NEUTRAL`); they read on dark
+  but are not palette-driven.
+- Streamlit's settings menu may still let a user choose its built-in Light theme; the custom CSS is dark only.
 
 ## 3. Files created or modified
 
@@ -94,7 +153,8 @@ unaffected, but that is an expectation, not a check.
 1. **No rocky-shoreline entry in the dashboard.** `site_view.HABITATS` has marsh, mangrove and four beach types. The
    pipeline supports `rocky_shore` (ESI 1A, 8A) and is tested, but the required rocky demonstration case cannot be
    reached from the UI.
-2. The dashboard is still the V5 light theme; none of the `CLAUDE.md` palette is applied.
+2. ~~The dashboard is still the V5 light theme.~~ Palette and dark theme applied in Session 2 Stage 1 (section 2a).
+   Layout, navigation and components are still the V5 ones.
 3. The headline for the worked example still opens with planting as "field evidence of benefit" and only then says
    it is conditional. Correct but awkward; reword when the answer card is redesigned.
 4. The answer card shows the class-based grade chips; the new category label is shown only in the rule table and the
@@ -111,19 +171,21 @@ unaffected, but that is an expectation, not a check.
 
 ## 9. Incomplete tasks
 
-Session 1 is complete against its criteria. Sessions 2 and 3 have not started.
+Session 1 is complete against its criteria. Session 2: step 1 of section 10 is done; steps 2 to 7 have not started.
+Session 3 has not started.
 
 ## 10. Next session: exact starting point (Session 2, premium dashboard foundation)
 
 Do these in order. Each step is independently testable.
 
-1. **Design system.** In `src/shoreline_remediation/ui_theme.py` add a `PALETTE` dict with the eight `CLAUDE.md`
+1. **Design system. DONE (Session 2 Stage 1, see section 2a). Start at step 2.** Original text: In `src/shoreline_remediation/ui_theme.py` add a `PALETTE` dict with the eight `CLAUDE.md`
    colours and rewrite the `CSS` string (line 199 onward) around them: page background `#080D17`, secondary
    `#111A29`, cards `#182438`, teal `#28B8A5`, blue `#4E9BE8`, highlight `#B6D9CF`, text `#F4F7FA` / `#A6B2C2`. Set the
    same values in `.streamlit/config.toml` (`[theme] base = "dark"`). Keep `GRADES` and `CLASS_STYLE` semantics; only
    recolour for contrast on dark. `ui_components.is_dark()` and `themed_fig()` must keep working for matplotlib and
    Altair charts.
-2. **Reusable components.** In `ui_components.py` add `section_header(title, kicker)`, `status_label(category)`
+2. **Reusable components (next task).** Use the existing CSS classes `.sr-kicker`, `.sr-section`, `.sr-card`,
+   `.sr-row` and the `--sr-*` variables; add new colours only through `ui_theme`. In `ui_components.py` add `section_header(title, kicker)`, `status_label(category)`
    (one colour per `decision_pipeline.CATEGORY_ORDER` entry), `site_card(...)`, `card_row(cards)` (horizontal scroll
    via CSS), and `hero_feature(...)`. Replace the body of `hero()` rather than adding a second hero.
 3. **Navigation and landing page.** In `dashboard.py` replace the two-item `st.segmented_control` with a page state

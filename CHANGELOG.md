@@ -11,6 +11,20 @@ Computer (no account needed).
 
 ---
 
+## 2026-11-15 (V5.1 Session 2, Stage 1): dashboard design foundation
+- **Why:** `CLAUDE.md` section 6 and handoff section 10 step 1: a dark, premium theme built on one palette.
+- **What:** `ui_theme.PALETTE` (eight colours) and a rewritten `CSS` (dark shell, hero banner, cards, buttons, focus
+  rings, reduced motion, small screens). Chip CSS split out as `COMPONENT_CSS` so the HTML report stays light.
+  `.streamlit/config.toml` is now one dark theme. Evidence grades and classes keep their meaning, order and fill
+  styles; only chip contrast changed. No decision-engine, registry or model change. No new dependency or image.
+- **Where:** `src/shoreline_remediation/{ui_theme,ui_components,ui_report}.py`, `.streamlit/config.toml`,
+  `tests/test_ui_theme.py`, `docs/V5_1_HANDOFF.md`.
+- **Result:** `python -m pytest tests` on Python 3.11.15: 379 passed, 0 failed, 0 skipped (371 existing + 8 new).
+  Launched and inspected in headless Chromium at 1440 x 900 and 390 x 844 (salt marsh, mangrove, legacy view before
+  Run): no exceptions. Beach tabs, map, downloaded report and keyboard navigation not checked.
+- **Status:** Implemented and tested (software). Visual acceptance by the owner is open. Layout, navigation, landing
+  page and rocky-shoreline entry are still to do (handoff section 10, steps 2 to 7).
+
 ## 2026-11-15 (V5.1 Session 1): architecture and scientific stabilisation
 - **Why:** V5.1 stabilisation brief and `CLAUDE.md`: one decision pathway, honest validation reporting, transparent model
   status, safe abstention. No analysis was re-run and no validation result was changed.
