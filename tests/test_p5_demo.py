@@ -147,7 +147,7 @@ def test_dashboard_out_of_scope_cell_has_no_prediction(app):
 def test_dashboard_scenario_view_still_runs():
     at = _fresh_app()
     at.segmented_control(key="top_view").set_value("Scenario screening (legacy)").run()
-    at.button[0].click().run()
+    at.sidebar.button[0].click().run()
     assert not at.exception, at.exception
     at.segmented_control(key="scenario_section").set_value("Method test (synthetic data)").run()
     assert not at.exception, at.exception

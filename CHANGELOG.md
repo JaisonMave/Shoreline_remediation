@@ -11,6 +11,26 @@ Computer (no account needed).
 
 ---
 
+## 2026-11-15 (V5.1 Session 2, Stage 2): reusable dashboard components and hero
+- **Why:** handoff section 10 step 2: one small component set on the Stage 1 theme, so later pages do not each invent
+  their own cards and headers.
+- **What:** `section_header`, `status_label`, `site_card`, `card_row`, `hero_feature` in `ui_components.py`; `hero()` is
+  now a call to `hero_feature` ("Shoreline Remediation Intelligence", three capability points, neutral scope tags, two
+  working buttons). The dashboard shows a "Featured locations" row of three cards built by `site_view.featured_sites()`
+  from `data/demo/p5_sites.csv`, `results/mangrove/effect_by_year.csv` and the model registry; missing values read "not
+  available". Card buttons drive the existing view, habitat and site controls. Option cards show the pipeline's
+  recommendation category through `status_label`; an unknown or missing category is shown as such. No decision-engine,
+  registry, model or report change. No new dependency or image.
+- **Where:** `src/shoreline_remediation/{ui_components,ui_theme,site_view,dashboard}.py`, `tests/test_ui_stage2.py`
+  (new), `tests/test_dashboard_v5.py` and `tests/test_p5_demo.py` (the legacy "Run" click now names the sidebar button),
+  `docs/V5_1_HANDOFF.md` section 2b.
+- **Result:** `python -m pytest tests` on Python 3.11: 423 passed, 0 failed, 0 skipped (379 existing + 44 new).
+  Launched and inspected in headless Chromium at 1440 x 900 and 390 x 844: hero, headers, cards, status labels, card
+  navigation and the evidence dialog work; no exception and no horizontal page overflow. Beach card button, keyboard
+  navigation and the downloaded report were not checked in a browser.
+- **Status:** Implemented and tested (software). Not scientific validation. Visual acceptance by the owner is open. No
+  rocky-shoreline card yet (no rocky entry in the dashboard).
+
 ## 2026-11-15 (V5.1 Session 2, Stage 1): dashboard design foundation
 - **Why:** `CLAUDE.md` section 6 and handoff section 10 step 1: a dark, premium theme built on one palette.
 - **What:** `ui_theme.PALETTE` (eight colours) and a rewritten `CSS` (dark shell, hero banner, cards, buttons, focus

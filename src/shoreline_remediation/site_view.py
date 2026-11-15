@@ -25,6 +25,7 @@ CLASSES = ["Heavy", "Moderate", "Light", "Very_Light", "NOO"]
 BASINS = ["barataria", "breton", "terrebonne", "birdfoot"]
 EXAMPLE_CELL = "8018_32612"  # docs/P5_WORKED_EXAMPLE.md
 _KNOWLEDGE = Path(__file__).resolve().parents[2] / "data" / "knowledge"
+SITE_MODE_WORKED = "Worked example (Bay Jimmy, Barataria Bay)"
 
 
 @st.cache_data
@@ -40,7 +41,7 @@ def _label(x: str) -> str:
 # Site choice
 
 def _pick_site(sites: pd.DataFrame) -> dict | None:
-    mode = st.radio("Site", ["Worked example (Bay Jimmy, Barataria Bay)", "Pick a Louisiana edge cell", "New site (enter values)"],
+    mode = st.radio("Site", [SITE_MODE_WORKED, "Pick a Louisiana edge cell", "New site (enter values)"],
                     horizontal=True, key="site_mode")
     if mode.startswith("Worked"):
         row = sites[sites.cell == EXAMPLE_CELL]
@@ -455,6 +456,98 @@ for _k, _l, _t, _e, _n in [("beach_fine", "Fine-to-medium sand beach", "sand_bea
     _h = HabitatView(_k, _l, lambda: None, _t, _BEACH_NOTE + _n, _e)
     HABITATS.append(HabitatView(_k, _l, _beach_renderer(_h), _t, _h.note, _e))
 HABITAT_BY_KEY = {h.key: h for h in HABITATS}
+
+
+# ---------------------------------------------------------------------------------------------------------------
+# Featured entries for the site cards (V5.1 Session 2 Stage 2). Data access only: every value is read from a repository
+# file, every evidence chip takes its state from the model registry, and nothing here states a recommendation.
+
+@st.cache_data
+def _model_states() -> dict:
+    from src.shoreline_remediation import registry
+    return {row["model_id"]: row["state"] for row in registry.governance_table()}
+
+
+def _model_chip(model_id: str, what: str) -> tuple[str, str] | None:
+    """(evidence grade, chip text) for a registered model, using the state the registry resolves. None if unknown."""
+    state = _model_states().get(model_id)
+    grade = T.TIER_TO_GRADE.get(state) if state else None
+    if grade not in T.GRADES:
+        return None
+    return grade, f"{T.GRADES[grade]['label']}: {what}"
+
+
+def _chips(*chips) -> tuple:
+    return tuple(c for c in chips if c)
+
+
+def featured_sites() -> list:
+    """Site cards for the entries the dashboard can open today. `site_id` is the habitat key of render_site_evidence.
+    An entry whose source data cannot be read is left out; a value the repository does not hold is shown as not available."""
+    cards = []
+    row = _sites()
+    row = row[row.cell == EXAMPLE_CELL]
+    if not row.empty:
+        r = row.iloc[0]
+        has_xy = pd.notna(r.get("lat")) and pd.notna(r.get("lon"))
+        obs, fetch = r.get("observed_rate"), r.get("fetch_mean_m")
+        cards.append(C.SiteCard(
+            site_id="marsh", name="Bay Jimmy, Barataria Bay", kicker="Worked example", location="Louisiana, USA", habitat="Salt marsh (ESI 10A)",
+            description=f"Marsh-edge cell {r['cell']}, oiled in the Deepwater Horizon spill (2010). Chosen by a fixed rule: the heavily "
+                        "oiled Barataria cell nearest the Zengel et al. (2022) field plots.",
+            facts=(
+                C.SiteFact("Coordinates", f"{abs(r['lat']):.3f}\u00b0 {'N' if r['lat'] >= 0 else 'S'}, {abs(r['lon']):.3f}\u00b0 {'E' if r['lon'] >= 0 else 'W'}"
+                           if has_xy else None, "record"),
+                C.SiteFact("SCAT maximum oiling", T.OILING_LABELS.get(r["max_oiling"], str(r["max_oiling"])) if pd.notna(r.get("max_oiling")) else None,
+                           "observed"),
+                C.SiteFact("Edge loss 2010 to 2015 (aerial images)", f"{obs:.2f} m/yr" if pd.notna(obs) else None, "observed"),
+                C.SiteFact("Mean fetch", f"{fetch:,.0f} m" if pd.notna(fetch) else None, "derived"),
+            ),
+            evidence=_chips(_model_chip("edge_loss_v1", "marsh-edge loss model"),
+                            _model_chip("composer_natural_recovery_v1", "treatment comparison")),
+            action_label="Open the Bay Jimmy assessment"))
+    try:
+        eff, _ = _mangrove_results()
+        e = eff[eff.outcome == "root_documented_dead_share"]
+    except Exception:  # result files missing: no mangrove card, rather than a card with made-up content
+        e = pd.DataFrame()
+    if not e.empty:
+        cards.append(C.SiteCard(
+            site_id="mangrove", name="Bah\u00eda Las Minas", kicker="Limited evidence", location="Caribbean coast of Panama",
+            habitat="Red mangrove fringe",
+            description="One field study of the 1986 spill: how oiled fringe sites differed from unoiled ones. It describes oiling "
+                        "damage only. There is no cleanup forecast for mangroves.",
+            facts=(
+                C.SiteFact("Coordinates", None),
+                C.SiteFact("Study sites", f"{int(e.n_oiled_sites.iloc[0])} oiled, {int(e.n_unoiled_sites.iloc[0])} unoiled", "observed"),
+                C.SiteFact("Years after the spill covered", f"{int(e.year_since_spill.min())} to {int(e.year_since_spill.max())}", "observed"),
+                C.SiteFact("Cleanup outcome data", None),
+            ),
+            evidence=_chips(_model_chip("mangrove_damage_v1", "oiling-damage model"),
+                            ("ai_proposed", "AI-proposed: cleanup verdicts")),
+            action_label="Open the mangrove evidence"))
+    beach = HABITAT_BY_KEY.get("beach_fine")
+    if beach is not None:
+        cards.append(C.SiteCard(
+            site_id=beach.key, name=beach.label, kicker="Habitat screening", location="No site record",
+            habitat=f"ESI {beach.esi}",
+            description="A habitat-level entry, not a surveyed site. Cleanup options are screened with rules and published findings "
+                        "for the conditions you enter. There is no site-specific forecast.",
+            facts=(C.SiteFact("Site observations", None), C.SiteFact("Numerical cleanup forecast", None)),
+            evidence=_chips(("rules_literature", "Rules and literature only: cleanup options"),
+                            _model_chip("beach_sand_persistence_v1", "visible-oil persistence reference")),
+            action_label="Open the beach screening"))
+    return cards
+
+
+def select_site(site_id: str) -> None:
+    """Button callback for a site card: point the existing habitat switcher (and, for the marsh, the existing site picker)
+    at the chosen entry. Unknown ids are ignored, so the current page stays as it is."""
+    if site_id not in HABITAT_BY_KEY:
+        return
+    st.session_state["site_habitat"] = site_id
+    if site_id == "marsh":
+        st.session_state["site_mode"] = SITE_MODE_WORKED
 
 
 def render_site_evidence() -> None:

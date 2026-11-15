@@ -1,7 +1,8 @@
 # V5.1 handoff
 
-Updated 15 November 2026, end of **Session 2, Stage 1** (premium dashboard design foundation). Session 1 (architecture
-and scientific stabilisation) is complete and committed. Read this first in the next session, then go straight to
+Updated 15 November 2026, end of **Session 2, Stage 2** (reusable dashboard components and hero redesign; implemented,
+tested, seen running, **not committed**). Session 1 (architecture and scientific stabilisation) and Session 2 Stage 1
+(design foundation) are complete and committed. Read this first in the next session, then go straight to
 "Next session: exact starting point". Do not repeat the Session 1 audit.
 
 ## 1. Branch and commit
@@ -83,6 +84,114 @@ Issues seen and left for later stages (outside the theme):
   but are not palette-driven.
 - Streamlit's settings menu may still let a user choose its built-in Light theme; the custom CSS is dark only.
 
+## 2b. Session 2, Stage 2: reusable components and hero (implemented, tested, seen running; not committed)
+
+Starting commit `4e6a03d`, branch `claude/shoreline-v5-1-dashboard-design-ot1i5s`. The decision engine, the registry,
+the models, the report and `PIPELINE_VERSION` are untouched. No new dependency, image or web font.
+
+Components, all in `src/shoreline_remediation/ui_components.py`. Each has a pure `*_html` builder (tested without a
+browser) and a thin Streamlit renderer.
+
+| Function | Signature | Use |
+|---|---|---|
+| `section_header` | `(title, kicker=None, description=None, meta=None, anchor=None) -> None` (`section_header_html` returns the HTML) | Section introductions. `meta` is right-hand context such as a data source. Uses `.sr-section`, `.sr-kicker`. |
+| `status_label` | `(category, label=None) -> str` (HTML) | Recommendation category chip. `category` is a key of `decision_pipeline.CATEGORY_ORDER`; the wording is `decision_pipeline.CATEGORY_LABELS`. Missing shows "Status not available"; an unknown key shows "Unrecognised status: ..." in a dotted neutral style. Never falls back to a real category. |
+| `site_card` | `(card: SiteCard, on_select=None) -> None` (`site_card_html(card)`) | One card. `SiteCard(site_id, name, kicker, location, habitat, description, facts, evidence, action_label)`; `SiteFact(label, value, kind)` with `kind` in `ui_theme.VALUE_KINDS` (observed, derived, model, screening, record, unavailable). `value=None` prints "not available". The button calls `on_select(card.site_id)`; without `on_select` no button is drawn. |
+| `card_row` | `(items, render, key, empty_text=...) -> int` | Calls `render(item)` for each item in one wrapping flex container; returns the count; empty input shows `empty_text`. |
+| `hero_feature` | `(title, description, kicker=None, points=(), meta=(), primary=None, secondary=None, key="main") -> str or None` (`hero_feature_html`) | Featured banner for the platform, a site or a habitat. `HeroAction(label, key, on_click=None, args=())`. Returns the key of the button pressed in this run. |
+| `hero` | `(subtitle=None, chips=None, primary=None, secondary=None) -> str or None` | The one platform hero, now a call to `hero_feature` with `HERO_TITLE` ("Shoreline Remediation Intelligence"), `HERO_DESCRIPTION` and the three `HERO_POINTS`. The old call `hero(subtitle, chips)` still works; chip colours are ignored so a scope tag cannot read as a validation status. |
+
+Also added: `evidence_legend_body()` (shared by the sidebar legend and the new `evidence_dialog()`), `ui_theme.CATEGORY_STYLE`
+(one symbol and colour per pipeline category), `CATEGORY_UNKNOWN`, `VALUE_KINDS`, and CSS for the above in the dashboard
+layer only (`_APP`), so the printable report CSS is unchanged.
+
+Design decisions:
+- **Card row wraps, it does not scroll sideways.** Streamlit buttons cannot live inside a raw-HTML strip, so a card with
+  a working button cannot use `.sr-row`. `card_row` uses `st.container(horizontal=True, wrap=True)` with a keyed CSS
+  rule: three cards side by side at 1440 px, stacked at 390 px, no page overflow, no JavaScript. `.sr-row` stays in the
+  theme for static HTML strips.
+- **Keyed containers carry the styling.** The hero, each site card and each row are `st.container(key="sr_hero_*" /
+  "sr_site_*" / "sr_row_*")`, styled through `[class*="st-key-sr_..."]`. Button keys use other prefixes
+  (`sr_act_hero_*`, `sr_open_site_*`) on purpose: a shared prefix makes the button inherit the card look.
+- **Categories are displayed, never computed.** `ui_components` imports only `CATEGORY_LABELS` from the pipeline (a test
+  checks this). Site cards carry no category at all.
+
+Integration (data sources):
+- `site_view.featured_sites()` builds three cards. Bay Jimmy: row `8018_32612` of `data/demo/p5_sites.csv` through
+  `load_sites()` (coordinates, SCAT oiling, observed 2010 to 2015 edge loss, mean fetch). Bahía Las Minas:
+  `results/mangrove/effect_by_year.csv` (site counts, years covered); coordinates and cleanup outcome data are shown as
+  not available because the repository has none. Fine-to-medium sand beach: a habitat entry from `HABITATS`, labelled
+  "No site record", no numbers. Evidence chips take their grade from `registry.governance_table()` states, so a chip
+  cannot say more than the registry does. No card shows a model estimate, a recommendation or a percentage.
+- `site_view.select_site(site_id)` and `dashboard.open_site(site_id)` set the existing widget keys (`top_view`,
+  `site_habitat`, `site_mode`). No second navigation system. Unknown ids are ignored.
+- `dashboard.py`: hero (primary "Open the Bay Jimmy worked example", secondary "How evidence is graded" opening a
+  dialog), "Featured locations" header and card row, "Assessment" header, then the unchanged view switch. The legacy
+  view keeps its "(legacy)" label.
+- `_option_card` now shows `status_label(o.category, o.category_label)` before the class letter and grade chip. This
+  closes the option-card half of known issue 4; the answer card and the class E table are unchanged.
+
+Files: modified `src/shoreline_remediation/ui_components.py`, `ui_theme.py`, `site_view.py`, `dashboard.py`,
+`tests/test_dashboard_v5.py` and `tests/test_p5_demo.py` (one token each: the legacy tests clicked `at.button[0]`, which
+is now a hero button, so they click `at.sidebar.button[0]`, the same "Run scenario analysis" button as before),
+`CHANGELOG.md`, this file. Created `tests/test_ui_stage2.py` (44 tests).
+
+Tests (Python 3.11, fresh virtual environment outside the repository, Streamlit 1.67.0, `pdftotext` present):
+
+| Command | Result |
+|---|---|
+| `python -m pytest tests/test_ui_stage2.py -q` | 44 passed, 0 failed, 0 skipped |
+| `python -m pytest tests/test_ui_stage2.py tests/test_ui_theme.py tests/test_dashboard_v5.py tests/test_v5_1_governance.py tests/test_p5_demo.py -q` | 132 passed, 0 failed, 0 skipped |
+| `python -m pytest tests -q` | **423 passed, 0 failed, 0 skipped** (379 existing + 44 new), about 2 minutes |
+
+A first full run, before the two legacy tests were pointed at the sidebar button, had 3 failures (those tests pressed
+the new hero button instead of "Run scenario analysis"). They are software tests of the interface, not model validation.
+
+Browser check (real): launched with `streamlit run`, driven in headless Chromium.
+- 1440 x 900: hero (kicker, title, description, three points, four scope tags, two buttons), both section headers,
+  three cards in one row with equal height, status labels on the option cards (Conditional, Recommended, Insufficient
+  evidence, Allowed no demonstrated benefit, Natural recovery). Card background computes to `#182438`, label text to
+  `#F4F7FA`. No Streamlit exception, no element past the right edge, page width equals the viewport.
+- 390 x 844 (sidebar closed by hand, see below): hero wraps, cards stack at full width, the long "Allowed, no
+  demonstrated benefit over natural recovery" label wraps onto two lines inside its card, page scroll width 390.
+- Navigation, both sizes: the mangrove card opened the mangrove page; the hero primary button returned to the Bay Jimmy
+  worked example; the secondary button opened the evidence dialog.
+- A first capture showed the hero and card buttons drawn inside their own small card (the key-prefix clash above). Fixed
+  and captured again.
+
+**Not checked in a browser:** the beach card button (covered by `AppTest` only), keyboard-only navigation, the
+downloaded HTML report, a real phone, a card row with more than three cards. One spacing change (a 0.35 rem margin under
+the card's evidence chips) was made after the last capture and was not captured again.
+
+Known limits of this stage:
+- No rocky-shoreline card: the dashboard has no rocky entry yet (issue 1, step 4). A card is added only for an entry
+  that can be opened.
+- Card descriptions and the names "Bay Jimmy, Barataria Bay" and "Bahía Las Minas" are fixed text in `site_view.py`,
+  consistent with the existing page text; the numbers are read from files.
+- The cards sit above the assessment on every run, so the answer card starts lower on the page. Step 3 (landing page)
+  should move them.
+- Stage 1 backlog unchanged: interval-chart label overlap (seen again), expanded sidebar on phones, `ai_style_dataframe`
+  contrast, report download and keyboard navigation unverified. None is caused or touched by these components.
+
+### 2c. Continuation state at the end of the Stage 2 session (nothing committed)
+
+- Branch `claude/shoreline-v5-1-dashboard-design-ot1i5s`, HEAD `4e6a03d`, no stash. The session started on
+  `claude/shoreline-dashboard-components-hcizxj` (same commit); the owner chose to switch to the design branch.
+- `git status --short`: modified `CHANGELOG.md`, `docs/V5_1_HANDOFF.md`, `src/shoreline_remediation/dashboard.py`,
+  `site_view.py`, `ui_components.py`, `ui_theme.py`, `tests/test_dashboard_v5.py`, `tests/test_p5_demo.py`; untracked
+  `tests/test_ui_stage2.py`. Nothing deleted. 8 tracked files, 491 insertions, 29 deletions, plus the new test file.
+- **These changes exist only in the working tree of the session container.** They are lost if the container is
+  reclaimed before a commit and push. Committing and pushing need the owner's explicit authorisation.
+- The test environment (a Python 3.11 virtual environment in a scratch directory) is not part of the repository;
+  recreate it with `pip install -r requirements-analysis.txt`.
+- Stage 2 acceptance criteria 1 to 10 are met as far as this session could check. Left to do in Stage 2: the owner's
+  review; optionally one more browser capture of the card row (the last spacing change) and of the beach card button;
+  then commit and push when authorised.
+- Open questions for the owner: (1) is a wrapping card row acceptable in place of a sideways-scrolling strip;
+  (2) should the featured cards stay above the assessment until the landing page exists (step 3); (3) is the beach
+  "habitat screening" card wanted, given it is not a surveyed site; (4) is showing the category on option cards now,
+  ahead of Session 3, acceptable; (5) D41 is still Proposed, so the labels shown are proposed wording.
+
 ## 3. Files created or modified
 
 Created:
@@ -157,8 +266,8 @@ unaffected, but that is an expectation, not a check.
    Layout, navigation and components are still the V5 ones.
 3. The headline for the worked example still opens with planting as "field evidence of benefit" and only then says
    it is conditional. Correct but awkward; reword when the answer card is redesigned.
-4. The answer card shows the class-based grade chips; the new category label is shown only in the rule table and the
-   HTML report. Option cards should show the category (Session 3).
+4. The answer card shows the class-based grade chips, not the category. Option cards show the category since Session 2
+   Stage 2 (`status_label`); the answer card and the class E table still do not (Session 3).
 5. `registry._promotion_summary` still accepts the word "cover" as "coverage reported" (see `V5_1_VALIDATION.md` 3).
 6. `noaa_crosswalk.py` page references (2013 manual) are unverified; legacy view only.
 7. Mudflat, peat and tundra borrow salt-marsh evidence (declared, not fixed). Owner decision needed.
@@ -171,20 +280,23 @@ unaffected, but that is an expectation, not a check.
 
 ## 9. Incomplete tasks
 
-Session 1 is complete against its criteria. Session 2: step 1 of section 10 is done; steps 2 to 7 have not started.
+Session 1 is complete against its criteria. Session 2: steps 1 and 2 of section 10 are done (step 2 is not yet
+committed; commit and push need the owner's authorisation); steps 3 to 7 have not started and are not yet authorised.
 Session 3 has not started.
 
 ## 10. Next session: exact starting point (Session 2, premium dashboard foundation)
 
 Do these in order. Each step is independently testable.
 
-1. **Design system. DONE (Session 2 Stage 1, see section 2a). Start at step 2.** Original text: In `src/shoreline_remediation/ui_theme.py` add a `PALETTE` dict with the eight `CLAUDE.md`
+1. **Design system. DONE (Session 2 Stage 1, see section 2a).** Original text: In `src/shoreline_remediation/ui_theme.py` add a `PALETTE` dict with the eight `CLAUDE.md`
    colours and rewrite the `CSS` string (line 199 onward) around them: page background `#080D17`, secondary
    `#111A29`, cards `#182438`, teal `#28B8A5`, blue `#4E9BE8`, highlight `#B6D9CF`, text `#F4F7FA` / `#A6B2C2`. Set the
    same values in `.streamlit/config.toml` (`[theme] base = "dark"`). Keep `GRADES` and `CLASS_STYLE` semantics; only
    recolour for contrast on dark. `ui_components.is_dark()` and `themed_fig()` must keep working for matplotlib and
    Altair charts.
-2. **Reusable components (next task).** Use the existing CSS classes `.sr-kicker`, `.sr-section`, `.sr-card`,
+2. **Reusable components. DONE (Session 2 Stage 2, see section 2b). Start at step 3 once authorised.** Reuse
+   `section_header`, `site_card`, `card_row`, `hero_feature`, `featured_sites` and `open_site` for the landing page;
+   do not write new card or hero code. Original text: Use the existing CSS classes `.sr-kicker`, `.sr-section`, `.sr-card`,
    `.sr-row` and the `--sr-*` variables; add new colours only through `ui_theme`. In `ui_components.py` add `section_header(title, kicker)`, `status_label(category)`
    (one colour per `decision_pipeline.CATEGORY_ORDER` entry), `site_card(...)`, `card_row(cards)` (horizontal scroll
    via CSS), and `hero_feature(...)`. Replace the body of `hero()` rather than adding a second hero.

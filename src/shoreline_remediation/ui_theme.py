@@ -148,6 +148,27 @@ def class_html(cls: str, with_name: bool = True) -> str:
             f'<b>{escape(s["symbol"])} {escape(str(cls))}</b>{name}</span>')
 
 
+# ---------------------------------------------------------------------------------------------------------------
+# Recommendation categories (decision D41). Keys are decision_pipeline.CATEGORY_ORDER; tests/test_ui_stage2.py checks
+# that the two stay in step. This is presentation only: a symbol and a colour that reads on dark cards. The wording
+# comes from decision_pipeline.CATEGORY_LABELS, and the category itself is assigned only by run_decision().
+CATEGORY_STYLE = {
+    "recommended": {"symbol": "\u2713", "colour": PALETTE["teal"]},
+    "conditional": {"symbol": "!", "colour": "#E0A83A"},
+    "natural_recovery_monitoring": {"symbol": "=", "colour": PALETTE["blue"]},
+    "no_demonstrated_benefit": {"symbol": "\u2248", "colour": PALETTE["highlight"]},
+    "insufficient_evidence": {"symbol": "?", "colour": "#B3A8C4"},
+    "excluded": {"symbol": "\u00d7", "colour": "#9AA5B5"},
+}
+# A missing or unrecognised category is shown as such. It is never given the look of a real category.
+CATEGORY_UNKNOWN = {"symbol": "\u00b7", "colour": "#9AA5B5"}
+STATUS_MISSING_TEXT = "Status not available"
+STATUS_UNRECOGNISED_TEXT = "Unrecognised status"
+
+# How a value on a site card was obtained (CLAUDE.md section 4: keep observed, derived and modelled values apart).
+VALUE_KINDS = {"observed": "Observed", "derived": "Derived", "model": "Model estimate", "screening": "Screening level",
+               "record": "Site record", "unavailable": "Not available"}
+
 # Tier of a whole report (DecisionReport.scope_tier) -> grade used for its chip. New tiers fall back to a grey chip.
 TIER_TO_GRADE = {"validated": "validated", "experimental": "experimental", "rules_and_literature": "rules_literature",
                  "rules_literature": "rules_literature", "out_of_scope": "out_of_scope",
@@ -276,18 +297,26 @@ _APP = _ROOT_VARS + """
 .stApp a:hover{color:var(--sr-highlight);}
 .stApp hr{border-color:var(--sr-border);}
 
-/* ---- Hero: featured banner (gradients only, no imagery) ---- */
-.sr-hero{position:relative;overflow:hidden;padding:clamp(1.4rem,3.2vw,2.6rem) clamp(1.2rem,3.4vw,2.8rem);margin:0 0 var(--sr-space-3) 0;
+/* ---- Hero: featured banner (gradients only, no imagery). hero_feature() renders into a container keyed sr_hero_* ---- */
+.sr-hero,[class*="st-key-sr_hero_"]{position:relative;overflow:hidden;padding:clamp(1.4rem,3.2vw,2.6rem) clamp(1.2rem,3.4vw,2.8rem);margin:0 0 var(--sr-space-3) 0;
   border:1px solid var(--sr-border);border-radius:calc(var(--sr-radius) + 4px);box-shadow:var(--sr-shadow);
   background:
     linear-gradient(100deg,var(--sr-background) 0%,color-mix(in srgb,var(--sr-background) 72%,transparent) 46%,transparent 100%),
     radial-gradient(120% 150% at 100% 0%,color-mix(in srgb,var(--sr-teal) 42%,transparent),transparent 58%),
     radial-gradient(90% 130% at 78% 115%,color-mix(in srgb,var(--sr-blue) 38%,transparent),transparent 62%),
     var(--sr-secondary-background);}
-.sr-hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;
+.sr-hero::after,[class*="st-key-sr_hero_"]::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;
   background:linear-gradient(90deg,var(--sr-teal),var(--sr-blue) 55%,transparent);}
+[class*="st-key-sr_hero_"] .sr-hero{padding:0;margin:0;border:0;border-radius:0;box-shadow:none;background:none;overflow:visible;}
+[class*="st-key-sr_hero_"] .sr-hero::after{content:none;}
 .sr-hero h1{font-size:clamp(1.7rem,3.4vw,2.75rem);font-weight:750;letter-spacing:-.022em;margin:0 0 .5rem 0;padding:0;max-width:22ch;}
 .sr-hero p{font-size:clamp(.98rem,1.25vw,1.12rem);line-height:1.55;color:var(--sr-text-secondary);opacity:1;max-width:68ch;}
+.sr-hero-points{list-style:none;margin:.9rem 0 0 0;padding:0;display:grid;gap:.35rem;max-width:68ch;}
+.sr-hero-points li{position:relative;margin:0;padding:0 0 0 1.15rem;color:var(--sr-text);font-size:.96rem;line-height:1.45;}
+.sr-hero-points li::before{content:"";position:absolute;left:0;top:.55em;width:.45rem;height:.45rem;border-radius:50%;background:var(--sr-teal);}
+.sr-meta{display:flex;flex-wrap:wrap;gap:.4rem;margin:.9rem 0 .35rem 0;}
+.sr-meta span{font-size:.78rem;font-weight:600;color:var(--sr-text-secondary);border:1px solid var(--sr-border);border-radius:999px;
+  padding:.1rem .65rem;background:color-mix(in srgb,var(--sr-background) 55%,transparent);}
 
 /* ---- Reusable layout pieces (used by the component layer) ---- */
 .sr-kicker{font-size:.74rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sr-highlight);margin:0 0 .3rem 0;}
@@ -298,6 +327,33 @@ _APP = _ROOT_VARS + """
 .sr-card:hover{border-color:color-mix(in srgb,var(--sr-teal) 55%,var(--sr-border));box-shadow:var(--sr-shadow);transform:translateY(-2px);}
 .sr-row{display:flex;gap:var(--sr-space-3);overflow-x:auto;padding:.3rem .1rem 1rem .1rem;scroll-snap-type:x proximity;}
 .sr-row>*{flex:0 0 clamp(230px,24vw,320px);scroll-snap-align:start;}
+/* Section header: kicker, heading, optional description and right-hand metadata */
+.sr-section-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:.4rem 1.5rem;}
+.sr-section p.sr-section-desc{margin:.35rem 0 0 0;color:var(--sr-text-secondary);font-size:.95rem;line-height:1.5;max-width:72ch;}
+.sr-section-meta{color:var(--sr-text-secondary);font-size:.85rem;}
+/* Status label: recommendation category from the decision pipeline (symbol + words; colour never carries meaning alone) */
+.sr-status{display:inline-flex;align-items:baseline;gap:.4em;padding:.1rem .6rem;border-radius:6px;font-size:.8rem;font-weight:650;
+  line-height:1.4;border:1.5px solid var(--c);background:color-mix(in srgb,var(--c) 15%,transparent);color:var(--sr-text);
+  vertical-align:middle;max-width:100%;}
+.sr-status-unknown{border-style:dotted;background:transparent;font-style:italic;}
+/* Card row: card_row() renders a wrapping Streamlit flex container keyed sr_row_*, so cards keep working buttons */
+[class*="st-key-sr_row_"]{align-items:stretch;}
+[class*="st-key-sr_row_"]>*{flex:1 1 280px;min-width:min(280px,100%);max-width:440px;}
+/* Site card: site_card() renders into a container keyed sr_site_*, styled like .sr-card */
+[class*="st-key-sr_site_"]{background:var(--sr-card);border:1px solid var(--sr-border);border-radius:var(--sr-radius);
+  padding:var(--sr-space-3) 1.15rem;height:100%;transition:border-color .18s ease,box-shadow .18s ease;}
+[class*="st-key-sr_site_"]:hover{border-color:color-mix(in srgb,var(--sr-teal) 55%,var(--sr-border));box-shadow:var(--sr-shadow);}
+.sr-site h3{font-size:1.12rem;font-weight:700;margin:0;padding:0;}
+.sr-site-where{color:var(--sr-text-secondary);font-size:.86rem;margin:.15rem 0 .5rem 0;}
+.sr-site p.sr-site-desc{font-size:.9rem;line-height:1.5;margin:0 0 .6rem 0;color:var(--sr-text);}
+.sr-site dl{margin:0 0 .6rem 0;display:grid;gap:.3rem;}
+.sr-site dl div{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.1rem .75rem;font-size:.85rem;
+  border-top:1px solid var(--sr-border);padding-top:.3rem;}
+.sr-site dt{color:var(--sr-text-secondary);font-weight:500;}
+.sr-site dd{margin:0;font-weight:600;text-align:right;}
+.sr-site dd small{font-weight:500;color:var(--sr-text-secondary);font-size:.76rem;margin-left:.35em;}
+.sr-site dd.sr-unavailable{font-weight:500;font-style:italic;color:var(--sr-text-secondary);}
+.sr-site-evidence{display:flex;flex-wrap:wrap;gap:.35rem;margin:0 0 .35rem 0;}
 .sr-muted{opacity:1;color:var(--sr-text-secondary);}
 .sr-answer{color:var(--sr-text);}
 .sr-scope{border-radius:0 var(--sr-radius-sm) var(--sr-radius-sm) 0;color:var(--sr-text);}
@@ -341,6 +397,8 @@ _APP = _ROOT_VARS + """
   .sr-hero{border-radius:var(--sr-radius);}
   .sr-row>*{flex-basis:78vw;}
   .sr-chip,.sr-cls{white-space:normal;}
+  [class*="st-key-sr_row_"]>*{max-width:100%;}
+  .sr-hero h1{max-width:none;}
 }
 """
 

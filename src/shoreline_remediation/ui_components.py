@@ -7,8 +7,10 @@ Colours never carry meaning alone: every chip has words, and the classes also ca
 from __future__ import annotations
 
 import re
+from dataclasses import dataclass
 from html import escape
 from pathlib import Path
+from typing import Callable, Sequence
 
 import altair as alt
 import matplotlib.pyplot as plt
@@ -17,6 +19,7 @@ import streamlit as st
 
 from . import ui_evidence as E
 from . import ui_theme as T
+from .decision_pipeline import CATEGORY_LABELS
 
 
 # ---------------------------------------------------------------------------------------------------------------
@@ -77,22 +80,198 @@ def ai_style_dataframe(df: pd.DataFrame):
 # ---------------------------------------------------------------------------------------------------------------
 # Header, legend, scope
 
-def hero(subtitle: str, chips: list[tuple[str, str]]) -> None:
-    st.markdown(f'<div class="sr-hero"><h1>Shoreline Remediation Decision Support</h1><p>{escape(subtitle)}</p></div>',
-                unsafe_allow_html=True)
-    if chips:
-        st.markdown(" ".join(f":{color}-badge[{text}]" for text, color in chips))
+# Reusable components (V5.1 Session 2 Stage 2). Each has a pure *_html builder (testable without a browser) and a thin
+# Streamlit renderer. They show what they are given: no component computes a recommendation or fills in a missing value.
+
+def _slug(text: str) -> str:
+    return re.sub(r"[^a-z0-9]+", "_", str(text).lower()).strip("_") or "item"
+
+
+def section_header_html(title: str, kicker: str | None = None, description: str | None = None, meta: str | None = None,
+                        anchor: str | None = None) -> str:
+    """Kicker, heading, optional description and optional right-hand metadata (for example a count or a data source)."""
+    kick = f'<div class="sr-kicker">{escape(kicker)}</div>' if kicker else ""
+    side = f'<div class="sr-section-meta">{escape(meta)}</div>' if meta else ""
+    desc = f'<p class="sr-section-desc">{escape(description)}</p>' if description else ""
+    ident = f' id="{escape(anchor, quote=True)}"' if anchor else ""
+    return (f'<div class="sr-section"{ident}>{kick}<div class="sr-section-head"><h2>{escape(title)}</h2>{side}</div>'
+            f'{desc}</div>')
+
+
+def section_header(title: str, kicker: str | None = None, description: str | None = None, meta: str | None = None,
+                   anchor: str | None = None) -> None:
+    st.markdown(section_header_html(title, kicker, description, meta, anchor), unsafe_allow_html=True)
+
+
+def status_label(category: str | None, label: str | None = None) -> str:
+    """HTML label for a recommendation category assigned by decision_pipeline.run_decision() (decision D41).
+
+    `category` is a key of decision_pipeline.CATEGORY_ORDER; the wording is the pipeline's own CATEGORY_LABELS unless the
+    report's label is passed in. A missing or unrecognised category is shown as exactly that, in a neutral dotted style:
+    it is never mapped to a real category. This function does not decide anything.
+    """
+    key = str(category or "").strip()
+    style = T.CATEGORY_STYLE.get(key)
+    if style is None:
+        text = f"{T.STATUS_UNRECOGNISED_TEXT}: {key}" if key else T.STATUS_MISSING_TEXT
+        return (f'<span class="sr-status sr-status-unknown" style="--c:{T.CATEGORY_UNKNOWN["colour"]}">'
+                f'<b aria-hidden="true">{T.CATEGORY_UNKNOWN["symbol"]}</b><span>{escape(text)}</span></span>')
+    text = label or CATEGORY_LABELS[key]
+    return (f'<span class="sr-status sr-status-{key.replace("_", "-")}" style="--c:{style["colour"]}">'
+            f'<b aria-hidden="true">{style["symbol"]}</b><span>{escape(text)}</span></span>')
+
+
+@dataclass(frozen=True)
+class SiteFact:
+    """One value on a site card. `kind` is a key of ui_theme.VALUE_KINDS and says how the value was obtained.
+    `value=None` means the repository has no such value: the card says "not available" instead of leaving it out."""
+    label: str
+    value: str | None
+    kind: str = "record"
+
+
+@dataclass(frozen=True)
+class SiteCard:
+    """Display record for one site or habitat entry. Built by the data layer (site_view.featured_sites) from repository
+    files; the card adds nothing. `site_id` is passed unchanged to the navigation callback."""
+    site_id: str
+    name: str
+    kicker: str = ""
+    location: str = ""
+    habitat: str = ""
+    description: str = ""
+    facts: tuple[SiteFact, ...] = ()
+    evidence: tuple[tuple[str, str], ...] = ()      # (evidence grade key from ui_theme.GRADES, chip text)
+    action_label: str = "Open site assessment"
+
+
+def site_card_html(card: SiteCard) -> str:
+    where = " | ".join(x for x in (card.location, card.habitat) if x)
+    parts = ['<div class="sr-site">']
+    if card.kicker:
+        parts.append(f'<div class="sr-kicker">{escape(card.kicker)}</div>')
+    parts.append(f"<h3>{escape(card.name)}</h3>")
+    if where:
+        parts.append(f'<div class="sr-site-where">{escape(where)}</div>')
+    if card.description:
+        parts.append(f'<p class="sr-site-desc">{escape(card.description)}</p>')
+    if card.facts:
+        rows = []
+        for f in card.facts:
+            if f.value is None or f.kind == "unavailable":
+                rows.append(f'<div><dt>{escape(f.label)}</dt><dd class="sr-unavailable">{T.VALUE_KINDS["unavailable"].lower()}</dd></div>')
+            else:
+                kind = T.VALUE_KINDS.get(f.kind, T.VALUE_KINDS["record"])
+                rows.append(f"<div><dt>{escape(f.label)}</dt><dd>{escape(str(f.value))}<small>{escape(kind)}</small></dd></div>")
+        parts.append("<dl>" + "".join(rows) + "</dl>")
+    if card.evidence:
+        parts.append('<div class="sr-site-evidence">' + " ".join(T.grade_html(g, t) for g, t in card.evidence) + "</div>")
+    parts.append("</div>")
+    return "".join(parts)
+
+
+def site_card(card: SiteCard, on_select: Callable[[str], None] | None = None) -> None:
+    """One site card. With `on_select` the card gets a button that calls on_select(card.site_id) before the rerun; without
+    it no button is drawn (a button that does nothing is never shown)."""
+    with st.container(key=f"sr_site_{_slug(card.site_id)}"):
+        st.markdown(site_card_html(card), unsafe_allow_html=True)
+        if on_select is not None:
+            st.button(card.action_label, key=f"sr_open_site_{_slug(card.site_id)}", on_click=on_select, args=(card.site_id,),
+                      width="stretch")
+
+
+def card_row(items: Sequence, render: Callable, key: str, empty_text: str = "Nothing to show here yet.") -> int:
+    """A row of cards: calls render(item) for each item inside one wrapping flex container.
+
+    The row wraps instead of scrolling sideways: three cards sit side by side on a desktop, and stack on a phone, with no
+    horizontal page overflow and no JavaScript. Streamlit buttons cannot live inside a raw-HTML scroll strip (.sr-row), so
+    cards with a working button use this. Returns the number of cards drawn; an empty list shows `empty_text`.
+    """
+    items = list(items)
+    if not items:
+        st.caption(empty_text)
+        return 0
+    with st.container(horizontal=True, wrap=True, gap="medium", key=f"sr_row_{_slug(key)}"):
+        for item in items:
+            render(item)
+    return len(items)
+
+
+@dataclass(frozen=True)
+class HeroAction:
+    """A hero button. `key` is returned by hero_feature() when the button is pressed; `on_click` (optional) runs first."""
+    label: str
+    key: str
+    on_click: Callable | None = None
+    args: tuple = ()
+
+
+def hero_feature_html(title: str, description: str, kicker: str | None = None, points: Sequence[str] = (),
+                      meta: Sequence[str] = ()) -> str:
+    kick = f'<div class="sr-kicker">{escape(kicker)}</div>' if kicker else ""
+    pts = ('<ul class="sr-hero-points">' + "".join(f"<li>{escape(p)}</li>" for p in points) + "</ul>") if points else ""
+    tags = ('<div class="sr-meta">' + "".join(f"<span>{escape(m)}</span>" for m in meta) + "</div>") if meta else ""
+    return f'<div class="sr-hero">{kick}<h1>{escape(title)}</h1><p>{escape(description)}</p>{pts}{tags}</div>'
+
+
+def hero_feature(title: str, description: str, kicker: str | None = None, points: Sequence[str] = (), meta: Sequence[str] = (),
+                 primary: HeroAction | None = None, secondary: HeroAction | None = None, key: str = "main") -> str | None:
+    """Featured banner for a platform overview, a site or a habitat: kicker, title, description, optional capability
+    points, optional metadata tags, and up to two real buttons. Returns the `key` of the action pressed in this run, or
+    None. Gradients only: no image, no figure that the caller did not pass in."""
+    pressed = None
+    with st.container(key=f"sr_hero_{_slug(key)}"):
+        st.markdown(hero_feature_html(title, description, kicker, points, meta), unsafe_allow_html=True)
+        actions = [a for a in (primary, secondary) if a is not None]
+        if actions:
+            with st.container(horizontal=True, wrap=True, gap="small"):
+                for a in actions:
+                    if st.button(a.label, key=f"sr_act_hero_{_slug(key)}_{_slug(a.key)}", on_click=a.on_click, args=a.args,
+                                 type="primary" if a is primary else "secondary"):
+                        pressed = a.key
+    return pressed
+
+
+HERO_TITLE = "Shoreline Remediation Intelligence"
+HERO_KICKER = "Coastal and marine decision support"
+HERO_DESCRIPTION = ("A scientifically governed decision-support platform for assessing coastal and marine shoreline conditions, "
+                    "evaluating remediation options and understanding ecological recovery evidence.")
+HERO_POINTS = ("Explore shoreline environments and assessment sites.",
+               "Compare remediation pathways with natural recovery.",
+               "Understand the evidence, uncertainty and limitations behind decisions.")
+
+
+def hero(subtitle: str | None = None, chips: list[tuple[str, str]] | None = None, primary: HeroAction | None = None,
+         secondary: HeroAction | None = None) -> str | None:
+    """Platform banner, built on hero_feature(). `subtitle` replaces the standard description; `chips` are (text, colour)
+    pairs as before, now shown as neutral scope tags (the colour is ignored, so a tag cannot read as a validation
+    status). Returns the key of the action pressed, or None."""
+    return hero_feature(HERO_TITLE, subtitle or HERO_DESCRIPTION, kicker=HERO_KICKER, points=HERO_POINTS,
+                        meta=[text for text, _ in (chips or [])], primary=primary, secondary=secondary, key="platform")
+
+
+def evidence_legend_body() -> None:
+    """The five evidence grades and the class letters, in words."""
+    for key in T.GRADE_ORDER:
+        info = T.GRADES[key]
+        st.markdown(f'<div class="sr-legend-row">{T.grade_html(key)} {escape(info["legend"])}</div>', unsafe_allow_html=True)
+    st.markdown('<div class="sr-legend-row sr-muted">Recommendation classes: '
+                + " ".join(T.class_html(c, with_name=False) for c in T.CLASS_ORDER)
+                + " (A benefit, B unclear, C natural recovery, D harm under conditions, E excluded)</div>", unsafe_allow_html=True)
 
 
 def evidence_legend() -> None:
     """Permanent legend of the five evidence grades (used by every chip in the dashboard)."""
     with st.expander("Evidence grades: what the chips mean", expanded=False):
-        for key in T.GRADE_ORDER:
-            info = T.GRADES[key]
-            st.markdown(f'<div class="sr-legend-row">{T.grade_html(key)} {escape(info["legend"])}</div>', unsafe_allow_html=True)
-        st.markdown('<div class="sr-legend-row sr-muted">Recommendation classes: '
-                    + " ".join(T.class_html(c, with_name=False) for c in T.CLASS_ORDER)
-                    + " (A benefit, B unclear, C natural recovery, D harm under conditions, E excluded)</div>", unsafe_allow_html=True)
+        evidence_legend_body()
+
+
+@st.dialog("How evidence is graded", width="large")
+def evidence_dialog() -> None:
+    """The same legend, opened from the hero."""
+    st.markdown("Every number and verdict carries one of five evidence grades. Only the first means a model passed a test on "
+                "data it never saw, and that holds for a limited scope, not for every habitat.")
+    evidence_legend_body()
 
 
 def scope_panel(habitat: str, extra: list[str] | None = None) -> None:
@@ -207,7 +386,8 @@ def render_interval_comparison(view, key: str) -> None:
 def _option_card(o) -> None:
     with st.container(border=True):
         st.markdown(f'<div class="sr-opt-title">{escape(o.name)}</div>'
-                    f'{T.class_html(o.cls, with_name=False)} {T.grade_html(o.grade)}', unsafe_allow_html=True)
+                    f'{status_label(o.category, o.category_label or None)} {T.class_html(o.cls, with_name=False)} '
+                    f'{T.grade_html(o.grade)}', unsafe_allow_html=True)
         st.write(o.verdict_text)
         if o.evidence_state_label:
             st.caption(f"Evidence state: {o.evidence_state_label}.")

@@ -32,7 +32,7 @@ def all_text(at) -> str:
 def run_scenario(at: AppTest) -> AppTest:
     at.segmented_control(key="top_view").set_value("Scenario screening (legacy)").run()
     assert not at.exception, at.exception
-    at.button[0].click().run()
+    at.sidebar.button[0].click().run()
     assert not at.exception, at.exception
     return at
 
