@@ -31,7 +31,8 @@ DRAWS = 400
 PAGE_IDS = ["landing", "site", "evidence", "models", "legacy"]
 PAGE_LABELS = {"landing": "Home", "site": "Site assessment", "evidence": "Evidence explorer", "models": "Model validation",
                "legacy": "Legacy and research"}
-OPENABLE_HABITATS = ["marsh", "mangrove", "beach_fine", "beach_coarse", "beach_mixed", "beach_gravel"]
+OPENABLE_HABITATS = ["marsh", "mangrove", "beach_fine", "beach_coarse", "beach_mixed", "beach_gravel",
+                    "esi_1A", "esi_8A"]
 TIER_KEYS = ["numerical", "experimental", "screening", "unsupported"]
 TIER_LABELS = {"numerical": "Numerical validation available", "experimental": "Experimental evidence",
                "screening": "Screening and literature only", "unsupported": "Unsupported or insufficient evidence"}
@@ -126,17 +127,18 @@ def test_featured_card_opens_the_site_page_at_its_habitat(habitat_key):
 @pytest.mark.parametrize("habitat_key", OPENABLE_HABITATS)
 def test_habitat_card_opens_the_site_page_at_its_habitat(habitat_key):
     at = new_app()
-    at.button(key=f"sr_open_site_hab_{habitat_key}").click().run()
+    at.button(key=f"sr_open_site_hab_{habitat_key.lower()}").click().run()
     assert not at.exception, at.exception
     assert at.segmented_control(key="page").value == "site"
     assert at.segmented_control(key="site_habitat").value == habitat_key
 
 
-def test_rocky_and_unsupported_cards_have_no_button(landing):
+def test_unsupported_card_has_no_button_and_rocky_cards_have_one(landing):
     keys = [b.key or "" for b in landing.button]
     assert any(k == "sr_open_site_hab_marsh" for k in keys)      # the check below is not vacuous
-    for marker in ("esi_1A", "esi_8A", "unsupported"):
-        assert not any(marker in k for k in keys), marker
+    assert not any("unsupported" in k for k in keys)
+    for marker in ("esi_1a", "esi_8a"):                          # opened in Stage 4
+        assert any(marker in k for k in keys), marker
 
 
 def test_landing_has_no_home_button(landing):
@@ -241,11 +243,11 @@ def test_habitat_coverage_tier_follows_the_registry(habitat_key, tier):
     assert by_key[habitat_key].tier == tier
 
 
-def test_rocky_shoreline_entries_screen_without_opening_a_model():
+def test_rocky_shoreline_entries_screen_without_a_model():
     rocky = [c for c in SV.habitat_coverage() if ESI_ROCKY.search(str(c.esi or ""))]
     assert rocky
     for c in rocky:
-        assert c.tier == "screening" and c.opens is None, c.key
+        assert c.tier == "screening" and c.opens == c.key and not c.evidence[0][0].startswith("validated"), c.key
 
 
 def test_unsupported_entry_is_the_only_abstaining_entry_and_says_so():

@@ -404,9 +404,11 @@ def _scenario(shoreline_type: str, **kw):
     return Scenario(shoreline_type=shoreline_type, **kw)
 
 
-def _beach_renderer(h: "HabitatView") -> Callable[[], None]:
+def _screening_renderer(h: "HabitatView") -> Callable[[], None]:
+    """Rules-and-literature screening page for a shoreline class with no outcome model (beaches and rocky shores). The
+    pipeline is the same one; only the scope text and the habitat code passed to it differ."""
     def render() -> None:
-        C.scope_panel("beach")
+        C.scope_panel(h.family)
         st.caption(h.note)
         c1, c2, c3 = st.columns(3)
         oiling = c1.selectbox("Oiling (SCAT maximum oiling)", CLASSES, index=1, format_func=lambda x: T.OILING_LABELS[x], key=f"beach_{h.key}_oiling")
@@ -427,6 +429,9 @@ def _beach_renderer(h: "HabitatView") -> Callable[[], None]:
                 for a in view.advisories:
                     st.markdown(f"- {a}")
         st.subheader("Options and what the evidence says")
+        if any(HABITAT_MODELS.get(h.key, ())):
+            st.caption("The cleanup options below come from screening rules and published findings only. The experimental "
+                       "persistence reference above is not evidence that any of these options works.")
         C.render_pipeline_section(view, f"beach_{h.key}")
         C.render_sources_and_decisions(view)
         _download(view, report, h.label, h.key)
@@ -441,6 +446,7 @@ class HabitatView:
     shoreline_type: str = ""
     note: str = ""
     esi: str = ""
+    family: str = "beach"          # key of ui_theme.SCOPE_ONE_LINE / SCOPE_LIMITS: "beach" or "rocky"
 
 
 _BEACH_NOTE = ("The beach type you picked is passed to the decision pipeline by its shoreline class (ESI code). The generic rule "
@@ -454,7 +460,29 @@ for _k, _l, _t, _e, _n in [("beach_fine", "Fine-to-medium sand beach", "sand_bea
                            ("beach_mixed", "Mixed sand and gravel beach", "mixed_sediment", "5", "mixed sediment (ESI 5)."),
                            ("beach_gravel", "Gravel beach", "mixed_sediment", "6A", "mixed sediment (ESI 6A).")]:
     _h = HabitatView(_k, _l, lambda: None, _t, _BEACH_NOTE + _n, _e)
-    HABITATS.append(HabitatView(_k, _l, _beach_renderer(_h), _t, _h.note, _e))
+    HABITATS.append(HabitatView(_k, _l, _screening_renderer(_h), _t, _h.note, _e))
+_ROCKY_ESI = ("1A", "8A")
+_ROCKY_NOTE = ("The rocky shore type you picked is passed to the decision pipeline by its ESI code. Rocky shores have no outcome "
+               "model and no observed site records in this platform: ")
+
+
+def _add_rocky_habitats() -> None:
+    """ESI 1A and 8A entries. Labels come from the habitat table; if it cannot be read the entries are omitted."""
+    from src.shoreline_remediation import habitat as _habitat
+    try:
+        rows = _habitat.table()
+    except Exception:
+        return
+    for esi in _ROCKY_ESI:
+        row = rows.get(esi)
+        if row is None or not row.name:
+            continue
+        label = row.name[:1].upper() + row.name[1:]
+        h = HabitatView(f"esi_{esi}", label, lambda: None, "rocky_shore", _ROCKY_NOTE + f"{row.name} (ESI {esi}).", esi, "rocky")
+        HABITATS.append(HabitatView(h.key, h.label, _screening_renderer(h), h.shoreline_type, h.note, h.esi, "rocky"))
+
+
+_add_rocky_habitats()
 HABITAT_BY_KEY = {h.key: h for h in HABITATS}
 
 
@@ -558,10 +586,10 @@ _HABITAT_SUMMARY = {
                   "are screened with rules and published findings.",
 }
 _BEACH_SUMMARY = "Rules and published findings only. There is no numerical forecast for this beach type."
-_BEACH_CHIP = ("rules_literature", "Rules and literature only: cleanup options")
-_ROCKY_ESI = ("1A", "8A")
-_ROCKY_SUMMARY = ("The decision pipeline screens this shoreline type with rules and literature and gives no site-specific "
-                  "numerical forecast. The dashboard entry is the next planned task.")
+_BEACH_CHIP = ("rules_literature", "Rules and literature only: cleanup options (no experimental evidence)")
+_ROCKY_CHIP = _BEACH_CHIP
+_ROCKY_SUMMARY = ("Rules and published findings only. There is no site record, no outcome model and no numerical forecast "
+                  "for this rocky shore type; natural recovery with monitoring stays the reference option.")
 
 
 @dataclass(frozen=True)
@@ -588,7 +616,7 @@ def _coverage_tier(model_ids) -> str:
 
 
 def habitat_coverage() -> list:
-    """One entry per openable habitat, the rocky-shore rows of the habitat table (not yet openable), and a final
+    """One entry per openable habitat (salt marsh, mangrove, beaches and the rocky-shore rows of the habitat table), and a final
     'other shoreline types' entry for habitats the platform does not support."""
     from src.shoreline_remediation import habitat as _habitat
     out = []
@@ -596,22 +624,12 @@ def habitat_coverage() -> list:
         esi = h.esi or _habitat.normalise(h.key)
         ids = HABITAT_MODELS.get(h.key, ())
         chips = [c for c in (_model_chip(m, _MODEL_WHAT[m]) for m in ids) if c]
-        if h.key.startswith("beach_"):
-            chips.insert(0, _BEACH_CHIP)
+        if h.key.startswith("beach_") or h.family == "rocky":
+            chips.append(_BEACH_CHIP if h.family == "beach" else _ROCKY_CHIP)   # after the model chip: separate lines of evidence
         elif h.key == "mangrove":
             chips.append(("ai_proposed", "AI-proposed: cleanup verdicts"))
         out.append(HabitatCoverage(h.key, h.label, "" if esi == _habitat.UNKNOWN else esi, _coverage_tier(ids),
-                                   _HABITAT_SUMMARY.get(h.key, _BEACH_SUMMARY), tuple(chips), h.key))
-    try:
-        rows = _habitat.table()
-    except Exception:  # habitat table unreadable: omit the rocky entries rather than retype them
-        rows = {}
-    for esi in _ROCKY_ESI:
-        row = rows.get(esi)
-        if row is None or not row.name:
-            continue
-        out.append(HabitatCoverage(f"esi_{esi}", row.name[:1].upper() + row.name[1:], esi, "screening", _ROCKY_SUMMARY,
-                                   (_BEACH_CHIP,), None, "Not yet available in the dashboard"))
+                                   _HABITAT_SUMMARY.get(h.key, _ROCKY_SUMMARY if h.family == "rocky" else _BEACH_SUMMARY), tuple(chips), h.key))
     from src.shoreline_remediation.decision_pipeline import OUTCOME_LABELS
     out.append(HabitatCoverage(
         "unsupported", "Other shoreline types", "", "unsupported",
@@ -630,7 +648,7 @@ def habitat_cards() -> list:
         action = f"Open the {c.label.lower()} assessment" if openable else ""
         cards.append(C.SiteCard(site_id=c.opens or c.key, name=c.label, kicker=T.COVERAGE_TIERS[c.tier]["label"],
                                 location="" if openable else (c.availability or ""), habitat=f"ESI {c.esi}" if c.esi else "",
-                                description=c.summary, facts=(), evidence=c.evidence, action_label=action))
+                                description=c.summary, facts=(), evidence=c.evidence, action_label=action, tier=c.tier))
     return cards
 
 

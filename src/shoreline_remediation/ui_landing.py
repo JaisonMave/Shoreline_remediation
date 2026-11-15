@@ -64,10 +64,9 @@ def render_landing(on_open_site: Callable, on_navigate: Callable) -> None:
                      meta="Sources: habitat table, model registry")
     st.markdown('<div class="sr-tiers">' + " ".join(T.grade_html(v["grade"], v["label"]) for v in T.COVERAGE_TIERS.values()) + "</div>",
                 unsafe_allow_html=True)
-    tier_of = {v["label"]: k for k, v in T.COVERAGE_TIERS.items()}
 
     def render_habitat(card) -> None:
-        tier = tier_of.get(card.kicker, "screening")
+        tier = card.tier if card.tier in T.COVERAGE_TIERS else "screening"
         openable = bool(card.action_label)
         C.site_card(card, on_select=on_open_site if openable else None, key=f"hab_{tier}_{card.site_id}", button_key=f"hab_{card.site_id}")
 

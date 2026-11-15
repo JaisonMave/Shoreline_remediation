@@ -74,7 +74,7 @@ def show_fig(fig, **kwargs) -> None:
 
 def ai_style_dataframe(df: pd.DataFrame):
     """Desaturated look for tables of AI-proposed numbers (grid cells accept only colour, not hatching)."""
-    return df.style.set_properties(**{"color": "#8A7F99", "font-style": "italic"})
+    return df.style.set_properties(**{"color": "#B4AAC4", "font-style": "italic"})
 
 
 # ---------------------------------------------------------------------------------------------------------------
@@ -143,6 +143,7 @@ class SiteCard:
     facts: tuple[SiteFact, ...] = ()
     evidence: tuple[tuple[str, str], ...] = ()      # (evidence grade key from ui_theme.GRADES, chip text)
     action_label: str = "Open site assessment"
+    tier: str = ""                                  # key of ui_theme.COVERAGE_TIERS (habitat cards); "" for site cards
 
 
 def site_card_html(card: SiteCard) -> str:
@@ -329,6 +330,10 @@ def answer_card(view, where: str, metrics: list[dict] | None = None) -> None:
 _OUTCOME_OPTIONS = {"edge_loss_avoided_m": "Marsh edge saved (m)", "veg_cover_ratio_gain": "Vegetation cover gained"}
 
 
+# Height of title, x axis, axis title and bottom legend. Streamlit fits the chart into its total height, so the rows need this on top.
+_INTERVAL_CHROME = 170
+
+
 def interval_chart(rows: list, title: str, x_title: str) -> alt.Chart:
     """Median dot and 90% range bar for each option, on a shared, visible zero line."""
     df = pd.DataFrame(rows)
@@ -351,7 +356,7 @@ def interval_chart(rows: list, title: str, x_title: str) -> alt.Chart:
     zero_rule = zero.mark_rule(strokeDash=[5, 4], strokeWidth=2, color=T.NEUTRAL).encode(x="x:Q")
     zero_text = zero.mark_text(align="left", dx=4, dy=-4, baseline="bottom", fontSize=11, color=T.NEUTRAL).encode(
         x="x:Q", y=alt.value(0), text="t:N")
-    return (zero_rule + bars + dots + zero_text).properties(height=max(90, 34 * len(df) + 70), title=title)
+    return (zero_rule + bars + dots + zero_text).properties(height=max(90, 48 * len(df)) + _INTERVAL_CHROME, title=title)
 
 
 def render_interval_comparison(view, key: str) -> None:
@@ -601,7 +606,8 @@ def render_beach_persistence(site: dict | None) -> None:
         if esi != "3A":
             st.markdown("#### No outcome model: rules and literature only")
             st.markdown(T.grade_html("rules_literature"), unsafe_allow_html=True)
-            st.caption("There is no persistence or recovery model for this beach type. The options below come from screening rules and "
+            kind = "rocky shore" if str(site.get("habitat", "")).startswith("esi_") else "beach"
+            st.caption(f"There is no persistence or recovery model for this {kind} type. The options below come from screening rules and "
                        "published findings, and the notes are not a prediction for this site.")
             notes = site.get("literature_notes") or []
             if notes:

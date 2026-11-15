@@ -216,6 +216,7 @@ SCOPE_ONE_LINE = {
     "marsh": "Scope: Deepwater Horizon 2010, light crude, Louisiana salt marsh. Results are associations, not proven causes.",
     "mangrove": "Scope: one spill (Panama, 1986), red mangrove fringe, years 1 to 5. Describes oiling damage only, not cleanup.",
     "beach": "Scope: rules and literature only. No site-specific beach forecast yet.",
+    "rocky": "Scope: rules and literature only. No site record and no forecast for rocky shores.",
     "scenario": "Scope: rule screening and an assumed process model. Illustrative only; nothing here is validated against field outcomes.",
 }
 SCOPE_LIMITS = {
@@ -240,6 +241,12 @@ SCOPE_LIMITS = {
         "No beach outcome model is connected yet. The options shown come from screening rules and published findings only.",
         "The literature table was extracted by AI assistants and has not been checked by a person.",
         "Beach habitats differ a lot (grain size, wave energy, how deep oil is buried). One verdict does not transfer between them without checking.",
+    ],
+    "rocky": [
+        "No rocky-shore outcome model and no observed rocky-shore site records are connected. The options shown come from screening rules and published findings only.",
+        "Screening eligibility is not demonstrated remediation benefit. 'Insufficient evidence' means the platform cannot compare an option with natural recovery; it is not a finding of no benefit.",
+        "The literature table was extracted by AI assistants and has not been checked by a person. NOAA ESI ratings need source verification before use.",
+        "Natural recovery with monitoring stays the reference option unless a defensible comparison exists.",
     ],
     "scenario": [
         "The rule screening uses existing shoreline-cleanup rules. It orders options inside each tier by an ASSUMED ecological score. It is not an effectiveness ranking.",

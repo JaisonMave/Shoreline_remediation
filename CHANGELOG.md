@@ -11,6 +11,25 @@ Computer (no account needed).
 
 ---
 
+## 2026-11-15: V5.1 Session 2 Stage 4: rocky-shoreline screening pages, Stage 3 integrated (implemented, tested, seen running; not committed)
+
+- **Integrated** Stage 3 (`2008c19`, `cf659e9`) into the local design branch by fast-forward from `origin/ccr-ed209fd7-hn5mdk`
+  (the design branch was at `ccc0d35`, equal to origin). Nothing pushed.
+- **Added** ESI 1A and ESI 8A pages (`site_view._screening_renderer`, generalised from the beach renderer; entries `esi_1A`,
+  `esi_8A`, labels read from the habitat table). The landing cards are now openable. The pages show the pipeline's abstentions
+  (`no_site_forecast`, `no_model`, `insufficient_evidence`, `no_recommendation`), "No outcome model: rules and literature only",
+  and a rocky scope panel. No rocky site record, model or numerical forecast exists and none was added. Screening eligibility is
+  not demonstrated benefit. `decision_pipeline.py` and the registry were not changed.
+- **Fixed** interval-chart row collision (total chart height left no plot area; `ui_components._INTERVAL_CHROME`); AI-proposed
+  table text contrast (`#8A7F99` to `#B4AAC4`, at least 7:1 on the dark surfaces); landing tier lookup now uses a structured
+  `SiteCard.tier` instead of the display label; fine-sand-beach chips and a page caption now separate the experimental
+  persistence reference from the cleanup options (rules and literature only, no experimental evidence).
+- **Tests**: `tests/test_ui_stage4.py` (20 tests); two Stage 3 tests updated because rocky cards are now openable.
+  `python -m pytest tests -q`: 510 passed, 0 failed, 0 skipped. These are software tests, not scientific validation.
+- Status: implemented and tested; screening only, nothing validated.
+
+---
+
 ## 2026-11-15 (V5.1 Session 2, Stage 3): landing page, navigation and site discovery
 - **Why:** handoff section 10 step 3: a stakeholder should enter on a page that shows the sites and habitats, and see
   what kind of evidence exists for each, before reaching the assessment.

@@ -332,6 +332,46 @@ Continuation state:
   `ccc0d35`). Run `python -m pytest tests -q` (488 expected) and push the design branch only when the owner authorises
   it. If the design branch has moved, stop and ask; do not rebase or force-push.
 
+## 2f. Session 2, Stage 4: rocky-shoreline screening and UI corrections (implemented, tested, seen running; NOT committed)
+
+Integration: on `claude/shoreline-v5-1-dashboard-design-ot1i5s` (local), `git merge --ff-only origin/ccr-ed209fd7-hn5mdk`; before
+that the local branch and origin were both `ccc0d35`, the tree was clean and the checkpoint descended from it. HEAD is now
+`cf659e9`. The design branch was not pushed. Baseline after integration: 488 passed (after installing `requirements.txt`,
+`statsmodels`, `seaborn`, `pyproj`, `geopandas`, `shapely`, `rasterio`, `pytest` in this container).
+
+Stage 4 (files: `site_view.py`, `ui_components.py`, `ui_landing.py`, `ui_theme.py`, `tests/test_ui_stage3.py`,
+`tests/test_ui_stage4.py`; `decision_pipeline.py`, `registry.py`, `model_v4` untouched):
+- ESI 1A and 8A open from the landing cards (`esi_1A`, `esi_8A`; button keys are lower-cased by `_slug`: `sr_open_site_hab_esi_1a`).
+  Labels come from `habitat.table()`; if it cannot be read the entries are omitted. No site record, model or forecast.
+- Screening and abstention: the pipeline returns `no_site_forecast`, `no_model`, `insufficient_evidence`, `no_recommendation`;
+  natural recovery with monitoring stays the reference. The coverage chip is rules and literature only.
+- Phase 3: interval-chart rows no longer collide; AI-proposed table text contrast fixed; `SiteCard.tier` replaces the label
+  lookup; fine-sand-beach chips and caption separate persistence reference from cleanup options. Mobile sidebar (already
+  closed in Stage 3) re-confirmed.
+
+Tests: `python -m pytest tests/test_ui_stage4.py -q` 20 passed; `python -m pytest tests -q` **510 passed, 0 failed, 0 skipped**
+(488 + 20 + 2 parametrised Stage 3 cases), about 2.5 minutes. Software tests only, not scientific validation.
+
+Browser (Playwright Chromium against `streamlit run`, 1440 x 900 and 390 x 844): landing; cards open at ESI 1A, 8A, marsh,
+mangrove and fine-sand beach; no document-level horizontal overflow on landing, 8A or legacy; reload on `?page=site` stays on the
+site page; "Back to home" returns to the landing page; beach report downloads (`shoreline_report_beach_fine.html`); legacy page
+shows its warning; mobile sidebar starts collapsed; interval chart checked at 1440 after the fix (marsh worked example).
+**Not checked in a browser**: coarse, mixed and gravel beach pages, the mangrove page beyond its text, the Evidence explorer and
+Model validation placeholders, keyboard navigation, downloads for marsh, mangrove and rocky pages, the mobile interval chart.
+
+Remaining limitations:
+- The 1A/8A answer-card headline is the pipeline's own text. For 1A at moderate oiling it says "Best allowed options (class
+  B): passive sorbents, manual removal, vacuum removal" in the same sentence as "Insufficient evidence to compare ... passive
+  sorbents, manual removal, vacuum removal". Correct per class rules but confusing; it also reports "evidence exists but no clear
+  difference" for high pressure heated washing on 1A. Review the evidence rows behind that, and reword the headline in the
+  pipeline only after the owner agrees (the pipeline was deliberately not touched).
+- NOAA ESI ratings and the AI-extracted literature table remain unverified by a person; no expert review exists.
+- Streamlit's `site_habitat` default/session-state warning (log only) is unchanged.
+- Fine-sand-beach tier stays "Experimental evidence" because of the persistence reference alone.
+
+Next recommended stage: Session 3 pages (Evidence explorer, Model validation from `registry.governance_table()`), then the
+answer-card category display (known issue 4). Commit and push need the owner's explicit authorisation.
+
 ## 3. Files created or modified
 
 Created:
@@ -399,7 +439,7 @@ unaffected, but that is an expectation, not a check.
 
 ## 7. Known bugs and open issues
 
-1. **No rocky-shoreline entry in the dashboard.** `site_view.HABITATS` has marsh, mangrove and four beach types. The
+1. ~~No rocky-shoreline entry in the dashboard.~~ Done in Session 2 Stage 4 (section 2f). Original text: `site_view.HABITATS` has marsh, mangrove and four beach types. The
    pipeline supports `rocky_shore` (ESI 1A, 8A) and is tested, but the required rocky demonstration case cannot be
    reached from the UI. (Now, Session 2 Stage 3: the landing page lists ESI 1A and 8A as screening entries labelled "Not
    yet available in the dashboard", with no button. The rocky case still cannot be opened.)
