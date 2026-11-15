@@ -1135,7 +1135,7 @@ def _headline(rows: list, tier: str, anchor: int, state: str | None = None) -> s
     allowed = [r for r in rows if r["recommendation_class"] in ("B", "D")]
     with_evidence = [r["option"] for r in allowed if r["evidence_state"] != STATE_INSUFFICIENT]
     without = [r["option"] for r in allowed if r["evidence_state"] == STATE_INSUFFICIENT]
-    b = [r["option"] for r in rows if r["recommendation_class"] == "B"][:3]
+    b = [r["option"] for r in rows if r["recommendation_class"] == "B"]
     if state == STATE_NO_DIFFERENCE:
         text = ("No clear difference from natural recovery (evidence exists): no option is shown by evidence to beat natural recovery; "
                 "continue with natural recovery and monitoring. Evidence exists but shows no clear difference for: "
@@ -1146,8 +1146,17 @@ def _headline(rows: list, tier: str, anchor: int, state: str | None = None) -> s
         text = ("Insufficient evidence to compare with natural recovery: no allowed option has any eligible evidence rows for this "
                 "habitat, so no comparison is possible. Natural recovery with monitoring is the default; this is not a finding that "
                 "treatment gives no benefit.")
-    if b:
-        text += " Best allowed options (class B): " + ", ".join(b) + "."
+    # V5.1 wording (Phase 1 review): class B is screening eligibility, not demonstrated effectiveness, and the order within the
+    # class is a display convention. Where no option has any evidence (insufficient state) the eligible options are listed in full,
+    # so that a truncated list does not imply a ranking. Where evidence exists for some options (no-difference state) the sentences
+    # above already name them by evidence status, so only the caveat is added and no second option list is given.
+    if state == STATE_NO_DIFFERENCE:
+        text += (" Eligibility reflects habitat-impact screening, not demonstrated remediation effectiveness. "
+                 "The order shown is not a performance ranking.")
+    elif b:
+        text += (" Eligible under screening rules, but effectiveness relative to natural recovery has not been established: "
+                 + ", ".join(b) + ". Eligibility reflects habitat-impact screening, not demonstrated remediation effectiveness. "
+                 "The order shown is not a performance ranking.")
     elif not allowed:
         text += " No allowed alternative has been identified."
     return text

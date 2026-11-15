@@ -307,14 +307,32 @@ def answer_card(view, where: str, metrics: list[dict] | None = None) -> None:
         if view is None:
             st.warning("The decision pipeline could not produce a recommendation for these inputs.")
         else:
-            st.markdown(f'<div class="sr-answer">{escape(humanise(view.headline, view.options))}</div>', unsafe_allow_html=True)
-            info = T.grade_info(view.headline_grade)
-            st.markdown("Evidence behind this recommendation: " + T.grade_html(view.headline_grade, view.headline_grade_text)
+            sec = E.answer_sections(view)
+            st.markdown("**1. Decision outcome**")
+            st.markdown(f'<div class="sr-answer">{escape(sec.outcome)}</div>', unsafe_allow_html=True)
+            st.markdown("Evidence behind this answer: " + T.grade_html(view.headline_grade, view.headline_grade_text)
                         + "&nbsp; Scope of the tool for this input: " + T.grade_html(view.tier_grade, view.tier_text),
                         unsafe_allow_html=True)
-            if view.evidence_state_label:
-                st.markdown(f"Against natural recovery: **{view.evidence_state_label}**")
-            st.caption(info["legend"])
+            c1, c2 = st.columns(2)
+            with c1:
+                st.markdown("**2. Screening eligibility**")
+                st.write(sec.eligibility)
+                if sec.eligible_names:
+                    st.caption("Eligible: " + ", ".join(sec.eligible_names) + ". The order is not a performance ranking.")
+            with c2:
+                st.markdown("**3. Demonstrated benefit vs natural recovery**")
+                if view.evidence_state_label:
+                    st.markdown(f"Against natural recovery: **{view.evidence_state_label}**")
+                st.write(humanise(sec.benefit, view.options))
+            st.markdown("**4. Conditions and restrictions**")
+            for c in sec.conditions or ["No site-specific conditions were reported by the pipeline."]:
+                st.markdown(f"- {humanise(c, view.options)}")
+            st.markdown("**5. Confidence and uncertainty**")
+            for u in sec.uncertainty:
+                st.markdown(f"- {u}")
+            with st.expander("Pipeline's full text statement (technical wording)"):
+                st.write(humanise(view.headline, view.options))
+            st.caption(T.grade_info(view.headline_grade)["legend"])
         if metrics:
             cols = st.columns(len(metrics))
             for col, m in zip(cols, metrics):

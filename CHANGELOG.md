@@ -11,6 +11,54 @@ Computer (no account needed).
 
 ---
 
+## 2026-11-15: V5.1 Session 3 Stage 5: ESI 1A/8A headline wording, five-part answer card, option-card wording (implemented, tested, seen running; uncommitted)
+
+Why: the ESI 1A/8A answer showed "Best allowed options (class B)" next to "Insufficient evidence to compare". Class B means
+screening-eligible, not effective, so the headline read as a contradiction. Investigation (read-only) found no defect in
+classification or aggregation: the problem was wording. Owner approved Option 1 (reword the pipeline headline).
+
+Changed files and purpose:
+- `src/shoreline_remediation/decision_pipeline.py` (authoritative; `_headline` only). Insufficient-evidence state: names all class B
+  options and says "Eligible under screening rules, but effectiveness relative to natural recovery has not been established: ...
+  Eligibility reflects habitat-impact screening, not demonstrated remediation effectiveness. The order shown is not a performance
+  ranking." No-clear-difference state: appends only the eligibility/non-ranking caveat (no second option list; options are already
+  named by evidence status earlier in the headline). Class A headline and the natural-recovery wording are unchanged. No rule, class,
+  evidence state, order, abstention or number changed.
+- `src/shoreline_remediation/ui_evidence.py`: `answer_sections()` (presentation only; reads `recommendation_summary`,
+  `decision_outcome_label`, per-option `evidence_state`, category and reason), `_lower_first`, and `_verdict_text` for class B.
+- `src/shoreline_remediation/ui_components.py`: `answer_card` rebuilt as five sections: 1 decision outcome, 2 screening eligibility,
+  3 demonstrated benefit vs natural recovery, 4 conditions and restrictions, 5 confidence and uncertainty. The pipeline headline
+  moved into an expander, "Pipeline's full text statement (technical wording)".
+- `src/shoreline_remediation/ui_theme.py`: class B group heading reworded ("Allowed by screening, benefit not established").
+- `tests/test_dashboard_v5.py`: one label, "Evidence behind this recommendation" -> "Evidence behind this answer" (same strength).
+- `tests/test_session3_answer_card.py` (new, 27 tests).
+- `CHANGELOG.md`, `docs/V5_1_HANDOFF.md`.
+
+Answer-card content rules: eligibility is never described as effectiveness; insufficient evidence is never described as no effect;
+unavailable information reads "Not assessed" or "unavailable", never zero; confidence is stated to be a heuristic evidence grade with no
+calibrated probability; for rocky shores the card says the NOAA habitat-impact ratings were transcribed by AI, are Proposed and not
+human-verified, and that remediation effectiveness is not numerically validated.
+
+Option-card wording (from the pipeline's `evidence_state`, not inferred): no eligible evidence -> "Allowed by screening, but no eligible
+evidence is available to compare it with natural recovery. This is not a finding that it does not work."; evidence exists with no clear
+difference -> "Evidence exists but shows no clear difference from natural recovery ... not a demonstrated benefit, and not proof that it
+does not work." Benefit, harm and exclusion text unchanged. The authoritative `CLASS_LABELS["B"]` string is untouched.
+
+Corrections found by rendered QA (four): (1) ESI 1A at medium oil showed "No clear difference (evidence exists)" beside "Not established" for every
+option, because the one option with evidence is conditional; the card now groups options by their own `evidence_state`. (2) "nOAA" from
+lower-casing a sentence beginning "NOAA" (card and existing option-card text). (3) "(see harm_flags)" leaked an internal field name; the card now
+uses the pipeline's explanation or the NOAA rating detail. (4) The marsh planting condition quoted the internal code 'mechanical_removal'; condition text now passes through `humanise`.
+
+Verification: full suite `/tmp/claude-0/venv/bin/python -m pytest -q` = 537 passed, 0 failed, 0 skipped (510 before this stage + 27 new). 37-case comparison against
+HEAD `29aba8d` (ESI 1A, 8A, 3A, 5 x 3 oiling levels x 3 oil settings, plus the marsh worked cell): classes, categories, evidence states, order and
+rank, abstentions, recommendation summary, decision outcome, natural-recovery block, plots and numbers identical; only the appended headline
+sentence differs (36 of 37 cases; the class A marsh headline is unchanged). Browser (Playwright Chromium against `streamlit run`, 1440 and 390 px
+wide, tall viewport so the whole card is captured): marsh, ESI 1A, ESI 8A, four beach types and mangrove, no horizontal overflow. Not checked in a
+browser: report downloads, keyboard navigation, the legacy page. Environment: virtual environment outside the repository with
+`requirements.txt` plus `pytest`, `seaborn`, `statsmodels` and `pyproj` (analysis-only imports used by some test files); no project dependency file changed.
+Independent Haiku review: no eligibility/effectiveness conflation, no verification or validation claims; it noted that the headline's no-difference sentence would mislabel a class D option with harm or mixed evidence as "no clear difference". A scan of every habitat code at 3 oiling levels and 5 oil settings found no class B or D option with a harm or mixed evidence state, so this cannot occur with current data; it is recorded as a latent issue, not changed. Release: canonical branch `model_v5_1`; see the handoff for the branch consolidation record.
+Status: implemented and tested; this is a wording and presentation change, not a scientific validation. NOAA 1A/8A ratings remain unverified by a person.
+
 ## 2026-11-15: V5.1 Session 2 Stage 4: rocky-shoreline screening pages, Stage 3 integrated (implemented, tested, seen running; commit `710aefe`)
 
 - **Integrated** Stage 3 (`2008c19`, `cf659e9`) into the local design branch by fast-forward from `origin/ccr-ed209fd7-hn5mdk`

@@ -1,11 +1,9 @@
 # V5.1 handoff
 
-Updated 15 November 2026, end of **Session 2, Stage 3** (landing page, navigation and site discovery). Stage 3 is
-implemented, tested and seen running in a browser, but **not committed or pushed**; it awaits the owner's authorisation.
-Stages 1 and 2 are committed and pushed: HEAD is `ccc0d35` on `claude/shoreline-v5-1-dashboard-design-ot1i5s`, equal to
-the remote (Stage 1 is `e502dfa`, Stage 2 is `7894759`, and `ccc0d35` records Stage 2's hash). Session 1 (architecture and
-scientific stabilisation) is complete and committed. Read this first in the next session, then go straight to
-"Next session: exact starting point". Do not repeat the Session 1 audit.
+Updated 15 November 2026, end of **Session 3, Stage 5** (ESI 1A/8A headline wording, five-part answer card, option-card wording).
+Stage 5 is implemented, tested (537 passed) and seen running in a browser, and is committed to `model_v5_1` (hash in section 1a). Canonical branch for V5.1: **`model_v5_1`** (see section 1a). Session work was done on the harness branch `ccr-bebfcb64-immuzm`, which was started from `29aba8d`. Session 2 Stages 1 to 4 are committed (`e502dfa`, `7894759`, `2008c19`/`cf659e9`, `710aefe`); Session 1 is committed. Read
+section 2g and then section 10a ("Next session: exact starting point") first. Sections 2a to 2f and section 10 are the Session 2 record and are
+kept for history; their test counts (371, 510) were correct at the time and are superseded by section 6a. Do not repeat the Session 1 audit.
 
 ## 1. Branch and commit
 
@@ -17,6 +15,22 @@ scientific stabilisation) is complete and committed. Read this first in the next
 - Session 2 works on branch `claude/shoreline-v5-1-dashboard-design-ot1i5s`, which starts at the Session 1 commit
   `f2b3e51`. Session 2 Stage 1 is committed as `e502dfa882f33040677cb4abd161425de66ad993` (message "V5.1 Session 2 Stage 1: premium dark dashboard design foundation") and pushed to this branch only. The commit hash is recorded in a follow-up commit, because a commit cannot contain its own hash.
 - Start every session with `git status`, `git branch --show-current` and `git log -1 --oneline`.
+
+## 1a. Canonical branch, release state and architecture summary (V5.1)
+
+- **Canonical V5.1 branch: `model_v5_1`** on `https://github.com/JaisonMave/Shoreline_remediation`. It carries the full history from the V4 baseline `model_v4` (`37835e7`) through Session 1 (`f2b3e51`), Session 2 Stages 1 to 4
+  (`e502dfa`, `7894759`, `2008c19`/`cf659e9`, `710aefe`) and Session 3 Stage 5 (the tip commit, "Complete V5.1 shoreline decision support platform"; a commit cannot record its own hash, so use `git log -1 model_v5_1`).
+- `model_v4` is the preserved historical V4 branch and was not modified. `model_v3` is the older historical branch. `main` is GitHub's default branch and has an unrelated two-commit history ("Add files via upload"); it was preserved as is.
+- The earlier temporary V5.1 branches (`claude/shoreline-v5-1-stabilisation-5qqym3`, `claude/shoreline-v5-1-dashboard-design-ot1i5s`, `ccr-ed209fd7-hn5mdk`) were ancestors of `model_v5_1` with no unique commits and no pull requests, and were removed
+  from GitHub during consolidation; `git ls-remote --heads origin` shows the actual remote state. New work starts from `model_v5_1`; do not build on a harness session branch.
+- Architecture: `dashboard.py` -> `site_view.py` -> `ui_pipeline.py` -> `decision_pipeline.run_decision()` is the only decision pathway. `run_decision()` assigns classes (A to E), recommendation categories, evidence states, outcomes and abstentions;
+  `ui_evidence.py` (view models, `answer_sections`), `ui_components.py`, `ui_theme.py` and `ui_report.py` only read and present those fields. Legacy views stay under "Legacy and research" and do not drive recommendations.
+- Stages: 1 design foundation (2a); 2 reusable components and hero (2b); 3 landing page, navigation, site discovery (2d, 2e); 4 rocky-shoreline screening pages and UI corrections (2f); 5 headline wording, five-part answer card, option-card wording (2g).
+- Evidence-category semantics: Recommended; Conditional; Natural recovery with monitoring (reference); Allowed, no demonstrated benefit (evidence exists, no clear difference); Insufficient evidence (no eligible evidence rows); Excluded. Eligibility is never effectiveness, and insufficient evidence is never ineffectiveness.
+- Provenance limits that still apply: NOAA 1A/8A ratings are AI-transcribed and Proposed (not human-verified); the literature table is AI-extracted and not checked by a person; no expert review exists; rocky-shore effectiveness is not numerically validated; the composer and veg/oil-excess/sand-persistence components stay experimental; F5 and D32 failed their gates.
+- Final verification record: `/tmp/claude-0/venv/bin/python -m pytest -q` = 537 passed, 0 failed, 0 skipped; 37-case pipeline comparison against `29aba8d` identical apart from the intended headline sentence; desktop (1440) and mobile (390) full-card screenshots inspected for ESI 1A (medium oil), ESI 8A (medium oil) and the salt-marsh worked example, plus rendered text checks of four beach types and mangrove.
+- Install: `python -m venv <dir>; <dir>/bin/pip install -r requirements.txt pytest seaborn statsmodels pyproj` (the last three are analysis-only imports some tests need; the documented launcher uses Python 3.11, this session used 3.13). Run the app with `streamlit run src/shoreline_remediation/dashboard.py`.
+- Next priorities, in order: (1) Evidence Explorer page (section 10a step 3); (2) Model Validation page (step 4); (3) navigation, QA and demonstration readiness; (4) human verification of the NOAA 1A/8A ratings and the AI-extracted literature table; (5) the latent `_headline` and class A wording items in section 2g. Do not redo Stages 1 to 5.
 
 ## 2. Completed objectives (Session 1)
 
@@ -360,17 +374,59 @@ shows its warning; mobile sidebar starts collapsed; interval chart checked at 14
 Model validation placeholders, keyboard navigation, downloads for marsh, mangrove and rocky pages, the mobile interval chart.
 
 Remaining limitations:
-- The 1A/8A answer-card headline is the pipeline's own text. For 1A at moderate oiling it says "Best allowed options (class
-  B): passive sorbents, manual removal, vacuum removal" in the same sentence as "Insufficient evidence to compare ... passive
-  sorbents, manual removal, vacuum removal". Correct per class rules but confusing; it also reports "evidence exists but no clear
-  difference" for high pressure heated washing on 1A. Review the evidence rows behind that, and reword the headline in the
-  pipeline only after the owner agrees (the pipeline was deliberately not touched).
+- The 1A/8A headline contradiction is resolved in Session 3 Stage 5 (section 2g).
 - NOAA ESI ratings and the AI-extracted literature table remain unverified by a person; no expert review exists.
 - Streamlit's `site_habitat` default/session-state warning (log only) is unchanged.
 - Fine-sand-beach tier stays "Experimental evidence" because of the persistence reference alone.
 
 Next recommended stage: Session 3 pages (Evidence explorer, Model validation from `registry.governance_table()`), then the
 answer-card category display (known issue 4). Committed as `710aefe` and pushed to `origin/claude/shoreline-v5-1-dashboard-design-ot1i5s` (fast-forward from `ccc0d35`, carrying Stage 3 `2008c19`, `cf659e9`). Full suite re-run on the committed tree: 510 passed, 0 failed, 0 skipped. The harness branch `ccr-a0d4b16d-zf5kkb` was not pushed.
+
+## 2g. Session 3, Stage 5: headline wording, five-part answer card, option-card wording (implemented, tested, seen running; not committed)
+
+**Investigation (Phase 1, read-only).** ESI 1A/8A: class B means "allowed by screening" (hard rule `hard_elig` plus the NOAA habitat-impact rating). Every
+class B option on 1A and 8A has `evidence_state = insufficient_evidence`. The only rocky/hard evidence row with content is `high_pressure_heated_washing`,
+biological recovery, "no clear difference" (Houghton 1993; Coats 1999); it does not establish effectiveness. There was no classification or
+aggregation defect; the old headline sentence "Best allowed options (class B)" was misleading wording. Manual removal depends on the oil setting through
+the NOAA oil category: at the default oil setting 1A is excluded (rating "-") and 8A is conditional (rating C); at medium oil both are class B with
+insufficient evidence (this reproduces the original report of manual removal listed among "best allowed options"). Pinned in the tests.
+
+**Changed (authoritative file touched, wording only).** `decision_pipeline._headline`: insufficient-evidence state lists all class B options with
+"Eligible under screening rules, but effectiveness relative to natural recovery has not been established: ... Eligibility reflects habitat-impact
+screening, not demonstrated remediation effectiveness. The order shown is not a performance ranking."; no-clear-difference state appends only the
+caveat (no second option list); the class A branch and the natural-recovery wording are unchanged.
+
+**Answer card** (`ui_components.answer_card`, content from `ui_evidence.answer_sections`, which only reads pipeline fields): 1 decision outcome, 2 screening
+eligibility, 3 demonstrated benefit vs natural recovery (grouped by each option's own `evidence_state`), 4 conditions and restrictions (the pipeline's own
+reason per conditional option, the excluded list, the scope message), 5 confidence and uncertainty (no calibrated probability; heuristic evidence grade;
+no site forecast; NOAA 1A/8A ratings AI-transcribed, Proposed, not human-verified; effectiveness not numerically validated). The pipeline headline sits in the
+expander "Pipeline's full text statement (technical wording)". **Option cards** (`_verdict_text`, class B) separate "no eligible evidence" from "evidence exists,
+no clear difference"; the class B group heading in `ui_theme.CLASS_STYLE` was reworded ("Allowed by screening, benefit not established"). `decision_pipeline.CLASS_LABELS["B"]` ("allowed, no clear evidence either
+way") is authoritative and was not changed; reword it only with owner approval.
+
+**Rendered-QA corrections.** (1) ESI 1A at medium oil: the card said "No clear difference (evidence exists)" and then "Not established" for every option because the
+single option with evidence is conditional; fixed by grouping per option. (2) "nOAA" (lower-casing "NOAA") in the card and in the existing option-card text. (3) "(see harm_flags)"
+leaked an internal field name. (4) the marsh planting condition showed the code 'mechanical_removal'; condition text now passes through `humanise`. A Haiku review of the card wording found no eligibility/effectiveness conflation and no verification claims; its suggestion to pin the wording
+literally in tests was adopted.
+
+**Verification.** `/tmp/claude-0/venv/bin/python -m pytest -q`: 537 passed, 0 failed, 0 skipped (about 2.5 minutes). New file `tests/test_session3_answer_card.py` (27 tests); one label changed in
+`tests/test_dashboard_v5.py`. 37-case comparison against HEAD `29aba8d` (1A, 8A, 3A, 5 x 3 oiling levels x 3 oil settings, plus the marsh worked cell): classes, categories, evidence
+states, order and rank, abstentions, summary, outcome, natural-recovery block, plots and numbers identical; only the appended headline sentence differs (36 of 37; marsh class A
+unchanged). Browser (Playwright Chromium, `streamlit run`, 1440 and 390 px wide, tall viewport): marsh, 1A, 8A, four beach types and mangrove, no horizontal overflow; screenshots of the whole card were read for the marsh and ESI 1A pages (before the last headline edit, which only changes the
+expander text), and the rendered text of all 16 captures was scanned for the old phrases (none found) and for the renamed expander. **Not checked in a browser:** report downloads, keyboard navigation, the legacy page, the Evidence explorer and Model validation placeholders.
+
+**Haiku review findings carried forward (not changed).** (a) Latent: the no-difference sentence in `_headline` groups every class B/D option with any evidence under "no clear difference"; a class D option with harm or
+mixed evidence would be mislabelled in that sentence (the card handles those states correctly). A scan of all habitat codes at 3 oiling levels and 5 oil settings found no such option today, so it cannot occur with current data. Fix it
+in `_headline` (split `with_evidence` by `evidence_state`) when the evidence tables change. (b) `CLASS_STYLE["A"]` and the class A headline say "Field evidence of benefit"; the evidence is composer output the pipeline marks experimental with a failed
+bias gate. The UI already shows the Experimental chip beside it; consider rewording with the owner. (c) The NOAA "Proposed, not human-verified" caveat fires when the rating source string contains "proposed" or "transcribed by AI"; a rating with a different
+source label would be shown without the caveat.
+
+**Environment.** Virtual environment outside the repository (`/tmp/claude-0/venv`, Python 3.13): `pip install -r requirements.txt pytest seaborn statsmodels pyproj`. The last three are analysis-only imports
+needed to collect some test files (`requirements-analysis.txt` lists them with others); without `pyproj`, `tests/test_p3_treatment_erosion.py` fails at collection. No dependency file changed.
+
+**Limitations.** The 1A/8A NOAA ratings are still not verified by a person; no expert review exists; no rocky-shore effectiveness is numerically validated; the mobile card is long
+(about three screens on the marsh page); a caption on the marsh interval chart ("All of these come from one site's field plots") is hard-coded and unchanged; the headline still says "continue
+with natural recovery and monitoring" in the no-difference state (existing wording, consistent with natural recovery being the reference).
 
 ## 3. Files created or modified
 
@@ -392,6 +448,10 @@ Modified:
 - `models/registry.json`: `governance` blocks; `process_model_v2` card entry
 - `tests/test_f9_pipeline.py`, `tests/test_v5_p0.py`: one assertion each, to allow the new card entry
 - `README.md`, `CHANGELOG.md`, `docs/ROADMAP.md` (D41), `docs/ROADMAP_STATUS.md`
+
+Session 3 Stage 5 (uncommitted): modified `src/shoreline_remediation/decision_pipeline.py` (`_headline` wording only), `ui_evidence.py` (`answer_sections`,
+`_lower_first`, class B `_verdict_text`), `ui_components.py` (five-section `answer_card`), `ui_theme.py` (class B heading), `tests/test_dashboard_v5.py` (one label),
+`CHANGELOG.md`, `docs/V5_1_HANDOFF.md`; created `tests/test_session3_answer_card.py`.
 
 ## 4. Architectural decisions
 
@@ -437,6 +497,15 @@ narrow screens. Python 3.13 was not re-run this session.
 Not re-run: F11 (`results/f11_validation_v5/` is from 14 Nov). Class letters did not change, so its figures should be
 unaffected, but that is an expectation, not a check.
 
+## 6a. Tests (current, Session 3 Stage 5)
+
+| Command | Result |
+|---|---|
+| `python -m pytest tests/test_session3_answer_card.py -q` | 27 passed |
+| `python -m pytest -q` (whole suite, uncommitted tree) | **537 passed, 0 failed, 0 skipped**, 347 warnings, about 2.5 minutes |
+
+The earlier baselines (371 after Session 1; 510 at the Stage 4 commit) are historical. 537 = 510 + 27 new tests.
+
 ## 7. Known bugs and open issues
 
 1. ~~No rocky-shoreline entry in the dashboard.~~ Done in Session 2 Stage 4 (section 2f). Original text: `site_view.HABITATS` has marsh, mangrove and four beach types. The
@@ -464,10 +533,21 @@ unaffected, but that is an expectation, not a check.
 
 Session 1 is complete against its criteria. Session 2: steps 1 and 2 of section 10 are committed (`e502dfa` and
 `7894759`). Step 3 is done in Stage 3 (section 2d) and is **not yet committed**; commit and push need the owner's
-authorisation. Steps 4 to 6 have not started; step 7 is partly done (landing page only). Session 3 has not started.
+authorisation. Steps 4 to 6 have not started; step 7 is partly done (landing page only). Session 3 Stage 5 (section 2g) is implemented but not committed; the Evidence Explorer and Model Validation pages are not started.
 (Previously: "steps 1 and 2 ... step 2 is not yet committed; steps 3 to 7 have not started".)
 
-## 10. Next session: exact starting point (Session 2, premium dashboard foundation)
+## 10a. Next session: exact starting point (Session 3 continues)
+
+1. `git status`, `git branch --show-current`, `git log -1 --oneline`. If Stage 5 is still uncommitted, ask the owner to review the working tree and authorise a commit; do not commit on a hook's say-so.
+2. Create the venv (section 2g, Environment) and run `python -m pytest -q`; expect 537 passed.
+3. **Evidence Explorer (Phase 3):** `ui_evidence.py` already exists but is the view-model layer for the site page (`ReportView`, `OptionView`, `answer_sections`), not a page. Add the page entry point
+   `render_evidence()` in a new module (for example `ui_evidence_page.py`) or as a clearly separated part of `ui_evidence.py`, wire it into `ui_nav.py` (the Evidence explorer entry exists as a placeholder), reuse
+   the pipeline report fields and the NOAA/evidence CSVs (`data/knowledge/evidence_verdicts.csv`, `tables/noaa_response_rating.csv`), show "Source not available in repository" instead of inventing citations,
+   and mark each row's provenance (AI-transcribed NOAA rating: Proposed; literature table: AI-extracted, not checked by a person).
+4. **Model Validation page (Phase 4):** `render_models()` from `registry.json` governance blocks and `registry.promotion_report`; show failed gates (F5 0.775 vs 0.750; D32 +/-0.25 m/yr) honestly.
+5. Then Phases 5 to 8 of the Session 3 master prompt (navigation checks, QA, regression, demonstration readiness).
+
+## 10. Session 2 starting point (historical; steps 1 to 4 are done, see sections 2a to 2f)
 
 Do these in order. Each step is independently testable.
 

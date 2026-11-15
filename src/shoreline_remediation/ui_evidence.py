@@ -202,7 +202,15 @@ def _verdict_text(row, cls: str, outcomes: list, anchor_hint: str = "") -> str:
     if cls == "D":
         flags = field(row, "harm_flags", []) or []
         detail = str(field(flags[0], "detail", "")) if flags else ""
-        return "Allowed, but " + (detail[:1].lower() + detail[1:] if detail else "harm is reported under some conditions")
+        return "Allowed, but " + (_lower_first(detail) if detail else "harm is reported under some conditions")
+    # Session 3 wording: say which kind of "no clear evidence" this is, from the pipeline's own evidence_state (not inferred).
+    state = str(field(row, "evidence_state", ""))
+    if state == "insufficient_evidence":
+        return ("Allowed by screening, but no eligible evidence is available to compare it with natural recovery. "
+                "This is not a finding that it does not work.")
+    if state == "no_clear_difference":
+        return (f"Evidence exists but shows no clear difference from natural recovery ({ev}). "
+                "This is not a demonstrated benefit, and not proof that it does not work.")
     return f"No clear evidence either way ({ev})." if ev else "No clear evidence either way."
 
 
@@ -302,6 +310,118 @@ def report_view(report) -> ReportView:
                       advisories=[str(x) for x in field(report, "advisories", []) or []],
                       extra={"version": field(report, "version", {}), "trace": field(report, "trace", []),
                              "characterisation": field(report, "characterisation", {}), "plots": field(report, "plots", {})})
+
+
+# ---------------------------------------------------------------------------------------------------------------
+# Answer-card sections (V5.1 Session 3, Phase 2). Presentation only: every list below is read from fields that
+# decision_pipeline.run_decision() already assigned (recommendation_summary, decision_outcome_label, evidence_state,
+# per-option category and reason). Nothing here classifies an option or infers a category from display text.
+
+ELIGIBLE_CATEGORIES = ("recommended", "conditional", "no_demonstrated_benefit", "insufficient_evidence")   # allowed by screening
+# Per-option evidence states (pipeline field `evidence_state`). When an option is not in view.options the state is taken from its
+# category, which the pipeline defines in the same terms (CATEGORY_RULES: no_demonstrated_benefit = class B with no-difference rows,
+# insufficient_evidence = class B with no eligible rows).
+_STATE_BY_CATEGORY = {"recommended": "benefit", "no_demonstrated_benefit": "no_clear_difference",
+                      "insufficient_evidence": "insufficient_evidence"}
+NOT_ESTABLISHED_TEXT = ("Effectiveness relative to natural recovery is not established for: {names}. No eligible evidence compares "
+                        "them with natural recovery. This is not a finding that they do not work.")
+NO_DIFFERENCE_TEXT = ("Evidence exists but shows no clear difference from natural recovery for: {names}. This is not a demonstrated "
+                      "benefit, and it is not proof that they do not work.")
+HARM_TEXT = "Evidence of harm, or mixed evidence, for: {names} (see conditions)."
+ELIGIBILITY_NOT_EFFECTIVENESS = "Eligibility reflects habitat-impact screening, not demonstrated remediation effectiveness."
+UNCALIBRATED_TEXT = ("No calibrated probability of success is given. Any confidence shown is a heuristic evidence grade, not a "
+                     "probability.")
+PROPOSED_RATINGS_TEXT = ("Habitat-impact ratings for this shoreline type were transcribed by AI from NOAA tables. They are "
+                         "Proposed: not yet human-verified, so they are not authoritative.")
+NO_NUMERIC_TEXT = "Remediation effectiveness is not numerically validated for this shoreline type."
+
+
+@dataclass
+class AnswerSections:
+    outcome: str
+    eligibility: str
+    eligible_names: list
+    excluded_names: list
+    benefit: str
+    benefit_names: list
+    conditions: list
+    uncertainty: list
+
+
+def _names(view: "ReportView", keys: list) -> list:
+    by_key = {o.option: o.name for o in view.options}
+    return [by_key.get(k, plain_name(k)) for k in keys]
+
+
+def _lower_first(text: str) -> str:
+    """Lower-case the first letter to continue a sentence, but keep acronyms such as NOAA intact."""
+    return text if len(text) > 1 and text[1].isupper() else text[:1].lower() + text[1:]
+
+
+def _condition_detail(o) -> str:
+    """Why a conditional option is conditional, in the pipeline's own words (harm-flag detail, then rule reason, then category reason)."""
+    for f in o.harm_flags:
+        detail = str(f.get("detail", "")) if isinstance(f, dict) else str(f)
+        if detail:
+            return "allowed, but " + _lower_first(detail)
+    reason = o.category_reason
+    if reason and "see harm_flags" not in reason:
+        return reason                       # the pipeline's own explanation (e.g. the option presupposes an excluded method)
+    if o.rule_verdict == "conditional" and o.rule_reason:
+        return "allowed with conditions: " + o.rule_reason
+    return (reason or "conditional").replace(" (see harm_flags)", "")
+
+
+def answer_sections(view: "ReportView") -> AnswerSections:
+    """Group the pipeline's own fields into the five parts the answer card shows. Unavailable stays 'unavailable'."""
+    summ = view.recommendation_summary or {}
+    outcome = view.decision_outcome_label or view.headline or "Decision outcome not available."
+    if view.out_of_scope:
+        return AnswerSections(outcome, "Not assessed: " + (view.scope_message or "outside the scope of this tool."), [], [],
+                              "Not assessed.", [], [], [UNCALIBRATED_TEXT])
+    eligible_keys = [o for c in ELIGIBLE_CATEGORIES for o in summ.get(c, [])]
+    eligible, excluded = _names(view, eligible_keys), _names(view, summ.get("excluded", []))
+    if summ:
+        eligibility = (f"{len(eligible)} option(s) pass the screening rules; {len(excluded)} are excluded. "
+                       + ELIGIBILITY_NOT_EFFECTIVENESS)
+    else:
+        eligibility = "Eligibility summary unavailable for this assessment."
+    rec = _names(view, summ.get("recommended", []))
+    by_opt = {o.option: o for o in view.options}
+    groups = {"benefit": [], "no_clear_difference": [], "mixed": [], "harm": [], "insufficient_evidence": []}
+    for key in eligible_keys:
+        o = by_opt.get(key)
+        state = str((o.raw.get("evidence_state") if o is not None else "") or "") or _STATE_BY_CATEGORY.get(
+            next((c for c in ELIGIBLE_CATEGORIES if key in summ.get(c, [])), ""), "")
+        if state in groups and not (state == "benefit" and key in summ.get("recommended", [])):
+            groups[state].append(o.name if o is not None else plain_name(key))
+    # The pipeline's headline already names every class A option with its interval and design, so it is used for them.
+    parts = [view.headline] if (rec or groups["benefit"]) else []
+    if groups["no_clear_difference"]:
+        parts.append(NO_DIFFERENCE_TEXT.format(names=", ".join(groups["no_clear_difference"])))
+    harm = groups["mixed"] + groups["harm"]
+    if harm:
+        parts.append(HARM_TEXT.format(names=", ".join(harm)))
+    if groups["insufficient_evidence"]:
+        parts.append(NOT_ESTABLISHED_TEXT.format(names=", ".join(groups["insufficient_evidence"])))
+    benefit = "\n\n".join(parts) if parts else "No eligible option to compare with natural recovery."
+    benefit_names = rec + [n for g in groups.values() for n in g]
+    conditions = [f"{o.name}: {_condition_detail(o)}" for o in view.options if o.category == "conditional"]
+    if excluded:
+        conditions.append("Excluded by hard constraints, screening ratings or evidence of harm: " + ", ".join(excluded) + ".")
+    if view.scope_message:
+        conditions.append(view.scope_message)
+    uncertainty = [UNCALIBRATED_TEXT, f"Evidence grade for this answer: {view.headline_grade_text}. "
+                   f"Scope of the tool for this input: {view.tier_text}."]
+    for a in view.abstentions:
+        if str(a.get("kind")) == "no_site_forecast":
+            uncertainty.append(str(a.get("text", "")))
+    if any(("proposed" in src or "transcribed by ai" in src) for src in
+           (str((o.raw.get("habitat_rating") or {}).get("source", "")).lower() for o in view.options)):
+        uncertainty.append(PROPOSED_RATINGS_TEXT)
+    if view.tier == "rules_and_literature":
+        uncertainty.append(NO_NUMERIC_TEXT)
+    return AnswerSections(outcome, eligibility, eligible, excluded, benefit, benefit_names, conditions, uncertainty)
 
 
 # ---------------------------------------------------------------------------------------------------------------

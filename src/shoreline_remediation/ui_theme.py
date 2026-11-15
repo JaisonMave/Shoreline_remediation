@@ -73,8 +73,9 @@ def hex_to_rgb(value: str) -> tuple[int, int, int]:
 CLASS_STYLE = {
     "A": {"colour": OKABE_ITO["bluish_green"], "symbol": "✓", "name": "Field evidence of benefit",
           "plain": "Allowed, and field plots show a benefit over natural recovery."},
-    "B": {"colour": OKABE_ITO["sky_blue"], "symbol": "?", "name": "No clear evidence either way",
-          "plain": "Allowed, but the evidence does not show a benefit or a harm."},
+    "B": {"colour": OKABE_ITO["sky_blue"], "symbol": "?", "name": "Allowed by screening, benefit not established",
+          "plain": "Allowed by screening. Either the evidence shows no clear difference from natural recovery, or no eligible "
+                   "evidence exists yet; each option says which. Neither is a finding of harm or of no effect."},
     "C": {"colour": OKABE_ITO["blue"], "symbol": "=", "name": "Natural recovery (the reference)",
           "plain": "Do nothing active and monitor. Every other option is compared with this."},
     "D": {"colour": OKABE_ITO["orange"], "symbol": "!", "name": "Harm reported under some conditions",

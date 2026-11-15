@@ -58,7 +58,7 @@ def test_every_habitat_loads(habitat):
 def test_marsh_landing_has_answer_first_and_pipeline_classes(app):
     txt = all_text(app)
     assert any("Expected marsh-edge loss, metres per year, with a 90% range" in m.label for m in app.metric)
-    assert "Evidence behind this recommendation" in txt
+    assert "Evidence behind this answer" in txt   # Session 3: the card also serves no-recommendation outcomes
     for name in ("Planting (after mechanical cleanup)", "Manual removal", "Natural attenuation"):
         assert name in txt
     # classes with evidence grade chips and sources
