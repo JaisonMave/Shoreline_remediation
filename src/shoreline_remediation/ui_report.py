@@ -38,7 +38,7 @@ def build_html(view, title: str = "Shoreline Remediation Decision Support", habi
     rows = []
     for o in view.options:
         nums = "; ".join(f"{x.label}, year {x.year}: {E.fmt_interval(x.median, x.lo, x.hi, 2)}" for x in o.decision_outcomes())
-        rows.append(f"<tr><td>{T.class_html(o.cls, with_name=False)}</td><td>{escape(o.name)}</td><td>{T.grade_html(o.grade)}</td>"
+        rows.append(f"<tr><td>{T.class_html(o.cls, with_name=False)}</td><td>{escape(o.category_label)}</td><td>{escape(o.name)}</td><td>{T.grade_html(o.grade)}</td>"
                     f"<td>{escape(o.verdict_text)}</td><td>{escape(nums) or '-'}</td><td>{escape(o.source_text)}</td></tr>")
     charts = ""
     for outcome, years in E.available_outcomes(view.options).items():
@@ -46,6 +46,11 @@ def build_html(view, title: str = "Shoreline Remediation Decision Support", habi
         charts += _svg_bars(E.interval_rows(view.options, outcome, years[-1]), f"{label}, year {years[-1]} (90% range, right of zero is better)")
     limits = "".join(f"<li>{escape(x)}</li>" for x in T.SCOPE_LIMITS.get(habitat if habitat in T.SCOPE_LIMITS else "beach", []))
     legend = "".join(f"<p>{T.grade_html(k)} {escape(T.GRADES[k]['legend'])}</p>" for k in T.GRADE_ORDER)
+    outcome = (f"<p><b>Decision outcome:</b> {escape(view.decision_outcome_label)}</p>" if view.decision_outcome_label else "")
+    abstain = ""
+    if view.abstentions:
+        items = "".join(f"<li>{escape(str(E.field(a, 'text', a)))}</li>" for a in view.abstentions)
+        abstain = f"<h2>What this report does not state</h2><ul>{items}</ul>"
     version = E.field(view.extra, "version", {}) or {}
     ver = ", ".join(f"{k}: {version[k]}" for k in ("pipeline_version", "git_commit", "seed", "n_draws") if k in version)
     return f"""<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>{escape(title)}</title>
@@ -57,7 +62,8 @@ table{{border-collapse:collapse;width:100%;font-size:.9rem}}th,td{{border-bottom
 <h2>Recommendation</h2><p class="sr-answer">{escape(view.headline)}</p>
 <p>Evidence behind this recommendation: {T.grade_html(view.headline_grade, view.headline_grade_text)}
  Scope for this input: {T.grade_html(view.tier_grade, view.tier_text)}</p><p>{escape(view.scope_message)}</p>
-<h2>Options</h2><table><thead><tr><th>Class</th><th>Option</th><th>Evidence</th><th>Verdict</th><th>Numbers</th><th>Source</th></tr></thead>
+{outcome}{abstain}
+<h2>Options</h2><table><thead><tr><th>Class</th><th>Category</th><th>Option</th><th>Evidence</th><th>Verdict</th><th>Numbers</th><th>Source</th></tr></thead>
 <tbody>{''.join(rows)}</tbody></table>
 <h2>Compared with natural recovery</h2>{charts or '<p>No option has a numerical forecast for this input.</p>'}
 <p class="sr-muted">{escape(T.LABELS['interval_note'])}</p>

@@ -1,0 +1,6 @@
+NOAA rating transcription check (V5.1): software comparison with the PDF text layer, NOT a human review.
+Source: docs/reference/literature/NOAA_2017_CharacteristicCoastalHabitats.pdf; table: data/knowledge/tables/noaa_response_rating.csv.
+Rows checked: 126. match: 126; MISMATCH: 0; method not found on the cited page: 0.
+Rows that feed the decision pipeline (pipeline_option set): 84; of these match: 84.
+Table title on the cited page agrees with the CSV for 126 of 126 rows.
+Not checked: the letter-to-verdict mapping (D36, Proposed), the method-to-option crosswalk, and whether one NOAA table may stand for two ESI codes (3A and 4). These remain owner decisions.

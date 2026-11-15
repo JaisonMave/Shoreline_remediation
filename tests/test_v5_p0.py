@@ -93,7 +93,7 @@ def test_cards_state_not_validated():
     reg = json.loads((ROOT / "models" / "registry.json").read_text())
     ids = {m["model_id"] for m in reg["models"]}
     assert "oil_excess_oos_v1" not in ids and "edge_loss_v2" not in ids
-    assert {m["model_id"] for m in reg["cards_without_adapter"]} == {"oil_excess_oos_v1", "edge_loss_v2"}
+    assert {"oil_excess_oos_v1", "edge_loss_v2"} <= {m["model_id"] for m in reg["cards_without_adapter"]}
 
 
 def test_v1_card_keeps_history_and_has_note():

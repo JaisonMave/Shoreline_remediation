@@ -11,6 +11,25 @@ Computer (no account needed).
 
 ---
 
+## 2026-11-15 (V5.1 Session 1): architecture and scientific stabilisation
+- **Why:** V5.1 stabilisation brief and `CLAUDE.md`: one decision pathway, honest validation reporting, transparent model
+  status, safe abstention. No analysis was re-run and no validation result was changed.
+- **What:**
+  - Pathway: `site_view._rule_table` no longer calls the legacy `HybridDecisionModel`; it reads the pipeline report.
+  - D41 (Proposed): rule-based recommendation categories, `decision_outcome`, `abstentions`, and an honest `rank_basis`
+    on every option. Class letters A-E unchanged. Planting becomes Conditional while mechanical removal is excluded.
+  - Unsupported habitats now return an explicit abstention instead of generic rule screening.
+  - Registry: `governance` block on every entry, stricter promotion (`registry.promotion_report`), `governance_table`,
+    failed F5 process model listed as a card, `Prediction.interval_status`.
+  - NOAA ratings compared by software with the PDF text layer (126 of 126 match); status stays Proposed.
+  - Validation figures reconciled in `docs/V5_1_VALIDATION.md`: the legacy 5/6 replay equals the always-active baseline.
+- **Where:** `src/shoreline_remediation/{decision_pipeline,registry,model_interface,site_view,ui_evidence,ui_components,ui_report,ui_theme}.py`,
+  `models/registry.json`, `validation/noaa_rating_source_check.py`, `results/v5_1/`, `tests/test_v5_1_governance.py`,
+  `docs/V5_1_{IMPLEMENTATION,VALIDATION,HANDOFF}.md`.
+- **Result:** `python -m pytest tests` on Python 3.11.15: 371 passed, 0 failed, 0 skipped (327 existing + 44 new). Dashboard
+  launched and inspected in headless Chromium: no exceptions on the salt-marsh worked example.
+- **Status:** Implemented and tested. Not a scientific validation. D41 awaits owner decision. F11 was not re-run.
+
 ## 2026-11-14 (V5): review response, four gated tests, beach screening, dashboard re-base
 - **Why:** the v4 review of branch `model_v4` found that the oil term was never tested against a no-excess baseline, the deployed
   interval was calibrated in sample, F8b changed a rule after its run, AI-proposed numbers reached outputs, beaches had no habitat

@@ -34,7 +34,7 @@ from .model_interface import ScenarioRequest, SiteRecord
 
 ROOT = Path(__file__).resolve().parents[2]
 KNOW = ROOT / "data" / "knowledge"
-PIPELINE_VERSION = "f9-v2"
+PIPELINE_VERSION = "f9-v3"   # V5.1: additive fields (recommendation_category, decision_outcome, abstentions, rank_basis)
 PLANTING = sc.PLANTING
 DEFAULT_OPTIONS = list(TREATMENT_LIBRARY) + [PLANTING]
 NATURAL = sc.NATURAL
@@ -62,6 +62,51 @@ EVIDENCE_STATE_LABELS = {
     "harm": "Evidence of harm compared with natural recovery",
     "mixed": "Mixed evidence compared with natural recovery",
     "baseline": "Natural recovery (the baseline)",
+}
+# Stakeholder recommendation categories (V5.1, decision D41, Proposed). A transparent, rule-based reading of the class
+# letter, the option's evidence state and the scope tier. Class letters A-E are unchanged; nothing here is a new model.
+CAT_RECOMMENDED = "recommended"
+CAT_CONDITIONAL = "conditional"
+CAT_NATURAL = "natural_recovery_monitoring"
+CAT_NO_BENEFIT = "no_demonstrated_benefit"
+CAT_INSUFFICIENT = "insufficient_evidence"
+CAT_EXCLUDED = "excluded"
+CATEGORY_ORDER = (CAT_RECOMMENDED, CAT_CONDITIONAL, CAT_NATURAL, CAT_NO_BENEFIT, CAT_INSUFFICIENT, CAT_EXCLUDED)
+CATEGORY_LABELS = {
+    CAT_RECOMMENDED: "Recommended",
+    CAT_CONDITIONAL: "Conditional",
+    CAT_NATURAL: "Natural recovery with monitoring (reference option)",
+    CAT_NO_BENEFIT: "Allowed, no demonstrated benefit over natural recovery",
+    CAT_INSUFFICIENT: "Insufficient evidence",
+    CAT_EXCLUDED: "Excluded",
+}
+CATEGORY_RULES = {
+    CAT_RECOMMENDED: "class A (evidence of benefit, no harm flag) AND the input is inside the scope where that evidence was "
+                     "gathered (scope tier 'validated')",
+    CAT_CONDITIONAL: "class D (allowed, harm flagged under some conditions or mixed evidence), OR class A when the input is "
+                     "outside the scope where the benefit evidence was gathered (transfer untested), OR class A when the option "
+                     "presupposes a method that is itself excluded",
+    CAT_NATURAL: "class C: natural recovery, the reference every option is compared with",
+    CAT_NO_BENEFIT: "class B with evidence rows that show no clear difference from natural recovery",
+    CAT_INSUFFICIENT: "class B with no eligible evidence rows: no comparison with natural recovery is possible",
+    CAT_EXCLUDED: "class E: removed by a hard constraint (screening rule or habitat rating) or by evidence of harm",
+}
+# Decision outcome of a whole report (one of these; 'out_of_scope' is a refusal).
+OUTCOME_LABELS = {
+    "intervention_recommended": "At least one intervention is recommended over natural recovery",
+    "conditional_only": "No intervention is recommended outright; at least one is conditional. Natural recovery stays the reference",
+    "natural_recovery_monitoring": "No intervention is shown to beat natural recovery: natural recovery with monitoring",
+    "insufficient_evidence": "Insufficient evidence to compare any intervention with natural recovery: natural recovery with "
+                             "monitoring is the default, and further assessment is needed",
+    "out_of_scope": "Outside the scope of this tool: no assessment was made",
+    "unsupported_habitat": "Unsupported habitat: no screening, comparison or recommendation was made",
+}
+RANK_BASIS_EVIDENCE = "evidence"
+RANK_BASIS_CONVENTION = "display_convention"
+RANK_BASIS_TEXT = {
+    RANK_BASIS_EVIDENCE: "ordered by the lower bound of a benefit interval (evidence)",
+    RANK_BASIS_CONVENTION: "display convention only: no benefit interval separates this option from its neighbours; the order "
+                           "uses the ASSUMED ecological score and then the name, and is not a scientific ranking",
 }
 TIER_MESSAGES = {
     "validated": ("Heavily oiled salt marsh in the northern Gulf of Mexico: the marsh-edge loss model and the soil PAH-sum "
@@ -101,6 +146,7 @@ _OPTION_DESIGN = {
     PLANTING: ("observational, one site: mechanically cleaned and planted plots versus untreated plots, 5 versus 9 plots "
                "(not a randomised comparison)"),
 }
+_PREREQUISITE = {PLANTING: "mechanical_removal"}   # the planting evidence is from mechanically cleaned plots (Zengel et al. 2022)
 ADVISORY_PREFIX = "advisory (AI-proposed, not reviewed by an expert)"
 _COMPOSER_CAVEAT = ("Paired difference from one site's field evidence (Bay Jimmy, Zengel et al.), the same at any heavily "
                     "oiled marsh site; the composer is experimental (R3 bias gate failed, FINDINGS_V4 26).")
@@ -131,6 +177,10 @@ class DecisionReport:
     evidence_state_label: str = ""
     literature_notes: list = field(default_factory=list)   # ESI 5 and 6A: "literature, not a prediction"
     advisories: list = field(default_factory=list)         # AI-proposed condition notes, not used for classes
+    decision_outcome: str = ""          # V5.1 (D41): one of OUTCOME_LABELS
+    decision_outcome_label: str = ""
+    recommendation_summary: dict = field(default_factory=dict)   # category -> [options], in CATEGORY_ORDER
+    abstentions: list = field(default_factory=list)              # V5.1: what the platform declines to state, and why
 
     def classes(self) -> dict:
         out = {c: [] for c in CLASS_LABELS}
@@ -703,7 +753,17 @@ def run_decision(inputs, habitat: str | None = None, oiling_class: str | None = 
 
     ctx = _characterise(inputs, habitat, oiling_class, oil, season, assumptions)
     ctx["label"] = label
+    if ctx["habitat_row"] is None:
+        # V5.1 abstention: a shoreline type that is not in the habitat table has no screening rules, ratings or evidence written
+        # for it. Running the generic rules would manufacture an answer, so the pipeline stops here and says so.
+        supported = ", ".join(f"{h.name} (ESI {code})" for code, h in sorted(hab.table().items()))
+        message = (f"Unsupported habitat: '{ctx['habitat']}' is not a shoreline type this platform has screening rules or evidence "
+                   f"for, so no option is screened, compared or recommended. Supported shoreline types: {supported}. "
+                   "A site-specific assessment by a qualified specialist is needed.")
+        return _refuse(trace, message, {"habitat": ctx["habitat"]}, label, tier="unsupported_habitat",
+                       sources=["data/knowledge/tables/habitat.csv"])
     tier, tier_message, tier_reasons = _scope_tier(ctx)
+    ctx["tier"], ctx["tier_reasons"] = tier, tier_reasons
     scenario = ctx["scenario"]
     characterisation = {
         "label": label, "habitat": ctx["habitat"], "habitat_class": ctx["habitat_class"], "oil_category": ctx["oil_category"],
@@ -798,14 +858,22 @@ def run_decision(inputs, habitat: str | None = None, oiling_class: str | None = 
          ["data/knowledge/literature_effects.csv", "data/knowledge/tables/technology.csv"])
 
     # Step 7
+    # An add-on option presupposes another method (planting presupposes mechanical cleanup). If that method is excluded, the
+    # add-on cannot be 'recommended' outright (D41).
+    ctx["prerequisite_excluded"] = {o: pre for o, pre in _PREREQUISITE.items() if pre in options and excluded(pre)}
     rows = [_option_row(o, ctx, screen[o], removed.get(o), flagged.get(o), verdict_info[o], cond_info[o], composer.get(o),
                         trade[o], comp_model, excluded(o), anchor, advisory.get(o)) for o in options]
     _assign_order(rows)
     evidence_state = _report_evidence_state(rows)
     headline = _headline(rows, tier, anchor, evidence_state)
     classes = {c: [r["option"] for r in rows if r["recommendation_class"] == c] for c in CLASS_LABELS}
+    summary = {c: [r["option"] for r in rows if r["recommendation_category"] == c] for c in CATEGORY_ORDER}
+    outcome = _decision_outcome(rows)
+    abstentions = _abstentions(ctx, tier, tier_reasons, reference, rows)
     _log(trace, 7, {"class_rules": "E excluded > A benefit > D harm under conditions > B no clear evidence; C natural recovery",
-                    "ordering": ORDER_BASIS}, {"classes": classes, "headline": headline, "evidence_state": evidence_state},
+                    "ordering": ORDER_BASIS}, {"classes": classes, "headline": headline, "evidence_state": evidence_state,
+                                         "recommendation_summary": summary, "decision_outcome": outcome,
+                                         "category_rules": CATEGORY_RULES},
          ["steps 2-6"])
 
     # Step 8
@@ -825,21 +893,28 @@ def run_decision(inputs, habitat: str | None = None, oiling_class: str | None = 
     report = DecisionReport(headline=headline, scope_tier=tier, scope_message=tier_message, options=rows, natural_recovery=natural,
                             plots=plots, trace=trace, version=version, characterisation=characterisation,
                             evidence_state=evidence_state, evidence_state_label=EVIDENCE_STATE_LABELS[evidence_state],
-                            literature_notes=_literature_notes(ctx), advisories=sorted({a for v in advisory.values() for a in v}))
+                            literature_notes=_literature_notes(ctx), advisories=sorted({a for v in advisory.values() for a in v}),
+                            decision_outcome=outcome, decision_outcome_label=OUTCOME_LABELS[outcome],
+                            recommendation_summary=summary, abstentions=abstentions)
     _log(trace, 8, {"n_options": len(rows)}, {"headline": headline, "scope_tier": tier, "models_used": models_used,
                                               "plot_keys": sorted(plots), "evidence_state": evidence_state}, ["steps 1-7"])
     report.trace = _jsonable(trace)
     return report
 
 
-def _refuse(trace: list, message: str, inputs: dict, label) -> DecisionReport:
-    _log(trace, 1, inputs, {"scope_tier": "out_of_scope", "refusal": message}, ["docs/F0_F1_SCOPE_AND_DECISIONS.md D30"])
+def _refuse(trace: list, message: str, inputs: dict, label, tier: str = "out_of_scope", sources: list | None = None) -> DecisionReport:
+    """A report that makes no assessment: out of scope (D30) or unsupported habitat (V5.1). No options, no numbers."""
+    _log(trace, 1, inputs, {"scope_tier": tier, "refusal": message}, sources or ["docs/F0_F1_SCOPE_AND_DECISIONS.md D30"])
     for step in range(2, 9):
-        _log(trace, step, {}, {"skipped": "out of scope"}, [])
-    return DecisionReport(headline=message, scope_tier="out_of_scope", scope_message=message, options=[],
+        _log(trace, step, {}, {"skipped": tier.replace("_", " ")}, [])
+    return DecisionReport(headline=message, scope_tier=tier, scope_message=message, options=[],
                           natural_recovery={}, plots={}, trace=_jsonable(trace),
                           version={"pipeline_version": PIPELINE_VERSION, **_git_commit(), "models_used": []},
-                          characterisation={"label": label, "scope_tier": "out_of_scope", "refusal": message})
+                          characterisation={"label": label, "scope_tier": tier, "refusal": message, **inputs},
+                          evidence_state=STATE_INSUFFICIENT, evidence_state_label=EVIDENCE_STATE_LABELS[STATE_INSUFFICIENT],
+                          decision_outcome=tier, decision_outcome_label=OUTCOME_LABELS[tier],
+                          recommendation_summary={c: [] for c in CATEGORY_ORDER},
+                          abstentions=[{"kind": tier, "text": message}])
 
 
 def _option_row(o, ctx, screen, removed, flagged, verdict, conds, composer, trade, comp_model, excluded, anchor, advisory=None) -> dict:
@@ -889,8 +964,13 @@ def _option_row(o, ctx, screen, removed, flagged, verdict, conds, composer, trad
     cond_text = [f"{c['condition']} -> {c['effect_when_met']} [{c['status']}]" for c in conds]
     if screen.get("conditions"):
         cond_text.append(f"mangrove screening: {screen['conditions']}")
+    category, category_reason = _category(cls, state, ctx.get("tier"), ctx.get("tier_reasons") or [],
+                                          prerequisite_excluded=ctx.get("prerequisite_excluded", {}).get(o),
+                                          design=_OPTION_DESIGN.get(o) if composer else None)
     return {
         "option": o, "recommendation_class": cls, "class_label": CLASS_LABELS[cls], "rank_in_class": None,
+        "recommendation_category": category, "recommendation_category_label": CATEGORY_LABELS[category],
+        "recommendation_category_rule": CATEGORY_RULES[category], "recommendation_category_reason": category_reason,
         "evidence_state": state, "evidence_state_label": EVIDENCE_STATE_LABELS[state],
         "evidence_design": _OPTION_DESIGN.get(o) if composer else None,
         "habitat_rating": ({"rating": screen["noaa"]["rating"], "noaa_oil_category": screen["noaa"]["noaa_category"],
@@ -916,6 +996,65 @@ def _option_row(o, ctx, screen, removed, flagged, verdict, conds, composer, trad
     }
 
 
+def _category(cls: str, state: str, tier: str | None, tier_reasons: list, prerequisite_excluded: str | None = None,
+              design: str | None = None) -> tuple[str, str]:
+    """Stakeholder category of one option (D41). Pure function of class letter, evidence state, scope tier and whether a
+    method the option presupposes was itself excluded."""
+    if cls == "C":
+        return CAT_NATURAL, "reference option"
+    if cls == "E":
+        return CAT_EXCLUDED, "see exclusion_reasons"
+    if cls == "A":
+        if prerequisite_excluded:
+            return CAT_CONDITIONAL, (f"evidence of benefit exists, but the option presupposes '{prerequisite_excluded}', which is "
+                                     "excluded for this input; it applies only where that method has already been used")
+        if tier == "validated":
+            basis = f" Basis of the benefit evidence: {design}." if design else ""
+            return CAT_RECOMMENDED, "evidence of benefit, and the input is inside the scope of that evidence." + basis
+        why = "; ".join(tier_reasons) if tier_reasons else f"scope tier is '{tier}'"
+        return CAT_CONDITIONAL, "evidence of benefit exists, but its transfer to this input is untested: " + why
+    if cls == "D":
+        return CAT_CONDITIONAL, "allowed, with harm flagged under some conditions or mixed evidence (see harm_flags)"
+    if state == STATE_INSUFFICIENT:
+        return CAT_INSUFFICIENT, "allowed by screening, but there are no eligible evidence rows to compare it with natural recovery"
+    return CAT_NO_BENEFIT, "allowed by screening; the evidence shows no clear difference from natural recovery"
+
+
+def _decision_outcome(rows: list) -> str:
+    cats = {r["recommendation_category"] for r in rows}
+    if CAT_RECOMMENDED in cats:
+        return "intervention_recommended"
+    if CAT_CONDITIONAL in cats:
+        return "conditional_only"
+    if CAT_NO_BENEFIT in cats:
+        return "natural_recovery_monitoring"
+    return "insufficient_evidence"
+
+
+def _abstentions(ctx: dict, tier: str, tier_reasons: list, reference: list, rows: list) -> list:
+    """Explicit list of what this report declines to state (CLAUDE.md 'scientific abstention'). Built from pipeline state only."""
+    out = []
+    if tier == "rules_and_literature":
+        out.append({"kind": "no_site_forecast", "text": "No site-specific numerical forecast is given for this shoreline type: "
+                    "the platform has no validated or experimental outcome model for it. Screening verdicts and literature only."})
+    for reason in tier_reasons:
+        out.append({"kind": "outside_validated_scope", "text": reason})
+    if ctx["habitat_class"] == "marsh" and ctx.get("esi") != "10A":
+        out.append({"kind": "borrowed_evidence", "text": "Evidence verdicts for this shoreline type are borrowed from the salt-marsh "
+                    "literature (habitat table, D36). Their transfer to this shoreline type has not been demonstrated."})
+    for ref in reference:
+        if ref.get("value") is None and ref.get("reason"):
+            out.append({"kind": "no_model", "text": f"{ref.get('quantity', 'quantity')}: {ref['reason']}"})
+    n_insufficient = sum(r["recommendation_category"] == CAT_INSUFFICIENT for r in rows)
+    if n_insufficient:
+        out.append({"kind": "insufficient_evidence", "text": f"{n_insufficient} allowed option(s) cannot be compared with natural "
+                    "recovery because no eligible evidence rows exist for this habitat. This is not a finding of no benefit."})
+    if not any(r["recommendation_category"] == CAT_RECOMMENDED for r in rows):
+        out.append({"kind": "no_recommendation", "text": "No intervention is recommended over natural recovery. Natural recovery "
+                    "with monitoring remains the reference option."})
+    return out
+
+
 def _composer_verdict(favourable: bool, unfavourable: bool) -> str:
     if favourable and unfavourable:
         return "mixed (field, composer)"
@@ -933,6 +1072,14 @@ def _assign_order(rows: list) -> None:
                                     -r["ecological_score_assumed"], r["option"]))
         for i, r in enumerate(members, 1):
             r["rank_in_class"] = i
+        # V5.1: say honestly what the order rests on. Only a benefit interval lower bound that differs from every other
+        # member's is evidence; everything else is a display convention (ASSUMED score, then name).
+        keys = [(r["_group"], r["benefit_lower_bound"]) for r in members]
+        for r, key in zip(members, keys):
+            by_evidence = r["_group"] < 3 and r["benefit_lower_bound"] is not None and keys.count(key) == 1 and len(members) > 1
+            r["rank_basis"] = RANK_BASIS_EVIDENCE if by_evidence else RANK_BASIS_CONVENTION
+            r["rank_basis_text"] = RANK_BASIS_TEXT[r["rank_basis"]]
+            r["rank_tied_with"] = sorted(m["option"] for m, k in zip(members, keys) if k == key and m is not r)
     for r in rows:
         del r["_group"]
     rows.sort(key=lambda r: (list(CLASS_LABELS).index(r["recommendation_class"]), r["rank_in_class"]))
@@ -979,6 +1126,10 @@ def _headline(rows: list, tier: str, anchor: int, state: str | None = None) -> s
             text += ". Design of the evidence: " + "; ".join(designs)
         if any(r["model_id"] for r in a):
             text += ". Differences are experimental composer output from one site's field evidence"
+        held = [r for r in a if r.get("recommendation_category") == CAT_CONDITIONAL]
+        if held:   # V5.1 (D41): evidence of benefit is not always an outright recommendation
+            text += ". Conditional, not recommended outright: " + "; ".join(
+                f"{r['option']} ({r['recommendation_category_reason']})" for r in held)
         return text + "."
     state = state or _report_evidence_state(rows)
     allowed = [r for r in rows if r["recommendation_class"] in ("B", "D")]

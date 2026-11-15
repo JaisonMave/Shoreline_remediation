@@ -320,6 +320,12 @@ def render_pipeline_section(view, key: str, show_chart: bool = True) -> None:
     if view.out_of_scope:
         st.info(view.scope_message, icon=":material/block:")
         return
+    if view.decision_outcome_label:
+        st.markdown(f"**Decision outcome:** {view.decision_outcome_label}.")
+    if view.abstentions:
+        with st.expander("What the platform does not state for this input", icon=":material/do_not_disturb_on:"):
+            for item in view.abstentions:
+                st.markdown(f"- {E.field(item, 'text', item)}")
     if show_chart:
         render_interval_comparison(view, key)
     render_option_cards(view, key)

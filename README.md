@@ -4,6 +4,11 @@ An evidence-led prototype for screening oil-spill shoreline response options. It
 
 ## Start here
 
+**V5.1 (in progress, 15 Nov 2026):** stabilisation and dashboard release. Read [`docs/V5_1_HANDOFF.md`](docs/V5_1_HANDOFF.md)
+first, then [`docs/V5_1_VALIDATION.md`](docs/V5_1_VALIDATION.md) (what the validation figures mean) and
+[`docs/V5_1_IMPLEMENTATION.md`](docs/V5_1_IMPLEMENTATION.md). Session 1 (architecture and governance) is implemented and
+tested; the premium dashboard (Sessions 2 and 3) is planned.
+
 Latest (V5, 14 Nov 2026, branch `model_v4`): [`docs/FINDINGS_V5.md`](docs/FINDINGS_V5.md) (plain summary at the top; four gated tests, three failed or experimental) and [`docs/HANDOFF.md`](docs/HANDOFF.md) (how to restore the work and what to do next).
 
 For continuation or review, read these in order:
@@ -19,7 +24,7 @@ For continuation or review, read these in order:
 
 The validated numerical scope is limited to heavily oiled northern Gulf salt-marsh edge loss (held out by Louisiana basin) and DWH soil PAH-sum decline, within the documented scopes. Other habitats are screening/literature-only or experimental. The process model failed its held-out comparison gate and stays illustrative, outside the decision path. The experimental scenario composer still fails its heavy-cell bias gate after D32 scaling.
 
-F11 historical replay agreed with active versus natural recovery in 2 of 6 cases, compared with 5 of 6 for an always-active baseline. The sample is small and the disagreements need human review. Ten expert-review reports are prepared, but no expert responses have been collected. There is no qualifying second spill for whole-spill validation and no usable public segment-level DWH cleanup-treatment record. Do not claim cross-spill transfer, expert endorsement, operational readiness, or a v4.0 release.
+F11 historical replay agreed with active versus natural recovery in 2 of 6 cases, compared with 5 of 6 for an always-active baseline. The older legacy replay's 5 of 6 is that same always-active baseline (the legacy model chose an active method in every case), so neither figure shows skill; see `docs/V5_1_VALIDATION.md`. The sample is small and the disagreements need human review. Ten expert-review reports are prepared, but no expert responses have been collected. There is no qualifying second spill for whole-spill validation and no usable public segment-level DWH cleanup-treatment record. Do not claim cross-spill transfer, expert endorsement, operational readiness, or a v4.0 release.
 
 See [`docs/F0_F1_SCOPE_AND_DECISIONS.md`](docs/F0_F1_SCOPE_AND_DECISIONS.md), [`models/registry.json`](models/registry.json), and [`docs/ROADMAP_STATUS.md`](docs/ROADMAP_STATUS.md) for precise scope and status.
 
@@ -47,7 +52,7 @@ python -m pip install -r requirements-analysis.txt
 python -m pytest tests
 ```
 
-The test suite has 327 tests, all passing on 14 Nov 2026 with Python 3.13. Confirm locally before reporting a current pass. Some validation checks require local, git-ignored DIVER/SCAT data; consult `docs/DATA_ACQUISITION.md` and the relevant plan first.
+The test suite has 371 tests, all passing on 15 Nov 2026 with Python 3.11.15 (327 passed on 14 Nov 2026 with Python 3.13 before V5.1). Passing tests are software checks, not model validation. Confirm locally before reporting a current pass. Some validation checks require local, git-ignored DIVER/SCAT data; consult `docs/DATA_ACQUISITION.md` and the relevant plan first.
 
 ## Repository map
 

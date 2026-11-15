@@ -32,13 +32,6 @@ def _sites() -> pd.DataFrame:
     return load_sites()
 
 
-@st.cache_data(show_spinner="Running the rule screening...")
-def _screen(inputs: tuple, oil_category: str) -> list[dict]:
-    from src.shoreline_remediation.decision_framework import HybridDecisionModel
-    ranked = HybridDecisionModel().rank_treatments(site_scenario(dict(inputs), oil_category))
-    return [{"treatment": r.treatment, "feasibility": r.feasibility, "utility": r.utility} for r in ranked]
-
-
 def _label(x: str) -> str:
     return x.replace("_", " ")
 
@@ -275,30 +268,40 @@ def render_marsh() -> None:
 
     with st.expander("Detailed tables: rule screening, field plots, AI-proposed ranges"):
         if site["esi_main"] == "10A":
-            _rule_table(site, oil)
+            _rule_table(site, oil, report)
         ui_compare.render_detailed_comparison(site, flags, sites)
     C.render_sources_and_decisions(view, "Edge-loss model p5-edge-loss-v1, composer baseline p5-edge-loss-clean-v1.")
     _download(view, report, where, "marsh")
 
 
-def _rule_table(site: dict, oil: str) -> None:
-    ranked = _screen(tuple((k, site.get(k)) for k in ("max_oiling", "fetch_mean_m")), oil)
-    ev = treatment_evidence([r["treatment"] for r in ranked], site["max_oiling"]).set_index("treatment")
+def _rule_table(site: dict, oil: str, report) -> None:
+    """Rule screening beside the field plots. V5.1: the screening verdicts and the order come from the decision pipeline
+    report (run_decision), not from a second call to the legacy rule-ranking model."""
+    if report is None:
+        st.info("Rule screening is unavailable because the decision pipeline did not return a report for this site.")
+        return
+    from src.shoreline_remediation.site_evidence import RESTORATION_ADDONS
+    ranked = [o for o in report.options if o["option"] not in RESTORATION_ADDONS]   # add-ons are listed below
+    ev = treatment_evidence([r["option"] for r in ranked], site["max_oiling"]).set_index("treatment")
     rows = []
     for i, r in enumerate(ranked, 1):
-        e = ev.loc[r["treatment"]]
-        rows.append({"Rule-screening order": i, "Option": _label(r["treatment"]), "Rule screening": r["feasibility"],
-                     T.LABELS["assumed_score"]: round(r["utility"], 2),
+        e = ev.loc[r["option"]]
+        rows.append({"Pipeline order (display)": i, "Option": _label(r["option"]),
+                     "Pipeline category": r["recommendation_category_label"], "Rule screening": r["rule_verdict"],
+                     T.LABELS["assumed_score"]: round(float(r["ecological_score_assumed"]), 2),
                      "Extra erosion vs natural recovery, years 0 to 2": e.erosion_0_2, "Same, years 2 to 8": e.erosion_2_8,
                      "Vegetation cover vs natural recovery, year 2": e.veg_cover_yr2})
-    for name in ev.index[~ev.index.isin([r["treatment"] for r in ranked])]:
+    for name in ev.index[~ev.index.isin([r["option"] for r in ranked])]:
         e = ev.loc[name]
-        rows.append({"Rule-screening order": None, "Option": name, "Rule screening": "restoration add-on", T.LABELS["assumed_score"]: None,
+        rows.append({"Pipeline order (display)": None, "Option": name, "Pipeline category": None,
+                     "Rule screening": "restoration add-on", T.LABELS["assumed_score"]: None,
                      "Extra erosion vs natural recovery, years 0 to 2": e.erosion_0_2, "Same, years 2 to 8": e.erosion_2_8,
                      "Vegetation cover vs natural recovery, year 2": e.veg_cover_yr2})
     st.markdown("**Rule screening and field plots (heavily oiled marsh at Bay Jimmy)**")
     st.dataframe(pd.DataFrame(rows), hide_index=True, width="stretch")
-    st.caption(T.LABELS["rule_screen_text"] + " Field columns are differences against untreated plots with 90% ranges: erosion in "
+    st.caption("Screening verdicts, categories and order are read from the decision pipeline report for this site. The order is "
+               "the pipeline's display order (class, then benefit lower bound where one exists, then the ASSUMED ecological "
+               "score); it is not an effectiveness ranking. Field columns are differences against untreated plots with 90% ranges: erosion in "
                "m/yr (positive = more edge lost), vegetation cover in percentage points. One site, 5 to 9 plots per group; "
                "observational except planting, which was randomised. Where rules and evidence disagree (for example mechanical "
                "removal) both are shown and neither overrides the other.")

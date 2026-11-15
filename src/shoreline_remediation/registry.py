@@ -74,15 +74,75 @@ def meets_promotion_criteria(card: dict) -> tuple[bool, list]:
     return (not reasons), reasons
 
 
-def resolve_state(declared_state: str, card: dict, max_state: str | None = None) -> str:
-    """Final state: validated only if declared validated AND the D20 check passes AND the entry does not cap it.
+# ---------------------------------------------------------------------------------------------------------------
+# V5.1 governance: what a registry entry must document before a model can be 'validated'
+
+GOVERNANCE_REQUIRED = ("intended_use", "habitat_scope", "geographic_scope", "training_data", "validation_data",
+                       "validation_design", "baseline", "uncertainty_method", "interval_status", "limitations")
+_GATE_FIELDS = ("gate_id", "description", "passed", "blocks_promotion", "source")
+
+
+def governance_gaps(governance: dict | None) -> list:
+    """Names of required governance fields that are missing or empty, and malformed gate records."""
+    g = governance or {}
+    gaps = [k for k in GOVERNANCE_REQUIRED if not str(g.get(k) or "").strip()]
+    gates = g.get("gates")
+    if not gates:
+        gaps.append("gates")
+    else:
+        for i, gate in enumerate(gates):
+            if any(f not in gate for f in _GATE_FIELDS) or not isinstance(gate.get("passed"), bool):
+                gaps.append(f"gates[{i}]")
+    return gaps
+
+
+def failed_gates(governance: dict | None, blocking_only: bool = False) -> list:
+    """Recorded gates that did not pass (all of them, or only those that block promotion)."""
+    return [g for g in (governance or {}).get("gates", [])
+            if g.get("passed") is not True and (g.get("blocks_promotion") or not blocking_only)]
+
+
+def promotion_report(declared_state: str, card: dict, max_state: str | None = None, governance: dict | None = None) -> dict:
+    """Every promotion check with its result and the reasons a model is not 'validated'. A passing software test is not
+    in this list on purpose: it is not scientific validation."""
+    d20_ok, d20_reasons = meets_promotion_criteria(card)
+    gaps = governance_gaps(governance)
+    blocking = failed_gates(governance, blocking_only=True)
+    reasons = []
+    if declared_state != STATE_VALIDATED:
+        reasons.append(f"declared state is '{declared_state}'")
+    if max_state == STATE_EXPERIMENTAL:
+        reasons.append("registry entry caps the state at experimental")
+    reasons += d20_reasons
+    if gaps:
+        reasons.append("governance record incomplete: " + ", ".join(gaps))
+    reasons += [f"gate {g['gate_id']} failed: {g['description']}" for g in blocking]
+    return {"state": STATE_VALIDATED if not reasons else STATE_EXPERIMENTAL, "declared_state": declared_state,
+            "d20_passed": d20_ok, "governance_complete": not gaps, "governance_gaps": gaps,
+            "blocking_failed_gates": [g["gate_id"] for g in blocking],
+            "failed_gates": [g["gate_id"] for g in failed_gates(governance)], "reasons_not_validated": reasons}
+
+
+_NO_GOVERNANCE = object()
+
+
+def resolve_state(declared_state: str, card: dict, max_state: str | None = None, governance=_NO_GOVERNANCE) -> str:
+    """Final state: validated only if declared validated AND the D20 check passes AND the entry does not cap it AND
+    (V5.1) the governance record is complete with no failed gate that blocks promotion.
+
+    Registry entries always pass their governance block (a missing block keeps the model experimental). The card-only
+    call `resolve_state(declared, card)` is kept for the D20 unit tests and checks D20 and the cap alone.
 
     `max_state: "experimental"` in registry.json caps an entry (mangrove: one spill, so a per-outcome 'validated' test
     verdict in its card means "beat ignoring oiling at Galeta", not a promotion; beach and card-only models: gates failed)."""
     if max_state == STATE_EXPERIMENTAL:
         return STATE_EXPERIMENTAL
     passes, _ = meets_promotion_criteria(card)
-    return STATE_VALIDATED if (declared_state == STATE_VALIDATED and passes) else STATE_EXPERIMENTAL
+    if not (declared_state == STATE_VALIDATED and passes):
+        return STATE_EXPERIMENTAL
+    if governance is _NO_GOVERNANCE:
+        return STATE_VALIDATED
+    return promotion_report(declared_state, card, max_state, governance)["state"]
 
 
 # ---------------------------------------------------------------------------------------------------------------
@@ -110,7 +170,9 @@ class _Adapter(mi.BaseModel):
         self.card = _load_card(entry["card"])
         self.declared_state = entry.get("declared_state", STATE_EXPERIMENTAL)
         self.evidence_grade = entry.get("evidence_grade", "")
-        self.state = resolve_state(self.declared_state, self.card, entry.get("max_state"))
+        self.governance = entry.get("governance") or {}
+        self.max_state = entry.get("max_state")
+        self.state = resolve_state(self.declared_state, self.card, self.max_state, self.governance)
         self.model_version = self.card.get("name", self.model_id)
 
 
@@ -260,6 +322,8 @@ class CardOnly:
         self.evidence_grade = entry.get("evidence_grade", "experimental (gate failed)")
         self.model_version = self.card.get("name", self.model_id)
         self.has_adapter = False
+        self.governance = entry.get("governance") or {}
+        self.max_state = STATE_EXPERIMENTAL
 
 
 @lru_cache(maxsize=1)
@@ -282,8 +346,47 @@ def _registry() -> dict:
     models = {}
     for entry in spec["models"]:
         adapter_cls = _ADAPTERS[entry["adapter"]]
-        models[entry["model_id"]] = adapter_cls(entry)
+        models[entry["model_id"]] = _attach_governance(adapter_cls(entry), entry)
     return models
+
+
+def _attach_governance(adapter, entry: dict):
+    """V5.1: every adapter (including ones defined outside this module) carries its governance block, is re-checked
+    against the stricter promotion rule, and stamps each Prediction with the validation status of its interval."""
+    governance = entry.get("governance") or {}
+    adapter.governance = governance
+    adapter.max_state = entry.get("max_state")
+    declared = entry.get("declared_state", STATE_EXPERIMENTAL)
+    if adapter.state == STATE_VALIDATED:
+        adapter.state = resolve_state(declared, adapter.card, adapter.max_state, governance)
+    inner = adapter.predict
+
+    def predict(site: SiteRecord, scenario: ScenarioRequest) -> Prediction:
+        pred = inner(site, scenario)
+        pred.interval_status = governance.get("interval_status", "") or "not recorded"
+        pred.state = adapter.state
+        return pred
+
+    adapter.predict = predict
+    return adapter
+
+
+def governance_table() -> list:
+    """One plain dict per registered model and per card without an adapter: identity, state, scope, data, baseline,
+    uncertainty, gates and the reasons it is not validated. Failed gates are never dropped. For the dashboard and reports."""
+    rows = []
+    for m in [*_registry().values(), *_card_only().values()]:
+        g = getattr(m, "governance", {}) or {}
+        declared = getattr(m, "declared_state", STATE_EXPERIMENTAL)
+        report = promotion_report(declared, m.card, getattr(m, "max_state", None), g)
+        rows.append({"model_id": m.model_id, "title": m.title, "model_version": m.model_version, "state": m.state,
+                     "declared_state": declared, "has_adapter": getattr(m, "has_adapter", True),
+                     "evidence_grade": m.evidence_grade, "card": m.card_path,
+                     **{k: g.get(k, "") for k in GOVERNANCE_REQUIRED}, "gates": [dict(x) for x in g.get("gates", [])],
+                     "failed_gates": report["failed_gates"], "blocking_failed_gates": report["blocking_failed_gates"],
+                     "governance_gaps": report["governance_gaps"],
+                     "reasons_not_validated": report["reasons_not_validated"] if m.state != STATE_VALIDATED else []})
+    return rows
 
 
 def get(model_id: str):

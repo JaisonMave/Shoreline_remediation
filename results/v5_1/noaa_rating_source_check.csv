@@ -1,0 +1,127 @@
+rating_id,esi_code,page,noaa_table_csv,noaa_table_pdf,table_title_matches,noaa_method,pipeline_option,csv_ratings,pdf_ratings,result
+noaa_3A_001,3A,23,Sand Beaches,Sand Beaches,True,Natural Recovery,natural_attenuation,A B B C C,A B B C C,match
+noaa_3A_002,3A,23,Sand Beaches,Sand Beaches,True,Barriers/Berms,,B B B B B,B B B B B,match
+noaa_3A_003,3A,23,Sand Beaches,Sand Beaches,True,Manual Oil Removal/Cleaning,manual_removal,D B A A A,D B A A A,match
+noaa_3A_004,3A,23,Sand Beaches,Sand Beaches,True,Mechanical Oil Removal,mechanical_removal,D B B B B,D B B B B,match
+noaa_3A_005,3A,23,Sand Beaches,Sand Beaches,True,Sorbents,passive_sorbents,- B A A B,- B A A B,match
+noaa_3A_006,3A,23,Sand Beaches,Sand Beaches,True,Vacuum,vacuum_removal,- - B A A,- - B A A,match
+noaa_3A_007,3A,23,Sand Beaches,Sand Beaches,True,Debris Removal,,- A A A -,- A A A -,match
+noaa_3A_008,3A,23,Sand Beaches,Sand Beaches,True,Sediment Reworking/Tilling,sediment_mixing|sediment_relocation,D B B B B,D B B B B,match
+noaa_3A_009,3A,23,Sand Beaches,Sand Beaches,True,Vegetation Cutting/Removal,vegetation_cutting,- C C C C,- C C C C,match
+noaa_3A_010,3A,23,Sand Beaches,Sand Beaches,True,Flooding (deluge),,A A A B C,A A A B C,match
+noaa_3A_011,3A,23,Sand Beaches,Sand Beaches,True,"Low-pressure, Ambient Water Flushing",low_pressure_flushing,B B B B C,B B B B C,match
+noaa_3A_012,3A,23,Sand Beaches,Sand Beaches,True,"High-pressure, Ambient Water Flushing",high_pressure_washing,- - - - -,- - - - -,match
+noaa_3A_013,3A,23,Sand Beaches,Sand Beaches,True,"Low-pressure, Hot Water Flushing",low_pressure_heated_flushing,- - C C C,- - C C C,match
+noaa_3A_014,3A,23,Sand Beaches,Sand Beaches,True,"High-pressure, Hot Water Flushing",high_pressure_heated_washing,- - - - -,- - - - -,match
+noaa_3A_015,3A,23,Sand Beaches,Sand Beaches,True,Steam Cleaning,,- - - - -,- - - - -,match
+noaa_3A_016,3A,23,Sand Beaches,Sand Beaches,True,Sand Blasting,,- - - - -,- - - - -,match
+noaa_3A_017,3A,23,Sand Beaches,Sand Beaches,True,Solidifiers,solidifiers,- - B - -,- - B - -,match
+noaa_3A_018,3A,23,Sand Beaches,Sand Beaches,True,Shoreline Cleaning Agents,surface_washing_agents,- - C C C,- - C C C,match
+noaa_3A_019,3A,23,Sand Beaches,Sand Beaches,True,Nutrient Enrichment,bioremediation,- A A B B,- A A B B,match
+noaa_3A_020,3A,23,Sand Beaches,Sand Beaches,True,Natural Microbe Seeding,,- I I I I,- I I I I,match
+noaa_3A_021,3A,23,Sand Beaches,Sand Beaches,True,In-situ Burning,,- - C C C,- - C C C,match
+noaa_4_022,4,23,Sand Beaches,Sand Beaches,True,Natural Recovery,natural_attenuation,A B B C C,A B B C C,match
+noaa_4_023,4,23,Sand Beaches,Sand Beaches,True,Barriers/Berms,,B B B B B,B B B B B,match
+noaa_4_024,4,23,Sand Beaches,Sand Beaches,True,Manual Oil Removal/Cleaning,manual_removal,D B A A A,D B A A A,match
+noaa_4_025,4,23,Sand Beaches,Sand Beaches,True,Mechanical Oil Removal,mechanical_removal,D B B B B,D B B B B,match
+noaa_4_026,4,23,Sand Beaches,Sand Beaches,True,Sorbents,passive_sorbents,- B A A B,- B A A B,match
+noaa_4_027,4,23,Sand Beaches,Sand Beaches,True,Vacuum,vacuum_removal,- - B A A,- - B A A,match
+noaa_4_028,4,23,Sand Beaches,Sand Beaches,True,Debris Removal,,- A A A -,- A A A -,match
+noaa_4_029,4,23,Sand Beaches,Sand Beaches,True,Sediment Reworking/Tilling,sediment_mixing|sediment_relocation,D B B B B,D B B B B,match
+noaa_4_030,4,23,Sand Beaches,Sand Beaches,True,Vegetation Cutting/Removal,vegetation_cutting,- C C C C,- C C C C,match
+noaa_4_031,4,23,Sand Beaches,Sand Beaches,True,Flooding (deluge),,A A A B C,A A A B C,match
+noaa_4_032,4,23,Sand Beaches,Sand Beaches,True,"Low-pressure, Ambient Water Flushing",low_pressure_flushing,B B B B C,B B B B C,match
+noaa_4_033,4,23,Sand Beaches,Sand Beaches,True,"High-pressure, Ambient Water Flushing",high_pressure_washing,- - - - -,- - - - -,match
+noaa_4_034,4,23,Sand Beaches,Sand Beaches,True,"Low-pressure, Hot Water Flushing",low_pressure_heated_flushing,- - C C C,- - C C C,match
+noaa_4_035,4,23,Sand Beaches,Sand Beaches,True,"High-pressure, Hot Water Flushing",high_pressure_heated_washing,- - - - -,- - - - -,match
+noaa_4_036,4,23,Sand Beaches,Sand Beaches,True,Steam Cleaning,,- - - - -,- - - - -,match
+noaa_4_037,4,23,Sand Beaches,Sand Beaches,True,Sand Blasting,,- - - - -,- - - - -,match
+noaa_4_038,4,23,Sand Beaches,Sand Beaches,True,Solidifiers,solidifiers,- - B - -,- - B - -,match
+noaa_4_039,4,23,Sand Beaches,Sand Beaches,True,Shoreline Cleaning Agents,surface_washing_agents,- - C C C,- - C C C,match
+noaa_4_040,4,23,Sand Beaches,Sand Beaches,True,Nutrient Enrichment,bioremediation,- A A B B,- A A B B,match
+noaa_4_041,4,23,Sand Beaches,Sand Beaches,True,Natural Microbe Seeding,,- I I I I,- I I I I,match
+noaa_4_042,4,23,Sand Beaches,Sand Beaches,True,In-situ Burning,,- - C C C,- - C C C,match
+noaa_5_043,5,29,Sand and Gravel Beaches,Sand and Gravel Beaches,True,Natural Recovery,natural_attenuation,A B B C C,A B B C C,match
+noaa_5_044,5,29,Sand and Gravel Beaches,Sand and Gravel Beaches,True,Barriers/Berms,,C C C B B,C C C B B,match
+noaa_5_045,5,29,Sand and Gravel Beaches,Sand and Gravel Beaches,True,Manual Oil Removal/Cleaning,manual_removal,D C B B B,D C B B B,match
+noaa_5_046,5,29,Sand and Gravel Beaches,Sand and Gravel Beaches,True,Mechanical Oil Removal,mechanical_removal,D C B B B,D C B B B,match
+noaa_5_047,5,29,Sand and Gravel Beaches,Sand and Gravel Beaches,True,Sorbents,passive_sorbents,- A A B B,- A A B B,match
+noaa_5_048,5,29,Sand and Gravel Beaches,Sand and Gravel Beaches,True,Vacuum,vacuum_removal,- - B B B,- - B B B,match
+noaa_5_049,5,29,Sand and Gravel Beaches,Sand and Gravel Beaches,True,Debris Removal,,- A A A A,- A A A A,match
+noaa_5_050,5,29,Sand and Gravel Beaches,Sand and Gravel Beaches,True,Sediment Reworking/Tilling,sediment_mixing|sediment_relocation,D B B B B,D B B B B,match
+noaa_5_051,5,29,Sand and Gravel Beaches,Sand and Gravel Beaches,True,Vegetation Cutting/Removal,vegetation_cutting,- C C C C,- C C C C,match
+noaa_5_052,5,29,Sand and Gravel Beaches,Sand and Gravel Beaches,True,Flooding (deluge),,A A B C C,A A B C C,match
+noaa_5_053,5,29,Sand and Gravel Beaches,Sand and Gravel Beaches,True,"Low-pressure, Ambient Water Flushing",low_pressure_flushing,B A A B C,B A A B C,match
+noaa_5_054,5,29,Sand and Gravel Beaches,Sand and Gravel Beaches,True,"High-pressure, Ambient Water Flushing",high_pressure_washing,- - C D D,- - C D D,match
+noaa_5_055,5,29,Sand and Gravel Beaches,Sand and Gravel Beaches,True,"Low-pressure, Hot Water Flushing",low_pressure_heated_flushing,- - C C C,- - C C C,match
+noaa_5_056,5,29,Sand and Gravel Beaches,Sand and Gravel Beaches,True,"High-pressure, Hot Water Flushing",high_pressure_heated_washing,- - D D D,- - D D D,match
+noaa_5_057,5,29,Sand and Gravel Beaches,Sand and Gravel Beaches,True,Steam Cleaning,,- - D D D,- - D D D,match
+noaa_5_058,5,29,Sand and Gravel Beaches,Sand and Gravel Beaches,True,Sand Blasting,,- - - - -,- - - - -,match
+noaa_5_059,5,29,Sand and Gravel Beaches,Sand and Gravel Beaches,True,Solidifiers,solidifiers,- - B - -,- - B - -,match
+noaa_5_060,5,29,Sand and Gravel Beaches,Sand and Gravel Beaches,True,Shoreline Cleaning Agents,surface_washing_agents,- - C C C,- - C C C,match
+noaa_5_061,5,29,Sand and Gravel Beaches,Sand and Gravel Beaches,True,Nutrient Enrichment,bioremediation,- A A B C,- A A B C,match
+noaa_5_062,5,29,Sand and Gravel Beaches,Sand and Gravel Beaches,True,Natural Microbe Seeding,,- I I I I,- I I I I,match
+noaa_5_063,5,29,Sand and Gravel Beaches,Sand and Gravel Beaches,True,In-situ Burning,,- - C C C,- - C C C,match
+noaa_6A_064,6A,32,Gravel Beaches,Gravel Beaches,True,Natural Recovery,natural_attenuation,A A B B B,A A B B B,match
+noaa_6A_065,6A,32,Gravel Beaches,Gravel Beaches,True,Barriers/Berms,,- B B B B,- B B B B,match
+noaa_6A_066,6A,32,Gravel Beaches,Gravel Beaches,True,Manual Oil Removal/Cleaning,manual_removal,D C B B A,D C B B A,match
+noaa_6A_067,6A,32,Gravel Beaches,Gravel Beaches,True,Mechanical Oil Removal,mechanical_removal,D D C C C,D D C C C,match
+noaa_6A_068,6A,32,Gravel Beaches,Gravel Beaches,True,Sorbents,passive_sorbents,- A A B B,- A A B B,match
+noaa_6A_069,6A,32,Gravel Beaches,Gravel Beaches,True,Vacuum,vacuum_removal,- - B B B,- - B B B,match
+noaa_6A_070,6A,32,Gravel Beaches,Gravel Beaches,True,Debris Removal,,- A A A A,- A A A A,match
+noaa_6A_071,6A,32,Gravel Beaches,Gravel Beaches,True,Sediment Reworking/Tilling,sediment_mixing|sediment_relocation,D B B B B,D B B B B,match
+noaa_6A_072,6A,32,Gravel Beaches,Gravel Beaches,True,Vegetation Cutting/Removal,vegetation_cutting,- D C C -,- D C C -,match
+noaa_6A_073,6A,32,Gravel Beaches,Gravel Beaches,True,Flooding (deluge),,A A B C C,A A B C C,match
+noaa_6A_074,6A,32,Gravel Beaches,Gravel Beaches,True,"Low-pressure, Ambient Water Flushing",low_pressure_flushing,A A A B C,A A A B C,match
+noaa_6A_075,6A,32,Gravel Beaches,Gravel Beaches,True,"High-pressure, Ambient Water Flushing",high_pressure_washing,- - B B B,- - B B B,match
+noaa_6A_076,6A,32,Gravel Beaches,Gravel Beaches,True,"Low-pressure, Hot Water Flushing",low_pressure_heated_flushing,- - C B B,- - C B B,match
+noaa_6A_077,6A,32,Gravel Beaches,Gravel Beaches,True,"High-pressure, Hot Water Flushing",high_pressure_heated_washing,- - C C C,- - C C C,match
+noaa_6A_078,6A,32,Gravel Beaches,Gravel Beaches,True,Steam Cleaning,,- - D D D,- - D D D,match
+noaa_6A_079,6A,32,Gravel Beaches,Gravel Beaches,True,Sand Blasting,,- - - - -,- - - - -,match
+noaa_6A_080,6A,32,Gravel Beaches,Gravel Beaches,True,Solidifiers,solidifiers,- - B - -,- - B - -,match
+noaa_6A_081,6A,32,Gravel Beaches,Gravel Beaches,True,Shoreline Cleaning Agents,surface_washing_agents,- - B B B,- - B B B,match
+noaa_6A_082,6A,32,Gravel Beaches,Gravel Beaches,True,Nutrient Enrichment,bioremediation,- A A B B,- A A B B,match
+noaa_6A_083,6A,32,Gravel Beaches,Gravel Beaches,True,Natural Microbe Seeding,,- I I I I,- I I I I,match
+noaa_6A_084,6A,32,Gravel Beaches,Gravel Beaches,True,In-situ Burning,,- - C C C,- - C C C,match
+noaa_1A_085,1A,14,Exposed Rocky Shores,Exposed Rocky Shores,True,Natural Recovery,natural_attenuation,A A A A A,A A A A A,match
+noaa_1A_086,1A,14,Exposed Rocky Shores,Exposed Rocky Shores,True,Barriers/Berms,,- - - - -,- - - - -,match
+noaa_1A_087,1A,14,Exposed Rocky Shores,Exposed Rocky Shores,True,Manual Oil Removal/Cleaning,manual_removal,- - B B B,- - B B B,match
+noaa_1A_088,1A,14,Exposed Rocky Shores,Exposed Rocky Shores,True,Mechanical Oil Removal,mechanical_removal,- - - - -,- - - - -,match
+noaa_1A_089,1A,14,Exposed Rocky Shores,Exposed Rocky Shores,True,Sorbents,passive_sorbents,- B A A A,- B A A A,match
+noaa_1A_090,1A,14,Exposed Rocky Shores,Exposed Rocky Shores,True,Vacuum,vacuum_removal,- A A A A,- A A A A,match
+noaa_1A_091,1A,14,Exposed Rocky Shores,Exposed Rocky Shores,True,Debris Removal,,- A A A A,- A A A A,match
+noaa_1A_092,1A,14,Exposed Rocky Shores,Exposed Rocky Shores,True,Sediment Reworking/Tilling,sediment_mixing|sediment_relocation,- - - - -,- - - - -,match
+noaa_1A_093,1A,14,Exposed Rocky Shores,Exposed Rocky Shores,True,Vegetation Cutting/Removal,vegetation_cutting,- - C C C,- - C C C,match
+noaa_1A_094,1A,14,Exposed Rocky Shores,Exposed Rocky Shores,True,Flooding (deluge),,- - - - -,- - - - -,match
+noaa_1A_095,1A,14,Exposed Rocky Shores,Exposed Rocky Shores,True,"Low-pressure, Ambient Water Flushing",low_pressure_flushing,- A A B B,- A A B B,match
+noaa_1A_096,1A,14,Exposed Rocky Shores,Exposed Rocky Shores,True,"High-pressure, Ambient Water Flushing",high_pressure_washing,- B B B B,- B B B B,match
+noaa_1A_097,1A,14,Exposed Rocky Shores,Exposed Rocky Shores,True,"Low-pressure, Hot Water Flushing",low_pressure_heated_flushing,- - C C C,- - C C C,match
+noaa_1A_098,1A,14,Exposed Rocky Shores,Exposed Rocky Shores,True,"High-pressure, Hot Water Flushing",high_pressure_heated_washing,- - C C C,- - C C C,match
+noaa_1A_099,1A,14,Exposed Rocky Shores,Exposed Rocky Shores,True,Steam Cleaning,,- - D D -,- - D D -,match
+noaa_1A_100,1A,14,Exposed Rocky Shores,Exposed Rocky Shores,True,Sand Blasting,,- - D D D,- - D D D,match
+noaa_1A_101,1A,14,Exposed Rocky Shores,Exposed Rocky Shores,True,Solidifiers,solidifiers,- - - - -,- - - - -,match
+noaa_1A_102,1A,14,Exposed Rocky Shores,Exposed Rocky Shores,True,Shoreline Cleaning Agents,surface_washing_agents,- - C C C,- - C C C,match
+noaa_1A_103,1A,14,Exposed Rocky Shores,Exposed Rocky Shores,True,Nutrient Enrichment,bioremediation,- - - - -,- - - - -,match
+noaa_1A_104,1A,14,Exposed Rocky Shores,Exposed Rocky Shores,True,Natural Microbe Seeding,,- - - - -,- - - - -,match
+noaa_1A_105,1A,14,Exposed Rocky Shores,Exposed Rocky Shores,True,In-situ Burning,,- - - - -,- - - - -,match
+noaa_8A_106,8A,42,Sheltered Rocky Shores and Scarps,Sheltered Rocky Shores and Scarps,True,Natural Recovery,natural_attenuation,A A B B B,A A B B B,match
+noaa_8A_107,8A,42,Sheltered Rocky Shores and Scarps,Sheltered Rocky Shores and Scarps,True,Barriers/Berms,,- - - - -,- - - - -,match
+noaa_8A_108,8A,42,Sheltered Rocky Shores and Scarps,Sheltered Rocky Shores and Scarps,True,Manual Oil Removal/Cleaning,manual_removal,- C B C C,- C B C C,match
+noaa_8A_109,8A,42,Sheltered Rocky Shores and Scarps,Sheltered Rocky Shores and Scarps,True,Mechanical Oil Removal,mechanical_removal,- - - - -,- - - - -,match
+noaa_8A_110,8A,42,Sheltered Rocky Shores and Scarps,Sheltered Rocky Shores and Scarps,True,Sorbents,passive_sorbents,A A B C C,A A B C C,match
+noaa_8A_111,8A,42,Sheltered Rocky Shores and Scarps,Sheltered Rocky Shores and Scarps,True,Vacuum,vacuum_removal,- B B B C,- B B B C,match
+noaa_8A_112,8A,42,Sheltered Rocky Shores and Scarps,Sheltered Rocky Shores and Scarps,True,Debris Removal,,- A A A A,- A A A A,match
+noaa_8A_113,8A,42,Sheltered Rocky Shores and Scarps,Sheltered Rocky Shores and Scarps,True,Sediment Reworking/Tilling,sediment_mixing|sediment_relocation,- - - - -,- - - - -,match
+noaa_8A_114,8A,42,Sheltered Rocky Shores and Scarps,Sheltered Rocky Shores and Scarps,True,Vegetation Cutting/Removal,vegetation_cutting,- - D D D,- - D D D,match
+noaa_8A_115,8A,42,Sheltered Rocky Shores and Scarps,Sheltered Rocky Shores and Scarps,True,Flooding (deluge),,- A A B C,- A A B C,match
+noaa_8A_116,8A,42,Sheltered Rocky Shores and Scarps,Sheltered Rocky Shores and Scarps,True,"Low-pressure, Ambient Water Flushing",low_pressure_flushing,- A A B C,- A A B C,match
+noaa_8A_117,8A,42,Sheltered Rocky Shores and Scarps,Sheltered Rocky Shores and Scarps,True,"High-pressure, Ambient Water Flushing",high_pressure_washing,- C B B C,- C B B C,match
+noaa_8A_118,8A,42,Sheltered Rocky Shores and Scarps,Sheltered Rocky Shores and Scarps,True,"Low-pressure, Hot Water Flushing",low_pressure_heated_flushing,- - D D D,- - D D D,match
+noaa_8A_119,8A,42,Sheltered Rocky Shores and Scarps,Sheltered Rocky Shores and Scarps,True,"High-pressure, Hot Water Flushing",high_pressure_heated_washing,- - D D D,- - D D D,match
+noaa_8A_120,8A,42,Sheltered Rocky Shores and Scarps,Sheltered Rocky Shores and Scarps,True,Steam Cleaning,,- - D D D,- - D D D,match
+noaa_8A_121,8A,42,Sheltered Rocky Shores and Scarps,Sheltered Rocky Shores and Scarps,True,Sand Blasting,,- - D D D,- - D D D,match
+noaa_8A_122,8A,42,Sheltered Rocky Shores and Scarps,Sheltered Rocky Shores and Scarps,True,Solidifiers,solidifiers,- C C - -,- C C - -,match
+noaa_8A_123,8A,42,Sheltered Rocky Shores and Scarps,Sheltered Rocky Shores and Scarps,True,Shoreline Cleaning Agents,surface_washing_agents,- - B B B,- - B B B,match
+noaa_8A_124,8A,42,Sheltered Rocky Shores and Scarps,Sheltered Rocky Shores and Scarps,True,Nutrient Enrichment,bioremediation,- A B C C,- A B C C,match
+noaa_8A_125,8A,42,Sheltered Rocky Shores and Scarps,Sheltered Rocky Shores and Scarps,True,Natural Microbe Seeding,,- I I I I,- I I I I,match
+noaa_8A_126,8A,42,Sheltered Rocky Shores and Scarps,Sheltered Rocky Shores and Scarps,True,In-situ Burning,,- D C C C,- D C C C,match

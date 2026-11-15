@@ -129,9 +129,10 @@ def class_html(cls: str, with_name: bool = True) -> str:
 # Tier of a whole report (DecisionReport.scope_tier) -> grade used for its chip. New tiers fall back to a grey chip.
 TIER_TO_GRADE = {"validated": "validated", "experimental": "experimental", "rules_and_literature": "rules_literature",
                  "rules_literature": "rules_literature", "out_of_scope": "out_of_scope",
+                 "unsupported_habitat": "out_of_scope",
                  "insufficient_evidence": "rules_literature", "insufficient": "rules_literature"}
 TIER_TEXT = {"validated": "Validated", "experimental": "Experimental", "rules_and_literature": "Rules and literature only",
-             "out_of_scope": "Out of scope", "insufficient_evidence": "Insufficient evidence", "insufficient": "Insufficient evidence"}
+             "out_of_scope": "Out of scope", "unsupported_habitat": "Unsupported habitat", "insufficient_evidence": "Insufficient evidence", "insufficient": "Insufficient evidence"}
 
 # ---------------------------------------------------------------------------------------------------------------
 # Plain-language labels (the leads are not machine-learning specialists).

@@ -291,7 +291,7 @@ def test_registry_beach_and_card_only_entries_are_experimental():
     assert registry.get("mangrove_damage_v1").state == "experimental"
     assert {m.model_id for m in registry.validated_only()} == {"edge_loss_v1", "pah_decline_v1"}
     cards = registry.card_only()
-    assert set(cards) == {"oil_excess_oos_v1", "edge_loss_v2"}
+    assert set(cards) == {"oil_excess_oos_v1", "edge_loss_v2", "process_model_v2"}   # V5.1: failed F5 process model listed too
     assert all(c.state == "experimental" and not c.has_adapter for c in cards.values())
 
 

@@ -113,6 +113,11 @@ class OptionView:
     ecological_score: float | None = None
     model_id: str | None = None
     raw: dict = dc_field(default_factory=dict)
+    category: str = ""               # V5.1 (D41): stakeholder category from the pipeline, never recomputed in the UI
+    category_label: str = ""
+    category_reason: str = ""
+    rank_basis: str = ""             # "evidence" or "display_convention"
+    rank_basis_text: str = ""
 
     def decision_outcomes(self) -> list:
         return [o for o in self.outcomes if o.decision_point]
@@ -219,7 +224,11 @@ def option_view(row) -> OptionView:
         rank_in_class=int(rank) if finite(rank) else None,
         evidence_state_label=str(field(row, "evidence_state_label", "") or ""), evidence_design=str(field(row, "evidence_design", "") or ""),
         advisory_notes=[str(x) if not isinstance(x, dict) else str(x.get("text") or x.get("detail") or x) for x in field(row, "advisory_notes", []) or []], ecological_score=float(eco) if finite(eco) else None,
-        model_id=field(row, "model_id"), raw=dict(row) if isinstance(row, dict) else {})
+        model_id=field(row, "model_id"), raw=dict(row) if isinstance(row, dict) else {},
+        category=str(field(row, "recommendation_category", "") or ""),
+        category_label=str(field(row, "recommendation_category_label", "") or ""),
+        category_reason=str(field(row, "recommendation_category_reason", "") or ""),
+        rank_basis=str(field(row, "rank_basis", "") or ""), rank_basis_text=str(field(row, "rank_basis_text", "") or ""))
 
 
 @dataclass
@@ -238,6 +247,10 @@ class ReportView:
     literature_notes: list = dc_field(default_factory=list)
     advisories: list = dc_field(default_factory=list)
     extra: dict = dc_field(default_factory=dict)
+    decision_outcome: str = ""       # V5.1 (D41)
+    decision_outcome_label: str = ""
+    recommendation_summary: dict = dc_field(default_factory=dict)
+    abstentions: list = dc_field(default_factory=list)
 
     def by_class(self) -> dict:
         groups = {c: [] for c in T.CLASS_ORDER}
@@ -255,6 +268,9 @@ def reference_grade(row) -> str:
     return grade_from_text(field(row, "evidence_state")) or grade_from_text(field(row, "state")) or "rules_literature"
 
 
+NO_ASSESSMENT_TIERS = ("out_of_scope", "unsupported_habitat")   # the pipeline made no assessment (refusal or abstention)
+
+
 def report_view(report) -> ReportView:
     tier = str(field(report, "scope_tier", "rules_and_literature"))
     headline = str(field(report, "headline", ""))
@@ -264,8 +280,8 @@ def report_view(report) -> ReportView:
     tier_text = T.TIER_TEXT.get(tier, tier.replace("_", " ").capitalize())
     report_level = None
     a_options = [o for o in options if o.cls == "A"]
-    if tier == "out_of_scope":
-        hg, hg_text = "out_of_scope", "Out of scope"
+    if tier in NO_ASSESSMENT_TIERS:
+        hg, hg_text = "out_of_scope", T.TIER_TEXT.get(tier, "Out of scope")
     elif headline.lower().startswith("insufficient evidence"):
         hg, hg_text = "rules_literature", "Insufficient evidence"
     elif a_options:
@@ -276,7 +292,11 @@ def report_view(report) -> ReportView:
         hg_text = T.grade_info(hg)["label"]
     return ReportView(headline=headline, tier=tier, tier_grade=tier_grade, tier_text=tier_text,
                       scope_message=str(field(report, "scope_message", "")), options=options, reference=reference_rows(report),
-                      headline_grade=hg, headline_grade_text=hg_text, out_of_scope=tier == "out_of_scope",
+                      headline_grade=hg, headline_grade_text=hg_text, out_of_scope=tier in NO_ASSESSMENT_TIERS,
+                      decision_outcome=str(field(report, "decision_outcome", "") or ""),
+                      decision_outcome_label=str(field(report, "decision_outcome_label", "") or ""),
+                      recommendation_summary=dict(field(report, "recommendation_summary", {}) or {}),
+                      abstentions=list(field(report, "abstentions", []) or []),
                       evidence_state_label=str(field(report, "evidence_state_label", "") or ""),
                       literature_notes=list(field(report, "literature_notes", []) or []),
                       advisories=[str(x) for x in field(report, "advisories", []) or []],

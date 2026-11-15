@@ -35,6 +35,18 @@ This is the current status view for branch `model_v4` after the V5 work. It supe
 | Integration (registry, beach model, dashboard) | In progress | FINDINGS_V5 51. |
 | Owner attestation of literature rows (D33) | Recorded | His statement, not an independent check. |
 
+## V5.1 (15 Nov 2026 onward)
+
+| Item | Current status | Evidence / remaining gate |
+| --- | --- | --- |
+| Session 1: one decision pathway | Implemented and tested | Legacy model call removed from the production site view; static import test. `docs/V5_1_IMPLEMENTATION.md`. |
+| Session 1: recommendation categories and abstention (D41) | Implemented and tested; Proposed | Owner to accept the category rules and the sixth label. |
+| Session 1: registry governance and stricter promotion | Implemented and tested | Validated set unchanged (`edge_loss_v1`, `pah_decline_v1`). |
+| Session 1: validation figures reconciled | Documented | `docs/V5_1_VALIDATION.md`; no replay metric shows skill (unresolved). |
+| Session 1: NOAA transcription check | Software check done (126/126) | Human review and D36 mapping still Proposed. |
+| Session 2: premium dashboard foundation | Planned | Start point in `docs/V5_1_HANDOFF.md`. |
+| Session 3: decision experience, evidence explorer, report, release | Planned | |
+
 ## Claim boundaries
 
 - **Validated scope is unchanged:** heavily oiled northern Gulf salt-marsh edge loss within Deepwater Horizon (held out by Louisiana basin) and DWH soil PAH-sum decline (held out by station). Both are within one spill.

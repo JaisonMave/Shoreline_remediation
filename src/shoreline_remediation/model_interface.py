@@ -57,6 +57,7 @@ class Prediction:
     model_id: str
     model_version: str
     state: str
+    interval_status: str = ""    # V5.1: validation status of the interval (set by the registry from the governance record)
 
     def __post_init__(self):
         if self.scope not in SCOPES:

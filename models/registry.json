@@ -1,5 +1,5 @@
 {
-  "description": "Model registry (D15/D20, V4 F3). Each entry wraps an existing model behind the standard interface. declared_state is the intended state; the registry keeps a model 'validated' only if it both declares validated and passes the D20 promotion check (registry.meets_promotion_criteria). No new science: adapters are thin wrappers.",
+  "description": "Model registry (D15/D20, V4 F3). Each entry wraps an existing model behind the standard interface. declared_state is the intended state; the registry keeps a model 'validated' only if it both declares validated and passes the D20 promotion check (registry.meets_promotion_criteria). No new science: adapters are thin wrappers. V5.1: every entry carries a 'governance' block (intended use, habitat and geographic scope, training and validation data, baseline, uncertainty method, interval status, limitations, gates). A model is 'validated' only if it declares validated, passes D20, has a complete governance block and has no failed gate that blocks promotion (registry.promotion_report).",
   "models": [
     {
       "model_id": "edge_loss_v1",
@@ -8,7 +8,35 @@
       "card": "models/p5_edge_loss_v1.json",
       "declared_state": "validated",
       "evidence_grade": "validated (P2 held-out basins)",
-      "wraps": "site_evidence.predict_edge_loss + site_flags"
+      "wraps": "site_evidence.predict_edge_loss + site_flags",
+      "governance": {
+        "intended_use": "Natural (no oiling term) marsh-edge loss rate 2010-2015 for one 100 m ESI 10A edge cell, as a site reference number. Not a treatment effect and not an oiling effect.",
+        "habitat_scope": "Salt marsh edge (ESI 10A) only",
+        "geographic_scope": "Louisiana basins Terrebonne, Barataria and Breton (northern Gulf of Mexico); cells inside the training box and hull",
+        "training_data": "12,696 NAIP edge cells (2010-2015 land change) with exposure and pre-spill trend, data/demo/p5_sites*.csv; file hashes in the card",
+        "validation_data": "Held-out basins Barataria and western Breton (P2); leave-one-basin-out residuals of all three basins",
+        "validation_design": "Whole basins held out (never split cells within a basin). One spill, one period.",
+        "baseline": "No-predictor (basin mean) baseline: leave-one-basin-out MAE 1.296 m/yr against 1.416 m/yr",
+        "uncertainty_method": "90% interval: 5th/95th percentiles of pooled leave-one-basin-out residuals added to the prediction",
+        "interval_status": "Calibrated in sample: pooled coverage 0.900 holds by construction. On held-out predictions coverage by basin and oiling class runs 0.76 to 0.99. Out-of-sample per-class intervals failed gate 0.2 (edge_loss_v2). The interval is NOT independently validated.",
+        "limitations": "Single 100 m cells are noisy (interval about 6 m/yr wide). NAIP reads about 1.2 m/yr below field erosion measurements. One spill (Deepwater Horizon). Adding an oiling term did not improve single-cell accuracy (gate 0.1).",
+        "gates": [
+          {
+            "gate_id": "P2-M1",
+            "description": "Beat the no-predictor baseline on whole held-out basins",
+            "passed": true,
+            "blocks_promotion": true,
+            "source": "docs/FINDINGS_2026-11-11.md section 8; models/p5_edge_loss_v1.json"
+          },
+          {
+            "gate_id": "V5-0.2",
+            "description": "Per-class out-of-sample 90% interval coverage 80-97% in every basin-by-class group and Winkler score below baseline (tested on edge_loss_v2)",
+            "passed": false,
+            "blocks_promotion": false,
+            "source": "docs/FINDINGS_V5.md section 45; models/p5_edge_loss_v2.json"
+          }
+        ]
+      }
     },
     {
       "model_id": "composer_natural_recovery_v1",
@@ -17,7 +45,49 @@
       "card": "models/p5_edge_loss_clean_v1.json",
       "declared_state": "experimental",
       "evidence_grade": "experimental: R3 bias gate failed (FINDINGS_V4 26)",
-      "wraps": "scenario_composer.natural_recovery_summary / compose"
+      "wraps": "scenario_composer.natural_recovery_summary / compose",
+      "governance": {
+        "intended_use": "Experimental: natural-recovery edge loss with an oil excess for heavily oiled cells, and paired treatment differences taken from Bay Jimmy field plots. Used for the option comparison at heavily oiled marsh, labelled experimental.",
+        "habitat_scope": "Heavily oiled salt marsh edge (ESI 10A)",
+        "geographic_scope": "Louisiana basins Terrebonne, Barataria, Breton; treatment differences come from one site (Bay Jimmy, Barataria)",
+        "training_data": "Clean-edge baseline: 10,772 NOO and Very_Light NAIP cells (models/p5_edge_loss_clean_v1.json). Oil excess: Zengel et al. 2015/2022 plots scaled by five field studies (D32, models/oil_excess_d32.json). Treatment differences: Zengel et al. 2022 plots (5 to 9 plots per group).",
+        "validation_data": "532 heavily oiled held-out cells in Barataria and Breton (C1b, C1c); 6,502 unoiled held-out cells for the bias check",
+        "validation_design": "Whole basins held out; coverage and bias gates pre-specified (docs/R3_OIL_DOUBLE_COUNT_PLAN.md, docs/D32_OIL_EXCESS_PLAN.md, docs/V5_P0_PLAN.md)",
+        "baseline": "Clean-edge baseline with no oil excess",
+        "uncertainty_method": "Monte Carlo 5th/95th percentiles of the composed rate (baseline residual pool + oil excess draw + paired treatment difference)",
+        "interval_status": "Coverage gate passed (pooled 0.932 to 0.938 on held-out heavy cells) but the ranges are about 6 m/yr wide, so this shows the ranges are wide enough, not that the central values are right.",
+        "limitations": "Heavy-cell bias gate failed: composed medians over-predict observed NAIP loss at heavily oiled cells. Treatment differences are observational, one site, and are applied unchanged to every heavily oiled marsh cell. No data beyond year 8.",
+        "gates": [
+          {
+            "gate_id": "R3-coverage",
+            "description": "90% range covers 80-97% of held-out heavy cells",
+            "passed": true,
+            "blocks_promotion": false,
+            "source": "results/scenario_composer/summary_v4_r3.txt"
+          },
+          {
+            "gate_id": "R3-heavy-bias",
+            "description": "Heavy-cell bias within +/-0.25 m/yr (observed pooled +0.549)",
+            "passed": false,
+            "blocks_promotion": true,
+            "source": "docs/FINDINGS_V4.md section 26; results/scenario_composer/summary_v4_r3.txt"
+          },
+          {
+            "gate_id": "D32-heavy-bias",
+            "description": "After D32 literature scaling, heavy-cell bias within +/-0.25 m/yr (observed pooled +0.330 at cell level, +0.389 by horizon)",
+            "passed": false,
+            "blocks_promotion": true,
+            "source": "docs/FINDINGS_V4.md section 32; results/scenario_composer/summary_d32.txt"
+          },
+          {
+            "gate_id": "V5-0.1",
+            "description": "Out-of-sample oil excess lowers heavy-cell MAE below the no-excess baseline in each gated basin, with bias within +/-0.25 m/yr",
+            "passed": false,
+            "blocks_promotion": true,
+            "source": "docs/FINDINGS_V5.md section 44; models/oil_excess_oos_v1.json"
+          }
+        ]
+      }
     },
     {
       "model_id": "veg_recovery_v1",
@@ -26,7 +96,28 @@
       "card": "models/veg_recovery_v1.json",
       "declared_state": "experimental",
       "evidence_grade": "experimental: suggestive (worse than baseline for heavy oiling)",
-      "wraps": "models/veg_recovery_v1.json curve"
+      "wraps": "models/veg_recovery_v1.json curve",
+      "governance": {
+        "intended_use": "Experimental reference curve: total vegetation cover of oiled marsh relative to reference marsh against years since the spill, as managed (not a treatment effect).",
+        "habitat_scope": "Oiled salt marsh",
+        "geographic_scope": "Northern Gulf of Mexico, Deepwater Horizon studies only",
+        "training_data": "37 study-year units from nine study groups (Cebrian, Hester, Hughes, McClenachan, Rabalais, Silliman, Willis, Zengel A and B)",
+        "validation_data": "Leave-one-study-out residuals of the same units",
+        "validation_design": "Leave one study out; one spill",
+        "baseline": "M0 no-trend baseline: study-averaged MAE 0.417 (curve) against 0.450; difference -0.032, 90% interval -0.144 to +0.082 (includes zero)",
+        "uncertainty_method": "exp of lnRR plus the 90% leave-one-study-out residual offsets",
+        "interval_status": "Descriptive leave-one-study-out offsets; coverage was not gated.",
+        "limitations": "Verdict 'suggestive': did not clearly beat the no-trend baseline, and is worse than it for heavy oiling. Cleanup is unrecorded. Curve fitted up to 7.5 years.",
+        "gates": [
+          {
+            "gate_id": "A1-validated",
+            "description": "Curve error below the no-trend baseline AND the 90% interval of the difference excludes zero (observed: below, but the interval includes zero, so the pre-specified verdict is 'suggestive')",
+            "passed": false,
+            "blocks_promotion": true,
+            "source": "docs/SCENARIO_PROGRAMME_PLAN.md A1; models/veg_recovery_v1.json (m2_minus_m0)"
+          }
+        ]
+      }
     },
     {
       "model_id": "pah_decline_v1",
@@ -35,7 +126,28 @@
       "card": "models/pah_decline_v1.json",
       "declared_state": "validated",
       "evidence_grade": "validated within Deepwater Horizon (FINDINGS 22)",
-      "wraps": "results/pah_decline half-lives by oiling class"
+      "wraps": "results/pah_decline half-lives by oiling class",
+      "governance": {
+        "intended_use": "Half-life of the soil PAH SUM in oiled marsh by SCAT oiling class, as a reference number. It describes loss of the sum (mostly physical loss), not degradation, and not a treatment effect.",
+        "habitat_scope": "Oiled salt-marsh soil",
+        "geographic_scope": "Northern Gulf of Mexico marsh (LA, MS, AL, FL), Deepwater Horizon, spring 2011 to fall 2013",
+        "training_data": "DIVER soil chemistry, 200 stations (local, git-ignored data; results in results/pah_decline/)",
+        "validation_data": "Whole stations held out (196 of 200)",
+        "validation_design": "Held out by station, never splitting rows within a station; one spill",
+        "baseline": "M0 no-change baseline: ln-MAE 0.592 against 0.631; difference -0.039, 90% interval -0.066 to -0.010",
+        "uncertainty_method": "90% interval on the class half-life from the 90% interval on the decline rate k",
+        "interval_status": "90% prediction interval covered 0.89 of held-out cells (reported in the plan's validation, one spill).",
+        "limitations": "One spill. The PAH/hopane ratio does not decline, so the sum falls by physical loss, not shown degradation. No treatment variable. 56 stations have no SCAT class within 100 m.",
+        "gates": [
+          {
+            "gate_id": "PAH-M1",
+            "description": "Beat the no-change baseline on whole held-out stations",
+            "passed": true,
+            "blocks_promotion": true,
+            "source": "docs/FINDINGS_2026-11-11.md section 22; models/pah_decline_v1.json"
+          }
+        ]
+      }
     },
     {
       "model_id": "mangrove_damage_v1",
@@ -45,7 +157,28 @@
       "declared_state": "experimental",
       "evidence_grade": "experimental: oiling effect, one spill (Galeta); per-outcome 'validated' in the card is a one-spill test verdict, not a promotion",
       "wraps": "mangrove_model / models/mangrove_damage_v1.json",
-      "max_state": "experimental"
+      "max_state": "experimental",
+      "governance": {
+        "intended_use": "Experimental description of the oiling effect (oiled minus unoiled) on red-mangrove fringe indicators in years 1 to 5 after one spill. Not a treatment effect, not a recovery forecast for another site.",
+        "habitat_scope": "Red mangrove (Rhizophora mangle) fringe",
+        "geographic_scope": "Bahia Las Minas, Caribbean Panama (1986 spill) only",
+        "training_data": "results/galeta/galeta_site_year.csv (NCEI 9400033; licence unclear)",
+        "validation_data": "Held-out sites within the same spill",
+        "validation_design": "Within one spill; no second spill, no pre-spill data, no treatment variable",
+        "baseline": "M0 unoiled-group mean per year (ignoring oiling)",
+        "uncertainty_method": "Wald 90% interval from the mixed-model fixed effects",
+        "interval_status": "Not validated outside the one spill; coverage not gated.",
+        "limitations": "One spill, one species, one coast, years 1 to 5. Per-outcome 'validated' words in the card mean 'beat ignoring oiling at Galeta' and are not a model state. Must not be generalised to other mangrove shorelines.",
+        "gates": [
+          {
+            "gate_id": "independent-spill",
+            "description": "Promotion requirement, not a pre-specified test: validation on a second, independent mangrove spill. Not attempted because no qualifying data set exists.",
+            "passed": false,
+            "blocks_promotion": true,
+            "source": "docs/F7_SECOND_SPILL_INVENTORY.md; docs/MANGROVE_INVENTORY.md"
+          }
+        ]
+      }
     },
     {
       "model_id": "beach_sand_persistence_v1",
@@ -55,7 +188,35 @@
       "declared_state": "experimental",
       "max_state": "experimental",
       "evidence_grade": "experimental: gates B-1 and B-2 failed; baseline fallback (FINDINGS_V5 48)",
-      "wraps": "beach_model.persistence_curve"
+      "wraps": "beach_model.persistence_curve",
+      "governance": {
+        "intended_use": "Experimental reference: probability that visible surface oil is still recorded on a sand-beach SCAT segment against days since first oiling, under the response as carried out. The packaged output is the baseline curve by first-oiling category.",
+        "habitat_scope": "Fine- to medium-grained sand beach (ESI 3A)",
+        "geographic_scope": "Alabama, Mississippi and Florida Gulf beaches, Deepwater Horizon SCAT 2010-2013",
+        "training_data": "1,007 SCAT segment series (NCEI Accession 0163818 layer 18613), data/external/scat_dwh_mobile/beach_series.csv",
+        "validation_data": "Each state held out in turn",
+        "validation_design": "Leave one state out; one spill",
+        "baseline": "Kaplan-Meier-type curve by first-oiling category: pooled integrated Brier score 0.216 (baseline) against 0.284 (model)",
+        "uncertainty_method": "5th-95th percentile over 200 refits resampling whole segments",
+        "interval_status": "Calibration gate B-2 failed in Mississippi and Florida (about 23 and 32 percentage points off at 365 days). Not validated.",
+        "limitations": "Persistence under the 2010-2013 cleanup, not natural recovery; cannot rank treatments. Visible surface oil only. 74% of cleared segments were oiled again; the outcome depends on visit frequency. Not transferable between states.",
+        "gates": [
+          {
+            "gate_id": "B-1",
+            "description": "Model's integrated Brier score (90, 180, 365, 730 days) below the baseline's in at least 2 of 3 held-out states and pooled (observed: 0 of 3 states; pooled 0.284 against 0.216)",
+            "passed": false,
+            "blocks_promotion": true,
+            "source": "docs/V5_BEACH_SAND_PLAN.md; docs/FINDINGS_V5.md section 48; models/beach_sand_persistence_v1.json"
+          },
+          {
+            "gate_id": "B-2",
+            "description": "Predicted and observed persistence at 365 days within 10 percentage points in each held-out state, and the 90% interval contains the observed value (failed in Mississippi and Florida)",
+            "passed": false,
+            "blocks_promotion": true,
+            "source": "docs/V5_BEACH_SAND_PLAN.md; docs/FINDINGS_V5.md section 48; models/beach_sand_persistence_v1.json"
+          }
+        ]
+      }
     }
   ],
   "cards_without_adapter": [
@@ -63,13 +224,82 @@
       "model_id": "oil_excess_oos_v1",
       "title": "Out-of-sample heavy-oiling excess by class",
       "card": "models/oil_excess_oos_v1.json",
-      "evidence_grade": "experimental: gate failed, adding the excess did not improve cell-level accuracy (FINDINGS_V5 44)"
+      "evidence_grade": "experimental: gate failed, adding the excess did not improve cell-level accuracy (FINDINGS_V5 44)",
+      "governance": {
+        "intended_use": "Tested and not adopted for single-cell prediction: extra edge loss of oiled cells over unoiled cells in the same 2 km block, estimated without the target basin. Shown only as a labelled average.",
+        "habitat_scope": "Salt marsh edge (ESI 10A)",
+        "geographic_scope": "Terrebonne, Barataria, Breton (Louisiana)",
+        "training_data": "data/demo/p5_sites_clean_lobo.csv (12,696 cells)",
+        "validation_data": "Each basin held out in turn",
+        "validation_design": "Leave one basin out; gate set after the baseline error was already seen (not blind; disclosed in the card)",
+        "baseline": "Clean-edge baseline with no excess",
+        "uncertainty_method": "Bootstrap 90% interval over blocks",
+        "interval_status": "Descriptive only; not gated.",
+        "limitations": "A mean excess shifts the average error but does not lower single-cell MAE. Years 6 to 8 are untested.",
+        "gates": [
+          {
+            "gate_id": "V5-0.1",
+            "description": "Heavy-cell MAE strictly below the no-excess baseline in each gated basin and bias within +/-0.25 m/yr",
+            "passed": false,
+            "blocks_promotion": true,
+            "source": "docs/FINDINGS_V5.md section 44"
+          }
+        ]
+      }
     },
     {
       "model_id": "edge_loss_v2",
       "title": "Marsh-edge loss v2 (per-class intervals)",
       "card": "models/p5_edge_loss_v2.json",
-      "evidence_grade": "experimental: gate failed (FINDINGS_V5 45)"
+      "evidence_grade": "experimental: gate failed (FINDINGS_V5 45)",
+      "governance": {
+        "intended_use": "Tested and not adopted: per-oiling-class 90% intervals for the edge-loss model calibrated without the target basin.",
+        "habitat_scope": "Salt marsh edge (ESI 10A)",
+        "geographic_scope": "Terrebonne, Barataria, Breton (Louisiana)",
+        "training_data": "Same cells as edge_loss_v1",
+        "validation_data": "Each basin held out in turn, by oiling class",
+        "validation_design": "Leave one basin out",
+        "baseline": "No-predictor interval",
+        "uncertainty_method": "Per-class conformal offsets from the other two basins",
+        "interval_status": "Gate failed: coverage outside 80-97% in 3 of 12 groups (0.756, 0.795, 0.990); Winkler score not better than baseline in Breton.",
+        "limitations": "Do not quote pooled 90% coverage as validation.",
+        "gates": [
+          {
+            "gate_id": "V5-0.2",
+            "description": "Coverage 80-97% in every basin-by-class group with 100 or more cells and Winkler score below baseline in each basin",
+            "passed": false,
+            "blocks_promotion": true,
+            "source": "docs/FINDINGS_V5.md section 45"
+          }
+        ]
+      }
+    },
+    {
+      "model_id": "process_model_v2",
+      "title": "Shoreline process model v2 (illustrative)",
+      "card": "models/process_model_v2.json",
+      "evidence_grade": "illustrative: F5 gate failed, outside the decision path (FINDINGS_V4 37)",
+      "governance": {
+        "intended_use": "Illustrative only: advection-diffusion-reaction shoreline process model for the legacy scenario view. Must not enter the decision path.",
+        "habitat_scope": "Generic marsh scenario (heavy oil category)",
+        "geographic_scope": "None demonstrated",
+        "training_data": "Parameter priors (data/knowledge/process_parameter_priors.csv); calibration on DIVER soil PAH",
+        "validation_data": "61 held-out DIVER stations (130 cells)",
+        "validation_design": "Held out by station (docs/F5_PROCESS_MODEL_PLAN.md)",
+        "baseline": "Empirical first-order PAH decline curve: error 0.750 against 0.775 (calibrated model) and 0.795 (prior)",
+        "uncertainty_method": "Monte Carlo over parameter priors",
+        "interval_status": "Not validated.",
+        "limitations": "No erosion or burial term, while soil PAH loss is mostly physical. Calibration does not identify cleanup.",
+        "gates": [
+          {
+            "gate_id": "F5",
+            "description": "Calibrated process model beats the empirical PAH decline curve on held-out stations",
+            "passed": false,
+            "blocks_promotion": true,
+            "source": "docs/FINDINGS_V4.md section 37; models/process_model_v2.json"
+          }
+        ]
+      }
     }
   ]
 }
