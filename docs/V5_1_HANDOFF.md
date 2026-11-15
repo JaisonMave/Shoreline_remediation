@@ -1,7 +1,7 @@
 # V5.1 handoff
 
 Updated 15 November 2026, end of **Session 2, Stage 2** (reusable dashboard components and hero redesign; implemented,
-tested, seen running, **not committed**). Session 1 (architecture and scientific stabilisation) and Session 2 Stage 1
+tested, seen running, committed as `7894759` and pushed to this branch). Session 1 (architecture and scientific stabilisation) and Session 2 Stage 1
 (design foundation) are complete and committed. Read this first in the next session, then go straight to
 "Next session: exact starting point". Do not repeat the Session 1 audit.
 
@@ -84,7 +84,7 @@ Issues seen and left for later stages (outside the theme):
   but are not palette-driven.
 - Streamlit's settings menu may still let a user choose its built-in Light theme; the custom CSS is dark only.
 
-## 2b. Session 2, Stage 2: reusable components and hero (implemented, tested, seen running; not committed)
+## 2b. Session 2, Stage 2: reusable components and hero (implemented, tested, seen running; committed `7894759`)
 
 Starting commit `4e6a03d`, branch `claude/shoreline-v5-1-dashboard-design-ot1i5s`. The decision engine, the registry,
 the models, the report and `PIPELINE_VERSION` are untouched. No new dependency, image or web font.
@@ -173,15 +173,16 @@ Known limits of this stage:
 - Stage 1 backlog unchanged: interval-chart label overlap (seen again), expanded sidebar on phones, `ai_style_dataframe`
   contrast, report download and keyboard navigation unverified. None is caused or touched by these components.
 
-### 2c. Continuation state at the end of the Stage 2 session (nothing committed)
+### 2c. Continuation state at the end of the Stage 2 session (committed as `7894759`, pushed)
 
 - Branch `claude/shoreline-v5-1-dashboard-design-ot1i5s`, HEAD `4e6a03d`, no stash. The session started on
   `claude/shoreline-dashboard-components-hcizxj` (same commit); the owner chose to switch to the design branch.
 - `git status --short`: modified `CHANGELOG.md`, `docs/V5_1_HANDOFF.md`, `src/shoreline_remediation/dashboard.py`,
   `site_view.py`, `ui_components.py`, `ui_theme.py`, `tests/test_dashboard_v5.py`, `tests/test_p5_demo.py`; untracked
   `tests/test_ui_stage2.py`. Nothing deleted. 8 tracked files, 491 insertions, 29 deletions, plus the new test file.
-- **These changes exist only in the working tree of the session container.** They are lost if the container is
-  reclaimed before a commit and push. Committing and pushing need the owner's explicit authorisation.
+- **Committed and pushed on the owner's authorisation** as `7894759` ("V5.1 Session 2 Stage 2: reusable dashboard
+  components and hero redesign") to `origin/claude/shoreline-v5-1-dashboard-design-ot1i5s`. This file's hash was recorded
+  in a follow-up commit. The status list above describes the tree before that commit.
 - The test environment (a Python 3.11 virtual environment in a scratch directory) is not part of the repository;
   recreate it with `pip install -r requirements-analysis.txt`.
 - Stage 2 acceptance criteria 1 to 10 are met as far as this session could check. Left to do in Stage 2: the owner's
