@@ -11,7 +11,7 @@ Computer (no account needed).
 
 ---
 
-## 2026-11-15: V5.1 Session 2 Stage 4: rocky-shoreline screening pages, Stage 3 integrated (implemented, tested, seen running; not committed)
+## 2026-11-15: V5.1 Session 2 Stage 4: rocky-shoreline screening pages, Stage 3 integrated (implemented, tested, seen running; commit `710aefe`)
 
 - **Integrated** Stage 3 (`2008c19`, `cf659e9`) into the local design branch by fast-forward from `origin/ccr-ed209fd7-hn5mdk`
   (the design branch was at `ccc0d35`, equal to origin). Nothing pushed.

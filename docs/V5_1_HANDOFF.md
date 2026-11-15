@@ -332,7 +332,7 @@ Continuation state:
   `ccc0d35`). Run `python -m pytest tests -q` (488 expected) and push the design branch only when the owner authorises
   it. If the design branch has moved, stop and ask; do not rebase or force-push.
 
-## 2f. Session 2, Stage 4: rocky-shoreline screening and UI corrections (implemented, tested, seen running; NOT committed)
+## 2f. Session 2, Stage 4: rocky-shoreline screening and UI corrections (implemented, tested, seen running; committed as `710aefe`)
 
 Integration: on `claude/shoreline-v5-1-dashboard-design-ot1i5s` (local), `git merge --ff-only origin/ccr-ed209fd7-hn5mdk`; before
 that the local branch and origin were both `ccc0d35`, the tree was clean and the checkpoint descended from it. HEAD is now
@@ -370,7 +370,7 @@ Remaining limitations:
 - Fine-sand-beach tier stays "Experimental evidence" because of the persistence reference alone.
 
 Next recommended stage: Session 3 pages (Evidence explorer, Model validation from `registry.governance_table()`), then the
-answer-card category display (known issue 4). Commit and push need the owner's explicit authorisation.
+answer-card category display (known issue 4). Committed as `710aefe` and pushed to `origin/claude/shoreline-v5-1-dashboard-design-ot1i5s` (fast-forward from `ccc0d35`, carrying Stage 3 `2008c19`, `cf659e9`). Full suite re-run on the committed tree: 510 passed, 0 failed, 0 skipped. The harness branch `ccr-a0d4b16d-zf5kkb` was not pushed.
 
 ## 3. Files created or modified
 
