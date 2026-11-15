@@ -2,7 +2,7 @@
 
 Run: streamlit run src/shoreline_remediation/dashboard.py
 Pages (ui_nav.PAGES): Home (landing: hero, featured locations, habitat coverage), Site assessment (real data, habitat switcher,
-decision pipeline), Evidence explorer and Model validation (placeholders for Session 3), Legacy and research (legacy rule
+decision pipeline), Evidence explorer and Model validation (V5.2: ui_evidence_explorer, ui_models), Legacy and research (legacy rule
 screening and illustrative process model, kept for comparison; it does not drive production recommendations).
 Only the selected page runs on each click.
 """
@@ -20,7 +20,7 @@ if str(PROJECT_ROOT) not in sys.path:
 st.set_page_config(page_title="Shoreline Remediation Decision Support", page_icon=":material/water:", layout="wide",
                    initial_sidebar_state="auto")
 
-from src.shoreline_remediation import ui_components as C, ui_landing, ui_nav  # noqa: E402
+from src.shoreline_remediation import ui_components as C, ui_evidence_explorer, ui_landing, ui_models, ui_nav  # noqa: E402
 from src.shoreline_remediation.site_view import HABITAT_BY_KEY, render_site_evidence, select_site  # noqa: E402
 from src.shoreline_remediation.ui_scenario import render_scenario_view  # noqa: E402
 
@@ -42,7 +42,7 @@ def _back_home() -> None:
 
 def main() -> None:
     C.inject_css()
-    ui_nav.keep_alive(("site_habitat", "site_mode"))
+    ui_nav.keep_alive(("site_habitat", "site_mode") + ui_evidence_explorer.STATE_KEYS + ui_models.STATE_KEYS)
     page = ui_nav.render_nav()
     if page == "landing":
         ui_landing.render_landing(on_open_site=open_site, on_navigate=ui_nav.go)
@@ -61,6 +61,16 @@ def main() -> None:
         with st.sidebar:
             C.evidence_legend()
         render_scenario_view()
+    elif page == "evidence":
+        _back_home()
+        with st.sidebar:
+            C.evidence_legend()
+        ui_evidence_explorer.render_evidence()
+    elif page == "models":
+        _back_home()
+        with st.sidebar:
+            C.evidence_legend()
+        ui_models.render_models()
     else:
         ui_landing.render_placeholder(page, ui_nav.go)
 

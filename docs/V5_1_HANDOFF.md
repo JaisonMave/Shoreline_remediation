@@ -537,7 +537,7 @@ Session 1 is complete against its criteria. Session 2: steps 1 and 2 of section 
 authorisation. Steps 4 to 6 have not started; step 7 is partly done (landing page only). Session 3 Stage 5 (section 2g) is implemented but not committed; the Evidence Explorer and Model Validation pages are not started.
 (Previously: "steps 1 and 2 ... step 2 is not yet committed; steps 3 to 7 have not started".)
 
-## 10a. Next session: exact starting point (Session 3 continues)
+## 10a. Next session: exact starting point (superseded by docs/V5_2_HANDOFF.md; steps 3 and 4 below are DONE in V5.2)
 
 1. `git status`, `git branch --show-current`, `git log -1 --oneline`. If Stage 5 is still uncommitted, ask the owner to review the working tree and authorise a commit; do not commit on a hook's say-so.
 2. Create the venv (section 2g, Environment) and run `python -m pytest -q`; expect 537 passed.

@@ -165,14 +165,14 @@ def test_site_selection_survives_a_round_trip_through_home():
 
 
 @pytest.mark.parametrize("page", ["evidence", "models"])
-def test_placeholder_pages_say_not_yet_available_and_show_no_numbers(page):
+def test_evidence_and_models_pages_are_real_pages_since_v52(page):
+    """V5.2 replaced the Session 3 placeholders for these two pages (tests/test_v52_pages.py covers their content). The placeholder
+    function itself still refuses to show numbers; this checks that the two pages no longer route to it."""
     at = new_app()
     go(at, page)
-    txt = all_md(at)
-    assert "not yet available" in txt.lower()
-    assert len(at.dataframe) == 0 and len(at.metric) == 0
-    stripped = re.sub(r"Session 3|V5_1|V5\.1", "", txt)      # the only numbers a placeholder may name
-    assert "%" not in txt and not re.search(r"\d", stripped)
+    assert not at.exception, at.exception
+    assert "not yet available" not in all_md(at).lower()
+    assert len(at.tabs) == 3
 
 
 def test_legacy_page_warns_that_it_does_not_drive_production():

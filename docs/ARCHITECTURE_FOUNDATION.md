@@ -159,6 +159,11 @@ per-region results including failures; record its training-range for extrapolati
 models are reachable from the orchestration layer. Today one model qualifies (edge loss v1); the marsh
 recovery model (D4) is the worked example of one that does not.
 
+## 3a. V5.2 presentation pages (added later; the design above is unchanged)
+
+The dashboard now has an Evidence explorer and a Model validation page. Both follow the layering of section 2: `evidence_catalog.py` and `model_validation_data.py` read repository tables, the registry and result files (no Streamlit,
+no calculation); `ui_evidence_explorer.py` and `ui_models.py` only present. The registry stays the only source of a model's state, `run_decision()` the only decision engine, and a value that cannot be read is shown as unavailable. See `docs/V5_2_HANDOFF.md`.
+
 ## 4. Build order (proposed)
 
 | Order | Work | Why first | Needs |

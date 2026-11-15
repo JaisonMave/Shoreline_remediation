@@ -11,6 +11,16 @@ Computer (no account needed).
 
 ---
 
+
+## 2026-11-15: V5.2 Evidence explorer and Model validation pages (implemented, tested, seen running; commit "Implement V5.2 evidence explorer and model validation")
+
+- **New:** `evidence_catalog.py` (389 repository evidence and screening rows in one traceable table; kinds never merged; "Source not available in repository" where no DOI/URL), `ui_evidence_explorer.py` (search, filters, record detail, gap view per habitat class, read-only
+  `run_decision()` context), `model_validation_data.py` (registry-backed inventory; readers for the P2, PAH and F5 result files and the R3/D32 bias gates, each with an "unavailable" fallback), `ui_models.py` (inventory, per-model detail with all gates, held-out charts, uncertainty and appropriate use).
+- **Changed:** `dashboard.py` routes `?page=evidence` and `?page=models` and keeps their widget state; `tests/test_ui_stage3.py` replaces the placeholder test for these two pages.
+- **Unchanged:** `decision_pipeline.py`, `registry.py`, models, data and results. 37-case pipeline comparison against the previous commit: identical byte for byte.
+- **Scientific statements kept:** F5 held-out error 0.775 vs 0.750 (gate failed); D32 heavy-cell bias +0.330 vs +/-0.25 (gate failed); only two narrow models validated, one spill each; confidence scores are heuristic, not calibrated; NOAA 1A/8A ratings AI-transcribed and unverified; no expert review.
+- **Tests:** 583 passed, 0 failed, 0 skipped (`/tmp/claude-0/venv/bin/python -m pytest -q`; 537 before). Browser checks at 1440 and 390 px, no horizontal overflow; keyboard navigation not checked. Details, reviews and limitations: `docs/V5_2_HANDOFF.md`. Status: implemented and tested; a presentation of existing repository material, not new validation.
+
 ## 2026-11-15: V5.1 Session 3 Stage 5: ESI 1A/8A headline wording, five-part answer card, option-card wording (implemented, tested, seen running; uncommitted)
 
 Why: the ESI 1A/8A answer showed "Best allowed options (class B)" next to "Insufficient evidence to compare". Class B means
