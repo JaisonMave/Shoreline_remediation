@@ -12,7 +12,7 @@ and scientific stabilisation) is complete and committed. Read this first in the 
   scientific stabilisation"), then pushed to `origin/claude/shoreline-v5-1-stabilisation-5qqym3`. Find its hash with
   `git log -1 --oneline`. It was authorised for this branch only: not pushed to `model_v4`, not merged, no pull request.
 - Session 2 works on branch `claude/shoreline-v5-1-dashboard-design-ot1i5s`, which starts at the Session 1 commit
-  `f2b3e51`. **Session 2 Stage 1 changes are uncommitted in the working tree**, awaiting the owner's authorisation.
+  `f2b3e51`. Session 2 Stage 1 is committed as `e502dfa882f33040677cb4abd161425de66ad993` (message "V5.1 Session 2 Stage 1: premium dark dashboard design foundation") and pushed to this branch only. The commit hash is recorded in a follow-up commit, because a commit cannot contain its own hash.
 - Start every session with `git status`, `git branch --show-current` and `git log -1 --oneline`.
 
 ## 2. Completed objectives (Session 1)
