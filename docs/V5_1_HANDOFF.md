@@ -321,8 +321,9 @@ Continuation state:
 - The owner authorised preserving Stage 3 as a commit on the local design branch, pushed to
   `origin/ccr-ed209fd7-hn5mdk` only. That is the one push target this cloud session is configured to use; it was not
   pushed to `origin/claude/shoreline-v5-1-dashboard-design-ot1i5s`, `model_v4` or anywhere else. The checkpoint commit
-  is the tip of `origin/ccr-ed209fd7-hn5mdk` (it follows `ccc0d35`, so it is a fast-forward of the Stage 2 state; find
-  it with `git log -3 --oneline origin/ccr-ed209fd7-hn5mdk`; a follow-up commit may record its hash).
+  is `2008c19` ("V5.1 Session 2 Stage 3: landing page, navigation and site discovery"), parent `ccc0d35`. The branch
+  `ccr-ed209fd7-hn5mdk` did not exist on the remote before this push (git reported a new branch), so it now holds the
+  Stage 2 history plus this commit. A follow-up commit on top records this hash.
 - `origin/claude/shoreline-v5-1-dashboard-design-ot1i5s` still ends at `ccc0d35` (Stage 2). Stage 3 is therefore not yet
   on the design branch on the remote.
 - Next session, integrate without rewriting history: `git fetch origin`, check out
