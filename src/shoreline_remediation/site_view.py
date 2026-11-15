@@ -540,6 +540,100 @@ def featured_sites() -> list:
     return cards
 
 
+# ---------------------------------------------------------------------------------------------------------------
+# Habitat coverage for the landing page (V5.1 Session 2 Stage 3). Data access only: the coverage tier of each habitat is
+# DERIVED from the model registry states of the models linked to it, so a registry demotion flows through. Nothing here
+# is a recommendation or a prediction.
+
+HABITAT_MODELS = {"marsh": ("edge_loss_v1", "pah_decline_v1", "composer_natural_recovery_v1", "veg_recovery_v1"),
+                  "mangrove": ("mangrove_damage_v1",), "beach_fine": ("beach_sand_persistence_v1",)}
+_MODEL_WHAT = {"edge_loss_v1": "marsh-edge loss model", "pah_decline_v1": "soil PAH decline model",
+               "composer_natural_recovery_v1": "treatment comparison", "veg_recovery_v1": "vegetation recovery curve",
+               "mangrove_damage_v1": "oiling-damage model", "beach_sand_persistence_v1": "visible-oil persistence reference"}
+_HABITAT_SUMMARY = {
+    "marsh": "Numbers are validated only for salt-marsh edge loss in three Louisiana basins and Deepwater Horizon soil PAH, "
+             "from one spill. The treatment comparison is experimental.",
+    "mangrove": "Oiling-damage evidence from one study. There is no cleanup forecast for mangroves.",
+    "beach_fine": "Only an experimental visible-oil persistence reference exists. There is no site forecast; cleanup options "
+                  "are screened with rules and published findings.",
+}
+_BEACH_SUMMARY = "Rules and published findings only. There is no numerical forecast for this beach type."
+_BEACH_CHIP = ("rules_literature", "Rules and literature only: cleanup options")
+_ROCKY_ESI = ("1A", "8A")
+_ROCKY_SUMMARY = ("The decision pipeline screens this shoreline type with rules and literature and gives no site-specific "
+                  "numerical forecast. The dashboard entry is the next planned task.")
+
+
+@dataclass(frozen=True)
+class HabitatCoverage:
+    key: str
+    label: str
+    esi: str
+    tier: str                      # key of ui_theme.COVERAGE_TIERS
+    summary: str
+    evidence: tuple                # (grade, text) chips
+    opens: str | None              # habitat key the dashboard can open, else None
+    availability: str | None = None
+
+
+def _coverage_tier(model_ids) -> str:
+    """Derived from registry states: any validated -> numerical; else any experimental -> experimental; else screening.
+    A model id the registry does not know counts as no evidence."""
+    states = [_model_states().get(m) for m in model_ids]
+    if "validated" in states:
+        return "numerical"
+    if "experimental" in states:
+        return "experimental"
+    return "screening"
+
+
+def habitat_coverage() -> list:
+    """One entry per openable habitat, the rocky-shore rows of the habitat table (not yet openable), and a final
+    'other shoreline types' entry for habitats the platform does not support."""
+    from src.shoreline_remediation import habitat as _habitat
+    out = []
+    for h in HABITATS:
+        esi = h.esi or _habitat.normalise(h.key)
+        ids = HABITAT_MODELS.get(h.key, ())
+        chips = [c for c in (_model_chip(m, _MODEL_WHAT[m]) for m in ids) if c]
+        if h.key.startswith("beach_"):
+            chips.insert(0, _BEACH_CHIP)
+        elif h.key == "mangrove":
+            chips.append(("ai_proposed", "AI-proposed: cleanup verdicts"))
+        out.append(HabitatCoverage(h.key, h.label, "" if esi == _habitat.UNKNOWN else esi, _coverage_tier(ids),
+                                   _HABITAT_SUMMARY.get(h.key, _BEACH_SUMMARY), tuple(chips), h.key))
+    try:
+        rows = _habitat.table()
+    except Exception:  # habitat table unreadable: omit the rocky entries rather than retype them
+        rows = {}
+    for esi in _ROCKY_ESI:
+        row = rows.get(esi)
+        if row is None or not row.name:
+            continue
+        out.append(HabitatCoverage(f"esi_{esi}", row.name[:1].upper() + row.name[1:], esi, "screening", _ROCKY_SUMMARY,
+                                   (_BEACH_CHIP,), None, "Not yet available in the dashboard"))
+    from src.shoreline_remediation.decision_pipeline import OUTCOME_LABELS
+    out.append(HabitatCoverage(
+        "unsupported", "Other shoreline types", "", "unsupported",
+        "Habitats without a row in the platform's habitat table (for example coral reef or seagrass) get no screening, comparison "
+        f"or recommendation. The pipeline abstains: {OUTCOME_LABELS['unsupported_habitat']}.",
+        (("out_of_scope", T.TIER_TEXT["unsupported_habitat"]),), None, "No assessment is made"))
+    return out
+
+
+def habitat_cards() -> list:
+    """SiteCards for habitat_coverage(). Entries that cannot be opened carry their availability as `location` and no
+    button is drawn for them (the landing page passes on_select=None for them)."""
+    cards = []
+    for c in habitat_coverage():
+        openable = c.opens is not None
+        action = f"Open the {c.label.lower()} assessment" if openable else ""
+        cards.append(C.SiteCard(site_id=c.opens or c.key, name=c.label, kicker=T.COVERAGE_TIERS[c.tier]["label"],
+                                location="" if openable else (c.availability or ""), habitat=f"ESI {c.esi}" if c.esi else "",
+                                description=c.summary, facts=(), evidence=c.evidence, action_label=action))
+    return cards
+
+
 def select_site(site_id: str) -> None:
     """Button callback for a site card: point the existing habitat switcher (and, for the marsh, the existing site picker)
     at the chosen entry. Unknown ids are ignored, so the current page stays as it is."""

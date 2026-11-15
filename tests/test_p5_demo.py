@@ -104,6 +104,7 @@ def app():
     from streamlit.testing.v1 import AppTest
     at = AppTest.from_file(str(ROOT / "src" / "shoreline_remediation" / "dashboard.py"), default_timeout=180)
     at.run()
+    at.segmented_control(key="page").set_value("site").run()   # the default page is now the landing page
     return at
 
 
@@ -117,12 +118,13 @@ def _fresh_app():
     from streamlit.testing.v1 import AppTest
     at = AppTest.from_file(str(ROOT / "src" / "shoreline_remediation" / "dashboard.py"), default_timeout=300)
     at.run()
+    at.segmented_control(key="page").set_value("site").run()   # the default page is now the landing page
     return at
 
 
 def test_dashboard_site_view_runs_on_worked_example(app):
     assert not app.exception, app.exception
-    assert app.segmented_control(key="top_view").value == "Site evidence"
+    assert app.segmented_control(key="page").value == "site"
     metrics = {m.label: m.value for m in app.metric}
     assert any(l.startswith("Expected marsh-edge loss") and v.endswith("m/yr") for l, v in metrics.items())
     assert any("Extra erosion vs natural recovery, years 0 to 2" in t.value.columns for t in app.dataframe)
@@ -146,7 +148,7 @@ def test_dashboard_out_of_scope_cell_has_no_prediction(app):
 
 def test_dashboard_scenario_view_still_runs():
     at = _fresh_app()
-    at.segmented_control(key="top_view").set_value("Scenario screening (legacy)").run()
+    at.segmented_control(key="page").set_value("legacy").run()
     at.sidebar.button[0].click().run()
     assert not at.exception, at.exception
     at.segmented_control(key="scenario_section").set_value("Method test (synthetic data)").run()

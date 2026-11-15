@@ -300,11 +300,11 @@ def test_select_site_ignores_unknown_identifiers():
 def test_dashboard_shows_hero_section_headers_and_real_cards(app):
     md = " ".join(m.value for m in app.markdown)
     assert md.count("<h1>") == 1 and "Shoreline Remediation Intelligence" in md
-    assert "<h2>Featured locations</h2>" in md and "<h2>Assessment</h2>" in md
+    assert "<h2>Featured locations</h2>" in md and "<h2>Explore habitats</h2>" in md
     for name in ("Bay Jimmy, Barataria Bay", "Bahía Las Minas", "Fine-to-medium sand beach"):
         assert name in md
     labels = [b.label for b in app.button]
-    for label in ("Open the Bay Jimmy worked example", "How evidence is graded", "Open the Bay Jimmy assessment",
+    for label in ("Explore shoreline sites", "How evidence is graded", "Open the Bay Jimmy assessment",
                   "Open the mangrove evidence", "Open the beach screening"):
         assert label in labels
 
@@ -312,20 +312,21 @@ def test_dashboard_shows_hero_section_headers_and_real_cards(app):
 @pytest.mark.parametrize("site_id", ["mangrove", "beach_fine", "marsh"])
 def test_site_card_opens_the_existing_assessment(site_id):
     at = fresh()
-    at.segmented_control(key="top_view").set_value("Scenario screening (legacy)").run()   # start away from the site view
+    at.segmented_control(key="page").set_value("site").run()
+    at.segmented_control(key="page").set_value("landing").run()   # start on another page, then use the landing cards
     at.button(key=f"sr_open_site_{site_id}").click().run()
     assert not at.exception, at.exception
-    assert at.segmented_control(key="top_view").value == "Site evidence"
+    assert at.segmented_control(key="page").value == "site"
     assert at.segmented_control(key="site_habitat").value == site_id
     if site_id == "marsh":
         assert at.radio(key="site_mode").value.startswith("Worked example")
 
 
-def test_hero_primary_action_opens_the_worked_example():
+def test_hero_primary_action_opens_the_site_assessment_page():
     at = fresh()
-    at.segmented_control(key="site_habitat").set_value("mangrove").run()
-    at.button(key="sr_act_hero_platform_open_example").click().run()
+    at.button(key="sr_act_hero_platform_explore").click().run()
     assert not at.exception, at.exception
+    assert at.segmented_control(key="page").value == "site"
     assert at.segmented_control(key="site_habitat").value == "marsh"
 
 
@@ -337,7 +338,9 @@ def test_hero_secondary_action_opens_the_evidence_legend():
     assert sum("sr-legend-row" in m.value for m in at.markdown) > before
 
 
-def test_option_cards_show_the_category_the_pipeline_assigned(app):
+def test_option_cards_show_the_category_the_pipeline_assigned():
+    app = fresh()
+    app.segmented_control(key="page").set_value("site").run()   # the option cards are on the site page
     from src.shoreline_remediation import site_view, ui_evidence as E, ui_pipeline as P
     from src.shoreline_remediation.site_evidence import load_sites
 

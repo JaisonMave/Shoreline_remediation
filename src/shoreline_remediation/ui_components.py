@@ -170,13 +170,16 @@ def site_card_html(card: SiteCard) -> str:
     return "".join(parts)
 
 
-def site_card(card: SiteCard, on_select: Callable[[str], None] | None = None) -> None:
+def site_card(card: SiteCard, on_select: Callable[[str], None] | None = None, key: str | None = None,
+              button_key: str | None = None) -> None:
     """One site card. With `on_select` the card gets a button that calls on_select(card.site_id) before the rerun; without
-    it no button is drawn (a button that does nothing is never shown)."""
-    with st.container(key=f"sr_site_{_slug(card.site_id)}"):
+    it no button is drawn (a button that does nothing is never shown). `key` replaces the id slug in the container and button
+    keys (sr_site_<key>, sr_open_site_<key>), so one entry can appear in two rows; `button_key` overrides the button suffix."""
+    slug = _slug(key if key is not None else card.site_id)
+    with st.container(key=f"sr_site_{slug}"):
         st.markdown(site_card_html(card), unsafe_allow_html=True)
         if on_select is not None:
-            st.button(card.action_label, key=f"sr_open_site_{_slug(card.site_id)}", on_click=on_select, args=(card.site_id,),
+            st.button(card.action_label, key=f"sr_open_site_{_slug(button_key) if button_key else slug}", on_click=on_select, args=(card.site_id,),
                       width="stretch")
 
 

@@ -1,9 +1,10 @@
 """Shoreline Remediation Decision Support: Streamlit entry point (decision D40).
 
 Run: streamlit run src/shoreline_remediation/dashboard.py
-The page opens with the platform hero and the featured-location cards (ui_components, V5.1 Session 2 Stage 2).
-Only the selected top-level view runs on each click. Views: "Site evidence" (real data, habitat switcher, decision pipeline) and
-"Scenario screening" (legacy rule screening and illustrative process model, re-based on the decision pipeline).
+Pages (ui_nav.PAGES): Home (landing: hero, featured locations, habitat coverage), Site assessment (real data, habitat switcher,
+decision pipeline), Evidence explorer and Model validation (placeholders for Session 3), Legacy and research (legacy rule
+screening and illustrative process model, kept for comparison; it does not drive production recommendations).
+Only the selected page runs on each click.
 """
 from __future__ import annotations
 
@@ -17,46 +18,51 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 st.set_page_config(page_title="Shoreline Remediation Decision Support", page_icon=":material/water:", layout="wide",
-                   initial_sidebar_state="expanded")
+                   initial_sidebar_state="auto")
 
-from src.shoreline_remediation import ui_components as C  # noqa: E402
-from src.shoreline_remediation.site_view import featured_sites, render_site_evidence, select_site  # noqa: E402
+from src.shoreline_remediation import ui_components as C, ui_landing, ui_nav  # noqa: E402
+from src.shoreline_remediation.site_view import HABITAT_BY_KEY, render_site_evidence, select_site  # noqa: E402
 from src.shoreline_remediation.ui_scenario import render_scenario_view  # noqa: E402
 
-VIEW_SITE = "Site evidence"
-VIEW_SCENARIO = "Scenario screening (legacy)"
+LEGACY_WARNING = ("This is the legacy scenario screening and illustrative process model. It is kept for comparison and research "
+                  "and does not drive production recommendations.")
 
 
 def open_site(site_id: str) -> None:
-    """Card and hero buttons: switch to the site view and hand the choice to the existing site selection."""
-    st.session_state["top_view"] = VIEW_SITE
+    """Card buttons: switch to the site page and hand the choice to the existing site selection. Unknown ids change nothing."""
+    if site_id not in HABITAT_BY_KEY:
+        return
+    ui_nav.go("site")
     select_site(site_id)
+
+
+def _back_home() -> None:
+    st.button("Back to home", key="sr_nav_home", on_click=ui_nav.go, args=("landing",), icon=":material/arrow_back:")
 
 
 def main() -> None:
     C.inject_css()
-    pressed = C.hero(chips=[("Numerical demonstration: Louisiana salt marsh", "gray"), ("Other habitats: screening or limited evidence", "gray"),
-                            ("One spill per dataset", "gray"), ("Associations, not causes", "gray")],
-                     primary=C.HeroAction("Open the Bay Jimmy worked example", "open_example", open_site, ("marsh",)),
-                     secondary=C.HeroAction("How evidence is graded", "evidence"))
-    if pressed == "evidence":
-        C.evidence_dialog()
-    with st.sidebar:
-        C.evidence_legend()
-    cards = featured_sites()
-    C.section_header("Featured locations", kicker="Explore", anchor="featured-locations",
-                     description="Entries you can open now. Each card shows only what the repository holds for that entry, and says "
-                                 "how each value was obtained.",
-                     meta="Sources: site table, mangrove study results, model registry")
-    C.card_row(cards, lambda card: C.site_card(card, on_select=open_site), key="featured",
-               empty_text="No site data could be read from the repository.")
-    C.section_header("Assessment", kicker="Decision support", anchor="assessment")
-    view = st.segmented_control("View", [VIEW_SITE, VIEW_SCENARIO], default=VIEW_SITE, required=True, key="top_view",
-                                label_visibility="collapsed")
-    if view == VIEW_SCENARIO:
+    ui_nav.keep_alive(("site_habitat", "site_mode"))
+    page = ui_nav.render_nav()
+    if page == "landing":
+        ui_landing.render_landing(on_open_site=open_site, on_navigate=ui_nav.go)
+    elif page == "site":
+        C.section_header("Site assessment", kicker="Decision support", anchor="assessment",
+                         description="Real repository data for the selected habitat, compared against natural recovery.")
+        _back_home()
+        with st.sidebar:
+            C.evidence_legend()
+        render_site_evidence()
+    elif page == "legacy":
+        C.section_header("Legacy and research", kicker="Comparison", anchor="legacy",
+                         description="Historical scenario screening, kept for comparison and research.")
+        _back_home()
+        st.warning(LEGACY_WARNING)
+        with st.sidebar:
+            C.evidence_legend()
         render_scenario_view()
     else:
-        render_site_evidence()
+        ui_landing.render_placeholder(page, ui_nav.go)
 
 
 main()

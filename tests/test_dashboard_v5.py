@@ -17,6 +17,8 @@ def fresh() -> AppTest:
     at = AppTest.from_file(APP, default_timeout=300)
     at.run()
     assert not at.exception, at.exception
+    at.segmented_control(key="page").set_value("site").run()   # the default page is now the landing page
+    assert not at.exception, at.exception
     return at
 
 
@@ -30,7 +32,7 @@ def all_text(at) -> str:
 
 
 def run_scenario(at: AppTest) -> AppTest:
-    at.segmented_control(key="top_view").set_value("Scenario screening (legacy)").run()
+    at.segmented_control(key="page").set_value("legacy").run()
     assert not at.exception, at.exception
     at.sidebar.button[0].click().run()
     assert not at.exception, at.exception
@@ -106,7 +108,7 @@ def test_scenario_view_every_section():
 
 def test_only_active_view_runs():
     at = run_scenario(fresh())
-    at.segmented_control(key="top_view").set_value("Site evidence").run()
+    at.segmented_control(key="page").set_value("site").run()
     assert not at.exception
     assert not any("Run scenario analysis" in b.label for b in at.sidebar.button)
 

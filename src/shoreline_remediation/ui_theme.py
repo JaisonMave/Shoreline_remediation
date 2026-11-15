@@ -115,6 +115,19 @@ OUT_OF_SCOPE = {"label": "Out of scope", "icon": ":material/block:", "badge": "g
                 "legend": "The tool does not cover this request."}
 
 
+# Coverage tiers of the landing page habitat cards (V5.1 Session 2 Stage 3). Derived in site_view.habitat_coverage().
+COVERAGE_TIERS = {
+    "numerical": {"label": "Numerical validation available", "grade": "validated",
+                  "legend": "A model passed a held-out test, for a limited scope that the card states."},
+    "experimental": {"label": "Experimental evidence", "grade": "experimental",
+                     "legend": "Built from real field data but not passed a held-out test."},
+    "screening": {"label": "Screening and literature only", "grade": "rules_literature",
+                  "legend": "Rules and published findings; no numerical forecast."},
+    "unsupported": {"label": "Unsupported or insufficient evidence", "grade": "out_of_scope",
+                    "legend": "No assessment is made; the platform abstains."},
+}
+
+
 def grade_info(grade: str) -> dict:
     if grade == "out_of_scope":
         return OUT_OF_SCOPE
@@ -343,6 +356,23 @@ _APP = _ROOT_VARS + """
 [class*="st-key-sr_site_"]{background:var(--sr-card);border:1px solid var(--sr-border);border-radius:var(--sr-radius);
   padding:var(--sr-space-3) 1.15rem;height:100%;transition:border-color .18s ease,box-shadow .18s ease;}
 [class*="st-key-sr_site_"]:hover{border-color:color-mix(in srgb,var(--sr-teal) 55%,var(--sr-border));box-shadow:var(--sr-shadow);}
+/* Habitat coverage cards (landing page): one top-border colour per tier; unopenable and unsupported entries are dashed and dimmed */
+[class*="st-key-sr_site_hab_numerical_"]{border-top:4px solid var(--sr-g-validated);}
+[class*="st-key-sr_site_hab_experimental_"]{border-top:4px solid var(--sr-g-experimental);}
+[class*="st-key-sr_site_hab_screening_"]{border-top:4px solid var(--sr-g-rules);}
+[class*="st-key-sr_site_hab_unsupported_"]{border:1px dashed var(--sr-text-secondary);border-top:4px dashed var(--sr-text-secondary);opacity:.85;}
+[class*="st-key-sr_site_hab_screening_esi_"]{border-style:dashed;border-top-style:solid;}
+[class*="st-key-sr_site_hab_numerical_"] .sr-kicker{color:var(--sr-g-validated);}
+[class*="st-key-sr_site_hab_experimental_"] .sr-kicker{color:var(--sr-g-experimental);}
+[class*="st-key-sr_site_hab_screening_"] .sr-kicker{color:var(--sr-g-rules);}
+[class*="st-key-sr_site_hab_unsupported_"] .sr-kicker{color:var(--sr-text-secondary);}
+/* Coverage legend and "how it works" steps */
+.sr-tiers{display:flex;flex-wrap:wrap;gap:.4rem .6rem;margin:.25rem 0 .9rem 0;}
+.sr-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin:.5rem 0 1rem 0;}
+.sr-step{background:var(--sr-card);border:1px solid var(--sr-border);border-radius:var(--sr-radius);padding:1rem 1.15rem;}
+.sr-step b{display:inline-flex;align-items:center;justify-content:center;width:1.7rem;height:1.7rem;border-radius:50%;
+  background:color-mix(in srgb,var(--sr-teal) 22%,transparent);border:1px solid var(--sr-teal);margin-bottom:.5rem;}
+.sr-step p{margin:0;color:var(--sr-text);font-size:.95rem;line-height:1.5;}
 .sr-site h3{font-size:1.12rem;font-weight:700;margin:0;padding:0;}
 .sr-site-where{color:var(--sr-text-secondary);font-size:.86rem;margin:.15rem 0 .5rem 0;}
 .sr-site p.sr-site-desc{font-size:.9rem;line-height:1.5;margin:0 0 .6rem 0;color:var(--sr-text);}

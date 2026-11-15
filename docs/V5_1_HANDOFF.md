@@ -1,8 +1,10 @@
 # V5.1 handoff
 
-Updated 15 November 2026, end of **Session 2, Stage 2** (reusable dashboard components and hero redesign; implemented,
-tested, seen running, committed as `7894759` and pushed to this branch). Session 1 (architecture and scientific stabilisation) and Session 2 Stage 1
-(design foundation) are complete and committed. Read this first in the next session, then go straight to
+Updated 15 November 2026, end of **Session 2, Stage 3** (landing page, navigation and site discovery). Stage 3 is
+implemented, tested and seen running in a browser, but **not committed or pushed**; it awaits the owner's authorisation.
+Stages 1 and 2 are committed and pushed: HEAD is `ccc0d35` on `claude/shoreline-v5-1-dashboard-design-ot1i5s`, equal to
+the remote (Stage 1 is `e502dfa`, Stage 2 is `7894759`, and `ccc0d35` records Stage 2's hash). Session 1 (architecture and
+scientific stabilisation) is complete and committed. Read this first in the next session, then go straight to
 "Next session: exact starting point". Do not repeat the Session 1 audit.
 
 ## 1. Branch and commit
@@ -28,7 +30,7 @@ tested, seen running, committed as `7894759` and pushed to this branch). Session
 | Validation figures reconciled (5/6, 2/6, baseline) | Documented in `V5_1_VALIDATION.md` |
 | NOAA transcription check against the PDF | Software check done, 126/126; human review still open |
 
-## 2a. Session 2, Stage 1: design foundation (implemented, tested, seen running; not committed)
+## 2a. Session 2, Stage 1: design foundation (implemented, tested, seen running; committed as `e502dfa`)
 
 Scope was the theme only. The decision engine, the registry, the models and all Session 1 governance are untouched.
 
@@ -78,7 +80,8 @@ Issues seen and left for later stages (outside the theme):
 - The interval chart's two y-axis option labels overlap at 1440 px ("Planting (after mechanical cleanup)" over
   "Manual removal"). Not investigated; whether it predates the theme is unknown. Fix with the option-card redesign.
 - On a 390 px screen the sidebar opens expanded and covers the page until closed (`initial_sidebar_state` in
-  `dashboard.py`). Address with the navigation work in step 3.
+  `dashboard.py`). Address with the navigation work in step 3. (Now done in Session 2 Stage 3, section 2d: the sidebar
+  starts collapsed on a phone.)
 - `ui_components.ai_style_dataframe` uses `#8A7F99` text, about 4:1 on dark cards (below 4.5:1).
 - Hard-coded hex values remain in matplotlib and Altair chart code (Okabe-Ito series, `NEUTRAL`); they read on dark
   but are not palette-driven.
@@ -169,13 +172,14 @@ Known limits of this stage:
 - Card descriptions and the names "Bay Jimmy, Barataria Bay" and "Bahía Las Minas" are fixed text in `site_view.py`,
   consistent with the existing page text; the numbers are read from files.
 - The cards sit above the assessment on every run, so the answer card starts lower on the page. Step 3 (landing page)
-  should move them.
+  should move them. (Now done in Session 2 Stage 3: the cards are on the landing page, section 2d.)
 - Stage 1 backlog unchanged: interval-chart label overlap (seen again), expanded sidebar on phones, `ai_style_dataframe`
   contrast, report download and keyboard navigation unverified. None is caused or touched by these components.
 
 ### 2c. Continuation state at the end of the Stage 2 session (committed as `7894759`, pushed)
 
-- Branch `claude/shoreline-v5-1-dashboard-design-ot1i5s`, HEAD `4e6a03d`, no stash. The session started on
+- Branch `claude/shoreline-v5-1-dashboard-design-ot1i5s`, HEAD `4e6a03d` at the start of Stage 2 (now `ccc0d35`, section 1).
+  No stash. The session started on
   `claude/shoreline-dashboard-components-hcizxj` (same commit); the owner chose to switch to the design branch.
 - `git status --short`: modified `CHANGELOG.md`, `docs/V5_1_HANDOFF.md`, `src/shoreline_remediation/dashboard.py`,
   `site_view.py`, `ui_components.py`, `ui_theme.py`, `tests/test_dashboard_v5.py`, `tests/test_p5_demo.py`; untracked
@@ -186,12 +190,146 @@ Known limits of this stage:
 - The test environment (a Python 3.11 virtual environment in a scratch directory) is not part of the repository;
   recreate it with `pip install -r requirements-analysis.txt`.
 - Stage 2 acceptance criteria 1 to 10 are met as far as this session could check. Left to do in Stage 2: the owner's
-  review; optionally one more browser capture of the card row (the last spacing change) and of the beach card button;
-  then commit and push when authorised.
+  review; optionally one more browser capture of the card row (the last spacing change) and of the beach card button.
+  (Now committed and pushed as `7894759`, which is recorded in `ccc0d35`; the owner's review is still open.)
 - Open questions for the owner: (1) is a wrapping card row acceptable in place of a sideways-scrolling strip;
   (2) should the featured cards stay above the assessment until the landing page exists (step 3); (3) is the beach
   "habitat screening" card wanted, given it is not a surveyed site; (4) is showing the category on option cards now,
   ahead of Session 3, acceptable; (5) D41 is still Proposed, so the labels shown are proposed wording.
+
+## 2d. Session 2, Stage 3: landing page, navigation and site discovery (implemented, tested, seen running; not committed)
+
+Scope was navigation, presentation and the habitat coverage read model. The decision engine, the registry, the models,
+the printable report and `PIPELINE_VERSION` are untouched. No new dependency or image.
+
+- **Navigation.** New `src/shoreline_remediation/ui_nav.py`. `PAGES` maps the page ids to labels: `landing` "Home",
+  `site` "Site assessment", `evidence` "Evidence explorer", `models` "Model validation", `legacy` "Legacy and research".
+  `st.session_state["page"]` is the key of one `st.segmented_control` at the top of every page, so there is one source
+  of truth. The old `top_view` control and `VIEW_SITE` / `VIEW_SCENARIO` are removed. `go(page)` ignores unknown ids;
+  `current_page()` falls back to `landing`. The page is mirrored to the URL (`?page=`): a reload stays on the same page,
+  and an invalid value falls back to `landing`. `keep_alive(("site_habitat", "site_mode"))` re-assigns those widget
+  values on each run, so the site selection survives while another page is shown. `dashboard.open_site(site_id)` sets
+  the page to `site` and calls the existing `site_view.select_site`; unknown ids change nothing. Every non-landing page
+  has a "Back to home" button (key `sr_nav_home`). `initial_sidebar_state` is now `"auto"`, so the sidebar starts
+  collapsed on a phone. This closes the Stage 1 sidebar backlog item.
+- **Pages.**
+  - Landing: `ui_landing.render_landing(on_open_site, on_navigate)`.
+  - Site assessment: the unchanged `render_site_evidence()`. The production pathway is still `dashboard.py` →
+    `site_view.py` → `ui_pipeline.py` → `decision_pipeline.run_decision`, and it is not duplicated.
+  - Legacy and research: the existing `render_scenario_view()` under a warning that it is kept for comparison and
+    research and does not drive production recommendations.
+  - Evidence explorer and Model validation: `ui_landing.render_placeholder`. It says the page is not yet available, what
+    it will hold (Session 3) and where related information is today. It contains no data, tables or numbers.
+- **Landing components.** All reuse Stage 2 components; no new card or hero code.
+  - Hero (`C.hero`, title "Shoreline Remediation Intelligence"). The primary button "Explore shoreline sites" opens the
+    site page and keeps the current selection. The secondary button "How evidence is graded" opens the evidence dialog.
+  - "Featured locations": `featured_sites()`, `site_card` and `card_row`. The same three entries, unchanged data.
+  - "Explore habitats": the tier legend and `habitat_cards()`.
+  - "How the platform works": three static steps, no figures.
+- **Coverage tiers and data sources.** `site_view.habitat_coverage()` returns `HabitatCoverage` entries. The tier of each
+  habitat is derived from the `registry.governance_table()` states of the models linked to it in
+  `site_view.HABITAT_MODELS`: any validated model gives "Numerical validation available"; otherwise any experimental model
+  gives "Experimental evidence"; otherwise "Screening and literature only". The labels are `ui_theme.COVERAGE_TIERS`. The
+  tier is never hard-coded, so a registry demotion changes the card. Result today:
+  - Salt marsh: numerical. `edge_loss_v1` and `pah_decline_v1` are validated. The card states the limits: three Louisiana
+    basins, Deepwater Horizon soil PAH, one spill. The treatment comparison is experimental.
+  - Mangrove: experimental.
+  - Fine-to-medium sand beach: experimental. The only model is the persistence reference.
+  - Coarse sand, mixed sand and gravel, and gravel beaches: screening and literature only.
+  - ESI 1A and 8A are read from `habitat.table()` (`data/knowledge/tables/habitat.csv`). They are shown as screening
+    entries labelled "Not yet available in the dashboard", with no button.
+  - A last "Other shoreline types" card states the unsupported-habitat abstention, using
+    `decision_pipeline.OUTCOME_LABELS["unsupported_habitat"]`.
+  - Habitat cards carry no facts, numbers, recommendations or percentages.
+- **Component change.** `ui_components.site_card(card, on_select=None, key=None, button_key=None)`; the defaults are
+  unchanged. Habitat cards use container keys `sr_site_hab_<tier>_<id>` and button keys `sr_open_site_hab_<id>`, so an
+  entry can appear in both rows. The tier colours are CSS in the dashboard layer only; the printable report CSS is
+  unchanged.
+- **Files.** Created: `src/shoreline_remediation/ui_nav.py`, `src/shoreline_remediation/ui_landing.py`,
+  `tests/test_ui_stage3.py`. Modified: `src/shoreline_remediation/dashboard.py`, `site_view.py` (additions only),
+  `ui_components.py`, `ui_theme.py`, `tests/test_dashboard_v5.py`, `tests/test_p5_demo.py`, `tests/test_ui_stage2.py`,
+  `tests/test_v5_1_governance.py`, `CHANGELOG.md`, this file. Untouched: `decision_pipeline.py`, `registry.py`, `models/`,
+  `ui_report.py`, `PIPELINE_VERSION`.
+- **Existing tests changed (navigation only).** No scientific assertion was weakened and no test was deleted.
+  - The helpers navigate to the site page, because the default page is now the landing page. `top_view` becomes `page`.
+  - The Stage 2 hero test now checks that "Explore shoreline sites" opens the site page.
+  - `test_legacy_view_is_reached_only_from_the_labelled_legacy_entry` in `tests/test_v5_1_governance.py` now checks the
+    "Legacy and research" page label and the warning text. The importer-isolation check is unchanged.
+
+Tests (Python 3.11, fresh virtual environment outside the repository, Streamlit 1.67.0):
+
+| Command | Result |
+|---|---|
+| `python -m pytest tests/test_ui_stage3.py -q` | 65 passed, 0 failed, 0 skipped (35 test functions) |
+| `python -m pytest tests -q` | **488 passed, 0 failed, 0 skipped** (423 existing + 65 new), about 2.5 minutes |
+
+A first run of the new file had 3 failures. They were caused by the test helper reading the injected stylesheet rather
+than the info boxes. This was a test fault, fixed in the helper; there was no application change. These are software
+tests of the interface, not model validation. The new tests cover: landing render, navigation to each page, featured and
+habitat card navigation, return to home, site-selection preservation, missing site data, coverage tiers following the
+registry (including demotion), unsupported-habitat abstention, legacy navigation, no fabricated numbers, and `ui_nav`
+fallbacks.
+
+Browser check (real: headless Chromium, `streamlit run`, at 1440 x 900 and 390 x 844):
+- Landing page: four headings in order; featured cards; 12 habitat cards with no overlapping card boxes.
+- Bay Jimmy card opened the site page with the worked example; "Back to home" returned to the landing page.
+- Mangrove card opened the mangrove assessment. The hero primary button opened the site page with mangrove still selected.
+- Legacy and research showed the warning. Reloading on legacy stayed on legacy (`?page=legacy`). `?page=evidence`
+  opened the placeholder. `?page=nonsense` fell back to the landing page. The Model validation placeholder opened, and
+  "Back to home" returned to the landing page.
+- No Streamlit exception on any page. Page scroll width equals the viewport at both sizes, and no checked element is past
+  the right edge. Evidence chips compute to 12.5 px in `#F4F7FA`. At 390 px the navigation wraps onto two rows and the
+  sidebar starts collapsed.
+
+**Not checked:** the browser Back button (one attempt after a reload stayed on the same page; whether Streamlit adds a
+history entry per page change was not established); keyboard-only navigation; a real phone; the beach and remaining
+habitat card buttons in a browser (AppTest only); legacy results after pressing Run; the HTML report download.
+
+Known limitations of this stage:
+- Streamlit logs an existing warning that `site_habitat` has both a default and a session-state value (it comes from
+  `select_site`; a log line only).
+- The landing page finds a card's tier by its kicker label (`ui_landing.render_habitat`). A `tier` field on the card would
+  be cleaner.
+- The fine-sand-beach tier is "Experimental evidence" because of the persistence reference, although its cleanup options
+  are rules only (both chips are shown).
+- The Evidence explorer and Model validation pages are placeholders.
+- The Stage 1 backlog items other than the sidebar are unchanged (interval-chart label overlap, `ai_style_dataframe`
+  contrast, unverified report download and keyboard navigation, Streamlit's settings menu offering a Light theme).
+
+Rocky shoreline (next dedicated task, not started): the integration point is ready. To finish:
+- In `site_view.py`, add `HabitatView` entries for ESI 1A and 8A (`shoreline_type="rocky_shore"`) through a
+  `_screening_renderer` generalised from `_beach_renderer`.
+- `habitat_coverage()` should then give those entries `opens=<key>` instead of the "Not yet available" label.
+- Confirm the page shows the `no_site_forecast` abstention and no numerical forecast.
+- Add AppTest and browser checks.
+- No rocky demonstration site or forecast exists, and none should be invented.
+
+Multi-agent record: orchestration, architecture, interface contract, review, the test-helper fix, the full-suite run and
+the browser verification were done by the lead session. Implementation was done by a Sonnet subagent. Data-structure
+inspection, the Stage 3 test file and this documentation were done by Haiku subagents. No agent committed or pushed.
+
+Continuation state:
+- Branch `claude/shoreline-v5-1-dashboard-design-ot1i5s`, HEAD `ccc0d35`, equal to origin.
+- `git status --short`: the eight tracked files listed above plus `CHANGELOG.md` and this file are modified; the untracked
+  files are `src/shoreline_remediation/ui_landing.py`, `src/shoreline_remediation/ui_nav.py` and `tests/test_ui_stage3.py`.
+- Commit and push need the owner's explicit authorisation.
+- Open questions for the owner: (1) is the placeholder approach acceptable for the two unbuilt pages; (2) should rocky
+  shoreline be the next stage before the Session 3 pages; (3) D41 is still Proposed.
+
+### 2e. Stage 3 checkpoint location and how to integrate it
+
+- The owner authorised preserving Stage 3 as a commit on the local design branch, pushed to
+  `origin/ccr-ed209fd7-hn5mdk` only. That is the one push target this cloud session is configured to use; it was not
+  pushed to `origin/claude/shoreline-v5-1-dashboard-design-ot1i5s`, `model_v4` or anywhere else. The checkpoint commit
+  is the tip of `origin/ccr-ed209fd7-hn5mdk` (it follows `ccc0d35`, so it is a fast-forward of the Stage 2 state; find
+  it with `git log -3 --oneline origin/ccr-ed209fd7-hn5mdk`; a follow-up commit may record its hash).
+- `origin/claude/shoreline-v5-1-dashboard-design-ot1i5s` still ends at `ccc0d35` (Stage 2). Stage 3 is therefore not yet
+  on the design branch on the remote.
+- Next session, integrate without rewriting history: `git fetch origin`, check out
+  `claude/shoreline-v5-1-dashboard-design-ot1i5s`, confirm it equals `ccc0d35`, then
+  `git merge --ff-only origin/ccr-ed209fd7-hn5mdk` (it is a fast-forward because the checkpoint descends from
+  `ccc0d35`). Run `python -m pytest tests -q` (488 expected) and push the design branch only when the owner authorises
+  it. If the design branch has moved, stop and ask; do not rebase or force-push.
 
 ## 3. Files created or modified
 
@@ -262,9 +400,11 @@ unaffected, but that is an expectation, not a check.
 
 1. **No rocky-shoreline entry in the dashboard.** `site_view.HABITATS` has marsh, mangrove and four beach types. The
    pipeline supports `rocky_shore` (ESI 1A, 8A) and is tested, but the required rocky demonstration case cannot be
-   reached from the UI.
+   reached from the UI. (Now, Session 2 Stage 3: the landing page lists ESI 1A and 8A as screening entries labelled "Not
+   yet available in the dashboard", with no button. The rocky case still cannot be opened.)
 2. ~~The dashboard is still the V5 light theme.~~ Palette and dark theme applied in Session 2 Stage 1 (section 2a).
-   Layout, navigation and components are still the V5 ones.
+   ~~Layout, navigation and components are still the V5 ones.~~ Components (Stage 2, section 2b), the landing page and
+   navigation (Stage 3, section 2d) are done. The two unbuilt pages are placeholders.
 3. The headline for the worked example still opens with planting as "field evidence of benefit" and only then says
    it is conditional. Correct but awkward; reword when the answer card is redesigned.
 4. The answer card shows the class-based grade chips, not the category. Option cards show the category since Session 2
@@ -281,9 +421,10 @@ unaffected, but that is an expectation, not a check.
 
 ## 9. Incomplete tasks
 
-Session 1 is complete against its criteria. Session 2: steps 1 and 2 of section 10 are done (step 2 is not yet
-committed; commit and push need the owner's authorisation); steps 3 to 7 have not started and are not yet authorised.
-Session 3 has not started.
+Session 1 is complete against its criteria. Session 2: steps 1 and 2 of section 10 are committed (`e502dfa` and
+`7894759`). Step 3 is done in Stage 3 (section 2d) and is **not yet committed**; commit and push need the owner's
+authorisation. Steps 4 to 6 have not started; step 7 is partly done (landing page only). Session 3 has not started.
+(Previously: "steps 1 and 2 ... step 2 is not yet committed; steps 3 to 7 have not started".)
 
 ## 10. Next session: exact starting point (Session 2, premium dashboard foundation)
 
@@ -301,14 +442,17 @@ Do these in order. Each step is independently testable.
    `.sr-row` and the `--sr-*` variables; add new colours only through `ui_theme`. In `ui_components.py` add `section_header(title, kicker)`, `status_label(category)`
    (one colour per `decision_pipeline.CATEGORY_ORDER` entry), `site_card(...)`, `card_row(cards)` (horizontal scroll
    via CSS), and `hero_feature(...)`. Replace the body of `hero()` rather than adding a second hero.
-3. **Navigation and landing page.** In `dashboard.py` replace the two-item `st.segmented_control` with a page state
+   (As built, `card_row` wraps rather than scrolls; see section 2b. Stage 3 started step 3, see section 2d.)
+3. **Navigation and landing page. DONE (Session 2 Stage 3, see section 2d; not committed).** As built, the title is
+   "Shoreline Remediation Intelligence", the featured cards are Bay Jimmy, Bahía Las Minas and a fine-to-medium sand beach
+   entry, and rocky shoreline appears only as a habitat entry that cannot be opened. Original text: In `dashboard.py` replace the two-item `st.segmented_control` with a page state
    in `st.session_state["page"]`: `landing`, `site`, `evidence`, `models`, `legacy`. Create
    `src/shoreline_remediation/ui_landing.py` with `render_landing()`: platform name "Shoreline Intelligence", a
    featured Bay Jimmy section (cell `8018_32612`), habitat cards, and three case-study cards (Bay Jimmy salt marsh,
    rocky shoreline, mangrove). Each card button must set the page and `st.session_state["site_habitat"]`.
    Every figure on a card must come from `site_evidence.load_sites()` or the habitat table; no ratings, no invented
    numbers. The legacy scenario view moves under a clearly labelled "Legacy and research" entry.
-4. **Rocky shoreline.** In `site_view.py` add `HabitatView` entries for ESI 1A ("Exposed rocky shore",
+4. **Rocky shoreline. NEXT TASK (not started).** Integration point and steps are in section 2d. In `site_view.py` add `HabitatView` entries for ESI 1A ("Exposed rocky shore",
    `shoreline_type="rocky_shore"`, `esi="1A"`) and ESI 8A ("Sheltered rocky shore", `esi="8A"`) using
    `_beach_renderer` generalised to a `_screening_renderer` (it already calls `P.decision_for_scenario`). Confirm
    the page shows the `no_site_forecast` abstention and no numerical forecast.
@@ -319,8 +463,11 @@ Do these in order. Each step is independently testable.
 6. **Imagery.** The repository has no coastal photographs. Do not hot-link images. Either use CSS gradients and
    inline SVG, or add properly licensed images under `src/shoreline_remediation/assets/` with a credits file. Decide
    with the owner if photographs are wanted.
-7. **Tests.** Extend `tests/test_dashboard_v5.py` (Streamlit `AppTest`) for landing page render, each card button
-   changing the page, and the rocky page. Then run the browser check for landing, Bay Jimmy, rocky and mangrove.
+7. **Tests. Landing-page part DONE (Session 2 Stage 3):** landing render, card navigation and return home are tested in
+   `tests/test_ui_stage3.py` (AppTest), not `tests/test_dashboard_v5.py`; the browser check covered landing, Bay Jimmy and
+   mangrove. **Rocky page still to do** (with step 4). Original text: Extend `tests/test_dashboard_v5.py` (Streamlit
+   `AppTest`) for landing page render, each card button changing the page, and the rocky page. Then run the browser check
+   for landing, Bay Jimmy, rocky and mangrove.
 
 Session 3 then covers: option cards with categories and "why" explanations, scenario comparison, an evidence
 explorer, the model-validation page built on `registry.governance_table()`, and the full report.

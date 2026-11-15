@@ -11,6 +11,29 @@ Computer (no account needed).
 
 ---
 
+## 2026-11-15 (V5.1 Session 2, Stage 3): landing page, navigation and site discovery
+- **Why:** handoff section 10 step 3: a stakeholder should enter on a page that shows the sites and habitats, and see
+  what kind of evidence exists for each, before reaching the assessment.
+- **What:** new `ui_nav.py` (one page state in `st.session_state["page"]`, mirrored to `?page=`, with a "Back to home"
+  button) and `ui_landing.py` (hero, featured locations, habitat coverage cards, method steps, placeholders for the
+  Evidence explorer and Model validation pages). The landing page reuses the Stage 2 components. Habitat coverage tiers
+  are derived from the model registry states (`site_view.habitat_coverage()`), not hard-coded. The "Legacy and research"
+  page shows a warning that it does not drive production recommendations. The sidebar starts collapsed on a phone.
+  `site_card` gained optional `key` and `button_key` arguments. No decision-engine, registry, model or report change.
+  No new dependency or image.
+- **Where:** created `src/shoreline_remediation/ui_nav.py`, `src/shoreline_remediation/ui_landing.py`,
+  `tests/test_ui_stage3.py`; modified `src/shoreline_remediation/{dashboard,site_view,ui_components,ui_theme}.py`,
+  `tests/test_dashboard_v5.py`, `tests/test_p5_demo.py`, `tests/test_ui_stage2.py`, `tests/test_v5_1_governance.py`
+  (navigation changes only), `docs/V5_1_HANDOFF.md` section 2d.
+- **Result:** `python -m pytest tests/test_ui_stage3.py -q`: 65 passed, 0 failed, 0 skipped. `python -m pytest tests -q`
+  on Python 3.11: 488 passed, 0 failed, 0 skipped (423 existing + 65 new). Launched with `streamlit run` and inspected in
+  headless Chromium at 1440 x 900 and 390 x 844: every page opens, card buttons navigate, the reload keeps the page, no
+  Streamlit exception and no horizontal page overflow. Not checked in a browser: the browser Back button, keyboard-only
+  navigation, a real phone, the beach and remaining habitat card buttons, legacy results after Run, the HTML report.
+- **Status:** Implemented, tested and seen running (software tests and a headless browser check). **Not committed or
+  pushed.** Not scientific validation. The Evidence explorer and Model validation pages are placeholders. No rocky-shoreline
+  site or forecast yet (the rocky entries are shown but cannot be opened).
+
 ## 2026-11-15 (V5.1 Session 2, Stage 2): reusable dashboard components and hero
 - **Why:** handoff section 10 step 2: one small component set on the Stage 1 theme, so later pages do not each invent
   their own cards and headers.

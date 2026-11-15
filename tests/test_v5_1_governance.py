@@ -299,7 +299,8 @@ def test_site_view_reads_recommendations_only_through_ui_pipeline():
 def test_legacy_view_is_reached_only_from_the_labelled_legacy_entry():
     importers = [p.stem for p in SRC.glob("*.py") if "ui_scenario" in _imported_modules(p)]
     assert importers == ["dashboard"]
-    assert 'VIEW_SCENARIO = "Scenario screening (legacy)"' in (SRC / "dashboard.py").read_text()
+    assert '"legacy": "Legacy and research"' in (SRC / "ui_nav.py").read_text()   # Stage 3: the labelled page entry
+    assert "does not drive production recommendations" in (SRC / "dashboard.py").read_text()
 
 
 # ---------------------------------------------------------------------------------------------------------------
