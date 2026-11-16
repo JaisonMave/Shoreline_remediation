@@ -1,32 +1,39 @@
-"""Gulf of Mexico map for the Home page (Stage 1 of the map-first dashboard). Presentation only.
+"""Gulf map for the Home page (map-first dashboard). Presentation only.
 
-Selection mechanism: st.pydeck_chart with on_select="rerun" (single-object). A pick fills a details panel and an explicit
-"Open this site" button; the button writes the same session keys as site_view.select_site("marsh") and the existing
-'Pick a Louisiana edge cell' picker, then navigates to the Site assessment page. The select boxes and habitat cards stay
-available as keyboard-accessible alternatives and remain the source of truth for the cell id.
-Clicking open water selects nothing (deck.gl only reports picked objects), so a coordinate check is offered; it matches
-existing p5 rows only and never creates a site or an in_scope status.
+The map draws only rows of data/demo/p5_sites.csv: the Bay Jimmy pin and a bounded sample (at most map_sites.LAYER_CAP per
+basin) of in-scope ESI 10A salt-marsh edge cells in three Louisiana basins, coloured by SCAT maximum oiling. Nothing else is drawn:
+no shoreline outside these basins, no imagery layers. Basemap: Carto dark tiles through pydeck (no token needed).
+
+Selection: st.pydeck_chart with on_select="rerun" (single object). render_map() returns the id of a cell picked on the map; the
+caller (ui_site_panel) decides what a selection means. Clicking open water selects nothing. The coordinate check is the keyboard
+alternative; it only matches existing rows (about 50 m) and never creates a site or an in_scope status.
 """
 from __future__ import annotations
 
+from html import escape
 from typing import Callable
 
 import pandas as pd
 import pydeck as pdk
 import streamlit as st
 
-from src.shoreline_remediation import map_sites as M, ui_components as C, ui_theme as T
+from src.shoreline_remediation import map_sites as M, ui_theme as T
 
 STATE_KEYS = ("map_basin", "map_lat", "map_lon")   # not the chart key "map_gulf": Streamlit forbids assigning a selection state
 OFF = "Off"
-NO_DATA = "The site table could not be read, so the map is not available. Use the habitat cards below."
+MAP_HEIGHT = 520
+NO_DATA = "The site table could not be read, so the map is not available. Use the shoreline type control and the habitat cards below."
 SCREENING_ONLY = ("No known site at this coordinate. The map only shows cells that exist in the Louisiana site table, so no site "
-                  "is created here. For this kind of shoreline you can run habitat screening only: pick an ESI habitat in "
-                  "the habitat cards below.")
+                  "is created here. For this kind of shoreline you can run habitat screening only: choose a shoreline type in the "
+                  "scenario panel.")
+LEGEND_WHAT = "In-scope salt-marsh edge cells (ESI 10A), Louisiana, Deepwater Horizon 2010"
+LEGEND_COVERAGE = ("Coverage outside these Louisiana basins is not in the repository. Other shoreline types are not plotted: "
+                   "choose them with the shoreline type control.")
 
 
 def apply_cell_selection(row: dict | None) -> bool:
-    """Write the session keys for a known cell. Returns False (and changes nothing) when the cell cannot be selected."""
+    """Write the session keys of the existing site picker for a known cell. Returns False (and changes nothing) when the cell
+    cannot be selected there."""
     updates = M.session_updates_for_cell(row or {})
     if not updates:
         return False
@@ -35,28 +42,43 @@ def apply_cell_selection(row: dict | None) -> bool:
     return True
 
 
-def open_cell(cell_id: str, on_navigate: Callable) -> None:
-    """Button callback: select the cell, then go to the Site assessment page. Unknown ids change nothing."""
-    if apply_cell_selection(M.cell_by_id(cell_id)):
-        on_navigate("site")
+def legend_html() -> str:
+    """Plain-language legend of what is drawn. Swatches use the dark-theme oiling colours; each also has its name."""
+    items = "".join(f'<span class="sr-leg-item"><i style="background:{T.oiling_colour(o, True)}"></i>{escape(T.OILING_LABELS[o])}</span>'
+                    for o in T.OILING_ORDER)
+    return ('<div class="sr-map-legend">'
+            f'<div class="sr-map-legend-title">{escape(LEGEND_WHAT)} (sampled, at most {M.LAYER_CAP:,} cells per basin)</div>'
+            f'<div class="sr-leg-row"><span class="sr-leg-label">SCAT maximum oiling</span>{items}</div>'
+            '<div class="sr-leg-row"><span class="sr-leg-item"><i class="sr-leg-ring"></i>Selected cell</span>'
+            '<span class="sr-leg-item"><i class="sr-leg-pin"></i>Bay Jimmy worked example</span></div>'
+            f'<div class="sr-map-legend-note">{escape(LEGEND_COVERAGE)}</div></div>')
 
 
-def _layers(basin: str, dark: bool) -> list:
+def _layers(basin: str, selected: dict | None) -> list:
     layers = []
     cells = M.cell_layer(basin) if basin != OFF else pd.DataFrame()
     if not cells.empty:
-        d = cells.assign(color=cells.max_oiling.map(lambda o: list(T.hex_to_rgb(T.oiling_colour(o, dark))) + [190]),
+        d = cells.assign(color=cells.max_oiling.map(lambda o: list(T.hex_to_rgb(T.oiling_colour(o, True))) + [215]),
                          oiling=cells.max_oiling.map(lambda o: T.OILING_LABELS.get(o, str(o))))
         layers.append(pdk.Layer("ScatterplotLayer", d[["cell", "lat", "lon", "segment", "oiling", "color"]], id="cells",
-                                get_position="[lon, lat]", get_fill_color="color", get_radius=120, radius_min_pixels=3,
-                                pickable=True, auto_highlight=True))
+                                get_position="[lon, lat]", get_fill_color="color", get_radius=90, radius_min_pixels=3,
+                                radius_max_pixels=9, pickable=True, auto_highlight=True))
     pins = M.demonstration_pins()
     if not pins.empty:
-        pins = pins.assign(oiling=pins.max_oiling.map(lambda o: T.OILING_LABELS.get(o, str(o))))
-        layers.append(pdk.Layer("ScatterplotLayer", pins[["cell", "lat", "lon", "segment", "oiling", "name"]], id="pins",
+        pins = pins.assign(oiling=pins.max_oiling.map(lambda o: T.OILING_LABELS.get(o, str(o))), label="Bay Jimmy, Louisiana")
+        layers.append(pdk.Layer("ScatterplotLayer", pins[["cell", "lat", "lon", "segment", "oiling", "name", "label"]], id="pins",
                                 get_position="[lon, lat]", get_fill_color=list(T.hex_to_rgb(T.BRAND["dark"])) + [255],
                                 get_line_color=[255, 255, 255, 255], stroked=True, line_width_min_pixels=2, get_radius=300,
                                 radius_min_pixels=9, pickable=True))
+        layers.append(pdk.Layer("TextLayer", pins[["lat", "lon", "label"]], id="pin_label", get_position="[lon, lat]", get_text="label",
+                                get_size=14, get_color=[244, 247, 250, 255], get_pixel_offset=[0, -22], get_text_anchor="'middle'",
+                                get_alignment_baseline="'bottom'", background=True, get_background_color=[8, 13, 23, 215],
+                                background_padding=[6, 3], font_family="'sans-serif'", font_weight=600, pickable=False))
+    if selected:
+        sel = pd.DataFrame([{"lat": float(selected["lat"]), "lon": float(selected["lon"])}])
+        layers.append(pdk.Layer("ScatterplotLayer", sel, id="selected", get_position="[lon, lat]", filled=False, stroked=True,
+                                get_line_color=[255, 255, 255, 255], line_width_min_pixels=3, get_radius=200, radius_min_pixels=14,
+                                radius_max_pixels=14, pickable=False))
     return layers
 
 
@@ -72,21 +94,29 @@ def _picked_cell(event) -> str | None:
     return None
 
 
-def _details(row: dict, key: str, on_navigate: Callable) -> None:
-    where = f"Cell {row['cell']} | {str(row['basin']).title()} | segment {row['segment']}"
-    oiling = T.OILING_LABELS.get(row.get("max_oiling"), "not recorded")
-    status = "in scope for the edge-loss model" if row.get("status") == "in_scope" else f"not in scope ({row.get('status')})"
-    with st.container(border=True):
-        st.markdown(f"**{where}**")
-        st.caption(f"ESI {row['esi_main']} | SCAT maximum oiling: {oiling} | Model scope status from the site table: {status}")
-        if M.session_updates_for_cell(row):
-            st.button("Open this site", key=f"map_open_{key}", icon=":material/arrow_forward:", on_click=open_cell,
-                      args=(str(row["cell"]), on_navigate))
-        else:
-            st.caption("This cell cannot be opened in the site picker (not a Louisiana ESI 10A edge cell). Use the habitat cards below.")
+def render_map(selected: dict | None, height: int = MAP_HEIGHT) -> str | None:
+    """Draw the layer control, the map and its legend. `selected` is the selected cell's row (ringed; the view moves to it).
+    Returns the id of the cell picked on the map, or None."""
+    try:
+        M.load_cells()
+    except Exception:
+        st.warning(NO_DATA)
+        return None
+    st.session_state.setdefault("map_basin", M.LAYER_BASINS[0])   # default through state only: keep_alive re-assigns this key
+    st.selectbox("Cell layer", [OFF, *M.LAYER_BASINS], key="map_basin",
+                 format_func=lambda b: "Off (Bay Jimmy pin only)" if b == OFF else f"Basin: {b.title()} (in-scope salt-marsh cells, sampled)",
+                 label_visibility="collapsed")
+    deck = pdk.Deck(layers=_layers(st.session_state.get("map_basin", M.LAYER_BASINS[0]), selected),
+                    initial_view_state=pdk.ViewState(**M.view_for(selected)), map_style="dark",
+                    tooltip={"text": "Cell {cell}\n{segment}\nSCAT oiling: {oiling}"})
+    event = st.pydeck_chart(deck, on_select="rerun", selection_mode="single-object", key="map_gulf", height=height,
+                            alt="Dark map of the Louisiana coast showing the Bay Jimmy worked example and sampled salt-marsh edge cells")
+    st.markdown(legend_html(), unsafe_allow_html=True)
+    return _picked_cell(event)
 
 
-def _coordinate_check(on_navigate: Callable) -> None:
+def coordinate_check(on_select: Callable[[str], None]) -> None:
+    """Keyboard alternative to clicking. A known cell (about 50 m) can be selected; an unknown coordinate creates nothing."""
     with st.expander("Check a coordinate (keyboard alternative to clicking the map)"):
         c1, c2 = st.columns(2)
         lat = c1.number_input("Latitude", -90.0, 90.0, value=None, step=0.0001, format="%.5f", key="map_lat")
@@ -97,38 +127,9 @@ def _coordinate_check(on_navigate: Callable) -> None:
         row = M.lookup_cell(lat, lon)
         if row is None:
             st.info(SCREENING_ONLY)
+        elif M.session_updates_for_cell(row):
+            st.caption(f"Known cell {row['cell']} ({str(row['basin']).title()}, segment {row['segment']}).")
+            st.button("Select this cell", key="map_open_coord", icon=":material/pin_drop:", on_click=on_select, args=(str(row["cell"]),))
         else:
-            _details(row, "coord", on_navigate)
-
-
-def render_gulf_map(on_navigate: Callable) -> None:
-    C.section_header("Gulf of Mexico site map", kicker="Map", anchor="site-map",
-                     description="Select a known demonstration site. Pins are real records of the Louisiana site table; "
-                                 "the habitat cards below remain a full alternative.",
-                     meta="Source: data/demo/p5_sites.csv (SCAT edge cells, Deepwater Horizon 2010)")
-    try:
-        M.load_cells()
-    except Exception:
-        st.warning(NO_DATA)
-        return
-    dark = C.is_dark()
-    st.selectbox("Cell layer", [OFF, *M.LAYER_BASINS], index=1, key="map_basin",
-                 format_func=lambda b: "Off (pins only)" if b == OFF else f"In-scope salt-marsh cells: {b.title()} (sampled, at most {M.LAYER_CAP})")
-    deck = pdk.Deck(layers=_layers(st.session_state.get("map_basin", M.LAYER_BASINS[0]), dark),
-                    initial_view_state=pdk.ViewState(**M.GULF_VIEW), map_style="dark" if dark else "light",
-                    tooltip={"text": "Cell {cell}\n{segment}\nSCAT oiling: {oiling}"})
-    event = st.pydeck_chart(deck, on_select="rerun", selection_mode="single-object", key="map_gulf", height=460,
-                            alt="Map of the Gulf of Mexico with the Bay Jimmy worked example and sampled Louisiana salt-marsh edge cells")
-    st.caption("Large teal pin: Bay Jimmy worked example. Small dots: sampled in-scope salt-marsh edge cells, coloured by SCAT maximum oiling.")
-    picked = _picked_cell(event)
-    if picked:
-        row = M.cell_by_id(picked)
-        if row:
-            _details(row, "pick", on_navigate)
-    else:
-        st.caption("Click a pin or dot to see the cell. Clicking open water selects nothing and creates no site.")
-    _coordinate_check(on_navigate)
-    with st.expander("Habitat demonstrations without a Gulf location"):
-        for _, label, note in M.HABITAT_DEMOS:
-            st.markdown(f"**{label}.** {note}")
-        st.caption("Open these with the habitat cards below.")
+            st.info("A cell exists here but it is not a Louisiana ESI 10A edge cell, so it cannot be assessed from the site picker. "
+                    "Use the shoreline type control for habitat screening.")

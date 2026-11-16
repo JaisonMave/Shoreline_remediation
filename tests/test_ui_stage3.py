@@ -29,7 +29,8 @@ from src.shoreline_remediation.site_evidence import load_sites  # noqa: E402
 APP = str(ROOT / "src" / "shoreline_remediation" / "dashboard.py")
 DRAWS = 400
 PAGE_IDS = ["landing", "site", "evidence", "models", "legacy"]
-PAGE_LABELS = {"landing": "Home", "site": "Site assessment", "evidence": "Evidence explorer", "models": "Model validation",
+PAGE_LABELS = {"landing": "Map", "site": "Assessment", "evidence": "Evidence", "models": "Models", "legacy": "Research"}   # V5.4 short labels
+PAGE_TITLES = {"landing": "Home", "site": "Site assessment", "evidence": "Evidence explorer", "models": "Model validation",
                "legacy": "Legacy and research"}
 OPENABLE_HABITATS = ["marsh", "mangrove", "beach_fine", "beach_coarse", "beach_mixed", "beach_gravel",
                     "esi_1A", "esi_8A"]
@@ -86,21 +87,23 @@ def landing():
 def test_landing_renders_title_and_section_headers(landing):
     md = all_md(landing)
     assert not landing.exception
-    assert "Shoreline Remediation Intelligence" in md
-    for header in ("Featured locations", "Explore habitats", "How the platform works"):
+    assert "Shoreline Remediation" in md and "Site and spill scenario" in md
+    for header in ("Featured locations", "Explore habitats"):
         assert header in md, header
 
 
-def test_how_it_works_steps_cover_recovery_evidence_and_limitations(landing):
+def test_step_cards_cover_recovery_evidence_and_limitations(landing):
     md = all_md(landing).lower()
-    assert "how the platform works" in md
+    for title in ("explore and select", "configure scenario", "get recommendation", "review evidence and models"):
+        assert title in md, title
     for term in ("natural recovery", "evidence", "limitation"):
         assert term in md, term
 
 
-def test_hero_primary_action_opens_the_site_page():
+def test_home_run_action_opens_the_site_page():
     at = new_app()
-    at.button(key="sr_act_hero_platform_explore").click().run()
+    at.button(key="home_use_bay_jimmy").click().run()
+    at.button(key="home_run").click().run()
     assert not at.exception, at.exception
     assert at.segmented_control(key="page").value == "site"
 
@@ -355,8 +358,9 @@ def test_page_registry_is_ordered_with_landing_as_default():
     from src.shoreline_remediation import ui_nav
     assert list(ui_nav.PAGES) == PAGE_IDS
     assert dict(ui_nav.PAGES) == PAGE_LABELS
+    assert dict(ui_nav.PAGE_TITLES) == PAGE_TITLES
     assert ui_nav.DEFAULT_PAGE == "landing"
-    assert "Legacy" in ui_nav.PAGES["legacy"]
+    assert "Legacy" in ui_nav.PAGE_TITLES["legacy"] and ui_nav.PAGES["legacy"] == "Research"
 
 
 def test_go_ignores_unknown_page_ids():

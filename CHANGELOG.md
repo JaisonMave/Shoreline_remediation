@@ -12,6 +12,13 @@ Computer (no account needed).
 ---
 
 
+## 2026-11-17: V5.4 unified shell, map-first Home and single Assessment results view (implemented, tested, seen running; uncommitted)
+
+- **New:** brand shell and short navigation (Stages 1-2: `ui_site_panel.py`, `ui_nav.py`, `ui_map.py`, `map_sites.py`, `ui_landing.py`); Assessment results view (`ui_results.py`): title row with breadcrumb and report download, primary outcome card (the report's `decision_outcome_label` and top category), key-flags card, alternatives grouped by category, expected-outcome card with a labelled "this site" block, embedded edge_loss_v1 hold-out scatter, supporting-evidence links. Older detail views, provenance, assumptions, scope warnings and the decision trace moved into one collapsed "Technical details and evidence" area. Models page caption separates overall validation metrics from one site's error.
+- **Labelling:** three different edge-loss numbers are always labelled by source (deployed edge_loss_v1 all-cell fit, scenario-composer baseline (experimental), leave-one-basin-out prediction). The composer baseline no longer carries the Validated chip.
+- **Unchanged:** decision pipeline, registry, models, data, results; no class, category or registry state was changed or recomputed.
+- **Tests:** see `docs/V5_4_HANDOFF.md` (new `tests/test_v54_results.py`; 4 pre-existing `core.autocrlf` failures). Seen running in Chromium at 1440 and 390 px.
+
 ## 2026-11-16: V5.3 map-first decision dashboard (implemented, tested, uncommitted)
 
 - **New:** Gulf site map and coordinate check (`map_sites.py`, `ui_map.py`), decision board (`ui_decision_board.py`) with "How good is the number?" and "Why?" deep links to Model validation and the Evidence explorer, literature-priors provenance panel (`literature_priors.py`), edge-loss leave-one-basin-out predicted-vs-observed scatter (`model_validation_data.edge_loss_scatter`, `ui_models.py`).

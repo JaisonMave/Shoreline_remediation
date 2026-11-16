@@ -277,3 +277,8 @@ def render_decision_board(report, site_flags=None, ctx: dict | None = None) -> N
             st.markdown("**Flags**")
             for f in m.flags:
                 st.markdown(f"- {f.text}" + (f" (`{f.kind}`)" if f.kind else ""))
+
+
+# Public names for the Assessment results view (ui_results), which reuses these pieces instead of copying them.
+benefit_lines = _benefit_lines
+reference_rows = _reference_rows

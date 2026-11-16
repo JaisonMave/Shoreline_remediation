@@ -1,6 +1,6 @@
 # V5.3 map-first decision dashboard: handoff
 
-Status: implemented, tested, uncommitted (branch `model_v5_1`, on top of the V5.2 commit 4be0a64). Continues `docs/V5_2_HANDOFF.md`.
+Status: implemented, tested; committed and pushed as f00b22c (branch `model_v5_1`, on top of the V5.2 commit 4be0a64). Continued in `docs/V5_4_HANDOFF.md` (V5.4 shell, map-first Home and single results view). Continues `docs/V5_2_HANDOFF.md`.
 This is a presentation change. No model, registry entry, validation result or recommendation was changed. The map does not validate any model.
 
 ## 1. Files (Stages 1 to 4)

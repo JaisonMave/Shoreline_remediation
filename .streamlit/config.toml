@@ -16,3 +16,7 @@ chartCategoricalColors = ["#56B4E9", "#E69F00", "#009E73", "#CC79A7", "#0072B2",
 [theme.sidebar]
 backgroundColor = "#111A29"
 secondaryBackgroundColor = "#182438"
+
+[client]
+# Minimal toolbar: no Deploy button in the brand header band (the menu stays).
+toolbarMode = "minimal"

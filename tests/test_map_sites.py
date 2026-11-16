@@ -101,7 +101,7 @@ def test_home_renders_map_and_existing_cards():
     assert at.get("deck_gl_json_chart"), "map widget missing on Home"
     assert at.selectbox(key="map_basin").value == "barataria"
     assert any("Open the Bay Jimmy assessment" in b.label for b in at.button)
-    assert any("Explore shoreline sites" in b.label for b in at.button)
+    assert any(b.key == "home_run" and b.label == "Run assessment" for b in at.button)   # V5.4: the scenario panel replaced the hero
 
 
 def test_coordinate_check_open_water_creates_no_site():
@@ -121,7 +121,10 @@ def test_coordinate_check_known_cell_opens_site_page():
     at.run()
     at.number_input(key="map_lat").set_value(float(cell.lat))
     at.number_input(key="map_lon").set_value(float(cell.lon)).run()
-    at.button(key="map_open_coord").click().run()
+    at.button(key="map_open_coord").click().run()          # V5.4: selects the cell in the panel; Run then opens the Assessment page
+    assert not at.exception, at.exception
+    assert at.session_state["page"] == "landing" and at.session_state["home_cell"] == cell.cell
+    at.button(key="home_run").click().run()
     assert not at.exception, at.exception
     assert at.session_state["page"] == "site"
     assert at.selectbox(key="pick_cell").value == cell.cell

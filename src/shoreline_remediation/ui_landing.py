@@ -8,14 +8,18 @@ from html import escape
 
 import streamlit as st
 
-from src.shoreline_remediation import ui_components as C, ui_map, ui_theme as T
+from src.shoreline_remediation import ui_components as C, ui_map, ui_site_panel, ui_theme as T
 from src.shoreline_remediation.site_view import featured_sites, habitat_cards
 
 SCOPE_CHIPS = [("Numerical demonstration: Louisiana salt marsh", "gray"), ("Other habitats: screening or limited evidence", "gray"),
                ("One spill per dataset", "gray"), ("Associations, not causes", "gray")]
-STEPS = ("Explore the shoreline and the available environmental evidence.",
-         "Evaluate intervention options against natural recovery.",
-         "Review recommendations, evidence grades, uncertainty and limitations.")
+INTRO = ("Choose a place on the map or a shoreline type, set the scenario, and the platform compares interventions with natural "
+         "recovery, or tells you when the evidence is insufficient.")
+# Orientation only (not buttons): (number, title, text)
+STEP_CARDS = (("1", "Explore and select", "Click a Louisiana salt-marsh cell on the map, or choose any shoreline type."),
+              ("2", "Configure scenario", "Shoreline type, oil category and oiling class: the inputs the pipeline reads."),
+              ("3", "Get recommendation", "Options compared with natural recovery: recommended, conditional, excluded, or insufficient evidence."),
+              ("4", "Review evidence and models", "Evidence grades, uncertainty and limitations, and what each model was validated for."))
 NO_DATA = "No site data could be read from the repository."
 
 PLACEHOLDERS = {
@@ -46,14 +50,28 @@ def render_placeholder(page_id: str, on_navigate: Callable) -> None:
         st.caption(where)
 
 
+def step_cards_html() -> str:
+    return ('<div class="sr-stepcards">' + "".join(f'<div class="sr-stepcard"><b>{n}</b><div><h3>{escape(t)}</h3><p>{escape(d)}</p></div></div>'
+                                                  for n, t, d in STEP_CARDS) + "</div>")
+
+
 def render_landing(on_open_site: Callable, on_navigate: Callable) -> None:
-    pressed = C.hero(chips=SCOPE_CHIPS,
-                     primary=C.HeroAction("Explore shoreline sites", "explore", on_navigate, ("site",)),
-                     secondary=C.HeroAction("How evidence is graded", "evidence"))
-    if pressed == "evidence":
+    intro, legend_btn = st.columns([6, 1], vertical_alignment="center")
+    intro.markdown(f'<p class="sr-intro">{escape(INTRO)}</p>', unsafe_allow_html=True)
+    if legend_btn.button("How evidence is graded", key="sr_act_hero_platform_evidence", type="tertiary", icon=":material/info:"):
         C.evidence_dialog()
 
-    ui_map.render_gulf_map(on_navigate)
+    map_col, panel_col = st.columns([2, 1], gap="medium")
+    with map_col:
+        picked = ui_map.render_map(ui_site_panel.selected_row())
+        ui_map.coordinate_check(ui_site_panel.select_cell)
+    if ui_site_panel.handle_map_pick(picked):
+        st.rerun()
+    with panel_col:
+        ui_site_panel.render_panel()
+
+    st.markdown(step_cards_html(), unsafe_allow_html=True)
+    st.markdown('<div class="sr-meta">' + "".join(f"<span>{escape(t)}</span>" for t, _ in SCOPE_CHIPS) + "</div>", unsafe_allow_html=True)
 
     C.section_header("Featured locations", kicker="Explore", anchor="featured-locations",
                      description="Entries you can open now. Each card shows only what the repository holds for that entry, and says "
@@ -73,7 +91,3 @@ def render_landing(on_open_site: Callable, on_navigate: Callable) -> None:
         C.site_card(card, on_select=on_open_site if openable else None, key=f"hab_{tier}_{card.site_id}", button_key=f"hab_{card.site_id}")
 
     C.card_row(_safe(habitat_cards), render_habitat, key="habitats", empty_text=NO_DATA)
-
-    C.section_header("How the platform works", kicker="Method", anchor="how-it-works")
-    st.markdown('<div class="sr-steps">' + "".join(f'<div class="sr-step"><b>{i}</b><p>{escape(t)}</p></div>'
-                                                     for i, t in enumerate(STEPS, 1)) + "</div>", unsafe_allow_html=True)

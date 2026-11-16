@@ -136,7 +136,7 @@ def test_site_page_shows_no_board_until_run_is_pressed_then_marsh_board():
     at.button(key="run_marsh").click().run()
     assert not at.exception, at.exception
     text = _text(at)
-    assert "Decision board for" in text and "Natural recovery with monitoring (reference option)" in text
+    assert "Remediation assessment" in text and "Natural recovery with monitoring (reference option)" in text
     assert "Allowed, no demonstrated benefit over natural recovery" in text
     assert not re.search(r"confidence[^.]{0,40}\d", text, flags=re.I)
     assert any(e.label.startswith("Technical trace") for e in at.expander)
@@ -168,7 +168,7 @@ def test_mangrove_run_and_named_oil_search_work():
     at = _open("mangrove")
     at.button(key="run_mangrove").click().run()
     assert not at.exception, at.exception
-    assert "Decision board for" in _text(at)
+    assert "Remediation assessment" in _text(at)
     at = _open("marsh")
     at.text_input(key="site_named_q").set_value("South Louisiana").run()
     assert not at.exception, at.exception

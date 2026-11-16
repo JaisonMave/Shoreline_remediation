@@ -299,12 +299,13 @@ def test_select_site_ignores_unknown_identifiers():
 
 def test_dashboard_shows_hero_section_headers_and_real_cards(app):
     md = " ".join(m.value for m in app.markdown)
-    assert md.count("<h1>") == 1 and "Shoreline Remediation Intelligence" in md
+    assert "Shoreline Remediation" in md and "Scientific decision support for oil spill response" in md   # V5.4 brand header (the tall hero is gone)
+    assert "sr-stepcards" in md
     assert "<h2>Featured locations</h2>" in md and "<h2>Explore habitats</h2>" in md
     for name in ("Bay Jimmy, Barataria Bay", "Bahía Las Minas", "Fine-to-medium sand beach"):
         assert name in md
     labels = [b.label for b in app.button]
-    for label in ("Explore shoreline sites", "How evidence is graded", "Open the Bay Jimmy assessment",
+    for label in ("Run assessment", "How evidence is graded", "Open the Bay Jimmy assessment",
                   "Open the mangrove evidence", "Open the beach screening"):
         assert label in labels
 
@@ -322,9 +323,10 @@ def test_site_card_opens_the_existing_assessment(site_id):
         assert at.radio(key="site_mode").value.startswith("Worked example")
 
 
-def test_hero_primary_action_opens_the_site_assessment_page():
+def test_home_primary_action_opens_the_site_assessment_page():
     at = fresh()
-    at.button(key="sr_act_hero_platform_explore").click().run()
+    at.button(key="home_use_bay_jimmy").click().run()
+    at.button(key="home_run").click().run()
     assert not at.exception, at.exception
     assert at.segmented_control(key="page").value == "site"
     assert at.segmented_control(key="site_habitat").value == "marsh"

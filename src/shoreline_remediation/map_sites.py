@@ -25,6 +25,9 @@ LAYER_BASINS = ("barataria", "breton", "terrebonne")
 LAYER_CAP = 1500
 LOOKUP_TOLERANCE_DEG = 0.0005      # about 55 m
 GULF_VIEW = {"latitude": 25.0, "longitude": -90.0, "zoom": 4.2}
+# Home map opening view: the Louisiana delta, where the repository's cells are. Not a coverage claim for the rest of the Gulf.
+LOUISIANA_VIEW = {"latitude": 29.35, "longitude": -89.9, "zoom": 8.2}
+SELECTION_ZOOM = 10.5
 
 # Habitat demonstrations without Gulf coordinates: (site_habitat key, label, evidence note). Not plotted.
 HABITAT_DEMOS = (
@@ -100,3 +103,15 @@ def session_updates_for_cell(row: dict) -> dict:
         return {}
     return {"site_habitat": "marsh", "site_mode": SITE_MODE_PICK, "pick_basin": row["basin"], "pick_oil": "any",
             "pick_scope": row.get("status") == "in_scope", "pick_seg": row["segment"], "pick_cell": str(row["cell"])}
+
+
+def view_for(row: dict | None) -> dict:
+    """Map view state: the opening Louisiana view, or a closer view centred on the selected cell."""
+    if row and row.get("lat") is not None and row.get("lon") is not None:
+        try:
+            lat, lon = float(row["lat"]), float(row["lon"])
+        except (TypeError, ValueError):
+            return dict(LOUISIANA_VIEW)
+        if math.isfinite(lat) and math.isfinite(lon):
+            return {"latitude": lat, "longitude": lon, "zoom": SELECTION_ZOOM}
+    return dict(LOUISIANA_VIEW)

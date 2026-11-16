@@ -1,7 +1,7 @@
 """Shoreline Remediation Decision Support: Streamlit entry point (decision D40).
 
 Run: streamlit run src/shoreline_remediation/dashboard.py
-Pages (ui_nav.PAGES): Home (landing: hero, featured locations, habitat coverage), Site assessment (real data, habitat switcher,
+Pages (ui_nav.PAGES; short labels Map, Assessment, Evidence, Models, Research): Home (landing: map, site and spill scenario panel, featured locations, habitat coverage), Site assessment (real data, habitat switcher,
 decision pipeline), Evidence explorer and Model validation (V5.2: ui_evidence_explorer, ui_models), Legacy and research (legacy rule
 screening and illustrative process model, kept for comparison; it does not drive production recommendations).
 Only the selected page runs on each click.
@@ -20,7 +20,7 @@ if str(PROJECT_ROOT) not in sys.path:
 st.set_page_config(page_title="Shoreline Remediation Decision Support", page_icon=":material/water:", layout="wide",
                    initial_sidebar_state="auto")
 
-from src.shoreline_remediation import ui_components as C, ui_evidence_explorer, ui_landing, ui_map, ui_models, ui_nav  # noqa: E402
+from src.shoreline_remediation import ui_components as C, ui_evidence_explorer, ui_landing, ui_map, ui_models, ui_nav, ui_site_panel  # noqa: E402
 from src.shoreline_remediation.site_view import HABITAT_BY_KEY, render_site_evidence, scenario_state_keys, select_site  # noqa: E402
 from src.shoreline_remediation.ui_scenario import render_scenario_view  # noqa: E402
 
@@ -28,7 +28,7 @@ LEGACY_WARNING = ("This is the legacy scenario screening and illustrative proces
                   "and does not drive production recommendations.")
 
 
-SITE_PICKER_KEYS = ("pick_basin", "pick_oil", "pick_scope", "pick_seg", "pick_cell")  # site_view's cell picker; kept across pages
+SITE_PICKER_KEYS = ("pick_basin", "pick_oil", "pick_scope", "pick_seg", "pick_cell", "new_oil")  # site_view's cell picker; kept across pages
 
 
 def open_site(site_id: str) -> None:
@@ -40,23 +40,21 @@ def open_site(site_id: str) -> None:
 
 
 def _back_home() -> None:
-    st.button("Back to home", key="sr_nav_home", on_click=ui_nav.go, args=("landing",), icon=":material/arrow_back:")
+    st.button("Back to home", key="sr_nav_home", on_click=ui_nav.go, args=("landing",), icon=":material/arrow_back:", type="tertiary")
 
 
 def main() -> None:
     C.inject_css()
-    ui_nav.keep_alive(("site_habitat", "site_mode") + SITE_PICKER_KEYS + ui_map.STATE_KEYS + scenario_state_keys() + ui_evidence_explorer.STATE_KEYS
+    ui_nav.keep_alive(("site_habitat", "site_mode") + SITE_PICKER_KEYS + ui_map.STATE_KEYS + ui_site_panel.STATE_KEYS + scenario_state_keys() + ui_evidence_explorer.STATE_KEYS
                       + ui_models.STATE_KEYS)
     page = ui_nav.render_nav()
     if page == "landing":
         ui_landing.render_landing(on_open_site=open_site, on_navigate=ui_nav.go)
     elif page == "site":
-        C.section_header("Site assessment", kicker="Decision support", anchor="assessment",
-                         description="Real repository data for the selected habitat, compared against natural recovery.")
-        _back_home()
+        st.markdown('<div id="assessment"></div>', unsafe_allow_html=True)
         with st.sidebar:
             C.evidence_legend()
-        render_site_evidence()
+        render_site_evidence(lead=_back_home)
     elif page == "legacy":
         C.section_header("Legacy and research", kicker="Comparison", anchor="legacy",
                          description="Historical scenario screening, kept for comparison and research.")

@@ -145,12 +145,10 @@ def _edge_loss_block() -> None:
     _scatter_block()
 
 
-def _scatter_block() -> None:
-    """Leave-one-basin-out predicted vs observed edge loss (lobo_pred only). Descriptive; not a new validation."""
-    res = MV.edge_loss_scatter()
-    st.markdown("#### Marsh-edge loss: predicted against observed (leave-one-basin-out)")
-    if _unavailable(res, "Predicted-versus-observed edge loss"):
-        return
+def scatter_chart(res: dict, height: int = 320, highlight: tuple | None = None) -> alt.Chart:
+    """Leave-one-basin-out predicted against observed edge loss, from MV.edge_loss_scatter(). Shared by the Models page and the
+    Assessment page. `highlight` is an optional (observed, predicted) pair for ONE cell, drawn as a ringed marker; it is a point
+    already in the data source, not a new prediction."""
     lo, hi = res["axis_min"], res["axis_max"]
     dom = alt.Scale(domain=[lo, hi], nice=False)
     pts = alt.Chart(res["points"]).mark_circle(size=14, opacity=0.35).encode(
@@ -159,7 +157,27 @@ def _scatter_block() -> None:
         color=alt.Color("basin:N", title="Basin", legend=alt.Legend(orient="bottom", title=None)),
         tooltip=["basin", alt.Tooltip("observed_rate:Q", format=".2f"), alt.Tooltip("lobo_pred:Q", format=".2f")])
     line = alt.Chart(pd.DataFrame({"v": [lo, hi]})).mark_line(strokeDash=[5, 4], color=T.NEUTRAL).encode(x="v:Q", y="v:Q")
-    st.altair_chart((pts + line).properties(height=320), theme="streamlit", width="stretch")
+    layers = pts + line
+    if highlight is not None:
+        mark = pd.DataFrame({"observed_rate": [float(highlight[0])], "lobo_pred": [float(highlight[1])], "label": ["This cell"]})
+        layers = layers + alt.Chart(mark).mark_point(size=150, filled=False, strokeWidth=2.5, color="#FFFFFF").encode(
+            x="observed_rate:Q", y="lobo_pred:Q", tooltip=["label", alt.Tooltip("observed_rate:Q", format=".2f"),
+                                                            alt.Tooltip("lobo_pred:Q", format=".2f")])
+    return layers.properties(height=height)
+
+
+INDIVIDUAL_ERROR_NOTE = ("Overall validation metrics (the mean absolute error and n above) describe the model over all of these cells. "
+                         "The error at one site is a single point on this plot: it shows how far one cell was from the 1:1 line and says "
+                         "nothing about the overall accuracy.")
+
+
+def _scatter_block() -> None:
+    """Leave-one-basin-out predicted vs observed edge loss (lobo_pred only). Descriptive; not a new validation."""
+    res = MV.edge_loss_scatter()
+    st.markdown("#### Marsh-edge loss: predicted against observed (leave-one-basin-out)")
+    if _unavailable(res, "Predicted-versus-observed edge loss"):
+        return
+    st.altair_chart(scatter_chart(res), theme="streamlit", width="stretch")
     per = "; ".join(f"{r['basin'].capitalize()}: n={r['n']}, MAE {r['MAE']:.3f}" for r in res["per_basin"])
     pct = (f"Mean absolute percentage error {res['MAPE_pct']:.0f}% over the {res['n_nonzero_observed']} cells whose observed rate is not zero "
            f"(percentage error is undefined where the observation is 0)." if res["MAPE_pct"] is not None else "")
@@ -167,6 +185,7 @@ def _scatter_block() -> None:
                f"{res['MAE']:.3f} m/yr on all {res['n']} cells. {per}. {pct} The plot shows a fixed random subset of {res['n_plotted']} points "
                f"for speed; the numbers use all rows. This all-cell error is not comparable with the P2 table above (different cell set, "
                f"Terrebonne included). Source: {res['source']}.")
+    st.caption(INDIVIDUAL_ERROR_NOTE)
     st.caption(res["caption"])
 
 
