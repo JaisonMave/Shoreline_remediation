@@ -63,3 +63,7 @@ derived the rocky-shore statement and bias-gate text from data instead of hard-c
 3. Human verification of the NOAA 1A/8A ratings and a sample of the AI-extracted study rows; record outcomes in the tables (status fields), then the explorer will show them.
 4. Navigation and demonstration readiness (Phases 5 to 8 of the Session 3 plan): keyboard checks, report downloads, the three-site demonstration script.
 5. Latent items from `docs/V5_1_HANDOFF.md` section 2g (headline `with_evidence` grouping; "Field evidence of benefit" wording for experimental composer output).
+
+## 7. Continued in V5.3
+
+The map-first decision dashboard work (map, decision board, deep links, provenance panel, scatter) is recorded in `docs/V5_3_HANDOFF.md`.

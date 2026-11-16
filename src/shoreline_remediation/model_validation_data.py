@@ -157,3 +157,43 @@ def bias_gates() -> dict:
     if not rows or any(r["observed"] is None or r["limit"] is None for r in rows):
         return _missing("bias gate values are not stated in the registry gate descriptions", "models/registry.json")
     return {"available": True, "rows": rows, "unit": "m per year", "source": "models/registry.json (gate descriptions)"}
+
+
+# ---------------------------------------------------------------------------------------------------------------
+# Edge-loss leave-one-basin-out predicted vs observed (V5.3)
+
+SCATTER_MAX_POINTS = 4000
+SCATTER_SOURCE = "data/demo/p5_sites.csv (columns lobo_pred and observed_rate; built by scripts/build_p5_demo.py)"
+SCATTER_CAPTION = ("Each point is one in-scope marsh-edge cell. The prediction is leave-one-basin-out (trained on the other two basins): "
+                   "no cell was predicted by a model that saw its own basin. Unit: m/yr of edge loss, 2010 to 2015. Scope: one spill, "
+                   "northern Gulf salt marsh. Terrebonne is out-of-sample here but was not a P2 gate basin (too few heavily oiled cells). "
+                   "The deployed model (models/p5_edge_loss_v1.json) is an all-cells refit and is NOT what is plotted. This chart is a "
+                   "descriptive check of the hold-out predictions; it is not a new validation and does not change the model's registry state.")
+
+
+def edge_loss_scatter(path: str = "data/demo/p5_sites.csv") -> dict:
+    """Leave-one-basin-out M1 prediction (lobo_pred) against observed_rate, for rows where both are present. Reads only those columns
+    (no other prediction column). MAE and n use every such row; `points` is a deterministic downsample for plotting only."""
+    df, why = _read_csv(path)
+    if df is None:
+        return _missing(why, path)
+    need = {"basin", "observed_rate", "lobo_pred"}
+    if not need <= set(df.columns):
+        return _missing("expected columns are missing", path)
+    d = df[["basin", "observed_rate", "lobo_pred"]].copy()
+    d["observed_rate"] = pd.to_numeric(d["observed_rate"], errors="coerce")
+    d["lobo_pred"] = pd.to_numeric(d["lobo_pred"], errors="coerce")
+    d = d.dropna(subset=["observed_rate", "lobo_pred"]).reset_index(drop=True)
+    if d.empty:
+        return _missing("no rows with both a prediction and an observation", path)
+    d["abs_error"] = (d["lobo_pred"] - d["observed_rate"]).abs()
+    nz = d[d["observed_rate"] != 0]
+    pct = (nz["abs_error"] / nz["observed_rate"].abs() * 100.0) if len(nz) else None
+    per = [{"basin": str(b), "n": int(len(g)), "MAE": float(g["abs_error"].mean())} for b, g in d.groupby("basin", sort=True)]
+    pts = d if len(d) <= SCATTER_MAX_POINTS else d.sample(n=SCATTER_MAX_POINTS, random_state=0)
+    lo = min(0.0, float(d[["observed_rate", "lobo_pred"]].min().min()))
+    hi = float(d[["observed_rate", "lobo_pred"]].max().max())
+    return {"available": True, "source": SCATTER_SOURCE, "unit": "m per year", "n": int(len(d)), "MAE": float(d["abs_error"].mean()),
+            "n_nonzero_observed": int(len(nz)), "MAPE_pct": None if pct is None else float(pct.mean()),
+            "per_basin": per, "points": pts[["basin", "observed_rate", "lobo_pred"]].reset_index(drop=True),
+            "n_plotted": int(len(pts)), "axis_min": lo, "axis_max": hi, "caption": SCATTER_CAPTION}

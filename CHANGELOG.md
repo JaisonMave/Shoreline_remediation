@@ -12,6 +12,12 @@ Computer (no account needed).
 ---
 
 
+## 2026-11-16: V5.3 map-first decision dashboard (implemented, tested, uncommitted)
+
+- **New:** Gulf site map and coordinate check (`map_sites.py`, `ui_map.py`), decision board (`ui_decision_board.py`) with "How good is the number?" and "Why?" deep links to Model validation and the Evidence explorer, literature-priors provenance panel (`literature_priors.py`), edge-loss leave-one-basin-out predicted-vs-observed scatter (`model_validation_data.edge_loss_scatter`, `ui_models.py`).
+- **Unchanged:** decision pipeline, registry, models, data, results; no recommendation or registry state changed. The map does not validate any model. The scatter uses `lobo_pred` only (the deployed model is an all-cells refit and is not plotted); no PAH scatter (no unambiguous hold-out prediction file).
+- **Tests:** 631 collected, 627 passed, 4 failed (pre-existing `core.autocrlf` failures), 0 skipped. No browser check (Playwright not installed). Details: `docs/V5_3_HANDOFF.md`.
+
 ## 2026-11-15: V5.2 Evidence explorer and Model validation pages (implemented, tested, seen running; commit "Implement V5.2 evidence explorer and model validation")
 
 - **New:** `evidence_catalog.py` (389 repository evidence and screening rows in one traceable table; kinds never merged; "Source not available in repository" where no DOI/URL), `ui_evidence_explorer.py` (search, filters, record detail, gap view per habitat class, read-only

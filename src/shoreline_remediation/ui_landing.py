@@ -8,7 +8,7 @@ from html import escape
 
 import streamlit as st
 
-from src.shoreline_remediation import ui_components as C, ui_theme as T
+from src.shoreline_remediation import ui_components as C, ui_map, ui_theme as T
 from src.shoreline_remediation.site_view import featured_sites, habitat_cards
 
 SCOPE_CHIPS = [("Numerical demonstration: Louisiana salt marsh", "gray"), ("Other habitats: screening or limited evidence", "gray"),
@@ -52,6 +52,8 @@ def render_landing(on_open_site: Callable, on_navigate: Callable) -> None:
                      secondary=C.HeroAction("How evidence is graded", "evidence"))
     if pressed == "evidence":
         C.evidence_dialog()
+
+    ui_map.render_gulf_map(on_navigate)
 
     C.section_header("Featured locations", kicker="Explore", anchor="featured-locations",
                      description="Entries you can open now. Each card shows only what the repository holds for that entry, and says "

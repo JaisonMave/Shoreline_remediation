@@ -20,12 +20,15 @@ if str(PROJECT_ROOT) not in sys.path:
 st.set_page_config(page_title="Shoreline Remediation Decision Support", page_icon=":material/water:", layout="wide",
                    initial_sidebar_state="auto")
 
-from src.shoreline_remediation import ui_components as C, ui_evidence_explorer, ui_landing, ui_models, ui_nav  # noqa: E402
-from src.shoreline_remediation.site_view import HABITAT_BY_KEY, render_site_evidence, select_site  # noqa: E402
+from src.shoreline_remediation import ui_components as C, ui_evidence_explorer, ui_landing, ui_map, ui_models, ui_nav  # noqa: E402
+from src.shoreline_remediation.site_view import HABITAT_BY_KEY, render_site_evidence, scenario_state_keys, select_site  # noqa: E402
 from src.shoreline_remediation.ui_scenario import render_scenario_view  # noqa: E402
 
 LEGACY_WARNING = ("This is the legacy scenario screening and illustrative process model. It is kept for comparison and research "
                   "and does not drive production recommendations.")
+
+
+SITE_PICKER_KEYS = ("pick_basin", "pick_oil", "pick_scope", "pick_seg", "pick_cell")  # site_view's cell picker; kept across pages
 
 
 def open_site(site_id: str) -> None:
@@ -42,7 +45,8 @@ def _back_home() -> None:
 
 def main() -> None:
     C.inject_css()
-    ui_nav.keep_alive(("site_habitat", "site_mode") + ui_evidence_explorer.STATE_KEYS + ui_models.STATE_KEYS)
+    ui_nav.keep_alive(("site_habitat", "site_mode") + SITE_PICKER_KEYS + ui_map.STATE_KEYS + scenario_state_keys() + ui_evidence_explorer.STATE_KEYS
+                      + ui_models.STATE_KEYS)
     page = ui_nav.render_nav()
     if page == "landing":
         ui_landing.render_landing(on_open_site=open_site, on_navigate=ui_nav.go)

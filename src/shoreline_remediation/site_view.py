@@ -17,7 +17,7 @@ import pandas as pd
 import streamlit as st
 
 from src.shoreline_remediation import ui_components as C
-from src.shoreline_remediation import ui_compare, ui_evidence as E, ui_pipeline as P, ui_report, ui_theme as T
+from src.shoreline_remediation import ui_compare, ui_decision_board, ui_evidence as E, ui_pipeline as P, ui_report, ui_theme as T
 from src.shoreline_remediation.site_evidence import (FEATURE_LABELS, FEATURES, STATUS_TEXT, load_model, load_sites,
                                                      site_flags, site_scenario, site_scenario_inputs, treatment_evidence)
 
@@ -89,14 +89,142 @@ def _pick_site(sites: pd.DataFrame) -> dict | None:
             "basin": "new site", "cell": "new site", "segment": "-", "source": "new site"}
 
 
-def _assumptions() -> tuple[str, str | None]:
-    st.markdown("**Assumptions for the rule screening**")
-    c1, c2 = st.columns(2)
-    oil = c1.selectbox("Oil category", ["light", "medium", "heavy", "solid"], key="site_oil",
-                       help="Deepwater Horizon oil was a light crude that arrived weathered and emulsified.")
-    season = c2.selectbox("Season of cleanup", ["site default (summer)", "spring", "summer", "autumn", "winter"], key="site_season",
-                          help="Used to check season-dependent conditions in the literature.")
-    return oil, (None if season.startswith("site") else season)
+# ---------------------------------------------------------------------------------------------------------------
+# Scenario form and decision board (V5.1 Stage 2). The controls are the existing ones (oil category, season, oiling class, wave
+# exposure) relocated into one short form; one button runs the cached pipeline (ui_pipeline) and ui_decision_board draws it.
+
+_SCENARIO_FIELDS = ("oil", "season", "oiling", "exposure", "named_q", "named_id")
+OIL_CATEGORIES = ["light", "medium", "heavy", "solid"]
+SEASONS = ["site default (summer)", "spring", "summer", "autumn", "winter"]
+EXPOSURES = ["low", "moderate", "high", "very_high"]
+BOARD_RUN_KEY = "site_board_run"
+
+
+def _skey(habitat: str, name: str) -> str:
+    """Widget key of a scenario control. Marsh keeps its original site_* keys; the other habitats their beach_<habitat>_* keys."""
+    return f"site_{name}" if habitat == "marsh" else f"beach_{habitat}_{name}"
+
+
+def scenario_state_keys() -> tuple:
+    """Session keys of the scenario form for every habitat, for ui_nav.keep_alive (the controls vanish while another page shows)."""
+    keys = [_skey(h.key, n) for h in HABITATS for n in _SCENARIO_FIELDS]
+    return tuple(keys) + (BOARD_RUN_KEY,)
+
+
+@dataclass(frozen=True)
+class ScenarioValues:
+    oil_category: str
+    oil: str                       # category, or an ADIOS oil id the pipeline resolves to a category
+    season: str | None
+    oiling: str | None
+    exposure: str | None
+
+
+def _named_oil(habitat: str) -> str | None:
+    """Optional named oil from the NOAA ADIOS library (oil_library.search_options). None means: use the category."""
+    from src.shoreline_remediation.oil_library import search_options
+    query = st.text_input("Search NOAA ADIOS oils by name", key=_skey(habitat, "named_q"),
+                          help="Optional. A named oil is turned into a category from its API gravity and pour point.")
+    options = search_options(query) if query.strip() else []
+    if query.strip() and not options:
+        st.caption("No oil with a measured API gravity matches that search; the oil category above is used.")
+    if not options:
+        return None
+    labels = dict(options)
+    return st.selectbox("Matching oils", [None, *labels], format_func=lambda x: "Use the oil category above" if x is None else labels[x],
+                        key=_skey(habitat, "named_id"))
+
+
+def _scenario_form(habitat: str, *, oiling_from_record: str | None = None, ask_oiling: bool = True, ask_exposure: bool = False,
+                   default_oil: str = "light", default_oiling: str = "Moderate") -> ScenarioValues:
+    """Required: oil category and oiling class (read from the cell's record when it has one). Optional, collapsed: season and a
+    named oil. Wave exposure is asked only for habitats whose screening reads it (beaches and rocky shores)."""
+    cols = st.columns(3 if ask_exposure else 2)
+    cat = cols[0].selectbox("Oil category (required)", OIL_CATEGORIES, index=OIL_CATEGORIES.index(default_oil), key=_skey(habitat, "oil"),
+                            help="Deepwater Horizon oil was a light crude that arrived weathered and emulsified.")
+    oiling = None
+    if oiling_from_record:
+        cols[1].markdown("**Oiling class (from the record)**")
+        cols[1].markdown(f"{T.OILING_LABELS.get(oiling_from_record, oiling_from_record)}: SCAT record of this cell. Change the place "
+                         "to change it.")
+    elif ask_oiling:
+        oiling = cols[1].selectbox("Oiling class (required)", CLASSES, index=CLASSES.index(default_oiling),
+                                   format_func=lambda x: T.OILING_LABELS[x], key=_skey(habitat, "oiling"))
+    exposure = None
+    if ask_exposure:
+        exposure = cols[2].selectbox("Wave exposure", EXPOSURES, index=1, format_func=_label, key=_skey(habitat, "exposure"))
+    with st.expander("Optional: season and a named oil"):
+        season = st.selectbox("Season of cleanup", SEASONS, key=_skey(habitat, "season"),
+                              help="Used to check season-dependent conditions in the literature.")
+        oil_id = _named_oil(habitat)
+    return ScenarioValues(cat, oil_id or cat, None if season.startswith("site") else season, oiling_from_record or oiling, exposure)
+
+
+def _record_table(rows: list) -> None:
+    """Read-only (field, value, type) table. `type` is record, observed, derived or entered; nothing here is editable."""
+    st.dataframe(pd.DataFrame(rows, columns=["Field", "Value", "Type"]), hide_index=True, width="stretch")
+
+
+def _trace_expander(report) -> None:
+    with st.expander("Technical trace: pipeline steps, sources and version"):
+        version = report.version or {}
+        st.markdown(f"Pipeline {version.get('pipeline_version', '?')}"
+                    + (f", code commit {str(version['git_commit'])[:9]}" if version.get("git_commit") else "")
+                    + (f", random seed {version['seed']}, {version['n_draws']} Monte Carlo draws" if "seed" in version else "") + ".")
+        if report.trace:
+            st.dataframe(pd.DataFrame([{"Step": t.get("step"), "Name": str(t.get("name", "")).replace("_", " "),
+                                        "Sources": "; ".join(map(str, t.get("sources", []) or []))} for t in report.trace]),
+                         hide_index=True, width="stretch")
+            st.caption("Raw step inputs and outputs are in the downloadable report (JSON) of the pipeline; the table lists each step and its sources.")
+
+
+def _provenance_panel(habitat: str, habitat_label: str) -> None:
+    """Collapsed provenance of the literature priors table. Display only: reads literature_priors, never alters a recommendation."""
+    from src.shoreline_remediation import literature_priors as LP
+    with st.expander("Provenance of the literature priors"):
+        try:
+            rows = LP.provenance_rows()
+            n_assumed = LP.assumed_count()
+        except (OSError, ValueError) as exc:
+            st.warning(f"Provenance table: unavailable ({type(exc).__name__}).")
+            return
+        show = rows.rename(columns={"parameter_id": "Parameter", "source": "Citation", "doi": "DOI", "unit": "Unit", "low": "Low", "high": "High"})
+        st.dataframe(show[["Parameter", "Citation", "DOI", "Unit", "Low", "High"]], hide_index=True, width="stretch")
+        st.caption(f"{len(rows)} cited rows (SOURCED or LITERATURE); {n_assumed} further rows are ASSUMED and are not listed. "
+                   "These are inputs of an experimental process model, not outcome estimates.")
+        st.markdown(LP.ASSUMED_STATEMENT)
+        st.markdown(f"**For {habitat_label}:** {LP.NO_ESTIMATE_STATEMENT}")
+
+
+def _run_spec(spec: tuple):
+    kind, *args = spec
+    return P.decision_for_site(*args) if kind == "site" else P.decision_for_scenario(*args)
+
+
+def _decision_section(habitat: str, spec: tuple, where: str, site_flags=None, esi: str | None = None, habitat_label: str = "") -> None:
+    """One button runs the cached pipeline for `spec`; the board then shows the last run of this habitat. If the place or the
+    scenario changed since that run, the board says so instead of silently showing a different scenario."""
+    if st.button("Run decision pipeline", key=f"run_{habitat}", type="primary", icon=":material/play_arrow:"):
+        st.session_state[BOARD_RUN_KEY] = {"habitat": habitat, "spec": spec, "where": where, "flags": site_flags,
+                                           "esi": esi, "habitat_label": habitat_label or habitat}
+    rec = st.session_state.get(BOARD_RUN_KEY)
+    if not rec or rec.get("habitat") != habitat:
+        st.info("Nothing has been run yet. Set the scenario and press Run: the board then shows what the pipeline returns, including "
+                "when the answer is that the evidence is insufficient.")
+        _provenance_panel(habitat, habitat_label or habitat)
+        return
+    if rec["spec"] != spec:
+        st.warning("The place or the scenario changed since this run. The board shows the earlier run below; press Run again to "
+                   "update it.", icon=":material/warning:")
+    report, err = _run_spec(rec["spec"])
+    st.markdown(f"**Decision board for:** {rec['where']}")
+    if err:
+        st.error(f"The decision pipeline could not run ({err}).")
+        return
+    ui_decision_board.render_decision_board(report, rec.get("flags"), {"key": habitat, "habitat": rec.get("habitat_label") or habitat,
+                                                                       "esi": rec.get("esi")})
+    _provenance_panel(habitat, rec.get("habitat_label") or habitat)
+    _trace_expander(report)
 
 
 # ---------------------------------------------------------------------------------------------------------------
@@ -170,15 +298,51 @@ def render_marsh() -> None:
     m = load_model()
     sites = _sites()
     C.scope_panel("marsh")
-    answer = st.container()
-    with st.expander("Site and assumptions: change the site, the oil type or the season"):
-        site = _pick_site(sites)
-        st.divider()
-        oil, season = _assumptions()
+    C.section_header("Assess this place", kicker="Site assessment", description="1. Place. 2. Scenario. 3. Run the pipeline. The decision "
+                     "board shows what the platform recommends, what it cannot recommend, and why.")
+    st.markdown("**1. Place**")
+    site = _pick_site(sites)
     if site is None:
         return
     values = {f: site.get(f) for f in FEATURES}
     flags = site_flags(values, site["status"], site["esi_main"], site["max_oiling"], site.get("lat"), site.get("lon"), m)
+    is_new = site["source"] == "new site"
+    obs0 = site.get("observed_rate")
+    rows = [("Cell", site["cell"], "entered" if is_new else "record"), ("Basin", str(site["basin"]).title(), "entered" if is_new else "record"),
+            ("SCAT segment", site.get("segment", "-"), "record"), ("Shoreline (ESI)", site["esi_main"], "entered" if is_new else "record"),
+            ("SCAT maximum oiling", T.OILING_LABELS.get(site["max_oiling"], site["max_oiling"]), "entered" if is_new else "record"),
+            ("Latitude, longitude", f"{site['lat']:.5f}, {site['lon']:.5f}", "entered" if is_new else "record"),
+            ("Edge loss 2010 to 2015 (aerial images)", "not available" if obs0 is None or pd.isna(obs0) else f"{obs0:.2f} m/yr",
+             "not available" if is_new else "observed")]
+    if not is_new:
+        rows.append(("Model scope status in the site table", STATUS_TEXT.get(site["status"], site["status"]).split(":")[0], "record"))
+    rows += [(FEATURE_LABELS[f], "missing" if pd.isna(site.get(f)) else (f"{float(site[f]):,.0f}" if f == "fetch_mean_m" else f"{float(site[f]):.2f}"),
+              "entered" if is_new else "derived") for f in FEATURES]
+    _record_table(rows)
+    if is_new:
+        st.caption("A typed site has no row in the site table, so no model scope status is assigned. The board runs the generic salt-marsh "
+                   "scenario path and shows the scope tier the pipeline returns; the typed edge-loss inputs are not used by that path.")
+    st.markdown("**2. Scenario**")
+    sv = _scenario_form("marsh", oiling_from_record=None if is_new or site["max_oiling"] not in CLASSES else site["max_oiling"],
+                        ask_oiling=is_new or site["max_oiling"] not in CLASSES, default_oiling=site["max_oiling"] if site["max_oiling"] in CLASSES else "Moderate")
+    oil, season = sv.oil, sv.season
+    st.markdown("**3. Run**")
+    where_board = (f"{'Worked example: ' if site.get('cell') == EXAMPLE_CELL else ''}{'typed site' if is_new else 'cell ' + str(site['cell'])} | "
+                   f"Salt marsh | oiling: {T.OILING_LABELS.get(site['max_oiling'], site['max_oiling'])} | oil: {sv.oil_category}"
+                   + (f" (named oil {sv.oil})" if sv.oil != sv.oil_category else "") + (f" | season: {season}" if season else ""))
+    if is_new:
+        scen = _scenario("salt_marsh", oil_category=sv.oil_category)
+        spec = ("scenario", P.scenario_items(scen), site["max_oiling"], oil, season, "salt_marsh")
+    else:
+        spec = ("site", P.site_items(site), oil, season)
+    _decision_section("marsh", spec, where_board, flags if not is_new else None, esi=str(site["esi_main"]), habitat_label="salt marsh")
+    st.divider()
+    C.section_header("Detailed evidence", kicker="Existing views", description="The earlier site views, for the same place and scenario "
+                     "inputs. They update as you change the inputs; the decision board above shows only the scenario you ran.")
+    if is_new:
+        st.caption("The detailed views below take the typed values as measured and treat the site as in scope of the edge-loss model; "
+                   "the decision board above does not.")
+    answer = st.container()
     report, err = P.decision_for_site(P.site_items(site), oil, season)
     view = E.report_view(report) if report is not None else None
     nrs = None
@@ -352,6 +516,20 @@ def _effect_chart(e: pd.DataFrame, ytitle: str) -> alt.Chart:
 def render_mangrove() -> None:
     eff, summ = _mangrove_results()
     C.scope_panel("mangrove")
+    C.section_header("Assess this habitat", kicker="Site assessment", description="Limited evidence: one field study of oiling damage. "
+                     "The pipeline takes no oil, oiling or season input for mangroves and may abstain from a cleanup recommendation.")
+    st.markdown("**1. Place**")
+    _record_table([("Study site", "Bahía Las Minas, Panama (Rhizophora fringe), spill of 1986", "record"),
+                   ("Cleanup outcome data", "not available", "not available"),
+                   ("Numerical cleanup forecast", "not available for mangroves", "not available")])
+    st.markdown("**2. Scenario**")
+    st.caption("No scenario inputs: the mangrove evidence does not depend on oil category, oiling class or season, so none are asked for.")
+    st.markdown("**3. Run**")
+    spec = ("scenario", P.scenario_items(_scenario("mangrove")), None, None, None, "mangrove")
+    _decision_section("mangrove", spec, "Mangrove (Rhizophora fringe) | Bahía Las Minas, Panama, 1986", habitat_label="mangrove")
+    st.divider()
+    C.section_header("Detailed evidence", kicker="Existing views", description="The earlier mangrove evidence views. The decision board above "
+                     "shows only the run you started.")
     report, err = P.decision_for_scenario(P.scenario_items(_scenario("mangrove")), None, None, None, "mangrove")
     view = E.report_view(report) if report is not None else None
     st.markdown("Mangrove mode shows what one field study found: how much worse oiled red mangrove fringe sites were than unoiled "
@@ -409,20 +587,32 @@ def _screening_renderer(h: "HabitatView") -> Callable[[], None]:
     pipeline is the same one; only the scope text and the habitat code passed to it differ."""
     def render() -> None:
         C.scope_panel(h.family)
+        C.section_header("Assess this habitat", kicker="Site assessment", description="1. Place. 2. Scenario. 3. Run the pipeline. This is "
+                         "a habitat-level entry with rules and literature only; the board may conclude that evidence is insufficient.")
+        st.markdown("**1. Place**")
         st.caption(h.note)
-        c1, c2, c3 = st.columns(3)
-        oiling = c1.selectbox("Oiling (SCAT maximum oiling)", CLASSES, index=1, format_func=lambda x: T.OILING_LABELS[x], key=f"beach_{h.key}_oiling")
-        oil = c2.selectbox("Oil category", ["light", "medium", "heavy", "solid"], index=1, key=f"beach_{h.key}_oil")
-        exposure = c3.selectbox("Wave exposure", ["low", "moderate", "high", "very_high"], index=1,
-                                format_func=_label, key=f"beach_{h.key}_exposure")
-        scen = _scenario(h.shoreline_type, wave_exposure=exposure, oil_category=oil)
-        report, err = P.decision_for_scenario(P.scenario_items(scen), oiling, oil, None, h.esi)
+        _record_table([("Shoreline type", h.label, "record"), ("Shoreline (ESI)", h.esi, "record"),
+                       ("Site observations", "not available: habitat-level entry, no surveyed site", "not available"),
+                       ("Numerical cleanup forecast", "not available for this shoreline type", "not available")])
+        st.markdown("**2. Scenario**")
+        sv = _scenario_form(h.key, ask_exposure=True, default_oil="medium")
+        oiling, oil, exposure, season = sv.oiling, sv.oil, sv.exposure, sv.season
+        scen = _scenario(h.shoreline_type, wave_exposure=exposure, oil_category=sv.oil_category)
+        st.markdown("**3. Run**")
+        where_board = (f"{h.label} (ESI {h.esi}) | oiling: {T.OILING_LABELS[oiling]} | {sv.oil_category} oil"
+                       + (f" (named oil {oil})" if oil != sv.oil_category else "") + f" | {_label(exposure)} wave exposure"
+                       + (f" | season: {season}" if season else ""))
+        _decision_section(h.key, ("scenario", P.scenario_items(scen), oiling, oil, season, h.esi), where_board, esi=h.esi, habitat_label=h.label)
+        st.divider()
+        C.section_header("Detailed evidence", kicker="Existing views", description="The earlier habitat views, for the same scenario "
+                         "inputs. They update as you change the inputs; the decision board above shows only the scenario you ran.")
+        report, err = P.decision_for_scenario(P.scenario_items(scen), oiling, oil, season, h.esi)
         view = E.report_view(report) if report is not None else None
-        C.answer_card(view, f"{h.label} | oiling: {T.OILING_LABELS[oiling]} | {oil} oil | {_label(exposure)} wave exposure")
+        C.answer_card(view, f"{h.label} | oiling: {T.OILING_LABELS[oiling]} | {sv.oil_category} oil | {_label(exposure)} wave exposure")
         if err:
             st.error(f"The decision pipeline could not run ({err}).")
         ref = next((r for r in (view.reference if view else []) if E.field(r, "curves_by_group")), None)
-        C.render_beach_persistence({"habitat": h.key, "esi": h.esi, "label": h.label, "oiling_class": oiling, "oil_category": oil,
+        C.render_beach_persistence({"habitat": h.key, "esi": h.esi, "label": h.label, "oiling_class": oiling, "oil_category": sv.oil_category,
                                     "exposure": exposure, "reference": ref, "literature_notes": view.literature_notes if view else []})
         if view is not None and view.advisories:
             with st.expander("Advisory notes (AI-proposed, not used to set the classes)"):

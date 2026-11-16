@@ -141,6 +141,33 @@ def _edge_loss_block() -> None:
     per_basin = "; ".join(f"{str(r['basin']).capitalize()}: baseline {float(r['MAE_M0']):.3f}, exposure only {float(r['MAE_M1']):.3f}, "
                           f"exposure + oiling {float(r['MAE_M2']):.3f}, {int(r['heavy'])} heavily oiled cells" for r in res["rows"] if r["basin"] != "pooled")
     st.caption(f"By basin: {per_basin}. Source: {res['source']}. {res['scope']}")
+    st.divider()
+    _scatter_block()
+
+
+def _scatter_block() -> None:
+    """Leave-one-basin-out predicted vs observed edge loss (lobo_pred only). Descriptive; not a new validation."""
+    res = MV.edge_loss_scatter()
+    st.markdown("#### Marsh-edge loss: predicted against observed (leave-one-basin-out)")
+    if _unavailable(res, "Predicted-versus-observed edge loss"):
+        return
+    lo, hi = res["axis_min"], res["axis_max"]
+    dom = alt.Scale(domain=[lo, hi], nice=False)
+    pts = alt.Chart(res["points"]).mark_circle(size=14, opacity=0.35).encode(
+        x=alt.X("observed_rate:Q", title="Observed edge loss, m/yr", scale=dom),
+        y=alt.Y("lobo_pred:Q", title="Leave-one-basin-out prediction, m/yr", scale=dom),
+        color=alt.Color("basin:N", title="Basin", legend=alt.Legend(orient="bottom", title=None)),
+        tooltip=["basin", alt.Tooltip("observed_rate:Q", format=".2f"), alt.Tooltip("lobo_pred:Q", format=".2f")])
+    line = alt.Chart(pd.DataFrame({"v": [lo, hi]})).mark_line(strokeDash=[5, 4], color=T.NEUTRAL).encode(x="v:Q", y="v:Q")
+    st.altair_chart((pts + line).properties(height=320), theme="streamlit", width="stretch")
+    per = "; ".join(f"{r['basin'].capitalize()}: n={r['n']}, MAE {r['MAE']:.3f}" for r in res["per_basin"])
+    pct = (f"Mean absolute percentage error {res['MAPE_pct']:.0f}% over the {res['n_nonzero_observed']} cells whose observed rate is not zero "
+           f"(percentage error is undefined where the observation is 0)." if res["MAPE_pct"] is not None else "")
+    st.caption(f"Dashed line: 1:1 (perfect agreement). n = {res['n']} cells with both a prediction and an observation; mean absolute error "
+               f"{res['MAE']:.3f} m/yr on all {res['n']} cells. {per}. {pct} The plot shows a fixed random subset of {res['n_plotted']} points "
+               f"for speed; the numbers use all rows. This all-cell error is not comparable with the P2 table above (different cell set, "
+               f"Terrebonne included). Source: {res['source']}.")
+    st.caption(res["caption"])
 
 
 def _verdict_line(rel: str) -> str:
