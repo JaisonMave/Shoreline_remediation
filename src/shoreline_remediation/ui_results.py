@@ -24,6 +24,7 @@ from src.shoreline_remediation import ui_evidence as E, ui_plots, ui_theme as T
 from src.shoreline_remediation.decision_pipeline import CATEGORY_LABELS
 
 EDGE_MODEL = "edge_loss_v1"
+BAY_JIMMY_CELL = "8018_32612"      # the worked-example cell (map_sites.EXAMPLE_CELL); the illustrative curves are drawn only for it
 PAH_MODEL = "pah_decline_v1"
 ABSTENTION_OUTCOMES = ("insufficient_evidence", "out_of_scope", "unsupported_habitat")
 # outcome key (DecisionReport.decision_outcome) -> (visual tone, status pill). The wording of the outcome itself is the report's
@@ -382,6 +383,10 @@ def render_results(report, rec: dict, ctx: dict, site_row: dict | None = None) -
     st.caption("Screening status is the decision pipeline's category. It is separate from any performance order: a large estimate "
                "does not change a status."
                + (" Treatment options have no comparable effect estimate for this shoreline type." if primary or comp is None else ""))
+    if (rec.get("crumb") or {}).get("cell") == BAY_JIMMY_CELL:        # Bay Jimmy only; synthetic, separate from every result above
+        with st.expander("Illustrative recovery curves", expanded=False, icon=":material/show_chart:"):
+            st.warning(ui_plots.ILLUSTRATIVE_LABEL + ". " + ui_plots.ILLUSTRATIVE_NOTE, icon=":material/science:")
+            st.altair_chart(ui_plots.illustrative_recovery_chart(C.text_colour()), theme="streamlit", width="stretch")
 
 
 # ---------------------------------------------------------------------------------------------------------------
