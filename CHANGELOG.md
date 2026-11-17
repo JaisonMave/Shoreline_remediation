@@ -12,6 +12,17 @@ Computer (no account needed).
 ---
 
 
+## 2026-11-17: Continuous recovery fits and conditional scenarios
+
+- **New research layer:** `recovery_trajectories.py`, displayed separately under **Continuous trajectories: experimental fits and conditional scenarios**, with observed group means, uncertainty, source/parameter tables and diagnostics. Implemented using Claude Opus. Existing dark theme retained.
+- **Shoreline retreat:** fits cumulative GPS-measured retreat, not period means treated as instantaneous rates. Constant-rate or fading-excess form `R = b*t + A*(1-exp(-t/tau))`, selected by leave-one-plot-out error. Untreated and manual use the fading-excess form; reference uses a constant rate. No mechanical or planted retreat curve where field positions do not support it.
+- **Vegetation:** bounded logistic total cover fitted to longitudinal plot data, with reference cover estimated from reference plots. Manual cover is explicitly conditional on the untreated recovery rate, not an independently identified manual-treatment rate. The monotone fit misses the observed 2016 decline, including on reference plots.
+- **PAH:** explicitly conditional exponential scenarios anchored at observed group means, borrowing the existing heavy-oiling class rate (0.430 per year). The class rate has no treatment variable and differs in analytes and sampling depth; it is not evidence of biodegradation. Scenarios stop at its campaign support end.
+- **Traceability and uncertainty:** repository GRIIDC shoreline-position and vegetation data, Zengel 2015 group summaries and the existing PAH coefficient; no invented literature constants. Ninety-percent plot-bootstrap bands for retreat/cover and Monte Carlo ranges for PAH. Model-form uncertainty, weather, measurement error, individual-plot prediction spread and borrowed-rate mismatch are excluded and disclosed. Survey months corrected in the evidence view without changing outcome values.
+- **Scope unchanged:** one-site experimental fits/conditional scenarios, not validated forecasts or causal treatment effects. No change to decision pipeline, comparison, screening, report, registry, raw data or preserved results.
+- **Verification:** 108 focused/dependent tests passed, including continuity/support/bounds, source reproduction, conditional roles, chart scaling, AppTest rendering and explicit nonconvergence handling. Chromium at 1440x1000 and 390x844: all three continuous charts fit their containers, no horizontal page overflow or Streamlit exceptions; parameter/diagnostic tables also checked on mobile. Full repository suite not rerun; these are software checks, not scientific validation.
+- **Documentation:** equations, fitted parameters, provenance, diagnostics and limitations in `docs/V5_4_RECOVERY_VIEW.md`; README and historical handoff continuation notices updated. Branch `model_v5_1`, base `ae0af30`.
+
 ## 2026-11-17: Recovery plot rendering and evidence-preserving layout corrections
 
 - **Fixed disappearing synthetic curves:** all time-bearing layers now share an explicit 2010-2030 scale with `zero=False`. The projection overlays previously admitted year zero, compressing twenty years into about 1% of the plot width.

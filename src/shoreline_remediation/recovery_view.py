@@ -40,12 +40,12 @@ PLANTING = "planting (after mechanical cleanup)"
 
 # Series keys, labels and the colours shared by every panel and by the legend.
 UNTREATED, MANUAL, MECHANICAL, PLANTED = "untreated", "manual", "mechanical", "planted"
-DEPLOYED, OBSERVED, PAH_CLASS = "deployed", "observed_cell", "pah_class"
+DEPLOYED, OBSERVED, PAH_CLASS, REF_PLOTS = "deployed", "observed_cell", "pah_class", "reference_plots"
 LABELS = {UNTREATED: "Untreated baseline", MANUAL: "Manual removal", MECHANICAL: "Mechanical removal",
           PLANTED: "Mechanical removal, then planting", DEPLOYED: "Deployed model (no oiling term)", OBSERVED: "Observed at this cell",
-          PAH_CLASS: "Class decline reference (all management)"}
+          PAH_CLASS: "Class decline reference (all management)", REF_PLOTS: "Reference marsh (unoiled plots)"}
 COLOURS = {UNTREATED: "#A6B2C2", MANUAL: "#28B8A5", MECHANICAL: "#E0A83A", PLANTED: "#D07BA8", DEPLOYED: "#4E9BE8", OBSERVED: "#F4F7FA",
-           PAH_CLASS: "#B6D9CF"}
+           PAH_CLASS: "#B6D9CF", REF_PLOTS: "#6FA8DC"}
 OPTION_OF = {MANUAL: "manual_removal", MECHANICAL: "mechanical_removal", PLANTED: PLANTING}
 # kinds: how the values were obtained. They decide the mark in the figure.
 FIELD, SCENARIO, REFERENCE, OBSERVATION, DECLINE = "field", "scenario", "reference", "observation", "decline"
@@ -206,15 +206,18 @@ def erosion_panel(site: dict, heavy: bool, statuses: dict, deployed: dict | None
 # Vegetation and PAH field summaries (Zengel et al. 2015, absolute group means)
 
 FIELD_NAMES = {"No Treatment": UNTREATED, "Manual Treatment": MANUAL, "Mechanical Treatment": MECHANICAL}
-YEAR_OF_SURVEY = {2011: 2011.0, 2012: 2012.0}
+# Sampling dates, Zengel et al. (2015) Methods: vegetation "primarily in September 2011 and 2012"; subsurface soil cores
+# "July-August 2011 and September 2012". Decimal years: mid-September = .70; midpoint of July-August = .58.
+VEG_SURVEY_X = {2011: 2011.70, 2012: 2012.70}
+PAH_SURVEY_X = {2011: 2011.58, 2012: 2012.70}
 
 
-def _group_series(panel: str, metric: str, outcome: str, unit: str, statuses: dict) -> list:
+def _group_series(panel: str, metric: str, outcome: str, unit: str, statuses: dict, dates: dict, when: str) -> list:
     raw = te.load()
     out = []
     for name, key in FIELD_NAMES.items():
         pts = []
-        for year, x in YEAR_OF_SURVEY.items():
+        for year, x in dates.items():
             r = raw[(raw.study == "main") & (raw.year == year) & (raw.metric == metric) & (raw.treatment == name)]
             if r.empty or not _finite(r.iloc[0]["mean"]) or not _finite(r.iloc[0]["se"]) or not _finite(r.iloc[0]["n"]):
                 continue
@@ -222,7 +225,7 @@ def _group_series(panel: str, metric: str, outcome: str, unit: str, statuses: di
             lo, hi = _t90(float(r["mean"]), float(r.se), int(r.n))
             pts.append(Point(x, x, float(r["mean"]), lo, hi))
         if pts:
-            out.append(Series(panel, key, LABELS[key], FIELD, outcome, unit, tuple(pts), "Survey years 2011 and 2012 (about 1 and 2 years after oiling began in 2010)",
+            out.append(Series(panel, key, LABELS[key], FIELD, outcome, unit, tuple(pts), when,
                               COMPARATORS[key], "90% t interval of the group mean (n = 5 to 9 plots; lower limit cut at 0)",
                               "zengel2015_group_means.csv (Zengel et al. 2015, PLoS ONE 10(7): e0132324, S1 Table)", "Field observation, observational comparison",
                               BAY_JIMMY_SCOPE, statuses.get(OPTION_OF.get(key, ""), "")))
@@ -232,17 +235,19 @@ def _group_series(panel: str, metric: str, outcome: str, unit: str, statuses: di
 def vegetation_panel(statuses: dict) -> Panel:
     p = Panel("vegetation", "Total vegetation cover", "%",
               note="Two survey years only, so points rather than curves. Lower interval limits are cut at 0%. Reference marsh (unoiled) cover was 96% in 2011 and 95% in 2012.")
-    p.series = _group_series("vegetation", "Total Vegetation Cover (%)", "total vegetation cover", "%", statuses)
+    p.series = _group_series("vegetation", "Total Vegetation Cover (%)", "total vegetation cover", "%", statuses, VEG_SURVEY_X,
+                             "Surveys in September 2011 and September 2012 (about 1 and 2 years after oiling began in 2010)")
     p.missing = [("Planting, total cover", "total cover of planted plots: the source reports Spartina cover only (69% planted against 0% unplanted, an incremental contrast)"),
                  ("Absolute cover from the composer or vegetation curve", "a vegetation model validated for heavy oiling whose ratio denominator is the same reference cover; the curve's untreated year-2 ratio of 0.86 would give about 81% against the 18% observed"),
-                 ("Treatments after 2012", "a later survey of the same plots")]
+                 ("Treatments after 2012", "a later survey of the manual plots (none in the sources); untreated and mechanical plots surveyed to 2016 are shown in the separate continuous-trajectories section")]
     return p
 
 
 def pah_field_panel(statuses: dict) -> Panel:
     p = Panel("pah", "Soil PAH, concentration", "mg/kg",
               note="Total PAH (tPAH) as reported in the source table; the dry or wet basis is not recorded in the repository table. Group means vary widely between plots; lower limits are cut at 0. Mechanical removal was not sampled in 2011.")
-    p.series = _group_series("pah", "tPAH (mg/kg)", "soil tPAH concentration", "mg/kg", statuses)
+    p.series = _group_series("pah", "tPAH (mg/kg)", "soil tPAH concentration", "mg/kg", statuses, PAH_SURVEY_X,
+                             "Soil cores July-August 2011 and September 2012")
     return p
 
 

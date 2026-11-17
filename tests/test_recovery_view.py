@@ -51,7 +51,7 @@ def test_vegetation_points_equal_the_source_group_means_with_group_level_interva
     raw = te.load()
     for key, name in ((RV.UNTREATED, "No Treatment"), (RV.MANUAL, "Manual Treatment"), (RV.MECHANICAL, "Mechanical Treatment")):
         s = get(view, "vegetation", key)
-        assert s.kind == RV.FIELD and [q.x0 for q in s.points] == [2011.0, 2012.0] and all(q.x0 == q.x1 for q in s.points)
+        assert s.kind == RV.FIELD and [q.x0 for q in s.points] == [2011.70, 2012.70] and all(q.x0 == q.x1 for q in s.points)
         for q in s.points:
             r = raw[(raw.study == "main") & (raw.year == int(q.x0)) & (raw.metric == "Total Vegetation Cover (%)") & (raw.treatment == name)].iloc[0]
             assert q.value == pytest.approx(r["mean"]) and 0 <= q.lo <= q.value <= q.hi
@@ -111,7 +111,7 @@ def test_pah_decline_reference_is_an_index_inside_the_sampled_period(view):
 
 def test_pah_concentration_has_only_the_sampled_cells_and_no_decline_curve_for_treatments(view):
     mech = get(view, "pah", RV.MECHANICAL)
-    assert len(mech.points) == 1 and mech.points[0].x0 == 2012.0                  # not sampled in 2011
+    assert len(mech.points) == 1 and mech.points[0].x0 == 2012.70                 # not sampled in 2011; cores September 2012
     assert get(view, "pah", RV.UNTREATED).points[0].value == 260.0 and all(s.kind == RV.FIELD for s in view.panel("pah").series)
     assert any("treatment variable" in need or "treated and untreated" in need for _, need in view.panel("pah").missing)
 
@@ -150,7 +150,7 @@ def test_synthetic_panels_have_one_consistent_nonzero_year_scale():
 
 def test_recovery_points_keep_the_true_survey_year_and_period_support(view):
     p = ui_plots.panel_records(view.panel("vegetation"))["pts"]
-    assert set(p.x) == {2011.0, 2012.0}
+    assert set(p.x) == {2011.70, 2012.70}                                      # September surveys (Zengel et al. 2015 Methods)
     erosion = ui_plots.panel_records(view.panel("erosion"))
     observed = erosion["pts"].query("key == 'observed_cell'").iloc[0]
     assert observed.x == 2012.5
@@ -170,7 +170,7 @@ def test_evidence_specific_axis_can_be_switched_to_common_years(view):
             if x:
                 scale = x["scale"]
                 assert scale["zero"] is False
-                assert scale["domain"] == (ui_plots.X_DOMAIN if common else [2010.8, 2012.2])
+                assert scale["domain"] == (ui_plots.X_DOMAIN if common else pytest.approx([2011.35, 2013.05]))
 
 
 def test_scenario_whiskers_keep_full_uncertainty_at_the_period_midpoint(view):

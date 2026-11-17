@@ -179,7 +179,7 @@ def recovery_panel_chart(panel: RV.Panel, colours: dict[str, str], text_colour: 
     pad = (hi - lo) * 0.06
     first = min(q.x0 for s in panel.series for q in s.points)
     last = max(q.x1 for s in panel.series for q in s.points)
-    time_pad = max(0.2, (last - first) * 0.05)
+    time_pad = max(0.35, (last - first) * 0.05)
     domain = X_DOMAIN if common_year_axis else [first - time_pad, last + time_pad]
     years = list(range(math.ceil(domain[0]), math.floor(domain[1]) + 1))
     ticks = years[::max(1, math.ceil(len(years) / 5))]
@@ -216,4 +216,64 @@ def recovery_panel_chart(panel: RV.Panel, colours: dict[str, str], text_colour: 
         layers.append(p.mark_point(filled=True, size=95, opacity=1, stroke=text_colour, strokeWidth=0.8).encode(
             x=x, y=y, color=colour, tooltip=tip,
             shape=alt.Shape("kind:N", scale=alt.Scale(domain=kinds, range=[_RECOVERY_SHAPES[k] for k in kinds]), legend=None)))
+    return alt.layer(*layers).properties(height=height, autosize=alt.AutoSizeParams(type="fit", contains="padding"))
+
+
+TRAJECTORY_DASH = {"fit": [1, 0], "conditional": [7, 5]}
+
+
+def trajectory_records(panel) -> dict[str, pd.DataFrame]:
+    """Long tables of one recovery_trajectories.TrajectoryPanel: curve samples with their band, and observed group means."""
+    curve, obs = [], []
+    for c in panel.curves:
+        for x, y, lo, hi in zip(c.x, c.y, c.lo, c.hi):
+            curve.append({"key": c.key, "series": c.label, "role": c.role, "x": x, "value": y, "lo": lo, "hi": hi,
+                          "estimate": _fmt(y, lo, hi), "equation": c.equation, "interval": c.interval})
+    for o in panel.observed:
+        for x, m, lo, hi, n in zip(o.x, o.mean, o.lo, o.hi, o.n):
+            obs.append({"key": o.key, "series": o.label, "x": x, "value": m, "lo": lo, "hi": hi, "n": n,
+                        "estimate": _fmt(m, lo, hi), "time": o.dates, "source": o.source})
+    return {"curve": pd.DataFrame(curve), "obs": pd.DataFrame(obs)}
+
+
+def trajectory_chart(panel, colours: dict[str, str], text_colour: str = "#F4F7FA", height: int = 340) -> alt.LayerChart | None:
+    """Continuous fitted or conditional curves (solid or dashed, with their band) over the observed group means (circles and 90%
+    whiskers). One layered chart; every layer shares explicit x and y scales. Axis padding is whitespace, never extrapolation."""
+    if not panel.curves and not panel.observed:
+        return None
+    d = trajectory_records(panel)
+    both = pd.concat([d["curve"], d["obs"]], ignore_index=True)
+    keys = list(dict.fromkeys(both["key"]))
+    colour = alt.Color("key:N", scale=alt.Scale(domain=keys, range=[colours[k] for k in keys]), legend=None)
+    first, last = float(both["x"].min()), float(both["x"].max())
+    time_pad = max(0.2, (last - first) * 0.04)
+    domain = [first - time_pad, last + time_pad]
+    lo = min(0.0, float(both[["value", "lo"]].min().min()))
+    hi = 100.0 if panel.unit == "%" else float(both[["value", "hi"]].max().max())
+    pad = (hi - lo) * 0.05
+    years = list(range(math.ceil(domain[0]), math.floor(domain[1]) + 1))
+    xscale = alt.Scale(domain=domain, nice=False, zero=False)
+    yscale = alt.Scale(domain=[lo - pad if lo < 0 else 0.0, hi + pad], nice=False, zero=False)
+    xaxis = alt.Axis(format="d", values=years[::max(1, math.ceil(len(years) / 6))], labelFontSize=12, titleFontSize=12, labelOverlap=True)
+    x = alt.X("x:Q", scale=xscale, title="Year", axis=xaxis)
+    ytitle = f"{panel.title} ({panel.unit})"
+    y = alt.Y("value:Q", scale=yscale, title=ytitle, axis=alt.Axis(labelFontSize=12, titleFontSize=12, titleLimit=420))
+    ylo = alt.Y("lo:Q", scale=yscale, title=ytitle)
+    layers = []
+    if not d["curve"].empty:
+        c = alt.Chart(d["curve"])
+        tip = [alt.Tooltip("series:N", title="Curve"), alt.Tooltip("role:N", title="Role"), alt.Tooltip("x:Q", title="Year", format=".2f"),
+               alt.Tooltip("estimate:N", title=f"Value ({panel.unit}; 90% band)"), alt.Tooltip("equation:N", title="Equation"),
+               alt.Tooltip("interval:N", title="Band")]
+        dash = alt.StrokeDash("role:N", scale=alt.Scale(domain=list(TRAJECTORY_DASH), range=list(TRAJECTORY_DASH.values())), legend=None)
+        layers += [c.mark_area(opacity=0.16).encode(x=x, y=ylo, y2="hi:Q", color=colour, detail="series:N", tooltip=tip),
+                   c.mark_line(strokeWidth=2.6).encode(x=x, y=y, color=colour, strokeDash=dash, detail="series:N", order="x:Q", tooltip=tip)]
+    if not d["obs"].empty:
+        o = alt.Chart(d["obs"])
+        tip = [alt.Tooltip("series:N", title="Observed"), alt.Tooltip("x:Q", title="Survey (year)", format=".2f"),
+               alt.Tooltip("estimate:N", title=f"Group mean ({panel.unit}; 90% t interval)"), alt.Tooltip("n:Q", title="Plots"),
+               alt.Tooltip("time:N", title="Survey dates"), alt.Tooltip("source:N", title="Source")]
+        layers.append(o.mark_rule(strokeWidth=1.6, opacity=0.8).encode(x=x, y=ylo, y2="hi:Q", color=colour, tooltip=tip))
+        layers.append(o.mark_point(filled=True, size=70, opacity=1, stroke=text_colour, strokeWidth=0.8).encode(
+            x=x, y=y, color=colour, shape=alt.value("circle"), tooltip=tip))
     return alt.layer(*layers).properties(height=height, autosize=alt.AutoSizeParams(type="fit", contains="padding"))

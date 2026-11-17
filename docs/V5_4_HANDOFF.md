@@ -1,6 +1,6 @@
 # V5.4 unified shell, map-first Home and single results view: handoff
 
-**Current continuation (17 November 2026):** [Recovery-view correction handoff](V5_4_RECOVERY_VIEW.md) covers the evidence-backed recovery panels and the synthetic axis/overflow fixes, tests and remaining scientific limits. Branch `model_v5_1`. The status and layout below are the historical shell implementation record.
+**Current continuation (17 November 2026):** [Recovery-view handoff](V5_4_RECOVERY_VIEW.md) covers continuous retreat and vegetation fits, conditional manual-cover and PAH scenarios, parameter provenance, uncertainty exclusions, and evidence/synthetic chart corrections. These research curves do not change decisions or reports and are not validated site forecasts. Branch `model_v5_1`. The status and layout below are the historical shell implementation record.
 
 Status: implemented, tested, seen running in Chromium; uncommitted (branch `model_v5_1`, on top of f00b22c). Continues `docs/V5_3_HANDOFF.md`.
 Continued in `docs/V5_4_PLOT_FIRST_HANDOFF.md` (plot-first Assessment, treatment comparison, simplified Map); sections 2 and 6 below describe the layout before that work.

@@ -465,6 +465,72 @@ def _recovery_section(report, rec: dict, site_row: dict | None, key: str) -> Non
 
 
 
+TRAJECTORY_TITLE = "Continuous trajectories: experimental fits and conditional scenarios"
+TRAJECTORY_MARKS = ("Circles and whiskers: observed group means with 90% t intervals at the survey dates. Solid line: a model fitted to the "
+                    "group's own plots, drawn only across their survey dates. Dashed line: a conditional scenario using a borrowed rate. "
+                    "Shaded band: 90% interval of the curve from its stated resampling, not a prediction interval for a single plot.")
+TRAJECTORY_TABS = (("retreat", "Shoreline retreat"), ("cover", "Vegetation cover"), ("tpah", "Soil tPAH"))
+
+
+def trajectories_for(report, rec: dict, site_row: dict | None):
+    """recovery_trajectories.build for the run, under the same gate as the recovery view; None when there is no recovery view."""
+    if recovery_view_for(report, rec, site_row) is None:
+        return None
+    from src.shoreline_remediation import recovery_trajectories as RT
+    return RT.build(site_row)
+
+
+def _trajectory_legend(panel) -> str:
+    from src.shoreline_remediation import recovery_view as RV
+    shown = {o.key for o in panel.observed}
+    role = {c.key: c.role for c in panel.curves}
+    items = []
+    for key in dict.fromkeys([o.key for o in panel.observed] + list(role)):
+        parts = (["observed"] if key in shown else []) + ({"fit": ["fit"], "conditional": ["dashed conditional scenario"]}.get(role.get(key), []))
+        items.append((key, f"{RV.LABELS[key]}: {' and '.join(parts)}"))
+    chips = "".join(f'<span class="sr-leg-item"><i style="background:{RV.COLOURS[k]}"></i>{escape(t)}</span>' for k, t in items)
+    return f'<div class="sr-map-legend"><div class="sr-leg-row">{chips}</div></div>'
+
+
+def _draw_trajectory_panel(panel) -> None:
+    from src.shoreline_remediation import recovery_view as RV
+    st.caption(f"Plotted quantity: {panel.quantity}, in {panel.unit}.")
+    chart = ui_plots.trajectory_chart(panel, RV.COLOURS, C.text_colour())
+    if chart is not None:
+        st.markdown(_trajectory_legend(panel), unsafe_allow_html=True)
+        st.caption(TRAJECTORY_MARKS)
+        st.altair_chart(chart, theme="streamlit", width="stretch")
+    for c in panel.curves:
+        st.caption(c.summary)
+    st.caption(panel.note)
+    for text in panel.checks:
+        st.caption("Check: " + text)
+    for name, reason in panel.unavailable:
+        st.markdown(f"- **Not drawn, {escape(name)}:** {escape(reason)}.")
+
+
+def _trajectory_section(report, rec: dict, site_row: dict | None, key: str) -> None:
+    tr = trajectories_for(report, rec, site_row)
+    if tr is None:
+        return
+    from src.shoreline_remediation import recovery_trajectories as RT
+    with st.expander(TRAJECTORY_TITLE, expanded=False, icon=":material/timeline:"):
+        st.warning(RT.STATUS_NOTE, icon=":material/science:")
+        if not tr.panels:
+            st.caption(tr.unavailable)
+            return
+        tabs = st.tabs([t for _, t in TRAJECTORY_TABS] + ["Parameters and sources"])
+        for tab, (panel_key, _) in zip(tabs, TRAJECTORY_TABS):
+            with tab:
+                _draw_trajectory_panel(tr.panel(panel_key))
+        with tabs[-1]:
+            st.caption("Type says how each value was obtained: estimated from the group's plots, estimated from the reference plots, shared "
+                       "from another group's fit, or an external model coefficient. No value is a fixed literature prior.")
+            st.dataframe(RT.parameter_frame(tr), hide_index=True, width="stretch")
+            st.caption("Diagnostics: held-out (leave-one-plot-out) error against a simpler form, residuals by survey year, and refits counted.")
+            st.dataframe(RT.diagnostics_frame(tr), hide_index=True, width="stretch")
+
+
 def render_results(report, rec: dict, ctx: dict, site_row: dict | None = None) -> None:
     """Draw the results view for `report` (a DecisionReport) of the run record `rec`. `ctx` = {"key", "habitat", "esi"}.
     `site_row` is the run's site-table row for a known marsh cell (None for typed, habitat-level and non-marsh runs)."""
@@ -495,6 +561,7 @@ def render_results(report, rec: dict, ctx: dict, site_row: dict | None = None) -
                "does not change a status."
                + (" Treatment options have no comparable effect estimate for this shoreline type." if primary or comp is None else ""))
     _recovery_section(report, rec, site_row, key)
+    _trajectory_section(report, rec, site_row, key)
     if (rec.get("crumb") or {}).get("cell") == BAY_JIMMY_CELL:        # Bay Jimmy only; synthetic, separate from every result above
         with st.expander("Synthetic demonstration curves (not data)", expanded=False, icon=":material/science:"):
             st.warning(ui_plots.ILLUSTRATIVE_LABEL + ". " + ui_plots.ILLUSTRATIVE_NOTE + " The recovery view above is evidence-backed; this one only shows a layout.", icon=":material/science:")

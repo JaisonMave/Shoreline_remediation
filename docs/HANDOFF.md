@@ -1,6 +1,6 @@
 # Handoff: Shoreline Remediation (14 November 2026, after V5)
 
-**Historical record below. Current branch: `model_v5_1`.** For the 17 November dashboard and recovery-plot corrections, start with [V5.4 recovery-view handoff](V5_4_RECOVERY_VIEW.md), then [plot-first assessment handoff](V5_4_PLOT_FIRST_HANDOFF.md). The older branch, publication status and browser-check statements below describe 14 November, not the current release.
+**Historical record below. Current branch: `model_v5_1`.** For the 17 November dashboard, continuous recovery fits and conditional scenarios, start with [V5.4 recovery-view handoff](V5_4_RECOVERY_VIEW.md), then [plot-first assessment handoff](V5_4_PLOT_FIRST_HANDOFF.md). The new curves are one-site research outputs, not validated forecasts, and do not change decisions or reports. The older branch, publication status and browser-check statements below describe 14 November, not the current release.
 
 Written for Jaison, a soil scientist new to machine learning. Short sentences; a technical term is explained the first time it appears.
 
