@@ -3,10 +3,12 @@ report's packaged curve, which have already decided what is drawn and in which o
 computes an estimate."""
 from __future__ import annotations
 
+import math
+
 import altair as alt
 import pandas as pd
 
-from src.shoreline_remediation import comparison as K, ui_theme as T
+from src.shoreline_remediation import comparison as K, recovery_view as RV, ui_theme as T
 
 _SHAPES = {K.FIELD: "circle", K.FIELD_MODEL: "diamond", K.SCENARIO_MODEL: "square"}
 
@@ -88,7 +90,6 @@ _SHAPES_SYNTHETIC = {"Untreated baseline": (0.97, 0.55, 80.0, 8.0, 0.170), "Manu
 def illustrative_recovery_data() -> pd.DataFrame:
     """Deterministic synthetic curves, 2010 to 2030 in quarter-year steps: columns year, value, series, panel, segment
     ("solid" to 2018, "dotted" from 2018; the 2018 point is in both so the two parts join)."""
-    import math
     rows = []
     for i in range(81):
         t = i / 4.0
@@ -102,43 +103,42 @@ def illustrative_recovery_data() -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
-def illustrative_recovery_chart(text_colour: str = "#F4F7FA") -> alt.VConcatChart:
-    """Three stacked panels on one year axis (2010 to 2030) with one legend: four absolute-value curves per panel, solid to 2018
-    and dotted after it, the dotted span shaded and labelled. No uncertainty bands: nothing here is estimated."""
+def illustrative_recovery_charts(text_colour: str = "#F4F7FA") -> list[tuple[str, alt.LayerChart]]:
+    """Separate responsive panels, all synthetic, with the same explicit scale on every time-bearing layer."""
     d = illustrative_recovery_data()
     colour = alt.Color("series:N", title=None, scale=alt.Scale(domain=list(_SERIES), range=list(_SERIES.values())),
-                       legend=alt.Legend(orient="top", direction="horizontal", columns=2, labelLimit=260, symbolStrokeWidth=3))
+                       legend=alt.Legend(orient="top", columns=1, labelLimit=240, symbolStrokeWidth=3))
     span = pd.DataFrame({"x": [_SPLIT_YEAR], "x2": [2030], "label": [PROJECTION_LABEL]})
     panels = []
-    for i, panel in enumerate(_PANELS):
-        last = i == len(_PANELS) - 1
-        x = alt.X("year:Q", scale=alt.Scale(domain=[2010, 2030], nice=False), title="Year" if last else None,
-                  axis=alt.Axis(format="d", values=[2010, 2012, 2015, 2018, 2022, 2026, 2030], labelFontSize=12))
-        y = alt.Y("value:Q", title=panel, scale=alt.Scale(zero=True), axis=alt.Axis(labelFontSize=12, titleFontSize=12, titleLimit=400))
+    for panel, unit in zip(_PANELS, ("m/year", "%", "PAH index")):
+        scale = alt.Scale(domain=[2010, 2030], nice=False, zero=False)
+        axis = alt.Axis(format="d", values=[2010, 2015, 2020, 2025, 2030], labelFontSize=12, labelOverlap=True)
+        x = alt.X("year:Q", scale=scale, title="Year", axis=axis)
+        span_x = alt.X("x:Q", scale=scale, title="Year", axis=axis)
+        y = alt.Y("value:Q", title=unit, scale=alt.Scale(zero=True), axis=alt.Axis(labelFontSize=12, titleFontSize=12))
         base = alt.Chart(d[d["panel"] == panel])
-        tip = [alt.Tooltip("series:N", title="Synthetic scenario"), alt.Tooltip("year:Q", format=".0f"), alt.Tooltip("value:Q", format=".2f")]
-        shade = alt.Chart(span).mark_rect(color="#4E9BE8", opacity=0.10).encode(x="x:Q", x2="x2:Q")
-        split = alt.Chart(span).mark_rule(color=text_colour, opacity=0.6).encode(x="x:Q")
+        tip = [alt.Tooltip("series:N", title="Synthetic scenario"), alt.Tooltip("year:Q", format=".2f"), alt.Tooltip("value:Q", format=".2f")]
+        shade = alt.Chart(span).mark_rect(color=T.PALETTE["blue"], opacity=0.10).encode(x=span_x, x2="x2:Q")
+        split = alt.Chart(span).mark_rule(color=text_colour, opacity=0.6).encode(x=span_x)
         note = alt.Chart(span).mark_text(align="left", baseline="top", dx=6, dy=4, fontSize=11, color=text_colour, opacity=0.85).encode(
-            x="x:Q", y=alt.value(0), text="label:N")
+            x=span_x, y=alt.value(0), text="label:N")
         solid = base.transform_filter(alt.datum.segment == "solid").mark_line(strokeWidth=2.6).encode(x=x, y=y, color=colour, tooltip=tip)
         dotted = base.transform_filter(alt.datum.segment == "dotted").mark_line(strokeWidth=2.6, strokeDash=[2, 4]).encode(
             x=x, y=y, color=colour, tooltip=tip)
-        panels.append((shade + split + solid + dotted + note).properties(height=190, title=alt.TitleParams(panel, anchor="start", fontSize=13)))
-    return alt.vconcat(*panels, spacing=18).resolve_scale(color="shared", x="shared").properties(
-        title=alt.TitleParams(ILLUSTRATIVE_LABEL, subtitle="Bay Jimmy. Solid to 2018, dotted after 2018. Not observations.", anchor="start",
-                              fontSize=15, subtitleColor=text_colour))
+        chart = (shade + split + solid + dotted + note).properties(
+            height=360, autosize=alt.AutoSizeParams(type="fit", contains="padding"))
+        panels.append((panel, chart))
+    return panels
 
 
 # ---------------------------------------------------------------------------------------------------------------
 # Recovery view panels (recovery_view.Panel). Drawing only: marks follow the series kind, nothing is computed or extended here.
-#   field observation / one-cell observation -> filled point with a whisker (interval of the group mean) at its real time
-#   scenario / fitted reference               -> solid horizontal segment over the supported period, thin whisker at its right end
+#   point positions are exact dates or period midpoints; horizontal segments show the full period, never a cosmetic date offset
 #   fitted decline reference                  -> solid line with an interval band between the first and last campaign
 # There is no dotted line: no series here is a forward projection.
 
 X_DOMAIN = [2010.0, 2018.5]
-_AXIS_YEARS = [2010, 2012, 2014, 2016, 2018]
+_RECOVERY_SHAPES = {RV.FIELD: "circle", RV.SCENARIO: "square", RV.REFERENCE: "diamond", RV.OBSERVATION: "triangle-up"}
 
 
 def _fmt(v, lo, hi, digits=2) -> str:
@@ -146,30 +146,28 @@ def _fmt(v, lo, hi, digits=2) -> str:
     return base + (f" (90% {lo:.{digits}f} to {hi:.{digits}f})" if lo is not None and hi is not None else "")
 
 
-def panel_records(panel) -> dict:
-    """DataFrames behind one panel: period segments, whiskers, points, curve and band. Dodging is cosmetic (x only)."""
+def panel_records(panel: RV.Panel) -> dict[str, pd.DataFrame]:
+    """Plot records retain true survey dates, full period support and the identity of every interval."""
     segs, whisk, pts, curve = [], [], [], []
-    scen = [s for s in panel.series if s.kind in ("scenario", "reference")]
-    field_like = [s for s in panel.series if s.kind in ("field", "observation")]
-    for i, s in enumerate(scen):
+    for s in panel.series:
         for q in s.points:
-            segs.append({"series": s.label, "key": s.key, "x0": q.x0, "x1": q.x1, "value": q.value, "tip": f"{s.label} ({s.kind}): " + _fmt(q.value, q.lo, q.hi)})
+            row = {"series": s.label, "key": s.key, "kind": s.kind, "x0": q.x0, "x1": q.x1, "x": (q.x0 + q.x1) / 2,
+                   "value": q.value, "lo": q.lo, "hi": q.hi, "time": s.time_support, "interval": s.interval or "No interval available",
+                   "source": s.source, "estimate": _fmt(q.value, q.lo, q.hi), "basis": RV.KIND_TEXT[s.kind]}
+            if s.kind == RV.DECLINE:
+                curve.append(row)
+                continue
+            pts.append(row)
+            if q.x1 > q.x0:
+                segs.append(row)
             if q.lo is not None and q.hi is not None:
-                x = q.x1 - 0.12 - i * 0.1
-                whisk.append({"series": s.label, "key": s.key, "x": x, "lo": q.lo, "hi": q.hi, "tip": f"{s.label}: 90% " + _fmt(q.value, q.lo, q.hi)})
-    for i, s in enumerate(field_like):
-        off = (i - (len(field_like) - 1) / 2) * 0.09
-        for q in s.points:
-            pts.append({"series": s.label, "key": s.key, "x": (q.x0 + q.x1) / 2 + off, "value": q.value, "lo": q.lo, "hi": q.hi,
-                        "tip": f"{s.label} ({s.kind}): " + _fmt(q.value, q.lo, q.hi)})
-    for s in (s for s in panel.series if s.kind == "decline"):
-        for q in s.points:
-            curve.append({"series": s.label, "key": s.key, "x": q.x0, "value": q.value, "lo": q.lo, "hi": q.hi, "tip": f"{s.label}: " + _fmt(q.value, q.lo, q.hi, 1)})
+                whisk.append(row)
     return {k: pd.DataFrame(v) for k, v in (("segs", segs), ("whisk", whisk), ("pts", pts), ("curve", curve))}
 
 
-def recovery_panel_chart(panel, colours: dict, text_colour: str = "#F4F7FA", height: int = 230) -> alt.Chart | None:
-    """One panel on the shared year axis. Returns None when the panel has no series (the caller shows its note instead of empty axes)."""
+def recovery_panel_chart(panel: RV.Panel, colours: dict[str, str], text_colour: str = "#F4F7FA",
+                         height: int = 340, common_year_axis: bool = False) -> alt.LayerChart | None:
+    """Absolute values over supported time only. Axis padding is whitespace, never extrapolation."""
     if not panel.series:
         return None
     d = panel_records(panel)
@@ -177,32 +175,45 @@ def recovery_panel_chart(panel, colours: dict, text_colour: str = "#F4F7FA", hei
     colour = alt.Color("key:N", scale=alt.Scale(domain=keys, range=[colours[k] for k in keys]), legend=None)
     lows = [v for s in panel.series for q in s.points for v in (q.value, q.lo) if v is not None]
     highs = [v for s in panel.series for q in s.points for v in (q.value, q.hi) if v is not None]
-    lo, hi = min(lows + [0.0]), max(highs)
+    lo, hi = min(lows + [0.0]), max(highs + ([100.0] if panel.unit == "%" else []))
     pad = (hi - lo) * 0.06
-    xscale = alt.Scale(domain=X_DOMAIN, nice=False)
-    yscale = alt.Scale(domain=[lo - pad if lo < 0 else 0, hi + pad], nice=False)
-    xaxis = alt.Axis(format="d", values=_AXIS_YEARS, labelFontSize=12, titleFontSize=12)
-    xtitle = "Year" if panel.key == "pah_index" else None
-    ytitle = panel.unit if panel.unit != "index" else "Index (first campaign = 100)"
-    x = alt.X("x:Q", scale=xscale, title=xtitle, axis=xaxis)
+    first = min(q.x0 for s in panel.series for q in s.points)
+    last = max(q.x1 for s in panel.series for q in s.points)
+    time_pad = max(0.2, (last - first) * 0.05)
+    domain = X_DOMAIN if common_year_axis else [first - time_pad, last + time_pad]
+    years = list(range(math.ceil(domain[0]), math.floor(domain[1]) + 1))
+    ticks = years[::max(1, math.ceil(len(years) / 5))]
+    xscale = alt.Scale(domain=domain, nice=False, zero=False)
+    yscale = alt.Scale(domain=[lo - pad if lo < 0 else 0, hi + pad], nice=False, zero=False)
+    xaxis = alt.Axis(format="d", values=ticks, labelFontSize=12, titleFontSize=12, labelOverlap=True)
+    ytitle = panel.unit if panel.unit != "index" else "PAH index"
+    x = alt.X("x:Q", scale=xscale, title="Year", axis=xaxis)
     y = alt.Y("value:Q", scale=yscale, title=ytitle, axis=alt.Axis(labelFontSize=12, titleFontSize=12, titleLimit=420))
-    tip = [alt.Tooltip("tip:N", title=" ")]
+    tip = [alt.Tooltip("series:N", title="Series"), alt.Tooltip("basis:N", title="Evidence"),
+           alt.Tooltip("x0:Q", title="Time start (year)", format=".2f"), alt.Tooltip("x1:Q", title="Time end (year)", format=".2f"),
+           alt.Tooltip("estimate:N", title=f"Estimate ({panel.unit}; 90% interval)"),
+           alt.Tooltip("time:N", title="Time support"), alt.Tooltip("interval:N", title="Interval type"),
+           alt.Tooltip("source:N", title="Source")]
     layers = [alt.Chart(pd.DataFrame({"v": [0.0]})).mark_rule(color=text_colour, opacity=0.35, strokeWidth=1).encode(y=alt.Y("v:Q", scale=yscale))] if lo < 0 else []
     if not d["curve"].empty:
         c = alt.Chart(d["curve"])
         layers += [c.mark_area(opacity=0.22).encode(x=x, y=alt.Y("lo:Q", scale=yscale, title=ytitle), y2="hi:Q", color=colour),
-                   c.mark_line(strokeWidth=3).encode(x=x, y=y, color=colour, tooltip=tip)]
+                   c.mark_line(strokeWidth=3).encode(x=x, y=y, color=colour, tooltip=tip, order="x:Q")]
     if not d["segs"].empty:
         s = alt.Chart(d["segs"])
-        layers.append(s.mark_rule(strokeWidth=4).encode(x=alt.X("x0:Q", scale=xscale, axis=xaxis, title=xtitle), x2="x1:Q", y=y, color=colour, tooltip=tip))
+        layers.append(s.mark_rule(strokeWidth=3, opacity=0.65).encode(
+            x=alt.X("x0:Q", scale=xscale, axis=xaxis, title="Year"), x2="x1:Q", y=y, color=colour, tooltip=tip))
     if not d["whisk"].empty:
-        layers.append(alt.Chart(d["whisk"]).mark_rule(strokeWidth=1.4, opacity=0.5).encode(x=x, y=alt.Y("lo:Q", scale=yscale), y2="hi:Q", color=colour, tooltip=tip))
+        w = alt.Chart(d["whisk"])
+        layers.append(w.mark_rule(strokeWidth=1.8, opacity=0.75).encode(
+            x=x, y=alt.Y("lo:Q", scale=yscale, title=ytitle), y2="hi:Q", color=colour, tooltip=tip))
+        for bound in ("lo", "hi"):
+            layers.append(w.mark_tick(orient="horizontal", size=10, thickness=1.5).encode(
+                x=x, y=alt.Y(f"{bound}:Q", scale=yscale, title=ytitle), color=colour, tooltip=tip))
     if not d["pts"].empty:
         p = alt.Chart(d["pts"])
-        layers.append(p.mark_rule(strokeWidth=2).encode(x=x, y=alt.Y("lo:Q", scale=yscale), y2="hi:Q", color=colour))
-        layers.append(p.mark_point(filled=True, size=85, opacity=1, stroke=text_colour, strokeWidth=0.8).encode(x=x, y=y, color=colour, tooltip=tip))
-    if panel.key == "erosion":
-        layers.append(alt.Chart(pd.DataFrame({"x": [2018.0], "t": ["Supported horizon ends (2018)"]})).mark_rule(color=text_colour, opacity=0.5, strokeWidth=1).encode(x="x:Q"))
-        layers.append(alt.Chart(pd.DataFrame({"x": [2018.0], "t": ["Supported horizon ends"]})).mark_text(align="right", baseline="top", dx=-4, dy=2, fontSize=11, color=text_colour,
-                                                                                                         opacity=0.8).encode(x="x:Q", y=alt.value(0), text="t:N"))
-    return alt.layer(*layers).properties(height=height)
+        kinds = list(dict.fromkeys(d["pts"]["kind"]))
+        layers.append(p.mark_point(filled=True, size=95, opacity=1, stroke=text_colour, strokeWidth=0.8).encode(
+            x=x, y=y, color=colour, tooltip=tip,
+            shape=alt.Shape("kind:N", scale=alt.Scale(domain=kinds, range=[_RECOVERY_SHAPES[k] for k in kinds]), legend=None)))
+    return alt.layer(*layers).properties(height=height, autosize=alt.AutoSizeParams(type="fit", contains="padding"))

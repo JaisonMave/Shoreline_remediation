@@ -4,10 +4,12 @@ An evidence-led prototype for screening oil-spill shoreline response options. It
 
 ## Start here
 
-**V5.1 (in progress, 15 Nov 2026):** stabilisation and dashboard release. Read [`docs/V5_1_HANDOFF.md`](docs/V5_1_HANDOFF.md)
-first, then [`docs/V5_1_VALIDATION.md`](docs/V5_1_VALIDATION.md) (what the validation figures mean) and
-[`docs/V5_1_IMPLEMENTATION.md`](docs/V5_1_IMPLEMENTATION.md). Session 1 (architecture and governance) is implemented and
-tested; the premium dashboard (Sessions 2 and 3) is planned.
+**Current dashboard (17 Nov 2026, branch `model_v5_1`):** map-first assessment with evidence-backed recovery panels. Start with
+[`docs/V5_4_RECOVERY_VIEW.md`](docs/V5_4_RECOVERY_VIEW.md) (recovery-plot fixes, reading the charts and scientific limits) and
+[`docs/V5_4_PLOT_FIRST_HANDOFF.md`](docs/V5_4_PLOT_FIRST_HANDOFF.md) (assessment and treatment comparisons).
+The recovery plots default to their evidence's dates, with an optional common year axis; synthetic demonstration curves remain separate and labelled, never forecasts.
+For architecture/governance history see [`docs/V5_1_HANDOFF.md`](docs/V5_1_HANDOFF.md); for interpretation of validation results see
+[`docs/V5_1_VALIDATION.md`](docs/V5_1_VALIDATION.md).
 
 Latest (V5, 14 Nov 2026, branch `model_v4`): [`docs/FINDINGS_V5.md`](docs/FINDINGS_V5.md) (plain summary at the top; four gated tests, three failed or experimental) and [`docs/HANDOFF.md`](docs/HANDOFF.md) (how to restore the work and what to do next).
 

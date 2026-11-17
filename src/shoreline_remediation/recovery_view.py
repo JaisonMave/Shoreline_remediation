@@ -180,7 +180,7 @@ def erosion_panel(site: dict, heavy: bool, statuses: dict, deployed: dict | None
                     continue
                 m, se = float(v.mean()), float(v.std(ddof=1) / math.sqrt(len(v)))
                 lo, hi = _t90(m, se, len(v), floor0=False)
-                pts.append(Point((x0 + x1) / 2, (x0 + x1) / 2, m, lo, hi))
+                pts.append(Point(x0, x1, m, lo, hi))
             if pts:
                 p.series.append(Series("erosion", key, LABELS[key] + " (field plots)", FIELD, "marsh-edge erosion rate", "m/yr", tuple(pts),
                                        "Plotted at the middle of each period; each value is the period's mean rate", COMPARATORS[key],

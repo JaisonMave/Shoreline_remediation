@@ -3,6 +3,7 @@ view is not scientific validation of the composer. Run from the repository root:
 """
 import math
 import sys
+from dataclasses import replace
 from pathlib import Path
 
 import pytest
@@ -85,7 +86,7 @@ def test_field_erosion_points_equal_plot_level_means_and_differ_in_kind_from_the
     s = get(view, "erosion", RV.UNTREATED, RV.FIELD)
     w = RV._erosion_plot_table()
     assert s.points[0].value == pytest.approx(w[w.group == "none"]["2010-2012"].mean())
-    assert s.points[0].x0 == 2011.0 and s.points[1].x0 == 2015.0
+    assert [(p.x0, p.x1) for p in s.points] == [(2010.0, 2012.0), (2012.0, 2018.0)]
     scenario = get(view, "erosion", RV.UNTREATED, RV.SCENARIO)
     assert s.kind != scenario.kind and "Experimental" in scenario.evidence and "Field observation" in s.evidence
 
@@ -134,6 +135,55 @@ def test_charts_serialise_and_use_no_dotted_lines(view):
         assert spec["layer"] and "strokeDash" not in str(spec)          # nothing here is a forward projection
 
 
+def test_synthetic_panels_have_one_consistent_nonzero_year_scale():
+    charts = ui_plots.illustrative_recovery_charts()
+    assert len(charts) == 3
+    for _, chart in charts:
+        spec = chart.to_dict()
+        assert "vconcat" not in spec
+        assert spec["autosize"] == {"contains": "padding", "type": "fit"}
+        for layer in spec["layer"]:
+            x = layer["encoding"].get("x")
+            if x:
+                assert x["scale"] == {"domain": [2010, 2030], "nice": False, "zero": False}
+
+
+def test_recovery_points_keep_the_true_survey_year_and_period_support(view):
+    p = ui_plots.panel_records(view.panel("vegetation"))["pts"]
+    assert set(p.x) == {2011.0, 2012.0}
+    erosion = ui_plots.panel_records(view.panel("erosion"))
+    observed = erosion["pts"].query("key == 'observed_cell'").iloc[0]
+    assert observed.x == 2012.5
+    assert observed.x0 == 2010 and observed.x1 == 2015
+    assert "2010" in observed.time and "2015" in observed.time
+    field = erosion["segs"].query("kind == 'field'")
+    assert set(zip(field.x0, field.x1)) == {(2010.0, 2012.0), (2012.0, 2018.0)}
+    assert "group mean" in p.iloc[0].interval
+
+
+def test_evidence_specific_axis_can_be_switched_to_common_years(view):
+    panel = view.panel("vegetation")
+    for common in (False, True):
+        spec = ui_plots.recovery_panel_chart(panel, RV.COLOURS, common_year_axis=common).to_dict()
+        for layer in spec["layer"]:
+            x = layer["encoding"].get("x")
+            if x:
+                scale = x["scale"]
+                assert scale["zero"] is False
+                assert scale["domain"] == (ui_plots.X_DOMAIN if common else [2010.8, 2012.2])
+
+
+def test_scenario_whiskers_keep_full_uncertainty_at_the_period_midpoint(view):
+    series = get(view, "erosion", RV.MANUAL, RV.SCENARIO)
+    panel = replace(view.panel("erosion"), series=[series])
+    d = ui_plots.panel_records(panel)
+    assert list(d["whisk"].x) == [2011.0, 2015.0]
+    assert list(d["whisk"].lo) == [p.lo for p in series.points]
+    assert list(d["whisk"].hi) == [p.hi for p in series.points]
+    assert set(d["pts"].kind) == {RV.SCENARIO}
+    assert "absolute rate" in d["pts"].iloc[0].interval
+
+
 def test_recovery_module_uses_no_synthetic_values():
     src = Path(RV.__file__).read_text(encoding="utf-8").split('"""', 2)[2]
     assert "illustrative_recovery_data" not in src and "_SHAPES_SYNTHETIC" not in src and "ui_plots" not in src
@@ -161,10 +211,27 @@ def test_bay_jimmy_assessment_shows_the_collapsed_recovery_view_with_all_heading
     for heading in ("Marsh-edge erosion rate (m/yr)", "Total vegetation cover (%)", "Soil PAH, concentration (field plots)",
                     "Soil PAH sum, decline reference (index)"):
         assert heading in md
-    assert len(section.get("arrow_vega_lite_chart")) + len(section.get("vega_lite_chart")) == 4
+    assert len(section.get("arrow_vega_lite_chart")) + len(section.get("vega_lite_chart")) == 6
+    assert [t.label for t in section.tabs] == ["Field observations", "Experimental scenarios", "This cell"]
+    assert not at.toggle(key="marsh_recovery_common_axis").value
     assert any("bias gates failed" in w.value for w in section.warning)
     synthetic = next(e for e in at.expander if e.label == "Synthetic demonstration curves (not data)")
     assert synthetic.proto.expanded is False
+    assert len(synthetic.get("arrow_vega_lite_chart")) + len(synthetic.get("vega_lite_chart")) == 3
+
+
+def test_recovery_controls_change_only_the_chart_selection_and_axes():
+    at = run()
+    before = [m.value for m in at.markdown if "sr-opttable" in m.value or "sr-find" in m.value]
+    at.selectbox(key="marsh_recovery_scenario").set_value(RV.MANUAL)
+    at.toggle(key="marsh_recovery_common_axis").set_value(True).run()
+    assert not at.exception, at.exception
+    after = [m.value for m in at.markdown if "sr-opttable" in m.value or "sr-find" in m.value]
+    assert before == after
+    section = next(e for e in at.expander if e.label == "Recovery view: erosion, vegetation and soil PAH")
+    scenarios = next(t for t in section.tabs if t.label == "Experimental scenarios")
+    assert any("Manual removal" in m.value for m in scenarios.markdown)
+    assert not any("Mechanical removal" in m.value for m in scenarios.markdown)
 
 
 @pytest.mark.parametrize("kind", ["marsh", "esi_1A"])

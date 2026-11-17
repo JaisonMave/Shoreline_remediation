@@ -1,6 +1,6 @@
 # Changelog
 
-All changes on branch `model_v4` (earlier entries were made on `process-model-audit`) relative to `main` (commit 4b0c118). Newest first.
+Current dashboard changes are on `model_v5_1`; historical entries were made on `model_v4` or `process-model-audit` relative to `main` (commit 4b0c118). Newest first.
 Each entry gives what changed, why, where it lives, the result, and its status. Statuses follow
 `docs/ROADMAP.md`: Completed means validated and documented, not just coded. Decisions are numbered as in
 the decision register in `docs/ROADMAP.md`.
@@ -11,6 +11,16 @@ Computer (no account needed).
 
 ---
 
+
+## 2026-11-17: Recovery plot rendering and evidence-preserving layout corrections
+
+- **Fixed disappearing synthetic curves:** all time-bearing layers now share an explicit 2010-2030 scale with `zero=False`. The projection overlays previously admitted year zero, compressing twenty years into about 1% of the plot width.
+- **Fixed clipping:** replaced the synthetic vertical concatenation with three independently responsive layered charts using fit-with-padding sizing. Short unit axes and wrapping-safe one-column legends retain the existing dark theme and series colours.
+- **Changed recovery layout:** erosion has separate Field observations, Experimental scenarios and This cell tabs. The experimental selector shows one treatment at a time without reducing its uncertainty. Treatment-minus-untreated contrasts remain in the existing comparison above.
+- **Changed time and mark encoding:** evidence-specific year ranges by default, optional common 2010-2018 axis; no cosmetic date shifts; field erosion retains its full averaging periods. Period segments and midpoint markers, capped full intervals, distinct evidence shapes, panel-specific legends, larger charts and source/time/interval tooltips replace the crowded overlay.
+- **Unchanged:** all outcome estimates, interval limits, synthetic formulas, models, registry states, screening decisions, recommendations, report download, data and results. No smoothing, extrapolation or new treatment-response model was introduced. Failed composer gates and sparse-data limits remain visible.
+- **Verification:** 97 passed, 0 failed in `tests/test_recovery_view.py tests/test_comparison.py tests/test_v54_results.py tests/test_decision_board.py`; 20 recovery tests include five new regressions/control checks. Python syntax checks clean. Chromium at 1440x1000 and 390x844: correct synthetic year domains, visible curves, no chart or page horizontal overflow; erosion tabs, manual-scenario selection and common-axis toggle checked. Full suite not rerun; these are software checks, not scientific validation.
+- **Documentation:** updated `docs/V5_4_RECOVERY_VIEW.md` (current handoff, root causes, verification and evidence requirements), pointers in the historical handoffs, and README start-here guidance. Branch `model_v5_1`, base `7f46f38`.
 
 ## 2026-11-17: V5.4 plot-first assessment and treatment comparison (implemented, tested, seen running)
 

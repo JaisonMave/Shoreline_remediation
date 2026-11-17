@@ -13,7 +13,7 @@ come from the site-table row that site_view passes in. Streamlit-free helpers (`
 """
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from html import escape
 
 import pandas as pd
@@ -357,12 +357,15 @@ def _options_table(rows: list, comp: K.Comparison | None) -> None:
 # Recovery view (model and field values; recovery_view.py builds the data, ui_plots draws it)
 
 RECOVERY_TITLE = "Recovery view: erosion, vegetation and soil PAH"
-RECOVERY_INTRO = ("Absolute values on each panel's own axis; panels share the year axis and each series stops where its evidence stops. "
-                  "These are not forecasts and do not change the screening statuses above. Mechanical removal and planting are historical "
-                  "Bay Jimmy treatments shown to compare trajectories, not recommendations.")
-MARK_KEY = ("Filled point with whisker: field observation (interval of the group mean). Solid horizontal segment: experimental scenario or "
-            "fitted reference over its supported period, thin whisker = 90% simulation or model interval. Solid line with band: fitted decline "
-            "reference. There are no dotted lines: nothing here is a projection beyond the evidence.")
+RECOVERY_INTRO = ("Absolute values, not forecasts. Each chart uses its evidence's time range by default; no series extends beyond its "
+                  "support. Historical mechanical removal and planting are shown as evidence, not recommendations.")
+RECOVERY_MARKS = {
+    "field": "Circles: field group means; capped whiskers: 90% t intervals of the means.",
+    "scenario": "Squares: experimental period averages; capped whiskers: full 90% simulation intervals of absolute rates, not treatment differences.",
+    "reference": "Diamonds: deployed-model period average; capped whisker: 90% one-cell interval, not independently validated.",
+    "observation": "Triangles: observed cell-period average, not a survey on the midpoint date.",
+    "decline": "Line: fitted class decline, not treatment-specific; band: 90% interval of the decline rate, not a station prediction interval.",
+}
 
 
 def option_statuses(report) -> dict:
@@ -380,9 +383,9 @@ def recovery_view_for(report, rec: dict, site_row: dict | None):
     return RV.build(site_row, report, option_statuses(report), deployed_reference(report))
 
 
-def _legend_html(view) -> str:
+def _legend_html(panel) -> str:
     from src.shoreline_remediation import recovery_view as RV
-    seen = list(dict.fromkeys(s.key for s in view.all_series()))
+    seen = list(dict.fromkeys(s.key for s in panel.series))
     chips = "".join(f'<span class="sr-leg-item"><i style="background:{RV.COLOURS[k]}"></i>{escape(RV.LABELS[k])}</span>' for k in seen)
     return f'<div class="sr-map-legend"><div class="sr-leg-row">{chips}</div></div>'
 
@@ -399,6 +402,19 @@ def _series_frame(view) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
+def _draw_recovery_panel(panel, common_year_axis: bool) -> None:
+    from src.shoreline_remediation import recovery_view as RV
+    chart = ui_plots.recovery_panel_chart(panel, RV.COLOURS, C.text_colour(), common_year_axis=common_year_axis)
+    if chart is None:
+        st.caption(panel.unavailable or "No series is supported for this panel.")
+        return
+    st.markdown(_legend_html(panel), unsafe_allow_html=True)
+    st.caption(" ".join(RECOVERY_MARKS[k] for k in dict.fromkeys(s.kind for s in panel.series)))
+    st.altair_chart(chart, theme="streamlit", width="stretch")
+    if any(s.is_period for s in panel.series):
+        st.caption("Horizontal segments show the full averaging period; markers and whiskers sit at its midpoint, not a measurement date.")
+
+
 def _recovery_section(report, rec: dict, site_row: dict | None, key: str) -> None:
     view = recovery_view_for(report, rec, site_row)
     if view is None:
@@ -406,28 +422,40 @@ def _recovery_section(report, rec: dict, site_row: dict | None, key: str) -> Non
     from src.shoreline_remediation import recovery_view as RV
     with st.expander(RECOVERY_TITLE, expanded=False, icon=":material/show_chart:"):
         st.caption(RECOVERY_INTRO)
-        st.markdown(_legend_html(view), unsafe_allow_html=True)
-        st.caption(MARK_KEY)
-        if view.statuses:
-            names = [(o, v) for o, v in view.statuses.items() if o in RV.OPTION_OF.values()]
-            st.caption("Current screening of these treatments (the decision pipeline's own categories): "
-                       + "; ".join(f"{E.plain_name(o)}: {v}" for o, v in names) + ".")
-        dark = C.is_dark()
-        heights = {"erosion": 260, "vegetation": 210, "pah": 210, "pah_index": 190}
+        common = st.toggle("Use common year axis (2010 to 2018)", key=f"{key}_recovery_common_axis",
+                           help="Align all recovery charts in time. Off: zoom to each chart's supported dates. This changes axes only.")
         for panel in view.panels:
             heading = {"pah": "Soil PAH, concentration (field plots)", "pah_index": "Soil PAH sum, decline reference (index)"}.get(panel.key, f"{panel.title} ({panel.unit})")
             st.markdown(f"**{escape(heading)}**")
-            chart = ui_plots.recovery_panel_chart(panel, RV.COLOURS, C.text_colour(), heights.get(panel.key, 220))
-            if chart is None:
-                st.caption(panel.unavailable or "No series is supported for this panel.")
-                continue
             if panel.key == "erosion":
-                st.warning(RV.COMPOSER_GATE, icon=":material/warning:")
-            st.altair_chart(chart, theme="streamlit", width="stretch")
-            st.caption(panel.note)
+                field, scenarios, cell = st.tabs(["Field observations", "Experimental scenarios", "This cell"])
+                with field:
+                    _draw_recovery_panel(replace(panel, series=[s for s in panel.series if s.kind == RV.FIELD],
+                                                 unavailable="Field erosion comparisons are available for heavily oiled Bay Jimmy plots only."), common)
+                with scenarios:
+                    st.warning(RV.COMPOSER_GATE, icon=":material/warning:")
+                    available = [s for s in panel.series if s.kind == RV.SCENARIO]
+                    if available:
+                        names = {s.key: s.label for s in available}
+                        selected = st.selectbox("Experimental treatment series", options=list(names), format_func=names.__getitem__,
+                                                key=f"{key}_recovery_scenario")
+                        _draw_recovery_panel(replace(panel, series=[s for s in available if s.key == selected]), common)
+                    st.caption("One series at a time keeps the full uncertainty readable. Treatment-minus-untreated contrasts are in the comparison above; "
+                               "overlapping absolute intervals do not test treatment differences.")
+                with cell:
+                    _draw_recovery_panel(replace(panel, series=[s for s in panel.series if s.kind in (RV.REFERENCE, RV.OBSERVATION)],
+                                                 unavailable="No deployed reference or observed rate is available for this cell."), common)
+                    st.caption("The deployed model has no oiling term: it is not the untreated oiled scenario. Both values average 2010 to 2015.")
+            else:
+                _draw_recovery_panel(panel, common)
+            if panel.series:
+                st.caption(panel.note)
         for n in view.notes[1:]:
             st.caption(n)
         with st.expander("Series sources, scope and evidence status"):
+            if view.statuses:
+                names = [(o, v) for o, v in view.statuses.items() if o in RV.OPTION_OF.values()]
+                st.caption("Current screening (unchanged): " + "; ".join(f"{E.plain_name(o)}: {v}" for o, v in names) + ".")
             st.dataframe(_series_frame(view), hide_index=True, width="stretch")
         with st.expander("Missing series and the evidence needed to add them"):
             for panel in view.panels:
@@ -469,8 +497,10 @@ def render_results(report, rec: dict, ctx: dict, site_row: dict | None = None) -
     _recovery_section(report, rec, site_row, key)
     if (rec.get("crumb") or {}).get("cell") == BAY_JIMMY_CELL:        # Bay Jimmy only; synthetic, separate from every result above
         with st.expander("Synthetic demonstration curves (not data)", expanded=False, icon=":material/science:"):
-            st.warning(ui_plots.ILLUSTRATIVE_LABEL + ". " + ui_plots.ILLUSTRATIVE_NOTE + " The recovery view above is the model-backed figure; this one only shows a layout.", icon=":material/science:")
-            st.altair_chart(ui_plots.illustrative_recovery_chart(C.text_colour()), theme="streamlit", width="stretch")
+            st.warning(ui_plots.ILLUSTRATIVE_LABEL + ". " + ui_plots.ILLUSTRATIVE_NOTE + " The recovery view above is evidence-backed; this one only shows a layout.", icon=":material/science:")
+            for title, chart in ui_plots.illustrative_recovery_charts(C.text_colour()):
+                st.markdown(f"**{title}**")
+                st.altair_chart(chart, theme="streamlit", width="stretch")
 
 
 # ---------------------------------------------------------------------------------------------------------------
