@@ -353,6 +353,89 @@ def _options_table(rows: list, comp: K.Comparison | None) -> None:
         body.append(f"<tr>{cells}</tr>")
     st.markdown(f'<table class="sr-opttable"><thead><tr>{head}</tr></thead><tbody>{"".join(body)}</tbody></table>', unsafe_allow_html=True)
 
+# ---------------------------------------------------------------------------------------------------------------
+# Recovery view (model and field values; recovery_view.py builds the data, ui_plots draws it)
+
+RECOVERY_TITLE = "Recovery view: erosion, vegetation and soil PAH"
+RECOVERY_INTRO = ("Absolute values on each panel's own axis; panels share the year axis and each series stops where its evidence stops. "
+                  "These are not forecasts and do not change the screening statuses above. Mechanical removal and planting are historical "
+                  "Bay Jimmy treatments shown to compare trajectories, not recommendations.")
+MARK_KEY = ("Filled point with whisker: field observation (interval of the group mean). Solid horizontal segment: experimental scenario or "
+            "fitted reference over its supported period, thin whisker = 90% simulation or model interval. Solid line with band: fitted decline "
+            "reference. There are no dotted lines: nothing here is a projection beyond the evidence.")
+
+
+def option_statuses(report) -> dict:
+    """{option code: screening category label} read from the report's own rows."""
+    return {str(r.get("option")): str(r.get("recommendation_category_label") or r.get("recommendation_category") or "")
+            for r in (E.field(report, "options", []) or []) if isinstance(r, dict)}
+
+
+def recovery_view_for(report, rec: dict, site_row: dict | None):
+    """The recovery view of the run, or None. Only a run of an in-scope mapped marsh cell gets one: a typed site, a habitat-level run and
+    every other habitat have no site record, and the Bay Jimmy series are not shown as if they applied to them."""
+    from src.shoreline_remediation import recovery_view as RV
+    if rec.get("habitat") != "marsh" or report is None or not site_row:
+        return None
+    return RV.build(site_row, report, option_statuses(report), deployed_reference(report))
+
+
+def _legend_html(view) -> str:
+    from src.shoreline_remediation import recovery_view as RV
+    seen = list(dict.fromkeys(s.key for s in view.all_series()))
+    chips = "".join(f'<span class="sr-leg-item"><i style="background:{RV.COLOURS[k]}"></i>{escape(RV.LABELS[k])}</span>' for k in seen)
+    return f'<div class="sr-map-legend"><div class="sr-leg-row">{chips}</div></div>'
+
+
+def _series_frame(view) -> pd.DataFrame:
+    from src.shoreline_remediation import recovery_view as RV
+    rows = []
+    for p in view.panels:
+        for s in p.series:
+            rows.append({"Panel": p.title, "Series": s.label, "Type": RV.KIND_TEXT[s.kind],
+                         "Outcome and unit": f"{s.outcome}, {s.unit}", "Time support": s.time_support,
+                         "Comparator or identity": s.comparator, "Interval": s.interval or "none drawn", "Source": s.source,
+                         "Evidence status": s.evidence, "Scope": s.scope, "Current screening": s.screening or "not applicable"})
+    return pd.DataFrame(rows)
+
+
+def _recovery_section(report, rec: dict, site_row: dict | None, key: str) -> None:
+    view = recovery_view_for(report, rec, site_row)
+    if view is None:
+        return
+    from src.shoreline_remediation import recovery_view as RV
+    with st.expander(RECOVERY_TITLE, expanded=False, icon=":material/show_chart:"):
+        st.caption(RECOVERY_INTRO)
+        st.markdown(_legend_html(view), unsafe_allow_html=True)
+        st.caption(MARK_KEY)
+        if view.statuses:
+            names = [(o, v) for o, v in view.statuses.items() if o in RV.OPTION_OF.values()]
+            st.caption("Current screening of these treatments (the decision pipeline's own categories): "
+                       + "; ".join(f"{E.plain_name(o)}: {v}" for o, v in names) + ".")
+        dark = C.is_dark()
+        heights = {"erosion": 260, "vegetation": 210, "pah": 210, "pah_index": 190}
+        for panel in view.panels:
+            heading = {"pah": "Soil PAH, concentration (field plots)", "pah_index": "Soil PAH sum, decline reference (index)"}.get(panel.key, f"{panel.title} ({panel.unit})")
+            st.markdown(f"**{escape(heading)}**")
+            chart = ui_plots.recovery_panel_chart(panel, RV.COLOURS, C.text_colour(), heights.get(panel.key, 220))
+            if chart is None:
+                st.caption(panel.unavailable or "No series is supported for this panel.")
+                continue
+            if panel.key == "erosion":
+                st.warning(RV.COMPOSER_GATE, icon=":material/warning:")
+            st.altair_chart(chart, theme="streamlit", width="stretch")
+            st.caption(panel.note)
+        for n in view.notes[1:]:
+            st.caption(n)
+        with st.expander("Series sources, scope and evidence status"):
+            st.dataframe(_series_frame(view), hide_index=True, width="stretch")
+        with st.expander("Missing series and the evidence needed to add them"):
+            for panel in view.panels:
+                for name, need in panel.missing:
+                    st.markdown(f"- **{panel.title}, {name}:** {need}.")
+            st.markdown("- **Soil PAH, treatment-specific decline:** the decline model has no treatment variable; the tPAH field points cover two survey years only.")
+
+
 
 def render_results(report, rec: dict, ctx: dict, site_row: dict | None = None) -> None:
     """Draw the results view for `report` (a DecisionReport) of the run record `rec`. `ctx` = {"key", "habitat", "esi"}.
@@ -383,9 +466,10 @@ def render_results(report, rec: dict, ctx: dict, site_row: dict | None = None) -
     st.caption("Screening status is the decision pipeline's category. It is separate from any performance order: a large estimate "
                "does not change a status."
                + (" Treatment options have no comparable effect estimate for this shoreline type." if primary or comp is None else ""))
+    _recovery_section(report, rec, site_row, key)
     if (rec.get("crumb") or {}).get("cell") == BAY_JIMMY_CELL:        # Bay Jimmy only; synthetic, separate from every result above
-        with st.expander("Illustrative recovery curves", expanded=False, icon=":material/show_chart:"):
-            st.warning(ui_plots.ILLUSTRATIVE_LABEL + ". " + ui_plots.ILLUSTRATIVE_NOTE, icon=":material/science:")
+        with st.expander("Synthetic demonstration curves (not data)", expanded=False, icon=":material/science:"):
+            st.warning(ui_plots.ILLUSTRATIVE_LABEL + ". " + ui_plots.ILLUSTRATIVE_NOTE + " The recovery view above is the model-backed figure; this one only shows a layout.", icon=":material/science:")
             st.altair_chart(ui_plots.illustrative_recovery_chart(C.text_colour()), theme="streamlit", width="stretch")
 
 
