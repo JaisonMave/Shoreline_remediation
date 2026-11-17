@@ -34,7 +34,26 @@ def _svg_bars(rows: list, title: str) -> str:
     return "".join(out)
 
 
-def build_html(view, title: str = "Shoreline Remediation Decision Support", habitat: str = "marsh") -> str:
+def _comparison_html(comparisons) -> str:
+    """Field comparisons with natural recovery, from the same comparison.table_records() the dashboard draws. Text only."""
+    from . import comparison as K
+    blocks = []
+    for comp in comparisons or []:
+        if not comp.applicable or not any(r.est.has_value for r in comp.rows):
+            continue
+        cols = ("Method", "Outcome", "Time", "Comparator", "Estimate", "Evidence basis", "Screening status", "In the order", "Why not ranked")
+        body = "".join("<tr>" + "".join(f"<td>{escape(str(rec[c]))}</td>" for c in cols) + "</tr>" for rec in K.table_records(comp))
+        blocks.append(f"<h3>{escape(comp.title)}</h3><p>{escape(K.finding(comp))} {escape(K.design_limit(comp))}</p>"
+                      f"<table><thead><tr>{''.join(f'<th>{c}</th>' for c in cols)}</tr></thead><tbody>{body}</tbody></table>"
+                      f"<p class=\"sr-muted\">{escape(K.source_caption(comp))} {escape(comp.order_note)}</p>")
+    if not blocks:
+        return ""
+    return ("<h2>Field comparisons with untreated oiled plots</h2><p>Screening status and the performance order are separate: a large "
+            "estimate does not change a status. Excluded methods are listed with their historical value and are never ranked. "
+            "No model estimate is admitted to the order.</p>" + "".join(blocks))
+
+
+def build_html(view, title: str = "Shoreline Remediation Decision Support", habitat: str = "marsh", comparisons=None) -> str:
     rows = []
     for o in view.options:
         nums = "; ".join(f"{x.label}, year {x.year}: {E.fmt_interval(x.median, x.lo, x.hi, 2)}" for x in o.decision_outcomes())
@@ -65,7 +84,8 @@ table{{border-collapse:collapse;width:100%;font-size:.9rem}}th,td{{border-bottom
 {outcome}{abstain}
 <h2>Options</h2><table><thead><tr><th>Class</th><th>Category</th><th>Option</th><th>Evidence</th><th>Verdict</th><th>Numbers</th><th>Source</th></tr></thead>
 <tbody>{''.join(rows)}</tbody></table>
-<h2>Compared with natural recovery</h2>{charts or '<p>No option has a numerical forecast for this input.</p>'}
+{_comparison_html(comparisons)}
+<h2>Scenario-composer differences from natural recovery (experimental)</h2>{charts or '<p>No option has a numerical forecast for this input.</p>'}
 <p class="sr-muted">{escape(T.LABELS['interval_note'])}</p>
 <h2>Scope and limits</h2><ul>{limits}</ul><h2>Evidence grades</h2>{legend}
 </body></html>"""

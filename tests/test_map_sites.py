@@ -94,13 +94,14 @@ def test_unselectable_rows_change_nothing(monkeypatch):
     assert dict(st.session_state) == {}
 
 
-def test_home_renders_map_and_existing_cards():
+def test_home_renders_map_and_the_bay_jimmy_shortcut():
     at = AppTest.from_file(APP, default_timeout=300)
     at.run()
     assert not at.exception, at.exception
     assert at.get("deck_gl_json_chart"), "map widget missing on Home"
     assert at.selectbox(key="map_basin").value == "barataria"
-    assert any("Open the Bay Jimmy assessment" in b.label for b in at.button)
+    assert any(b.key == "home_use_bay_jimmy" for b in at.button)                      # the featured cards are gone; the panel shortcut remains
+    assert not any(str(b.label).startswith("Open the ") for b in at.button)
     assert any(b.key == "home_run" and b.label == "Run assessment" for b in at.button)   # V5.4: the scenario panel replaced the hero
 
 

@@ -51,7 +51,7 @@ def test_every_habitat_loads(habitat):
     assert not at.exception, at.exception
     txt = all_text(at)
     assert "Decision confidence" not in txt and "ML-ranked" not in txt
-    assert "Scope: " in txt
+    assert any(e.label == "Methods and sources" for e in at.expander)
     assert "being integrated" not in txt
 
 

@@ -26,6 +26,7 @@ def _csv(tmp_path, rows):
     p = tmp_path / "s.csv"
     pd.DataFrame(rows).to_csv(p, index=False)
     return str(p)
+from tests._nav import open_habitat  # noqa: E402
 
 
 def test_scatter_reader_uses_only_lobo_pred_and_skips_nulls(tmp_path):
@@ -108,7 +109,7 @@ def test_referenced_model_only_for_linkable_models():
 def _open(key):
     at = AppTest.from_file(APP, default_timeout=300)
     at.run()
-    at.button(key=f"sr_open_site_{key}").click().run()
+    open_habitat(at, f"{key}")
     assert not at.exception, at.exception
     return at
 

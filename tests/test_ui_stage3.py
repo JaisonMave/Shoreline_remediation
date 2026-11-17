@@ -84,20 +84,25 @@ def landing():
 # ---------------------------------------------------------------------------------------------------------------
 # Landing page
 
-def test_landing_renders_title_and_section_headers(landing):
+def test_landing_renders_title_coverage_line_and_one_coverage_section(landing):
+    from src.shoreline_remediation import ui_landing
     md = all_md(landing)
     assert not landing.exception
     assert "Shoreline Remediation" in md and "Site and spill scenario" in md
+    assert ui_landing.COVERAGE_LINE in md
+    assert [e.label for e in landing.expander].count(ui_landing.COVERAGE_TITLE) == 1
     for header in ("Featured locations", "Explore habitats"):
-        assert header in md, header
+        assert header not in md, header
 
 
-def test_step_cards_cover_recovery_evidence_and_limitations(landing):
+def test_coverage_section_lists_every_habitat_with_its_tier(landing):
+    from src.shoreline_remediation import ui_landing
+    rows = ui_landing.coverage_rows()
+    assert len(rows) == len(SV.habitat_coverage())
+    assert {r["Coverage"] for r in rows} <= set(TIER_LABELS.values())
+    assert any(r["Shoreline type"] == "Other shoreline types" for r in rows)       # unsupported habitats are named
     md = all_md(landing).lower()
-    for title in ("explore and select", "configure scenario", "get recommendation", "review evidence and models"):
-        assert title in md, title
-    for term in ("natural recovery", "evidence", "limitation"):
-        assert term in md, term
+    assert "explore and select" not in md and "get recommendation" not in md      # the setup step cards are gone
 
 
 def test_home_run_action_opens_the_site_page():
@@ -118,30 +123,24 @@ def test_segmented_control_reaches_each_page(page):
     assert at.segmented_control(key="page").value == page
 
 
-@pytest.mark.parametrize("habitat_key", ["marsh", "mangrove", "beach_fine"])
-def test_featured_card_opens_the_site_page_at_its_habitat(habitat_key):
-    at = new_app()
-    at.button(key=f"sr_open_site_{habitat_key}").click().run()
-    assert not at.exception, at.exception
-    assert at.segmented_control(key="page").value == "site"
-    assert at.segmented_control(key="site_habitat").value == habitat_key
+
 
 
 @pytest.mark.parametrize("habitat_key", OPENABLE_HABITATS)
-def test_habitat_card_opens_the_site_page_at_its_habitat(habitat_key):
+def test_panel_run_opens_the_site_page_at_its_habitat(habitat_key):
     at = new_app()
-    at.button(key=f"sr_open_site_hab_{habitat_key.lower()}").click().run()
+    at.selectbox(key="home_habitat").set_value(habitat_key).run()
+    at.button(key="home_run").click().run()
     assert not at.exception, at.exception
     assert at.segmented_control(key="page").value == "site"
     assert at.segmented_control(key="site_habitat").value == habitat_key
 
 
-def test_unsupported_card_has_no_button_and_rocky_cards_have_one(landing):
+def test_map_page_has_no_open_card_buttons_and_offers_every_openable_habitat(landing):
     keys = [b.key or "" for b in landing.button]
-    assert any(k == "sr_open_site_hab_marsh" for k in keys)      # the check below is not vacuous
-    assert not any("unsupported" in k for k in keys)
-    for marker in ("esi_1a", "esi_8a"):                          # opened in Stage 4
-        assert any(marker in k for k in keys), marker
+    assert not any(k.startswith("sr_open_site") for k in keys)
+    options = landing.selectbox(key="home_habitat").options
+    assert len(options) == len(OPENABLE_HABITATS) and not any("unsupported" in str(o).lower() for o in options)
 
 
 def test_landing_has_no_home_button(landing):
@@ -298,10 +297,9 @@ def test_only_the_marsh_entry_carries_a_validated_chip():
             assert card.site_id == "marsh", card.site_id
 
 
-def test_landing_lists_all_four_coverage_tier_labels(landing):
-    md = all_md(landing)
-    for label in TIER_LABELS.values():
-        assert label in md, label
+def test_coverage_section_uses_all_four_coverage_tier_labels():
+    from src.shoreline_remediation import ui_landing
+    assert {r["Coverage"] for r in ui_landing.coverage_rows()} == set(TIER_LABELS.values())
 
 
 # ---------------------------------------------------------------------------------------------------------------
@@ -343,11 +341,9 @@ def test_rocky_and_unsupported_summaries_have_no_figures_beyond_the_esi_code():
     assert checked >= 2
 
 
-def test_landing_figures_match_the_repository_and_no_percentages_appear(landing):
+def test_landing_shows_no_outcome_number_or_percentage_before_a_selection(landing):
     md = all_md(landing)
-    row = load_sites()
-    obs = row[row.cell == SV.EXAMPLE_CELL].iloc[0].observed_rate
-    assert f"{obs:.2f} m/yr" in md
+    assert "m/yr" not in md
     assert "%" not in md
 
 

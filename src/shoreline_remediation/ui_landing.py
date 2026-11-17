@@ -9,17 +9,10 @@ from html import escape
 import streamlit as st
 
 from src.shoreline_remediation import ui_components as C, ui_map, ui_site_panel, ui_theme as T
-from src.shoreline_remediation.site_view import featured_sites, habitat_cards
+from src.shoreline_remediation.site_view import habitat_coverage
 
-SCOPE_CHIPS = [("Numerical demonstration: Louisiana salt marsh", "gray"), ("Other habitats: screening or limited evidence", "gray"),
-               ("One spill per dataset", "gray"), ("Associations, not causes", "gray")]
-INTRO = ("Choose a place on the map or a shoreline type, set the scenario, and the platform compares interventions with natural "
-         "recovery, or tells you when the evidence is insufficient.")
-# Orientation only (not buttons): (number, title, text)
-STEP_CARDS = (("1", "Explore and select", "Click a Louisiana salt-marsh cell on the map, or choose any shoreline type."),
-              ("2", "Configure scenario", "Shoreline type, oil category and oiling class: the inputs the pipeline reads."),
-              ("3", "Get recommendation", "Options compared with natural recovery: recommended, conditional, excluded, or insufficient evidence."),
-              ("4", "Review evidence and models", "Evidence grades, uncertainty and limitations, and what each model was validated for."))
+COVERAGE_LINE = "Mapped sites are historical Louisiana salt-marsh cells (Deepwater Horizon, 2010)."
+COVERAGE_TITLE = "Geographic and habitat coverage"
 NO_DATA = "No site data could be read from the repository."
 
 PLACEHOLDERS = {
@@ -50,14 +43,17 @@ def render_placeholder(page_id: str, on_navigate: Callable) -> None:
         st.caption(where)
 
 
-def step_cards_html() -> str:
-    return ('<div class="sr-stepcards">' + "".join(f'<div class="sr-stepcard"><b>{n}</b><div><h3>{escape(t)}</h3><p>{escape(d)}</p></div></div>'
-                                                  for n, t, d in STEP_CARDS) + "</div>")
+def coverage_rows() -> list:
+    """(habitat, ESI, coverage, what exists) for the collapsed coverage section, from site_view.habitat_coverage()."""
+    return [{"Shoreline type": c.label, "ESI": c.esi or "-", "Coverage": T.COVERAGE_TIERS[c.tier]["label"], "What exists": c.summary}
+            for c in _safe(habitat_coverage)]
 
 
 def render_landing(on_open_site: Callable, on_navigate: Callable) -> None:
-    intro, legend_btn = st.columns([6, 1], vertical_alignment="center")
-    intro.markdown(f'<p class="sr-intro">{escape(INTRO)}</p>', unsafe_allow_html=True)
+    """Map page: the map, the place and scenario panel with the one Run button, one coverage line and one collapsed coverage
+    section. `on_open_site` and `on_navigate` are kept for the caller's signature; the panel's Run button is the only way in."""
+    line, legend_btn = st.columns([6, 1.4], vertical_alignment="center")
+    line.markdown(f'<p class="sr-coverline">{escape(COVERAGE_LINE)}</p>', unsafe_allow_html=True)
     if legend_btn.button("How evidence is graded", key="sr_act_hero_platform_evidence", type="tertiary", icon=":material/info:"):
         C.evidence_dialog()
 
@@ -70,24 +66,13 @@ def render_landing(on_open_site: Callable, on_navigate: Callable) -> None:
     with panel_col:
         ui_site_panel.render_panel()
 
-    st.markdown(step_cards_html(), unsafe_allow_html=True)
-    st.markdown('<div class="sr-meta">' + "".join(f"<span>{escape(t)}</span>" for t, _ in SCOPE_CHIPS) + "</div>", unsafe_allow_html=True)
-
-    C.section_header("Featured locations", kicker="Explore", anchor="featured-locations",
-                     description="Entries you can open now. Each card shows only what the repository holds for that entry, and says "
-                                 "how each value was obtained.",
-                     meta="Sources: site table, mangrove study results, model registry")
-    C.card_row(_safe(featured_sites), lambda card: C.site_card(card, on_select=on_open_site), key="featured", empty_text=NO_DATA)
-
-    C.section_header("Explore habitats", kicker="Habitats", anchor="explore-habitats",
-                     description="Coverage differs by habitat. The label on each card says what kind of evidence exists for it.",
-                     meta="Sources: habitat table, model registry")
-    st.markdown('<div class="sr-tiers">' + " ".join(T.grade_html(v["grade"], v["label"]) for v in T.COVERAGE_TIERS.values()) + "</div>",
-                unsafe_allow_html=True)
-
-    def render_habitat(card) -> None:
-        tier = card.tier if card.tier in T.COVERAGE_TIERS else "screening"
-        openable = bool(card.action_label)
-        C.site_card(card, on_select=on_open_site if openable else None, key=f"hab_{tier}_{card.site_id}", button_key=f"hab_{card.site_id}")
-
-    C.card_row(_safe(habitat_cards), render_habitat, key="habitats", empty_text=NO_DATA)
+    with st.expander(COVERAGE_TITLE, icon=":material/public:"):
+        st.markdown(f"{ui_map.LEGEND_WHAT}: a sample of at most {ui_map.M.LAYER_CAP:,} cells per basin (Terrebonne, Barataria, Breton). "
+                    f"{ui_map.LEGEND_COVERAGE}")
+        rows = coverage_rows()
+        if rows:
+            import pandas as pd
+            st.dataframe(pd.DataFrame(rows), hide_index=True, width="stretch")
+        else:
+            st.caption(NO_DATA)
+        st.caption("One spill per dataset. Field comparisons are associations, not proven causes.")

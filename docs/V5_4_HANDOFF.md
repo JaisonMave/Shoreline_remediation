@@ -1,6 +1,7 @@
 # V5.4 unified shell, map-first Home and single results view: handoff
 
 Status: implemented, tested, seen running in Chromium; uncommitted (branch `model_v5_1`, on top of f00b22c). Continues `docs/V5_3_HANDOFF.md`.
+Continued in `docs/V5_4_PLOT_FIRST_HANDOFF.md` (plot-first Assessment, treatment comparison, simplified Map); sections 2 and 6 below describe the layout before that work.
 Presentation change only. No model, registry entry, validation result, class, category or recommendation was changed or recomputed. `ui_pipeline` is still the only caller of `run_decision()`.
 
 ## 1. Files

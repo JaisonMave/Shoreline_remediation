@@ -16,6 +16,7 @@ from src.shoreline_remediation import ui_evidence as E  # noqa: E402
 @pytest.fixture(scope="module")
 def rocky():
     return {esi: dp.run_decision({}, habitat=esi, oiling_class="moderate") for esi in ("1A", "8A")}
+from tests._nav import open_habitat  # noqa: E402
 
 
 def _cls(report, option):
@@ -251,7 +252,7 @@ def test_expander_is_renamed_in_the_rendered_card():
     app = str(Path(__file__).resolve().parent.parent / "src" / "shoreline_remediation" / "dashboard.py")
     at = AppTest.from_file(app, default_timeout=300)
     at.run()
-    at.button(key="sr_open_site_hab_esi_1a").click().run()
+    open_habitat(at, f"hab_esi_1a")
     assert not at.exception, at.exception
     labels = [e.label for e in at.expander]
     assert "Pipeline's full text statement (technical wording)" in labels

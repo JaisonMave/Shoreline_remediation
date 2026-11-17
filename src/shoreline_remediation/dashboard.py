@@ -1,7 +1,7 @@
 """Shoreline Remediation Decision Support: Streamlit entry point (decision D40).
 
 Run: streamlit run src/shoreline_remediation/dashboard.py
-Pages (ui_nav.PAGES; short labels Map, Assessment, Evidence, Models, Research): Home (landing: map, site and spill scenario panel, featured locations, habitat coverage), Site assessment (real data, habitat switcher,
+Pages (ui_nav.PAGES; short labels Map, Assessment, Evidence, Models, Research): Home (landing: map, site and spill scenario panel, one collapsed coverage section), Site assessment (real data, habitat switcher,
 decision pipeline), Evidence explorer and Model validation (V5.2: ui_evidence_explorer, ui_models), Legacy and research (legacy rule
 screening and illustrative process model, kept for comparison; it does not drive production recommendations).
 Only the selected page runs on each click.

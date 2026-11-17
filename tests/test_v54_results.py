@@ -47,7 +47,11 @@ def text(at: AppTest) -> str:
 
 
 def outcome_html(at: AppTest) -> str:
-    return " ".join(m.value for m in at.markdown if "sr-oc-title" in m.value)
+    return " ".join(m.value for m in at.markdown if "sr-oc-title" in m.value or "sr-find" in m.value)
+
+
+def table_html(at: AppTest) -> str:
+    return " ".join(m.value for m in at.markdown if "sr-opttable" in m.value)
 
 
 def report_of(at: AppTest):
@@ -69,15 +73,18 @@ def primary(at: AppTest) -> list:
 
 # ---- primary card equals the report -------------------------------------------------------------------------------
 
-def test_bay_jimmy_primary_card_is_the_reports_outcome_and_top_category():
+def test_bay_jimmy_finding_states_the_field_contrast_and_keeps_the_reports_outcome():
     at = run_bay_jimmy()
     report = report_of(at)
     html = outcome_html(at)
     assert report.decision_outcome_label in html
+    assert "34 percentage points higher in manually treated plots than in untreated oiled plots at year 2" in html
+    assert "Main limitation" in html and "not randomly assigned" in html
     cat, options = top_options(report)
     assert cat == "recommended" and options == ["manual_removal"]
-    assert "Manual removal" in html or any("Manual removal" in m.value for m in at.markdown if "sr-oc-opt" in m.value)
-    assert any(CATEGORY_LABELS[cat] in m.value for m in at.markdown if "sr-status" in m.value)
+    row = next(r for r in R.option_rows(report) if r["option"] == "manual_removal")
+    assert row["category"] == "recommended" and row["status"] == CATEGORY_LABELS["recommended"]
+    assert "Manual removal" in table_html(at) and CATEGORY_LABELS["recommended"] in table_html(at)
 
 
 def test_rocky_1a_primary_card_is_conditional_not_recommended():
@@ -99,7 +106,7 @@ def test_abstaining_habitats_name_natural_recovery_as_the_reference(key):
     assert report.decision_outcome_label in html and "Abstention" in html           # equal-prominence abstention pill
     cat, options = top_options(report)
     assert cat == "natural_recovery_monitoring" and options == ["natural_attenuation"]
-    assert "reference every intervention is compared with" in text(at)
+    assert R.REFERENCE_REASON in text(at)
     card = " ".join(m.value for m in at.markdown if "sr-oc" in m.value or "sr-status" in m.value).lower()
     assert "best" not in card and "recommended<" not in card
 
@@ -136,8 +143,8 @@ def test_unsupported_habitat_render_via_app_shows_message_and_no_cards():
     assert not at.exception, at.exception
     html = outcome_html(at)
     assert report.decision_outcome_label in html and "Abstention" in html
-    assert B.NO_ASSESSMENT_TEXT in text(at)
-    assert not any("sr-alt-opt" in m.value for m in at.markdown)
+    assert R.NOT_ASSESSED_TEXT in text(at)
+    assert not table_html(at)
 
 
 # ---- groups ---------------------------------------------------------------------------------------------------------
@@ -149,25 +156,31 @@ def test_natural_recovery_never_called_recommended_or_best_when_it_is_the_refere
     assert not re.search(r"natural (recovery|attenuation)[^.]{0,40}(is the best|best option|is recommended)", t)
 
 
-def test_no_demonstrated_benefit_is_a_separate_group_from_insufficient_evidence():
+def test_statuses_stay_separate_and_excluded_rows_stay_visible_with_reasons():
     at = run_bay_jimmy()
-    ndb = next(m for m in at.markdown if CATEGORY_LABELS["no_demonstrated_benefit"] in m.value and "sr-status" in m.value)
-    ins = next(m for m in at.markdown if CATEGORY_LABELS["insufficient_evidence"] in m.value and "sr-status" in m.value)
-    assert ndb is not ins and ndb.value != ins.value
-    assert R.GROUP_NOTE["no_demonstrated_benefit"] in text(at) and R.GROUP_NOTE["insufficient_evidence"] in text(at)
-    assert any(e.label.startswith("Excluded (") for e in at.expander)        # excluded group collapsed with reasons available
+    rows = R.option_rows(report_of(at))
+    by = {r["option"]: r for r in rows}
+    assert by["low_pressure_flushing"]["status"] == CATEGORY_LABELS["no_demonstrated_benefit"]
+    assert by["passive_sorbents"]["status"] == CATEGORY_LABELS["insufficient_evidence"]
+    assert by["mechanical_removal"]["category"] == "excluded" and "damage sensitive wetland" in by["mechanical_removal"]["reason"]
+    html = table_html(at)
+    for label in (CATEGORY_LABELS["no_demonstrated_benefit"], CATEGORY_LABELS["insufficient_evidence"], CATEGORY_LABELS["excluded"]):
+        assert label in html
+    assert "Mechanical removal" in html and "damage sensitive wetland" in html      # excluded rows are in the table, not hidden
 
 
 # ---- this-site block ------------------------------------------------------------------------------------------------
 
-def test_this_site_block_for_the_worked_cell_uses_the_csv_values():
+def test_site_strip_for_the_worked_cell_labels_three_numbers_and_the_dataset_mae():
     at = run_bay_jimmy()
     t = text(at)
-    assert "This site: cell 8018_32612" in t
+    assert "Marsh-edge loss at cell 8018_32612" in t
     row = SV.site_for_cell(M.EXAMPLE_CELL)
     assert f"{row['observed_rate']:.2f} m/yr" in t and "1.54 m/yr" in t
-    assert f"{row['lobo_pred']:.2f} m/yr" in t and "1.31 m/yr" in t
-    assert "0.23 m/yr" in t and R.ONE_CELL_NOTE.split(".")[0] in t
+    assert f"{row['lobo_pred']:.2f} m/yr" in t and "1.31 m/yr" in t and "1.42 m/yr" in t
+    for label in (R.DEPLOYED_LABEL, R.OBSERVED_LABEL, R.LOBO_LABEL):
+        assert label in t
+    assert "0.23 m/yr" not in t                              # one cell's error is not shown beside the dataset-level MAE
     assert "1.296 m/yr" in t and "12,696" in t and "leave-one-basin-out" in t
 
 
@@ -189,27 +202,31 @@ def test_this_site_block_absent_for_typed_site_and_for_other_habitats():
     at.radio(key="site_mode").set_value("New site (enter values)").run()
     at.button(key="run_marsh").click().run()
     assert not at.exception, at.exception
-    assert "This site: cell" not in text(at)
+    assert "Marsh-edge loss at cell" not in text(at)
     for key in ("esi_1A", "mangrove", "beach_fine"):
-        assert "This site: cell" not in text(run_habitat(key)), key
+        assert "Marsh-edge loss at cell" not in text(run_habitat(key)), key
 
 
 # ---- validation embed -----------------------------------------------------------------------------------------------
 
-def test_bay_jimmy_embeds_the_holdout_scatter_and_the_deep_link():
+def test_bay_jimmy_shows_one_effect_plot_and_links_to_the_scatter_on_models():
     at = run_bay_jimmy()
     t = text(at)
-    assert "edge_loss_v1" in t and "MAE" in " ".join(m.value for m in at.markdown)
+    assert "Total vegetation cover at year 2: comparison with natural recovery" in t
+    assert "provisional order" not in t.lower().split("how the order is made")[0]      # one eligible method: no rank
     assert any(b.key == "how_marsh" for b in at.button)
     assert "No per-station hold-out predictions are stored" in t            # PAH: text status only
-    assert at.get("vega_lite_chart") or at.get("arrow_vega_lite_chart")
+    charts = at.get("vega_lite_chart") or at.get("arrow_vega_lite_chart")
+    assert charts
+    assert "Leave-one-basin-out prediction, m/yr" not in str([c.proto for c in charts])[:200000]   # the scatter lives on Models
 
 
-def test_rocky_has_no_validation_chart_and_states_no_forecast():
+def test_rocky_uses_the_screening_table_and_states_no_forecast():
     at = run_habitat("esi_1A")
-    assert B.NO_FORECAST_TEXT in text(at)
-    assert "No value is available for this input" in text(at)
-    assert not any("<table class=\"sr-reftable\"" in m.value for m in at.markdown)          # no table of "not stated" rows, no invented numbers
+    t = text(at)
+    assert B.NO_FORECAST_TEXT in t
+    assert "Screening result" in t and "No treatment has a comparable effect estimate" in t
+    assert table_html(at) and "No comparative data" not in table_html(at)      # no comparison column where none exists
     assert not any(b.key == "how_esi_1A" for b in at.button)
 
 
@@ -221,20 +238,20 @@ def test_no_share_button_anywhere():
         assert "share" not in " ".join(str(b.label).lower() for b in at.get("download_button"))
 
 
-def test_older_detail_views_are_inside_the_collapsed_technical_area_and_still_rendered():
+def test_methods_and_sources_is_collapsed_and_keeps_the_detail_views_and_trace():
     at = run_bay_jimmy()
-    outer = next(e for e in at.expander if e.label == "Technical details and evidence")
+    outer = next(e for e in at.expander if e.label == "Methods and sources")
     assert outer.proto.expanded is False
     labels = [e.label for e in outer.expander]
-    for wanted in ("Evidence classifications and how each option compares", "Model assumptions and limitations",
-                   "Provenance of the literature priors", "Applicability and scope warnings"):
+    for wanted in ("Option evidence in detail (current inputs)", "Model assumptions and limitations", "Provenance of the literature priors"):
         assert wanted in labels, labels
     assert any(l.startswith("Technical trace") for l in labels)
-    inner = next(e for e in outer.expander if e.label.startswith("Evidence classifications"))
+    inner = next(e for e in outer.expander if e.label.startswith("Option evidence in detail"))
     inner_text = " ".join(str(x.value) for g in (inner.markdown, inner.caption) for x in g)
-    assert "Evidence behind this answer" in inner_text                       # the answer card
     assert "scenario-composer baseline" in inner_text.lower()                # composer baseline labelled by source
     assert any("composer baseline (experimental)" in m.label.lower() for m in at.metric)
+    outer_text = " ".join(str(x.value) for g in (outer.markdown, outer.caption) for x in g)
+    assert "Model estimates in the order:** none" in outer_text and "composer_natural_recovery_v1" in outer_text
 
 
 def test_change_place_expander_is_open_before_a_run_and_collapsed_after():
@@ -283,3 +300,50 @@ def test_models_page_caption_separates_overall_metrics_from_one_site_error():
     at = new_app()
     at.segmented_control(key="page").set_value("models").run()
     assert any("error at one site" in c.value and "nothing about the overall accuracy" in c.value for c in at.caption)
+
+
+# ---- plot-first scenarios (V5.4 plot-first) ---------------------------------------------------------------------------
+
+def test_typed_heavy_marsh_shows_the_field_plots_unranked_and_is_never_a_model_cell():
+    at = new_app()
+    at.segmented_control(key="page").set_value("site").run()
+    at.radio(key="site_mode").set_value("New site (enter values)").run()
+    at.selectbox(key="new_oil").set_value("Heavy").run()
+    at.button(key="run_marsh").click().run()
+    assert not at.exception, at.exception
+    rec = at.session_state[SV.BOARD_RUN_KEY]
+    assert rec["spec"][0] == "scenario" and rec["flags"] is None
+    report = report_of(at)
+    comp = R.comparisons_for(report, rec)["veg_cover_year2"]
+    assert comp.applicable and comp.mode == "none" and [r.option for r in comp.shown] == ["manual_removal"]
+    assert comp.row_for("manual_removal").reason.startswith("Conditions not established")
+    html = outcome_html(at)
+    assert "34 percentage points higher" in html and "not this scenario" in html
+    t = text(at)
+    assert "Marsh-edge loss at cell" not in t and "provisional rank" not in t and "Extrapolation" not in t
+    assert not any(m.label.startswith("Expected marsh-edge loss") for m in at.metric)   # the detail views use the same scope
+
+
+def test_fine_sand_shows_the_historical_response_curve_and_a_screening_table():
+    at = run_habitat("beach_fine")
+    report = report_of(at)
+    ref = R.beach_reference(report)
+    pt = R.sand_point(ref)
+    assert pt and pt["day"] == 365 and abs(pt["median"] - ref["curves_by_group"][pt["group"]]["median"][2]) < 1e-12
+    html = outcome_html(at)
+    assert f"{pt['median']:.0%}" in html and "365 days after the first oiled survey" in html and "not natural recovery" in html
+    t = text(at)
+    assert "Historical response: visible oil on fine-to-medium sand beaches" in t and "200 refits" in t
+    assert table_html(at) and "No comparative data" not in table_html(at) and "harm_flags" not in table_html(at)
+    assert at.get("vega_lite_chart") or at.get("arrow_vega_lite_chart")
+
+
+def test_non_heavy_marsh_cell_says_no_comparative_data_and_draws_no_effect_plot():
+    report, _ = P.decision_for_site(P.site_items(SV.site_for_cell(M.EXAMPLE_CELL)), "light", None)
+    rec = {"habitat": "marsh", "spec": ("site", tuple({**dict(P.site_items(SV.site_for_cell(M.EXAMPLE_CELL))), "max_oiling": "Moderate"}.items()), "light", None)}
+    comps = R.comparisons_for(report, rec)
+    assert comps and all(not c.applicable for c in comps.values())
+    rows = R.option_rows(report, comps["veg_cover_year2"])
+    assert {r["comparison"] for r in rows if r["option"] != "natural_attenuation"} == {"No comparative data"}
+    sentence, limit = R.finding_for(report, B.board_model(report), comps, rec)
+    assert sentence.startswith("No comparative data") and "heavily oiled salt marsh only" in limit

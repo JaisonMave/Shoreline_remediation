@@ -23,9 +23,8 @@ STATE_KEYS = ("map_basin", "map_lat", "map_lon")   # not the chart key "map_gulf
 OFF = "Off"
 MAP_HEIGHT = 520
 NO_DATA = "The site table could not be read, so the map is not available. Use the shoreline type control and the habitat cards below."
-SCREENING_ONLY = ("No known site at this coordinate. The map only shows cells that exist in the Louisiana site table, so no site "
-                  "is created here. For this kind of shoreline you can run habitat screening only: choose a shoreline type in the "
-                  "scenario panel.")
+SCREENING_ONLY = ("No known site at this coordinate, so no site is created. You can still run habitat screening: choose a "
+                  "shoreline type in the scenario panel.")
 LEGEND_WHAT = "In-scope salt-marsh edge cells (ESI 10A), Louisiana, Deepwater Horizon 2010"
 LEGEND_COVERAGE = ("Coverage outside these Louisiana basins is not in the repository. Other shoreline types are not plotted: "
                    "choose them with the shoreline type control.")
@@ -47,11 +46,9 @@ def legend_html() -> str:
     items = "".join(f'<span class="sr-leg-item"><i style="background:{T.oiling_colour(o, True)}"></i>{escape(T.OILING_LABELS[o])}</span>'
                     for o in T.OILING_ORDER)
     return ('<div class="sr-map-legend">'
-            f'<div class="sr-map-legend-title">{escape(LEGEND_WHAT)} (sampled, at most {M.LAYER_CAP:,} cells per basin)</div>'
             f'<div class="sr-leg-row"><span class="sr-leg-label">SCAT maximum oiling</span>{items}</div>'
             '<div class="sr-leg-row"><span class="sr-leg-item"><i class="sr-leg-ring"></i>Selected cell</span>'
-            '<span class="sr-leg-item"><i class="sr-leg-pin"></i>Bay Jimmy worked example</span></div>'
-            f'<div class="sr-map-legend-note">{escape(LEGEND_COVERAGE)}</div></div>')
+            '<span class="sr-leg-item"><i class="sr-leg-pin"></i>Bay Jimmy worked example</span></div></div>')
 
 
 def _layers(basin: str, selected: dict | None) -> list:

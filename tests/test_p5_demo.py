@@ -130,11 +130,13 @@ def test_dashboard_site_view_runs_on_worked_example(app):
     assert any("Extra erosion vs natural recovery, years 0 to 2" in t.value.columns for t in app.dataframe)
 
 
-def test_dashboard_new_site_extrapolation_warning(app):
+def test_dashboard_new_site_gets_no_site_model(app):
+    """A typed site has no row in the site table: it is never treated as an in-scope model cell (V5.4 plot-first)."""
     app.radio(key="site_mode").set_value("New site (enter values)").run()
-    app.number_input(key="new_pre").set_value(9.0).run()
     assert not app.exception, app.exception
-    assert any("extrapolation" in w.value.lower() for w in app.warning)
+    assert not any(n.key == "new_pre" for n in app.number_input)           # no typed model inputs
+    assert not any(m.label.startswith("Expected marsh-edge loss") for m in app.metric)
+    assert not any("extrapolation" in w.value.lower() for w in app.warning)
 
 
 def test_dashboard_out_of_scope_cell_has_no_prediction(app):

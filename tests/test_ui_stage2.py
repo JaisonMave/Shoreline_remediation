@@ -297,25 +297,28 @@ def test_select_site_ignores_unknown_identifiers():
 # ---------------------------------------------------------------------------------------------------------------
 # Integration with the dashboard
 
-def test_dashboard_shows_hero_section_headers_and_real_cards(app):
+def test_dashboard_shows_brand_header_map_and_one_coverage_section(app):
+    from src.shoreline_remediation import ui_landing
     md = " ".join(m.value for m in app.markdown)
-    assert "Shoreline Remediation" in md and "Scientific decision support for oil spill response" in md   # V5.4 brand header (the tall hero is gone)
-    assert "sr-stepcards" in md
-    assert "<h2>Featured locations</h2>" in md and "<h2>Explore habitats</h2>" in md
-    for name in ("Bay Jimmy, Barataria Bay", "Bahía Las Minas", "Fine-to-medium sand beach"):
-        assert name in md
+    assert "Shoreline Remediation" in md and "Scientific decision support for oil spill response" in md   # V5.4 brand header
+    assert ui_landing.COVERAGE_LINE in md
+    assert [e.label for e in app.expander].count(ui_landing.COVERAGE_TITLE) == 1
+    assert 'class="sr-stepcards"' not in md and "Featured locations" not in md and "Explore habitats" not in md   # no repeated setup copy
     labels = [b.label for b in app.button]
-    for label in ("Run assessment", "How evidence is graded", "Open the Bay Jimmy assessment",
-                  "Open the mangrove evidence", "Open the beach screening"):
-        assert label in labels
+    assert "Run assessment" in labels and "How evidence is graded" in labels
+    assert not [l for l in labels if l.startswith("Open the ")]                 # the panel's Run button is the one way in
 
 
 @pytest.mark.parametrize("site_id", ["mangrove", "beach_fine", "marsh"])
-def test_site_card_opens_the_existing_assessment(site_id):
+def test_panel_run_opens_the_assessment_for_each_habitat(site_id):
     at = fresh()
     at.segmented_control(key="page").set_value("site").run()
-    at.segmented_control(key="page").set_value("landing").run()   # start on another page, then use the landing cards
-    at.button(key=f"sr_open_site_{site_id}").click().run()
+    at.segmented_control(key="page").set_value("landing").run()   # start on another page, then use the Map panel
+    if site_id == "marsh":
+        at.button(key="home_use_bay_jimmy").click().run()
+    else:
+        at.selectbox(key="home_habitat").set_value(site_id).run()
+    at.button(key="home_run").click().run()
     assert not at.exception, at.exception
     assert at.segmented_control(key="page").value == "site"
     assert at.segmented_control(key="site_habitat").value == site_id

@@ -12,6 +12,15 @@ Computer (no account needed).
 ---
 
 
+## 2026-11-17: V5.4 plot-first assessment and treatment comparison (implemented, tested, seen running)
+
+- **New:** `comparison.py` (comparison contract, eligibility and provisional ordering; reads the decision report, cannot change it), `ui_plots.py` (dot-and-interval plot, visible-oil curve), Assessment reading order scenario, finding, primary visual, response options, methods and sources (`ui_results.py`). Report download gains the field-comparison section.
+- **Result:** Bay Jimmy, year 2: total vegetation cover +34.0 percentage points for manual removal against untreated oiled plots (90% interval +19.0 to +49.0; derived from published group means, observational). One eligible method per outcome, so no ranking is shown. No theory-based estimate qualified; nearest candidate `composer_natural_recovery_v1`, not admitted.
+- **Changed:** Map page reduced to map, panel, one coverage line and one collapsed coverage section.
+- **User-visible change, typed marsh site ("New site (enter values)"):** five inputs were removed: open water within 1 km, open water within 250 m, mean fetch, pre-spill edge-loss trend, and the shoreline (ESI) choice "10A / other". A typed site keeps latitude, longitude and oiling class, is assessed as a generic salt-marsh scenario and is never treated as an in-scope model cell. It no longer shows a site edge-loss estimate, composer baseline or extrapolation warning; the form says what is and is not available. Site numbers need a mapped cell.
+- **Unchanged:** decision pipeline, registry, models, data, results, evidence verdicts; no screening status or recommendation changed.
+- **Tests and browser check:** `docs/V5_4_PLOT_FIRST_HANDOFF.md`.
+
 ## 2026-11-17: V5.4 unified shell, map-first Home and single Assessment results view (implemented, tested, seen running; uncommitted)
 
 - **New:** brand shell and short navigation (Stages 1-2: `ui_site_panel.py`, `ui_nav.py`, `ui_map.py`, `map_sites.py`, `ui_landing.py`); Assessment results view (`ui_results.py`): title row with breadcrumb and report download, primary outcome card (the report's `decision_outcome_label` and top category), key-flags card, alternatives grouped by category, expected-outcome card with a labelled "this site" block, embedded edge_loss_v1 hold-out scatter, supporting-evidence links. Older detail views, provenance, assumptions, scope warnings and the decision trace moved into one collapsed "Technical details and evidence" area. Models page caption separates overall validation metrics from one site's error.

@@ -18,6 +18,7 @@ APP = str(ROOT / "src" / "shoreline_remediation" / "dashboard.py")
 from src.shoreline_remediation import site_view as SV  # noqa: E402
 
 ROCKY = ["esi_1A", "esi_8A"]
+from tests._nav import open_habitat  # noqa: E402
 
 
 def page_text(at: AppTest) -> str:
@@ -28,13 +29,13 @@ def page_text(at: AppTest) -> str:
 def open_rocky(key: str) -> AppTest:
     at = AppTest.from_file(APP, default_timeout=300)
     at.run()
-    at.button(key=f"sr_open_site_hab_{key.lower()}").click().run()
+    open_habitat(at, f"hab_{key.lower()}")
     assert not at.exception, at.exception
     return at
 
 
 @pytest.mark.parametrize("key", ROCKY)
-def test_card_opens_the_rocky_page(key):
+def test_rocky_page_opens_from_the_habitat_switcher(key):
     at = open_rocky(key)
     assert at.segmented_control(key="page").value == "site"
     assert at.segmented_control(key="site_habitat").value == key
@@ -100,7 +101,7 @@ def test_no_rocky_site_in_featured_sites():
 def test_existing_pathways_still_render(key):
     at = AppTest.from_file(APP, default_timeout=300)
     at.run()
-    at.button(key=f"sr_open_site_hab_{key}").click().run()
+    open_habitat(at, f"hab_{key}")
     assert not at.exception, at.exception
     assert at.segmented_control(key="site_habitat").value == key
     if key.startswith("beach_"):

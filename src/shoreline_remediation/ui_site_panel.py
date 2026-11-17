@@ -22,8 +22,7 @@ HOME_MAP_SEEN = "home_map_seen"
 STATE_KEYS = (HOME_CELL, HOME_HABITAT, HOME_MAP_SEEN)
 NEW_SITE_MODE = "New site (enter values)"        # site_view._pick_site's third mode: the generic, record-less place
 NOT_PLOTTED = "Not plotted on the map: habitat-level screening entry, no site record."
-RUN_HELP = ("Runs the same decision pipeline as the Assessment page and opens it. The answer can be that evidence is insufficient "
-            "or that natural recovery stays the reference.")
+RUN_HELP = "Opens the Assessment page with the result."
 MANGROVE_NOTE = ("Bahía Las Minas, Panama (limited evidence: one field study of one 1986 spill, oiling damage only). Not plotted on "
                  "the map. The platform may abstain from a cleanup forecast.")
 
@@ -67,7 +66,7 @@ def run_and_open(req: dict, updates: dict) -> None:
 
 def _place_block(row: dict | None) -> None:
     if row is None:
-        st.caption("No place selected. Click a cell or the Bay Jimmy pin on the map, or start from the worked example.")
+        st.caption("No place selected. Click a cell on the map or use the worked example.")
         st.button("Use Bay Jimmy (worked example)", key="home_use_bay_jimmy", icon=":material/pin_drop:", on_click=select_cell,
                   args=(M.EXAMPLE_CELL,), width="stretch")
         return
@@ -135,5 +134,6 @@ def render_panel() -> None:
         if note:
             st.caption(note)
         st.button("Run assessment", key="home_run", type="primary", icon=":material/play_arrow:", width="stretch",
-                  disabled=req is None, on_click=run_and_open, args=(req or {}, updates))
-        st.caption(RUN_HELP if req else "Run is available once a place or a shoreline type is chosen.")
+                  disabled=req is None, on_click=run_and_open, args=(req or {}, updates), help=RUN_HELP)
+        if req is None:
+            st.caption("Run is available once a place or a shoreline type is chosen.")

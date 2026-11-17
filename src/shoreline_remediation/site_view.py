@@ -26,6 +26,7 @@ BASINS = ["barataria", "breton", "terrebonne", "birdfoot"]
 EXAMPLE_CELL = "8018_32612"  # docs/P5_WORKED_EXAMPLE.md
 _KNOWLEDGE = Path(__file__).resolve().parents[2] / "data" / "knowledge"
 SITE_MODE_WORKED = "Worked example (Bay Jimmy, Barataria Bay)"
+NO_SITE_RECORD = "no_site_record"   # status of a typed site: it is never given the in_scope status of a model cell
 
 
 @st.cache_data
@@ -70,22 +71,15 @@ def _pick_site(sites: pd.DataFrame) -> dict | None:
         cells = d[d.segment == seg]
         cell = c5.selectbox(f"Cell ({len(cells)})", cells.cell.tolist(), key="pick_cell")
         return {**cells[cells.cell == cell].iloc[0].to_dict(), "source": "edge cell"}
-    st.caption("Type values measured the same way as the training data (2010 aerial land/water map; Landsat pre-spill trend). "
-               "Values outside the training range are flagged as extrapolation.")
-    r = load_model()["training_range"]
-    c1, c2, c3, c4 = st.columns(4)
-    v = {
-        "water_1km_2010": c1.number_input(FEATURE_LABELS["water_1km_2010"], 0.0, 1.0, round((r["water_1km_2010"]["p01"] + r["water_1km_2010"]["p99"]) / 2, 2), 0.01, key="new_w1"),
-        "water_250m_2010": c2.number_input(FEATURE_LABELS["water_250m_2010"], 0.0, 1.0, round((r["water_250m_2010"]["p01"] + r["water_250m_2010"]["p99"]) / 2, 2), 0.01, key="new_w2"),
-        "fetch_mean_m": c3.number_input(FEATURE_LABELS["fetch_mean_m"], 0.0, 10000.0, 1500.0, 50.0, key="new_fetch"),
-        "pre_rate": c4.number_input(FEATURE_LABELS["pre_rate"], -10.0, 10.0, 0.3, 0.1, key="new_pre"),
-    }
-    c5, c6, c7, c8 = st.columns(4)
+    st.caption("A typed site has no matched record in the site table, so no model scope status is assigned. Available: option "
+               "screening for salt marsh, the literature evidence and, for heavy oiling, the Bay Jimmy field comparison (shown "
+               "unranked). Not available: the site edge-loss estimate, an observed rate and the held-out prediction. To get those, "
+               "pick a mapped cell.")
+    c5, c6, c8 = st.columns(3)
     lat = c5.number_input("Latitude", -90.0, 90.0, 29.40, 0.01, key="new_lat")
     lon = c6.number_input("Longitude", -180.0, 180.0, -89.90, 0.01, key="new_lon")
-    habitat = c7.selectbox("Shoreline (ESI)", ["10A", "other"], format_func=lambda x: "10A salt marsh" if x == "10A" else "other", key="new_esi")
     oiling = c8.selectbox("Oiling class", CLASSES, format_func=lambda x: T.OILING_LABELS.get(x, x), key="new_oil")
-    return {**v, "lat": lat, "lon": lon, "esi_main": habitat, "max_oiling": oiling, "status": "in_scope",
+    return {"lat": lat, "lon": lon, "esi_main": "10A", "max_oiling": oiling, "status": NO_SITE_RECORD,
             "basin": "new site", "cell": "new site", "segment": "-", "source": "new site"}
 
 
@@ -224,15 +218,14 @@ def has_run(habitat: str) -> bool:
 def _run_button(habitat: str, req: dict) -> None:
     """The one primary button of the page. A callback stores the run record (the cached pipeline is called when the results are
     drawn, never here), so the results and the collapsed form already reflect the run in the same script run."""
-    st.button("Run decision pipeline", key=f"run_{habitat}", type="primary", icon=":material/play_arrow:", on_click=store_run, args=(req,))
+    st.button("Run assessment", key=f"run_{habitat}", type="primary", icon=":material/play_arrow:", on_click=store_run, args=(req,))
 
 
 def _results_section(habitat: str, req: dict):
     """Draw the results view of the last run of this habitat (ui_results) and return its report, or None. If the place or the
     scenario changed since that run, say so instead of silently showing a different scenario."""
     if not has_run(habitat):
-        st.info("Nothing has been run yet. Set the place and scenario below and press Run: the results then show what the pipeline "
-                "returns, including when the answer is that the evidence is insufficient.")
+        st.info("No assessment has been run. Set the place and scenario below, then run the assessment.")
         return None
     rec = st.session_state[BOARD_RUN_KEY]
     report, err = _run_spec(rec["spec"])
@@ -250,28 +243,26 @@ def _results_section(habitat: str, req: dict):
 
 def _technical_area(habitat: str, habitat_label: str, scope_key: str, report, legacy: Callable[[], None],
                     applicability: list | None = None) -> None:
-    """Stage 5: one collapsed, clearly secondary area. The earlier detail views are moved here unchanged (`legacy`), next to the model
-    assumptions, the literature-prior provenance, the scope warnings and the technical trace of the run."""
-    with st.expander("Technical details and evidence", expanded=False, icon=":material/biotech:"):
-        st.caption("For scientists and reviewers. Nothing here changes the results above.")
-        with st.expander("Evidence classifications and how each option compares"):
-            st.caption("The earlier detail views for the current place and scenario inputs. They update as you change the inputs; the "
-                       "results above show only the scenario you ran.")
+    """One collapsed, secondary area: methods and sources of the run (ui_results.render_methods), then the earlier detail views
+    (`legacy`), the model assumptions, the literature-prior provenance and the technical trace."""
+    with st.expander("Methods and sources", expanded=False, icon=":material/biotech:"):
+        st.caption("Citations, flags, assumptions and the technical trace. Nothing here changes the results above.")
+        if report is not None and has_run(habitat):
+            rec = st.session_state[BOARD_RUN_KEY]
+            cell = (rec.get("crumb") or {}).get("cell")
+            ui_results.render_methods(report, rec, {"key": habitat, "habitat": rec.get("habitat_label") or habitat, "esi": rec.get("esi")},
+                                      site_for_cell(cell) if cell else None)
+        with st.expander("Option evidence in detail (current inputs)"):
+            st.caption("Detail views for the current place and scenario inputs. They update as you change the inputs; the results "
+                       "above show only the scenario you ran.")
             legacy()
         with st.expander("Model assumptions and limitations"):
             for x in T.SCOPE_LIMITS.get(scope_key, []):
                 st.markdown(f"- {x}")
             st.caption(T.LABELS["interval_note"])
-        _provenance_panel(habitat, habitat_label or habitat)
-        with st.expander("Applicability and scope warnings"):
-            if report is not None:
-                st.markdown("Scope of the tool for this input: " + T.grade_html(T.TIER_TO_GRADE.get(report.scope_tier, "rules_literature"),
-                            T.TIER_TEXT.get(report.scope_tier, report.scope_tier)), unsafe_allow_html=True)
-                st.write(report.scope_message)
-            else:
-                st.caption("Run the decision pipeline to see the scope the pipeline assigned to this input.")
             for x in applicability or []:
                 st.markdown(f"- {x}")
+        _provenance_panel(habitat, habitat_label or habitat)
         if report is not None:
             _trace_expander(report)
 
@@ -400,9 +391,8 @@ def _ref_grade(view, text: str, default: str = "experimental") -> str:
 
 COMPOSER_BASELINE_LABEL = ("Scenario-composer baseline of marsh-edge loss (experimental; not the deployed edge_loss_v1 reference and "
                            "not the leave-one-basin-out prediction)")
-NO_SCOPE_STATUS_TEXT = ("A typed site has no row in the site table, so no model scope status is assigned. These earlier views "
-                        "nevertheless treat the typed values as in scope of the edge-loss model (a simplification of this older code); "
-                        "the results above do not.")
+NO_SCOPE_STATUS_TEXT = ("A typed site has no row in the site table, so no model scope status is assigned and no site model is applied. "
+                        "These views use the same generic salt-marsh scenario as the results above.")
 
 
 def render_marsh() -> None:
@@ -410,17 +400,15 @@ def render_marsh() -> None:
     sites = _sites()
     results = st.container()
     ran = has_run("marsh")
-    if not ran:
-        C.section_header("Assess this place", kicker="Site assessment", description="1. Place. 2. Scenario. 3. Run the pipeline. The "
-                         "results show what the platform recommends, what it cannot recommend, and why.")
     site, sv, req, flags = None, None, None, None
     with st.expander("Change place or scenario", expanded=not ran, icon=":material/tune:"):
         st.markdown("**1. Place**")
         site = _pick_site(sites)
         if site is not None:
-            values = {f: site.get(f) for f in FEATURES}
-            flags = site_flags(values, site["status"], site["esi_main"], site["max_oiling"], site.get("lat"), site.get("lon"), m)
             is_new = site["source"] == "new site"
+            values = {f: site.get(f) for f in FEATURES}
+            flags = None if is_new else site_flags(values, site["status"], site["esi_main"], site["max_oiling"], site.get("lat"),
+                                                   site.get("lon"), m)
             obs0 = site.get("observed_rate")
             rows = [("Cell", site["cell"], "entered" if is_new else "record"), ("Basin", str(site["basin"]).title(), "entered" if is_new else "record"),
                     ("SCAT segment", site.get("segment", "-"), "record"), ("Shoreline (ESI)", site["esi_main"], "entered" if is_new else "record"),
@@ -430,12 +418,10 @@ def render_marsh() -> None:
                      "not available" if is_new else "observed")]
             if not is_new:
                 rows.append(("Model scope status in the site table", STATUS_TEXT.get(site["status"], site["status"]).split(":")[0], "record"))
-            rows += [(FEATURE_LABELS[f], "missing" if pd.isna(site.get(f)) else (f"{float(site[f]):,.0f}" if f == "fetch_mean_m" else f"{float(site[f]):.2f}"),
-                      "entered" if is_new else "derived") for f in FEATURES]
+            if not is_new:
+                rows += [(FEATURE_LABELS[f], "missing" if pd.isna(site.get(f)) else (f"{float(site[f]):,.0f}" if f == "fetch_mean_m" else f"{float(site[f]):.2f}"),
+                          "derived") for f in FEATURES]
             _record_table(rows)
-            if is_new:
-                st.caption("A typed site has no row in the site table, so no model scope status is assigned. The results run the generic "
-                           "salt-marsh scenario path and show the scope tier the pipeline returns; the typed edge-loss inputs are not used by that path.")
             st.markdown("**2. Scenario**")
             sv = scenario_form("marsh", oiling_from_record=None if is_new or site["max_oiling"] not in CLASSES else site["max_oiling"],
                                ask_oiling=is_new or site["max_oiling"] not in CLASSES,
@@ -448,17 +434,16 @@ def render_marsh() -> None:
     is_new = site["source"] == "new site"
     with results:
         report = _results_section("marsh", req)
-        C.scope_panel("marsh")
     oil, season = sv.oil, sv.season
 
     def legacy() -> None:
         if is_new:
             st.caption(NO_SCOPE_STATUS_TEXT)
         answer = st.container()
-        rep_live, err = P.decision_for_site(P.site_items(site), oil, season)
+        rep_live, err = _run_spec(req["spec"])       # the same scope path as the results: a typed site is never a model cell
         view = E.report_view(rep_live) if rep_live is not None else None
         nrs = None
-        if flags.in_scope:
+        if flags is not None and flags.in_scope:
             from src.shoreline_remediation import scenario_composer as sc
             nrs = sc.natural_recovery_summary(site)
         obs = site.get("observed_rate")
@@ -489,9 +474,9 @@ def render_marsh() -> None:
                  "help": "Single 100 m cells are noisy, so the model beats the plain average only slightly."},
             ]
         with answer:
-            for x in flags.out_of_scope:
+            for x in (flags.out_of_scope if flags else []):
                 st.error(x, icon=":material/block:")
-            if flags.extrapolation:
+            if flags is not None and flags.extrapolation:
                 st.warning("Extrapolation: " + " ".join(flags.extrapolation), icon=":material/warning:")
             if err:
                 st.error(f"The decision pipeline could not run for this site ({err}).")
@@ -534,6 +519,8 @@ def render_marsh() -> None:
                 text += (f"The range is wide because single 100 m cells are noisy: the held-out error is {m['lobo_mae']:.2f} m/yr against "
                          f"{m['lobo_mae_no_predictor']:.2f} m/yr for predicting the average. " + m["measurement_note"])
                 st.write(text)
+        elif is_new:
+            st.write("No site model is applied to a typed site.")
         else:
             st.write("No prediction: the site is outside what the model was fitted and tested on (see the reason above).")
 
@@ -544,20 +531,19 @@ def render_marsh() -> None:
         with right:
             info = [("Cell", site["cell"]), ("Basin", str(site["basin"]).title()), ("SCAT segment", site.get("segment", "-")),
                     ("Shoreline (ESI)", site["esi_main"]), ("SCAT maximum oiling", T.OILING_LABELS.get(site["max_oiling"], site["max_oiling"]))]
-            info += [(FEATURE_LABELS[f], "missing" if pd.isna(site.get(f)) else (f"{float(site[f]):,.0f}" if f == "fetch_mean_m" else f"{float(site[f]):.2f}"))
-                     for f in FEATURES]
+            if not is_new:
+                info += [(FEATURE_LABELS[f], "missing" if pd.isna(site.get(f)) else (f"{float(site[f]):,.0f}" if f == "fetch_mean_m" else f"{float(site[f]):.2f}"))
+                         for f in FEATURES]
             st.dataframe(pd.DataFrame(info, columns=["Input", "Value"]), hide_index=True, width="stretch")
 
         with st.expander("Detailed tables: rule screening, field plots, AI-proposed ranges"):
             if site["esi_main"] == "10A":
                 _rule_table(site, oil, rep_live)
-            ui_compare.render_detailed_comparison(site, flags, sites)
+            if not is_new:
+                ui_compare.render_detailed_comparison(site, flags, sites)
         C.render_sources_and_decisions(view, "Edge-loss model p5-edge-loss-v1, composer baseline p5-edge-loss-clean-v1.")
 
-    applicability = [str(x) for x in flags.out_of_scope] + ([f"Extrapolation: {' '.join(flags.extrapolation)}"] if flags.extrapolation else [])
-    applicability += [str(x) for x in (getattr(flags, "evidence_scope", None) or [])]
-    if is_new:
-        applicability.append(NO_SCOPE_STATUS_TEXT)
+    applicability = [NO_SCOPE_STATUS_TEXT] if is_new else []
     _technical_area("marsh", "salt marsh", "marsh", report, legacy, applicability)
 
 
@@ -631,9 +617,6 @@ def _effect_chart(e: pd.DataFrame, ytitle: str) -> alt.Chart:
 def render_mangrove() -> None:
     results = st.container()
     ran = has_run("mangrove")
-    if not ran:
-        C.section_header("Assess this habitat", kicker="Site assessment", description="Limited evidence: one field study of oiling damage. "
-                         "The pipeline takes no oil, oiling or season input for mangroves and may abstain from a cleanup recommendation.")
     req = mangrove_run_request()
     with st.expander("Change place or scenario", expanded=not ran, icon=":material/tune:"):
         st.markdown("**1. Place**")
@@ -646,7 +629,6 @@ def render_mangrove() -> None:
         _run_button("mangrove", req)
     with results:
         run_report = _results_section("mangrove", req)
-        C.scope_panel("mangrove")
     _technical_area("mangrove", "mangrove", "mangrove", run_report, _mangrove_legacy)
 
 
@@ -710,9 +692,6 @@ def _screening_renderer(h: "HabitatView") -> Callable[[], None]:
     def render() -> None:
         results = st.container()
         ran = has_run(h.key)
-        if not ran:
-            C.section_header("Assess this habitat", kicker="Site assessment", description="1. Place. 2. Scenario. 3. Run the pipeline. This is "
-                             "a habitat-level entry with rules and literature only; the results may conclude that evidence is insufficient.")
         with st.expander("Change place or scenario", expanded=not ran, icon=":material/tune:"):
             st.markdown("**1. Place**")
             st.caption(h.note)
@@ -728,7 +707,6 @@ def _screening_renderer(h: "HabitatView") -> Callable[[], None]:
         scen = _scenario(h.shoreline_type, wave_exposure=exposure, oil_category=sv.oil_category)
         with results:
             run_report = _results_section(h.key, req)
-            C.scope_panel(h.family)
 
         def legacy() -> None:
             report, err = P.decision_for_scenario(P.scenario_items(scen), oiling, oil, season, h.esi)

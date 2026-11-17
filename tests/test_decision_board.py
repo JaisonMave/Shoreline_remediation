@@ -20,6 +20,7 @@ from src.shoreline_remediation.decision_pipeline import CAT_NATURAL, CATEGORY_OR
 
 EXAMPLE_CELL = "8018_32612"
 N = 200
+from tests._nav import open_habitat  # noqa: E402
 
 
 def _scenario_report(shoreline_type: str, habitat: str, oiling: str = "Moderate"):
@@ -125,14 +126,14 @@ def _text(at) -> str:
 def _open(habitat_key: str) -> AppTest:
     at = AppTest.from_file(APP, default_timeout=300)
     at.run()
-    at.button(key=f"sr_open_site_{habitat_key}").click().run()
+    open_habitat(at, f"{habitat_key}")
     assert not at.exception, at.exception
     return at
 
 
 def test_site_page_shows_no_board_until_run_is_pressed_then_marsh_board():
     at = _open("marsh")
-    assert "Nothing has been run yet" in _text(at)
+    assert "No assessment has been run" in _text(at)
     at.button(key="run_marsh").click().run()
     assert not at.exception, at.exception
     text = _text(at)
