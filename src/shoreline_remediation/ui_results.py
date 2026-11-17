@@ -560,14 +560,7 @@ def render_results(report, rec: dict, ctx: dict, site_row: dict | None = None) -
     st.caption("Screening status is the decision pipeline's category. It is separate from any performance order: a large estimate "
                "does not change a status."
                + (" Treatment options have no comparable effect estimate for this shoreline type." if primary or comp is None else ""))
-    _recovery_section(report, rec, site_row, key)
     _trajectory_section(report, rec, site_row, key)
-    if (rec.get("crumb") or {}).get("cell") == BAY_JIMMY_CELL:        # Bay Jimmy only; synthetic, separate from every result above
-        with st.expander("Synthetic demonstration curves (not data)", expanded=False, icon=":material/science:"):
-            st.warning(ui_plots.ILLUSTRATIVE_LABEL + ". " + ui_plots.ILLUSTRATIVE_NOTE + " The recovery view above is evidence-backed; this one only shows a layout.", icon=":material/science:")
-            for title, chart in ui_plots.illustrative_recovery_charts(C.text_colour()):
-                st.markdown(f"**{title}**")
-                st.altair_chart(chart, theme="streamlit", width="stretch")
 
 
 # ---------------------------------------------------------------------------------------------------------------

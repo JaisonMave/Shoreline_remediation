@@ -12,6 +12,14 @@ Computer (no account needed).
 ---
 
 
+## 2026-11-17: Retain only continuous trajectories in Assessment
+
+- Removed the older recovery-view and synthetic-demonstration sections from the rendered Assessment; retained the continuous trajectory section, its three outcome tabs, observed points, uncertainty, parameter table and diagnostics. Existing theme unchanged.
+- Kept historical source/data/chart helpers for reproducibility. No model estimates, supported dates, screening decisions, comparisons or reports changed.
+- Documented why a 2030+ extension is mathematically possible but would be an explicitly assumed extrapolation, not a supported forecast; no extrapolation was added.
+- Verification: 107 focused/dependent tests passed. Replaced legacy-section visibility assertions with absence checks; removed the obsolete control-interaction test. Full suite not rerun.
+- Updated README and recovery handoff; historical layout descriptions are labelled as historical.
+
 ## 2026-11-17: Continuous recovery fits and conditional scenarios
 
 - **New research layer:** `recovery_trajectories.py`, displayed separately under **Continuous trajectories: experimental fits and conditional scenarios**, with observed group means, uncertainty, source/parameter tables and diagnostics. Implemented using Claude Opus. Existing dark theme retained.

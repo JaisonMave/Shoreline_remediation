@@ -4,11 +4,11 @@ An evidence-led prototype for screening oil-spill shoreline response options. It
 
 ## Start here
 
-**Current dashboard (17 Nov 2026, branch `model_v5_1`):** map-first assessment with evidence-backed recovery panels. Start with
+**Current dashboard (17 Nov 2026, branch `model_v5_1`):** map-first assessment with continuous experimental recovery trajectories. Start with
 [`docs/V5_4_RECOVERY_VIEW.md`](docs/V5_4_RECOVERY_VIEW.md) (continuous trajectory equations, sources, recovery-plot fixes and scientific limits) and
 [`docs/V5_4_PLOT_FIRST_HANDOFF.md`](docs/V5_4_PLOT_FIRST_HANDOFF.md) (assessment and treatment comparisons).
-The recovery plots default to their evidence's dates, with an optional common year axis; synthetic demonstration curves remain separate and labelled, never forecasts.
-The separate **Continuous trajectories: experimental fits and conditional scenarios** section shows Bay Jimmy marsh-edge retreat fits,
+The older recovery-view and synthetic-demonstration sections are no longer displayed; their source helpers remain for reproducibility.
+The retained **Continuous trajectories: experimental fits and conditional scenarios** section shows Bay Jimmy marsh-edge retreat fits,
 logistic total-cover fits and conditional PAH decay, with observed survey points and uncertainty. Manual cover borrows the untreated rate;
 all PAH scenarios borrow a class-wide rate with different sampling depth and analytes. These are one-site research curves, not validated
 site forecasts or treatment-effect estimates, and do not change screening, comparisons or reports.
@@ -59,7 +59,7 @@ python -m pytest tests
 ```
 
 The historical full-suite record was 371 passing tests on 15 Nov 2026 with Python 3.11.15 (327 on 14 Nov with Python 3.13 before V5.1).
-Current recovery-change acceptance: 108 passing tests across recovery trajectories, recovery view, comparison, V5.4 results and decision board.
+Current recovery-change acceptance: 107 passing tests across recovery trajectories, recovery view, comparison, V5.4 results and decision board.
 The full suite was not rerun for this change. Passing tests are software checks, not model validation.
 Some validation checks require local, git-ignored DIVER/SCAT data; consult `docs/DATA_ACQUISITION.md` and the relevant plan first.
 

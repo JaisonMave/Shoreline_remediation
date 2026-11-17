@@ -137,7 +137,7 @@ def test_decision_modules_do_not_read_the_trajectories():
         assert "recovery_trajectories" not in (ROOT / "src" / "shoreline_remediation" / name).read_text(encoding="utf-8")
 
 
-def test_bay_jimmy_run_shows_the_trajectories_separately_and_leaves_results_unchanged():
+def test_bay_jimmy_run_retains_only_the_continuous_recovery_section():
     at = AppTest.from_file(APP, default_timeout=300)
     at.run()
     at.button(key="home_use_bay_jimmy").click().run()
@@ -148,6 +148,5 @@ def test_bay_jimmy_run_shows_the_trajectories_separately_and_leaves_results_unch
     assert [t.label for t in section.tabs] == ["Shoreline retreat", "Vegetation cover", "Soil tPAH", "Parameters and sources"]
     assert len(section.get("arrow_vega_lite_chart")) + len(section.get("vega_lite_chart")) == 3
     assert any("Experimental" in w.value for w in section.warning)
-    recovery = next(e for e in at.expander if e.label == "Recovery view: erosion, vegetation and soil PAH")
-    assert len(recovery.get("arrow_vega_lite_chart")) + len(recovery.get("vega_lite_chart")) == 6
+    assert not any(e.label.startswith(("Recovery view", "Synthetic demonstration")) for e in at.expander)
     assert any("sr-opttable" in m.value for m in at.markdown)

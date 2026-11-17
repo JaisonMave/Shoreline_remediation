@@ -1,5 +1,29 @@
 # V5.4 Bay Jimmy recovery view (model and field values): handoff
 
+Current UI continuation, 17 November 2026: only **Continuous trajectories: experimental fits and conditional scenarios** remains in the
+Assessment recovery area. The older **Recovery view: erosion, vegetation and soil PAH** and **Synthetic demonstration curves (not data)**
+sections, including their controls and charts, are no longer rendered. Their data and chart helpers remain for reproducibility; no source
+data, model, fitted value, scope gate, decision or report was changed. The historical layout descriptions below remain a record of earlier releases.
+
+### Why not extend the current curves to 2030 or beyond?
+
+There is no plotting or mathematical barrier. The current endpoints deliberately follow source support: shoreline and vegetation
+surveys end in 2016, and the borrowed PAH decline rate has campaign support only to about 2013.78. Manual cover has observations only
+in 2011-2012 and already borrows the untreated rate for its conditional scenario.
+
+Extending to 2030 would assume that the shoreline's fitted long-run rate, the vegetation ceiling and rate, and the borrowed PAH rate
+continue unchanged for many unobserved years. The logistic form already misses the 2016 cover decline. Changing marsh geometry,
+storms, sea-level rise, PAH background or slow pools, and later management are not represented. Bootstrap/Monte Carlo bands quantify
+only the stated parameter uncertainty and would not become credible long-range prediction intervals by extending the x grid.
+
+A future 2030+ scenario mode is technically possible, but must visibly separate extrapolation from fitted support, state its assumptions,
+and include or explicitly exclude long-horizon structural/environmental uncertainty. It must not be labelled a validated forecast.
+This UI simplification does not add extrapolation or change any time support.
+
+Verification for the UI simplification: the five-file recovery/comparison/results/decision-board command below gives **107 passed**.
+One obsolete recovery-axis/scenario-control test was removed because those controls no longer exist; the remaining AppTests check that
+the legacy sections are absent, all three trajectory charts and four tabs remain, and generic/rocky runs still receive no Bay Jimmy curves.
+
 Updated 17 November 2026 (second release): continuous experimental trajectories added in a separate collapsed section, and the vegetation and tPAH survey points moved to their verified sampling months (values unchanged). See **Continuous trajectories (experimental)** below. Everything else in this file describes the earlier correction release.
 
 Updated 17 November 2026: rendering and layout corrections on branch `model_v5_1`, based on `7f46f38` ("Add model-backed Bay Jimmy recovery view"). The original recovery view is already committed; this handoff describes its correction release. Presentation and time-support metadata only: no outcome estimate, interval limit, synthetic formula, model, registry state, evidence verdict, screening status, recommendation, ranking or download was changed. `recovery_view.py` reads the composer, the field tables and the PAH card; `ui_plots.py` only prepares plot records and draws.

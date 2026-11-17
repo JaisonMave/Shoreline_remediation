@@ -203,38 +203,14 @@ def run(habitat=None):
     return at
 
 
-def test_bay_jimmy_assessment_shows_the_collapsed_recovery_view_with_all_headings():
+def test_bay_jimmy_assessment_hides_the_legacy_recovery_and_synthetic_views():
     at = run()
-    section = next(e for e in at.expander if e.label == "Recovery view: erosion, vegetation and soil PAH")
-    assert section.proto.expanded is False
-    md = " ".join(m.value for m in section.markdown)
-    for heading in ("Marsh-edge erosion rate (m/yr)", "Total vegetation cover (%)", "Soil PAH, concentration (field plots)",
-                    "Soil PAH sum, decline reference (index)"):
-        assert heading in md
-    assert len(section.get("arrow_vega_lite_chart")) + len(section.get("vega_lite_chart")) == 6
-    assert [t.label for t in section.tabs] == ["Field observations", "Experimental scenarios", "This cell"]
-    assert not at.toggle(key="marsh_recovery_common_axis").value
-    assert any("bias gates failed" in w.value for w in section.warning)
-    synthetic = next(e for e in at.expander if e.label == "Synthetic demonstration curves (not data)")
-    assert synthetic.proto.expanded is False
-    assert len(synthetic.get("arrow_vega_lite_chart")) + len(synthetic.get("vega_lite_chart")) == 3
-
-
-def test_recovery_controls_change_only_the_chart_selection_and_axes():
-    at = run()
-    before = [m.value for m in at.markdown if "sr-opttable" in m.value or "sr-find" in m.value]
-    at.selectbox(key="marsh_recovery_scenario").set_value(RV.MANUAL)
-    at.toggle(key="marsh_recovery_common_axis").set_value(True).run()
-    assert not at.exception, at.exception
-    after = [m.value for m in at.markdown if "sr-opttable" in m.value or "sr-find" in m.value]
-    assert before == after
-    section = next(e for e in at.expander if e.label == "Recovery view: erosion, vegetation and soil PAH")
-    scenarios = next(t for t in section.tabs if t.label == "Experimental scenarios")
-    assert any("Manual removal" in m.value for m in scenarios.markdown)
-    assert not any("Mechanical removal" in m.value for m in scenarios.markdown)
+    assert not any(e.label.startswith("Recovery view") or e.label.startswith("Synthetic demonstration") for e in at.expander)
+    assert not any(t.key == "marsh_recovery_common_axis" for t in at.toggle)
+    assert not any(s.key == "marsh_recovery_scenario" for s in at.selectbox)
 
 
 @pytest.mark.parametrize("kind", ["marsh", "esi_1A"])
 def test_generic_marsh_and_rocky_runs_get_no_recovery_view(kind):
     at = run(habitat=kind)
-    assert not any(e.label.startswith("Recovery view") or e.label.startswith("Synthetic demonstration") for e in at.expander)
+    assert not any(e.label.startswith(("Recovery view", "Synthetic demonstration", "Continuous trajectories")) for e in at.expander)
