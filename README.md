@@ -4,6 +4,11 @@ An evidence-led prototype for screening oil-spill shoreline response options. It
 
 ## Start here
 
+On the scenario branch, select **Use Bay Jimmy**, run the assessment, and open **Explore future scenarios**
+below the historical trajectories. Adjust the end date and the assumed retreat rate, optionally change the rate
+on a second date, and download the scenario inputs or resulting series. The curve describes the nine untreated
+Bay Jimmy plots under the selected assumptions. The long-term endpoint has no independent forecast validation.
+
 **Current dashboard (17 Nov 2026, branch `model_v5_1`):** map-first assessment with continuous experimental recovery trajectories. Start with
 [`docs/V5_4_RECOVERY_VIEW.md`](docs/V5_4_RECOVERY_VIEW.md) (continuous trajectory equations, sources, recovery-plot fixes and scientific limits) and
 [`docs/V5_4_PLOT_FIRST_HANDOFF.md`](docs/V5_4_PLOT_FIRST_HANDOFF.md) (assessment and treatment comparisons).

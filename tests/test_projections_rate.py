@@ -62,6 +62,11 @@ def test_zero_rate_is_flat():
     assert (t.cumulative_retreat_since_origin_m == OBSERVED_FINAL).all()
 
 
+def test_finite_rate_with_unrepresentable_endpoint_is_rejected():
+    with pytest.raises(ValueError, match="smaller rate or a shorter horizon"):
+        table(rate=1e308)
+
+
 def test_fixed_rate_matches_hand_calculation():
     t = table(rate=2.0)
     assert at(t, "2017-01-01") == pytest.approx(2.0 * (88 / 366), abs=1e-12)

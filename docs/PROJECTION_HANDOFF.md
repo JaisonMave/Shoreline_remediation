@@ -1,7 +1,32 @@
 # Scenario projections: session handoff
 
 Plan: `docs/CLAUDE_SCENARIO_PREDICTION_PLAN.md` (owner's file). Protocol: `docs/PROJECTION_RETREAT_PROTOCOL.md`.
-Branch `codex/scenario-prediction-plan`, base `726d944`. Nothing committed.
+Branch `codex/scenario-prediction-plan`, base `726d944`. Commit `d458d15` records the offline implementation.
+
+### Assessment integration (21 November 2026)
+
+Home → Use Bay Jimmy → Run assessment → Explore future scenarios opens an additional collapsed panel beneath the historical
+trajectories. It applies the existing research engine to nine untreated field plots. The selected end date and one or two user
+rates drive the chart, replayable JSON and CSV. Only the in-scope heavily oiled Bay Jimmy worked example gets the panel.
+The earlier offline-only instructions below describe the original implementation. Screening and report generation retain
+their existing inputs. The integration changes the Bay Jimmy controls intentionally; keep the Session 1 baseline as historical evidence.
+
+Files: `src/shoreline_remediation/ui_future_scenarios.py`, `src/shoreline_remediation/ui_results.py`, `tests/test_projections.py`,
+`tests/test_v54_results.py`, `README.md` and this handoff. The import guard permits the one presentation adapter.
+
+Verification: `python -m pytest -q tests/test_v54_results.py tests/test_projections.py tests/test_projections_rate.py tests/test_recovery_trajectories.py`
+gave 113 passed, 0 failed, 0 skipped. A local Streamlit session returned cumulative endpoints of 31.06 m (2030 fixed),
+12.13 m (zero rate) and 74.86 m (2050 with a 2030 rate change). Full suite not rerun. Scientific status remains conditional.
+
+**Integration review, 21 November:** See `docs/CLAUDE_ASSESSMENT_REVIEW.md`. The local review reproduced two failures before
+the fixes. The caption now states the historical test coverage for any selected horizon, including dates within four years.
+The shared `projections/projection.py` calculation rejects numeric overflow with a corrective message. Tests changed in
+`tests/test_projections_rate.py` and `tests/test_v54_results.py`. The four-file pytest command above gave 114 passed, 0 failed,
+0 skipped. The extended interaction check also passed individually with
+`python -m pytest -q tests/test_v54_results.py::test_bay_jimmy_future_scenario_controls_use_the_observed_anchor`.
+Chromium exercised both downloads; replaying the downloaded JSON through the CLI reproduced all 15 CSV dates, record types,
+rates and retreat values within export precision. No horizontal page overflow at 390 px. The full suite was not rerun.
+The external Claude Code invocation was blocked before execution; these are local review and verification results.
 
 ## Session 1 (20 Nov 2026): baseline and experiment specification. COMPLETE
 

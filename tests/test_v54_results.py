@@ -2,6 +2,7 @@
 
 Run from the repository root:  python -m pytest tests/test_v54_results.py
 """
+import datetime as dt
 import re
 import sys
 from pathlib import Path
@@ -223,6 +224,7 @@ def test_bay_jimmy_shows_one_effect_plot_and_links_to_the_scatter_on_models():
 
 def test_rocky_uses_the_screening_table_and_states_no_forecast():
     at = run_habitat("esi_1A")
+    assert not any(e.label == "Explore future scenarios" for e in at.expander)
     t = text(at)
     assert B.NO_FORECAST_TEXT in t
     assert "Screening result" in t and "No treatment has a comparable effect estimate" in t
@@ -231,6 +233,31 @@ def test_rocky_uses_the_screening_table_and_states_no_forecast():
 
 
 # ---- structure ------------------------------------------------------------------------------------------------------
+
+def test_bay_jimmy_future_scenario_controls_use_the_observed_anchor():
+    at = run_bay_jimmy()
+    assert any(e.label == "Explore future scenarios" for e in at.expander)
+    before = outcome_html(at)
+    at.session_state["bj_future_panel"] = True
+    at.run()
+    assert not at.exception, at.exception
+    assert "31.06 m since December 2010" in text(at)
+    at.number_input(key="bj_future_rate").set_value(0.0).run()
+    assert "0.00 m additional retreat" in text(at)
+    assert "12.13 m since December 2010" in text(at)
+    at.date_input(key="bj_future_end").set_value(dt.date(2050, 1, 1)).run()
+    at.number_input(key="bj_future_rate").set_value(1.43).run()
+    at.checkbox(key="bj_future_change").check().run()
+    assert "74.86 m since December 2010" in text(at)
+    at.date_input(key="bj_future_end").set_value(dt.date(2017, 1, 1)).run()
+    assert not at.exception
+    assert "These planning horizons extend beyond" not in text(at)
+    at.checkbox(key="bj_future_change").uncheck().run()
+    assert "Historical tests on these nine plots covered lead times up to about four years" in text(at)
+    assert "Neither candidate improved on the constant-rate baseline enough to meet the study criteria" in text(at)
+    assert "Longer projections depend on the rates you choose" in text(at)
+    assert "12.47 m since December 2010" in text(at)
+    assert outcome_html(at) == before
 
 def test_no_share_button_anywhere():
     for at in (run_bay_jimmy(), run_habitat("mangrove")):

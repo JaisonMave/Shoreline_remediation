@@ -93,12 +93,15 @@ def project(spec, anchor: dt.date, anchor_value: float, n_plots: int) -> tuple:
     for d in sample_dates(anchor, spec.end, spec.cadence, change):
         t = decimal_year(d)
         add = 0.0 if d == anchor else additional_retreat(t, a, seg_t)
+        cumulative = anchor_value + add
+        if not math.isfinite(cumulative):
+            raise ValueError("Projected retreat exceeds the numeric range. Choose a smaller rate or a shorter horizon.")
         in_effect = next((s for s in segs if s.starts < d <= s.ends), None)
         kind = ("anchor" if d == anchor else "end_date" if d == spec.end else "rate_change" if d in change else "regular")
         rows.append({
             "scenario_id": spec.scenario_id, "site_id": spec.site_id, "plot_group_id": spec.plot_group_id,
             "endpoint": spec.endpoint, "unit": spec.unit, "date": d.isoformat(), "decimal_year": t,
-            "years_since_anchor": t - a, "additional_retreat_since_anchor_m": add, "cumulative_retreat_since_origin_m": anchor_value + add,
+            "years_since_anchor": t - a, "additional_retreat_since_anchor_m": add, "cumulative_retreat_since_origin_m": cumulative,
             "rate_in_effect_m_per_yr": None if in_effect is None else in_effect.rate,
             "rate_assumption_id": None if in_effect is None else in_effect.assumption_id,
             "rate_origin": None if in_effect is None else in_effect.origin,

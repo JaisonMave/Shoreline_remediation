@@ -275,9 +275,9 @@ def _imports(path: Path) -> set:
     return names
 
 
-def test_no_production_module_imports_the_research_package():
+def test_only_the_scenario_panel_imports_the_research_package():
     offenders = [p.name for p in PKG.glob("*.py") if any("projections" in n for n in _imports(p))]
-    assert offenders == []
+    assert offenders == ["ui_future_scenarios.py"]
 
 
 def test_research_package_does_not_import_dashboard_or_legacy_decision_code():
