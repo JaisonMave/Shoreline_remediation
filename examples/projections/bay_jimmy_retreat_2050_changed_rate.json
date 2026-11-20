@@ -1,0 +1,41 @@
+{
+  "schema_version": "shoreline-projection-spec/1",
+  "scenario_id": "bay_jimmy_untreated_rate_change_2050",
+  "description": "Counter-scenario: the fitted long-run rate until 1 January 2030, then the constant slope fitted across all 2010-2016 surveys until 1 January 2050. A sensitivity case with stated rates, not a climate or storm scenario and not a forecast.",
+  "site_id": "bay_jimmy_zengel_plots",
+  "plot_group_id": "untreated_heavy",
+  "habitat": "salt_marsh",
+  "oiling_class": "Heavy",
+  "endpoint": "cumulative_shoreline_retreat",
+  "unit": "m",
+  "arm": "reference",
+  "as_of": "2016-10-05",
+  "end_date": "2050-01-01",
+  "cadence": "annual",
+  "model_version": "rate_continuation/1",
+  "seed": 20261120,
+  "evidence_ids": ["zengel2022_griidc_field_positions"],
+  "assumptions": [
+    {
+      "assumption_id": "retreat_rate",
+      "value": 1.43,
+      "unit": "m/yr",
+      "origin": "fitted_parameter",
+      "source": "recovery_trajectories M1 long-run rate b for the untreated plots, fitted to the 4 Dec 2010 to 5 Oct 2016 surveys (1.4338, rounded to 0.01 m/yr; docs/V5_4_RECOVERY_VIEW.md)"
+    },
+    {
+      "assumption_id": "rate_change_date",
+      "value": "2030-01-01",
+      "unit": "date",
+      "origin": "user_assumption",
+      "source": "owner: illustrative change date for the sensitivity case"
+    },
+    {
+      "assumption_id": "changed_retreat_rate",
+      "value": 2.19,
+      "unit": "m/yr",
+      "origin": "fitted_parameter",
+      "source": "recovery_trajectories M0 full-period fitted constant slope for the untreated plots: least-squares slope through the origin of plot increments at all surveys 4 Dec 2010 to 5 Oct 2016 (2.1933, rounded to 0.01 m/yr; includes the early excess). Not the endpoint average: 12.1256 m / 5.8363 yr = 2.08 m/yr"
+    }
+  ]
+}

@@ -1,0 +1,1842 @@
+{
+  "abstentions": [
+    {
+      "kind": "no_site_forecast",
+      "text": "No site-specific numerical forecast is given for this shoreline type: the platform has no validated or experimental outcome model for it. Screening verdicts and literature only."
+    },
+    {
+      "kind": "no_model",
+      "text": "PAH-sum half-life: no registered model covers 1a shorelines"
+    },
+    {
+      "kind": "no_model",
+      "text": "vegetation time to 80% of reference: no registered model covers 1a shorelines"
+    },
+    {
+      "kind": "no_model",
+      "text": "natural edge loss to year 5 and 8: no registered model covers 1a shorelines"
+    },
+    {
+      "kind": "insufficient_evidence",
+      "text": "5 allowed option(s) cannot be compared with natural recovery because no eligible evidence rows exist for this habitat. This is not a finding of no benefit."
+    },
+    {
+      "kind": "no_recommendation",
+      "text": "No intervention is recommended over natural recovery. Natural recovery with monitoring remains the reference option."
+    }
+  ],
+  "advisories": [],
+  "characterisation": {
+    "access": "good",
+    "assumptions": [],
+    "cell": null,
+    "esi_code": "1A",
+    "exposure": "moderate",
+    "habitat": "1a",
+    "habitat_class": "rocky/hard",
+    "habitat_descriptors": {
+      "asphalt_pavement_risk": "not stated",
+      "burial_risk": "not stated",
+      "name": "exposed rocky shore",
+      "oil_penetration_depth": "not stated (steep, hard surface; oil is held offshore by reflected waves)",
+      "persistence_driver": "the most resistant oil remains as a patchy band at or above the high-tide line",
+      "source": "NOAA Characteristic Coastal Habitats (2017) p.13"
+    },
+    "input_kind": "scenario",
+    "label": null,
+    "noaa_oil_category": "III",
+    "noaa_oil_category_basis": "ASSUMED mapping from the tool's oil category (data/knowledge/tables/noaa_oil_category.csv)",
+    "oil_category": "medium",
+    "oil_source": "chosen category",
+    "oiling_basis": "input",
+    "oiling_class": "Moderate",
+    "scope_reasons": [],
+    "scope_tier": "rules_and_literature",
+    "season": "summer",
+    "sensitivity": "moderate",
+    "shoreline_type_for_rules": "bedrock",
+    "site_scope_flags": null
+  },
+  "decision_outcome": "conditional_only",
+  "decision_outcome_label": "No intervention is recommended outright; at least one is conditional. Natural recovery stays the reference",
+  "evidence_state": "no_clear_difference",
+  "evidence_state_label": "No clear difference from natural recovery (evidence exists)",
+  "headline": "No clear difference from natural recovery (evidence exists): no option is shown by evidence to beat natural recovery; continue with natural recovery and monitoring. Evidence exists but shows no clear difference for: high_pressure_heated_washing. Insufficient evidence to compare with natural recovery for: passive_sorbents, manual_removal, vacuum_removal, high_pressure_washing, low_pressure_flushing, low_pressure_heated_flushing, surface_washing_agents. Eligibility reflects habitat-impact screening, not demonstrated remediation effectiveness. The order shown is not a performance ranking.",
+  "literature_notes": [],
+  "natural_recovery": {
+    "evidence_basis": "no evidence_verdicts row for this technology and habitat class",
+    "evidence_verdict": "no evidence",
+    "habitat_rating": {
+      "rating": "A",
+      "source": "NOAA Characteristic Coastal Habitats (2017) p.14 (data/knowledge/tables/noaa_response_rating.csv noaa_1A_085); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)",
+      "text": "NOAA Characteristic Coastal Habitats (2017) p.14, Exposed Rocky Shores: 'Natural Recovery' is rated A for oil category III (The least adverse habitat impact of the method (NOAA letter scale rates the method's impact on the habitat, not how well it removes oil)); letters rate adverse habitat impact, not effectiveness"
+    },
+    "label": "natural recovery with monitoring",
+    "monitoring": "monitor and compare with the reference numbers above",
+    "option": "natural_attenuation",
+    "recommendation_class": "C",
+    "reference": [
+      {
+        "hi90": null,
+        "lo90": null,
+        "quantity": "PAH-sum half-life",
+        "reason": "no registered model covers 1a shorelines",
+        "status": "no model",
+        "value": null
+      },
+      {
+        "hi90": null,
+        "lo90": null,
+        "quantity": "vegetation time to 80% of reference",
+        "reason": "no registered model covers 1a shorelines",
+        "status": "no model",
+        "value": null
+      },
+      {
+        "hi90": null,
+        "lo90": null,
+        "quantity": "natural edge loss to year 5 and 8",
+        "reason": "no registered model covers 1a shorelines",
+        "status": "no model",
+        "value": null
+      }
+    ],
+    "rule_verdict": "conditional"
+  },
+  "options": [
+    {
+      "advisory_notes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "benefit_outcomes": [],
+      "caveats": [],
+      "class_label": "allowed, no clear evidence either way",
+      "conditions": [],
+      "cost_class": "not sourced",
+      "do_no_harm": "passed",
+      "ecological_basis": "Low-contact recovery option with limited substrate disturbance.",
+      "ecological_score_assumed": 6.5,
+      "evidence_basis": "no evidence_verdicts row for this technology and habitat class",
+      "evidence_design": null,
+      "evidence_label": null,
+      "evidence_source": "none",
+      "evidence_state": "insufficient_evidence",
+      "evidence_state_label": "Insufficient evidence to compare with natural recovery",
+      "evidence_verdict": "no evidence",
+      "exclusion_reasons": [],
+      "habitat_rating": {
+        "noaa_oil_category": "III",
+        "rating": "A",
+        "source": "NOAA Characteristic Coastal Habitats (2017) p.14 (data/knowledge/tables/noaa_response_rating.csv noaa_1A_089); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)",
+        "text": "NOAA Characteristic Coastal Habitats (2017) p.14, Exposed Rocky Shores: 'Sorbents' is rated A for oil category III (The least adverse habitat impact of the method (NOAA letter scale rates the method's impact on the habitat, not how well it removes oil)); letters rate adverse habitat impact, not effectiveness",
+        "verdict": "eligible"
+      },
+      "harm_flags": [],
+      "model_id": null,
+      "model_state": null,
+      "option": "passive_sorbents",
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "production_rate": "not sourced",
+      "rank_basis": "display_convention",
+      "rank_basis_text": "display convention only: no benefit interval separates this option from its neighbours; the order uses the ASSUMED ecological score and then the name, and is not a scientific ranking",
+      "rank_in_class": 1,
+      "rank_tied_with": [
+        "high_pressure_washing",
+        "low_pressure_flushing",
+        "manual_removal",
+        "vacuum_removal"
+      ],
+      "recommendation_category": "insufficient_evidence",
+      "recommendation_category_label": "Insufficient evidence",
+      "recommendation_category_reason": "allowed by screening, but there are no eligible evidence rows to compare it with natural recovery",
+      "recommendation_category_rule": "class B with no eligible evidence rows: no comparison with natural recovery is possible",
+      "recommendation_class": "B",
+      "rule_id": "hard_elig",
+      "rule_reason": "Low-contact methods are acceptable on hard substrate",
+      "rule_source": "docs/NOAA_ASSUMPTION_AUDIT.md",
+      "rule_verdict": "eligible",
+      "secondary_impacts": "Sorbent waste generation; limited to mobile oil",
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:hard_elig"
+      ],
+      "waste": "not sourced"
+    },
+    {
+      "advisory_notes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "benefit_outcomes": [],
+      "caveats": [],
+      "class_label": "allowed, no clear evidence either way",
+      "conditions": [],
+      "cost_class": "not sourced",
+      "do_no_harm": "passed",
+      "ecological_basis": "Physical removal is more compatible with firm or accessible shorelines.",
+      "ecological_score_assumed": 6.0,
+      "evidence_basis": "no evidence_verdicts row for this technology and habitat class",
+      "evidence_design": null,
+      "evidence_label": null,
+      "evidence_source": "none",
+      "evidence_state": "insufficient_evidence",
+      "evidence_state_label": "Insufficient evidence to compare with natural recovery",
+      "evidence_verdict": "no evidence",
+      "exclusion_reasons": [],
+      "habitat_rating": {
+        "noaa_oil_category": "III",
+        "rating": "B",
+        "source": "NOAA Characteristic Coastal Habitats (2017) p.14 (data/knowledge/tables/noaa_response_rating.csv noaa_1A_087); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)",
+        "text": "NOAA Characteristic Coastal Habitats (2017) p.14, Exposed Rocky Shores: 'Manual Oil Removal/Cleaning' is rated B for oil category III (Some adverse habitat impact); letters rate adverse habitat impact, not effectiveness",
+        "verdict": "eligible"
+      },
+      "harm_flags": [],
+      "model_id": null,
+      "model_state": null,
+      "option": "manual_removal",
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "production_rate": "not sourced",
+      "rank_basis": "display_convention",
+      "rank_basis_text": "display convention only: no benefit interval separates this option from its neighbours; the order uses the ASSUMED ecological score and then the name, and is not a scientific ranking",
+      "rank_in_class": 2,
+      "rank_tied_with": [
+        "high_pressure_washing",
+        "low_pressure_flushing",
+        "passive_sorbents",
+        "vacuum_removal"
+      ],
+      "recommendation_category": "insufficient_evidence",
+      "recommendation_category_label": "Insufficient evidence",
+      "recommendation_category_reason": "allowed by screening, but there are no eligible evidence rows to compare it with natural recovery",
+      "recommendation_category_rule": "class B with no eligible evidence rows: no comparison with natural recovery is possible",
+      "recommendation_class": "B",
+      "rule_id": "hard_elig",
+      "rule_reason": "Low-contact methods are acceptable on hard substrate",
+      "rule_source": "docs/NOAA_ASSUMPTION_AUDIT.md",
+      "rule_verdict": "eligible",
+      "secondary_impacts": "Trampling and foot traffic can damage soft sediment and vegetation",
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:hard_elig"
+      ],
+      "waste": "not sourced"
+    },
+    {
+      "advisory_notes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "benefit_outcomes": [],
+      "caveats": [],
+      "class_label": "allowed, no clear evidence either way",
+      "conditions": [],
+      "cost_class": "not sourced",
+      "do_no_harm": "passed",
+      "ecological_basis": "Physical removal is more compatible with firm or accessible shorelines.",
+      "ecological_score_assumed": 6.0,
+      "evidence_basis": "no evidence_verdicts row for this technology and habitat class",
+      "evidence_design": null,
+      "evidence_label": null,
+      "evidence_source": "none",
+      "evidence_state": "insufficient_evidence",
+      "evidence_state_label": "Insufficient evidence to compare with natural recovery",
+      "evidence_verdict": "no evidence",
+      "exclusion_reasons": [],
+      "habitat_rating": {
+        "noaa_oil_category": "III",
+        "rating": "A",
+        "source": "NOAA Characteristic Coastal Habitats (2017) p.14 (data/knowledge/tables/noaa_response_rating.csv noaa_1A_090); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)",
+        "text": "NOAA Characteristic Coastal Habitats (2017) p.14, Exposed Rocky Shores: 'Vacuum' is rated A for oil category III (The least adverse habitat impact of the method (NOAA letter scale rates the method's impact on the habitat, not how well it removes oil)); letters rate adverse habitat impact, not effectiveness",
+        "verdict": "eligible"
+      },
+      "harm_flags": [],
+      "model_id": null,
+      "model_state": null,
+      "option": "vacuum_removal",
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "production_rate": "not sourced",
+      "rank_basis": "display_convention",
+      "rank_basis_text": "display convention only: no benefit interval separates this option from its neighbours; the order uses the ASSUMED ecological score and then the name, and is not a scientific ranking",
+      "rank_in_class": 3,
+      "rank_tied_with": [
+        "high_pressure_washing",
+        "low_pressure_flushing",
+        "manual_removal",
+        "passive_sorbents"
+      ],
+      "recommendation_category": "insufficient_evidence",
+      "recommendation_category_label": "Insufficient evidence",
+      "recommendation_category_reason": "allowed by screening, but there are no eligible evidence rows to compare it with natural recovery",
+      "recommendation_category_rule": "class B with no eligible evidence rows: no comparison with natural recovery is possible",
+      "recommendation_class": "B",
+      "rule_id": "hard_elig",
+      "rule_reason": "Low-contact methods are acceptable on hard substrate",
+      "rule_source": "docs/NOAA_ASSUMPTION_AUDIT.md",
+      "rule_verdict": "eligible",
+      "secondary_impacts": "Access and equipment disturbance; removes free oil only",
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:hard_elig"
+      ],
+      "waste": "not sourced"
+    },
+    {
+      "advisory_notes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "benefit_outcomes": [],
+      "caveats": [],
+      "class_label": "allowed, no clear evidence either way",
+      "conditions": [],
+      "cost_class": "not sourced",
+      "do_no_harm": "passed",
+      "ecological_basis": "Pressure washing is an accepted method on hard substrates; heated washing scores lower because hot-water-washed sites initially declined more than unwashed ones.",
+      "ecological_score_assumed": 4.5,
+      "evidence_basis": "biological recovery: no evidence (no eligible rows)",
+      "evidence_design": null,
+      "evidence_label": null,
+      "evidence_source": "none",
+      "evidence_state": "insufficient_evidence",
+      "evidence_state_label": "Insufficient evidence to compare with natural recovery",
+      "evidence_verdict": "no evidence",
+      "exclusion_reasons": [],
+      "habitat_rating": {
+        "noaa_oil_category": "III",
+        "rating": "B",
+        "source": "NOAA Characteristic Coastal Habitats (2017) p.14 (data/knowledge/tables/noaa_response_rating.csv noaa_1A_096); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)",
+        "text": "NOAA Characteristic Coastal Habitats (2017) p.14, Exposed Rocky Shores: 'High-pressure, Ambient Water Flushing' is rated B for oil category III (Some adverse habitat impact); letters rate adverse habitat impact, not effectiveness",
+        "verdict": "eligible"
+      },
+      "harm_flags": [],
+      "model_id": null,
+      "model_state": null,
+      "option": "high_pressure_washing",
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "production_rate": "not sourced",
+      "rank_basis": "display_convention",
+      "rank_basis_text": "display convention only: no benefit interval separates this option from its neighbours; the order uses the ASSUMED ecological score and then the name, and is not a scientific ranking",
+      "rank_in_class": 4,
+      "rank_tied_with": [
+        "low_pressure_flushing",
+        "manual_removal",
+        "passive_sorbents",
+        "vacuum_removal"
+      ],
+      "recommendation_category": "insufficient_evidence",
+      "recommendation_category_label": "Insufficient evidence",
+      "recommendation_category_reason": "allowed by screening, but there are no eligible evidence rows to compare it with natural recovery",
+      "recommendation_category_rule": "class B with no eligible evidence rows: no comparison with natural recovery is possible",
+      "recommendation_class": "B",
+      "rule_id": "hpw_hard_cond",
+      "rule_reason": "High-pressure washing on hard substrate otherwise conditional",
+      "rule_source": "docs/NOAA_ASSUMPTION_AUDIT.md",
+      "rule_verdict": "conditional",
+      "secondary_impacts": "High disturbance; drives oil down if used on soft substrate",
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:hpw_hard_cond"
+      ],
+      "waste": "not sourced"
+    },
+    {
+      "advisory_notes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "benefit_outcomes": [],
+      "caveats": [],
+      "class_label": "allowed, no clear evidence either way",
+      "conditions": [],
+      "cost_class": "not sourced",
+      "do_no_harm": "passed",
+      "ecological_basis": "Moderate disturbance and potential residue or mobilization concerns.",
+      "ecological_score_assumed": 4.5,
+      "evidence_basis": "residual oil: no evidence (no eligible rows)",
+      "evidence_design": null,
+      "evidence_label": null,
+      "evidence_source": "none",
+      "evidence_state": "insufficient_evidence",
+      "evidence_state_label": "Insufficient evidence to compare with natural recovery",
+      "evidence_verdict": "no evidence",
+      "exclusion_reasons": [],
+      "habitat_rating": {
+        "noaa_oil_category": "III",
+        "rating": "A",
+        "source": "NOAA Characteristic Coastal Habitats (2017) p.14 (data/knowledge/tables/noaa_response_rating.csv noaa_1A_095); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)",
+        "text": "NOAA Characteristic Coastal Habitats (2017) p.14, Exposed Rocky Shores: 'Low-pressure, Ambient Water Flushing' is rated A for oil category III (The least adverse habitat impact of the method (NOAA letter scale rates the method's impact on the habitat, not how well it removes oil)); letters rate adverse habitat impact, not effectiveness",
+        "verdict": "eligible"
+      },
+      "harm_flags": [],
+      "model_id": null,
+      "model_state": null,
+      "option": "low_pressure_flushing",
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "production_rate": "not sourced",
+      "rank_basis": "display_convention",
+      "rank_basis_text": "display convention only: no benefit interval separates this option from its neighbours; the order uses the ASSUMED ecological score and then the name, and is not a scientific ranking",
+      "rank_in_class": 5,
+      "rank_tied_with": [
+        "high_pressure_washing",
+        "manual_removal",
+        "passive_sorbents",
+        "vacuum_removal"
+      ],
+      "recommendation_category": "insufficient_evidence",
+      "recommendation_category_label": "Insufficient evidence",
+      "recommendation_category_reason": "allowed by screening, but there are no eligible evidence rows to compare it with natural recovery",
+      "recommendation_category_rule": "class B with no eligible evidence rows: no comparison with natural recovery is possible",
+      "recommendation_class": "B",
+      "rule_id": "lpf_elig",
+      "rule_reason": "Low-pressure flushing suits shallow surface oil on sheltered shores",
+      "rule_source": "docs/NOAA_ASSUMPTION_AUDIT.md",
+      "rule_verdict": "eligible",
+      "secondary_impacts": "Can drive oil into sediment if misapplied; mobilised oil must be recovered",
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:lpf_elig"
+      ],
+      "waste": "not sourced"
+    },
+    {
+      "advisory_notes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "benefit_outcomes": [],
+      "caveats": [],
+      "class_label": "natural recovery with monitoring",
+      "conditions": [],
+      "cost_class": "not sourced",
+      "do_no_harm": "passed",
+      "ecological_basis": "Generally low-disturbance treatment with good ecological compatibility.",
+      "ecological_score_assumed": 7.0,
+      "evidence_basis": "no evidence_verdicts row for this technology and habitat class",
+      "evidence_design": null,
+      "evidence_label": null,
+      "evidence_source": "none",
+      "evidence_state": "baseline",
+      "evidence_state_label": "Natural recovery (the baseline)",
+      "evidence_verdict": "no evidence",
+      "exclusion_reasons": [],
+      "habitat_rating": {
+        "noaa_oil_category": "III",
+        "rating": "A",
+        "source": "NOAA Characteristic Coastal Habitats (2017) p.14 (data/knowledge/tables/noaa_response_rating.csv noaa_1A_085); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)",
+        "text": "NOAA Characteristic Coastal Habitats (2017) p.14, Exposed Rocky Shores: 'Natural Recovery' is rated A for oil category III (The least adverse habitat impact of the method (NOAA letter scale rates the method's impact on the habitat, not how well it removes oil)); letters rate adverse habitat impact, not effectiveness",
+        "verdict": "eligible"
+      },
+      "harm_flags": [],
+      "model_id": null,
+      "model_state": null,
+      "option": "natural_attenuation",
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "production_rate": "not sourced",
+      "rank_basis": "display_convention",
+      "rank_basis_text": "display convention only: no benefit interval separates this option from its neighbours; the order uses the ASSUMED ecological score and then the name, and is not a scientific ranking",
+      "rank_in_class": 1,
+      "rank_tied_with": [],
+      "recommendation_category": "natural_recovery_monitoring",
+      "recommendation_category_label": "Natural recovery with monitoring (reference option)",
+      "recommendation_category_reason": "reference option",
+      "recommendation_category_rule": "class C: natural recovery, the reference every option is compared with",
+      "recommendation_class": "C",
+      "rule_id": "natatt_default_cond",
+      "rule_reason": "Natural attenuation otherwise needs monitoring and review",
+      "rule_source": "docs/NOAA_ASSUMPTION_AUDIT.md",
+      "rule_verdict": "conditional",
+      "secondary_impacts": "Oil persists longer where energy is low; monitoring effort only",
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:natatt_default_cond"
+      ],
+      "waste": "not sourced"
+    },
+    {
+      "advisory_notes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "benefit_outcomes": [],
+      "caveats": [],
+      "class_label": "allowed but harm reported under some conditions",
+      "conditions": [],
+      "cost_class": "not sourced",
+      "do_no_harm": "flagged",
+      "ecological_basis": "Moderate disturbance and potential residue or mobilization concerns.",
+      "ecological_score_assumed": 4.5,
+      "evidence_basis": "biological recovery: no evidence (no eligible rows)",
+      "evidence_design": null,
+      "evidence_label": null,
+      "evidence_source": "none",
+      "evidence_state": "insufficient_evidence",
+      "evidence_state_label": "Insufficient evidence to compare with natural recovery",
+      "evidence_verdict": "no evidence",
+      "exclusion_reasons": [],
+      "habitat_rating": {
+        "noaa_oil_category": "III",
+        "rating": "C",
+        "source": "NOAA Characteristic Coastal Habitats (2017) p.14 (data/knowledge/tables/noaa_response_rating.csv noaa_1A_097); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)",
+        "text": "NOAA Characteristic Coastal Habitats (2017) p.14, Exposed Rocky Shores: 'Low-pressure, Hot Water Flushing' is rated C for oil category III (Significant adverse habitat impact); letters rate adverse habitat impact, not effectiveness",
+        "verdict": "conditional"
+      },
+      "harm_flags": [
+        {
+          "detail": "NOAA Characteristic Coastal Habitats (2017) p.14, Exposed Rocky Shores: 'Low-pressure, Hot Water Flushing' is rated C for oil category III (Significant adverse habitat impact); letters rate adverse habitat impact, not effectiveness (significant or unknown habitat impact: flag shown, option stays)",
+          "source": "NOAA Characteristic Coastal Habitats (2017) p.14 (data/knowledge/tables/noaa_response_rating.csv noaa_1A_097); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)"
+        }
+      ],
+      "model_id": null,
+      "model_state": null,
+      "option": "low_pressure_heated_flushing",
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "production_rate": "not sourced",
+      "rank_basis": "display_convention",
+      "rank_basis_text": "display convention only: no benefit interval separates this option from its neighbours; the order uses the ASSUMED ecological score and then the name, and is not a scientific ranking",
+      "rank_in_class": 1,
+      "rank_tied_with": [
+        "high_pressure_heated_washing",
+        "surface_washing_agents"
+      ],
+      "recommendation_category": "conditional",
+      "recommendation_category_label": "Conditional",
+      "recommendation_category_reason": "allowed, with harm flagged under some conditions or mixed evidence (see harm_flags)",
+      "recommendation_category_rule": "class D (allowed, harm flagged under some conditions or mixed evidence), OR class A when the input is outside the scope where the benefit evidence was gathered (transfer untested), OR class A when the option presupposes a method that is itself excluded",
+      "recommendation_class": "D",
+      "rule_id": "noaa:1A:low_pressure_heated_flushing:III",
+      "rule_reason": "NOAA Characteristic Coastal Habitats (2017) p.14, Exposed Rocky Shores: 'Low-pressure, Hot Water Flushing' is rated C for oil category III (Significant adverse habitat impact); letters rate adverse habitat impact, not effectiveness",
+      "rule_source": "NOAA Characteristic Coastal Habitats (2017) p.14 (data/knowledge/tables/noaa_response_rating.csv noaa_1A_097); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)",
+      "rule_verdict": "conditional",
+      "secondary_impacts": "Heat harms sensitive biota; excluded on wetlands",
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:noaa:1A:low_pressure_heated_flushing:III"
+      ],
+      "waste": "not sourced"
+    },
+    {
+      "advisory_notes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "benefit_outcomes": [],
+      "caveats": [],
+      "class_label": "allowed but harm reported under some conditions",
+      "conditions": [],
+      "cost_class": "not sourced",
+      "do_no_harm": "flagged",
+      "ecological_basis": "Moderate disturbance and potential residue or mobilization concerns.",
+      "ecological_score_assumed": 4.5,
+      "evidence_basis": "residual oil: no evidence (no eligible rows)",
+      "evidence_design": null,
+      "evidence_label": null,
+      "evidence_source": "none",
+      "evidence_state": "insufficient_evidence",
+      "evidence_state_label": "Insufficient evidence to compare with natural recovery",
+      "evidence_verdict": "no evidence",
+      "exclusion_reasons": [],
+      "habitat_rating": {
+        "noaa_oil_category": "III",
+        "rating": "C",
+        "source": "NOAA Characteristic Coastal Habitats (2017) p.14 (data/knowledge/tables/noaa_response_rating.csv noaa_1A_102); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)",
+        "text": "NOAA Characteristic Coastal Habitats (2017) p.14, Exposed Rocky Shores: 'Shoreline Cleaning Agents' is rated C for oil category III (Significant adverse habitat impact); letters rate adverse habitat impact, not effectiveness",
+        "verdict": "conditional"
+      },
+      "harm_flags": [
+        {
+          "detail": "NOAA Characteristic Coastal Habitats (2017) p.14, Exposed Rocky Shores: 'Shoreline Cleaning Agents' is rated C for oil category III (Significant adverse habitat impact); letters rate adverse habitat impact, not effectiveness (significant or unknown habitat impact: flag shown, option stays)",
+          "source": "NOAA Characteristic Coastal Habitats (2017) p.14 (data/knowledge/tables/noaa_response_rating.csv noaa_1A_102); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)"
+        }
+      ],
+      "model_id": null,
+      "model_state": null,
+      "option": "surface_washing_agents",
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "production_rate": "not sourced",
+      "rank_basis": "display_convention",
+      "rank_basis_text": "display convention only: no benefit interval separates this option from its neighbours; the order uses the ASSUMED ecological score and then the name, and is not a scientific ranking",
+      "rank_in_class": 2,
+      "rank_tied_with": [
+        "high_pressure_heated_washing",
+        "low_pressure_heated_flushing"
+      ],
+      "recommendation_category": "conditional",
+      "recommendation_category_label": "Conditional",
+      "recommendation_category_reason": "allowed, with harm flagged under some conditions or mixed evidence (see harm_flags)",
+      "recommendation_category_rule": "class D (allowed, harm flagged under some conditions or mixed evidence), OR class A when the input is outside the scope where the benefit evidence was gathered (transfer untested), OR class A when the option presupposes a method that is itself excluded",
+      "recommendation_class": "D",
+      "rule_id": "noaa:1A:surface_washing_agents:III",
+      "rule_reason": "NOAA Characteristic Coastal Habitats (2017) p.14, Exposed Rocky Shores: 'Shoreline Cleaning Agents' is rated C for oil category III (Significant adverse habitat impact); letters rate adverse habitat impact, not effectiveness",
+      "rule_source": "NOAA Characteristic Coastal Habitats (2017) p.14 (data/knowledge/tables/noaa_response_rating.csv noaa_1A_102); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)",
+      "rule_verdict": "conditional",
+      "secondary_impacts": "Chemical residue and mobilised-oil recovery concerns",
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:noaa:1A:surface_washing_agents:III"
+      ],
+      "waste": "not sourced"
+    },
+    {
+      "advisory_notes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "benefit_outcomes": [],
+      "caveats": [],
+      "class_label": "allowed but harm reported under some conditions",
+      "conditions": [],
+      "cost_class": "not sourced",
+      "do_no_harm": "flagged",
+      "ecological_basis": "Pressure washing is an accepted method on hard substrates; heated washing scores lower because hot-water-washed sites initially declined more than unwashed ones.",
+      "ecological_score_assumed": 3.0,
+      "evidence_basis": "biological recovery: no clear difference (single studies (k=2, citations=Houghton JP (1993); Coats DA (1999))); residual oil: no evidence (no eligible rows)",
+      "evidence_design": null,
+      "evidence_label": null,
+      "evidence_source": "evidence_verdicts",
+      "evidence_state": "no_clear_difference",
+      "evidence_state_label": "No clear difference from natural recovery (evidence exists)",
+      "evidence_verdict": "no clear difference",
+      "exclusion_reasons": [],
+      "habitat_rating": {
+        "noaa_oil_category": "III",
+        "rating": "C",
+        "source": "NOAA Characteristic Coastal Habitats (2017) p.14 (data/knowledge/tables/noaa_response_rating.csv noaa_1A_098); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)",
+        "text": "NOAA Characteristic Coastal Habitats (2017) p.14, Exposed Rocky Shores: 'High-pressure, Hot Water Flushing' is rated C for oil category III (Significant adverse habitat impact); letters rate adverse habitat impact, not effectiveness",
+        "verdict": "conditional"
+      },
+      "harm_flags": [
+        {
+          "detail": "NOAA Characteristic Coastal Habitats (2017) p.14, Exposed Rocky Shores: 'High-pressure, Hot Water Flushing' is rated C for oil category III (Significant adverse habitat impact); letters rate adverse habitat impact, not effectiveness (significant or unknown habitat impact: flag shown, option stays)",
+          "source": "NOAA Characteristic Coastal Habitats (2017) p.14 (data/knowledge/tables/noaa_response_rating.csv noaa_1A_098); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)"
+        }
+      ],
+      "model_id": null,
+      "model_state": null,
+      "option": "high_pressure_heated_washing",
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "production_rate": "not sourced",
+      "rank_basis": "display_convention",
+      "rank_basis_text": "display convention only: no benefit interval separates this option from its neighbours; the order uses the ASSUMED ecological score and then the name, and is not a scientific ranking",
+      "rank_in_class": 3,
+      "rank_tied_with": [
+        "low_pressure_heated_flushing",
+        "surface_washing_agents"
+      ],
+      "recommendation_category": "conditional",
+      "recommendation_category_label": "Conditional",
+      "recommendation_category_reason": "allowed, with harm flagged under some conditions or mixed evidence (see harm_flags)",
+      "recommendation_category_rule": "class D (allowed, harm flagged under some conditions or mixed evidence), OR class A when the input is outside the scope where the benefit evidence was gathered (transfer untested), OR class A when the option presupposes a method that is itself excluded",
+      "recommendation_class": "D",
+      "rule_id": "hpw_hard_cond",
+      "rule_reason": "High-pressure washing on hard substrate otherwise conditional",
+      "rule_source": "docs/NOAA_ASSUMPTION_AUDIT.md",
+      "rule_verdict": "conditional",
+      "secondary_impacts": "Hot-water washing initially worsened recovery at Exxon Valdez sites (NOAA OR&R)",
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:hpw_hard_cond"
+      ],
+      "waste": "not sourced"
+    },
+    {
+      "advisory_notes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "benefit_outcomes": [],
+      "caveats": [],
+      "class_label": "excluded",
+      "conditions": [],
+      "cost_class": "not sourced",
+      "do_no_harm": "passed",
+      "ecological_basis": "Potentially low physical disturbance, but effectiveness depends on nutrient, oxygen, access, and monitoring evidence; NOAA notes limited evidence for bioaugmentation.",
+      "ecological_score_assumed": 6.0,
+      "evidence_basis": "no evidence_verdicts row for this technology and habitat class",
+      "evidence_design": null,
+      "evidence_label": null,
+      "evidence_source": "none",
+      "evidence_state": "insufficient_evidence",
+      "evidence_state_label": "Insufficient evidence to compare with natural recovery",
+      "evidence_verdict": "no evidence",
+      "exclusion_reasons": [
+        {
+          "detail": "NOAA Characteristic Coastal Habitats (2017) p.14, Exposed Rocky Shores: 'Nutrient Enrichment' is rated - for oil category III (Not applicable); letters rate adverse habitat impact, not effectiveness (not advised or not applicable; D36 mapping, Proposed)",
+          "rule_id": "noaa:1A:bioremediation:III",
+          "source": "NOAA Characteristic Coastal Habitats (2017) p.14 (data/knowledge/tables/noaa_response_rating.csv noaa_1A_103); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)"
+        }
+      ],
+      "habitat_rating": {
+        "noaa_oil_category": "III",
+        "rating": "-",
+        "source": "NOAA Characteristic Coastal Habitats (2017) p.14 (data/knowledge/tables/noaa_response_rating.csv noaa_1A_103); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)",
+        "text": "NOAA Characteristic Coastal Habitats (2017) p.14, Exposed Rocky Shores: 'Nutrient Enrichment' is rated - for oil category III (Not applicable); letters rate adverse habitat impact, not effectiveness",
+        "verdict": "ineligible"
+      },
+      "harm_flags": [],
+      "model_id": null,
+      "model_state": null,
+      "option": "bioremediation",
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "production_rate": "not sourced",
+      "rank_basis": "display_convention",
+      "rank_basis_text": "display convention only: no benefit interval separates this option from its neighbours; the order uses the ASSUMED ecological score and then the name, and is not a scientific ranking",
+      "rank_in_class": 1,
+      "rank_tied_with": [
+        "mechanical_removal",
+        "planting (after mechanical cleanup)",
+        "sediment_mixing",
+        "sediment_relocation",
+        "solidifiers",
+        "vegetation_cutting"
+      ],
+      "recommendation_category": "excluded",
+      "recommendation_category_label": "Excluded",
+      "recommendation_category_reason": "see exclusion_reasons",
+      "recommendation_category_rule": "class E: removed by a hard constraint (screening rule or habitat rating) or by evidence of harm",
+      "recommendation_class": "E",
+      "rule_id": "noaa:1A:bioremediation:III",
+      "rule_reason": "NOAA Characteristic Coastal Habitats (2017) p.14, Exposed Rocky Shores: 'Nutrient Enrichment' is rated - for oil category III (Not applicable); letters rate adverse habitat impact, not effectiveness",
+      "rule_source": "NOAA Characteristic Coastal Habitats (2017) p.14 (data/knowledge/tables/noaa_response_rating.csv noaa_1A_103); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)",
+      "rule_verdict": "ineligible",
+      "secondary_impacts": "Effectiveness depends on nutrients, oxygen and access; limited bioaugmentation evidence (NOAA)",
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:noaa:1A:bioremediation:III"
+      ],
+      "waste": "not sourced"
+    },
+    {
+      "advisory_notes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "benefit_outcomes": [],
+      "caveats": [],
+      "class_label": "excluded",
+      "conditions": [],
+      "cost_class": "not sourced",
+      "do_no_harm": "passed",
+      "ecological_basis": "Physical removal is more compatible with firm or accessible shorelines.",
+      "ecological_score_assumed": 6.0,
+      "evidence_basis": "no evidence_verdicts row for this technology and habitat class",
+      "evidence_design": null,
+      "evidence_label": null,
+      "evidence_source": "none",
+      "evidence_state": "insufficient_evidence",
+      "evidence_state_label": "Insufficient evidence to compare with natural recovery",
+      "evidence_verdict": "no evidence",
+      "exclusion_reasons": [
+        {
+          "detail": "NOAA Characteristic Coastal Habitats (2017) p.14, Exposed Rocky Shores: 'Mechanical Oil Removal' is rated - for oil category III (Not applicable); letters rate adverse habitat impact, not effectiveness (not advised or not applicable; D36 mapping, Proposed)",
+          "rule_id": "noaa:1A:mechanical_removal:III",
+          "source": "NOAA Characteristic Coastal Habitats (2017) p.14 (data/knowledge/tables/noaa_response_rating.csv noaa_1A_088); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)"
+        }
+      ],
+      "habitat_rating": {
+        "noaa_oil_category": "III",
+        "rating": "-",
+        "source": "NOAA Characteristic Coastal Habitats (2017) p.14 (data/knowledge/tables/noaa_response_rating.csv noaa_1A_088); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)",
+        "text": "NOAA Characteristic Coastal Habitats (2017) p.14, Exposed Rocky Shores: 'Mechanical Oil Removal' is rated - for oil category III (Not applicable); letters rate adverse habitat impact, not effectiveness",
+        "verdict": "ineligible"
+      },
+      "harm_flags": [],
+      "model_id": null,
+      "model_state": null,
+      "option": "mechanical_removal",
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "production_rate": "not sourced",
+      "rank_basis": "display_convention",
+      "rank_basis_text": "display convention only: no benefit interval separates this option from its neighbours; the order uses the ASSUMED ecological score and then the name, and is not a scientific ranking",
+      "rank_in_class": 2,
+      "rank_tied_with": [
+        "bioremediation",
+        "planting (after mechanical cleanup)",
+        "sediment_mixing",
+        "sediment_relocation",
+        "solidifiers",
+        "vegetation_cutting"
+      ],
+      "recommendation_category": "excluded",
+      "recommendation_category_label": "Excluded",
+      "recommendation_category_reason": "see exclusion_reasons",
+      "recommendation_category_rule": "class E: removed by a hard constraint (screening rule or habitat rating) or by evidence of harm",
+      "recommendation_class": "E",
+      "rule_id": "noaa:1A:mechanical_removal:III",
+      "rule_reason": "NOAA Characteristic Coastal Habitats (2017) p.14, Exposed Rocky Shores: 'Mechanical Oil Removal' is rated - for oil category III (Not applicable); letters rate adverse habitat impact, not effectiveness",
+      "rule_source": "NOAA Characteristic Coastal Habitats (2017) p.14 (data/knowledge/tables/noaa_response_rating.csv noaa_1A_088); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)",
+      "rule_verdict": "ineligible",
+      "secondary_impacts": "Sediment loss and habitat damage; excluded on marsh and mudflat",
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:noaa:1A:mechanical_removal:III"
+      ],
+      "waste": "not sourced"
+    },
+    {
+      "advisory_notes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "benefit_outcomes": [],
+      "caveats": [],
+      "class_label": "excluded",
+      "conditions": [],
+      "cost_class": "not sourced",
+      "do_no_harm": "passed",
+      "ecological_basis": "Neutral ecological baseline because no treatment-specific rule was triggered.",
+      "ecological_score_assumed": 5.0,
+      "evidence_basis": "no evidence_verdicts row for this technology and habitat class",
+      "evidence_design": null,
+      "evidence_label": null,
+      "evidence_source": "none",
+      "evidence_state": "insufficient_evidence",
+      "evidence_state_label": "Insufficient evidence to compare with natural recovery",
+      "evidence_verdict": "no evidence",
+      "exclusion_reasons": [
+        {
+          "detail": "planting add-on applies to vegetated wetlands only (pipeline applicability rule, not a table row)",
+          "rule_id": "f9:planting_applicability",
+          "source": "rule"
+        }
+      ],
+      "habitat_rating": null,
+      "harm_flags": [],
+      "model_id": null,
+      "model_state": null,
+      "option": "planting (after mechanical cleanup)",
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "production_rate": "not sourced",
+      "rank_basis": "display_convention",
+      "rank_basis_text": "display convention only: no benefit interval separates this option from its neighbours; the order uses the ASSUMED ecological score and then the name, and is not a scientific ranking",
+      "rank_in_class": 3,
+      "rank_tied_with": [
+        "bioremediation",
+        "mechanical_removal",
+        "sediment_mixing",
+        "sediment_relocation",
+        "solidifiers",
+        "vegetation_cutting"
+      ],
+      "recommendation_category": "excluded",
+      "recommendation_category_label": "Excluded",
+      "recommendation_category_reason": "see exclusion_reasons",
+      "recommendation_category_rule": "class E: removed by a hard constraint (screening rule or habitat rating) or by evidence of harm",
+      "recommendation_class": "E",
+      "rule_id": "f9:planting_applicability",
+      "rule_reason": "planting add-on applies to vegetated wetlands only (pipeline applicability rule, not a table row)",
+      "rule_source": "docs/F9_PIPELINE_PLAN.md",
+      "rule_verdict": "ineligible",
+      "secondary_impacts": "not sourced",
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:f9:planting_applicability"
+      ],
+      "waste": "not sourced"
+    },
+    {
+      "advisory_notes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "benefit_outcomes": [],
+      "caveats": [],
+      "class_label": "excluded",
+      "conditions": [],
+      "cost_class": "not sourced",
+      "do_no_harm": "passed",
+      "ecological_basis": "Neutral ecological baseline because no treatment-specific rule was triggered.",
+      "ecological_score_assumed": 5.0,
+      "evidence_basis": "no evidence_verdicts row for this technology and habitat class",
+      "evidence_design": null,
+      "evidence_label": null,
+      "evidence_source": "none",
+      "evidence_state": "insufficient_evidence",
+      "evidence_state_label": "Insufficient evidence to compare with natural recovery",
+      "evidence_verdict": "no evidence",
+      "exclusion_reasons": [
+        {
+          "detail": "Surface-washing agents and solidifiers otherwise ineligible",
+          "rule_id": "swa_sol_default_inelig",
+          "source": "rule"
+        },
+        {
+          "detail": "NOAA Characteristic Coastal Habitats (2017) p.14, Exposed Rocky Shores: 'Solidifiers' is rated - for oil category III (Not applicable); letters rate adverse habitat impact, not effectiveness (not advised or not applicable; D36 mapping, Proposed)",
+          "rule_id": "noaa:1A:solidifiers:III",
+          "source": "NOAA Characteristic Coastal Habitats (2017) p.14 (data/knowledge/tables/noaa_response_rating.csv noaa_1A_101); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)"
+        }
+      ],
+      "habitat_rating": {
+        "noaa_oil_category": "III",
+        "rating": "-",
+        "source": "NOAA Characteristic Coastal Habitats (2017) p.14 (data/knowledge/tables/noaa_response_rating.csv noaa_1A_101); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)",
+        "text": "NOAA Characteristic Coastal Habitats (2017) p.14, Exposed Rocky Shores: 'Solidifiers' is rated - for oil category III (Not applicable); letters rate adverse habitat impact, not effectiveness",
+        "verdict": "ineligible"
+      },
+      "harm_flags": [],
+      "model_id": null,
+      "model_state": null,
+      "option": "solidifiers",
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "production_rate": "not sourced",
+      "rank_basis": "display_convention",
+      "rank_basis_text": "display convention only: no benefit interval separates this option from its neighbours; the order uses the ASSUMED ecological score and then the name, and is not a scientific ranking",
+      "rank_in_class": 4,
+      "rank_tied_with": [
+        "bioremediation",
+        "mechanical_removal",
+        "planting (after mechanical cleanup)",
+        "sediment_mixing",
+        "sediment_relocation",
+        "vegetation_cutting"
+      ],
+      "recommendation_category": "excluded",
+      "recommendation_category_label": "Excluded",
+      "recommendation_category_reason": "see exclusion_reasons",
+      "recommendation_category_rule": "class E: removed by a hard constraint (screening rule or habitat rating) or by evidence of harm",
+      "recommendation_class": "E",
+      "rule_id": "swa_sol_default_inelig",
+      "rule_reason": "Surface-washing agents and solidifiers otherwise ineligible",
+      "rule_source": "docs/NOAA_ASSUMPTION_AUDIT.md",
+      "rule_verdict": "ineligible",
+      "secondary_impacts": "Added material and waste; limited field evidence",
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:swa_sol_default_inelig"
+      ],
+      "waste": "not sourced"
+    },
+    {
+      "advisory_notes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "benefit_outcomes": [],
+      "caveats": [],
+      "class_label": "excluded",
+      "conditions": [],
+      "cost_class": "not sourced",
+      "do_no_harm": "passed",
+      "ecological_basis": "Moderate habitat and sediment disturbance risk.",
+      "ecological_score_assumed": 4.0,
+      "evidence_basis": "no evidence_verdicts row for this technology and habitat class",
+      "evidence_design": null,
+      "evidence_label": null,
+      "evidence_source": "none",
+      "evidence_state": "insufficient_evidence",
+      "evidence_state_label": "Insufficient evidence to compare with natural recovery",
+      "evidence_verdict": "no evidence",
+      "exclusion_reasons": [
+        {
+          "detail": "Sediment relocation otherwise ineligible",
+          "rule_id": "sedreloc_default_inelig",
+          "source": "rule"
+        },
+        {
+          "detail": "NOAA Characteristic Coastal Habitats (2017) p.14, Exposed Rocky Shores: 'Sediment Reworking/Tilling' is rated - for oil category III (Not applicable); letters rate adverse habitat impact, not effectiveness (not advised or not applicable; D36 mapping, Proposed)",
+          "rule_id": "noaa:1A:sediment_relocation:III",
+          "source": "NOAA Characteristic Coastal Habitats (2017) p.14 (data/knowledge/tables/noaa_response_rating.csv noaa_1A_092); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)"
+        }
+      ],
+      "habitat_rating": {
+        "noaa_oil_category": "III",
+        "rating": "-",
+        "source": "NOAA Characteristic Coastal Habitats (2017) p.14 (data/knowledge/tables/noaa_response_rating.csv noaa_1A_092); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)",
+        "text": "NOAA Characteristic Coastal Habitats (2017) p.14, Exposed Rocky Shores: 'Sediment Reworking/Tilling' is rated - for oil category III (Not applicable); letters rate adverse habitat impact, not effectiveness",
+        "verdict": "ineligible"
+      },
+      "harm_flags": [],
+      "model_id": null,
+      "model_state": null,
+      "option": "sediment_relocation",
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "production_rate": "not sourced",
+      "rank_basis": "display_convention",
+      "rank_basis_text": "display convention only: no benefit interval separates this option from its neighbours; the order uses the ASSUMED ecological score and then the name, and is not a scientific ranking",
+      "rank_in_class": 5,
+      "rank_tied_with": [
+        "bioremediation",
+        "mechanical_removal",
+        "planting (after mechanical cleanup)",
+        "sediment_mixing",
+        "solidifiers",
+        "vegetation_cutting"
+      ],
+      "recommendation_category": "excluded",
+      "recommendation_category_label": "Excluded",
+      "recommendation_category_reason": "see exclusion_reasons",
+      "recommendation_category_rule": "class E: removed by a hard constraint (screening rule or habitat rating) or by evidence of harm",
+      "recommendation_class": "E",
+      "rule_id": "sedreloc_default_inelig",
+      "rule_reason": "Sediment relocation otherwise ineligible",
+      "rule_source": "docs/NOAA_ASSUMPTION_AUDIT.md",
+      "rule_verdict": "ineligible",
+      "secondary_impacts": "Redistributes oil; only on exposed beaches",
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:sedreloc_default_inelig"
+      ],
+      "waste": "not sourced"
+    },
+    {
+      "advisory_notes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "benefit_outcomes": [],
+      "caveats": [],
+      "class_label": "excluded",
+      "conditions": [],
+      "cost_class": "not sourced",
+      "do_no_harm": "flagged",
+      "ecological_basis": "Moderate habitat and sediment disturbance risk.",
+      "ecological_score_assumed": 4.0,
+      "evidence_basis": "no evidence_verdicts row for this technology and habitat class",
+      "evidence_design": null,
+      "evidence_label": null,
+      "evidence_source": "none",
+      "evidence_state": "insufficient_evidence",
+      "evidence_state_label": "Insufficient evidence to compare with natural recovery",
+      "evidence_verdict": "no evidence",
+      "exclusion_reasons": [
+        {
+          "detail": "Vegetation cutting otherwise ineligible",
+          "rule_id": "vegcut_default_inelig",
+          "source": "rule"
+        }
+      ],
+      "habitat_rating": {
+        "noaa_oil_category": "III",
+        "rating": "C",
+        "source": "NOAA Characteristic Coastal Habitats (2017) p.14 (data/knowledge/tables/noaa_response_rating.csv noaa_1A_093); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)",
+        "text": "NOAA Characteristic Coastal Habitats (2017) p.14, Exposed Rocky Shores: 'Vegetation Cutting/Removal' is rated C for oil category III (Significant adverse habitat impact); letters rate adverse habitat impact, not effectiveness",
+        "verdict": "conditional"
+      },
+      "harm_flags": [
+        {
+          "detail": "NOAA Characteristic Coastal Habitats (2017) p.14, Exposed Rocky Shores: 'Vegetation Cutting/Removal' is rated C for oil category III (Significant adverse habitat impact); letters rate adverse habitat impact, not effectiveness (significant or unknown habitat impact: flag shown, option stays)",
+          "source": "NOAA Characteristic Coastal Habitats (2017) p.14 (data/knowledge/tables/noaa_response_rating.csv noaa_1A_093); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)"
+        }
+      ],
+      "model_id": null,
+      "model_state": null,
+      "option": "vegetation_cutting",
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "production_rate": "not sourced",
+      "rank_basis": "display_convention",
+      "rank_basis_text": "display convention only: no benefit interval separates this option from its neighbours; the order uses the ASSUMED ecological score and then the name, and is not a scientific ranking",
+      "rank_in_class": 6,
+      "rank_tied_with": [
+        "bioremediation",
+        "mechanical_removal",
+        "planting (after mechanical cleanup)",
+        "sediment_mixing",
+        "sediment_relocation",
+        "solidifiers"
+      ],
+      "recommendation_category": "excluded",
+      "recommendation_category_label": "Excluded",
+      "recommendation_category_reason": "see exclusion_reasons",
+      "recommendation_category_rule": "class E: removed by a hard constraint (screening rule or habitat rating) or by evidence of harm",
+      "recommendation_class": "E",
+      "rule_id": "vegcut_default_inelig",
+      "rule_reason": "Vegetation cutting otherwise ineligible",
+      "rule_source": "docs/NOAA_ASSUMPTION_AUDIT.md",
+      "rule_verdict": "ineligible",
+      "secondary_impacts": "Removes biomass and can increase erosion; only where sensitivity is high",
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:vegcut_default_inelig"
+      ],
+      "waste": "not sourced"
+    },
+    {
+      "advisory_notes": [],
+      "benefit_lower_bound": null,
+      "benefit_lower_bound_unit": null,
+      "benefit_outcomes": [],
+      "caveats": [],
+      "class_label": "excluded",
+      "conditions": [],
+      "cost_class": "not sourced",
+      "do_no_harm": "passed",
+      "ecological_basis": "High disturbance or redistribution risk for sediment and residual oil.",
+      "ecological_score_assumed": 2.0,
+      "evidence_basis": "no evidence_verdicts row for this technology and habitat class",
+      "evidence_design": null,
+      "evidence_label": null,
+      "evidence_source": "none",
+      "evidence_state": "insufficient_evidence",
+      "evidence_state_label": "Insufficient evidence to compare with natural recovery",
+      "evidence_verdict": "no evidence",
+      "exclusion_reasons": [
+        {
+          "detail": "Sediment mixing otherwise ineligible",
+          "rule_id": "sedmix_default_inelig",
+          "source": "rule"
+        },
+        {
+          "detail": "NOAA Characteristic Coastal Habitats (2017) p.14, Exposed Rocky Shores: 'Sediment Reworking/Tilling' is rated - for oil category III (Not applicable); letters rate adverse habitat impact, not effectiveness (not advised or not applicable; D36 mapping, Proposed)",
+          "rule_id": "noaa:1A:sediment_mixing:III",
+          "source": "NOAA Characteristic Coastal Habitats (2017) p.14 (data/knowledge/tables/noaa_response_rating.csv noaa_1A_092); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)"
+        }
+      ],
+      "habitat_rating": {
+        "noaa_oil_category": "III",
+        "rating": "-",
+        "source": "NOAA Characteristic Coastal Habitats (2017) p.14 (data/knowledge/tables/noaa_response_rating.csv noaa_1A_092); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)",
+        "text": "NOAA Characteristic Coastal Habitats (2017) p.14, Exposed Rocky Shores: 'Sediment Reworking/Tilling' is rated - for oil category III (Not applicable); letters rate adverse habitat impact, not effectiveness",
+        "verdict": "ineligible"
+      },
+      "harm_flags": [],
+      "model_id": null,
+      "model_state": null,
+      "option": "sediment_mixing",
+      "order_basis": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name",
+      "production_rate": "not sourced",
+      "rank_basis": "display_convention",
+      "rank_basis_text": "display convention only: no benefit interval separates this option from its neighbours; the order uses the ASSUMED ecological score and then the name, and is not a scientific ranking",
+      "rank_in_class": 7,
+      "rank_tied_with": [
+        "bioremediation",
+        "mechanical_removal",
+        "planting (after mechanical cleanup)",
+        "sediment_relocation",
+        "solidifiers",
+        "vegetation_cutting"
+      ],
+      "recommendation_category": "excluded",
+      "recommendation_category_label": "Excluded",
+      "recommendation_category_reason": "see exclusion_reasons",
+      "recommendation_category_rule": "class E: removed by a hard constraint (screening rule or habitat rating) or by evidence of harm",
+      "recommendation_class": "E",
+      "rule_id": "sedmix_default_inelig",
+      "rule_reason": "Sediment mixing otherwise ineligible",
+      "rule_source": "docs/NOAA_ASSUMPTION_AUDIT.md",
+      "rule_verdict": "ineligible",
+      "secondary_impacts": "Can bury or spread oil; not for soft or sensitive habitat",
+      "source_ids": [
+        "ecological_score.csv",
+        "screening_rule.csv:sedmix_default_inelig"
+      ],
+      "waste": "not sourced"
+    }
+  ],
+  "plots": {
+    "cumulative_edge_loss": {
+      "note": "natural recovery vs top options; empty without an in-scope marsh edge cell",
+      "series": [],
+      "unit": "m"
+    },
+    "evidence_matrix": [
+      {
+        "basis": "no row for this technology and habitat class",
+        "option": "natural_attenuation",
+        "outcome_family": "any",
+        "source": "evidence_verdicts.csv",
+        "verdict": "no evidence"
+      },
+      {
+        "basis": "no row for this technology and habitat class",
+        "option": "manual_removal",
+        "outcome_family": "any",
+        "source": "evidence_verdicts.csv",
+        "verdict": "no evidence"
+      },
+      {
+        "basis": "no row for this technology and habitat class",
+        "option": "passive_sorbents",
+        "outcome_family": "any",
+        "source": "evidence_verdicts.csv",
+        "verdict": "no evidence"
+      },
+      {
+        "basis": "no row for this technology and habitat class",
+        "option": "vacuum_removal",
+        "outcome_family": "any",
+        "source": "evidence_verdicts.csv",
+        "verdict": "no evidence"
+      },
+      {
+        "basis": "no eligible rows",
+        "option": "low_pressure_flushing",
+        "outcome_family": "residual oil",
+        "source": "evidence_verdicts.csv",
+        "verdict": "no evidence"
+      },
+      {
+        "basis": "no eligible rows",
+        "option": "low_pressure_heated_flushing",
+        "outcome_family": "biological recovery",
+        "source": "evidence_verdicts.csv",
+        "verdict": "no evidence"
+      },
+      {
+        "basis": "no eligible rows",
+        "option": "high_pressure_washing",
+        "outcome_family": "biological recovery",
+        "source": "evidence_verdicts.csv",
+        "verdict": "no evidence"
+      },
+      {
+        "basis": "single studies (k=2, citations=Houghton JP (1993); Coats DA (1999))",
+        "option": "high_pressure_heated_washing",
+        "outcome_family": "biological recovery",
+        "source": "evidence_verdicts.csv",
+        "verdict": "no clear difference"
+      },
+      {
+        "basis": "no eligible rows",
+        "option": "high_pressure_heated_washing",
+        "outcome_family": "residual oil",
+        "source": "evidence_verdicts.csv",
+        "verdict": "no evidence"
+      },
+      {
+        "basis": "no eligible rows",
+        "option": "surface_washing_agents",
+        "outcome_family": "residual oil",
+        "source": "evidence_verdicts.csv",
+        "verdict": "no evidence"
+      },
+      {
+        "basis": "no row for this technology and habitat class",
+        "option": "solidifiers",
+        "outcome_family": "any",
+        "source": "evidence_verdicts.csv",
+        "verdict": "no evidence"
+      },
+      {
+        "basis": "no row for this technology and habitat class",
+        "option": "mechanical_removal",
+        "outcome_family": "any",
+        "source": "evidence_verdicts.csv",
+        "verdict": "no evidence"
+      },
+      {
+        "basis": "no row for this technology and habitat class",
+        "option": "sediment_relocation",
+        "outcome_family": "any",
+        "source": "evidence_verdicts.csv",
+        "verdict": "no evidence"
+      },
+      {
+        "basis": "no row for this technology and habitat class",
+        "option": "sediment_mixing",
+        "outcome_family": "any",
+        "source": "evidence_verdicts.csv",
+        "verdict": "no evidence"
+      },
+      {
+        "basis": "no row for this technology and habitat class",
+        "option": "bioremediation",
+        "outcome_family": "any",
+        "source": "evidence_verdicts.csv",
+        "verdict": "no evidence"
+      },
+      {
+        "basis": "no row for this technology and habitat class",
+        "option": "vegetation_cutting",
+        "outcome_family": "any",
+        "source": "evidence_verdicts.csv",
+        "verdict": "no evidence"
+      },
+      {
+        "basis": "no row for this technology and habitat class",
+        "option": "planting (after mechanical cleanup)",
+        "outcome_family": "any",
+        "source": "evidence_verdicts.csv",
+        "verdict": "no evidence"
+      }
+    ],
+    "paired_differences": []
+  },
+  "recommendation_summary": {
+    "conditional": [
+      "low_pressure_heated_flushing",
+      "surface_washing_agents",
+      "high_pressure_heated_washing"
+    ],
+    "excluded": [
+      "bioremediation",
+      "mechanical_removal",
+      "planting (after mechanical cleanup)",
+      "solidifiers",
+      "sediment_relocation",
+      "vegetation_cutting",
+      "sediment_mixing"
+    ],
+    "insufficient_evidence": [
+      "passive_sorbents",
+      "manual_removal",
+      "vacuum_removal",
+      "high_pressure_washing",
+      "low_pressure_flushing"
+    ],
+    "natural_recovery_monitoring": [
+      "natural_attenuation"
+    ],
+    "no_demonstrated_benefit": [],
+    "recommended": []
+  },
+  "scope_message": "Rules and literature only: screening verdicts and literature evidence verdicts; there is no site-specific forecast for this shoreline type.",
+  "scope_tier": "rules_and_literature",
+  "trace": [
+    {
+      "inputs": {
+        "cell": null,
+        "habitat": "1A",
+        "input_kind": "scenario",
+        "oil": "medium",
+        "oiling_class": "Moderate",
+        "season": null
+      },
+      "name": "characterise",
+      "outputs": {
+        "access": "good",
+        "assumptions": [],
+        "cell": null,
+        "esi_code": "1A",
+        "exposure": "moderate",
+        "habitat": "1a",
+        "habitat_class": "rocky/hard",
+        "habitat_descriptors": {
+          "asphalt_pavement_risk": "not stated",
+          "burial_risk": "not stated",
+          "name": "exposed rocky shore",
+          "oil_penetration_depth": "not stated (steep, hard surface; oil is held offshore by reflected waves)",
+          "persistence_driver": "the most resistant oil remains as a patchy band at or above the high-tide line",
+          "source": "NOAA Characteristic Coastal Habitats (2017) p.13"
+        },
+        "input_kind": "scenario",
+        "label": null,
+        "noaa_oil_category": "III",
+        "noaa_oil_category_basis": "ASSUMED mapping from the tool's oil category (data/knowledge/tables/noaa_oil_category.csv)",
+        "oil_category": "medium",
+        "oil_source": "chosen category",
+        "oiling_basis": "input",
+        "oiling_class": "Moderate",
+        "scope_reasons": [],
+        "scope_tier": "rules_and_literature",
+        "season": "summer",
+        "sensitivity": "moderate",
+        "shoreline_type_for_rules": "bedrock",
+        "site_scope_flags": null
+      },
+      "sources": [
+        "inputs",
+        "oil_library (ADIOS)",
+        "site_evidence.site_flags",
+        "docs/F0_F1_SCOPE_AND_DECISIONS.md D30"
+      ],
+      "step": 1
+    },
+    {
+      "inputs": {
+        "options": [
+          "natural_attenuation",
+          "manual_removal",
+          "passive_sorbents",
+          "vacuum_removal",
+          "low_pressure_flushing",
+          "low_pressure_heated_flushing",
+          "high_pressure_washing",
+          "high_pressure_heated_washing",
+          "surface_washing_agents",
+          "solidifiers",
+          "mechanical_removal",
+          "sediment_relocation",
+          "sediment_mixing",
+          "bioremediation",
+          "vegetation_cutting",
+          "planting (after mechanical cleanup)"
+        ],
+        "rule_source": "screening_rule.csv"
+      },
+      "name": "hard_constraints",
+      "outputs": {
+        "bioremediation": {
+          "reason": "NOAA Characteristic Coastal Habitats (2017) p.14, Exposed Rocky Shores: 'Nutrient Enrichment' is rated - for oil category III (Not applicable); letters rate adverse habitat impact, not effectiveness",
+          "rule_id": "noaa:1A:bioremediation:III",
+          "verdict": "ineligible"
+        },
+        "high_pressure_heated_washing": {
+          "reason": "High-pressure washing on hard substrate otherwise conditional",
+          "rule_id": "hpw_hard_cond",
+          "verdict": "conditional"
+        },
+        "high_pressure_washing": {
+          "reason": "High-pressure washing on hard substrate otherwise conditional",
+          "rule_id": "hpw_hard_cond",
+          "verdict": "conditional"
+        },
+        "low_pressure_flushing": {
+          "reason": "Low-pressure flushing suits shallow surface oil on sheltered shores",
+          "rule_id": "lpf_elig",
+          "verdict": "eligible"
+        },
+        "low_pressure_heated_flushing": {
+          "reason": "NOAA Characteristic Coastal Habitats (2017) p.14, Exposed Rocky Shores: 'Low-pressure, Hot Water Flushing' is rated C for oil category III (Significant adverse habitat impact); letters rate adverse habitat impact, not effectiveness",
+          "rule_id": "noaa:1A:low_pressure_heated_flushing:III",
+          "verdict": "conditional"
+        },
+        "manual_removal": {
+          "reason": "Low-contact methods are acceptable on hard substrate",
+          "rule_id": "hard_elig",
+          "verdict": "eligible"
+        },
+        "mechanical_removal": {
+          "reason": "NOAA Characteristic Coastal Habitats (2017) p.14, Exposed Rocky Shores: 'Mechanical Oil Removal' is rated - for oil category III (Not applicable); letters rate adverse habitat impact, not effectiveness",
+          "rule_id": "noaa:1A:mechanical_removal:III",
+          "verdict": "ineligible"
+        },
+        "natural_attenuation": {
+          "reason": "Natural attenuation otherwise needs monitoring and review",
+          "rule_id": "natatt_default_cond",
+          "verdict": "conditional"
+        },
+        "passive_sorbents": {
+          "reason": "Low-contact methods are acceptable on hard substrate",
+          "rule_id": "hard_elig",
+          "verdict": "eligible"
+        },
+        "planting (after mechanical cleanup)": {
+          "reason": "planting add-on applies to vegetated wetlands only (pipeline applicability rule, not a table row)",
+          "rule_id": "f9:planting_applicability",
+          "verdict": "ineligible"
+        },
+        "sediment_mixing": {
+          "reason": "Sediment mixing otherwise ineligible",
+          "rule_id": "sedmix_default_inelig",
+          "verdict": "ineligible"
+        },
+        "sediment_relocation": {
+          "reason": "Sediment relocation otherwise ineligible",
+          "rule_id": "sedreloc_default_inelig",
+          "verdict": "ineligible"
+        },
+        "solidifiers": {
+          "reason": "Surface-washing agents and solidifiers otherwise ineligible",
+          "rule_id": "swa_sol_default_inelig",
+          "verdict": "ineligible"
+        },
+        "surface_washing_agents": {
+          "reason": "NOAA Characteristic Coastal Habitats (2017) p.14, Exposed Rocky Shores: 'Shoreline Cleaning Agents' is rated C for oil category III (Significant adverse habitat impact); letters rate adverse habitat impact, not effectiveness",
+          "rule_id": "noaa:1A:surface_washing_agents:III",
+          "verdict": "conditional"
+        },
+        "vacuum_removal": {
+          "reason": "Low-contact methods are acceptable on hard substrate",
+          "rule_id": "hard_elig",
+          "verdict": "eligible"
+        },
+        "vegetation_cutting": {
+          "reason": "Vegetation cutting otherwise ineligible",
+          "rule_id": "vegcut_default_inelig",
+          "verdict": "ineligible"
+        }
+      },
+      "sources": [
+        "data/knowledge/tables/screening_rule.csv"
+      ],
+      "step": 2
+    },
+    {
+      "inputs": {
+        "habitat_class": "rocky/hard",
+        "sources": [
+          "evidence_verdicts.csv",
+          "treatment_conditions.csv (marsh, advisory only)",
+          "mangrove_screening.csv (mangrove)",
+          "noaa_response_rating.csv (beach and rocky)"
+        ]
+      },
+      "name": "do_no_harm",
+      "outputs": {
+        "advisory": {},
+        "flagged": {
+          "high_pressure_heated_washing": [
+            {
+              "detail": "NOAA Characteristic Coastal Habitats (2017) p.14, Exposed Rocky Shores: 'High-pressure, Hot Water Flushing' is rated C for oil category III (Significant adverse habitat impact); letters rate adverse habitat impact, not effectiveness (significant or unknown habitat impact: flag shown, option stays)",
+              "source": "NOAA Characteristic Coastal Habitats (2017) p.14 (data/knowledge/tables/noaa_response_rating.csv noaa_1A_098); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)"
+            }
+          ],
+          "low_pressure_heated_flushing": [
+            {
+              "detail": "NOAA Characteristic Coastal Habitats (2017) p.14, Exposed Rocky Shores: 'Low-pressure, Hot Water Flushing' is rated C for oil category III (Significant adverse habitat impact); letters rate adverse habitat impact, not effectiveness (significant or unknown habitat impact: flag shown, option stays)",
+              "source": "NOAA Characteristic Coastal Habitats (2017) p.14 (data/knowledge/tables/noaa_response_rating.csv noaa_1A_097); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)"
+            }
+          ],
+          "surface_washing_agents": [
+            {
+              "detail": "NOAA Characteristic Coastal Habitats (2017) p.14, Exposed Rocky Shores: 'Shoreline Cleaning Agents' is rated C for oil category III (Significant adverse habitat impact); letters rate adverse habitat impact, not effectiveness (significant or unknown habitat impact: flag shown, option stays)",
+              "source": "NOAA Characteristic Coastal Habitats (2017) p.14 (data/knowledge/tables/noaa_response_rating.csv noaa_1A_102); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)"
+            }
+          ],
+          "vegetation_cutting": [
+            {
+              "detail": "NOAA Characteristic Coastal Habitats (2017) p.14, Exposed Rocky Shores: 'Vegetation Cutting/Removal' is rated C for oil category III (Significant adverse habitat impact); letters rate adverse habitat impact, not effectiveness (significant or unknown habitat impact: flag shown, option stays)",
+              "source": "NOAA Characteristic Coastal Habitats (2017) p.14 (data/knowledge/tables/noaa_response_rating.csv noaa_1A_093); Proposed (transcribed by AI from NOAA table; owner to spot-check); mapping Proposed (D36 mapping set by the orchestrator 14 Nov 2026; owner to confirm)"
+            }
+          ]
+        },
+        "removed": {}
+      },
+      "sources": [
+        "data/knowledge/evidence_verdicts.csv",
+        "data/knowledge/treatment_conditions.csv",
+        "data/knowledge/tables/noaa_response_rating.csv"
+      ],
+      "step": 3
+    },
+    {
+      "inputs": {
+        "composer_used": false,
+        "decision_points": "edge loss avoided at year 8; vegetation cover ratio at year 2",
+        "model": {
+          "id": "composer_natural_recovery_v1",
+          "state": "experimental"
+        },
+        "n_draws": 3000,
+        "options_composed": [],
+        "seed": 20261112
+      },
+      "name": "benefit_vs_natural_recovery",
+      "outputs": {
+        "bioremediation": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        },
+        "high_pressure_heated_washing": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no clear difference"
+        },
+        "high_pressure_washing": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        },
+        "low_pressure_flushing": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        },
+        "low_pressure_heated_flushing": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        },
+        "manual_removal": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        },
+        "mechanical_removal": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        },
+        "natural_attenuation": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        },
+        "passive_sorbents": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        },
+        "planting (after mechanical cleanup)": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        },
+        "sediment_mixing": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        },
+        "sediment_relocation": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        },
+        "solidifiers": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        },
+        "surface_washing_agents": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        },
+        "vacuum_removal": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        },
+        "vegetation_cutting": {
+          "source": "evidence_verdicts.csv",
+          "verdict": "no evidence"
+        }
+      },
+      "sources": [
+        "src/shoreline_remediation/scenario_composer.py",
+        "data/knowledge/evidence_verdicts.csv",
+        "models/registry.json"
+      ],
+      "step": 4
+    },
+    {
+      "inputs": {
+        "habitat_class": "rocky/hard",
+        "oiling_class": "Moderate"
+      },
+      "name": "endpoint_and_time",
+      "outputs": {
+        "reference": [
+          {
+            "hi90": null,
+            "lo90": null,
+            "quantity": "PAH-sum half-life",
+            "reason": "no registered model covers 1a shorelines",
+            "status": "no model",
+            "value": null
+          },
+          {
+            "hi90": null,
+            "lo90": null,
+            "quantity": "vegetation time to 80% of reference",
+            "reason": "no registered model covers 1a shorelines",
+            "status": "no model",
+            "value": null
+          },
+          {
+            "hi90": null,
+            "lo90": null,
+            "quantity": "natural edge loss to year 5 and 8",
+            "reason": "no registered model covers 1a shorelines",
+            "status": "no model",
+            "value": null
+          }
+        ]
+      },
+      "sources": [
+        "models/registry.json",
+        "results/pah_decline/by_oiling_class.csv",
+        "models/veg_recovery_v1.json",
+        "models/p5_edge_loss_v1.json",
+        "models/mangrove_damage_v1.json"
+      ],
+      "step": 5
+    },
+    {
+      "inputs": {
+        "habitat_class": "rocky/hard"
+      },
+      "name": "trade_offs",
+      "outputs": {
+        "bioremediation": {
+          "cost_class": "not sourced",
+          "production_rate": "not sourced",
+          "secondary_impacts": "Effectiveness depends on nutrients, oxygen and access; limited bioaugmentation evidence (NOAA)",
+          "waste": "not sourced"
+        },
+        "high_pressure_heated_washing": {
+          "cost_class": "not sourced",
+          "production_rate": "not sourced",
+          "secondary_impacts": "Hot-water washing initially worsened recovery at Exxon Valdez sites (NOAA OR&R)",
+          "waste": "not sourced"
+        },
+        "high_pressure_washing": {
+          "cost_class": "not sourced",
+          "production_rate": "not sourced",
+          "secondary_impacts": "High disturbance; drives oil down if used on soft substrate",
+          "waste": "not sourced"
+        },
+        "low_pressure_flushing": {
+          "cost_class": "not sourced",
+          "production_rate": "not sourced",
+          "secondary_impacts": "Can drive oil into sediment if misapplied; mobilised oil must be recovered",
+          "waste": "not sourced"
+        },
+        "low_pressure_heated_flushing": {
+          "cost_class": "not sourced",
+          "production_rate": "not sourced",
+          "secondary_impacts": "Heat harms sensitive biota; excluded on wetlands",
+          "waste": "not sourced"
+        },
+        "manual_removal": {
+          "cost_class": "not sourced",
+          "production_rate": "not sourced",
+          "secondary_impacts": "Trampling and foot traffic can damage soft sediment and vegetation",
+          "waste": "not sourced"
+        },
+        "mechanical_removal": {
+          "cost_class": "not sourced",
+          "production_rate": "not sourced",
+          "secondary_impacts": "Sediment loss and habitat damage; excluded on marsh and mudflat",
+          "waste": "not sourced"
+        },
+        "natural_attenuation": {
+          "cost_class": "not sourced",
+          "production_rate": "not sourced",
+          "secondary_impacts": "Oil persists longer where energy is low; monitoring effort only",
+          "waste": "not sourced"
+        },
+        "passive_sorbents": {
+          "cost_class": "not sourced",
+          "production_rate": "not sourced",
+          "secondary_impacts": "Sorbent waste generation; limited to mobile oil",
+          "waste": "not sourced"
+        },
+        "planting (after mechanical cleanup)": {
+          "cost_class": "not sourced",
+          "production_rate": "not sourced",
+          "secondary_impacts": "not sourced",
+          "waste": "not sourced"
+        },
+        "sediment_mixing": {
+          "cost_class": "not sourced",
+          "production_rate": "not sourced",
+          "secondary_impacts": "Can bury or spread oil; not for soft or sensitive habitat",
+          "waste": "not sourced"
+        },
+        "sediment_relocation": {
+          "cost_class": "not sourced",
+          "production_rate": "not sourced",
+          "secondary_impacts": "Redistributes oil; only on exposed beaches",
+          "waste": "not sourced"
+        },
+        "solidifiers": {
+          "cost_class": "not sourced",
+          "production_rate": "not sourced",
+          "secondary_impacts": "Added material and waste; limited field evidence",
+          "waste": "not sourced"
+        },
+        "surface_washing_agents": {
+          "cost_class": "not sourced",
+          "production_rate": "not sourced",
+          "secondary_impacts": "Chemical residue and mobilised-oil recovery concerns",
+          "waste": "not sourced"
+        },
+        "vacuum_removal": {
+          "cost_class": "not sourced",
+          "production_rate": "not sourced",
+          "secondary_impacts": "Access and equipment disturbance; removes free oil only",
+          "waste": "not sourced"
+        },
+        "vegetation_cutting": {
+          "cost_class": "not sourced",
+          "production_rate": "not sourced",
+          "secondary_impacts": "Removes biomass and can increase erosion; only where sensitivity is high",
+          "waste": "not sourced"
+        }
+      },
+      "sources": [
+        "data/knowledge/literature_effects.csv",
+        "data/knowledge/tables/technology.csv"
+      ],
+      "step": 6
+    },
+    {
+      "inputs": {
+        "class_rules": "E excluded > A benefit > D harm under conditions > B no clear evidence; C natural recovery",
+        "ordering": "within a class: lower bound of the 90% benefit interval where it exists (edge loss avoided by year 8 in m, then vegetation cover ratio at year 2, then literature lnRR lower bound; units are never mixed), then the ASSUMED ecological score (higher = lower disturbance first), then name"
+      },
+      "name": "recommendation",
+      "outputs": {
+        "category_rules": {
+          "conditional": "class D (allowed, harm flagged under some conditions or mixed evidence), OR class A when the input is outside the scope where the benefit evidence was gathered (transfer untested), OR class A when the option presupposes a method that is itself excluded",
+          "excluded": "class E: removed by a hard constraint (screening rule or habitat rating) or by evidence of harm",
+          "insufficient_evidence": "class B with no eligible evidence rows: no comparison with natural recovery is possible",
+          "natural_recovery_monitoring": "class C: natural recovery, the reference every option is compared with",
+          "no_demonstrated_benefit": "class B with evidence rows that show no clear difference from natural recovery",
+          "recommended": "class A (evidence of benefit, no harm flag) AND the input is inside the scope where that evidence was gathered (scope tier 'validated')"
+        },
+        "classes": {
+          "A": [],
+          "B": [
+            "passive_sorbents",
+            "manual_removal",
+            "vacuum_removal",
+            "high_pressure_washing",
+            "low_pressure_flushing"
+          ],
+          "C": [
+            "natural_attenuation"
+          ],
+          "D": [
+            "low_pressure_heated_flushing",
+            "surface_washing_agents",
+            "high_pressure_heated_washing"
+          ],
+          "E": [
+            "bioremediation",
+            "mechanical_removal",
+            "planting (after mechanical cleanup)",
+            "solidifiers",
+            "sediment_relocation",
+            "vegetation_cutting",
+            "sediment_mixing"
+          ]
+        },
+        "decision_outcome": "conditional_only",
+        "evidence_state": "no_clear_difference",
+        "headline": "No clear difference from natural recovery (evidence exists): no option is shown by evidence to beat natural recovery; continue with natural recovery and monitoring. Evidence exists but shows no clear difference for: high_pressure_heated_washing. Insufficient evidence to compare with natural recovery for: passive_sorbents, manual_removal, vacuum_removal, high_pressure_washing, low_pressure_flushing, low_pressure_heated_flushing, surface_washing_agents. Eligibility reflects habitat-impact screening, not demonstrated remediation effectiveness. The order shown is not a performance ranking.",
+        "recommendation_summary": {
+          "conditional": [
+            "low_pressure_heated_flushing",
+            "surface_washing_agents",
+            "high_pressure_heated_washing"
+          ],
+          "excluded": [
+            "bioremediation",
+            "mechanical_removal",
+            "planting (after mechanical cleanup)",
+            "solidifiers",
+            "sediment_relocation",
+            "vegetation_cutting",
+            "sediment_mixing"
+          ],
+          "insufficient_evidence": [
+            "passive_sorbents",
+            "manual_removal",
+            "vacuum_removal",
+            "high_pressure_washing",
+            "low_pressure_flushing"
+          ],
+          "natural_recovery_monitoring": [
+            "natural_attenuation"
+          ],
+          "no_demonstrated_benefit": [],
+          "recommended": []
+        }
+      },
+      "sources": [
+        "steps 2-6"
+      ],
+      "step": 7
+    },
+    {
+      "inputs": {
+        "n_options": 16
+      },
+      "name": "report",
+      "outputs": {
+        "evidence_state": "no_clear_difference",
+        "headline": "No clear difference from natural recovery (evidence exists): no option is shown by evidence to beat natural recovery; continue with natural recovery and monitoring. Evidence exists but shows no clear difference for: high_pressure_heated_washing. Insufficient evidence to compare with natural recovery for: passive_sorbents, manual_removal, vacuum_removal, high_pressure_washing, low_pressure_flushing, low_pressure_heated_flushing, surface_washing_agents. Eligibility reflects habitat-impact screening, not demonstrated remediation effectiveness. The order shown is not a performance ranking.",
+        "models_used": [],
+        "plot_keys": [
+          "cumulative_edge_loss",
+          "evidence_matrix",
+          "paired_differences"
+        ],
+        "scope_tier": "rules_and_literature"
+      },
+      "sources": [
+        "steps 1-7"
+      ],
+      "step": 8
+    }
+  ],
+  "version": {
+    "git_commit": "<volatile>",
+    "knowledge_checksums": {
+      "beach_literature_notes.csv": "414b3335f6d4",
+      "ecological_score.csv": "0f05d1c1e6e4",
+      "evidence_effect.csv": "6900d9bf5a95",
+      "evidence_verdicts.csv": "f6cc61bec5d8",
+      "habitat.csv": "d4cc694dd970",
+      "literature_effects.csv": "0e6dfd62e3a6",
+      "mangrove_screening.csv": "f72ac40f7c09",
+      "noaa_oil_category.csv": "92aa78a3a3bc",
+      "noaa_rating_mapping.csv": "8eb78eeee686",
+      "noaa_response_rating.csv": "1e07d5b94e62",
+      "screening_rule.csv": "08e097afdd41",
+      "technology.csv": "be72adedec13",
+      "treatment_conditions.csv": "5f3691dfcacc"
+    },
+    "models": {},
+    "models_used": [],
+    "n_draws": 3000,
+    "numpy": "2.4.6",
+    "pandas": "3.1.1",
+    "pipeline_version": "f9-v3",
+    "python": "3.11.9",
+    "seed": 20261112
+  }
+}

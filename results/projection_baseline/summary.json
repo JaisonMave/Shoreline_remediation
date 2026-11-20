@@ -1,0 +1,902 @@
+{
+  "cases": {
+    "bay_jimmy_mapped": {
+      "abstentions": [
+        {
+          "kind": "insufficient_evidence",
+          "text": "3 allowed option(s) cannot be compared with natural recovery because no eligible evidence rows exist for this habitat. This is not a finding of no benefit."
+        }
+      ],
+      "app_exceptions": [],
+      "classes": {
+        "A": [
+          "planting (after mechanical cleanup)",
+          "manual_removal"
+        ],
+        "B": [
+          "passive_sorbents",
+          "bioremediation",
+          "low_pressure_flushing",
+          "surface_washing_agents",
+          "vacuum_removal",
+          "vegetation_cutting"
+        ],
+        "C": [
+          "natural_attenuation"
+        ],
+        "E": [
+          "solidifiers",
+          "low_pressure_heated_flushing",
+          "mechanical_removal",
+          "sediment_relocation",
+          "high_pressure_heated_washing",
+          "high_pressure_washing",
+          "sediment_mixing"
+        ]
+      },
+      "controls": {
+        "buttons": [
+          "how_marsh|Held-out test on Models",
+          "run_marsh|Run assessment",
+          "sr_nav_home|Back to home",
+          "whyboard_marsh|Open the evidence for this habitat"
+        ],
+        "download_buttons": [
+          "Download report (HTML)"
+        ],
+        "expanders": [
+          "Change place or scenario",
+          "Continuous trajectories: experimental fits and conditional scenarios",
+          "Detailed tables: rule screening, field plots, AI-proposed ranges",
+          "Details and caveats",
+          "Evidence grades: what the chips mean",
+          "Evidence matrix (every verdict that was used)",
+          "How this number was built",
+          "Methods and sources",
+          "Model assumptions and limitations",
+          "Option evidence in detail (current inputs)",
+          "Optional: season and a named oil",
+          "Pipeline's full text statement (technical wording)",
+          "Provenance of the literature priors",
+          "Reference numbers that are not tied to one option",
+          "Rule-screening inputs implied by this site",
+          "Sources and decisions",
+          "Technical trace: pipeline steps, sources and version",
+          "What the platform does not state for this input"
+        ],
+        "n_charts": 6,
+        "n_dataframes": 19,
+        "n_expander_elements": 26,
+        "n_maps": 1,
+        "n_metrics": 4,
+        "radios": [
+          "site_mode|Site"
+        ],
+        "segmented_controls": [
+          "cmp_target_marsh|Outcome",
+          "marsh_outcome_edge_loss_avoided_m258_veg_cover_ratio_gain258|Outcome",
+          "marsh_year_edge_loss_avoided_m258_veg_cover_ratio_gain258_edge_loss_avoided_m|Year after cleanup",
+          "page|Navigate",
+          "site_habitat|Habitat"
+        ],
+        "selectboxes": [
+          "site_oil|Oil category (required)",
+          "site_season|Season of cleanup"
+        ],
+        "tabs": [
+          "Parameters and sources",
+          "Shoreline retreat",
+          "Soil tPAH",
+          "Vegetation cover"
+        ],
+        "text_inputs": [
+          "site_named_q|Search NOAA ADIOS oils by name"
+        ],
+        "toggles": []
+      },
+      "decision_outcome": "intervention_recommended",
+      "evidence_state": "benefit",
+      "headline": "Field evidence of benefit over natural recovery: planting (after mechanical cleanup) (edge loss avoided by year 8 8.5 m (90% 2.5 to 14.9)); manual_removal (vegetation cover ratio gain at year 2 0.35 (90% 0.20 to 0.51)). Design of the evidence: planting (after mechanical cleanup): observational, one site: mechanically cleaned and planted plots versus untreated plots, 5 versus 9 plots (not a randomised comparison); manual_removal: observational, one site (Zengel et al. 2022, Bay Jimmy). Differences are experimental composer output from one site's field evidence. Conditional, not recommended outright: planting (after mechanical cleanup) (evidence of benefit exists, but the option presupposes 'mechanical_removal', which is excluded for this input; it applies only where that method has already been used).",
+      "recommendation_summary": {
+        "conditional": [
+          "planting (after mechanical cleanup)"
+        ],
+        "excluded": [
+          "solidifiers",
+          "low_pressure_heated_flushing",
+          "mechanical_removal",
+          "sediment_relocation",
+          "high_pressure_heated_washing",
+          "high_pressure_washing",
+          "sediment_mixing"
+        ],
+        "insufficient_evidence": [
+          "passive_sorbents",
+          "bioremediation",
+          "vacuum_removal"
+        ],
+        "natural_recovery_monitoring": [
+          "natural_attenuation"
+        ],
+        "no_demonstrated_benefit": [
+          "low_pressure_flushing",
+          "surface_washing_agents",
+          "vegetation_cutting"
+        ],
+        "recommended": [
+          "manual_removal"
+        ]
+      },
+      "report_sha256_normalized": "4da6fa96b77da55c235d81cbc6f9e2b397251a92967f4783db40fb11e2e895ce",
+      "report_top_level_fields": [
+        "abstentions",
+        "advisories",
+        "characterisation",
+        "decision_outcome",
+        "decision_outcome_label",
+        "evidence_state",
+        "evidence_state_label",
+        "headline",
+        "literature_notes",
+        "natural_recovery",
+        "options",
+        "plots",
+        "recommendation_summary",
+        "scope_message",
+        "scope_tier",
+        "trace",
+        "version"
+      ],
+      "scope_tier": "validated",
+      "spec": [
+        "site",
+        [
+          [
+            "water_1km_2010",
+            0.8748
+          ],
+          [
+            "water_250m_2010",
+            0.8096
+          ],
+          [
+            "fetch_mean_m",
+            3638.0
+          ],
+          [
+            "pre_rate",
+            0.5843
+          ],
+          [
+            "max_oiling",
+            "Heavy"
+          ],
+          [
+            "status",
+            "in_scope"
+          ],
+          [
+            "esi_main",
+            "10A"
+          ],
+          [
+            "lat",
+            29.44436
+          ],
+          [
+            "lon",
+            -89.88831
+          ],
+          [
+            "cell",
+            "8018_32612"
+          ],
+          [
+            "basin",
+            "barataria"
+          ],
+          [
+            "segment",
+            "LAPL01-034-30"
+          ],
+          [
+            "cell_2km",
+            "400_1630"
+          ]
+        ],
+        "light",
+        null
+      ],
+      "spec_kind": "site"
+    },
+    "mangrove": {
+      "abstentions": [
+        {
+          "kind": "outside_validated_scope",
+          "text": "mangrove damage model: one spill (Bahia Las Minas, Panama), oiling effect only, no treatment effects"
+        },
+        {
+          "kind": "no_model",
+          "text": "PAH-sum half-life: marsh soil model; not used for mangrove"
+        },
+        {
+          "kind": "no_model",
+          "text": "vegetation time to 80% of reference: marsh curve; not used for mangrove"
+        },
+        {
+          "kind": "no_model",
+          "text": "natural edge loss to year 5 and 8: marsh-edge model; not used for mangrove"
+        },
+        {
+          "kind": "insufficient_evidence",
+          "text": "6 allowed option(s) cannot be compared with natural recovery because no eligible evidence rows exist for this habitat. This is not a finding of no benefit."
+        },
+        {
+          "kind": "no_recommendation",
+          "text": "No intervention is recommended over natural recovery. Natural recovery with monitoring remains the reference option."
+        }
+      ],
+      "app_exceptions": [],
+      "classes": {
+        "B": [
+          "passive_sorbents",
+          "bioremediation",
+          "vacuum_removal",
+          "planting (after mechanical cleanup)",
+          "low_pressure_flushing",
+          "surface_washing_agents"
+        ],
+        "C": [
+          "natural_attenuation"
+        ],
+        "E": [
+          "manual_removal",
+          "mechanical_removal",
+          "solidifiers",
+          "low_pressure_heated_flushing",
+          "sediment_relocation",
+          "vegetation_cutting",
+          "high_pressure_heated_washing",
+          "high_pressure_washing",
+          "sediment_mixing"
+        ]
+      },
+      "controls": {
+        "buttons": [
+          "run_mangrove|Run assessment",
+          "sr_nav_home|Back to home",
+          "whyboard_mangrove|Open the evidence for this habitat"
+        ],
+        "download_buttons": [
+          "Download report (HTML)"
+        ],
+        "expanders": [
+          "AI-proposed screening table (not human-reviewed)",
+          "Change place or scenario",
+          "Details and caveats",
+          "Evidence grades: what the chips mean",
+          "Evidence matrix (every verdict that was used)",
+          "Methods and sources",
+          "Model assumptions and limitations",
+          "Numbers",
+          "Option evidence in detail (current inputs)",
+          "Pipeline's full text statement (technical wording)",
+          "Provenance of the literature priors",
+          "Reference numbers that are not tied to one option",
+          "Sources and decisions",
+          "Technical trace: pipeline steps, sources and version",
+          "What the platform does not state for this input"
+        ],
+        "n_charts": 3,
+        "n_dataframes": 13,
+        "n_expander_elements": 23,
+        "n_maps": 0,
+        "n_metrics": 2,
+        "radios": [],
+        "segmented_controls": [
+          "page|Navigate",
+          "site_habitat|Habitat"
+        ],
+        "selectboxes": [],
+        "tabs": [],
+        "text_inputs": [],
+        "toggles": []
+      },
+      "decision_outcome": "insufficient_evidence",
+      "evidence_state": "insufficient_evidence",
+      "headline": "Insufficient evidence to compare with natural recovery: no allowed option has any eligible evidence rows for this habitat, so no comparison is possible. Natural recovery with monitoring is the default; this is not a finding that treatment gives no benefit. Eligible under screening rules, but effectiveness relative to natural recovery has not been established: passive_sorbents, bioremediation, vacuum_removal, planting (after mechanical cleanup), low_pressure_flushing, surface_washing_agents. Eligibility reflects habitat-impact screening, not demonstrated remediation effectiveness. The order shown is not a performance ranking.",
+      "recommendation_summary": {
+        "conditional": [],
+        "excluded": [
+          "manual_removal",
+          "mechanical_removal",
+          "solidifiers",
+          "low_pressure_heated_flushing",
+          "sediment_relocation",
+          "vegetation_cutting",
+          "high_pressure_heated_washing",
+          "high_pressure_washing",
+          "sediment_mixing"
+        ],
+        "insufficient_evidence": [
+          "passive_sorbents",
+          "bioremediation",
+          "vacuum_removal",
+          "planting (after mechanical cleanup)",
+          "low_pressure_flushing",
+          "surface_washing_agents"
+        ],
+        "natural_recovery_monitoring": [
+          "natural_attenuation"
+        ],
+        "no_demonstrated_benefit": [],
+        "recommended": []
+      },
+      "report_sha256_normalized": "658ec33839a03cb61e3a75261c27740f48e9ff4315f00568e1af81041b5558e5",
+      "report_top_level_fields": [
+        "abstentions",
+        "advisories",
+        "characterisation",
+        "decision_outcome",
+        "decision_outcome_label",
+        "evidence_state",
+        "evidence_state_label",
+        "headline",
+        "literature_notes",
+        "natural_recovery",
+        "options",
+        "plots",
+        "recommendation_summary",
+        "scope_message",
+        "scope_tier",
+        "trace",
+        "version"
+      ],
+      "scope_tier": "experimental",
+      "spec": [
+        "scenario",
+        [
+          [
+            "shoreline_type",
+            "mangrove"
+          ],
+          [
+            "shoreline_sensitivity",
+            "moderate"
+          ],
+          [
+            "oil_category",
+            "medium"
+          ],
+          [
+            "oil_coverage",
+            40.0
+          ],
+          [
+            "oil_thickness",
+            5.0
+          ],
+          [
+            "penetration_depth_cm",
+            8.0
+          ],
+          [
+            "wave_exposure",
+            "moderate"
+          ],
+          [
+            "tidal_range",
+            "moderate"
+          ],
+          [
+            "temperature_c",
+            15.0
+          ],
+          [
+            "season",
+            "summer"
+          ],
+          [
+            "substrate_permeability",
+            "moderate"
+          ],
+          [
+            "surface_oil",
+            true
+          ],
+          [
+            "subsurface_oil",
+            false
+          ],
+          [
+            "accessibility",
+            "good"
+          ],
+          [
+            "habitat_type",
+            "mixed_sediment"
+          ],
+          [
+            "recovery_potential",
+            "moderate"
+          ],
+          [
+            "waste_handling",
+            "manageable"
+          ]
+        ],
+        null,
+        null,
+        null,
+        "mangrove"
+      ],
+      "spec_kind": "scenario"
+    },
+    "rocky_esi_1A": {
+      "abstentions": [
+        {
+          "kind": "no_site_forecast",
+          "text": "No site-specific numerical forecast is given for this shoreline type: the platform has no validated or experimental outcome model for it. Screening verdicts and literature only."
+        },
+        {
+          "kind": "no_model",
+          "text": "PAH-sum half-life: no registered model covers 1a shorelines"
+        },
+        {
+          "kind": "no_model",
+          "text": "vegetation time to 80% of reference: no registered model covers 1a shorelines"
+        },
+        {
+          "kind": "no_model",
+          "text": "natural edge loss to year 5 and 8: no registered model covers 1a shorelines"
+        },
+        {
+          "kind": "insufficient_evidence",
+          "text": "5 allowed option(s) cannot be compared with natural recovery because no eligible evidence rows exist for this habitat. This is not a finding of no benefit."
+        },
+        {
+          "kind": "no_recommendation",
+          "text": "No intervention is recommended over natural recovery. Natural recovery with monitoring remains the reference option."
+        }
+      ],
+      "app_exceptions": [],
+      "classes": {
+        "B": [
+          "passive_sorbents",
+          "manual_removal",
+          "vacuum_removal",
+          "high_pressure_washing",
+          "low_pressure_flushing"
+        ],
+        "C": [
+          "natural_attenuation"
+        ],
+        "D": [
+          "low_pressure_heated_flushing",
+          "surface_washing_agents",
+          "high_pressure_heated_washing"
+        ],
+        "E": [
+          "bioremediation",
+          "mechanical_removal",
+          "planting (after mechanical cleanup)",
+          "solidifiers",
+          "sediment_relocation",
+          "vegetation_cutting",
+          "sediment_mixing"
+        ]
+      },
+      "controls": {
+        "buttons": [
+          "run_esi_1A|Run assessment",
+          "sr_nav_home|Back to home",
+          "whyboard_esi_1A|Open the evidence for this habitat"
+        ],
+        "download_buttons": [
+          "Download report (HTML)"
+        ],
+        "expanders": [
+          "Change place or scenario",
+          "Details and caveats",
+          "Evidence grades: what the chips mean",
+          "Evidence matrix (every verdict that was used)",
+          "Methods and sources",
+          "Model assumptions and limitations",
+          "Option evidence in detail (current inputs)",
+          "Optional: season and a named oil",
+          "Pipeline's full text statement (technical wording)",
+          "Provenance of the literature priors",
+          "Reference numbers that are not tied to one option",
+          "Sources and decisions",
+          "Technical trace: pipeline steps, sources and version",
+          "What the platform does not state for this input"
+        ],
+        "n_charts": 0,
+        "n_dataframes": 8,
+        "n_expander_elements": 22,
+        "n_maps": 0,
+        "n_metrics": 0,
+        "radios": [],
+        "segmented_controls": [
+          "page|Navigate",
+          "site_habitat|Habitat"
+        ],
+        "selectboxes": [
+          "beach_esi_1A_exposure|Wave exposure",
+          "beach_esi_1A_oiling|Oiling class (required)",
+          "beach_esi_1A_oil|Oil category (required)",
+          "beach_esi_1A_season|Season of cleanup"
+        ],
+        "tabs": [],
+        "text_inputs": [
+          "beach_esi_1A_named_q|Search NOAA ADIOS oils by name"
+        ],
+        "toggles": []
+      },
+      "decision_outcome": "conditional_only",
+      "evidence_state": "no_clear_difference",
+      "headline": "No clear difference from natural recovery (evidence exists): no option is shown by evidence to beat natural recovery; continue with natural recovery and monitoring. Evidence exists but shows no clear difference for: high_pressure_heated_washing. Insufficient evidence to compare with natural recovery for: passive_sorbents, manual_removal, vacuum_removal, high_pressure_washing, low_pressure_flushing, low_pressure_heated_flushing, surface_washing_agents. Eligibility reflects habitat-impact screening, not demonstrated remediation effectiveness. The order shown is not a performance ranking.",
+      "recommendation_summary": {
+        "conditional": [
+          "low_pressure_heated_flushing",
+          "surface_washing_agents",
+          "high_pressure_heated_washing"
+        ],
+        "excluded": [
+          "bioremediation",
+          "mechanical_removal",
+          "planting (after mechanical cleanup)",
+          "solidifiers",
+          "sediment_relocation",
+          "vegetation_cutting",
+          "sediment_mixing"
+        ],
+        "insufficient_evidence": [
+          "passive_sorbents",
+          "manual_removal",
+          "vacuum_removal",
+          "high_pressure_washing",
+          "low_pressure_flushing"
+        ],
+        "natural_recovery_monitoring": [
+          "natural_attenuation"
+        ],
+        "no_demonstrated_benefit": [],
+        "recommended": []
+      },
+      "report_sha256_normalized": "d6d10541523e57bb5bdbac9edc414219f35592082a14a76044c61993e7f03406",
+      "report_top_level_fields": [
+        "abstentions",
+        "advisories",
+        "characterisation",
+        "decision_outcome",
+        "decision_outcome_label",
+        "evidence_state",
+        "evidence_state_label",
+        "headline",
+        "literature_notes",
+        "natural_recovery",
+        "options",
+        "plots",
+        "recommendation_summary",
+        "scope_message",
+        "scope_tier",
+        "trace",
+        "version"
+      ],
+      "scope_tier": "rules_and_literature",
+      "spec": [
+        "scenario",
+        [
+          [
+            "shoreline_type",
+            "rocky_shore"
+          ],
+          [
+            "shoreline_sensitivity",
+            "moderate"
+          ],
+          [
+            "oil_category",
+            "medium"
+          ],
+          [
+            "oil_coverage",
+            40.0
+          ],
+          [
+            "oil_thickness",
+            5.0
+          ],
+          [
+            "penetration_depth_cm",
+            8.0
+          ],
+          [
+            "wave_exposure",
+            "moderate"
+          ],
+          [
+            "tidal_range",
+            "moderate"
+          ],
+          [
+            "temperature_c",
+            15.0
+          ],
+          [
+            "season",
+            "summer"
+          ],
+          [
+            "substrate_permeability",
+            "moderate"
+          ],
+          [
+            "surface_oil",
+            true
+          ],
+          [
+            "subsurface_oil",
+            false
+          ],
+          [
+            "accessibility",
+            "good"
+          ],
+          [
+            "habitat_type",
+            "mixed_sediment"
+          ],
+          [
+            "recovery_potential",
+            "moderate"
+          ],
+          [
+            "waste_handling",
+            "manageable"
+          ]
+        ],
+        "Moderate",
+        "medium",
+        null,
+        "1A"
+      ],
+      "spec_kind": "scenario"
+    },
+    "typed_marsh": {
+      "abstentions": [
+        {
+          "kind": "outside_validated_scope",
+          "text": "no edge cell given: generic marsh scenario, transfer of the Bay Jimmy evidence is untested"
+        },
+        {
+          "kind": "no_model",
+          "text": "natural edge loss to year 5 and 8: needs a marsh edge cell in scope of the edge-loss model"
+        },
+        {
+          "kind": "insufficient_evidence",
+          "text": "3 allowed option(s) cannot be compared with natural recovery because no eligible evidence rows exist for this habitat. This is not a finding of no benefit."
+        },
+        {
+          "kind": "no_recommendation",
+          "text": "No intervention is recommended over natural recovery. Natural recovery with monitoring remains the reference option."
+        }
+      ],
+      "app_exceptions": [],
+      "classes": {
+        "A": [
+          "planting (after mechanical cleanup)",
+          "manual_removal"
+        ],
+        "B": [
+          "passive_sorbents",
+          "bioremediation",
+          "low_pressure_flushing",
+          "surface_washing_agents",
+          "vacuum_removal"
+        ],
+        "C": [
+          "natural_attenuation"
+        ],
+        "E": [
+          "solidifiers",
+          "low_pressure_heated_flushing",
+          "mechanical_removal",
+          "sediment_relocation",
+          "vegetation_cutting",
+          "high_pressure_heated_washing",
+          "high_pressure_washing",
+          "sediment_mixing"
+        ]
+      },
+      "controls": {
+        "buttons": [
+          "how_marsh|Open the model validation",
+          "run_marsh|Run assessment",
+          "sr_nav_home|Back to home",
+          "whyboard_marsh|Open the evidence for this habitat"
+        ],
+        "download_buttons": [
+          "Download report (HTML)"
+        ],
+        "expanders": [
+          "Change place or scenario",
+          "Detailed tables: rule screening, field plots, AI-proposed ranges",
+          "Details and caveats",
+          "Evidence grades: what the chips mean",
+          "Evidence matrix (every verdict that was used)",
+          "Methods and sources",
+          "Model assumptions and limitations",
+          "Option evidence in detail (current inputs)",
+          "Optional: season and a named oil",
+          "Pipeline's full text statement (technical wording)",
+          "Provenance of the literature priors",
+          "Reference numbers that are not tied to one option",
+          "Rule-screening inputs implied by this site",
+          "Sources and decisions",
+          "Technical trace: pipeline steps, sources and version",
+          "What the platform does not state for this input"
+        ],
+        "n_charts": 2,
+        "n_dataframes": 14,
+        "n_expander_elements": 23,
+        "n_maps": 1,
+        "n_metrics": 0,
+        "radios": [
+          "site_mode|Site"
+        ],
+        "segmented_controls": [
+          "cmp_target_marsh|Outcome",
+          "marsh_outcome_edge_loss_avoided_m258_veg_cover_ratio_gain258|Outcome",
+          "marsh_year_edge_loss_avoided_m258_veg_cover_ratio_gain258_edge_loss_avoided_m|Year after cleanup",
+          "page|Navigate",
+          "site_habitat|Habitat"
+        ],
+        "selectboxes": [
+          "new_oil|Oiling class",
+          "site_oiling|Oiling class (required)",
+          "site_oil|Oil category (required)",
+          "site_season|Season of cleanup"
+        ],
+        "tabs": [],
+        "text_inputs": [
+          "site_named_q|Search NOAA ADIOS oils by name"
+        ],
+        "toggles": []
+      },
+      "decision_outcome": "conditional_only",
+      "evidence_state": "benefit",
+      "headline": "Field evidence of benefit over natural recovery: planting (after mechanical cleanup) (edge loss avoided by year 8 8.5 m (90% 2.5 to 14.9)); manual_removal (vegetation cover ratio gain at year 2 0.35 (90% 0.20 to 0.51)). Design of the evidence: planting (after mechanical cleanup): observational, one site: mechanically cleaned and planted plots versus untreated plots, 5 versus 9 plots (not a randomised comparison); manual_removal: observational, one site (Zengel et al. 2022, Bay Jimmy). Differences are experimental composer output from one site's field evidence. Conditional, not recommended outright: planting (after mechanical cleanup) (evidence of benefit exists, but the option presupposes 'mechanical_removal', which is excluded for this input; it applies only where that method has already been used); manual_removal (evidence of benefit exists, but its transfer to this input is untested: no edge cell given: generic marsh scenario, transfer of the Bay Jimmy evidence is untested).",
+      "recommendation_summary": {
+        "conditional": [
+          "planting (after mechanical cleanup)",
+          "manual_removal"
+        ],
+        "excluded": [
+          "solidifiers",
+          "low_pressure_heated_flushing",
+          "mechanical_removal",
+          "sediment_relocation",
+          "vegetation_cutting",
+          "high_pressure_heated_washing",
+          "high_pressure_washing",
+          "sediment_mixing"
+        ],
+        "insufficient_evidence": [
+          "passive_sorbents",
+          "bioremediation",
+          "vacuum_removal"
+        ],
+        "natural_recovery_monitoring": [
+          "natural_attenuation"
+        ],
+        "no_demonstrated_benefit": [
+          "low_pressure_flushing",
+          "surface_washing_agents"
+        ],
+        "recommended": []
+      },
+      "report_sha256_normalized": "32926391d3c2d5baa238c46b54fb4f9101351ec1f3896fe1637cd185984de119",
+      "report_top_level_fields": [
+        "abstentions",
+        "advisories",
+        "characterisation",
+        "decision_outcome",
+        "decision_outcome_label",
+        "evidence_state",
+        "evidence_state_label",
+        "headline",
+        "literature_notes",
+        "natural_recovery",
+        "options",
+        "plots",
+        "recommendation_summary",
+        "scope_message",
+        "scope_tier",
+        "trace",
+        "version"
+      ],
+      "scope_tier": "experimental",
+      "spec": [
+        "scenario",
+        [
+          [
+            "shoreline_type",
+            "salt_marsh"
+          ],
+          [
+            "shoreline_sensitivity",
+            "moderate"
+          ],
+          [
+            "oil_category",
+            "light"
+          ],
+          [
+            "oil_coverage",
+            40.0
+          ],
+          [
+            "oil_thickness",
+            5.0
+          ],
+          [
+            "penetration_depth_cm",
+            8.0
+          ],
+          [
+            "wave_exposure",
+            "moderate"
+          ],
+          [
+            "tidal_range",
+            "moderate"
+          ],
+          [
+            "temperature_c",
+            15.0
+          ],
+          [
+            "season",
+            "summer"
+          ],
+          [
+            "substrate_permeability",
+            "moderate"
+          ],
+          [
+            "surface_oil",
+            true
+          ],
+          [
+            "subsurface_oil",
+            false
+          ],
+          [
+            "accessibility",
+            "good"
+          ],
+          [
+            "habitat_type",
+            "mixed_sediment"
+          ],
+          [
+            "recovery_potential",
+            "moderate"
+          ],
+          [
+            "waste_handling",
+            "manageable"
+          ]
+        ],
+        "Heavy",
+        "light",
+        null,
+        "salt_marsh"
+      ],
+      "spec_kind": "scenario"
+    }
+  },
+  "python": "3.11.9"
+}

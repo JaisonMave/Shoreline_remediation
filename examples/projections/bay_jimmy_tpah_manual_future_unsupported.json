@@ -1,0 +1,22 @@
+{
+  "schema_version": "shoreline-projection-spec/1",
+  "site_id": "bay_jimmy_zengel_plots",
+  "habitat": "salt_marsh",
+  "oiling_class": "Heavy",
+  "cadence": "annual",
+  "seed": 20261120,
+  "assumptions": [],
+  "scenario_id": "bay_jimmy_tpah_manual_future_request",
+  "description": "Request for a treatment-specific future PAH decline for manually treated plots to 2030. Expected outcome: evidence gap, with the historical tPAH measurements exported.",
+  "plot_group_id": "manual_removal_heavy",
+  "arm": "intervention",
+  "endpoint": "soil_tpah",
+  "unit": "mg/kg",
+  "as_of": "2016-12-31",
+  "end_date": "2030-01-01",
+  "model_version": "rate_continuation/1",
+  "evidence_ids": [
+    "zengel2015_s1_group_means",
+    "pah_decline_v1_heavy_class"
+  ]
+}

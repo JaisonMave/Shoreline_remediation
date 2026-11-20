@@ -1,0 +1,19 @@
+{
+  "schema_version": "shoreline-projection-spec/1",
+  "scenario_id": "bay_jimmy_untreated_observed",
+  "description": "Observed cumulative marsh-edge retreat of the heavily oiled untreated Bay Jimmy plots since 4 December 2010. No projection.",
+  "site_id": "bay_jimmy_zengel_plots",
+  "plot_group_id": "untreated_heavy",
+  "habitat": "salt_marsh",
+  "oiling_class": "Heavy",
+  "endpoint": "cumulative_shoreline_retreat",
+  "unit": "m",
+  "arm": "reference",
+  "as_of": "2016-10-05",
+  "end_date": "2030-01-01",
+  "cadence": "annual",
+  "model_version": "observed_record/1",
+  "seed": 20261120,
+  "evidence_ids": ["zengel2022_griidc_field_positions"],
+  "assumptions": []
+}

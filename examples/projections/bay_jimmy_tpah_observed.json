@@ -1,0 +1,22 @@
+{
+  "schema_version": "shoreline-projection-spec/1",
+  "site_id": "bay_jimmy_zengel_plots",
+  "habitat": "salt_marsh",
+  "oiling_class": "Heavy",
+  "cadence": "annual",
+  "seed": 20261120,
+  "assumptions": [],
+  "scenario_id": "bay_jimmy_tpah_untreated_observed",
+  "description": "Measured soil tPAH of the untreated heavily oiled plots (2011, 2012) and the DIVER heavy-class relative decline index within its campaign support.",
+  "plot_group_id": "untreated_heavy",
+  "arm": "reference",
+  "endpoint": "soil_tpah",
+  "unit": "mg/kg",
+  "as_of": "2016-12-31",
+  "end_date": "2017-01-01",
+  "model_version": "observed_record/1",
+  "evidence_ids": [
+    "zengel2015_s1_group_means",
+    "pah_decline_v1_heavy_class"
+  ]
+}

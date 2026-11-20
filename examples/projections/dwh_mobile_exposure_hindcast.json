@@ -1,0 +1,19 @@
+{
+  "schema_version": "shoreline-projection-spec/1",
+  "scenario_id": "dwh_mobile_sector_exposure_hindcast_2010",
+  "description": "Hindcast request: would a transport simulation of the Deepwater Horizon release place oil on the Mobile-sector SCAT segments between 20 April and 31 August 2010? Expected outcome with this checkout: exposure_inputs_unavailable (release and forcing data missing), with the SCAT survey classes exported as evaluation observations.",
+  "site_id": "dwh_mobile_sector_2010",
+  "plot_group_id": "all_surveyed_segments",
+  "habitat": "gulf_shoreline_mixed_esi",
+  "oiling_class": "not_applicable",
+  "endpoint": "shoreline_oil_contact",
+  "unit": "contact",
+  "arm": "reference",
+  "as_of": "2010-04-20",
+  "end_date": "2010-08-31",
+  "cadence": "annual",
+  "model_version": "transport_hindcast/1",
+  "seed": 20261120,
+  "evidence_ids": ["noaa_scat_mobile_visits", "noaa_scat_mobile_segments"],
+  "assumptions": []
+}

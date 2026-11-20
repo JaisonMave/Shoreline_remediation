@@ -1,0 +1,27 @@
+{
+  "schema_version": "shoreline-projection-spec/1",
+  "scenario_id": "bay_jimmy_untreated_longrun_rate_2030",
+  "description": "IF the untreated heavily oiled Bay Jimmy plots keep retreating at the fitted long-run rate after the last survey, how much more landward edge movement is implied by 1 January 2030? Conditional projection, not a forecast.",
+  "site_id": "bay_jimmy_zengel_plots",
+  "plot_group_id": "untreated_heavy",
+  "habitat": "salt_marsh",
+  "oiling_class": "Heavy",
+  "endpoint": "cumulative_shoreline_retreat",
+  "unit": "m",
+  "arm": "reference",
+  "as_of": "2016-10-05",
+  "end_date": "2030-01-01",
+  "cadence": "annual",
+  "model_version": "rate_continuation/1",
+  "seed": 20261120,
+  "evidence_ids": ["zengel2022_griidc_field_positions"],
+  "assumptions": [
+    {
+      "assumption_id": "retreat_rate",
+      "value": 1.43,
+      "unit": "m/yr",
+      "origin": "fitted_parameter",
+      "source": "recovery_trajectories M1 long-run rate b for the untreated plots, fitted to the 4 Dec 2010 to 5 Oct 2016 surveys (1.4338, rounded to 0.01 m/yr; docs/V5_4_RECOVERY_VIEW.md)"
+    }
+  ]
+}
