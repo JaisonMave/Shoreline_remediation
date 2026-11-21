@@ -9,6 +9,7 @@ Run directory contents:
     whatif.csv      retreat_whatif/1, cover_whatif/1 and tpah_whatif/1 (spec version 2): observed surveys, natural-recovery arm and, where
                     screening allows it, the user-defined what-if arm; written by the same code and at the same precision as
                     the dashboard download
+    whatif.png, whatif.svg   optional images of a completed version-2 replay (run --figures)
     contrast.csv    field_contrast/1: the historical contrast and the two group means it is computed from
     fit.csv         recovery_fit/1: experimental within-record fit; conditional rows where a parameter is borrowed
     reference_index.csv   soil_tpah observed_record/1, heavy class: DIVER relative decline index within campaign support
@@ -18,7 +19,7 @@ Status values: 'running' is written first and replaced at the end, so an interru
 'completed' and 'unsupported' are both finished outcomes; 'failed' records an exception. An existing output path is never
 written into.
 
-No recommendation is assigned here and nothing in the dashboard or decision pipeline imports this package.
+The Assessment scenario panel and the CLI reuse the scenario calculations. The decision pipeline assigns recommendations.
 """
 from __future__ import annotations
 
@@ -230,7 +231,20 @@ def _project(spec: ScenarioSpec, out: Path, manifest: dict, obs: pd.DataFrame, a
     manifest["limitations"] = list(LIMITATIONS) + list(PROJECTION_LIMITATIONS)
 
 
-def _whatif(spec: ScenarioSpec, out: Path, manifest: dict, obs: pd.DataFrame, screening) -> Unsupported | None:
+def _write_whatif_figures(out, manifest, text, outcome, computed):
+    from . import figure
+    technique = computed.label
+    if outcome == "retreat" and manifest["spec"]["technique"] == "natural_attenuation":
+        technique = "Natural recovery only (reference)"
+    images = figure.whatif_figure(text, outcome, **figure.whatif_labels(outcome, computed, technique))
+    for fmt, image in images.items():
+        name = f"whatif.{fmt}"
+        (out / name).write_bytes(image)
+        manifest["outputs"].append({"path": name, "sha256": _sha256_bytes(image), "rows": None,
+                                    "description": "Scenario figure rendered from the replayed whatif.csv"})
+
+
+def _whatif(spec: ScenarioSpec, out: Path, manifest: dict, obs: pd.DataFrame, screening, figures=False) -> Unsupported | None:
     """retreat_whatif/1: re-screen the technique, recompute both arms from the inputs and the source observations, and write
     whatif.csv with the dashboard's export code. Saved outputs in the file are compared, never used."""
     from src.shoreline_remediation.projections import whatif as W
@@ -262,10 +276,12 @@ def _whatif(spec: ScenarioSpec, out: Path, manifest: dict, obs: pd.DataFrame, sc
         return Unsupported("technique_blocked_by_screening",
                            f"No treatment curve for '{spec.technique}': {computed.screening_reason} The natural-recovery arm and "
                            "the observations are exported.", "technique")
+    if figures:
+        _write_whatif_figures(out, manifest, text, "retreat", computed)
     return None
 
 
-def _cover(spec: ScenarioSpec, out: Path, manifest: dict, screening) -> Unsupported | None:
+def _cover(spec: ScenarioSpec, out: Path, manifest: dict, screening, figures=False) -> Unsupported | None:
     """cover_whatif/1: re-screen the technique, recompute both arms from the inputs and the untreated surveys, and write
     observed.csv and whatif.csv with the dashboard's export code. Saved outputs in the file are compared, never used."""
     from src.shoreline_remediation.projections import cover as CV, evidence as E, whatif as W
@@ -306,10 +322,12 @@ def _cover(spec: ScenarioSpec, out: Path, manifest: dict, screening) -> Unsuppor
         return Unsupported("technique_blocked_by_screening",
                            f"No treatment curve for '{spec.technique}': {computed.screening_reason} The natural-recovery arm and "
                            "the observations are exported.", "technique")
+    if figures:
+        _write_whatif_figures(out, manifest, text, "cover", computed)
     return None
 
 
-def _tpah(spec: ScenarioSpec, out: Path, manifest: dict, screening) -> Unsupported | None:
+def _tpah(spec: ScenarioSpec, out: Path, manifest: dict, screening, figures=False) -> Unsupported | None:
     """tpah_whatif/1: re-screen the technique, recompute both arms from the inputs and the untreated measurements, and write
     observed.csv and whatif.csv with the dashboard's export code. Saved outputs in the file are compared, never used."""
     from src.shoreline_remediation.projections import evidence as E, pah as PH, whatif as W
@@ -358,6 +376,8 @@ def _tpah(spec: ScenarioSpec, out: Path, manifest: dict, screening) -> Unsupport
         return Unsupported("technique_blocked_by_screening",
                            f"No treatment curve for '{spec.technique}': {computed.screening_reason} The natural-recovery arm and "
                            "the measurements are exported.", "technique")
+    if figures:
+        _write_whatif_figures(out, manifest, text, "tpah", computed)
     return None
 
 
@@ -546,7 +566,7 @@ def normalized(manifest: dict) -> dict:
 
 
 def run(spec: ScenarioSpec | dict | str | Path, output_dir: str | Path, *, input_bytes: bytes | None = None,
-        screening=None) -> RunResult:
+        screening=None, figures=False) -> RunResult:
     """Validate, check scope, and write a new run directory. Raises SpecError (nothing written) or OutputExistsError.
     A version-2 what-if needs `screening` (assessment_screening.reproduce): the assessment is re-run and the technique
     re-screened through the inventory on every run."""
@@ -561,6 +581,8 @@ def run(spec: ScenarioSpec | dict | str | Path, output_dir: str | Path, *, input
     elif isinstance(spec, dict):
         spec = from_dict(spec)
     unsupported = check_scope(spec)              # may raise SpecError before anything is written
+    if figures and spec.model_version not in C.WHATIF_MODELS:
+        raise SpecError([("figures", "--figures is available for version-2 what-if scenarios")])
     if spec.model_version in C.WHATIF_MODELS and screening is None:
         raise SpecError([("technique", "a version-2 what-if is re-screened on every run; pass a screening resolver "
                                        "(the CLI uses assessment_screening.reproduce)")])
@@ -594,13 +616,15 @@ def run(spec: ScenarioSpec | dict | str | Path, output_dir: str | Path, *, input
     }
     _write_json(out / "manifest.json", manifest)
     try:
+        if figures:
+            manifest["dependencies"]["matplotlib"] = metadata.version("matplotlib")
         if unsupported is not None and unsupported.code not in EXPORTING_CODES:
             manifest["status"] = "unsupported"
             manifest["outcome"] = {"status": "unsupported", **asdict(unsupported)}
         elif spec.model_version in (C.COVER_WHATIF_MODEL, C.TPAH_WHATIF_MODEL):
             _check_sources(manifest)
             writer = _cover if spec.model_version == C.COVER_WHATIF_MODEL else _tpah
-            unsupported = writer(spec, out, manifest, screening)
+            unsupported = writer(spec, out, manifest, screening, figures)
             manifest["status"] = "unsupported" if unsupported is not None else "completed"
             manifest["outcome"] = ({"status": "unsupported", **asdict(unsupported)} if unsupported is not None else
                                    {"status": "completed", "files": [o["path"] for o in manifest["outputs"]]})
@@ -636,7 +660,7 @@ def run(spec: ScenarioSpec | dict | str | Path, output_dir: str | Path, *, input
                     _project(spec, out, manifest, obs, last.iloc[-1])
                 manifest["status"] = "completed"
                 if spec.model_version == C.WHATIF_MODEL:
-                    unsupported = _whatif(spec, out, manifest, obs, screening)
+                    unsupported = _whatif(spec, out, manifest, obs, screening, figures)
                     if unsupported is not None:
                         manifest["status"] = "unsupported"
                         manifest["outcome"] = {**manifest["outcome"], "status": "unsupported", **asdict(unsupported)}

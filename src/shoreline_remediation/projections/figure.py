@@ -148,6 +148,26 @@ def difference_rows(csv_text: str, outcome: str) -> pd.DataFrame:
     return pd.DataFrame({"x": d[m["x"]].astype(str), "difference": d[m["diff"]].astype(float), "sample": d.get("sample")})
 
 
+def whatif_labels(outcome, computed, technique):
+    """Describe the recomputed anchor and baseline identically in dashboard and offline exports."""
+    from . import cover, pah, projection
+    if outcome == "retreat":
+        anchor = computed.anchor
+        baseline = f"natural recovery at the stated rate schedule ({projection.describe_rates(computed.what.segments)})"
+        last = f"{dt.date.fromisoformat(anchor.date):%d %b %Y} (n = {int(anchor.n_plots)} plots)"
+    elif outcome == "cover":
+        anchor = computed.what.anchor
+        baseline = cover.BASELINE_LABEL.split(": ", 1)[1]
+        last = f"{anchor.survey} survey (month precision; n = {anchor.n_plots} plots)"
+    elif outcome == "tpah":
+        anchor = computed.what.anchor
+        baseline = pah.baseline_label(computed.what.half_life).split(": ", 1)[1]
+        last = f"{anchor.survey_period} (month precision; n = {anchor.n_plots} plots; {anchor.depth})"
+    else:
+        raise ValueError(f"Unknown what-if figure outcome: {outcome}")
+    return {"technique": technique or "natural recovery only", "baseline": baseline, "last_observation": last}
+
+
 def whatif_figure(csv_text: str, outcome: str, *, technique: str, baseline: str, last_observation: str) -> dict:
     """PNG and SVG bytes of one what-if figure drawn from the downloaded CSV text. The figure names Bay Jimmy, the technique,
     the natural-recovery baseline, the units, the last observation date and the User-defined what-if label."""
@@ -180,7 +200,7 @@ def whatif_figure(csv_text: str, outcome: str, *, technique: str, baseline: str,
     ax.set_ylabel(m["axis"], color=INK)
     ax.legend(loc="upper left", fontsize=8.5, frameon=False)
     title = f"Bay Jimmy (northern Barataria Bay, Louisiana): User-defined what-if, {technique}"
-    sub = f"Natural-recovery baseline: {baseline}. Units: {m['unit']}. Last observation: {last_observation}."
+    sub = f"Natural-recovery baseline: {baseline}. Last observation: {last_observation}."
     if two:
         sub += f" Lower panel: treatment minus natural recovery. {m['sign']}"
     fig.suptitle("\n".join(textwrap.wrap(title, 95)), x=0.06, ha="left", fontsize=12, color=INK)
@@ -197,7 +217,7 @@ def whatif_figure(csv_text: str, outcome: str, *, technique: str, baseline: str,
     out = {}
     for fmt in ("png", "svg"):
         buf = io.BytesIO()
-        fig.savefig(buf, format=fmt, facecolor=SURFACE)
+        fig.savefig(buf, format=fmt, facecolor=SURFACE, metadata={"Date": None} if fmt == "svg" else None)
         out[fmt] = buf.getvalue()
     plt.close(fig)
     return out

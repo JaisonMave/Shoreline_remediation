@@ -96,6 +96,15 @@ def _rows(csv_text: str) -> list:
 
 def test_dashboard_download_replays_row_for_row(served, tmp_path):
     scenario, dashboard_csv, page = _download(served, tmp_path)
+    figures = tmp_path / "figures"
+    assert cli(["run", "--scenario", str(scenario), "--output", str(figures), "--figures"]) == 0
+    assert (figures / "whatif.png").read_bytes() == served["bay_jimmy_retreat_whatif.png"][-1]
+    assert (figures / "whatif.svg").read_bytes() == served["bay_jimmy_retreat_whatif.svg"][-1]
+    import hashlib
+    manifest_outputs = json.loads((figures / "manifest.json").read_text(encoding="utf-8"))["outputs"]
+    for name in ("whatif.png", "whatif.svg"):
+        entry = next(item for item in manifest_outputs if item["path"] == name)
+        assert entry["sha256"] == hashlib.sha256((figures / name).read_bytes()).hexdigest()
     assert "5.00 m less cumulative retreat under your assumption." in page
     out = tmp_path / "replay"
     code, manifest = _replay(scenario, out)

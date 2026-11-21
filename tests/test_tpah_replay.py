@@ -141,6 +141,10 @@ def _replay(scenario, out):
 
 def test_tpah_download_replays_row_for_row_including_the_step(served, tmp_path):
     scenario, dashboard_csv = _download(served, tmp_path)                   # half-life 4 years, 20% on 1 Jan 2020
+    figures = tmp_path / "figures"
+    assert cli(["run", "--scenario", str(scenario), "--output", str(figures), "--figures"]) == 0
+    assert (figures / "whatif.png").read_bytes() == served["bay_jimmy_tpah_whatif.png"][-1]
+    assert (figures / "whatif.svg").read_bytes() == served["bay_jimmy_tpah_whatif.svg"][-1]
     data = json.loads(scenario.read_text(encoding="utf-8"))
     assert data["model_version"] == PH.TPAH_MODEL and data["unit"] == "mg/kg" and data["technique"] == "manual_removal"
     assert data["assumptions"] == [{"assumption_id": "tpah_half_life", "value": 4.0, "unit": "yr", "origin": "user_assumption",

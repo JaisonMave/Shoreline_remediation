@@ -8,9 +8,9 @@ Earlier projection programme: `docs/PROJECTION_HANDOFF.md` (complete; its result
 | 1. Technique-by-outcome inventory | **Complete** (21 Nov 2026, Session R1). Drives the technique selector since R3 |
 | 2. Manual removal against natural recovery, three outcomes | **Complete**: contract (R2), shown in the Assessment (R3) |
 | 3. User-defined what-if mode | **Complete for all three outcomes**: retreat (R4, replay R5), vegetation cover (R6) and soil tPAH (R7), each with dashboard download and CLI replay |
-| 4. Validation protocol for process and statistical workflows | Not started |
-| 5. Assessment plots | Partial: historical panels (R3) and the retreat, cover and tPAH what-if charts (R4, R6, R7). Effect plot and PNG/SVG export pending |
-| 6. Integration, contract versioning, full verification | Not started |
+| 4. Validation protocol for process and statistical workflows | R9 protocol, source audit and matched historical benchmarks complete. Independent treatment-effect validation awaits new data. |
+| 5. Assessment plots | Historical panels R3. All three single-technique futures, differences and PNG/SVG exports delivered through R8. A second intervention overlaid on the same dashboard figure remains a design option. |
+| 6. Integration, contract versioning, full verification | Version-2 JSON and CSV replay R5–R7. R10 adds optional figure replay and checks the integrated branch. See verification below. |
 
 ## Session R1 (21 Nov 2026): section 1 inventory. COMPLETE
 
@@ -830,3 +830,28 @@ Start: branch `codex/scenario-prediction-plan`, HEAD `48fe6c9` (R1–R7 committe
   format was kept unchanged as requested.
 - The cover figure's subtitle lists "percentage points" as the unit, because it describes the difference panel; the main axis
   is labelled in %.
+
+## R9 and R10, 21 November 2026
+
+Starting branch `codex/scenario-prediction-plan`, revision `b4eb9d4`. R8 was already on the branch. R9's research-only benchmark compares a fit to prior paired observations with persistence and a zero-difference rule. The full protocol, scores, source limitations and external-data request are in [the model validation record](REMEDIATION_MODEL_VALIDATION.md). No endpoint met the conditions to advance the statistical challenger. The existing process-model gate and field contrast are preserved.
+
+R10 adds the optional `--figures` flag to version-2 replay. Both interfaces use the same figure labels and renderer. The runner records image hashes and the rendering library version. The cover axes identify total cover in percent and its difference in percentage points. The original replay command retains its prior outputs.
+
+```
+python -m validation.remediation_benchmark
+python -m src.shoreline_remediation.projections run --scenario bay_jimmy_retreat_whatif.json --output runs/replay_with_figures --figures
+```
+
+The second command uses an actual JSON downloaded from the Assessment and a fresh output directory. Cover and soil tPAH downloads accept the same command.
+
+R9 files: `docs/REMEDIATION_MODEL_VALIDATION.md`, `validation/remediation_benchmark.py`, `tests/test_remediation_benchmark.py`. R10 files: `projections/__main__.py`, `projections/runner.py`, `projections/figure.py`, `ui_future_scenarios.py` under `src/shoreline_remediation/`; `tests/test_whatif_replay.py`, `tests/test_cover_replay.py`, `tests/test_tpah_replay.py`, `README.md` and this handoff.
+
+### Acceptance in PowerShell
+
+- `python -m pytest -q tests/test_remediation_benchmark.py` passed all three tests, including a hand-checked temporal split and rejection of an unmapped process option.
+- `python -m pytest -q tests/test_whatif_figures.py tests/test_whatif_replay.py tests/test_cover_replay.py tests/test_tpah_replay.py tests/test_remediation_benchmark.py` passed 58 tests with zero skips.
+- Headless Chromium at 1440 px and 390 px: selected manual removal and entered effects of −0.5 m/year, +10 cover points and 20% soil tPAH reduction. For each of the six combinations, downloaded JSON, CSV, PNG and SVG and replayed the JSON with `--figures`. All 18 CSV/image byte comparisons matched. Both viewport runs completed without page errors or horizontal overflow.
+- The four fresh decision reports from `scripts/capture_projection_baseline.py` matched the frozen report bytes with zero app exceptions. The three cases outside the mapped site also kept their original visible controls. All nine version-1 examples replayed into fresh directories with six completions and the three expected abstentions.
+- `python -m pytest -q tests --tb=short`: 1,030 collected, 1,026 passed, 2 failed and 2 skipped. Both failures compare file bytes on this CRLF checkout. A read-only hash check confirmed 82 catalogue files matched directly, the remaining 102 matched after CRLF-to-LF normalization, and all 12 P5 training-file hashes matched after normalization.
+- PowerShell skipped the two NOAA PDF checks because its PATH has no `pdftotext`. Adding Git's xpdf directory to the test process PATH and running `python -m pytest -q tests/test_habitat.py::test_transcription_matches_the_pdf_text tests/test_v5_1_governance.py::test_noaa_transcription_matches_the_source_pdf_text --tb=short` reproduced both failures. Human source verification remains open.
+- Next research task: obtain the independent site-and-treatment records specified in the R9 protocol, establish comparability and agree the useful error margin before scoring. The current numerical futures remain conditional.

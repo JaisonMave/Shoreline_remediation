@@ -141,6 +141,10 @@ def _replay(scenario, out):
 
 def test_cover_download_replays_row_for_row(served, tmp_path):
     scenario, dashboard_csv = _download(served, tmp_path)
+    figures = tmp_path / "figures"
+    assert cli(["run", "--scenario", str(scenario), "--output", str(figures), "--figures"]) == 0
+    assert (figures / "whatif.png").read_bytes() == served["bay_jimmy_cover_whatif.png"][-1]
+    assert (figures / "whatif.svg").read_bytes() == served["bay_jimmy_cover_whatif.svg"][-1]
     data = json.loads(scenario.read_text(encoding="utf-8"))
     assert data["model_version"] == CV.COVER_MODEL and data["endpoint"] == "total_vegetation_cover"
     assert data["treatment_effect"] == {"intervention_start": "2030-01-01", "effect_peak": "2032-01-01",

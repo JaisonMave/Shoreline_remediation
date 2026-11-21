@@ -48,6 +48,7 @@ def main(argv: list | None = None) -> int:
     r = sub.add_parser("run", help="run a scenario into a new output directory")
     r.add_argument("--scenario", required=True)
     r.add_argument("--output", required=True, help="new directory; an existing path is refused")
+    r.add_argument("--figures", action="store_true", help="also render PNG and SVG from a completed version-2 what-if replay")
     c = sub.add_parser("compare", help="overlay two completed projection runs (sensitivity figure, no band)")
     c.add_argument("--runs", nargs="+", required=True)
     c.add_argument("--output", required=True, help="figure path stem; .png and .svg are written, existing files refused")
@@ -92,7 +93,7 @@ def main(argv: list | None = None) -> int:
                     return EXIT_UNSUPPORTED
             return EXIT_OK
         spec = load(args.scenario)
-        res = run(args.scenario, args.output, screening=_screening_for(spec))
+        res = run(args.scenario, args.output, screening=_screening_for(spec), figures=args.figures)
     except SpecError as exc:
         print(exc, file=sys.stderr)
         return EXIT_INVALID

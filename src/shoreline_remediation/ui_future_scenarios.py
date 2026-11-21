@@ -401,9 +401,7 @@ def _retreat_explorer(inventory=None, choice=None, context=None) -> None:
                                     "run --scenario <this file> --output <new folder>")
         st.download_button("Download what-if CSV", W.csv_text(rows), file_name="bay_jimmy_retreat_whatif.csv",
                            mime="text/csv", on_click="ignore", icon=":material/download:")
-    figure_section(W.csv_text(rows), "retreat", label or "natural recovery only",
-                   f"natural recovery at the stated rate schedule ({projection.describe_rates(what.segments)})",
-                   f"{dt.date.fromisoformat(anchor.date):%d %b %Y} (n = {int(anchor.n_plots)} plots)")
+    figure_section(W.csv_text(rows), "retreat", **FG.whatif_labels("retreat", computed, label))
 
 
 def whatif_payload(scenario, computed: W.Computed, row: I.InventoryRow, effect: W.RetreatEffect, context: dict,
@@ -614,8 +612,7 @@ def _cover_explorer(inventory=None, choice=None, context=None) -> None:
                                   "run --scenario <this file> --output <new folder>")
     right.download_button("Download cover CSV", W.csv_text(rows), file_name="bay_jimmy_cover_whatif.csv", mime="text/csv",
                           on_click="ignore", icon=":material/download:", width="stretch")
-    figure_section(W.csv_text(rows), "cover", label or "natural recovery only", CV.BASELINE_LABEL.split(": ", 1)[1],
-                   f"{anchor.survey} survey (month precision; n = {anchor.n_plots} plots)")
+    figure_section(W.csv_text(rows), "cover", **FG.whatif_labels("cover", computed, label))
 
 
 def cover_payload(computed: CV.Computed, technique: str, context: dict, effect, end: dt.date, inventory) -> dict:
@@ -826,8 +823,7 @@ def _tpah_explorer(inventory=None, choice=None, context=None) -> None:
                                   "run --scenario <this file> --output <new folder>")
     right.download_button("Download tPAH CSV", W.csv_text(rows), file_name="bay_jimmy_tpah_whatif.csv", mime="text/csv",
                           on_click="ignore", icon=":material/download:", width="stretch")
-    figure_section(W.csv_text(rows), "tpah", label or "natural recovery only", PH.baseline_label(half_life).split(": ", 1)[1],
-                   f"{anchor.survey_period} (month precision; n = {anchor.n_plots} plots; {anchor.depth})")
+    figure_section(W.csv_text(rows), "tpah", **FG.whatif_labels("tpah", computed, label))
 
 
 def tpah_payload(computed: PH.Computed, technique: str, context: dict, half_life, effect, end: dt.date, inventory) -> dict:
