@@ -1,6 +1,7 @@
 # Scenario projections: session handoff
 
 Plan: `docs/CLAUDE_SCENARIO_PREDICTION_PLAN.md` (owner's file). Protocol: `docs/PROJECTION_RETREAT_PROTOCOL.md`.
+Follow-on programme (natural recovery and remediation scenarios, three outcomes): `docs/REMEDIATION_SCENARIOS_HANDOFF.md`.
 Branch `codex/scenario-prediction-plan`, base `726d944`. Commit `d458d15` records the offline implementation.
 
 ### Assessment integration (21 November 2026)

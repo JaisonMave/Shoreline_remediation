@@ -67,13 +67,27 @@ class ScenarioSpec:
     description: str = ""
     demonstration: bool = False         # must be true when any value has origin 'synthetic_fixture'
     comparator_group_id: str = ""       # field_contrast/1 only: the group the plot group is compared with
+    # --- spec version 2 only (retreat_whatif/1) ---
+    technique: str = ""                 # report option key the what-if is for, re-screened on every run
+    assessment_context: dict | None = None   # how to re-run the assessment that screens the technique
+    treatment_effect: dict | None = None     # None: no treatment curve (baseline only); rate_change 0: identical arms
+    exported_outputs: dict | None = field(default=None, compare=False)   # results saved with a download: outputs, never inputs
+
+    @property
+    def version(self) -> int:
+        return 2 if self.schema_version == C.SCHEMA_VERSION_2 else 1
 
     def to_dict(self) -> dict:
+        """The canonical inputs (run ID basis). Exported outputs are never part of it."""
         d = asdict(self)
         d["evidence_ids"] = list(self.evidence_ids)
         d["assumptions"] = [asdict(a) for a in self.assumptions]
+        d.pop("exported_outputs")
         if not self.comparator_group_id:       # optional field added in Session 4: omitted when unused, so earlier specs and
             d.pop("comparator_group_id")       # their run IDs are unchanged
+        if self.version == 1:                  # version-1 dicts, and so their run IDs, are unchanged by version 2
+            for k in V2_FIELDS:
+                d.pop(k)
         return d
 
     def to_json(self) -> str:
@@ -94,6 +108,22 @@ class ScenarioSpec:
 _REQUIRED = ("schema_version", "scenario_id", "site_id", "plot_group_id", "habitat", "oiling_class", "endpoint", "unit", "arm",
              "as_of", "end_date", "cadence", "model_version", "seed")
 _OPTIONAL = ("evidence_ids", "assumptions", "description", "demonstration", "comparator_group_id")
+V2_FIELDS = ("technique", "assessment_context", "treatment_effect")
+_V2_OPTIONAL = V2_FIELDS + ("exported_outputs",)
+CONTEXT_KEYS = {"entry": str, "cell": str, "habitat": str, "oil": (str, type(None)), "season": (str, type(None)),
+                "n_draws": int, "site_sha256": str}
+EFFECT_KEYS = ("intervention_start", "effect_end", "rate_change", "unit", "origin", "source")      # retreat_whatif/1
+COVER_EFFECT_KEYS = ("intervention_start", "effect_peak", "effect_end", "peak_change", "unit", "origin", "source")  # cover_whatif/1
+TPAH_EFFECT_KEYS = ("intervention_date", "reduction_percent", "unit", "basis", "origin", "source")                # tpah_whatif/1
+# model -> (effect keys, date keys in order, value key, unit, what the value means)
+_EFFECTS = {
+    C.WHATIF_MODEL: (EFFECT_KEYS, ("intervention_start", "effect_end"), "rate_change", "m/yr",
+                     "a finite number in m/yr (negative = slower retreat)"),
+    C.COVER_WHATIF_MODEL: (COVER_EFFECT_KEYS, ("intervention_start", "effect_peak", "effect_end"), "peak_change",
+                           "percentage points", "a finite number in percentage points (negative = less cover)"),
+    C.TPAH_WHATIF_MODEL: (TPAH_EFFECT_KEYS, ("intervention_date",), "reduction_percent", "percent of soil tPAH concentration",
+                          "a finite number from 0 to 100 (percent of the soil tPAH concentration removed)"),
+}
 _ASSUMPTION_KEYS = ("assumption_id", "value", "unit", "origin", "source", "missing_reason")
 
 
@@ -156,10 +186,14 @@ def from_dict(raw: dict) -> ScenarioSpec:
     for k in _REQUIRED:
         if k not in raw:
             problems.append((k, "required field is missing"))
-    for k in sorted(set(raw) - set(_REQUIRED) - set(_OPTIONAL)):
-        problems.append((k, "unknown field (check spelling); allowed: " + ", ".join(_REQUIRED + _OPTIONAL)))
-    if raw.get("schema_version", C.SCHEMA_VERSION) != C.SCHEMA_VERSION:
-        problems.append(("schema_version", f"'{raw.get('schema_version')}' is not supported; expected '{C.SCHEMA_VERSION}'"))
+    v2 = raw.get("schema_version") == C.SCHEMA_VERSION_2
+    allowed = _REQUIRED + _OPTIONAL + (_V2_OPTIONAL if v2 else ())
+    for k in sorted(set(raw) - set(allowed)):
+        hint = " (a version-2 field: use schema_version 'shoreline-projection-spec/2')" if k in _V2_OPTIONAL else ""
+        problems.append((k, "unknown field (check spelling); allowed: " + ", ".join(allowed) + hint))
+    if raw.get("schema_version", C.SCHEMA_VERSION) not in C.SCHEMA_VERSIONS:
+        problems.append(("schema_version", f"'{raw.get('schema_version')}' is not supported; expected one of "
+                         + ", ".join(C.SCHEMA_VERSIONS)))
     for k in ("scenario_id", "site_id", "plot_group_id", "habitat", "oiling_class", "endpoint", "unit", "arm", "cadence",
               "model_version"):
         if k in raw and (not isinstance(raw[k], str) or not raw[k].strip()):
@@ -199,12 +233,82 @@ def from_dict(raw: dict) -> ScenarioSpec:
     comparator = raw.get("comparator_group_id", "")
     if not isinstance(comparator, str):
         problems.append(("comparator_group_id", "must be a plot group ID string"))
+    model = raw.get("model_version")
+    if v2:
+        _v2_problems(problems, raw)
+    elif model == C.WHATIF_MODEL:
+        problems.append(("model_version", f"'{C.WHATIF_MODEL}' needs schema_version '{C.SCHEMA_VERSION_2}'"))
+    elif model in (C.COVER_WHATIF_MODEL, C.TPAH_WHATIF_MODEL):
+        problems.append(("model_version", f"'{model}' needs schema_version '{C.SCHEMA_VERSION_2}'"))
     if problems:
         raise SpecError(problems)
+    exported = raw.get("exported_outputs")
     return ScenarioSpec(raw["schema_version"], raw["scenario_id"], raw["site_id"], raw["plot_group_id"], raw["habitat"],
                         raw["oiling_class"], raw["endpoint"], raw["unit"], raw["arm"], raw["as_of"], raw["end_date"], raw["cadence"],
                         raw["model_version"], raw["seed"], tuple(ev), tuple(assumptions), raw.get("description", ""), demo,
-                        comparator)
+                        comparator, raw.get("technique", "") if v2 else "", raw.get("assessment_context") if v2 else None,
+                        raw.get("treatment_effect") if v2 else None, exported if v2 else None)
+
+
+def _v2_problems(problems: list, raw: dict) -> None:
+    """Version-2 inputs: one technique, the assessment that screens it, and an optional user-defined treatment effect.
+    A blank effect is written as null (or omitted): baseline only. An entered zero is rate_change 0: identical arms."""
+    model = raw.get("model_version")
+    if model not in C.WHATIF_MODELS:
+        problems.append(("model_version", "spec version 2 is used only with " + ", ".join(f"'{m}'" for m in C.WHATIF_MODELS)))
+    elif raw.get("endpoint") != C.WHATIF_MODELS[model]:
+        problems.append(("endpoint", f"'{model}' is defined for {C.WHATIF_MODELS[model]} only"))
+    for k in V2_FIELDS[:2]:
+        if k not in raw:
+            problems.append((k, "required in spec version 2"))
+    t = raw.get("technique")
+    if "technique" in raw and (not isinstance(t, str) or not t.strip()):
+        problems.append(("technique", "must be the report option key, for example 'manual_removal'"))
+    ctx = raw.get("assessment_context")
+    if "assessment_context" in raw:
+        if not isinstance(ctx, dict):
+            problems.append(("assessment_context", "must be an object"))
+        else:
+            for k in sorted(set(ctx) - set(CONTEXT_KEYS)):
+                problems.append((f"assessment_context.{k}", "unknown key; allowed: " + ", ".join(CONTEXT_KEYS)))
+            for k, typ in CONTEXT_KEYS.items():
+                if k not in ctx:
+                    problems.append((f"assessment_context.{k}", "required"))
+                elif not isinstance(ctx[k], typ) or isinstance(ctx[k], bool):
+                    problems.append((f"assessment_context.{k}", "has the wrong type"))
+            if ctx.get("entry") not in (None, "mapped_site"):
+                problems.append(("assessment_context.entry", "only 'mapped_site' (a mapped marsh cell) can be replayed"))
+            if isinstance(ctx.get("n_draws"), int) and ctx["n_draws"] <= 0:
+                problems.append(("assessment_context.n_draws", "must be a positive integer"))
+    eff = raw.get("treatment_effect")
+    if eff is None:
+        return
+    if not isinstance(eff, dict):
+        problems.append(("treatment_effect", "must be an object, or null for no treatment curve"))
+        return
+    if model not in _EFFECTS:
+        return
+    keys, date_keys, value_key, unit, meaning = _EFFECTS[model]
+    for k in sorted(set(eff) - set(keys)):
+        problems.append((f"treatment_effect.{k}", "unknown key; allowed: " + ", ".join(keys)))
+    for k in date_keys:
+        if k not in eff:
+            problems.append((f"treatment_effect.{k}", "required"))
+        else:
+            _date(problems, f"treatment_effect.{k}", eff[k])
+    rc = eff.get(value_key, None)
+    if value_key not in eff or rc is None:
+        problems.append((f"treatment_effect.{value_key}", "required; write null for the whole effect to mean 'no treatment "
+                         "curve' (0 means an entered zero change)"))
+    elif not _is_number(rc) or not math.isfinite(rc):
+        problems.append((f"treatment_effect.{value_key}", f"must be {meaning}"))
+    if eff.get("unit") != unit:
+        problems.append(("treatment_effect.unit", f"must be '{unit}' (no unit conversion is done)"))
+    if model == C.TPAH_WHATIF_MODEL and not (isinstance(eff.get("basis"), str) and eff["basis"].strip()):
+        problems.append(("treatment_effect.basis", "record the basis of the reduction (for example 'user-defined sensitivity "
+                         "assumption' when no field estimate exists)"))
+    if eff.get("origin") != "user_assumption":
+        problems.append(("treatment_effect.origin", "must be 'user_assumption': no measured treatment effect is available"))
 
 
 def load(path: str | Path) -> ScenarioSpec:
@@ -357,6 +461,36 @@ def check_scope(spec: ScenarioSpec) -> Unsupported | None:
     if rate is not None and rate.value is None:
         return Unsupported("rate_not_available", f"No retreat rate was supplied ({rate.missing_reason}); no projection is made "
                            "without a stated rate.", "assumptions")
+    if spec.model_version == C.WHATIF_MODEL and spec.treatment_effect is not None:
+        from src.shoreline_remediation.projections import projection as P, whatif as W
+        effect = W.effect_from_spec(spec)
+        problem = W.problem(effect, spec.as_of_date, spec.end, P.rate_segments(spec, spec.as_of_date))
+        if problem:
+            raise SpecError([("treatment_effect", problem)])
+    if spec.model_version == C.TPAH_WHATIF_MODEL:
+        from src.shoreline_remediation.projections import evidence as E, pah as PH
+        hl = spec.assumption("tpah_half_life")
+        if hl is not None:
+            bad = PH.baseline_problem(hl.value) if hl.value is not None else (
+                "omit 'tpah_half_life' to hold the concentration, or give a positive half-life in years")
+            if bad:
+                raise SpecError([("assumptions", bad)])
+        anchor = PH.anchor_from(E.tpah_observed(spec))
+        if anchor is None:
+            return Unsupported("no_anchor_observation", PH.no_anchor_reason(spec.as_of), "as_of")
+        if spec.treatment_effect is not None:
+            problem = PH.problem(PH.effect_from_spec(spec), anchor, spec.end)
+            if problem:
+                raise SpecError([("treatment_effect", problem)])
+    if spec.model_version == C.COVER_WHATIF_MODEL:
+        from src.shoreline_remediation.projections import cover as CV, evidence as E
+        anchor = CV.anchor_from(E.vegetation_observed(spec))
+        if anchor is None:
+            return Unsupported("no_anchor_observation", CV.no_anchor_reason(spec), "as_of")
+        if spec.treatment_effect is not None:
+            problem = CV.problem(CV.effect_from_spec(spec), anchor, spec.end)
+            if problem:
+                raise SpecError([("treatment_effect", problem)])
     if (spec.model_version, group.group_id) in C.GROUP_MODEL_GAPS:
         return Unsupported("model_not_applicable_to_group", C.GROUP_MODEL_GAPS[(spec.model_version, group.group_id)],
                            "plot_group_id")

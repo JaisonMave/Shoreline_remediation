@@ -11,6 +11,15 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 
 SCHEMA_VERSION = "shoreline-projection-spec/1"
+# Version 2 adds a user-defined treatment what-if for retreat (technique, assessment context, treatment effect). Version 1
+# files keep their meaning, run IDs and outputs; the two versions are parsed by the same validator.
+SCHEMA_VERSION_2 = "shoreline-projection-spec/2"
+SCHEMA_VERSIONS = (SCHEMA_VERSION, SCHEMA_VERSION_2)
+WHATIF_MODEL = "retreat_whatif/1"
+COVER_WHATIF_MODEL = "cover_whatif/1"
+TPAH_WHATIF_MODEL = "tpah_whatif/1"
+WHATIF_MODELS = {WHATIF_MODEL: "cumulative_shoreline_retreat", COVER_WHATIF_MODEL: "total_vegetation_cover",
+                 TPAH_WHATIF_MODEL: "soil_tpah"}
 
 # Origin of every value a scenario carries (CLAUDE.md section 4: keep these separate).
 ORIGINS = ("observation", "derived", "literature", "fitted_parameter", "user_assumption", "synthetic_fixture")
@@ -49,6 +58,11 @@ class Evidence:
 
 
 EVIDENCE = {
+    "zengel2022_griidc_aerial_rates": Evidence(
+        "zengel2022_griidc_aerial_rates",
+        "Zengel et al. 2022, Sci. Rep. 12:13802",
+        "GRIIDC doi:10.7266/VF524143, sheet 'DSAS lumped', aerial-photo erosion rates by plot and period",
+        "data/external/zengel2022/zengel2022_griidc_erosion.xlsx"),
     "zengel2022_griidc_field_positions": Evidence(
         "zengel2022_griidc_field_positions",
         "Zengel et al. 2022, Sci. Rep. 12:13802 (PMC9376092)",
@@ -192,6 +206,8 @@ ASSUMPTIONS = {
     "retreat_rate": AssumptionDef("retreat_rate", "m/yr", "Annual retreat rate applied after the as-of date (positive = land lost)"),
     "rate_change_date": AssumptionDef("rate_change_date", "date", "Date after which 'changed_retreat_rate' applies"),
     "changed_retreat_rate": AssumptionDef("changed_retreat_rate", "m/yr", "Annual retreat rate applied after 'rate_change_date'"),
+    "tpah_half_life": AssumptionDef("tpah_half_life", "yr", "Assumed half-life of soil tPAH decline for the natural-recovery "
+                                    "scenario of tpah_whatif/1 (zero long-term background); omitted = concentration held"),
 }
 
 # Model versions the runner can execute, and the assumptions each one uses (anything else is an input error).
@@ -205,6 +221,16 @@ MODELS = {
                        "borrows a parameter from another group and is labelled conditional"),
     "transport_hindcast/1": ("Release-and-exposure hindcast through an optional transport adapter (contract only; no engine is "
                              "installed or evaluated). Runs only when every essential input of the case is present"),
+    "retreat_whatif/1": ("Spec version 2 only. Two arms of one hypothetical shoreline from the same observed anchor: natural "
+                         "recovery at the stated rate schedule (as rate_continuation/1) and a user-defined what-if that adds a "
+                         "signed rate change between two dates. The technique is re-screened through the assessment on replay"),
+    "cover_whatif/1": ("Spec version 2 only. Two arms of one hypothetical shoreline's total vegetation cover from the last untreated "
+                       "survey available at as_of: natural recovery held at that observed value, and a user-defined temporary "
+                       "change that rises linearly to a peak and returns linearly to zero. The technique is re-screened on replay"),
+    "tpah_whatif/1": ("Spec version 2 only. Two arms of one hypothetical shoreline's soil tPAH (0-10 cm cores) from the last "
+                      "untreated measurement available at as_of: natural recovery held, or declining with an assumed half-life "
+                      "(zero long-term background), and a user-defined one-time percentage reduction on an intervention date, "
+                      "after which both arms follow the same rule. The technique is re-screened on replay"),
 }
 MODEL_ASSUMPTIONS = {
     "observed_record/1": {"required": (), "optional": ()},
@@ -212,6 +238,9 @@ MODEL_ASSUMPTIONS = {
     "field_contrast/1": {"required": (), "optional": ()},
     "recovery_fit/1": {"required": (), "optional": ()},
     "transport_hindcast/1": {"required": (), "optional": ()},
+    "retreat_whatif/1": {"required": ("retreat_rate",), "optional": ("rate_change_date", "changed_retreat_rate")},
+    "cover_whatif/1": {"required": (), "optional": ()},
+    "tpah_whatif/1": {"required": (), "optional": ("tpah_half_life",)},
 }
 CONDITIONAL_LABEL = "Conditional projection: holds only IF the stated rate(s) apply. Not a forecast; not validated."
 
@@ -219,6 +248,9 @@ CONDITIONAL_LABEL = "Conditional projection: holds only IF the stated rate(s) ap
 SUPPORTED = {
     ("observed_record/1", "cumulative_shoreline_retreat"): ("zengel2022_griidc_field_positions",),
     ("rate_continuation/1", "cumulative_shoreline_retreat"): ("zengel2022_griidc_field_positions",),
+    ("retreat_whatif/1", "cumulative_shoreline_retreat"): ("zengel2022_griidc_field_positions",),
+    ("cover_whatif/1", "total_vegetation_cover"): ("zengel2022_griidc_vegetation", "zengel2022_griidc_field_positions"),
+    ("tpah_whatif/1", "soil_tpah"): ("zengel2015_s1_group_means",),
     ("observed_record/1", "total_vegetation_cover"): ("zengel2022_griidc_vegetation", "zengel2022_griidc_field_positions"),
     ("recovery_fit/1", "total_vegetation_cover"): ("zengel2022_griidc_vegetation", "zengel2022_griidc_field_positions"),
     ("field_contrast/1", "total_vegetation_cover"): ("zengel2015_s1_group_means",),

@@ -5,9 +5,10 @@ An evidence-led prototype for screening oil-spill shoreline response options. It
 ## Start here
 
 On the scenario branch, select **Use Bay Jimmy**, run the assessment, and open **Explore future scenarios**
-below the historical trajectories. Adjust the end date and the assumed retreat rate, optionally change the rate
-on a second date, and download the scenario inputs or resulting series. The curve describes the nine untreated
-Bay Jimmy plots under the selected assumptions. The long-term endpoint has no independent forecast validation.
+below the historical trajectories. Choose **Manual removal** in the technique selector to see its historical field
+comparison with natural recovery for total vegetation cover, soil tPAH and cumulative retreat. These are dated plot
+measurements with n and 90% intervals, not forecasts. Other techniques show their screening status and the evidence they
+lack. Below that, adjust the end date and the assumed retreat rate, optionally change the rate on a second date, and download the scenario inputs or resulting series. The curve describes the nine untreated Bay Jimmy plots under the selected assumptions. For techniques that screening allows (manual removal and passive sorbents in the Bay Jimmy case), you can then add a **User-defined what-if**: an intervention period and a signed change from the natural-recovery retreat rate. It is drawn beside natural recovery and labelled as your assumption, not a measured effect. The downloaded what-if JSON is a replayable scenario: `python -m src.shoreline_remediation.projections run --scenario <file> --output <new folder>` re-runs the assessment, re-screens the technique and recomputes both curves from the inputs (docs/REMEDIATION_SCENARIOS_HANDOFF.md, Session R5). Switch **Future outcome** to **Vegetation cover** for the same kind of what-if on total cover: the natural-recovery scenario holds cover at the last untreated survey (September 2016, 70.0%, 5 plots) and a user-entered, temporary peak change rises to its peak and returns to zero; its JSON download replays the same way (Session R6). **Soil tPAH** works the same way: it starts from the last untreated measurement (September 2012, 112 mg/kg, nine plots, 0-10 cm cores), holds it or applies a user-assumed half-life (zero long-term background), and applies a user-entered one-time percentage reduction in soil concentration on an intervention date (Session R7). The long-term endpoint has no independent forecast validation.
 
 **Current dashboard (17 Nov 2026, branch `model_v5_1`):** map-first assessment with continuous experimental recovery trajectories. Start with
 [`docs/V5_4_RECOVERY_VIEW.md`](docs/V5_4_RECOVERY_VIEW.md) (continuous trajectory equations, sources, recovery-plot fixes and scientific limits) and

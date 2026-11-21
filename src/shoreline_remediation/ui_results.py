@@ -564,7 +564,7 @@ def render_results(report, rec: dict, ctx: dict, site_row: dict | None = None) -
     if (key == "marsh" and site_row and site_row.get("cell") == BAY_JIMMY_CELL
             and site_row.get("status") == "in_scope" and site_row.get("max_oiling") == "Heavy"):
         from src.shoreline_remediation import ui_future_scenarios
-        ui_future_scenarios.render()
+        ui_future_scenarios.render(report, rec.get("spec"))
 
 
 # ---------------------------------------------------------------------------------------------------------------

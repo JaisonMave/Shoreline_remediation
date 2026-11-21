@@ -6,6 +6,9 @@ Run directory contents:
     observed.csv    observed group means at survey dates, when the request is supported (both models)
     projection.csv  rate_continuation/1 only: anchor row plus conditional projection to end_date
     projection.png, projection.svg   rate_continuation/1 only: standalone figure
+    whatif.csv      retreat_whatif/1, cover_whatif/1 and tpah_whatif/1 (spec version 2): observed surveys, natural-recovery arm and, where
+                    screening allows it, the user-defined what-if arm; written by the same code and at the same precision as
+                    the dashboard download
     contrast.csv    field_contrast/1: the historical contrast and the two group means it is computed from
     fit.csv         recovery_fit/1: experimental within-record fit; conditional rows where a parameter is borrowed
     reference_index.csv   soil_tpah observed_record/1, heavy class: DIVER relative decline index within campaign support
@@ -42,7 +45,8 @@ DEPENDENCIES = ("numpy", "pandas", "scipy", "openpyxl")
 PKG = Path(__file__).resolve().parent
 # Code whose behaviour determines the outputs: this package and the reused scientific loaders.
 CODE_FILES = tuple(sorted(PKG.glob("*.py"))) + tuple(PKG.parent / f for f in ("recovery_trajectories.py", "recovery_view.py",
-                                                                                "treatment_effects.py", "comparison.py"))
+                                                                                "treatment_effects.py", "comparison.py",
+                                                                                "assessment_screening.py"))
 INTERVAL_METHOD = "90% t interval of the mean of plot values (between-plot variation only)"
 LIMITATIONS = (
     "Observed group means of one site's plots (Bay Jimmy, Deepwater Horizon); not a forecast and not validated for other places.",
@@ -224,6 +228,137 @@ def _project(spec: ScenarioSpec, out: Path, manifest: dict, obs: pd.DataFrame, a
         "time_convention": "calendar decimal years (recovery_trajectories.decimal_year), actual dates",
     }
     manifest["limitations"] = list(LIMITATIONS) + list(PROJECTION_LIMITATIONS)
+
+
+def _whatif(spec: ScenarioSpec, out: Path, manifest: dict, obs: pd.DataFrame, screening) -> Unsupported | None:
+    """retreat_whatif/1: re-screen the technique, recompute both arms from the inputs and the source observations, and write
+    whatif.csv with the dashboard's export code. Saved outputs in the file are compared, never used."""
+    from src.shoreline_remediation.projections import whatif as W
+    result = W.screen(screening(spec), spec.technique)
+    effect = W.effect_from_spec(spec)
+    computed = W.compute(spec, obs, effect, result.row)
+    text = W.csv_text(computed.rows)
+    (out / W.CSV_NAME).write_bytes(text.encode("utf-8"))
+    manifest["outputs"].append({"path": W.CSV_NAME, "sha256": _sha256_bytes(text.encode("utf-8")), "rows": len(computed.rows),
+                                "description": "Observed surveys and the scenario arms (dashboard what-if CSV format)",
+                                "float_format": W.CSV_FLOAT_FORMAT})
+    _record_types(manifest, computed.rows)
+    last = computed.what.last
+    manifest["whatif"] = {
+        "label": W.WHATIF_LABEL, "technique": spec.technique, "screening": result.as_dict(),
+        "treatment_effect": spec.treatment_effect, "treatment_applied": computed.applied,
+        "anchor": {"date": computed.anchor.date, "cumulative_retreat_m": float(computed.anchor.value),
+                   "n_plots": int(computed.anchor.n_plots)},
+        "rates": [seg.as_dict() for seg in computed.what.segments],
+        "summary": {"end_date": spec.end_date, "natural_recovery_m": float(last.natural_recovery_m),
+                    "treatment_m": float(last.treatment_m) if computed.applied else None,
+                    "difference_m": float(last.difference_m) if computed.applied else None,
+                    "text": W.summary_text(computed.what, spec.end)},
+        "exported_outputs_check": W.check_exported(spec.exported_outputs, computed),
+        "not": "not a measured treatment effect, not a forecast, not used for ranking or recommendations",
+    }
+    manifest["limitations"] = list(LIMITATIONS) + list(PROJECTION_LIMITATIONS)
+    if effect is not None and not computed.screening_allows:
+        return Unsupported("technique_blocked_by_screening",
+                           f"No treatment curve for '{spec.technique}': {computed.screening_reason} The natural-recovery arm and "
+                           "the observations are exported.", "technique")
+    return None
+
+
+def _cover(spec: ScenarioSpec, out: Path, manifest: dict, screening) -> Unsupported | None:
+    """cover_whatif/1: re-screen the technique, recompute both arms from the inputs and the untreated surveys, and write
+    observed.csv and whatif.csv with the dashboard's export code. Saved outputs in the file are compared, never used."""
+    from src.shoreline_remediation.projections import cover as CV, evidence as E, whatif as W
+    obs = E.vegetation_observed(spec)
+    _use(manifest, "zengel2022_griidc_vegetation", "plot-level total cover of the untreated, heavily oiled plots")
+    _write_csv(out, manifest, "observed.csv", obs, "Observed group means of total cover at each survey")
+    result = W.screen(screening(spec), spec.technique, CV.ENDPOINT)
+    effect = CV.effect_from_spec(spec)
+    computed = CV.compute(spec, obs, effect, result.row)
+    text = W.csv_text(computed.rows)
+    (out / W.CSV_NAME).write_bytes(text.encode("utf-8"))
+    manifest["outputs"].append({"path": W.CSV_NAME, "sha256": _sha256_bytes(text.encode("utf-8")), "rows": len(computed.rows),
+                                "description": "Observed surveys and the scenario arms (dashboard cover what-if CSV format)",
+                                "float_format": W.CSV_FLOAT_FORMAT})
+    _record_types(manifest, computed.rows)
+    a, w = computed.what.anchor, computed.what
+    peak = w.at(w.effect.peak) if computed.applied else None
+    manifest["whatif"] = {
+        "label": CV.WHATIF_LABEL, "endpoint": CV.ENDPOINT, "unit": CV.UNIT, "technique": spec.technique,
+        "screening": result.as_dict(), "treatment_effect": spec.treatment_effect, "treatment_applied": computed.applied,
+        "baseline": {"rule": CV.BASELINE_LABEL, "survey": a.survey, "date_precision": a.date_precision,
+                     "date_basis": a.date_basis, "curve_starts": a.starts.isoformat(), "mean_total_cover_percent": a.value,
+                     "n_plots": a.n_plots},
+        "summary": {"peak_date": None if peak is None else w.effect.peak.isoformat(),
+                    "natural_recovery_pct": a.value if peak is None else float(peak.natural_recovery_pct),
+                    "treatment_pct": None if peak is None else float(peak.treatment_pct),
+                    "difference_pp": None if peak is None else float(peak.difference_pp),
+                    "text": CV.peak_text(w)},
+        "exported_outputs_check": CV.check_exported(spec.exported_outputs, computed),
+        "not": "not a measured treatment effect, not a forecast, not used for ranking or recommendations",
+    }
+    manifest["limitations"] = [
+        "Observed group means of one site's plots (Bay Jimmy, Deepwater Horizon); not a forecast and not validated elsewhere.",
+        "The baseline holds the last observed mean constant. Cover fell from 92.0% (2015) to 70.0% (2016) on the five plots still "
+        "surveyed, and no later survey or independent site tests any future cover rule.",
+        CV.TEMPORARY_NOTE, "No recommendation is assigned. The dashboard's decision pipeline is unaffected."]
+    if effect is not None and not computed.screening_allows:
+        return Unsupported("technique_blocked_by_screening",
+                           f"No treatment curve for '{spec.technique}': {computed.screening_reason} The natural-recovery arm and "
+                           "the observations are exported.", "technique")
+    return None
+
+
+def _tpah(spec: ScenarioSpec, out: Path, manifest: dict, screening) -> Unsupported | None:
+    """tpah_whatif/1: re-screen the technique, recompute both arms from the inputs and the untreated measurements, and write
+    observed.csv and whatif.csv with the dashboard's export code. Saved outputs in the file are compared, never used."""
+    from src.shoreline_remediation.projections import evidence as E, pah as PH, whatif as W
+    obs = E.tpah_observed(spec)
+    _use(manifest, "zengel2015_s1_group_means", "untreated soil tPAH group means (0-10 cm cores, S1 Table)")
+    _write_csv(out, manifest, "observed.csv", obs, "Observed soil tPAH group means at each survey")
+    result = W.screen(screening(spec), spec.technique, PH.ENDPOINT)
+    half_life, effect = PH.half_life_from_spec(spec), PH.effect_from_spec(spec)
+    computed = PH.compute(spec, obs, half_life, effect, result.row)
+    text = W.csv_text(computed.rows)
+    (out / W.CSV_NAME).write_bytes(text.encode("utf-8"))
+    manifest["outputs"].append({"path": W.CSV_NAME, "sha256": _sha256_bytes(text.encode("utf-8")), "rows": len(computed.rows),
+                                "description": "Observed measurements and the scenario arms (dashboard tPAH what-if CSV format)",
+                                "float_format": W.CSV_FLOAT_FORMAT})
+    _record_types(manifest, computed.rows)
+    a, w = computed.what.anchor, computed.what
+    last = w.frame.iloc[-1]
+    at = None
+    if computed.applied:
+        before = w.row(w.effect.date, "intervention_before")
+        after = w.frame[w.frame.date == w.effect.date.isoformat()].iloc[-1]
+        at = {"date": w.effect.date.isoformat(), "before_mgkg": float(before.treatment_mgkg),
+              "after_mgkg": float(after.treatment_mgkg)}
+    manifest["whatif"] = {
+        "label": PH.WHATIF_LABEL, "endpoint": PH.ENDPOINT, "unit": PH.UNIT, "technique": spec.technique,
+        "screening": result.as_dict(), "treatment_effect": spec.treatment_effect, "treatment_applied": computed.applied,
+        "baseline": {"rule": PH.baseline_label(half_life), "choice": PH.HOLD if half_life is None else PH.HALF_LIFE,
+                     "half_life_years": half_life, "background": "zero (assumed)" if half_life is not None else None,
+                     "survey": a.survey, "survey_period": a.survey_period, "date_precision": a.date_precision,
+                     "curve_starts": a.starts.isoformat(), "tpah_mgkg": a.value, "n_plots": a.n_plots,
+                     "sampling_depth": a.depth, "analyte": a.analyte},
+        "summary": {"end_date": spec.end_date, "natural_mgkg": float(last.natural_mgkg),
+                    "treatment_mgkg": float(last.treatment_mgkg) if computed.applied else None,
+                    "difference_mgkg": float(last.difference_mgkg) if computed.applied else None,
+                    "at_intervention": at, "text": PH.summary_text(w, spec.end)},
+        "exported_outputs_check": PH.check_exported(spec.exported_outputs, computed),
+        "not": "not a measured treatment effect, not a forecast, not used for ranking or recommendations",
+    }
+    manifest["limitations"] = [
+        "Two measurement dates per group (July-August 2011, September 2012); no plot or treatment decline rate is identified "
+        "from them, so any half-life is the user's assumption.",
+        PH.BACKGROUND_NOTE if half_life is not None else "The natural-recovery scenario holds the last measured concentration.",
+        PH.SOIL_NOTE, "The regional DIVER index (different depth and analyte set) is not used.",
+        "No recommendation is assigned. The dashboard's decision pipeline is unaffected."]
+    if effect is not None and not computed.screening_allows:
+        return Unsupported("technique_blocked_by_screening",
+                           f"No treatment curve for '{spec.technique}': {computed.screening_reason} The natural-recovery arm and "
+                           "the measurements are exported.", "technique")
+    return None
 
 
 def compare(run_dirs: list, out_stem: str | Path) -> list:
@@ -410,8 +545,11 @@ def normalized(manifest: dict) -> dict:
     return m
 
 
-def run(spec: ScenarioSpec | dict | str | Path, output_dir: str | Path, *, input_bytes: bytes | None = None) -> RunResult:
-    """Validate, check scope, and write a new run directory. Raises SpecError (nothing written) or OutputExistsError."""
+def run(spec: ScenarioSpec | dict | str | Path, output_dir: str | Path, *, input_bytes: bytes | None = None,
+        screening=None) -> RunResult:
+    """Validate, check scope, and write a new run directory. Raises SpecError (nothing written) or OutputExistsError.
+    A version-2 what-if needs `screening` (assessment_screening.reproduce): the assessment is re-run and the technique
+    re-screened through the inventory on every run."""
     if isinstance(spec, (str, Path)):
         path = Path(spec)
         try:
@@ -423,6 +561,9 @@ def run(spec: ScenarioSpec | dict | str | Path, output_dir: str | Path, *, input
     elif isinstance(spec, dict):
         spec = from_dict(spec)
     unsupported = check_scope(spec)              # may raise SpecError before anything is written
+    if spec.model_version in C.WHATIF_MODELS and screening is None:
+        raise SpecError([("technique", "a version-2 what-if is re-screened on every run; pass a screening resolver "
+                                       "(the CLI uses assessment_screening.reproduce)")])
     out = Path(output_dir)
     if out.exists():
         raise OutputExistsError(f"Output path already exists and was left untouched: {out}. Choose a new directory for each run.")
@@ -456,6 +597,13 @@ def run(spec: ScenarioSpec | dict | str | Path, output_dir: str | Path, *, input
         if unsupported is not None and unsupported.code not in EXPORTING_CODES:
             manifest["status"] = "unsupported"
             manifest["outcome"] = {"status": "unsupported", **asdict(unsupported)}
+        elif spec.model_version in (C.COVER_WHATIF_MODEL, C.TPAH_WHATIF_MODEL):
+            _check_sources(manifest)
+            writer = _cover if spec.model_version == C.COVER_WHATIF_MODEL else _tpah
+            unsupported = writer(spec, out, manifest, screening)
+            manifest["status"] = "unsupported" if unsupported is not None else "completed"
+            manifest["outcome"] = ({"status": "unsupported", **asdict(unsupported)} if unsupported is not None else
+                                   {"status": "completed", "files": [o["path"] for o in manifest["outputs"]]})
         elif spec.endpoint != "cumulative_shoreline_retreat" or unsupported is not None:
             _check_sources(manifest)
             unsupported = _evidence_exports(spec, out, manifest, unsupported)
@@ -471,7 +619,7 @@ def run(spec: ScenarioSpec | dict | str | Path, output_dir: str | Path, *, input
             obs = observed_record(spec)            # deterministic; the seed is recorded for stochastic models in later sessions
             _use(manifest, "zengel2022_griidc_field_positions", "plot transect positions: cumulative retreat of each plot since 4 Dec 2010")
             last = obs[obs.available_at_as_of]
-            if spec.model_version == "rate_continuation/1" and last.empty:
+            if spec.model_version in ("rate_continuation/1", C.WHATIF_MODEL) and last.empty:
                 u = Unsupported("no_anchor_observation", f"No survey on or before as_of {spec.as_of}; the first survey is "
                                 f"{obs.date.iloc[0]}. A projection must start from an observation.", "as_of")
                 manifest["status"], manifest["outcome"] = "unsupported", {"status": "unsupported", **asdict(u)}
@@ -487,6 +635,11 @@ def run(spec: ScenarioSpec | dict | str | Path, output_dir: str | Path, *, input
                 if spec.model_version == "rate_continuation/1":
                     _project(spec, out, manifest, obs, last.iloc[-1])
                 manifest["status"] = "completed"
+                if spec.model_version == C.WHATIF_MODEL:
+                    unsupported = _whatif(spec, out, manifest, obs, screening)
+                    if unsupported is not None:
+                        manifest["status"] = "unsupported"
+                        manifest["outcome"] = {**manifest["outcome"], "status": "unsupported", **asdict(unsupported)}
     except Exception as exc:
         manifest["status"] = "failed"
         manifest["outcome"] = {"status": "failed", "error": f"{type(exc).__name__}: {exc}"}

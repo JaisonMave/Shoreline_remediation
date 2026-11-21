@@ -259,6 +259,118 @@ def test_bay_jimmy_future_scenario_controls_use_the_observed_anchor():
     assert "12.47 m since December 2010" in text(at)
     assert outcome_html(at) == before
 
+def _open_future_panel():
+    at = run_bay_jimmy()
+    at.session_state["bj_future_panel"] = True
+    at.run()
+    assert not at.exception, at.exception
+    return at
+
+
+def test_bay_jimmy_manual_removal_shows_three_historical_comparisons():
+    at = _open_future_panel()
+    before, n_charts = outcome_html(at), len(at.get("arrow_vega_lite_chart") or at.get("vega_lite_chart"))
+    box = at.selectbox(key="bj_future_option")
+    assert box.value == "natural_attenuation" and len(box.options) == 16       # every report option, reference first
+    assert box.options[0] == "Natural recovery only (reference)" and "Manual removal · Recommended" in box.options
+    box.set_value("manual_removal").run()
+    assert not at.exception, at.exception
+    t = text(at)
+    assert "+34.0 percentage points" in t and "+19.0 to +49.0" in t and "5 manual vs 9 untreated plots" in t
+    assert "No treatment-specific future decline rate" in t
+    assert "11.44 m" in t and "12.13 m" in t and "04 Dec 2010" in t
+    assert "Condition not established for this site" in t and "trampling" in t
+    charts = at.get("arrow_vega_lite_chart") or at.get("vega_lite_chart")
+    assert len(charts) == n_charts + 3
+    assert any("Manual − untreated (m/yr)" in str(tb.value.columns.tolist()) for tb in at.table)
+    at.toggle(key="bj_hist_diver").set_value(True).run()
+    assert "Model reference, not a plot measurement" in text(at)
+    assert "31.06 m since December 2010" in text(at)        # the conditional retreat explorer is unchanged
+    assert outcome_html(at) == before                       # selecting a technique never changes the assessment
+
+
+def test_bay_jimmy_blocked_and_gap_techniques_explain_themselves():
+    at = _open_future_panel()
+    at.selectbox(key="bj_future_option").set_value("planting (after mechanical cleanup)").run()
+    t = text(at)
+    assert not at.exception and "Presupposes mechanical removal, which is excluded here" in t
+    assert "+34.0 percentage points" not in t
+    at.selectbox(key="bj_future_option").set_value("passive_sorbents").run()
+    table = next(d.value for d in at.dataframe if "Why no comparison is drawn" in d.value.columns)
+    assert list(table["What exists at Bay Jimmy"]) == ["No site evidence"] * 3
+    at.selectbox(key="bj_future_option").set_value("mechanical_removal").run()
+    assert "Excluded methods are not offered as future interventions" in text(at)
+
+
+@pytest.mark.parametrize("key", ["esi_1A", "mangrove"])
+def test_rocky_and_mangrove_have_no_future_scenario_panel(key):
+    at = run_habitat(key)
+    assert not any(e.label == "Explore future scenarios" for e in at.expander)
+    assert not any(s.key == "bj_future_option" for s in at.selectbox)
+
+
+def _whatif_inputs(at, start, stop, delta):
+    at.date_input(key="bj_future_end").set_value(dt.date(2050, 1, 1)).run()
+    at.date_input(key="bj_whatif_start").set_value(start).run()
+    at.date_input(key="bj_whatif_end").set_value(stop).run()
+    at.number_input(key="bj_whatif_delta").set_value(delta).run()
+    assert not at.exception, at.exception
+
+
+def test_manual_removal_retreat_whatif_blank_signed_and_zero():
+    at = _open_future_panel()
+    before = outcome_html(at)
+    assert "Choose a technique at the top of this panel" in text(at)
+    assert not any(n.key == "bj_whatif_delta" for n in at.number_input)       # no what-if for the reference
+    at.selectbox(key="bj_future_option").set_value("manual_removal").run()
+    t = text(at)
+    assert at.number_input(key="bj_whatif_delta").value is None                 # blank by default: no treatment curve
+    assert "User-defined what-if, manual removal" not in t and "trampling" in t
+    assert "No measured future retreat effect exists for manual removal" in t
+    assert "Negative = slower retreat. Positive = faster retreat." in t
+    _whatif_inputs(at, dt.date(2030, 1, 1), dt.date(2040, 1, 1), -0.5)
+    t = text(at)
+    assert "User-defined what-if, manual removal." in t and "5.00 m less cumulative retreat under your assumption." in t
+    assert any(b.proto.label == "Download what-if CSV" for b in at.get("download_button"))
+    at.number_input(key="bj_whatif_delta").set_value(0.0).run()
+    assert "The two curves coincide (0.00 m difference)." in text(at)
+    at.number_input(key="bj_whatif_delta").set_value(0.3).run()
+    assert "3.00 m more cumulative retreat under your assumption." in text(at)
+    at.number_input(key="bj_whatif_delta").set_value(-2.0).run()
+    assert "advances seaward" in text(at) and "User-defined what-if, manual removal." not in text(at)
+    assert outcome_html(at) == before                                          # a what-if never changes the assessment
+
+
+def test_passive_sorbents_whatif_states_there_is_no_measured_effect():
+    at = _open_future_panel()
+    at.selectbox(key="bj_future_option").set_value("passive_sorbents").run()
+    assert "The repository has no measured treatment effect of passive sorbents on shoreline retreat" in text(at)
+    _whatif_inputs(at, dt.date(2030, 1, 1), dt.date(2040, 1, 1), -0.5)
+    assert "User-defined what-if, passive sorbents." in text(at)
+
+
+def test_blocked_technique_shows_its_reason_and_no_inputs():
+    at = _open_future_panel()
+    at.selectbox(key="bj_future_option").set_value("planting (after mechanical cleanup)").run()
+    t = text(at)
+    assert "No what-if for planting (after mechanical cleanup)." in t and "Presupposes mechanical_removal" in t
+    assert not any(n.key == "bj_whatif_delta" for n in at.number_input)
+    at.selectbox(key="bj_future_option").set_value("bioremediation").run()
+    assert "No what-if for bioremediation. Conditions not established" in text(at)
+
+
+def test_changing_technique_clears_the_previous_assumption():
+    at = _open_future_panel()
+    at.selectbox(key="bj_future_option").set_value("manual_removal").run()
+    _whatif_inputs(at, dt.date(2031, 6, 1), dt.date(2036, 6, 1), -0.5)
+    assert "User-defined what-if, manual removal." in text(at)
+    at.selectbox(key="bj_future_option").set_value("passive_sorbents").run()
+    assert not at.exception, at.exception
+    assert at.number_input(key="bj_whatif_delta").value is None
+    assert at.date_input(key="bj_whatif_start").value == dt.date(2027, 1, 1)
+    assert "User-defined what-if" not in " ".join(str(m.value) for m in at.markdown)
+
+
 def test_no_share_button_anywhere():
     for at in (run_bay_jimmy(), run_habitat("mangrove")):
         assert not any("share" in str(b.label).lower() for b in at.button)
