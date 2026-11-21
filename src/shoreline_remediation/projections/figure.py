@@ -116,3 +116,89 @@ def draw(observed: pd.DataFrame, curves: list, spec, out_stem: Path, *, footer: 
     fig.savefig(paths[1], facecolor=SURFACE, metadata={"Date": None, "Creator": None})
     plt.close(fig)
     return paths
+
+
+# ---------------------------------------------------------------------------------------------------------------
+# User-defined what-if figures (retreat, cover, tPAH), drawn from the CSV text the dashboard downloads
+
+WHATIF_OUTCOMES = {
+    "retreat": {"x": "date", "value": "cumulative_retreat_m", "diff": "difference_from_natural_m", "unit": "m",
+                "axis": "Cumulative retreat since 4 Dec 2010 (m)", "diff_axis": "Treatment minus natural (m)",
+                "sign": "Below zero: less cumulative retreat than natural recovery (land kept). Above zero: more retreat."},
+    "cover": {"x": "plot_date", "value": "total_cover", "diff": "difference_from_natural", "unit": "percentage points",
+              "axis": "Total vegetation cover (%)", "diff_axis": "Treatment minus natural (percentage points)",
+              "sign": "Above zero: more vegetation cover than natural recovery. Below zero: less cover (damage)."},
+    "tpah": {"x": "plot_date", "value": "soil_tpah", "diff": "difference_from_natural", "unit": "mg/kg",
+             "axis": "Soil tPAH, 0-10 cm (mg/kg)", "diff_axis": "Treatment minus natural (mg/kg)",
+             "sign": "Below zero: lower soil tPAH than natural recovery. Above zero: higher soil tPAH."},
+}
+
+
+def _rows_from_csv(csv_text: str) -> pd.DataFrame:
+    import io
+    return pd.read_csv(io.StringIO(csv_text), dtype={"date": str, "plot_date": str})
+
+
+def difference_rows(csv_text: str, outcome: str) -> pd.DataFrame:
+    """Treatment-minus-natural rows exactly as the CSV holds them, in file order (both tPAH rows on the intervention date stay,
+    so the drop is a vertical step). Empty when no treatment arm was exported (a blank assumption)."""
+    m = WHATIF_OUTCOMES[outcome]
+    rows = _rows_from_csv(csv_text)
+    d = rows[(rows.arm == "treatment_what_if") & rows[m["diff"]].notna()]
+    return pd.DataFrame({"x": d[m["x"]].astype(str), "difference": d[m["diff"]].astype(float), "sample": d.get("sample")})
+
+
+def whatif_figure(csv_text: str, outcome: str, *, technique: str, baseline: str, last_observation: str) -> dict:
+    """PNG and SVG bytes of one what-if figure drawn from the downloaded CSV text. The figure names Bay Jimmy, the technique,
+    the natural-recovery baseline, the units, the last observation date and the User-defined what-if label."""
+    import io
+    m = WHATIF_OUTCOMES[outcome]
+    rows = _rows_from_csv(csv_text)
+    obs = rows[rows.arm == "observed"]
+    nat = rows[rows.arm == "natural_recovery"]
+    trt = rows[rows.arm == "treatment_what_if"]
+    diff = difference_rows(csv_text, outcome)
+    x = lambda s: pd.to_datetime(s.str.slice(0, 10).where(s.str.len() >= 10, s + "-28"))     # month-precision dates
+    two = not diff.empty
+    fig, axes = plt.subplots(2 if two else 1, 1, figsize=(10, 7.6 if two else 5.6), dpi=110, sharex=True,
+                             gridspec_kw={"height_ratios": [3, 1.3]} if two else None, squeeze=False)
+    fig.patch.set_facecolor(SURFACE)
+    ax = axes[0][0]
+    for a in axes[:, 0]:
+        a.set_facecolor(SURFACE)
+        a.grid(color=GRID, lw=0.6)
+        a.spines[["top", "right"]].set_visible(False)
+    ox = x(obs[m["x"]].astype(str))
+    ax.scatter(ox, obs[m["value"]], color=INK, s=22, zorder=4, label="Observed group mean (untreated plots)")
+    if "interval_lo" in obs and obs.interval_lo.notna().any():
+        ok = obs.interval_lo.notna()
+        ax.vlines(ox[ok], obs.interval_lo[ok], obs.interval_hi[ok], color=INK, lw=1, zorder=3)
+    ax.plot(x(nat[m["x"]].astype(str)), nat[m["value"]], color=SERIES[0], ls=STYLES[1], lw=2, label=baseline)
+    if not trt.empty:
+        ax.plot(x(trt[m["x"]].astype(str)), trt[m["value"]], color=SERIES[1], ls=":", lw=2.4,
+                label=f"User-defined what-if: {technique}")
+    ax.set_ylabel(m["axis"], color=INK)
+    ax.legend(loc="upper left", fontsize=8.5, frameon=False)
+    title = f"Bay Jimmy (northern Barataria Bay, Louisiana): User-defined what-if, {technique}"
+    sub = f"Natural-recovery baseline: {baseline}. Units: {m['unit']}. Last observation: {last_observation}."
+    if two:
+        sub += f" Lower panel: treatment minus natural recovery. {m['sign']}"
+    fig.suptitle("\n".join(textwrap.wrap(title, 95)), x=0.06, ha="left", fontsize=12, color=INK)
+    fig.text(0.06, 0.905 if two else 0.875, "\n".join(textwrap.wrap(sub, 120)), fontsize=8.5, color=MUTED, va="top")
+    if two:
+        b = axes[1][0]
+        b.axhline(0, color=INK, lw=1)
+        b.plot(x(diff.x), diff.difference, color=SERIES[1], lw=2)
+        b.set_ylabel(m["diff_axis"], color=INK, fontsize=8.5)
+    axes[-1][0].xaxis.set_major_formatter(mdates.DateFormatter("%Y"))
+    fig.text(0.06, 0.012, "Conditional scenarios, not forecasts. The what-if is a user assumption, not a measured treatment "
+             "effect, and changes no recommendation. Drawn from the downloaded CSV rows.", fontsize=7.5, color=MUTED)
+    fig.subplots_adjust(top=0.84 if two else 0.8, bottom=0.08, left=0.09, right=0.98, hspace=0.12)
+    out = {}
+    for fmt in ("png", "svg"):
+        buf = io.BytesIO()
+        fig.savefig(buf, format=fmt, facecolor=SURFACE)
+        out[fmt] = buf.getvalue()
+    plt.close(fig)
+    return out
+

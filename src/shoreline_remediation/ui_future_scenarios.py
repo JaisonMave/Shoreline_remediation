@@ -16,8 +16,8 @@ import streamlit as st
 from src.shoreline_remediation import assessment_screening as AS
 from types import SimpleNamespace
 
-from src.shoreline_remediation.projections import cover as CV, evidence as EV, inventory as I, pah as PH, projection, runner, \
-    slice as SL, spec, whatif as W
+from src.shoreline_remediation.projections import cover as CV, evidence as EV, figure as FG, inventory as I, pah as PH, \
+    projection, runner, slice as SL, spec, whatif as W
 
 EXAMPLE = Path(__file__).resolve().parents[2] / "examples/projections/bay_jimmy_retreat_2030.json"
 
@@ -401,6 +401,9 @@ def _retreat_explorer(inventory=None, choice=None, context=None) -> None:
                                     "run --scenario <this file> --output <new folder>")
         st.download_button("Download what-if CSV", W.csv_text(rows), file_name="bay_jimmy_retreat_whatif.csv",
                            mime="text/csv", on_click="ignore", icon=":material/download:")
+    figure_section(W.csv_text(rows), "retreat", label or "natural recovery only",
+                   f"natural recovery at the stated rate schedule ({projection.describe_rates(what.segments)})",
+                   f"{dt.date.fromisoformat(anchor.date):%d %b %Y} (n = {int(anchor.n_plots)} plots)")
 
 
 def whatif_payload(scenario, computed: W.Computed, row: I.InventoryRow, effect: W.RetreatEffect, context: dict,
@@ -611,6 +614,8 @@ def _cover_explorer(inventory=None, choice=None, context=None) -> None:
                                   "run --scenario <this file> --output <new folder>")
     right.download_button("Download cover CSV", W.csv_text(rows), file_name="bay_jimmy_cover_whatif.csv", mime="text/csv",
                           on_click="ignore", icon=":material/download:", width="stretch")
+    figure_section(W.csv_text(rows), "cover", label or "natural recovery only", CV.BASELINE_LABEL.split(": ", 1)[1],
+                   f"{anchor.survey} survey (month precision; n = {anchor.n_plots} plots)")
 
 
 def cover_payload(computed: CV.Computed, technique: str, context: dict, effect, end: dt.date, inventory) -> dict:
@@ -821,6 +826,8 @@ def _tpah_explorer(inventory=None, choice=None, context=None) -> None:
                                   "run --scenario <this file> --output <new folder>")
     right.download_button("Download tPAH CSV", W.csv_text(rows), file_name="bay_jimmy_tpah_whatif.csv", mime="text/csv",
                           on_click="ignore", icon=":material/download:", width="stretch")
+    figure_section(W.csv_text(rows), "tpah", label or "natural recovery only", PH.baseline_label(half_life).split(": ", 1)[1],
+                   f"{anchor.survey_period} (month precision; n = {anchor.n_plots} plots; {anchor.depth})")
 
 
 def tpah_payload(computed: PH.Computed, technique: str, context: dict, half_life, effect, end: dt.date, inventory) -> dict:
@@ -911,3 +918,41 @@ def tpah_chart(rows: pd.DataFrame, anchor: PH.Anchor, what: PH.PahWhatIf, option
         title = "Conditional scenario, not a forecast"
     return alt.layer(*layers, bars, lines, points, *labels).properties(
         height=CHART_HEIGHT, title=alt.TitleParams(title, anchor="start", color="#F4F7FA", fontSize=13))
+
+
+# ---------------------------------------------------------------------------------------------------------------
+# Difference plot and PNG/SVG export (R8). Both read the CSV text the CSV button downloads.
+
+@st.cache_data(show_spinner=False, max_entries=24)
+def _figure_bytes(csv_text: str, outcome: str, technique: str, baseline: str, last_observation: str) -> dict:
+    return FG.whatif_figure(csv_text, outcome, technique=technique, baseline=baseline, last_observation=last_observation)
+
+
+def difference_chart(csv_text: str, outcome: str) -> alt.LayerChart | None:
+    """Treatment minus natural recovery from the CSV rows, with a zero line; None when no treatment arm was exported."""
+    d = FG.difference_rows(csv_text, outcome)
+    if d.empty:
+        return None
+    m = FG.WHATIF_OUTCOMES[outcome]
+    d = d.assign(seq=range(len(d)), when=d.x.str.slice(0, 10))
+    x = alt.X("when:T", title="Year", axis=alt.Axis(format="%Y"))
+    zero = alt.Chart(pd.DataFrame({"y": [0.0]})).mark_rule(color="#A6B2C2").encode(y="y:Q")
+    line = alt.Chart(d).mark_line(color=TREAT_COLOUR, strokeWidth=2.5).encode(
+        x=x, y=alt.Y("difference:Q", title=f"Difference ({m['unit']})"), order="seq:Q",
+        tooltip=[alt.Tooltip("x:N", title="Date"), alt.Tooltip("difference:Q", title=f"Difference ({m['unit']})", format="+.2f")])
+    return (zero + line).properties(height=200, title=alt.TitleParams("Treatment minus natural recovery", anchor="start",
+                                                                      color="#F4F7FA", fontSize=12))
+
+
+def figure_section(csv_text: str, outcome: str, technique: str, baseline: str, last_observation: str) -> None:
+    chart = difference_chart(csv_text, outcome)
+    if chart is not None:
+        st.altair_chart(chart, width="stretch", alt="Difference between the user-defined what-if and natural recovery over time, "
+                                                   f"in {FG.WHATIF_OUTCOMES[outcome]['unit']}, with a zero line.")
+        st.caption(FG.WHATIF_OUTCOMES[outcome]["sign"] + " A flat line at zero means the two arms coincide.")
+    images = _figure_bytes(csv_text, outcome, technique, baseline, last_observation)
+    left, right = st.columns(2)
+    left.download_button("Download PNG", images["png"], file_name=f"bay_jimmy_{outcome}_whatif.png", mime="image/png",
+                         on_click="ignore", icon=":material/image:", width="stretch", key=f"bj_{outcome}_png")
+    right.download_button("Download SVG", images["svg"], file_name=f"bay_jimmy_{outcome}_whatif.svg", mime="image/svg+xml",
+                          on_click="ignore", icon=":material/image:", width="stretch", key=f"bj_{outcome}_svg")

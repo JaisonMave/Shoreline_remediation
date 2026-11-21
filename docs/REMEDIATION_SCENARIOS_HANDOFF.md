@@ -788,3 +788,45 @@ Plan section 5's remaining items, which need no new scientific assumptions:
   and comparator match.
 
 Test that the CLI and dashboard figures are drawn from the same rows.
+
+## Session R8 (21 Nov 2026): what-if difference plots and PNG/SVG export. COMPLETE
+
+Start: branch `codex/scenario-prediction-plan`, HEAD `48fe6c9` (R1–R7 committed by the owner).
+
+### What was built
+- **`projections/figure.py`:** adds `WHATIF_OUTCOMES`, `difference_rows()` and `whatif_figure()`. They reuse the module's
+  matplotlib Agg setup, palette and deterministic SVG settings, and they draw from the CSV text the dashboard downloads.
+  - **Difference rows:** the treatment arm's `difference_from_natural*` values in file order. Both tPAH rows on the intervention
+    date are kept, so the drop is a vertical step.
+  - **Figure contents:** Bay Jimmy, the technique, the natural-recovery baseline, the units, the last observation date and the
+    "User-defined what-if" label. When a treatment arm is present, a lower panel shows treatment minus natural recovery with a
+    zero line, and the subtitle explains the sign.
+- **`ui_future_scenarios.py`:** `figure_section()` sits under each outcome (retreat, cover, tPAH) in the existing panel.
+  - **Difference plot:** an Altair chart (treatment minus natural recovery, zero line) shown only when a treatment arm exists,
+    with a plain-language sign caption. Units are m, percentage points or mg/kg.
+  - **Blank and zero:** a blank assumption hides it; an explicit zero shows a flat line at zero.
+  - **Downloads:** "Download PNG" and "Download SVG". The images are cached on the CSV text.
+- **Unchanged:** scenario calculations, screening, the replay format, navigation and the CLI.
+
+### Verification (Git Bash)
+- `python -m pytest -q tests/test_whatif_figures.py`: **10 passed**. For all three outcomes, the plotted differences equal the CSV
+  at `%.6f`: retreat −5.0 m at 2050, cover +10.0 points at the 2032 peak, and the tPAH before and after rows on 1 Jan 2020. Zero
+  gives a flat line and blank gives no plot. The PNG opens (PIL verify) and the SVG parses with the required labels. One
+  AppTest covers the PNG and SVG buttons per outcome and the difference caption appearing only once an assumption is entered.
+- `python -m pytest -q tests/test_whatif_figures.py tests/test_future_scenarios_view.py tests/test_projections.py`: **72 passed,
+  0 failed, 0 skipped**.
+- **Chromium** (Playwright, headless local `streamlit run`, 1440×1000 and 390×844), manual removal: retreat −0.5 m/yr
+  2030–2040, cover +10 points 2030/2032/2034, tPAH 20% on 2020-01-01.
+  - The difference plot appeared for each outcome, and each downloaded PNG and SVG opened with "Bay Jimmy" and "User-defined
+    what-if".
+  - 0 px overflow and no page errors.
+  - **Screenshots reviewed:** two faults were fixed before the final run. The mobile difference plot was clipped (height 150 px
+    raised to 200 px, with a shorter axis title), and the PNG sign text overlapped the tPAH line (moved into the subtitle).
+- **Full suite:** not rerun. The scenario calculation and replay code is unchanged, so the R7 full-suite result stands: 1017
+  collected, 1013 passed, 4 known environment failures.
+
+### Not done
+- The CLI does not write these figures on replay. `whatif_figure()` can take the replayed `whatif.csv` text, but the replay
+  format was kept unchanged as requested.
+- The cover figure's subtitle lists "percentage points" as the unit, because it describes the difference panel; the main axis
+  is labelled in %.
